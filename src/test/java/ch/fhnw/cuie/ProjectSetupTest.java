@@ -16,6 +16,6 @@ public class ProjectSetupTest {
 
         //then
 
-        Assert.assertTrue(1 == 1);
+        Assert.assertTrue("Mit diesem Test wird nur überprüft ob JUnit richtig ins Projekt integriert wurde", true);
     }
 }
