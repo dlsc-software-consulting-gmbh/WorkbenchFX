@@ -1,4 +1,4 @@
-package ch.fhnw.cuie;
+package ch.fhnw.oop2;
 
 import org.junit.Assert;
 import org.junit.Test;

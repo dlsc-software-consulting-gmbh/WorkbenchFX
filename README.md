@@ -1,4 +1,4 @@
-# CUIE Courseware
+# OOP2 Courseware
 
 Das Courseware-Projekt dient dazu die Beispiele und Musterlösungen aus dem Unterricht zu verwalten und die Übungsbeispiele zu implementieren.
 
