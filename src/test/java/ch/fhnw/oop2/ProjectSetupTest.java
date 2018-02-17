@@ -1,21 +1,21 @@
 package ch.fhnw.oop2;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Dieter Holz
  */
-public class ProjectSetupTest {
+class ProjectSetupTest {
 
     @Test
-    public void testJunitConfiguration(){
+    void testJunitConfiguration(){
         //given
 
         //when
 
         //then
 
-        Assert.assertTrue("Mit diesem Test wird nur überprüft ob JUnit richtig ins Projekt integriert wurde", true);
+        Assertions.assertTrue(true, "Mit diesem Test wird nur überprüft ob JUnit richtig ins Projekt integriert wurde");
     }
 }
