@@ -1,4 +1,4 @@
-package ch.fhnw.oop2;
+package com.dlsc.workbenchfx;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
