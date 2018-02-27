@@ -1,22 +1,37 @@
-group 'ch.fhnw'
-version '0.1-SNAPSHOT'
+group 'com.dlsc'
+version '0.0.1-SNAPSHOT'
 
-apply plugin: 'java'
+task wrapper(type: Wrapper) {
+    description = 'Generates gradlew[.bat] scripts'
+    gradleVersion = '4.2.1'
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
 
 buildscript {
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.3'
-	}
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jcenter.bintray.com' }
+
+    }
+    dependencies {
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.6'
+        classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.4.1'
+        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
+    }
 }
 
-apply plugin: 'org.junit.platform.gradle.plugin'
+ext.checkstyleVersion = '8.8'
 
-repositories {
-    mavenCentral()
-}
+apply plugin: 'java'
+apply plugin: 'org.asciidoctor.convert'
+apply plugin: 'checkstyle'
 
 sourceSets {
     main {
@@ -26,29 +41,62 @@ sourceSets {
     }
 }
 
+compileTestJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    options.compilerArgs += '-parameters'
+}
+
 dependencies {
-	testCompile("org.junit.jupiter:junit-jupiter-api:5.0.3")
-	testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.3")
+    compile fileTree(dir: 'lib', include: ['*.jar'])
+
+    // JUnit 4
+    testCompile("junit:junit:4.12")
+
+    // Mockito
+    testCompile("org.mockito:mockito-core:2.15.0")
+
+    // Log4j
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.10.0'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.10.0'
+
+    // Guava
+    compile 'com.google.guava:guava:24.0-jre'
+
+    // ControlsFX
+    compile 'org.controlsfx:controlsfx:8.40.14'
 }
 
-junitPlatform {
-	// platformVersion '1.0.3'
-	filters {
-		engines {
-			// include 'junit-jupiter', 'junit-vintage'
-			// exclude 'custom-engine'
-		}
-		tags {
-			// include 'fast'
-			exclude 'slow'
-		}
-		// includeClassNamePattern '.*Test'
-	}
-	// enableStandardTestTask true
-	// reportsDir file('build/test-results/junit-platform') // this is the default
-	logManager 'org.apache.logging.log4j.jul.LogManager'
+asciidoctorj {
+    version = '1.5.6'
 }
 
+asciidoctor {
+    requires = ['asciidoctor-diagram']
 
+    sourceDir = file('docs')
+    outputDir = file('build/docs')
 
+    backends = ['html5', 'pdf']
 
+    attributes 'source-highlighter': 'coderay',
+            'coderay-linenums-mode': 'table',
+            toc: 'left',
+            icons: 'font',
+            linkattrs: true,
+            encoding: 'utf-8'
+}
+
+task('pdf', type: org.asciidoctor.gradle.AsciidoctorTask) {
+    configure asciidoctor
+    backends = ['pdf']
+}
+
+task('html', type: org.asciidoctor.gradle.AsciidoctorTask) {
+    configure asciidoctor
+    backends = ['html5']
+}
+
+checkstyle {
+    toolVersion = "${checkstyleVersion}"
+}

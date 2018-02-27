@@ -18,6 +18,8 @@
 .idea/dynamic.xml
 .idea/uiDesigner.xml
 
+*.iml
+
 # Gradle:
 .idea/gradle.xml
 .idea/libraries
@@ -27,7 +29,6 @@
 
 ## File-based project format:
 *.iws
-*.iml
 
 ## Plugin-specific files:
 
@@ -51,11 +52,6 @@ fabric.properties
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
-*.jar
-*.war
-*.ear
-
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 ### Gradle template
@@ -76,3 +72,5 @@ gradle-app.setting
 .gradle/
 .idea/
 classes/
+
+/logs/

@@ -1,0 +1,6 @@
+= Design Decisions
+François Martin; Marco Sanfratello
+
+This document describes all of the design decisions, which are made in WorkbenchFX.
+
+== Design decision 1

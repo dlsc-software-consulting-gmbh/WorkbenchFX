@@ -1,0 +1,80 @@
+= WorkbenchFX
+François Martin; Marco Sanfratello
+
+// Path to the code references
+:sourcedir: ../src/main/java
+:sourcedirdemo: ../workbenchfx-demo/src/main/java
+
+== Front page
+
+== Abstract / Management summary
+
+== Introduction
+
+== The way to WorkbenchFX
+=== Briefing
+
+=== Fluent API
+
+=== First thoughts
+==== Persona
+Who is the persona?
+
+* Programmer (-> Usage of WorkbenchFX)
+* User of the application (-> GUI)
+
+
+==== Layout
+Challenge:
+
+* Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
+
+During looking for a fitting GUI, we looked at several applications
+
+* Blender (Tool for creating 3D models)
+** Blender is divided up into five sections.
+*** Header --> Most important and the common settings
+*** Left Bar --> Tools
+*** Right Bar --> Tools
+*** Footer --> Animation, and view-modes
+*** Center --> The model, which is created
+** All sections are resizable
+** If their size becomes 0, they disappear but can be restored using the short code (-)
+** Using short codes to show/hide the bars. (+)
+Each bar has it's own short code.
+There is no animation, when showing or hiding.
+No possibility to show/hide the bars manually (-)
+** Top right corner --> drag and create so a new window.
+Each window shows the same part, but it's view is independent. (+)
+To delete the window: Drag the corner back (-)
+** Items in a bar can be moved manually, but only in the bar itself.
+The bar itself is fixed and can't be moved.
+** Items in the bar can be collapsed, in order to save space and make it cleaner.
+** The tools in the toolbar are stored in tabs.
+** When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
+
+* Photoshop / Illustrator
+
+* IntelliJ
+
+* MSOffice
+
+* Sublime Text
+
+*
+
+===== Minimal viable product
+
+==== The way creating the workbench
+
+=== Challenges
+
+=== Architecture
+
+=== Testing
+
+== Lessons learned
+
+== Summary
+
+== Honesty Declaration
