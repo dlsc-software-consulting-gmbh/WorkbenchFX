@@ -14,7 +14,8 @@ François Martin; Marco Sanfratello
 == The way to WorkbenchFX
 === Briefing
 
-=== Fluent API
+=== Syntax
+Fluent API or not?
 
 === First thoughts
 
@@ -39,48 +40,76 @@ Who is the persona?
 Challenge:
 
 * Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
+* Unique glossary --> Like in the previous project, we aknowledge, that a shared understanding with the customer is needed.
+Thus, we're going to define a unique glossary.
+So everyone talks the same language.
 
-During looking for a fitting GUI, we looked at several applications
+To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
+This includes features, usability and general appearance of the specific workbench.
 
-* Blender (Tool for creating 3D models)
-** Blender is divided up into five sections.
-*** Header --> Most important and the common settings
-*** Left Bar --> Tools
-*** Right Bar --> Tools
-*** Footer --> Animation, and view-modes
-*** Center --> The model, which is created
-** All sections are resizable
-** If their size becomes 0, they disappear but can be restored using the short code (-)
-** Using short codes to show/hide the bars. (+)
+===== Blender (Tool for creating 3D models)
+* Blender is divided up into five sections.
+** Header --> Most important and the common settings
+** Left Bar --> Tools
+** Right Bar --> Tools
+** Footer --> Animation, and view-modes
+** Center --> The model, which is created
+* All sections are resizable
+* If their size becomes 0, they disappear but can be restored using the short code (-)
+* Using short codes to show/hide the bars. (+)
 Each bar has it's own short code.
 There is no animation, when showing or hiding.
 No possibility to show/hide the bars manually (-)
-** Top right corner --> drag and create so a new window.
+* Top right corner --> drag and create so a new window.
 Each window shows the same part, but it's view is independent. (+)
 To delete the window: Drag the corner back (-)
-** Items in a bar can be moved manually, but only in the bar itself.
+* Items in a bar can be moved manually, but only in the bar itself.
 The bar itself is fixed and can't be moved.
-** Items in the bar can be collapsed, in order to save space and make it cleaner.
-** The tools in the toolbar are stored in tabs.
-** When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
+* Items in the bar can be collapsed, in order to save space and make it cleaner.
+* The tools in the toolbar are stored in tabs.
+* When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
 
-* Photoshop / Illustrator
+===== Photoshop / Illustrator (Design tools)
+* Photoshop (Image tool, Pixel based)
+**
 
-* IntelliJ
+* Illustrator (Design tool, Vector based)
+** Multiple windows possible. Are per default in the background opened. Navigation is done by tabs. (+)
+** Tabs can be navigated to other places.
+This is done by drag and drop
+** Tabs can be placed anywhere in the application (- Needs for sure to be discussed. Has certainly it's advantages)
+** Workspace can be restored to default using the equivalent setting. (+)
+Custom workspaces can be stored. (+)
+Multiple workspaces can be stored and it can be switched to. (+)
+** Tabs
+*** When double-clicking on the Tabs, they collapse (+)
+*** They have 3 states (not likely to understand) and it's collapsing behaviour is not intuitive. (-)
+**4
 
-* MSOffice
+===== IntelliJ
+* all possibilities available
+* "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
+* "Restore default layout" doesn't restore all layout changes (-)
+* Layout changes should be stored at one place.
 
-* Sublime Text
+===== MSOffice
 
-*
+===== Sublime Text
 
 ===== Minimal viable product
+As a result of our research we have enough information to create the most valuable workbench for our use case.
+Nonetheless we need to break down the functionality to it's simplest scenario.
+This way, we can assure our customer, that he minimal viable product as a result from this project.
+The reason why we do this is, that this way both parties are talking the same language regarding the expectations of the outcome of the project.
+Furthermore it's an assurance for both of them.
 
 ==== The way creating the workbench
 
 === Challenges
 
 === Architecture
+WorkbenchFX seems like a gigantic pane.
+Maybe the panes are giving us some inspiration?
 
 === Testing
 
