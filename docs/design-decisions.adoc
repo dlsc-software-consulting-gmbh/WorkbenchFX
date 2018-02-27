@@ -51,3 +51,8 @@ Depending on the content of the parameters, it creates a CustomBar, ToolBar, Sta
 
 == Possibility of multiple bars
 Add multiple bars in "setLeft(...)" which are then stacked left to each other
+
+== "BorderPane Approach"
+No center pane, but every node that is added is contained in a BorderPane.
+Every node can be further split apart right / left / top / bottom
+=> Lego-Like extendability
