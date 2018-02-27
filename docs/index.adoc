@@ -14,7 +14,8 @@ François Martin; Marco Sanfratello
 == The way to WorkbenchFX
 === Briefing
 
-=== Fluent API
+=== Syntax
+Fluent API or not?
 
 === First thoughts
 ==== Persona
@@ -28,6 +29,9 @@ Who is the persona?
 Challenge:
 
 * Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
+* Unique glossary --> Like in the previous project, we aknowledge, that a shared understanding with the customer is needed.
+Thus, we're going to define a unique glossary.
+So everyone talks the same language.
 
 To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
 This includes features, usability and general appearance of the specific workbench.
@@ -55,9 +59,27 @@ The bar itself is fixed and can't be moved.
 * When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
 
 ===== Photoshop / Illustrator (Design tools)
-*
+* Photoshop (Image tool, Pixel based)
+**
+
+* Illustrator (Design tool, Vector based)
+** Multiple windows possible. Are per default in the background opened. Navigation is done by tabs. (+)
+** Tabs can be navigated to other places.
+This is done by drag and drop
+** Tabs can be placed anywhere in the application (- Needs for sure to be discussed. Has certainly it's advantages)
+** Workspace can be restored to default using the equivalent setting. (+)
+Custom workspaces can be stored. (+)
+Multiple workspaces can be stored and it can be switched to. (+)
+** Tabs
+*** When double-clicking on the Tabs, they collapse (+)
+*** They have 3 states (not likely to understand) and it's collapsing behaviour is not intuitive. (-)
+**4
 
 ===== IntelliJ
+* all possibilities available
+* "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
+* "Restore default layout" doesn't restore all layout changes (-)
+* Layout changes should be stored at one place.
 
 ===== MSOffice
 
@@ -75,6 +97,8 @@ Furthermore it's an assurance for both of them.
 === Challenges
 
 === Architecture
+WorkbenchFX seems like a gigantic pane.
+Maybe the panes are giving us some inspiration?
 
 === Testing
 
