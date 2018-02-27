@@ -83,7 +83,7 @@ java`, shows how the preferences are set up and the fluent API is used:
 
 [source,java]
 ----
-include::{sourcedirdemo}/com/dlsc/preferencesfx/standard/RootPane.java[tags=setupPreferences]
+//include::{sourcedirdemo}/com/dlsc/preferencesfx/standard/RootPane.java[tags=setupPreferences]
 ----
 
 The whole code snippet uses the fluent API, but to explain it the best let's have a look at the last line of code.
@@ -95,7 +95,7 @@ One can see in the code snippet below, that the method returns exactly the objec
 
 [source,java]
 ----
-include::{sourcedir}/com/dlsc/preferencesfx/PreferencesFx.java[tags=fluentApiMethod]
+//include::{sourcedir}/com/dlsc/preferencesfx/PreferencesFx.java[tags=fluentApiMethod]
 ----
 
 === First thoughts
@@ -383,13 +383,13 @@ The following methods are used in the `StorageHandler.java`:
 [source,java]
 ----
 // Serialization
-include::{sourcedir}/com/dlsc/preferencesfx/util/StorageHandler.java[tags=storageHandlerSave]
+//include::{sourcedir}/com/dlsc/preferencesfx/util/StorageHandler.java[tags=storageHandlerSave]
 ----
 
 [source,java]
 ----
 // Deserialization
-include::{sourcedir}/com/dlsc/preferencesfx/util/StorageHandler.java[tags=storageHandlerLoad]
+//include::{sourcedir}/com/dlsc/preferencesfx/util/StorageHandler.java[tags=storageHandlerLoad]
 ----
 
 Well the method is working.
@@ -486,7 +486,7 @@ In the code snippet below one can see, that all of this classes can easily be mo
 
 [source,java]
 ----
-include::{sourcedir}/com/dlsc/preferencesfx/PreferencesFx.java[tags=testMock]
+//include::{sourcedir}/com/dlsc/preferencesfx/PreferencesFx.java[tags=testMock]
 ----
 
 ==== CategoryController
