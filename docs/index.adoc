@@ -17,6 +17,17 @@ François Martin; Marco Sanfratello
 === Fluent API
 
 === First thoughts
+
+== Analysis
+=== Architecture
+API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
+They want to be able to define their own design to ensure it blends in with the design of their components.
+The standard for custom controls in JavaFX is to use an implementation based on a control, separated from the skin. TODO: source?
+TODO: maybe explain a little with graphics how this structure works?
+
+We look at architectures of existing large JavaFX Applications, like CalendarFX from Dirk Lemmermann. TODO: add link
+
+
 ==== Persona
 Who is the persona?
 
