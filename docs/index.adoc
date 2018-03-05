@@ -87,10 +87,12 @@ Multiple workspaces can be stored and it can be switched to. (+)
 **4
 
 ===== IntelliJ
-* all possibilities available
+* all possibilities available,
+Right click on the tab, then one can decide the behaviour of it.
 * "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
 * "Restore default layout" doesn't restore all layout changes (-)
 * Layout changes should be stored at one place.
+*
 
 ===== MSOffice
 
@@ -102,6 +104,17 @@ Nonetheless we need to break down the functionality to it's simplest scenario.
 This way, we can assure our customer, that he minimal viable product as a result from this project.
 The reason why we do this is, that this way both parties are talking the same language regarding the expectations of the outcome of the project.
 Furthermore it's an assurance for both of them.
+
+Characteristically for all programs is:
+
+* A menu-bar on top of the application.
+* Below the menu-bar is often a tool-bar, which contains the current, or most important tools represented through buttons (without collapsing).
+* In center is often the window, in which the work is done.
+* Usually there are on the left and right of the application bars, which can collapse.
+They contain either further tools, buttons or a tree-view for navigation.
+* Sometimes another bar which is collapsible is set below the main-window.
+* Finally another tool-bar is set below the application.
+It contains the least used tools, or tools which are needed at the end of the process.
 
 ==== The way creating the workbench
 
