@@ -13,6 +13,7 @@ https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[asciidoctor refere
 <<requirements.adoc#,Requirements>>
 === other files
 link:protocol.json[Open the JSON file]
+// put them in the include subfolder in docs!
 
 == Menu instruction / Breadcrumb
 menu:View[Zoom > Reset]
