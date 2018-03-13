@@ -14,9 +14,51 @@ François Martin; Marco Sanfratello
 == The way to WorkbenchFX
 === Briefing
 
-=== Fluent API
+=== Syntax
+Fluent API or not?
 
 === First thoughts
+
+== Analysis
+=== Architecture
+API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
+//They want to be able to define their own design to ensure it blends in with the design of their components.
+//The standard for custom controls in JavaFX is to use an implementation based on a control, separated from the skin. TODO: source?
+//TODO: maybe explain a little with graphics how this structure works?
+
+=== Modular Approach
+Power users need the utmost of customizability, to ensure they can change the workspace to be the most ergonomic for their workflow.
+In terms of the architecture, it could mean that it would need to allow the following:
+
+* Separation between `Control` and `Skin`
+** Skin can be replaced by API users, if they want to use a custom style
+* Flexible panes
+** can be rearranged across the whole window
+** different modes for fixation TODO: explain more
+*** Pinned mode
+*** Docked mode
+*** Floating mode
+*** Window mode
+*** Split mode
+* TODO: add more
+
+The architecture for such an approach looks like this: link:UML/modular_approach.asta[UML class diagram]
+// TODO: include picture as well
+
+=== Simple Approach
+Our customer states that the intended API user would not have the need to entirely replace the `Skin`, as it is rarely done.
+For this reason, we will not separate between Control and Skin.
+Panes don't need to be as flexible.
+It is more important that the user experience is straightforward.
+
+== Why should someone use our Workbench instead of coding on their own?
+* Simple Design
+* Fast
+* Fast learning curve
+* Easy to use
+* Modular
+* Extendable
+
 ==== Persona
 Who is the persona?
 
@@ -28,48 +70,89 @@ Who is the persona?
 Challenge:
 
 * Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
+* Unique glossary --> Like in the previous project, we aknowledge, that a shared understanding with the customer is needed.
+Thus, we're going to define a unique glossary.
+So everyone talks the same language.
 
-During looking for a fitting GUI, we looked at several applications
+To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
+This includes features, usability and general appearance of the specific workbench.
 
-* Blender (Tool for creating 3D models)
-** Blender is divided up into five sections.
-*** Header --> Most important and the common settings
-*** Left Bar --> Tools
-*** Right Bar --> Tools
-*** Footer --> Animation, and view-modes
-*** Center --> The model, which is created
-** All sections are resizable
-** If their size becomes 0, they disappear but can be restored using the short code (-)
-** Using short codes to show/hide the bars. (+)
+===== Blender (Tool for creating 3D models)
+* Blender is divided up into five sections.
+** Header --> Most important and the common settings
+** Left Bar --> Tools
+** Right Bar --> Tools
+** Footer --> Animation, and view-modes
+** Center --> The model, which is created
+* All sections are resizable
+* If their size becomes 0, they disappear but can be restored using the short code (-)
+* Using short codes to show/hide the bars. (+)
 Each bar has it's own short code.
 There is no animation, when showing or hiding.
 No possibility to show/hide the bars manually (-)
-** Top right corner --> drag and create so a new window.
+* Top right corner --> drag and create so a new window.
 Each window shows the same part, but it's view is independent. (+)
 To delete the window: Drag the corner back (-)
-** Items in a bar can be moved manually, but only in the bar itself.
+* Items in a bar can be moved manually, but only in the bar itself.
 The bar itself is fixed and can't be moved.
-** Items in the bar can be collapsed, in order to save space and make it cleaner.
-** The tools in the toolbar are stored in tabs.
-** When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
+* Items in the bar can be collapsed, in order to save space and make it cleaner.
+* The tools in the toolbar are stored in tabs.
+* When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
 
-* Photoshop / Illustrator
+===== Photoshop / Illustrator (Design tools)
+* Photoshop (Image tool, Pixel based)
+**
 
-* IntelliJ
+* Illustrator (Design tool, Vector based)
+** Multiple windows possible. Are per default in the background opened. Navigation is done by tabs. (+)
+** Tabs can be navigated to other places.
+This is done by drag and drop
+** Tabs can be placed anywhere in the application (- Needs for sure to be discussed. Has certainly it's advantages)
+** Workspace can be restored to default using the equivalent setting. (+)
+Custom workspaces can be stored. (+)
+Multiple workspaces can be stored and it can be switched to. (+)
+** Tabs
+*** When double-clicking on the Tabs, they collapse (+)
+*** They have 3 states (not likely to understand) and it's collapsing behaviour is not intuitive. (-)
+**4
 
-* MSOffice
-
-* Sublime Text
-
+===== IntelliJ
+* all possibilities available,
+Right click on the tab, then one can decide the behaviour of it.
+* "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
+* "Restore default layout" doesn't restore all layout changes (-)
+* Layout changes should be stored at one place.
 *
 
+===== MSOffice
+
+===== Sublime Text
+
 ===== Minimal viable product
+As a result of our research we have enough information to create the most valuable workbench for our use case.
+Nonetheless we need to break down the functionality to it's simplest scenario.
+This way, we can assure our customer, that he minimal viable product as a result from this project.
+The reason why we do this is, that this way both parties are talking the same language regarding the expectations of the outcome of the project.
+Furthermore it's an assurance for both of them.
+
+Characteristically for all programs is:
+
+* A menu-bar on top of the application.
+* Below the menu-bar is often a tool-bar, which contains the current, or most important tools represented through buttons (without collapsing).
+* In center is often the window, in which the work is done.
+* Usually there are on the left and right of the application bars, which can collapse.
+They contain either further tools, buttons or a tree-view for navigation.
+* Sometimes another bar which is collapsible is set below the main-window.
+* Finally another tool-bar is set below the application.
+It contains the least used tools, or tools which are needed at the end of the process.
 
 ==== The way creating the workbench
 
 === Challenges
 
 === Architecture
+WorkbenchFX seems like a gigantic pane.
+Maybe the panes are giving us some inspiration?
 
 === Testing
 

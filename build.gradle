@@ -93,10 +93,23 @@ task('pdf', type: org.asciidoctor.gradle.AsciidoctorTask) {
     backends = ['pdf']
 }
 
-task('html', type: org.asciidoctor.gradle.AsciidoctorTask) {
+task copyAdocHtml (type: Copy) {
+    from "docs/include"
+    into "build/docs/html5"
+}
+
+task copyAdocPdf (type: Copy) {
+    from "docs/include"
+    into "build/docs/pdf"
+}
+
+task html (type: org.asciidoctor.gradle.AsciidoctorTask) {
     configure asciidoctor
     backends = ['html5']
 }
+
+html.dependsOn copyAdocHtml
+html.dependsOn copyAdocPdf
 
 checkstyle {
     toolVersion = "${checkstyleVersion}"
