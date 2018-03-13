@@ -3,8 +3,20 @@ François Martin; Marco Sanfratello
 
 A cheatsheet with the most used syntax of asciidoctor in it.
 
-== Link
+== Insert content of asciidoc files
+include::basics.adoc[]
+
+== Links
+=== HTTP
 https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[asciidoctor reference]
+=== adoc files
+<<requirements.adoc#,Requirements>>
+=== other files
+link:protocol.json[Open the JSON file]
+
+== Menu instruction / Breadcrumb
+menu:View[Zoom > Reset]
+// renders as View > Zoom > Reset (but fancier ;))
 
 == Code citation
 === Code
