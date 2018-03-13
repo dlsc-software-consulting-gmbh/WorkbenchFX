@@ -22,12 +22,42 @@ Fluent API or not?
 == Analysis
 === Architecture
 API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
-They want to be able to define their own design to ensure it blends in with the design of their components.
-The standard for custom controls in JavaFX is to use an implementation based on a control, separated from the skin. TODO: source?
-TODO: maybe explain a little with graphics how this structure works?
+//They want to be able to define their own design to ensure it blends in with the design of their components.
+//The standard for custom controls in JavaFX is to use an implementation based on a control, separated from the skin. TODO: source?
+//TODO: maybe explain a little with graphics how this structure works?
 
-We look at architectures of existing large JavaFX Applications, like CalendarFX from Dirk Lemmermann. TODO: add link
+=== Modular Approach
+Power users need the utmost of customizability, to ensure they can change the workspace to be the most ergonomic for their workflow.
+In terms of the architecture, it could mean that it would need to allow the following:
 
+* Separation between `Control` and `Skin`
+** Skin can be replaced by API users, if they want to use a custom style
+* Flexible panes
+** can be rearranged across the whole window
+** different modes for fixation TODO: explain more
+*** Pinned mode
+*** Docked mode
+*** Floating mode
+*** Window mode
+*** Split mode
+* TODO: add more
+
+The architecture for such an approach looks like this: link:UML/modular_approach.asta[UML class diagram]
+// TODO: include picture as well
+
+=== Simple Approach
+Our customer states that the intended API user would not have the need to entirely replace the `Skin`, as it is rarely done.
+For this reason, we will not separate between Control and Skin.
+Panes don't need to be as flexible.
+It is more important that the user experience is straightforward.
+
+== Why should someone use our Workbench instead of coding on their own?
+* Simple Design
+* Fast
+* Fast learning curve
+* Easy to use
+* Modular
+* Extendable
 
 ==== Persona
 Who is the persona?
