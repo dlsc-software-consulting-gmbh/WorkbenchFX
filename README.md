@@ -37,6 +37,8 @@ asciidoctor pdf  // PDF format
 ```
 Afterwards, you will find them in the `build/docs/` subdirectory.
 
+All files in the `docs/include` directory are automatically being copied over to the `build/docs/html5` folder via a gradle task.
+
 ## Structure
 A preferences dialog can contain multiple `Categories`.  
 Each `Category` contains one to multiple `Groups`  
