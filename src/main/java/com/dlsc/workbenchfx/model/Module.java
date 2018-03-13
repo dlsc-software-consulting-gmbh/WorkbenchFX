@@ -8,15 +8,21 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 
 /**
- * Represents the base for a module, to be displayed in WorkbenchFX.
- *
- * @author François Martin
- * @author Marco Sanfratello
+ * Created by François Martin on 13.03.18.
  */
-public interface Module {
+public class Module implements ModuleBase {
 
-    StringProperty name = new SimpleStringProperty();
-    ObjectProperty<Image> icon = new SimpleObjectProperty<>();
-    ObjectProperty<Node> node = new SimpleObjectProperty<>();
+  StringProperty name = new SimpleStringProperty();
+  ObjectProperty<Image> icon = new SimpleObjectProperty<>();
+
+  public Module(String name, Image icon, Node main) {
+    this.name.setValue(name);
+    this.icon.setValue(icon);
+    mainNode.set(main);
+  }
+
+  public static Module of(String name, Image icon, Node main) {
+    return new Module(name, icon, main);
+  }
 
 }
