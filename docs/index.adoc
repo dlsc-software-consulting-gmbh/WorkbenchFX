@@ -50,6 +50,7 @@ Our customer states that the intended API user would not have the need to entire
 For this reason, we will not separate between Control and Skin.
 Panes don't need to be as flexible.
 It is more important that the user experience is straightforward.
+Still, the possibility of extending the workbench using modules is important to our customer.
 
 == Why should someone use our Workbench instead of coding on their own?
 * Simple Design
