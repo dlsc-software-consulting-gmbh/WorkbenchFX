@@ -77,7 +77,7 @@ asciidoctor {
     sourceDir = file('docs')
     outputDir = file('build/docs')
 
-    backends = ['html5', 'pdf']
+    backends = ['html5']
 
     attributes 'source-highlighter': 'coderay',
             'coderay-linenums-mode': 'table',
@@ -87,19 +87,10 @@ asciidoctor {
             encoding: 'utf-8'
 }
 
-task('pdf', type: org.asciidoctor.gradle.AsciidoctorTask) {
-    configure asciidoctor
-    backends = ['pdf']
-}
 
 task copyAdocHtml (type: Copy) {
     from "docs/include"
     into "build/docs/html5"
-}
-
-task copyAdocPdf (type: Copy) {
-    from "docs/include"
-    into "build/docs/pdf"
 }
 
 task html (type: org.asciidoctor.gradle.AsciidoctorTask) {
@@ -108,7 +99,6 @@ task html (type: org.asciidoctor.gradle.AsciidoctorTask) {
 }
 
 html.dependsOn copyAdocHtml
-html.dependsOn copyAdocPdf
 
 checkstyle {
     toolVersion = "${checkstyleVersion}"

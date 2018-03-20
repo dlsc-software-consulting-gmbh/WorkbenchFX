@@ -65,9 +65,9 @@ Who are the persona?
 [cols="1,1,1"]
 .Persona
 |===
-|image:include/persona/stefanie_berner.png[Stefanie Berner], link:persona/stefanie_berner.png[Stefanie "SteffieFX" Berner]
-|image:include/persona/fabian_zimmer.png[Stefanie Berner], Fabian Zimmer
-|image:include/persona/anna_leutner.png[Stefanie Berner], Anna Leutner
+|image:persona/stefanie_berner.png[Stefanie Berner], link:persona/stefanie_berner.png[Stefanie "SteffieFX" Berner]
+|image:persona/fabian_zimmer.png[Stefanie Berner], Fabian Zimmer
+|image:persona/anna_leutner.png[Stefanie Berner], Anna Leutner
 |===
 
 === Layout
