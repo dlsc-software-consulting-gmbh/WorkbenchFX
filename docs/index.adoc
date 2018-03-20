@@ -26,7 +26,7 @@ API Users of WorkbenchFX don't only care about the API design, but also about th
 //The standard for custom controls in JavaFX is to use an implementation based on a control, separated from the skin. TODO: source?
 //TODO: maybe explain a little with graphics how this structure works?
 
-=== Modular Approach
+==== Modular Approach
 Power users need the utmost of customizability, to ensure they can change the workspace to be the most ergonomic for their workflow.
 In terms of the architecture, it could mean that it would need to allow the following:
 
@@ -45,12 +45,19 @@ In terms of the architecture, it could mean that it would need to allow the foll
 The architecture for such an approach looks like this: link:UML/modular_approach.asta[UML class diagram]
 // TODO: include picture as well
 
-=== Simple Approach
+==== Simple Approach
 Our customer states that the intended API user would not have the need to entirely replace the `Skin`, as it is rarely done.
 For this reason, we will not separate between Control and Skin.
 Panes don't need to be as flexible.
 It is more important that the user experience is straightforward.
 Still, the possibility of extending the workbench using modules is important to our customer.
+
+=== Module Naming
+To plug in functionality by the API user, we use modules.
+However, the name "Module" is not ideal, since a lot of things are already being called "Module"
+To avoid confusion, we want to come up with a name which makes it clearer and less ambiguous.
+// TODO: maybe include more precise definition, specifying what exactly a module is for us?
+// TODO: include brainstorming_module.pdf with image as link
 
 == Why should someone use our Workbench instead of coding on their own?
 * Simple Design
