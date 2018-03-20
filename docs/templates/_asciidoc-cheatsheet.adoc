@@ -9,8 +9,10 @@ include::basics.adoc[]
 == Links
 === HTTP
 https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[asciidoctor reference]
+
 === adoc files
 <<requirements.adoc#,Requirements>>
+
 === other files
 link:protocol.json[Open the JSON file]
 // put them in the include subfolder in docs!
@@ -47,6 +49,9 @@ String json = gson.toJson(obj);
 ----
 
 == Styling
+=== Page break
+<<<
+
 === Inline
 `setSelectedCategoryByMatch()`, used when using classes or methods.
 
