@@ -1,14 +1,6 @@
 package com.dlsc.workbenchfx.standard;
 
-import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.formsfx.model.structure.IntegerField;
-import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
-import com.dlsc.workbenchfx.AppStarter;
 import com.dlsc.workbenchfx.WorkbenchFx;
-import com.dlsc.workbenchfx.formsfx.view.controls.IntegerSliderControl;
-import com.dlsc.workbenchfx.model.Category;
-import com.dlsc.workbenchfx.model.Group;
-import com.dlsc.workbenchfx.model.Setting;
 import java.util.Arrays;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -70,57 +62,15 @@ public class RootPane extends StackPane {
 
   // Custom Control
   IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
-  IntegerField customControl = setupCustomControl();
+  //IntegerField customControl = setupCustomControl();
 
   public RootPane() {
     workbenchFx = createPreferences();
     getChildren().add(new DemoView(workbenchFx, this));
   }
 
-  private IntegerField setupCustomControl() {
-    return Field.ofIntegerType(customControlProperty).render(
-        new IntegerSliderControl(0, 42));
-  }
-
   private WorkbenchFx createPreferences() {
     // asciidoctor Documentation - tag::setupPreferences[]
-    return WorkbenchFx.of(AppStarter.class,
-        Category.of("General",
-            Group.of("Greeting",
-                Setting.of("Welcome Text", welcomeText)
-            ),
-            Group.of("Display",
-                Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode)
-            )
-        ),
-        Category.of("Screen",
-            Group.of("Rating",
-                Setting.of("Coolness of PreferencesFX", coolnessOfPreferencesFx, 0, 10, 2)
-                )
-            )
-            .subCategories(
-                Category.of("Scaling & Ordering",
-                    Group.of(
-                        Setting.of("Scaling", scaling)
-                            .validate(DoubleRangeValidator
-                                .atLeast(1, "Scaling needs to be at least 1")
-                            ),
-                        Setting.of("Screen name", screenName),
-                        Setting.of("Resolution", resolutionItems, resolutionSelection),
-                        Setting.of("Orientation", orientationItems, orientationSelection)
-                    ).description("Screen Options"),
-                    Group.of(
-                        Setting.of("Font Size", fontSize, 6, 36),
-                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
-                    )
-                )
-            ),
-        Category.of("Favorites",
-            Setting.of("Favorites", favoritesItems, favoritesSelection),
-            Setting.of("Favorite Number", customControl, customControlProperty)
-        )
-    ).persistWindowState(false).saveSettings(true).debugHistoryMode(true).buttonsVisibility(true);
-    // asciidoctor Documentation - end::setupPreferences[]
+    return null;
   }
 }
