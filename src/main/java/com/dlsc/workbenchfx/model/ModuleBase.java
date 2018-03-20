@@ -16,4 +16,7 @@ public interface ModuleBase {
     ObjectProperty<Node> buttonNode = new SimpleObjectProperty<>();
     ObjectProperty<Node> tabNode = new SimpleObjectProperty<>();
 
+    void start();
+    void stop();
+
 }
