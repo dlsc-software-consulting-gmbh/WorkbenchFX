@@ -58,6 +58,8 @@ However, the name "Module" is not ideal, since a lot of things are already being
 To avoid confusion, we want to come up with a name which makes it clearer and less ambiguous.
 // TODO: maybe include more precise definition, specifying what exactly a module is for us?
 // TODO: include brainstorming_module.pdf with image as link
+At first, we chose "Capsule" as a working title, since no classes exist yet in Java which are called like this.
+This means we can easily refactor the name later and focus more on the API design than on the name in the beginning.
 
 == Why should someone use our Workbench instead of coding on their own?
 * Simple Design

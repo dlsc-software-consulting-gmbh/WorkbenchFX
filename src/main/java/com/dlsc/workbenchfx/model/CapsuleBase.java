@@ -10,7 +10,7 @@ import javafx.scene.Node;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public interface ModuleBase {
+public interface CapsuleBase {
 
     ObjectProperty<Node> mainNode = new SimpleObjectProperty<>();
     ObjectProperty<Node> buttonNode = new SimpleObjectProperty<>();

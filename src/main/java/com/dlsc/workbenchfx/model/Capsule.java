@@ -10,19 +10,19 @@ import javafx.scene.image.Image;
 /**
  * Created by François Martin on 13.03.18.
  */
-public class Module implements ModuleBase {
+public class Capsule implements CapsuleBase {
 
   StringProperty name = new SimpleStringProperty();
   ObjectProperty<Image> icon = new SimpleObjectProperty<>();
 
-  public Module(String name, Image icon, Node main) {
+  public Capsule(String name, Image icon, Node main) {
     this.name.setValue(name);
     this.icon.setValue(icon);
     mainNode.set(main);
   }
 
-  public static Module of(String name, Image icon, Node main) {
-    return new Module(name, icon, main);
+  public static Capsule of(String name, Image icon, Node main) {
+    return new Capsule(name, icon, main);
   }
 
 }
