@@ -25,6 +25,11 @@ buildscript {
         classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.4.1'
         classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.1.0'
+        classpath 'de.jensd:fontawesomefx-commons:9.1.2'
+        classpath 'de.jensd:fontawesomefx-fontawesome:4.7.0-9.1.2'
+        classpath 'com.jfoenix:jfoenix:1.4.0'
+        classpath 'org.slf4j:slf4j-api:1.8.0-beta0'
+        classpath 'org.slf4j:slf4j-jdk14:1.8.0-beta0'
     }
 }
 
