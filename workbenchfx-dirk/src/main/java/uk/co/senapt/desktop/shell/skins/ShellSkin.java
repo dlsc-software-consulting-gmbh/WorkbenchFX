@@ -1,6 +1,6 @@
 package uk.co.senapt.desktop.shell.skins;
 
-import com.calendarfx.view.YearMonthView;
+//import com.calendarfx.view.YearMonthView;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -41,7 +41,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import uk.co.senapt.desktop.shell.Dashboard;
+//import uk.co.senapt.desktop.shell.Dashboard;
 import uk.co.senapt.desktop.shell.HomeScreen;
 import uk.co.senapt.desktop.shell.HorizontalMenu;
 import uk.co.senapt.desktop.shell.MenuDrawer;
@@ -83,7 +83,7 @@ public class ShellSkin extends SkinBase<Shell> {
 
     private HomeScreen homeScreen;
     private ModulePane modulePane;
-    private Dashboard dashboard;
+    //private Dashboard dashboard;
     private Node leftTray;
     private Node rightTray;
 
@@ -163,7 +163,7 @@ public class ShellSkin extends SkinBase<Shell> {
         shell.leftTrayProperty().addListener(it -> updateChildren());
         shell.rightTrayProperty().addListener(it -> updateChildren());
 
-        dashboard = shell.getDashboard();
+        //dashboard = shell.getDashboard();
 
         homeScreen = shell.getHomeScreen();
         homeScreen.addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> closeDrawers());
@@ -193,21 +193,21 @@ public class ShellSkin extends SkinBase<Shell> {
             switch (shell.getDisplayMode()) {
                 case DASHBOARD:
                     getChildren().removeAll(homeScreen, modulePane);
-                    if (!getChildren().contains(dashboard)) {
+                    /*if (!getChildren().contains(dashboard)) {
                         getChildren().add(0, dashboard);
-                    }
+                    }*/
                     break;
                 case HOME:
-                    getChildren().removeAll(dashboard, modulePane);
+                    /*getChildren().removeAll(dashboard, modulePane);
                     if (!getChildren().contains(homeScreen)) {
                         getChildren().add(0, homeScreen);
-                    }
+                    }*/
                     break;
                 case MODULE:
-                    getChildren().removeAll(dashboard, homeScreen);
+                    /*getChildren().removeAll(dashboard, homeScreen);
                     if (!getChildren().contains(modulePane)) {
                         getChildren().add(0, modulePane);
-                    }
+                    }*/
                     break;
                 default:
                     throw new IllegalArgumentException("unknown display mode");
@@ -403,7 +403,7 @@ public class ShellSkin extends SkinBase<Shell> {
 
         modulePane.resizeRelocate(contentX, contentY, contentWidth, contentHeight);
 
-        dashboard.resizeRelocate(contentX, contentY, contentWidth, contentHeight);
+        //dashboard.resizeRelocate(contentX, contentY, contentWidth, contentHeight);
 
         final double gap = 30;
         final double favoritesPrefWidth = floatingElementsContainer.prefWidth(-1);
@@ -561,23 +561,23 @@ public class ShellSkin extends SkinBase<Shell> {
             dateLabel.setMaxWidth(Double.MAX_VALUE);
             dateLabel.getStyleClass().add("date-label");
 
-            YearMonthView monthView = new YearMonthView();
+            /*YearMonthView monthView = new YearMonthView();
             monthView.setShowTodayButton(false);
             monthView.setShowYear(false);
             monthView.setShowMonth(false);
             monthView.setShowWeekNumbers(false);
-            monthView.getWeekendDays().clear();
+            monthView.getWeekendDays().clear();*/
 
             Button gotoButton = new Button("Go to Calendar >");
             gotoButton.getStyleClass().add("goto-button");
             gotoButton.setMaxWidth(Double.MAX_VALUE);
             gotoButton.setOnAction(evt -> getSkinnable().openModule(ModulesManager.getInstance().getModule("Calendar").get()));
 
-            if (ModulesManager.getInstance().getModule("Calendar").isPresent()) {
+            /*if (ModulesManager.getInstance().getModule("Calendar").isPresent()) {
                 getChildren().addAll(timeLabel, dateLabel, monthView, gotoButton);
             } else {
                 getChildren().addAll(timeLabel, dateLabel, monthView);
-            }
+            }*/
 
             Thread thread = new Thread(() -> {
                 Platform.runLater(() -> {
