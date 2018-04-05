@@ -61,7 +61,7 @@ jar {
 
 compileTestJava {
     sourceCompatibility = 10
-    targetCompatibility = 10
+    targetCompatibility = 9
     options.compilerArgs += '-parameters'
 }
 
