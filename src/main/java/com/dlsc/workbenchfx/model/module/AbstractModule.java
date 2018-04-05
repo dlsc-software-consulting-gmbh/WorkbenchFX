@@ -6,7 +6,8 @@ import com.dlsc.workbenchfx.view.module.TileControl;
 import javafx.scene.Node;
 
 /**
- * Created by François Martin on 13.03.18.
+ * Skeletal implementation of a {@link Module}.
+ * Extend this class to simply implement a new module and override methods as needed.
  */
 public abstract class AbstractModule implements Module {
   private final String name;
@@ -17,6 +18,9 @@ public abstract class AbstractModule implements Module {
 
   /**
    * Super constructor to be called by the implementing class.
+   *
+   * @param name of this module
+   * @param icon of this module
    */
   protected AbstractModule(String name, Node icon) {
     this.name = name;
