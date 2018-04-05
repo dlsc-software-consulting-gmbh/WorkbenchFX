@@ -61,6 +61,16 @@ To avoid confusion, we want to come up with a name which makes it clearer and le
 At first, we chose "Capsule" as a working title, since no classes exist yet in Java which are called like this.
 This means we can easily refactor the name later and focus more on the API design than on the name in the beginning.
 
+=== API Design of Module
+We analyzed which "touch points" a module in the workbench would have, which resulted in 3 points:
+* Main view to be displayed
+* Tab representation of module
+* Tile representation of module in home screen
+Which is why we decided to include them in the API design of the `Module` class. // TODO: improve representation, less duplication in documentation and display
+* Main view to be displayed => Node gets returned by init()
+* Tab representation of module => Node gets returned by getTab()
+* Tile representation of module in home screen => Node gets returned by getTile()
+
 == Why should someone use our Workbench instead of coding on their own?
 * Simple Design
 * Fast
