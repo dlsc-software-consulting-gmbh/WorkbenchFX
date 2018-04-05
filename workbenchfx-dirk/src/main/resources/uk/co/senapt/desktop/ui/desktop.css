@@ -1,0 +1,47 @@
+/* ----------------------------------------------------------------------------
+ * Primary Module Colors
+ */
+
+.primary-color-complaints {
+    -fx-background-color: steelblue !important;
+}
+
+.primary-color-billing-management {
+    -fx-background-color: orangered !important;
+}
+
+.primary-color-brokers-management {
+    -fx-background-color: darkmagenta !important;
+}
+
+.primary-color-debt-management {
+    -fx-background-color: lightsalmon !important;
+}
+
+.primary-color-finance {
+    -fx-background-color: saddlebrown !important;
+}
+
+.primary-color-meter-management {
+    -fx-background-color: yellowgreen !important;
+}
+
+.primary-color-reports {
+    -fx-background-color: cornflowerblue !important;
+}
+
+.primary-color-sales-management {
+    -fx-background-color: goldenrod !important;
+}
+
+.primary-color-tarrifs-management {
+    -fx-background-color: olive !important;
+}
+
+.primary-color-task-management {
+    -fx-background-color: darkcyan !important;
+}
+
+.primary-color-templates {
+    -fx-background-color: coral !important;
+}

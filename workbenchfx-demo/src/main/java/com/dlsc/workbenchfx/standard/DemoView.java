@@ -147,7 +147,6 @@ public class DemoView extends VBox {
   }
 
   private void setupEventHandlers() {
-    preferencesMenuItem.setOnAction(e -> workbenchFx.show());
   }
 
   private void setupListeners() {

@@ -24,4 +24,8 @@ public class WorkbenchFxModel {
     this.modules.addAll(modules);
   }
 
+  public int add(int a, int b) {
+    return a + b;
+  }
+
 }

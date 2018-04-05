@@ -1,2 +1,2 @@
 rootProject.name = 'WorkbenchFX'
-include "workbenchfx-demo"
+include "workbenchfx-demo", "workbenchfx-dirk"
