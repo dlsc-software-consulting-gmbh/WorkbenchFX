@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.model;
 
+import com.dlsc.workbenchfx.model.module.Module;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.logging.log4j.LogManager;

@@ -1,15 +1,16 @@
-package com.dlsc.workbenchfx.model;
+package com.dlsc.workbenchfx.model.module;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.view.module.TabControl;
+import com.dlsc.workbenchfx.view.module.TileControl;
 import javafx.scene.Node;
 
 /**
  * Created by François Martin on 13.03.18.
  */
 public abstract class AbstractModule implements Module {
-
-  // TODO: add title and icon
-  // TODO: provide base implementation of tab and tile
+  private final String name;
+  private final Node icon;
 
   protected Node tile;
   protected Node tab;
@@ -17,14 +18,11 @@ public abstract class AbstractModule implements Module {
 
   /**
    * Superconstructor to be called by the implementing class.
-   * @param tile node to be shown in the home screen
-   * @param tab node to be shown in the toolbar, representing this module
-   * @param content main content node of this module
    */
-  protected AbstractModule(Node tile, Node tab, Node content) {
-    this.tile = tile;
-    this.tab = tab;
-    this.content = content;
+  protected AbstractModule(String name, Node icon, Node main) {
+    this.name = name;
+    this.icon = icon;
+    this.content = main;
   }
 
   /**
@@ -32,6 +30,9 @@ public abstract class AbstractModule implements Module {
    */
   @Override
   public Node getTab() {
+    if (tab == null) {
+      tab = new TabControl(name, icon);
+    }
     return tab;
   }
 
@@ -40,6 +41,9 @@ public abstract class AbstractModule implements Module {
    */
   @Override
   public Node getTile() {
+    if (tile == null) {
+      tile = new TileControl(name, icon);
+    }
     return tile;
   }
 

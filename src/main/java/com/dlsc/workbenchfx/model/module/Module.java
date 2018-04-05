@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.model;
+package com.dlsc.workbenchfx.model.module;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import javafx.beans.property.ObjectProperty;
