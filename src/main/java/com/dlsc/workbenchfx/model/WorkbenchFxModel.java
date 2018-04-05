@@ -15,12 +15,12 @@ public class WorkbenchFxModel {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchFxModel.class.getName());
 
-  private final ObservableList<Modular> modules = FXCollections.observableArrayList();
+  private final ObservableList<Module> modules = FXCollections.observableArrayList();
 
   /**
    * Initializes a new model.
    */
-  public WorkbenchFxModel(Modular... modules) {
+  public WorkbenchFxModel(Module... modules) {
     this.modules.addAll(modules);
   }
 

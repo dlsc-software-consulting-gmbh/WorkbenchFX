@@ -12,12 +12,12 @@ import javafx.scene.image.ImageView;
 /**
  * Created by François Martin on 13.03.18.
  */
-public class SimpleModule implements Modular {
+public abstract class AbstractModule implements Module {
 
   StringProperty name = new SimpleStringProperty();
   ObjectProperty<Image> icon = new SimpleObjectProperty<>();
 
-  public SimpleModule(String name, Image icon, Node main) {
+  public AbstractModule(String name, Image icon, Node main) {
     this.name.setValue(name);
     this.icon.setValue(icon);
     mainNode.set(main);
@@ -25,10 +25,6 @@ public class SimpleModule implements Modular {
     button.setGraphic(new ImageView(this.icon.get()));
     buttonNode.setValue(button);
     tabNode.setValue(button);
-  }
-
-  public static SimpleModule of(String name, Image icon, Node main) {
-    return new SimpleModule(name, icon, main);
   }
 
   @Override
