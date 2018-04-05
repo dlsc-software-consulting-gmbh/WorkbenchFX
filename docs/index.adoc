@@ -71,6 +71,23 @@ Which is why we decided to include them in the API design of the `Module` class.
 * Tab representation of module => Node gets returned by getTab()
 * Tile representation of module in home screen => Node gets returned by getTile()
 
+==== Icon: Image vs File vs Node
+As for the icon, there are different ways to implement the inclusion of one in a module.
+
+One possibility is to accept an `Image` object as a parameter of the constructor.
+The advantage is, that the API user doesn't need to care about how the image is being displayed
+The disadvantage however is, that it is for example not possible to specify a FontAwesome icon as a `Node`, to use vector objects.
+
+Also, it would be possible to have the API user include an image file in the resources, to use as an icon.
+Using "convention over configuration", the API user would simply choose the same name for the icon file as for the module, which makes it possible to easily identify the corresponding icon file of a module.
+This brings the advantage of having less code per module, since the icon doesn't need to be specified in the code.
+However, this is also limiting for the same reasons as with the `Image` object above, it is not possible to pass in objects to be displayed.
+
+This is why we decided to have the API user pass in a `Node` object to the constructor of the module.
+This allows for a maximum of flexibility and not much overhead in terms of code. // TODO: maybe write more?
+
+// TODO: maybe, decision in AbstractModule between adding "content" as parameter in constructor and overriding init() or not including "content" as parameter and not overriding init(). Chose to do the latter since the node would not be used anywhere else and it would be about the same in terms of code, but is easier to override that way.
+
 == Why should someone use our Workbench instead of coding on their own?
 * Simple Design
 * Fast
