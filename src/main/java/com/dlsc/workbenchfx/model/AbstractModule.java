@@ -15,11 +15,12 @@ import javafx.scene.image.ImageView;
  */
 public abstract class AbstractModule implements Module {
 
+  // TODO: add title and icon
+  // TODO: provide base implementation of tab and tile
+
   protected Node tile;
   protected Node tab;
   protected Node view;
-/*  StringProperty name = new SimpleStringProperty();
-  ObjectProperty<Image> icon = new SimpleObjectProperty<>();*/
 
   /**
    * Superconstructor to be called by the implementing class.
@@ -38,7 +39,7 @@ public abstract class AbstractModule implements Module {
    */
   @Override
   public Node getTab() {
-    return null;
+    return tab;
   }
 
   /**
@@ -46,7 +47,7 @@ public abstract class AbstractModule implements Module {
    */
   @Override
   public Node getTile() {
-    return null;
+    return tile;
   }
 
   /**
@@ -54,7 +55,7 @@ public abstract class AbstractModule implements Module {
    */
   @Override
   public Node init(WorkbenchFx workbench) {
-    return null;
+    return view;
   }
 
   /**
@@ -78,17 +79,10 @@ public abstract class AbstractModule implements Module {
    */
   @Override
   public void destroy() {
-
+    // dereference objects to prevent memory leaks
+    this.tile = null;
+    this.tab = null;
+    this.view = null;
   }
-/*
-  public AbstractModule(String name, Image icon, Node main) {
-    this.name.setValue(name);
-    this.icon.setValue(icon);
-    mainNode.set(main);
-    Button button = new Button(name);
-    button.setGraphic(new ImageView(this.icon.get()));
-    buttonNode.setValue(button);
-    tabNode.setValue(button);
-  }*/
 
 }
