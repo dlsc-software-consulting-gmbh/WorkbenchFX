@@ -11,7 +11,7 @@ import javafx.scene.Node;
  * @author Marco Sanfratello
  */
 public interface Modular {
-
+    // one class, which should be implemented by Fabian in a separate class instead of extending an existing class
     ObjectProperty<Node> mainNode = new SimpleObjectProperty<>();
     ObjectProperty<Node> buttonNode = new SimpleObjectProperty<>();
     ObjectProperty<Node> tabNode = new SimpleObjectProperty<>();
