@@ -19,7 +19,7 @@ public interface Module {
     Node getTab();
 
     /**
-     * Returns the node of the tile to be displayed for this module in the overview of modules.
+     * Returns the node of the tile to be displayed for this module in the home screen.
      */
     Node getTile();
 
@@ -27,23 +27,23 @@ public interface Module {
     /**
      * Gets called when the module is being opened from the overview for the first time.
      * @param workbench the calling workbench object
-     * @return view to be displayed in the module
+     * @return content to be displayed in this module
      */
     Node init(WorkbenchFx workbench);
 
     /**
-     * Gets called whenever the currently displayed view is being switched to this module.
+     * Gets called whenever the currently displayed content is being switched to this module.
      * @implNote if a module is being opened from the overview for the first time, it will
      * get initialized first by calling init(), afterwards activate() will be called.
      */
     void activate();
 
     /**
-     * Gets called whenever this module is the currently displayed view and the view is being
+     * Gets called whenever this module is the currently displayed content and the content is being
      * switched to another module.
      * @implNote Assuming Module 1 and Module 2, with both being already initialized and Module 1
-     * being the currently displayed view.
-     * When switching the view to Module 2, deactivate() gets called on Module 1,
+     * being the currently displayed content.
+     * When switching the content to Module 2, deactivate() gets called on Module 1,
      * followed by a call of activate() on Module 2.
      */
     void deactivate();
