@@ -1,14 +1,7 @@
 package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * Created by François Martin on 13.03.18.
@@ -20,18 +13,18 @@ public abstract class AbstractModule implements Module {
 
   protected Node tile;
   protected Node tab;
-  protected Node view;
+  protected Node content;
 
   /**
    * Superconstructor to be called by the implementing class.
-   * @param tile
-   * @param tab
-   * @param view
+   * @param tile node to be shown in the home screen
+   * @param tab node to be shown in the toolbar, representing this module
+   * @param content main content node of this module
    */
-  protected AbstractModule(Node tile, Node tab, Node view) {
+  protected AbstractModule(Node tile, Node tab, Node content) {
     this.tile = tile;
     this.tab = tab;
-    this.view = view;
+    this.content = content;
   }
 
   /**
@@ -55,7 +48,7 @@ public abstract class AbstractModule implements Module {
    */
   @Override
   public Node init(WorkbenchFx workbench) {
-    return view;
+    return content;
   }
 
   /**
@@ -82,7 +75,7 @@ public abstract class AbstractModule implements Module {
     // dereference objects to prevent memory leaks
     this.tile = null;
     this.tab = null;
-    this.view = null;
+    this.content = null;
   }
 
 }
