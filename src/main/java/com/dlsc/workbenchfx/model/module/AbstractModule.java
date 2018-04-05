@@ -14,15 +14,13 @@ public abstract class AbstractModule implements Module {
 
   protected Node tile;
   protected Node tab;
-  protected Node content;
 
   /**
-   * Superconstructor to be called by the implementing class.
+   * Super constructor to be called by the implementing class.
    */
-  protected AbstractModule(String name, Node icon, Node main) {
+  protected AbstractModule(String name, Node icon) {
     this.name = name;
     this.icon = icon;
-    this.content = main;
   }
 
   /**
@@ -51,14 +49,6 @@ public abstract class AbstractModule implements Module {
    * {@inheritDoc}
    */
   @Override
-  public Node init(WorkbenchFx workbench) {
-    return content;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public void activate() {
 
   }
@@ -79,7 +69,6 @@ public abstract class AbstractModule implements Module {
     // dereference objects to prevent memory leaks
     this.tile = null;
     this.tab = null;
-    this.content = null;
   }
 
 }
