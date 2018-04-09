@@ -23,54 +23,54 @@ public class RootPane extends StackPane {
   public WorkbenchFx workbenchFx;
 
   // Property for demo
-  DoubleProperty coolnessOfPreferencesFx = new SimpleDoubleProperty(10.0);
+//  DoubleProperty coolnessOfPreferencesFx = new SimpleDoubleProperty(10.0);
 
   // General
-  StringProperty welcomeText = new SimpleStringProperty("Hello World");
-  IntegerProperty brightness = new SimpleIntegerProperty(50);
-  BooleanProperty nightMode = new SimpleBooleanProperty(true);
+//  StringProperty welcomeText = new SimpleStringProperty("Hello World");
+//  IntegerProperty brightness = new SimpleIntegerProperty(50);
+//  BooleanProperty nightMode = new SimpleBooleanProperty(true);
 
   // Screen
-  DoubleProperty scaling = new SimpleDoubleProperty(1);
-  StringProperty screenName = new SimpleStringProperty("WorkbenchFx Monitor");
+//  DoubleProperty scaling = new SimpleDoubleProperty(1);
+//  StringProperty screenName = new SimpleStringProperty("WorkbenchFx Monitor");
 
-  ObservableList<String> resolutionItems = FXCollections.observableArrayList(Arrays.asList(
-      "1024x768", "1280x1024", "1440x900", "1920x1080")
-  );
-  ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
+//  ObservableList<String> resolutionItems = FXCollections.observableArrayList(Arrays.asList(
+//      "1024x768", "1280x1024", "1440x900", "1920x1080")
+//  );
+//  ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
 
-  ListProperty<String> orientationItems = new SimpleListProperty<>(
-      FXCollections.observableArrayList(Arrays.asList("Vertical", "Horizontal"))
-  );
-  ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
+//  ListProperty<String> orientationItems = new SimpleListProperty<>(
+//      FXCollections.observableArrayList(Arrays.asList("Vertical", "Horizontal"))
+//  );
+//  ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
 
-  IntegerProperty fontSize = new SimpleIntegerProperty(12);
-  DoubleProperty lineSpacing = new SimpleDoubleProperty(1.5);
+//  IntegerProperty fontSize = new SimpleIntegerProperty(12);
+//  DoubleProperty lineSpacing = new SimpleDoubleProperty(1.5);
 
   // Favorites
-  ListProperty<String> favoritesItems = new SimpleListProperty<>(
-      FXCollections.observableArrayList(Arrays.asList(
-          "eMovie", "Eboda Phot-O-Shop", "Mikesoft Text",
-          "Mikesoft Numbers", "Mikesoft Present", "IntelliG"
-          )
-      )
-  );
-  ListProperty<String> favoritesSelection = new SimpleListProperty<>(
-      FXCollections.observableArrayList(Arrays.asList(
-          "Eboda Phot-O-Shop", "Mikesoft Text"))
-  );
+//  ListProperty<String> favoritesItems = new SimpleListProperty<>(
+//      FXCollections.observableArrayList(Arrays.asList(
+//          "eMovie", "Eboda Phot-O-Shop", "Mikesoft Text",
+//          "Mikesoft Numbers", "Mikesoft Present", "IntelliG"
+//          )
+//      )
+//  );
+//  ListProperty<String> favoritesSelection = new SimpleListProperty<>(
+//      FXCollections.observableArrayList(Arrays.asList(
+//          "Eboda Phot-O-Shop", "Mikesoft Text"))
+//  );
 
   // Custom Control
-  IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
+//  IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
   //IntegerField customControl = setupCustomControl();
 
   public RootPane() {
-    workbenchFx = createPreferences();
-    getChildren().add(new DemoView(workbenchFx, this));
+    workbenchFx = WorkbenchFx.of();
+    getChildren().add(new DemoView(workbenchFx));
   }
 
-  private WorkbenchFx createPreferences() {
-    // asciidoctor Documentation - tag::setupPreferences[]
-    return null;
-  }
+//  private WorkbenchFx createPreferences() {
+//    // asciidoctor Documentation - tag::setupPreferences[]
+//    return null;
+//  }
 }

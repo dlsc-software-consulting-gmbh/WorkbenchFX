@@ -1,0 +1,29 @@
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #c3e5b5;
+$border: 2px;
+
+* {
+  -fx-font: 100% $font-stack;
+  -fx-color: $primary-color;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+.box {
+  @include border-radius(10px);
+}
+
+.rootPane {
+  @include border-radius(5px);
+  -fx-alignment: center;
+}
+
+.label {
+  -fx-background-color: #fff1d3;
+  -fx-padding: 5em;
+}

@@ -64,7 +64,7 @@ We created several demos to visualize the capabilities of `PreferencesFX`.
 To change between demos, simply uncomment the desired demo in the imports of `preferencesfx-demo/src/com/dlsc/preferencesfx/AppStarter.java`
 ```Java
 // Change this import depending on the demo
-import com.dlsc.workbenchfx.standard.RootPane;
+import com.dlsc.workbenchfx.standard.com.dlsc.workbenchfx.RootPane;
 workbenchcom.dlsc.workbenchfxchfx
 ```
 
