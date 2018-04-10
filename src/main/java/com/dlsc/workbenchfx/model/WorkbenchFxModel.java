@@ -90,16 +90,17 @@ public class WorkbenchFxModel {
       throw new IllegalArgumentException("Module has not been loaded yet.");
     }
     // set new active module
+    Module active;
     if (openModules.size() == 1) {
       // go to home screen
-      activeModule.setValue(null);
+      active = null;
     } else if (i == 0) {
       // multiple modules open, leftmost is active
-      activeModule.setValue(openModules.get(i + 1));
+      active = openModules.get(i + 1);
     } else {
-      activeModule.setValue(openModules.get(i - 1));
+      active = openModules.get(i - 1);
     }
-
+    activeModule.setValue(active);
   }
 
   public ObservableList<Module> getModules() {
