@@ -60,6 +60,13 @@ class WorkbenchFxModelTest {
   }
 
   @Test
+  void openModuleInvalid() {
+    /* Test if opening a module which has not been passed in the constructor of WorkbenchFxModel
+    throws an exception */
+    assertThrows(IllegalArgumentException.class, () -> model.openModule(mock(Module.class)));
+  }
+
+  @Test
   void closeModule() {
 
   }
