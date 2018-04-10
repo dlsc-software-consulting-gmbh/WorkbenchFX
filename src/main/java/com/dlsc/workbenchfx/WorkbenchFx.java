@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchFx extends BorderPane {
+public class WorkbenchFx {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchFx.class.getName());
   private final Module[] modules;
@@ -27,7 +27,8 @@ public class WorkbenchFx extends BorderPane {
 
   private WorkbenchFx(Module... modules) {
     this.modules = modules;
-    workbenchFxView = new WorkbenchFxView(workbenchFxModel);
+
+    workbenchFxView = new WorkbenchFxView(workbenchFxModel, modules[0], this);
     workbenchFxPresenter = new WorkbenchFxPresenter(workbenchFxModel, workbenchFxView);
   }
 
@@ -39,7 +40,6 @@ public class WorkbenchFx extends BorderPane {
   }
 
   public Node getView() {
-
-    return new MyView(modules[0], this);
+    return workbenchFxView;
   }
 }
