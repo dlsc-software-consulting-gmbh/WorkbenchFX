@@ -75,6 +75,10 @@ public class WorkbenchFxModel {
    * @param module the module to be opened or null to go to the home view
    */
   public void openModule(Module module) {
+    if (!modules.contains(module)) {
+      throw new IllegalArgumentException(
+          "Module was not passed in with the constructor of WorkbenchFxModel");
+    }
     activeModule.setValue(module);
   }
 
