@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -16,6 +17,7 @@ import javafx.scene.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
 
 /**
  * Created by François Martin on 20.03.18.
@@ -64,7 +66,12 @@ class WorkbenchFxModelTest {
     Module last = mockModules[2];
     // Open first
     model.openModule(first);
-    assertSame(mockNodes[0],model.activeModuleViewProperty().get());
+    assertSame(first,model.getActiveModule());
+    assertSame(mockNodes[0],model.getActiveModuleView());
+    assertEquals(1, model.getOpenModules().size());
+    InOrder inOrder = inOrder(first);
+    inOrder.verify(first).init(model);
+    inOrder.verify(first).activate();
     // Open last
 
     // Open last again
