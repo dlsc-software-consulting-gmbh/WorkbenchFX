@@ -85,6 +85,10 @@ dependencies {
     compile("org.apache.logging.log4j:log4j-core:${log4jVersion}")
     testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
     compile("org.apache.logging.log4j:log4j-api:${log4jVersion}")
+
+    // FontAwesomeFX
+    compile 'de.jensd:fontawesomefx-commons:9.1.2'
+    compile 'de.jensd:fontawesomefx-fontawesome:4.7.0-9.1.2'
 }
 
 asciidoctorj {
