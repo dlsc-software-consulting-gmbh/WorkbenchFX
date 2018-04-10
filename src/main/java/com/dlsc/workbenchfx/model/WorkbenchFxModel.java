@@ -65,4 +65,8 @@ public class WorkbenchFxModel {
     activeModule.setValue(module);
   }
 
+  public void closeModule(Module module) {
+
+  }
+
 }
