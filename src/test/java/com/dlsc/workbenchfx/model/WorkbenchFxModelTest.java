@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.calls;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.model.module.Module;
@@ -25,10 +27,15 @@ import org.mockito.InOrder;
 @Tag("fast")
 class WorkbenchFxModelTest {
 
+  private final static int SIZE = 3;
+
+  private static final int FIRST_INDEX = 0;
+  private static final int SECOND_INDEX = 1;
+  private static final int LAST_INDEX = SIZE-1;
   WorkbenchFxModel model;
 
-  Module[] mockModules = new Module[3];
-  Node[] mockNodes = new Node[3];
+  Module[] mockModules = new Module[SIZE];
+  Node[] mockNodes = new Node[SIZE];
 
   @BeforeEach
   void setUp() {
@@ -44,7 +51,7 @@ class WorkbenchFxModelTest {
       when(mockModules[i].activate()).thenReturn(mockNodes[i]);
       when(mockModules[i].destroy()).thenReturn(true);
     }
-    model = new WorkbenchFxModel(mockModules[0], mockModules[1], mockModules[2]);
+    model = new WorkbenchFxModel(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX], mockModules[LAST_INDEX]);
   }
 
   @Test
@@ -61,21 +68,33 @@ class WorkbenchFxModelTest {
 
   @Test
   void openModule() {
-    Module first = mockModules[0];
-    Module second = mockModules[1];
-    Module last = mockModules[2];
+    Module first = mockModules[FIRST_INDEX];
+    Module second = mockModules[SECOND_INDEX];
+    Module last = mockModules[LAST_INDEX];
     // Open first
     model.openModule(first);
     assertSame(first,model.getActiveModule());
-    assertSame(mockNodes[0],model.getActiveModuleView());
+    assertSame(mockNodes[FIRST_INDEX],model.getActiveModuleView());
     assertEquals(1, model.getOpenModules().size());
     InOrder inOrder = inOrder(first);
     inOrder.verify(first).init(model);
     inOrder.verify(first).activate();
     // Open last
-
+    model.openModule(last);
+    assertSame(last,model.getActiveModule());
+    assertSame(mockNodes[LAST_INDEX],model.getActiveModuleView());
+    assertEquals(2, model.getOpenModules().size());
+    inOrder = inOrder(first, last);
+    inOrder.verify(first).deactivate();
+    inOrder.verify(last).init(model);
+    inOrder.verify(last).activate();
     // Open last again
-
+    model.openModule(last);
+    assertSame(last,model.getActiveModule());
+    assertSame(mockNodes[LAST_INDEX],model.getActiveModuleView());
+    assertEquals(2, model.getOpenModules().size());
+    verify(last, calls(0)).init(model);
+    verify(last, calls(0)).deactivate();
     // Open first (already initialized)
 
     // Switch to home screen
