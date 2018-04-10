@@ -87,13 +87,12 @@ public class WorkbenchFxModel {
     if (openModules.size() == 1) {
       // go to home screen
       activeModule.setValue(null);
+    } else if (i == 0) {
+      // multiple modules open, leftmost is active
+      activeModule.setValue(openModules.get(i + 1));
+    } else {
+      activeModule.setValue(openModules.get(i - 1));
     }
-
-
-    else {
-      activeModule.setValue(openModules.get(i-1));
-    }
-
   }
 
 }
