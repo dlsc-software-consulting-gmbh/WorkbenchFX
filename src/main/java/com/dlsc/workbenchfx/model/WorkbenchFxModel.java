@@ -109,6 +109,10 @@ public class WorkbenchFxModel {
     return openModules.remove(module);
   }
 
+  public ObservableList<Module> getOpenModules() {
+    return FXCollections.unmodifiableObservableList(openModules);
+  }
+
   public ObservableList<Module> getModules() {
     return FXCollections.unmodifiableObservableList(modules);
   }
