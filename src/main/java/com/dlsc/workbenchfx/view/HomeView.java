@@ -5,17 +5,14 @@ import com.dlsc.workbenchfx.model.WorkbenchFxModel;
 import com.dlsc.workbenchfx.model.module.Module;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
-public class HomeView extends StackPane implements View {
+public class HomeView extends HBox implements View {
   private final WorkbenchFxModel model;
-  final Module[] modules;
-  private final WorkbenchFx workbench;
 
-  public HomeView(WorkbenchFxModel model, Module[] modules, WorkbenchFx workbench) {
+  public HomeView(WorkbenchFxModel model) {
     this.model = model;
-    this.modules = modules;
-    this.workbench = workbench;
     init();
   }
 
@@ -26,6 +23,6 @@ public class HomeView extends StackPane implements View {
 
   @Override
   public void layoutParts() {
-    getChildren().add(modules[0].getTile());
+    model.getModules().forEach(module -> getChildren().add(module.getTile()));
   }
 }

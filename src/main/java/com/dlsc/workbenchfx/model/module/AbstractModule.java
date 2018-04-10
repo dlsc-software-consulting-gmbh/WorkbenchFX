@@ -110,8 +110,8 @@ public abstract class AbstractModule implements Module {
    * {@inheritDoc}
    */
   @Override
-  public void destroy() {
-
+  public boolean destroy() {
+    return true;
   }
 
 }

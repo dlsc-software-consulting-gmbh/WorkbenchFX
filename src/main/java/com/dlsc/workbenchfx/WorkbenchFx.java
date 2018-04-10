@@ -40,19 +40,19 @@ public class WorkbenchFx {
   private WorkbenchFxPresenter workbenchFxPresenter;
 
   private WorkbenchFx(Module... modules) {
-    this.modules = modules;
+    workbenchFxModel = new WorkbenchFxModel(modules);
 
-    toolBarView = new ToolBarView(workbenchFxModel, modules, this);
+    toolBarView = new ToolBarView(workbenchFxModel);
     toolBarPresenter = new ToolBarPresenter(workbenchFxModel, toolBarView);
 
-    homeView = new HomeView(workbenchFxModel, modules, this);
+    homeView = new HomeView(workbenchFxModel);
     homePresenter = new HomePresenter(workbenchFxModel, homeView);
 
-    centerView = new CenterView(workbenchFxModel, modules, this);
+    centerView = new CenterView(workbenchFxModel);
     centerPresenter = new CenterPresenter(workbenchFxModel, centerView);
 
     workbenchFxView = new WorkbenchFxView(toolBarView, homeView, centerView);
-    workbenchFxPresenter = new WorkbenchFxPresenter(workbenchFxModel, modules, workbenchFxView, this);
+    workbenchFxPresenter = new WorkbenchFxPresenter(workbenchFxModel, workbenchFxView);
   }
 
   /**

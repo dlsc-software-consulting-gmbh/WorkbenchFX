@@ -13,14 +13,10 @@ import javafx.scene.layout.HBox;
 
 public class ToolBarView extends HBox implements View{
   private final WorkbenchFxModel model;
-  private final Module[] modules;
-  private final WorkbenchFx workbench;
   final Button homeBtn = new Button("Home");
 
-  public ToolBarView(WorkbenchFxModel model, Module[] modules, WorkbenchFx workbench) {
+  public ToolBarView(WorkbenchFxModel model) {
     this.model = model;
-    this.modules = modules;
-    this.workbench = workbench;
     init();
   }
 
