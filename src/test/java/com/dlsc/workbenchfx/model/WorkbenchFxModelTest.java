@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -46,6 +47,10 @@ class WorkbenchFxModelTest {
     for (int i = 0; i < mockModules.length; i++) {
       assertSame(mockModules[i], model.getModules().get(i));
     }
+
+    assertEquals(0, model.getOpenModules().size());
+
+    assertNull(model.activeModuleViewProperty().get());
   }
 
   @Test
