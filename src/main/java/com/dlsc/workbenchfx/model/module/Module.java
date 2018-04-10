@@ -25,16 +25,16 @@ public interface Module {
     /**
      * Gets called when the module is being opened from the overview for the first time.
      * @param workbench the calling workbench object
-     * @return content to be displayed in this module
      */
-    Node init(WorkbenchFxModel workbench);
+    void init(WorkbenchFxModel workbench);
 
     /**
      * Gets called whenever the currently displayed content is being switched to this module.
      * @implNote if a module is being opened from the overview for the first time, it will
      * get initialized first by calling init(), afterwards activate() will be called.
+     * @return content to be displayed in this module
      */
-    void activate();
+    Node activate();
 
     /**
      * Gets called whenever this module is the currently displayed content and the content is being
