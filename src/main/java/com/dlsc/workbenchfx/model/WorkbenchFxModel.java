@@ -89,6 +89,11 @@ public class WorkbenchFxModel {
     if (i == -1) {
       throw new IllegalArgumentException("Module has not been loaded yet.");
     }
+    // attemtp to destroy module
+    if (!module.destroy()) {
+      // module should or could not be destroyed
+      return false;
+    }
     // set new active module
     Module active;
     if (openModules.size() == 1) {
@@ -101,6 +106,7 @@ public class WorkbenchFxModel {
       active = openModules.get(i - 1);
     }
     activeModule.setValue(active);
+    return openModules.remove(module);;
   }
 
   public ObservableList<Module> getModules() {
