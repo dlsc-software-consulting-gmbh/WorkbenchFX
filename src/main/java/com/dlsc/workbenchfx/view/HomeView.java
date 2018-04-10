@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.view;
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
 import com.dlsc.workbenchfx.model.module.Module;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
@@ -15,6 +16,7 @@ public class HomeView extends GridPane implements View {
     this.model = model;
     this.modules = modules;
     this.workbench = workbench;
+    init();
   }
 
   @Override
@@ -24,6 +26,7 @@ public class HomeView extends GridPane implements View {
 
   @Override
   public void layoutParts() {
-
+    add(modules[0].getTile(), 0, 0);
+    System.out.println("done");
   }
 }
