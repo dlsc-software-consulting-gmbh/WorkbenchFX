@@ -121,6 +121,18 @@ public class WorkbenchFxModel {
     return FXCollections.unmodifiableObservableList(modules);
   }
 
+  public Module getActiveModule() {
+    return activeModule.get();
+  }
+
+  public ReadOnlyObjectProperty<Module> activeModuleProperty() {
+    return activeModule;
+  }
+
+  public Node getActiveModuleView() {
+    return activeModuleView.get();
+  }
+
   public ReadOnlyObjectProperty<Node> activeModuleViewProperty() {
     return activeModuleView;
   }
