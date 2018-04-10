@@ -72,6 +72,7 @@ public class WorkbenchFxModel {
 
   /**
    * Opens the {@code module} in a new tab, if it isn't initialized yet or else opens the tab of it.
+   *
    * @param module the module to be opened or null to go to the home view
    */
   public void openModule(Module module) {
@@ -88,13 +89,14 @@ public class WorkbenchFxModel {
     if (openModules.size() == 1) {
       // go to home screen
       activeModule.setValue(null);
+    } else {
+      activeModule.setValue(openModules.get(i - 1));
     }
 
+  }
 
-    else {
-      activeModule.setValue(openModules.get(i-1));
-    }
-
+  public ObservableList<Module> getOpenModules() {
+    return FXCollections.unmodifiableObservableList(openModules);
   }
 
   public ObservableList<Module> getModules() {

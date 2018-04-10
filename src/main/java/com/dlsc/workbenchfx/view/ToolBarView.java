@@ -11,7 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
-public class ToolBarView extends HBox implements View{
+public class ToolBarView extends HBox implements View {
   private final WorkbenchFxModel model;
   final Button homeBtn = new Button("Home");
 
@@ -33,14 +33,7 @@ public class ToolBarView extends HBox implements View{
    */
   @Override
   public void layoutParts() {
-    getChildren().add(
-        homeBtn
-    );
+    getChildren().add(homeBtn);
   }
 
-  public void trigger(Node tab) {
-    if(!getChildren().contains(tab)){
-      getChildren().add(tab);
-    }
-  }
 }
