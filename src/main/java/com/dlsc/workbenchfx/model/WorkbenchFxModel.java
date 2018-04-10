@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.model;
 import com.dlsc.workbenchfx.model.module.Module;
 import java.util.Objects;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -99,4 +100,11 @@ public class WorkbenchFxModel {
     }
   }
 
+  public ObservableList<Module> getModules() {
+    return FXCollections.unmodifiableObservableList(modules);
+  }
+
+  public ReadOnlyObjectProperty<Node> activeModuleViewProperty() {
+    return activeModuleView;
+  }
 }

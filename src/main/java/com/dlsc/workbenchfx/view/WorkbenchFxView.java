@@ -1,6 +1,11 @@
 package com.dlsc.workbenchfx.view;
 
+import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
+import com.dlsc.workbenchfx.model.module.Module;
+import com.dlsc.workbenchfx.view.module.TabControl;
+import com.dlsc.workbenchfx.view.module.TileControl;
+import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,16 +19,17 @@ import org.apache.logging.log4j.Logger;
 public class WorkbenchFxView extends BorderPane implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchFxView.class.getName());
-
-  private WorkbenchFxModel model;
+  final ToolBarView toolBarView;
+  final HomeView homeView;
+  final CenterView centerView;
 
   /**
    * Displays all of the view parts, representing the master view.
-   *
-   * @param model the model of WorkbenchFX
    */
-  public WorkbenchFxView(WorkbenchFxModel model) {
-    this.model = model;
+  public WorkbenchFxView(ToolBarView toolBarView, HomeView homeView, CenterView centerView) {
+    this.toolBarView = toolBarView;
+    this.homeView = homeView;
+    this.centerView = centerView;
     init();
   }
 
@@ -48,7 +54,8 @@ public class WorkbenchFxView extends BorderPane implements View {
    */
   @Override
   public void layoutParts() {
-
+    setTop(toolBarView);
+    setCenter(centerView);
   }
 
   /**
