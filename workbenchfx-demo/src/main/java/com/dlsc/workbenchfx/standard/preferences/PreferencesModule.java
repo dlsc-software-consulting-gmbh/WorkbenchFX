@@ -12,7 +12,7 @@ public class PreferencesModule extends AbstractModule {
   }
 
   @Override
-  public Node init(WorkbenchFxModel workbench) {
+  public Node activate() {
     return new PreferencesView();
   }
 
