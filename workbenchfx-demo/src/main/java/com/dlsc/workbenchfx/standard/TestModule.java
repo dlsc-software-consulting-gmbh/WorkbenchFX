@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.standard;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.model.WorkbenchFxModel;
 import com.dlsc.workbenchfx.model.module.AbstractModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.scene.Node;
@@ -12,7 +12,7 @@ public class TestModule extends AbstractModule {
   }
 
   @Override
-  public Node init(WorkbenchFx workbench) {
+  public Node init(WorkbenchFxModel workbench) {
     return new TestView();
   }
 

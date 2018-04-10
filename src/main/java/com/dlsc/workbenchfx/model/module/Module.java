@@ -1,8 +1,6 @@
 package com.dlsc.workbenchfx.model.module;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import com.dlsc.workbenchfx.model.WorkbenchFxModel;
 import javafx.scene.Node;
 
 /**
@@ -29,7 +27,7 @@ public interface Module {
      * @param workbench the calling workbench object
      * @return content to be displayed in this module
      */
-    Node init(WorkbenchFx workbench);
+    Node init(WorkbenchFxModel workbench);
 
     /**
      * Gets called whenever the currently displayed content is being switched to this module.
