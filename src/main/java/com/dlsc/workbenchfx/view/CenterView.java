@@ -18,11 +18,17 @@ public class CenterView extends StackPane implements View {
     this.workbench = workbench;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void initializeParts() {
 
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void layoutParts() {
 

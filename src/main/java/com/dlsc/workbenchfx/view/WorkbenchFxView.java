@@ -23,13 +23,6 @@ public class WorkbenchFxView extends BorderPane implements View {
   final HomeView homeView;
   final CenterView centerView;
 
-//  private WorkbenchFxModel model;
-//  private Module testModule;
-//  private WorkbenchFx workbench;
-//  private TabControl tabcon;
-//  private TileControl tilecon;
-//  private Node testView;
-
   /**
    * Displays all of the view parts, representing the master view.
    */
@@ -53,9 +46,7 @@ public class WorkbenchFxView extends BorderPane implements View {
    */
   @Override
   public void initializeParts() {
-//    tabcon = (TabControl) testModule.getTab();
-//    tilecon = (TileControl) testModule.getTile();
-//    testView = testModule.init(workbench);
+
   }
 
   /**
@@ -63,10 +54,6 @@ public class WorkbenchFxView extends BorderPane implements View {
    */
   @Override
   public void layoutParts() {
-//    setTop(tabcon);
-//    setLeft(tilecon);
-//    setCenter(testView);
-
     setTop(toolBarView);
     setCenter(centerView);
   }

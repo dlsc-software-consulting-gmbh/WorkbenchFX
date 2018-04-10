@@ -46,13 +46,13 @@ public class WorkbenchFx {
     toolBarPresenter = new ToolBarPresenter(workbenchFxModel, toolBarView);
 
     homeView = new HomeView(workbenchFxModel, modules, this);
-    homePresenter = new HomePresenter(workbenchFxModel, toolBarView);
+    homePresenter = new HomePresenter(workbenchFxModel, homeView);
 
     centerView = new CenterView(workbenchFxModel, modules, this);
-    centerPresenter = new CenterPresenter(workbenchFxModel, toolBarView);
+    centerPresenter = new CenterPresenter(workbenchFxModel, centerView);
 
     workbenchFxView = new WorkbenchFxView(toolBarView, homeView, centerView);
-    workbenchFxPresenter = new WorkbenchFxPresenter(workbenchFxModel, workbenchFxView);
+    workbenchFxPresenter = new WorkbenchFxPresenter(workbenchFxModel, modules, workbenchFxView, this);
   }
 
   /**

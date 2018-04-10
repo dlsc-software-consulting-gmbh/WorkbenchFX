@@ -7,9 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
-public class HomeView extends GridPane implements View {
+public class HomeView extends StackPane implements View {
   private final WorkbenchFxModel model;
-  private final Module[] modules;
+  final Module[] modules;
   private final WorkbenchFx workbench;
 
   public HomeView(WorkbenchFxModel model, Module[] modules, WorkbenchFx workbench) {
@@ -26,7 +26,6 @@ public class HomeView extends GridPane implements View {
 
   @Override
   public void layoutParts() {
-    add(modules[0].getTile(), 0, 0);
-    System.out.println("done");
+    getChildren().add(modules[0].getTile());
   }
 }
