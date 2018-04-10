@@ -34,6 +34,8 @@ public class WorkbenchFxModel {
   /**
    * Currently active module.
    * Active module is the module, which is currently being displayed in the view.
+   * When the home screen is being displayed, {@code activeModule} and {@code activeModuleView}
+   * are null.
    */
   private final ObjectProperty<Module> activeModule = new SimpleObjectProperty<>();
   private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
@@ -43,10 +45,10 @@ public class WorkbenchFxModel {
    */
   public WorkbenchFxModel(Module... modules) {
     this.modules.addAll(modules);
-    initLifeCycle();
+    initLifecycle();
   }
 
-  private void initLifeCycle() {
+  private void initLifecycle() {
     activeModule.addListener((observable, oldModule, newModule) -> {
       if (oldModule != newModule) {
         if (oldModule != null) {
@@ -68,6 +70,11 @@ public class WorkbenchFxModel {
   }
 
   public void closeModule(Module module) {
+    Objects.requireNonNull(module);
+    int i = openModules.indexOf(module);
+    if (i == -1) {
+      throw new IllegalArgumentException("Module has not been loaded yet.");
+    }
 
   }
 
