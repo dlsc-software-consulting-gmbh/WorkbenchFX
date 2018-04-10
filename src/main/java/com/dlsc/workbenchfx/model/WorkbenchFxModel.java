@@ -64,6 +64,7 @@ public class WorkbenchFxModel {
         if (!openModules.contains(newModule)) {
           // module has not been loaded yet
           newModule.init(this);
+          openModules.add(newModule);
         }
         activeModuleView.setValue(newModule.activate());
       }
@@ -80,7 +81,6 @@ public class WorkbenchFxModel {
           "Module was not passed in with the constructor of WorkbenchFxModel");
     }
     activeModule.setValue(module);
-    openModules.add(module);
   }
 
   /**
