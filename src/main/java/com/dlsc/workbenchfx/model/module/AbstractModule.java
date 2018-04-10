@@ -1,9 +1,12 @@
 package com.dlsc.workbenchfx.model.module;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * Skeletal implementation of a {@link Module}.
@@ -11,7 +14,9 @@ import javafx.scene.Node;
  */
 public abstract class AbstractModule implements Module {
   private final String name;
-  private final Node icon;
+
+  private final Node tileIcon;
+  private final Node tabIcon;
 
   protected Node tile;
   protected Node tab;
@@ -22,9 +27,30 @@ public abstract class AbstractModule implements Module {
    * @param name of this module
    * @param icon of this module
    */
-  protected AbstractModule(String name, Node icon) {
+  protected AbstractModule(String name, Image icon) {
     this.name = name;
-    this.icon = icon;
+    this.tileIcon = new ImageView(icon);
+    this.tabIcon = new ImageView(icon);
+  }
+
+  /**
+   * Super constructor to be called by the implementing class.
+   *
+   * @param name of this module
+   * @param icon of this module
+   */
+  protected AbstractModule(String name, FontAwesomeIcon icon) {
+    this.name = name;
+    this.tileIcon = new FontAwesomeIconView(icon);
+    this.tabIcon = new FontAwesomeIconView(icon);
+  }
+
+  /**
+   * Super constructor to be called by the implementing class.
+   */
+  protected AbstractModule(Node tileIcon, Node tabIcon) {
+    this.tileIcon = tileIcon;
+    this.tabIcon = tabIcon;
   }
 
   /**
@@ -33,7 +59,7 @@ public abstract class AbstractModule implements Module {
   @Override
   public Node getTab() {
     if (tab == null) {
-      tab = new TabControl(name, icon);
+      tab = new TabControl(name, tabIcon);
     }
     return tab;
   }
@@ -44,7 +70,7 @@ public abstract class AbstractModule implements Module {
   @Override
   public Node getTile() {
     if (tile == null) {
-      tile = new TileControl(name, icon);
+      tile = new TileControl(name, tileIcon);
     }
     return tile;
   }
