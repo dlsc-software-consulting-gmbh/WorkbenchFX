@@ -74,7 +74,6 @@ public class WorkbenchFxModel {
    * @param module the module to be opened or null to go to the home view
    */
   public void openModule(Module module) {
-    Objects.requireNonNull(module);
     activeModule.setValue(module);
   }
 
@@ -88,7 +87,10 @@ public class WorkbenchFxModel {
     if (openModules.size() == 1) {
       // go to home screen
       activeModule.setValue(null);
-    } else {
+    }
+
+
+    else {
       activeModule.setValue(openModules.get(i-1));
     }
 
