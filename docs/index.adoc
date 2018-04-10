@@ -153,6 +153,19 @@ It contains the least used tools, or tools which are needed at the end of the pr
 ==== The way creating the workbench
 
 === Challenges
+Setting the node-icon twice:
+When creating a new module, one declares a node or an icon for visualizing the module.
+After creation, a tab- and a tile-view is created and displayed.
+Sadly, the given icon is displayed in only one of the two views.
+A short research reveals the problem:
+https://stackoverflow.com/questions/27696414/javafx-why-does-adding-a-node-to-a-pane-multiple-times-or-to-different-panes-r[Stack Overflow]
+
+Every `Node` has a `Parent`.
+When creating a `TabControl`, the Compiler references the TabControl as the Parent of the icon.
+In a next step, we create the `TileControl`.
+The Compiler redirects now the Parent-reference of TabControl to the TileControl.
+As a result, the icon is only displayed in the TileControl.
+
 
 === Architecture
 WorkbenchFX seems like a gigantic pane.
