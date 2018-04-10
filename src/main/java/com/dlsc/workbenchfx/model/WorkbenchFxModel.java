@@ -6,6 +6,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,6 +36,7 @@ public class WorkbenchFxModel {
    * Active module is the module, which is currently being displayed in the view.
    */
   private final ObjectProperty<Module> activeModule = new SimpleObjectProperty<>();
+  private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
   /**
    * Initializes a new model.
@@ -53,7 +55,7 @@ public class WorkbenchFxModel {
         }
         if (!openModules.contains(newModule)) {
           // module has not been loaded yet
-          newModule.init(this);
+          activeModuleView.setValue(newModule.init(this));
         }
         newModule.activate();
       }
