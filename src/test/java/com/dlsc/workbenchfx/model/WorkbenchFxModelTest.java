@@ -18,9 +18,19 @@ import org.junit.jupiter.api.TestInfo;
 @Tag("fast")
 class WorkbenchFxModelTest {
 
+  WorkbenchFxModel model;
+  Module mockModule1 = mock(Module.class);
+
   @BeforeEach
   void setUp() {
-
+    model = new WorkbenchFxModel();
   }
 
+  @Test
+  void openModule() {
+  }
+
+  @Test
+  void closeModule() {
+  }
 }
