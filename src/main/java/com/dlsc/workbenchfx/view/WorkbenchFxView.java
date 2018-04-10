@@ -21,8 +21,8 @@ public class WorkbenchFxView extends BorderPane implements View {
       LogManager.getLogger(WorkbenchFxView.class.getName());
 
   private WorkbenchFxModel model;
-  private final Module testModule;
-  private final WorkbenchFx workbench;
+  private Module testModule;
+  private WorkbenchFx workbench;
   private TabControl tabcon;
   private TileControl tilecon;
   private Node testView;
@@ -37,6 +37,11 @@ public class WorkbenchFxView extends BorderPane implements View {
     this.testModule = testModule;
     this.workbench = workbench;
     init();
+  }
+
+  public WorkbenchFxView(ToolBarView toolBarView, CenterView centerView) {
+    setTop(toolBarView);
+    setCenter(centerView);
   }
 
   /**
