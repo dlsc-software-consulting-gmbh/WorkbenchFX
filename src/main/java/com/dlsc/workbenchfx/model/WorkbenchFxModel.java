@@ -55,15 +55,24 @@ public class WorkbenchFxModel {
           // a different module is currently active
           oldModule.deactivate();
         }
+        if (newModule == null) {
+          // switch to home screen
+          activeModuleView.setValue(null);
+          return;
+        }
         if (!openModules.contains(newModule)) {
           // module has not been loaded yet
-          activeModuleView.setValue(newModule.init(this));
+          newModule.init(this);
         }
-        newModule.activate();
+        activeModuleView.setValue(newModule.activate());
       }
     });
   }
 
+  /**
+   * Opens the {@code module} in a new tab, if it isn't initialized yet or else opens the tab of it.
+   * @param module the module to be opened or null to go to the home view
+   */
   public void openModule(Module module) {
     Objects.requireNonNull(module);
     activeModule.setValue(module);
@@ -74,6 +83,13 @@ public class WorkbenchFxModel {
     int i = openModules.indexOf(module);
     if (i == -1) {
       throw new IllegalArgumentException("Module has not been loaded yet.");
+    }
+    // set new active module
+    if (openModules.size() == 1) {
+      // go to home screen
+      activeModule.setValue(null);
+    } else {
+      activeModule.setValue(openModules.get(i-1));
     }
 
   }
