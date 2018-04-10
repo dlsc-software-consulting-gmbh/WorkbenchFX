@@ -1,6 +1,8 @@
 package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.model.module.Module;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.logging.log4j.LogManager;
@@ -16,17 +18,28 @@ public class WorkbenchFxModel {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchFxModel.class.getName());
 
+  /**
+   * List of all modules.
+   */
   private final ObservableList<Module> modules = FXCollections.observableArrayList();
+
+  /**
+   * List of all currently open modules.
+   * Open modules are being displayed as open tabs in the application.
+   */
+  private final ObservableList<Module> openModules = FXCollections.observableArrayList();
+
+  /**
+   * Currently active module.
+   * Active module is the module, which is currently being displayed in the view.
+   */
+  private final ObjectProperty<Module> activeModule = new SimpleObjectProperty<>();
 
   /**
    * Initializes a new model.
    */
   public WorkbenchFxModel(Module... modules) {
     this.modules.addAll(modules);
-  }
-
-  public int add(int a, int b) {
-    return a + b;
   }
 
 }
