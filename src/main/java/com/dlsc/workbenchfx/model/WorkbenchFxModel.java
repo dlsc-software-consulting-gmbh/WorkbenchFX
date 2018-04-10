@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.model.module.Module;
+import java.util.Objects;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -40,6 +41,25 @@ public class WorkbenchFxModel {
    */
   public WorkbenchFxModel(Module... modules) {
     this.modules.addAll(modules);
+  }
+
+  public void openModule(Module module) {
+    Objects.requireNonNull(module);
+    Module currentModule = activeModule.get();
+    if (currentModule == module) {
+      return; // an already open module can't be opened again
+    }
+    // Follow lifecycle
+    if (currentModule != null) {
+      // a different module is currently active
+      currentModule.deactivate();
+    }
+    if (!openModules.contains(module)) {
+      // module has not been loaded yet
+      module.init(this);
+    }
+    activeModule.setValue(module);
+    module.activate();
   }
 
 }
