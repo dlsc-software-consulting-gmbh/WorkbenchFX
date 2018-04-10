@@ -45,6 +45,12 @@ public abstract class AbstractModule implements Module {
 
   /**
    * Super constructor to be called by the implementing class.
+   *
+   * @param name     of this module
+   * @param tileIcon node to be used for the icon of the tile in the home screen
+   * @param tabIcon  node to be used for the icon of the tab
+   * @throws IllegalArgumentException if tileIcon == tabIcon, since one {@link Node} instance
+   *                                  can only be displayed once in a JavaFX scene graph.
    */
   protected AbstractModule(String name, Node tileIcon, Node tabIcon) {
     WorkbenchFxUtils.assertNodeNotSame(tileIcon, tabIcon);
@@ -55,6 +61,11 @@ public abstract class AbstractModule implements Module {
 
   /**
    * Super constructor to be called by the implementing class.
+   *
+   * @param tile node to be used for the tile control in the home screen
+   * @param tab  node to be used for the tab control
+   * @throws IllegalArgumentException if tile == tab, since one {@link Node} instance
+   *                                  can only be displayed once in a JavaFX scene graph.
    */
   protected AbstractModule(Node tile, Node tab) {
     WorkbenchFxUtils.assertNodeNotSame(tile, tab);
