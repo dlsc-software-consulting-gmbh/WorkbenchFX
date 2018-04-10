@@ -4,6 +4,8 @@ import com.dlsc.workbenchfx.model.WorkbenchFxModel;
 import com.dlsc.workbenchfx.model.module.Module;
 import com.dlsc.workbenchfx.view.CenterPresenter;
 import com.dlsc.workbenchfx.view.CenterView;
+import com.dlsc.workbenchfx.view.HomePresenter;
+import com.dlsc.workbenchfx.view.HomeView;
 import com.dlsc.workbenchfx.view.ToolBarPresenter;
 import com.dlsc.workbenchfx.view.ToolBarView;
 import com.dlsc.workbenchfx.view.WorkbenchFxPresenter;
@@ -28,6 +30,9 @@ public class WorkbenchFx {
   private ToolBarView toolBarView;
   private ToolBarPresenter toolBarPresenter;
 
+  private HomeView homeView;
+  private HomePresenter homePresenter;
+
   private CenterView centerView;
   private CenterPresenter centerPresenter;
 
@@ -40,10 +45,13 @@ public class WorkbenchFx {
     toolBarView = new ToolBarView(workbenchFxModel, modules, this);
     toolBarPresenter = new ToolBarPresenter(workbenchFxModel, toolBarView);
 
+    homeView = new HomeView(workbenchFxModel, modules, this);
+    homePresenter = new HomePresenter(workbenchFxModel, toolBarView);
+
     centerView = new CenterView(workbenchFxModel, modules, this);
     centerPresenter = new CenterPresenter(workbenchFxModel, toolBarView);
 
-    workbenchFxView = new WorkbenchFxView(toolBarView, centerView);
+    workbenchFxView = new WorkbenchFxView(toolBarView, homeView, centerView);
     workbenchFxPresenter = new WorkbenchFxPresenter(workbenchFxModel, workbenchFxView);
   }
 

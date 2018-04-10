@@ -19,6 +19,9 @@ import org.apache.logging.log4j.Logger;
 public class WorkbenchFxView extends BorderPane implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchFxView.class.getName());
+  final ToolBarView toolBarView;
+  final HomeView homeView;
+  final CenterView centerView;
 
   private WorkbenchFxModel model;
   private Module testModule;
@@ -29,19 +32,12 @@ public class WorkbenchFxView extends BorderPane implements View {
 
   /**
    * Displays all of the view parts, representing the master view.
-   *
-   * @param model the model of WorkbenchFX
    */
-  public WorkbenchFxView(WorkbenchFxModel model, Module testModule, WorkbenchFx workbench) {
-    this.model = model;
-    this.testModule = testModule;
-    this.workbench = workbench;
+  public WorkbenchFxView(ToolBarView toolBarView, HomeView homeView, CenterView centerView) {
+    this.toolBarView = toolBarView;
+    this.homeView = homeView;
+    this.centerView = centerView;
     init();
-  }
-
-  public WorkbenchFxView(ToolBarView toolBarView, CenterView centerView) {
-    setTop(toolBarView);
-    setCenter(centerView);
   }
 
   /**
@@ -70,6 +66,9 @@ public class WorkbenchFxView extends BorderPane implements View {
     setTop(tabcon);
     setLeft(tilecon);
     setCenter(testView);
+
+    setTop(toolBarView);
+    setCenter(centerView);
   }
 
   /**

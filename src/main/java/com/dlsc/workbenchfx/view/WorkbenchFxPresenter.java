@@ -15,17 +15,17 @@ public class WorkbenchFxPresenter implements Presenter {
       LogManager.getLogger(WorkbenchFxPresenter.class.getName());
 
   private WorkbenchFxModel model;
-  private WorkbenchFxView workbenchFxView;
+  private WorkbenchFxView view;
 
   /**
    * Constructs a new presenter for the {@link WorkbenchFxView}.
    *
    * @param model           the model of WorkbenchFX
-   * @param workbenchFxView corresponding view to this presenter
+   * @param view corresponding view to this presenter
    */
-  public WorkbenchFxPresenter(WorkbenchFxModel model, WorkbenchFxView workbenchFxView) {
+  public WorkbenchFxPresenter(WorkbenchFxModel model, WorkbenchFxView view) {
     this.model = model;
-    this.workbenchFxView = workbenchFxView;
+    this.view = view;
     init();
   }
 
@@ -34,7 +34,7 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-
+    view.centerView.setContentNode(view.homeView);
   }
 
   /**
