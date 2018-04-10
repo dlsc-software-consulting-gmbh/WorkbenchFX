@@ -81,8 +81,9 @@ public class WorkbenchFxModel {
   /**
    * Closes the {@code module}.
    * @param module to be closed
+   * @return true if closing was successful
    */
-  public void closeModule(Module module) {
+  public boolean closeModule(Module module) {
     Objects.requireNonNull(module);
     int i = openModules.indexOf(module);
     if (i == -1) {
@@ -98,6 +99,7 @@ public class WorkbenchFxModel {
     } else {
       activeModule.setValue(openModules.get(i - 1));
     }
+
   }
 
   public ObservableList<Module> getModules() {
