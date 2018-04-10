@@ -48,8 +48,10 @@ public interface Module {
 
     /**
      * Gets called when this module is explicitly being closed by the user in the toolbar.
+     *
+     * @return true if successful
      */
-    void destroy();
+    boolean destroy();
 
 
 
