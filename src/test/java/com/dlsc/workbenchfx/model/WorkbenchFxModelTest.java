@@ -1,5 +1,7 @@
 package com.dlsc.workbenchfx.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -36,6 +38,14 @@ class WorkbenchFxModelTest {
       when(mockModules[i].destroy()).thenReturn(true);
     }
     model = new WorkbenchFxModel(mockModules[0], mockModules[1], mockModules[2]);
+  }
+
+  @Test
+  void testCtor(){
+    assertEquals(mockModules.length, model.getModules().size());
+    for (int i = 0; i < mockModules.length; i++) {
+      assertSame(mockModules[i], model.getModules().get(i));
+    }
   }
 
   @Test
