@@ -80,6 +80,7 @@ public class WorkbenchFxModel {
           "Module was not passed in with the constructor of WorkbenchFxModel");
     }
     activeModule.setValue(module);
+    openModules.add(module);
   }
 
   /**
