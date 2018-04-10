@@ -5,9 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.calls;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -93,8 +94,8 @@ class WorkbenchFxModelTest {
     assertSame(last,model.getActiveModule());
     assertSame(mockNodes[LAST_INDEX],model.getActiveModuleView());
     assertEquals(2, model.getOpenModules().size());
-    verify(last, calls(0)).init(model);
-    verify(last, calls(0)).deactivate();
+    verify(last, times(1)).init(model);
+    verify(last, never()).deactivate();
     // Open first (already initialized)
 
     // Switch to home screen
