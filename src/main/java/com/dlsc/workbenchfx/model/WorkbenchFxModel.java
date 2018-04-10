@@ -106,7 +106,7 @@ public class WorkbenchFxModel {
       active = openModules.get(i - 1);
     }
     activeModule.setValue(active);
-    return openModules.remove(module);;
+    return openModules.remove(module);
   }
 
   public ObservableList<Module> getModules() {
