@@ -77,6 +77,10 @@ public class WorkbenchFxModel {
     activeModule.setValue(module);
   }
 
+  /**
+   * Closes the {@code module}.
+   * @param module to be closed
+   */
   public void closeModule(Module module) {
     Objects.requireNonNull(module);
     int i = openModules.indexOf(module);
