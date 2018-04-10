@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -65,6 +66,11 @@ class WorkbenchFxModelTest {
 
   @Test
   void closeModuleInvalid() {
-
+    // Test for null
+    assertThrows(NullPointerException.class, () -> model.closeModule(null));
+    // Test if closing a module not included in the modules at all throws an exception
+    assertThrows(IllegalArgumentException.class, () -> model.closeModule(mock(Module.class)));
+    // Test if closing a module not opened throws an exception
+    assertThrows(IllegalArgumentException.class, () -> model.closeModule(mockModules[0]));
   }
 }
