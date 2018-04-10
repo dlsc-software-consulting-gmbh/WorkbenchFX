@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
  * Extend this class to simply implement a new module and override methods as needed.
  */
 public abstract class AbstractModule implements Module {
-  private final String name;
+  private final String name = "";
 
   private final Node tileIcon;
   private final Node tabIcon;
