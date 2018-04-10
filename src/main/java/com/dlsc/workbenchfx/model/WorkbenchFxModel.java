@@ -41,7 +41,7 @@ public class WorkbenchFxModel {
    */
   public WorkbenchFxModel(Module... modules) {
     this.modules.addAll(modules);
-    initLifeCycle()
+    initLifeCycle();
   }
 
   private void initLifeCycle() {
