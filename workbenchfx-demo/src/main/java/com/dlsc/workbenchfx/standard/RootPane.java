@@ -65,7 +65,9 @@ public class RootPane extends StackPane {
   //IntegerField customControl = setupCustomControl();
 
   public RootPane() {
-    workbenchFx = WorkbenchFx.of();
+    workbenchFx = WorkbenchFx.of(
+        new TestModule()
+    );
     getChildren().add(new DemoView(workbenchFx));
   }
 

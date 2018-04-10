@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx;
+package com.dlsc.workbenchfx.standard;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;

@@ -24,4 +24,6 @@ compileTestJava {
 dependencies {
     // Root project
     compile rootProject
+    compile 'de.jensd:fontawesomefx-commons:9.1.2'
+    compile 'de.jensd:fontawesomefx-fontawesome:4.7.0-9.1.2'
 }
