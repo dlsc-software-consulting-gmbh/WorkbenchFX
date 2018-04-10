@@ -4,10 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.model.module.Module;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,6 +59,17 @@ class WorkbenchFxModelTest {
 
   @Test
   void openModule() {
+    // Open first
+
+    // Open last
+
+    // Open last again
+
+    // Open first (already initialized)
+
+    // Switch to home screen
+
+    // Open second
 
   }
 
@@ -79,5 +93,24 @@ class WorkbenchFxModelTest {
     assertThrows(IllegalArgumentException.class, () -> model.closeModule(mock(Module.class)));
     // Test if closing a module not opened throws an exception
     assertThrows(IllegalArgumentException.class, () -> model.closeModule(mockModules[0]));
+  }
+
+  @Test
+  void getOpenModules() {
+    ObservableList<Module> modules = model.getOpenModules();
+    // Test if unmodifiable list is returned
+    assertThrows(UnsupportedOperationException.class, () -> modules.remove(0));
+  }
+
+  @Test
+  void getModules() {
+    ObservableList<Module> modules = model.getModules();
+    // Test if unmodifiable list is returned
+    assertThrows(UnsupportedOperationException.class, () -> modules.remove(0));
+  }
+
+  @Test
+  void activeModuleViewProperty() {
+    assertTrue(model.activeModuleViewProperty() instanceof ReadOnlyObjectProperty);
   }
 }
