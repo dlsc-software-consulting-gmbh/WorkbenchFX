@@ -59,8 +59,12 @@ class WorkbenchFxModelTest {
 
   @Test
   void openModule() {
+    Module first = mockModules[0];
+    Module second = mockModules[1];
+    Module last = mockModules[2];
     // Open first
-
+    model.openModule(first);
+    assertSame(mockNodes[0],model.activeModuleViewProperty().get());
     // Open last
 
     // Open last again
@@ -112,5 +116,10 @@ class WorkbenchFxModelTest {
   @Test
   void activeModuleViewProperty() {
     assertTrue(model.activeModuleViewProperty() instanceof ReadOnlyObjectProperty);
+  }
+
+  @Test
+  void activeModuleProperty() {
+    assertTrue(model.activeModuleProperty() instanceof ReadOnlyObjectProperty);
   }
 }
