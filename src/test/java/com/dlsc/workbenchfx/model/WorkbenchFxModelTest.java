@@ -97,7 +97,14 @@ class WorkbenchFxModelTest {
     verify(last, times(1)).init(model);
     verify(last, never()).deactivate();
     // Open first (already initialized)
-
+    model.openModule(first);
+    assertSame(first,model.getActiveModule());
+    assertSame(mockNodes[FIRST_INDEX],model.getActiveModuleView());
+    assertEquals(2, model.getOpenModules().size());
+    verify(first, times(1)).init(model);
+    inOrder = inOrder(first, last);
+    inOrder.verify(last).deactivate();
+    inOrder.verify(first).activate();
     // Switch to home screen
 
     // Open second
