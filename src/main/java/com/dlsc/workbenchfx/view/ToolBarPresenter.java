@@ -17,6 +17,7 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void setupEventHandlers() {
+    // When the home button is clicked, the view changes
     view.homeBtn.setOnAction(event -> model.openModule(null));
   }
 

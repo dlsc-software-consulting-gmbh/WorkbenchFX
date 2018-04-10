@@ -23,7 +23,6 @@ import org.apache.logging.log4j.Logger;
 public class WorkbenchFx {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchFx.class.getName());
-  private final Module[] modules;
 
   private WorkbenchFxModel workbenchFxModel;
 

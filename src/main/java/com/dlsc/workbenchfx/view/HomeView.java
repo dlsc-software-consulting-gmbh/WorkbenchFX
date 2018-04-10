@@ -23,6 +23,7 @@ public class HomeView extends HBox implements View {
 
   @Override
   public void layoutParts() {
+    // Adds the module-tiles to the view
     model.getModules().forEach(module -> getChildren().add(module.getTile()));
   }
 }
