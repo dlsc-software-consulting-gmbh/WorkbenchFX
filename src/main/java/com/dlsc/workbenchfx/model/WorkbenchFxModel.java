@@ -6,6 +6,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,31 +36,39 @@ public class WorkbenchFxModel {
    * Active module is the module, which is currently being displayed in the view.
    */
   private final ObjectProperty<Module> activeModule = new SimpleObjectProperty<>();
+  private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
   /**
    * Initializes a new model.
    */
   public WorkbenchFxModel(Module... modules) {
     this.modules.addAll(modules);
+    initLifeCycle();
+  }
+
+  private void initLifeCycle() {
+    activeModule.addListener((observable, oldModule, newModule) -> {
+      if (oldModule != newModule) {
+        if (oldModule != null) {
+          // a different module is currently active
+          oldModule.deactivate();
+        }
+        if (!openModules.contains(newModule)) {
+          // module has not been loaded yet
+          activeModuleView.setValue(newModule.init(this));
+        }
+        newModule.activate();
+      }
+    });
   }
 
   public void openModule(Module module) {
     Objects.requireNonNull(module);
-    Module currentModule = activeModule.get();
-    if (currentModule == module) {
-      return; // an already open module can't be opened again
-    }
-    // Follow lifecycle
-    if (currentModule != null) {
-      // a different module is currently active
-      currentModule.deactivate();
-    }
-    if (!openModules.contains(module)) {
-      // module has not been loaded yet
-      module.init(this);
-    }
     activeModule.setValue(module);
-    module.activate();
+  }
+
+  public void closeModule(Module module) {
+
   }
 
 }
