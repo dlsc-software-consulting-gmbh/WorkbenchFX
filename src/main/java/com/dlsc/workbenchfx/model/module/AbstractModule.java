@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.model.module;
 
+import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -13,13 +14,10 @@ import javafx.scene.image.ImageView;
  * Extend this class to simply implement a new module and override methods as needed.
  */
 public abstract class AbstractModule implements Module {
-  private final String name = "";
+  private final String name;
 
-  private final Node tileIcon;
-  private final Node tabIcon;
-
-  protected Node tile;
-  protected Node tab;
+  private final Node tile;
+  private final Node tab;
 
   /**
    * Super constructor to be called by the implementing class.
@@ -29,8 +27,8 @@ public abstract class AbstractModule implements Module {
    */
   protected AbstractModule(String name, Image icon) {
     this.name = name;
-    this.tileIcon = new ImageView(icon);
-    this.tabIcon = new ImageView(icon);
+    this.tile = new TileControl(name, new ImageView(icon));
+    this.tab = new TabControl(name, new ImageView(icon));
   }
 
   /**
@@ -41,16 +39,28 @@ public abstract class AbstractModule implements Module {
    */
   protected AbstractModule(String name, FontAwesomeIcon icon) {
     this.name = name;
-    this.tileIcon = new FontAwesomeIconView(icon);
-    this.tabIcon = new FontAwesomeIconView(icon);
+    this.tile = new TileControl(name, new FontAwesomeIconView(icon));
+    this.tab = new TabControl(name, new FontAwesomeIconView(icon));
   }
 
   /**
    * Super constructor to be called by the implementing class.
    */
-  protected AbstractModule(Node tileIcon, Node tabIcon) {
-    this.tileIcon = tileIcon;
-    this.tabIcon = tabIcon;
+  protected AbstractModule(String name, Node tileIcon, Node tabIcon) {
+    WorkbenchFxUtils.assertNodeNotSame(tileIcon, tabIcon);
+    this.name = name;
+    this.tile = new TileControl(name, tileIcon);
+    this.tab = new TabControl(name, tabIcon);
+  }
+
+  /**
+   * Super constructor to be called by the implementing class.
+   */
+  protected AbstractModule(Node tile, Node tab) {
+    WorkbenchFxUtils.assertNodeNotSame(tile, tab);
+    this.name = null;
+    this.tile = tile;
+    this.tab = tab;
   }
 
   /**
@@ -58,9 +68,6 @@ public abstract class AbstractModule implements Module {
    */
   @Override
   public Node getTab() {
-    if (tab == null) {
-      tab = new TabControl(name, tabIcon);
-    }
     return tab;
   }
 
@@ -69,9 +76,6 @@ public abstract class AbstractModule implements Module {
    */
   @Override
   public Node getTile() {
-    if (tile == null) {
-      tile = new TileControl(name, tileIcon);
-    }
     return tile;
   }
 
@@ -96,9 +100,7 @@ public abstract class AbstractModule implements Module {
    */
   @Override
   public void destroy() {
-    // dereference objects to prevent memory leaks
-    this.tile = null;
-    this.tab = null;
+
   }
 
 }
