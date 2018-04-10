@@ -88,6 +88,9 @@ This allows for a maximum of flexibility and not much overhead in terms of code.
 
 // TODO: maybe, decision in AbstractModule between adding "content" as parameter in constructor and overriding init() or not including "content" as parameter and not overriding init(). Chose to do the latter since the node would not be used anywhere else and it would be about the same in terms of code, but is easier to override that way.
 
+==== WorkbenchFxUtils.assertNodeNotSame
+// TODO: add comment from AbstractModule, issues with icons as nodes not being possible to display => also to prevent Fabian from making this mistake, throw exception when constructor of AbstractModule is called.
+
 == Why should someone use our Workbench instead of coding on their own?
 * Simple Design
 * Fast
