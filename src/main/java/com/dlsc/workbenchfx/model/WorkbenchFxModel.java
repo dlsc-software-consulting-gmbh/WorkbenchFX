@@ -41,25 +41,28 @@ public class WorkbenchFxModel {
    */
   public WorkbenchFxModel(Module... modules) {
     this.modules.addAll(modules);
+    initLifeCycle()
+  }
+
+  private void initLifeCycle() {
+    activeModule.addListener((observable, oldModule, newModule) -> {
+      if (oldModule != newModule) {
+        if (oldModule != null) {
+          // a different module is currently active
+          oldModule.deactivate();
+        }
+        if (!openModules.contains(newModule)) {
+          // module has not been loaded yet
+          newModule.init(this);
+        }
+        newModule.activate();
+      }
+    });
   }
 
   public void openModule(Module module) {
     Objects.requireNonNull(module);
-    Module currentModule = activeModule.get();
-    if (currentModule == module) {
-      return; // an already open module can't be opened again
-    }
-    // Follow lifecycle
-    if (currentModule != null) {
-      // a different module is currently active
-      currentModule.deactivate();
-    }
-    if (!openModules.contains(module)) {
-      // module has not been loaded yet
-      module.init(this);
-    }
     activeModule.setValue(module);
-    module.activate();
   }
 
 }
