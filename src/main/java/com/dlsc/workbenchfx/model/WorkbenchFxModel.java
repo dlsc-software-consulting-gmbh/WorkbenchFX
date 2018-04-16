@@ -84,6 +84,13 @@ public class WorkbenchFxModel {
   }
 
   /**
+   * Goes back to the home screen where the user can choose between modules.
+   */
+  public void openHomeScreen() {
+    activeModule.setValue(null);
+  }
+
+  /**
    * Closes the {@code module}.
    * @param module to be closed
    * @return true if closing was successful

@@ -109,7 +109,7 @@ class WorkbenchFxModelTest {
     inOrder.verify(first).activate();
     verify(first, times(2)).activate();
     // Switch to home screen
-    model.openModule(null);
+    model.openHomeScreen();
     assertSame(null,model.getActiveModule());
     assertSame(null,model.getActiveModuleView());
     assertEquals(2, model.getOpenModules().size());
