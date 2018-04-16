@@ -38,6 +38,10 @@ class WorkbenchFxModelTest {
   Module[] mockModules = new Module[SIZE];
   Node[] mockNodes = new Node[SIZE];
 
+  Module first;
+  Module second;
+  Module last;
+
   @BeforeEach
   void setUp() {
     // is needed to avoid "java.lang.IllegalStateException: Toolkit not initialized"
@@ -53,6 +57,10 @@ class WorkbenchFxModelTest {
       when(mockModules[i].destroy()).thenReturn(true);
     }
     model = new WorkbenchFxModel(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX], mockModules[LAST_INDEX]);
+
+    first = mockModules[FIRST_INDEX];
+    second = mockModules[SECOND_INDEX];
+    last = mockModules[LAST_INDEX];
   }
 
   @Test
@@ -69,9 +77,6 @@ class WorkbenchFxModelTest {
 
   @Test
   void openModule() {
-    Module first = mockModules[FIRST_INDEX];
-    Module second = mockModules[SECOND_INDEX];
-    Module last = mockModules[LAST_INDEX];
     // Open first
     model.openModule(first);
     assertSame(first,model.getActiveModule());
