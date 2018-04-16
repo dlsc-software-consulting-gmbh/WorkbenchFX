@@ -95,20 +95,35 @@ class WorkbenchFxModelTest {
     assertSame(mockNodes[LAST_INDEX],model.getActiveModuleView());
     assertEquals(2, model.getOpenModules().size());
     verify(last, times(1)).init(model);
+    verify(last, times(1)).activate();
     verify(last, never()).deactivate();
     // Open first (already initialized)
     model.openModule(first);
     assertSame(first,model.getActiveModule());
     assertSame(mockNodes[FIRST_INDEX],model.getActiveModuleView());
     assertEquals(2, model.getOpenModules().size());
-    verify(first, times(1)).init(model);
+    verify(first, times(1)).init(model); // no additional init on first
+    verify(last, times(1)).init(model); // no additional init on last
     inOrder = inOrder(first, last);
     inOrder.verify(last).deactivate();
     inOrder.verify(first).activate();
+    verify(first, times(2)).activate();
     // Switch to home screen
-
+    model.openModule(null);
+    assertSame(null,model.getActiveModule());
+    assertSame(null,model.getActiveModuleView());
+    assertEquals(2, model.getOpenModules().size());
+    verify(first, times(1)).init(model); // no additional init on first
+    verify(last, times(1)).init(model); // no additional init on last
+    verify(first, times(2)).deactivate();
     // Open second
-
+    model.openModule(second);
+    assertSame(second,model.getActiveModule());
+    assertSame(mockNodes[SECOND_INDEX],model.getActiveModuleView());
+    assertEquals(3, model.getOpenModules().size());
+    inOrder = inOrder(second);
+    inOrder.verify(second).init(model);
+    inOrder.verify(second).activate();
   }
 
   @Test
