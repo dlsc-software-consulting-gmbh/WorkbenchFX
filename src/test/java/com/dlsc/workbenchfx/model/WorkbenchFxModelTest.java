@@ -138,9 +138,18 @@ class WorkbenchFxModelTest {
     assertThrows(IllegalArgumentException.class, () -> model.openModule(mock(Module.class)));
   }
 
+  /**
+   * Precondition: openModule tests pass.
+   */
   @Test
   void closeModule() {
-
+    model.openModule(first);
+    model.closeModule(first);
+    InOrder inOrder = inOrder(first);
+    inOrder.verify(first).init(model);
+    inOrder.verify(first).activate();
+    inOrder.verify(first).deactivate();
+    inOrder.verify(first).destroy();
   }
 
   @Test
