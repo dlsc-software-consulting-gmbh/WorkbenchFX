@@ -77,7 +77,7 @@ public class WorkbenchFxModel {
    */
   public void openModule(Module module) {
     activeModule.setValue(module);
-    if (!openModules.contains(module)) {
+    if (!openModules.contains(module) && !Objects.isNull(module)) {
       openModules.add(module);
     }
   }

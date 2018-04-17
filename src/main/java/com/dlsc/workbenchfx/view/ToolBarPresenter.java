@@ -31,6 +31,10 @@ public class ToolBarPresenter implements Presenter {
     // When the home button is clicked, the view changes
     view.homeBtn.setOnAction(event -> model.openModule(null));
 
+    model.activeModuleProperty().addListener((observable, oldValue, newValue) -> {
+      newValue.getTab().requestFocus();
+    });
+
     model.getOpenModules().addListener((ListChangeListener<? super Module>) c -> {
       while (c.next()) {
         if (c.wasPermutated()) {
@@ -55,11 +59,6 @@ public class ToolBarPresenter implements Presenter {
     });
 
   }
-//    model.getOpenModules().addListener((ListChangeListener<? super Module>) change -> {
-//      System.out.println("Hello");
-//      https://docs.oracle.com/javase/8/javafx/api/javafx/collections/ListChangeListener.Change.html
-//    });
-//  }
 
   /**
    * {@inheritDoc}
