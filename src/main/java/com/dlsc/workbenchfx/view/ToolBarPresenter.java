@@ -4,6 +4,8 @@ import com.dlsc.workbenchfx.model.WorkbenchFxModel;
 import com.dlsc.workbenchfx.model.module.Module;
 import java.util.Objects;
 import javafx.collections.ListChangeListener;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 
 public class ToolBarPresenter implements Presenter {
   private final WorkbenchFxModel model;
@@ -29,11 +31,7 @@ public class ToolBarPresenter implements Presenter {
   @Override
   public void setupEventHandlers() {
     // When the home button is clicked, the view changes
-    view.homeBtn.setOnAction(event -> model.openModule(null));
-
-    model.activeModuleProperty().addListener((observable, oldValue, newValue) -> {
-      newValue.getTab().requestFocus();
-    });
+    view.homeBtn.setOnAction(event -> model.openHomeScreen());
 
     model.getOpenModules().addListener((ListChangeListener<? super Module>) c -> {
       while (c.next()) {
@@ -51,12 +49,17 @@ public class ToolBarPresenter implements Presenter {
           for (Module module : c.getAddedSubList()) {
             System.out.println("Add");
             if (!Objects.isNull(module)) {
-              view.getChildren().add(module.getTab());
+              Node tab = (Button) module.getTab();
+              ((Button) tab).setOnAction(event -> model.closeModule(module));
+              view.getChildren().add(tab);
+              module.getTab().requestFocus();
             }
           }
         }
       }
     });
+
+    // Control -> closebutton -> module.
 
   }
 
