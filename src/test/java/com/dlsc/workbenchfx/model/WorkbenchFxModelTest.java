@@ -156,7 +156,6 @@ class WorkbenchFxModelTest {
     inOrder.verify(first).init(model);
     inOrder.verify(first).activate();
     // Call: model.closeModule(first)
-    inOrder.verify(first).deactivate();
     inOrder.verify(first).destroy();
   }
 
@@ -216,9 +215,8 @@ class WorkbenchFxModelTest {
     inOrder.verify(second).deactivate();
     inOrder.verify(first).activate();
     // Call: model.closeModule(first)
-    inOrder.verify(first).deactivate();
-    inOrder.verify(second).activate();
     inOrder.verify(first).destroy();
+    inOrder.verify(second).activate();
   }
 
   /**
@@ -245,9 +243,8 @@ class WorkbenchFxModelTest {
     inOrder.verify(second).init(model);
     inOrder.verify(second).activate();
     // Call: model.closeModule(second)
-    inOrder.verify(second).deactivate();
-    inOrder.verify(first).activate();
     inOrder.verify(second).destroy();
+    inOrder.verify(first).activate();
   }
 
   /**
@@ -314,9 +311,8 @@ class WorkbenchFxModelTest {
     inOrder.verify(last).deactivate();
     inOrder.verify(second).activate();
     // Call: model.closeModule(second)
-    inOrder.verify(second).deactivate();
-    inOrder.verify(first).activate();
     inOrder.verify(second).destroy();
+    inOrder.verify(first).activate();
   }
 
   /**
@@ -344,14 +340,9 @@ class WorkbenchFxModelTest {
     inOrder.verify(second).init(model);
     inOrder.verify(second).activate();
     // Call: model.closeModule(second)
-    // switch to first
-    inOrder.verify(second).deactivate();
-    inOrder.verify(first).activate();
     // destroy second
     inOrder.verify(second).destroy();
-    // notice destroy() was unsuccessful, switching active module back to second
-    inOrder.verify(first).deactivate();
-    inOrder.verify(second).activate();
+    // notice destroy() was unsuccessful, keep focus on second
   }
 
   @Test
