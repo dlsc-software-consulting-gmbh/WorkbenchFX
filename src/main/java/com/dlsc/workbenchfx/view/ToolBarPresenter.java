@@ -49,8 +49,8 @@ public class ToolBarPresenter implements Presenter {
           for (Module module : c.getAddedSubList()) {
             System.out.println("Add");
             if (!Objects.isNull(module)) {
-              Node tab = (Button) module.getTab();
-              ((Button) tab).setOnAction(event -> model.closeModule(module));
+              Node tab = module.getTab();
+//              tab.getCloseBtn().setOnAction(event -> model.closeModule(module));
               view.getChildren().add(tab);
               module.getTab().requestFocus();
             }
