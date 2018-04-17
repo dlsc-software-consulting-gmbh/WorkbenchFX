@@ -52,8 +52,9 @@ public class WorkbenchFxModel {
   private void initLifecycle() {
     activeModule.addListener((observable, oldModule, newModule) -> {
       if (oldModule != newModule) {
-        if (oldModule != null) {
-          // a different module is currently active
+        boolean isDestroyed = !openModules.contains(oldModule);
+        if (oldModule != null && !isDestroyed) {
+          // switch from one module to another
           oldModule.deactivate();
         }
         if (newModule == null) {
