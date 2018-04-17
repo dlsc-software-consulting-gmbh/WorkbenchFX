@@ -64,6 +64,7 @@ public class WorkbenchFxModel {
         if (!openModules.contains(newModule)) {
           // module has not been loaded yet
           newModule.init(this);
+          openModules.add(newModule);
         }
         activeModuleView.setValue(newModule.activate());
       }
@@ -72,30 +73,54 @@ public class WorkbenchFxModel {
 
   /**
    * Opens the {@code module} in a new tab, if it isn't initialized yet or else opens the tab of it.
-   *
    * @param module the module to be opened or null to go to the home view
    */
   public void openModule(Module module) {
-    activeModule.setValue(module);
-    if (!openModules.contains(module) && !Objects.isNull(module)) {
-      openModules.add(module);
+    if (!modules.contains(module)) {
+      throw new IllegalArgumentException(
+          "Module was not passed in with the constructor of WorkbenchFxModel");
     }
+    activeModule.setValue(module);
   }
 
-  public void closeModule(Module module) {
+  /**
+   * Goes back to the home screen where the user can choose between modules.
+   */
+  public void openHomeScreen() {
+    activeModule.setValue(null);
+  }
+
+  /**
+   * Closes the {@code module}.
+   * @param module to be closed
+   * @return true if closing was successful
+   */
+  public boolean closeModule(Module module) {
     Objects.requireNonNull(module);
     int i = openModules.indexOf(module);
     if (i == -1) {
       throw new IllegalArgumentException("Module has not been loaded yet.");
     }
     // set new active module
+    Module active;
     if (openModules.size() == 1) {
       // go to home screen
-      activeModule.setValue(null);
+      active = null;
+    } else if (i == 0) {
+      // multiple modules open, leftmost is active
+      active = openModules.get(i + 1);
     } else {
-      activeModule.setValue(openModules.get(i - 1));
+      active = openModules.get(i - 1);
     }
-
+    activeModule.setValue(active);
+    // attempt to destroy module
+    if (!module.destroy()) {
+      // module should or could not be destroyed
+      // refocus on module that could not be destroyed
+      activeModule.setValue(module);
+      return false;
+    }
+    return openModules.remove(module);
   }
 
   public ObservableList<Module> getOpenModules() {
@@ -106,8 +131,16 @@ public class WorkbenchFxModel {
     return FXCollections.unmodifiableObservableList(modules);
   }
 
+  public Module getActiveModule() {
+    return activeModule.get();
+  }
+
   public ReadOnlyObjectProperty<Module> activeModuleProperty() {
     return activeModule;
+  }
+
+  public Node getActiveModuleView() {
+    return activeModuleView.get();
   }
 
   public ReadOnlyObjectProperty<Node> activeModuleViewProperty() {
