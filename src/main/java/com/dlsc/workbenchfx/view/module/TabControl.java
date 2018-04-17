@@ -1,8 +1,12 @@
 package com.dlsc.workbenchfx.view.module;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 public class TabControl extends HBox {
@@ -17,5 +21,13 @@ public class TabControl extends HBox {
         new Label(name),
         closeBtn
     );
+  }
+
+  public void setOnCloseRequest(EventHandler<ActionEvent> event) {
+    closeBtn.setOnAction(event);
+  }
+
+  public void setOnActiveRequest(EventHandler<MouseEvent> event) {
+    setOnMouseClicked(event);
   }
 }

@@ -31,6 +31,13 @@ public abstract class AbstractModule implements Module {
     this.name = name;
     this.tile = new TileControl(name, new ImageView(icon));
     this.tab = new TabControl(name, new ImageView(icon));
+    initTab();
+  }
+
+  private void initTab() {
+    TabControl tabControl = (TabControl) tab;
+    tabControl.setOnCloseRequest(e -> workbenchModel.closeModule(this));
+    tabControl.setOnActiveRequest(e -> workbenchModel.openModule(this));
   }
 
   /**
@@ -43,8 +50,7 @@ public abstract class AbstractModule implements Module {
     this.name = name;
     this.tile = new TileControl(name, new FontAwesomeIconView(icon));
     this.tab = new TabControl(name, new FontAwesomeIconView(icon));
-    tab.setOnCloseRequest(() -> workbenchModel.closeModule(this));
-    tab.setOnActiveRequest(() -> workbenchModel.openModule(this));
+    initTab();
   }
 
   /**
@@ -61,6 +67,7 @@ public abstract class AbstractModule implements Module {
     this.name = name;
     this.tile = new TileControl(name, tileIcon);
     this.tab = new TabControl(name, tabIcon);
+    initTab();
   }
 
   /**
@@ -76,6 +83,7 @@ public abstract class AbstractModule implements Module {
     this.name = null;
     this.tile = tile;
     this.tab = tab;
+    initTab();
   }
 
   /**
