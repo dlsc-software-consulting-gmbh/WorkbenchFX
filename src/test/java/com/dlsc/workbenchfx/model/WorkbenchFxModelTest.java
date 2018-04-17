@@ -143,8 +143,12 @@ class WorkbenchFxModelTest {
    */
   @Test
   void closeModule() {
+    // open and close module
     model.openModule(first);
     model.closeModule(first);
+    assertSame(null,model.getActiveModule());
+    assertSame(null,model.getActiveModuleView());
+    assertEquals(0, model.getOpenModules().size());
     InOrder inOrder = inOrder(first);
     inOrder.verify(first).init(model);
     inOrder.verify(first).activate();
