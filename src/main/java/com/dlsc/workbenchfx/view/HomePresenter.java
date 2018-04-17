@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
+import com.dlsc.workbenchfx.view.module.TileControl;
 import javafx.scene.control.Button;
 
 public class HomePresenter implements Presenter {
@@ -19,13 +20,11 @@ public class HomePresenter implements Presenter {
   @Override
   public void setupEventHandlers() {
     // For each module's module-tile: When clicking at it, open the module
-//    model.getModules()
-//        .forEach(module -> module.getTile()
-//            .setOnMouseClicked(event -> {
-//              model.openModule(module);
-//              System.out.println("Done");
-//            })
-//        );
+    view.getChildren().forEach(tileControl -> {
+      tileControl.setOnMouseClicked(event -> {
+        model.openModule(view.moduleMap.get(tileControl));
+      });
+    });
   }
 
   /**
