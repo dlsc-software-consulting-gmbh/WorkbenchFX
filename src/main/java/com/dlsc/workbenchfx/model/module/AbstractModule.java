@@ -20,6 +20,11 @@ import javafx.util.Callback;
 public abstract class AbstractModule implements Module {
 
   protected WorkbenchFxModel workbenchModel;
+
+  private final String name;
+  private final Node tileIcon;
+  private final Node tabIcon;
+
   private ObjectProperty<Callback<Integer, Node>> tabFactory =
       new SimpleObjectProperty<Callback<Integer, Node>>(this, "tabFactory");
   private ObjectProperty<Callback<Integer, Node>> tileFactory =
@@ -32,8 +37,7 @@ public abstract class AbstractModule implements Module {
    * @param icon of this module
    */
   protected AbstractModule(String name, Image icon) {
-    initTab(name, icon);
-    initTile(name, icon);
+    this(name, new ImageView(icon), new ImageView(icon));
   }
 
   /**
@@ -43,8 +47,7 @@ public abstract class AbstractModule implements Module {
    * @param icon of this module
    */
   protected AbstractModule(String name, FontAwesomeIcon icon) {
-    initTab(name, icon);
-    initTile(name, icon);
+    this(name, new FontAwesomeIconView(icon), new FontAwesomeIconView(icon));
   }
 
   /**
@@ -58,75 +61,18 @@ public abstract class AbstractModule implements Module {
    */
   protected AbstractModule(String name, Node tileIcon, Node tabIcon) {
     WorkbenchFxUtils.assertNodeNotSame(tileIcon, tabIcon);
-    initTab(name, tabIcon);
-    initTile(name, tileIcon);
+    this.name = name;
+    this.tileIcon = tileIcon;
+    this.tabIcon = tabIcon;
   }
 
-  /**
-   * Super constructor to be called by the implementing class.
-   *
-   * @param tile node to be used for the tile control in the home screen
-   * @param tab  node to be used for the tab control
-   * @throws IllegalArgumentException if tile == tab, since one {@link Node} instance
-   *                                  can only be displayed once in a JavaFX scene graph.
-   */
-  protected AbstractModule(Node tile, Node tab) {
-    WorkbenchFxUtils.assertNodeNotSame(tile, tab);
-    initTab(null, tab);
-    initTile(null, tile);
-  }
-
-  private void initTab(String name, Node icon) {
-    setTabFactory(integer -> {
-      TabControl tabControl = new TabControl(name, icon);
-      return setupRequests(tabControl);
-    });
-  }
-
-  private void initTab(String name, FontAwesomeIcon icon) {
-    setTabFactory(integer -> {
-      TabControl tabControl = new TabControl(name, new FontAwesomeIconView(icon));
-      return setupRequests(tabControl);
-    });
-  }
-
-  private void initTab(String name, Image icon) {
-    setTabFactory(integer -> {
-      TabControl tabControl = new TabControl(name, new ImageView(icon));
-      return setupRequests(tabControl);
-    });
-  }
-
-  private TabControl setupRequests(TabControl tabControl) {
+  private void setupRequests(TabControl tabControl) {
     tabControl.setOnCloseRequest(e -> workbenchModel.closeModule(this));
     tabControl.setOnActiveRequest(e -> workbenchModel.openModule(this));
-    return tabControl;
   }
 
-  private void initTile(String name, Node icon) {
-    setTileFactory(integer -> {
-      TileControl tileControl = new TileControl(name, icon);
-      return setupRequests(tileControl);
-    });
-  }
-
-  private void initTile(String name, FontAwesomeIcon icon) {
-    setTileFactory(integer -> {
-      TileControl tileControl = new TileControl(name, new FontAwesomeIconView(icon));
-      return setupRequests(tileControl);
-    });
-  }
-
-  private void initTile(String name, Image icon) {
-    setTileFactory(integer -> {
-      TileControl tileControl = new TileControl(name, new ImageView(icon));
-      return setupRequests(tileControl);
-    });
-  }
-
-  private TileControl setupRequests(TileControl tileControl) {
+  private void setupRequests(TileControl tileControl) {
     tileControl.setOnActiveRequest(e -> workbenchModel.openModule(this));
-    return tileControl;
   }
 
   /**
@@ -135,6 +81,16 @@ public abstract class AbstractModule implements Module {
   @Override
   public void init(WorkbenchFxModel workbenchModel) {
     this.workbenchModel = workbenchModel;
+    setTabFactory(integer -> {
+      TabControl tabControl = new TabControl(name, tabIcon);
+      setupRequests(tabControl);
+      return tabControl;
+    });
+    setTileFactory(integer -> {
+      TileControl tileControl = new TileControl(name, tileIcon);
+      setupRequests(tileControl);
+      return tileControl;
+    });
   }
 
   /**
