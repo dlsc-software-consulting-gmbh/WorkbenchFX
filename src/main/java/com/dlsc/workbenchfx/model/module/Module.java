@@ -48,6 +48,10 @@ public interface Module {
 
     /**
      * Gets called when this module is explicitly being closed by the user in the toolbar.
+     * @implNote Assuming Module 1 and Module 2, with both being already initialized and Module 1
+     * being the currently displayed content.
+     * When calling destroy() on Module 1, the active module will first be switched to Module 2,
+     * only then destroy() will be called on Module 2.
      *
      * @return true if successful
      */
