@@ -43,6 +43,8 @@ public abstract class AbstractModule implements Module {
     this.name = name;
     this.tile = new TileControl(name, new FontAwesomeIconView(icon));
     this.tab = new TabControl(name, new FontAwesomeIconView(icon));
+    tab.setOnCloseRequest(() -> workbenchModel.closeModule(this));
+    tab.setOnActiveRequest(() -> workbenchModel.openModule(this));
   }
 
   /**
