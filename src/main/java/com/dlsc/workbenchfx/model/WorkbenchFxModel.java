@@ -116,6 +116,8 @@ public class WorkbenchFxModel {
     // attempt to destroy module
     if (!module.destroy()) {
       // module should or could not be destroyed
+      // refocus on module that could not be destroyed
+      activeModule.setValue(module);
       return false;
     }
     return openModules.remove(module);
