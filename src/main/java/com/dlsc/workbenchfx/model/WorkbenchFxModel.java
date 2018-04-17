@@ -112,15 +112,14 @@ public class WorkbenchFxModel {
     } else {
       active = openModules.get(i - 1);
     }
-    activeModule.setValue(active);
     // attempt to destroy module
     if (!module.destroy()) {
       // module should or could not be destroyed
-      // refocus on module that could not be destroyed
-      activeModule.setValue(module);
       return false;
+    } else {
+      activeModule.setValue(active);
+      return openModules.remove(module);
     }
-    return openModules.remove(module);
   }
 
   public ObservableList<Module> getOpenModules() {
