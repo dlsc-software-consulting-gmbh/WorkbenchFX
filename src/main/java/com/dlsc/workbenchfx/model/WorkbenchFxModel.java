@@ -77,6 +77,9 @@ public class WorkbenchFxModel {
    */
   public void openModule(Module module) {
     activeModule.setValue(module);
+    if (!openModules.contains(module)) {
+      openModules.add(module);
+    }
   }
 
   public void closeModule(Module module) {
@@ -101,6 +104,10 @@ public class WorkbenchFxModel {
 
   public ObservableList<Module> getModules() {
     return FXCollections.unmodifiableObservableList(modules);
+  }
+
+  public ReadOnlyObjectProperty<Module> activeModuleProperty() {
+    return activeModule;
   }
 
   public ReadOnlyObjectProperty<Node> activeModuleViewProperty() {

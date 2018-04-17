@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
 import com.dlsc.workbenchfx.model.module.Module;
+import java.util.Objects;
 import javafx.collections.ListChangeListener;
 
 public class ToolBarPresenter implements Presenter {
@@ -30,10 +31,35 @@ public class ToolBarPresenter implements Presenter {
     // When the home button is clicked, the view changes
     view.homeBtn.setOnAction(event -> model.openModule(null));
 
-    model.getOpenModules().addListener((ListChangeListener<? super Module>) change -> {
-//      https://docs.oracle.com/javase/8/javafx/api/javafx/collections/ListChangeListener.Change.html
+    model.getOpenModules().addListener((ListChangeListener<? super Module>) c -> {
+      while (c.next()) {
+        if (c.wasPermutated()) {
+          for (int i = c.getFrom(); i < c.getTo(); ++i) {
+            System.out.println("Permutate");
+          }
+        } else if (c.wasUpdated()) {
+          System.out.println("Update Item");
+        } else {
+          for (Module module : c.getRemoved()) {
+            System.out.println("Remove");
+            view.getChildren().remove(module.getTab());
+          }
+          for (Module module : c.getAddedSubList()) {
+            System.out.println("Add");
+            if (!Objects.isNull(module)) {
+              view.getChildren().add(module.getTab());
+            }
+          }
+        }
+      }
     });
+
   }
+//    model.getOpenModules().addListener((ListChangeListener<? super Module>) change -> {
+//      System.out.println("Hello");
+//      https://docs.oracle.com/javase/8/javafx/api/javafx/collections/ListChangeListener.Change.html
+//    });
+//  }
 
   /**
    * {@inheritDoc}
