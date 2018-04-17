@@ -319,6 +319,41 @@ class WorkbenchFxModelTest {
     inOrder.verify(second).destroy();
   }
 
+  /**
+   * Precondition: openModule tests pass.
+   */
+  @Test
+  void closeModulePreventDestroy() {
+    // open two modules, close right module
+    // destroy() on second module will return false, so the module shouldn't get closed
+    when(second.destroy()).thenReturn(false);
+    model.openModule(first);
+    model.openModule(second);
+    model.closeModule(second);
+
+    assertSame(second,model.getActiveModule());
+    assertSame(mockNodes[SECOND_INDEX],model.getActiveModuleView());
+    assertEquals(2, model.getOpenModules().size());
+
+    InOrder inOrder = inOrder(first, second);
+    // Call: model.openModule(first)
+    inOrder.verify(first).init(model);
+    inOrder.verify(first).activate();
+    // Call: model.openModule(second)
+    inOrder.verify(first).deactivate();
+    inOrder.verify(second).init(model);
+    inOrder.verify(second).activate();
+    // Call: model.closeModule(second)
+    // switch to first
+    inOrder.verify(second).deactivate();
+    inOrder.verify(first).activate();
+    // destroy second
+    inOrder.verify(second).destroy();
+    // notice destroy() was unsuccessful, switching active module back to second
+    inOrder.verify(first).deactivate();
+    inOrder.verify(second).activate();
+  }
+
   @Test
   void closeModuleInvalid() {
     // Test for null
