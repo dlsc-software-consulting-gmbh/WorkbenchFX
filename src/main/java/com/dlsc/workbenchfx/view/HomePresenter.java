@@ -17,12 +17,7 @@ public class HomePresenter implements Presenter {
    */
   @Override
   public void setupEventHandlers() {
-    // For each module's module-tile: When clicking at it, open the module
-    view.getChildren().forEach(tileControl -> {
-      tileControl.setOnMouseClicked(event -> {
-        model.openModule(view.moduleMap.get(tileControl));
-      });
-    });
+
   }
 
   /**
