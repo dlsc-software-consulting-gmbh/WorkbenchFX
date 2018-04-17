@@ -11,12 +11,10 @@ import javafx.collections.ListChangeListener;
 public class ToolBarPresenter implements Presenter {
   private final WorkbenchFxModel model;
   private final ToolBarView view;
-  private List<Module> indexOfModuleLst;
 
   public ToolBarPresenter(WorkbenchFxModel model, ToolBarView view) {
     this.model = model;
     this.view = view;
-    indexOfModuleLst = new ArrayList<>();
     init();
   }
 
@@ -48,8 +46,7 @@ public class ToolBarPresenter implements Presenter {
           for (Module module : c.getRemoved()) {
             System.out.println("Remove");
             // +1 because of home
-            view.getChildren().remove(indexOfModuleLst.indexOf(module) + 1);
-            indexOfModuleLst.remove(module);
+            view.getChildren().remove(c.getFrom() + 1);
           }
           for (Module module : c.getAddedSubList()) {
             System.out.println("Add");
@@ -57,7 +54,6 @@ public class ToolBarPresenter implements Presenter {
               TabControl tabControl = (TabControl) module.getTab();
               view.getChildren().add(tabControl);
               tabControl.requestFocus();
-              indexOfModuleLst.add(module);
             }
           }
         }
