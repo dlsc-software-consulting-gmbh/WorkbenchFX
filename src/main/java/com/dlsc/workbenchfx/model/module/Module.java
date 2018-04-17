@@ -11,52 +11,55 @@ import javafx.scene.Node;
  */
 public interface Module {
 
-    /**
-     * Returns the node to be displayed in the toolbar for the tab of this module.
-     */
-    Node getTab();
+  /**
+   * Returns the node to be displayed in the toolbar for the tab of this module.
+   */
+  Node getTab();
 
-    /**
-     * Returns the node of the tile to be displayed for this module in the home screen.
-     */
-    Node getTile();
+  /**
+   * Returns the node of the tile to be displayed for this module in the home screen.
+   */
+  Node getTile();
 
-    // Lifecycle
-    /**
-     * Gets called when the module is being opened from the overview for the first time.
-     * @param workbench the calling workbench object
-     */
-    void init(WorkbenchFxModel workbench);
+  // Lifecycle
 
-    /**
-     * Gets called whenever the currently displayed content is being switched to this module.
-     * @implNote if a module is being opened from the overview for the first time, it will
-     * get initialized first by calling init(), afterwards activate() will be called.
-     * @return content to be displayed in this module
-     */
-    Node activate();
+  /**
+   * Gets called when the module is being opened from the overview for the first time.
+   *
+   * @param workbench the calling workbench object
+   */
+  void init(WorkbenchFxModel workbench);
 
-    /**
-     * Gets called whenever this module is the currently displayed content and the content is being
-     * switched to another module.
-     * @implNote Assuming Module 1 and Module 2, with both being already initialized and Module 1
-     * being the currently displayed content.
-     * When switching the content to Module 2, deactivate() gets called on Module 1,
-     * followed by a call of activate() on Module 2.
-     */
-    void deactivate();
+  /**
+   * Gets called whenever the currently displayed content is being switched to this module.
+   *
+   * @return content to be displayed in this module
+   * @implNote if a module is being opened from the overview for the first time, it will
+   * get initialized first by calling init(), afterwards activate() will be called.
+   */
+  Node activate();
 
-    /**
-     * Gets called when this module is explicitly being closed by the user in the toolbar.
-     * @implNote Assuming Module 1 and Module 2, with both being already initialized and Module 1
-     * being the currently displayed content.
-     * When calling destroy() on Module 1, the active module will first be switched to Module 2,
-     * only then destroy() will be called on Module 2.
-     *
-     * @return true if successful
-     */
-    boolean destroy();
+  /**
+   * Gets called whenever this module is the currently displayed content and the content is being
+   * switched to another module.
+   *
+   * @implNote Assuming Module 1 and Module 2, with both being already initialized and Module 1
+   * being the currently displayed content.
+   * When switching the content to Module 2, deactivate() gets called on Module 1,
+   * followed by a call of activate() on Module 2.
+   */
+  void deactivate();
 
+  /**
+   * Gets called when this module is explicitly being closed by the user in the toolbar.
+   *
+   * @return true if successful
+   * @implNote Assuming Module 1 and Module 2, with both being already initialized and Module 1
+   * being the currently displayed content.
+   * When calling destroy() on Module 1, the active module will first be switched to Module 2,
+   * only then destroy() will be called on Module 2.
+   */
+  boolean destroy();
 
 
 }

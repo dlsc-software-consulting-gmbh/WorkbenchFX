@@ -2,18 +2,21 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
 import com.dlsc.workbenchfx.model.module.Module;
+import com.dlsc.workbenchfx.view.module.TabControl;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javafx.collections.ListChangeListener;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 
 public class ToolBarPresenter implements Presenter {
   private final WorkbenchFxModel model;
   private final ToolBarView view;
+  private List<Module> indexOfModuleLst;
 
   public ToolBarPresenter(WorkbenchFxModel model, ToolBarView view) {
     this.model = model;
     this.view = view;
+    indexOfModuleLst = new ArrayList<>();
     init();
   }
 
@@ -44,15 +47,17 @@ public class ToolBarPresenter implements Presenter {
         } else {
           for (Module module : c.getRemoved()) {
             System.out.println("Remove");
-            view.getChildren().remove(module.getTab());
+            // +1 because of home
+            view.getChildren().remove(indexOfModuleLst.indexOf(module) + 1);
+            indexOfModuleLst.remove(module);
           }
           for (Module module : c.getAddedSubList()) {
             System.out.println("Add");
             if (!Objects.isNull(module)) {
-              Node tab = module.getTab();
-//              tab.getCloseBtn().setOnAction(event -> model.closeModule(module));
-              view.getChildren().add(tab);
-              module.getTab().requestFocus();
+              TabControl tabControl = (TabControl) module.getTab();
+              view.getChildren().add(tabControl);
+              tabControl.requestFocus();
+              indexOfModuleLst.add(module);
             }
           }
         }

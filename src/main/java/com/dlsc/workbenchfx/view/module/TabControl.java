@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx.view.module;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;

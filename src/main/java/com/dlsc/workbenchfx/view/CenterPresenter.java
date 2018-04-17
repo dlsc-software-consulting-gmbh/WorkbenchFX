@@ -1,8 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
-import java.util.Objects;
-import javafx.scene.Node;
 
 public class CenterPresenter implements Presenter {
   private final WorkbenchFxModel model;

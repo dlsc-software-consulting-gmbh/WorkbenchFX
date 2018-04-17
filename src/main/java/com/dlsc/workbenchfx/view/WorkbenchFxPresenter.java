@@ -1,10 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
-import com.dlsc.workbenchfx.model.module.Module;
 import java.util.Objects;
-import javafx.scene.control.Button;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -49,7 +46,7 @@ public class WorkbenchFxPresenter implements Presenter {
 
     // When the active module changes, the new view is set od the home screen if null.
     model.activeModuleViewProperty().addListener((observable, oldValue, newValue) ->
-      view.centerView.setContentNode(Objects.isNull(newValue) ? view.homeView : newValue)
+        view.centerView.setContentNode(Objects.isNull(newValue) ? view.homeView : newValue)
     );
   }
 

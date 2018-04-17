@@ -73,6 +73,7 @@ public class WorkbenchFxModel {
 
   /**
    * Opens the {@code module} in a new tab, if it isn't initialized yet or else opens the tab of it.
+   *
    * @param module the module to be opened or null to go to the home view
    */
   public void openModule(Module module) {
@@ -92,6 +93,7 @@ public class WorkbenchFxModel {
 
   /**
    * Closes the {@code module}.
+   *
    * @param module to be closed
    * @return true if closing was successful
    */
