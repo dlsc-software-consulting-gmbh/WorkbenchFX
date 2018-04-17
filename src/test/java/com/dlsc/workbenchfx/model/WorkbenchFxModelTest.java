@@ -142,18 +142,181 @@ class WorkbenchFxModelTest {
    * Precondition: openModule tests pass.
    */
   @Test
-  void closeModule() {
+  void closeModuleOne() {
     // open and close module
     model.openModule(first);
     model.closeModule(first);
+    
     assertSame(null,model.getActiveModule());
     assertSame(null,model.getActiveModuleView());
     assertEquals(0, model.getOpenModules().size());
+    
     InOrder inOrder = inOrder(first);
+    // Call: model.openModule(first)
     inOrder.verify(first).init(model);
     inOrder.verify(first).activate();
+    // Call: model.closeModule(first)
     inOrder.verify(first).deactivate();
     inOrder.verify(first).destroy();
+  }
+
+  /**
+   * Precondition: openModule tests pass.
+   */
+  @Test
+  void closeModuleLeft1() {
+    // open two modules, close left module
+    // right active
+    model.openModule(first);
+    model.openModule(second);
+    model.closeModule(first);
+    
+    assertSame(second,model.getActiveModule());
+    assertSame(mockNodes[SECOND_INDEX],model.getActiveModuleView());
+    assertEquals(1, model.getOpenModules().size());
+    verify(second, never()).deactivate();
+    
+    InOrder inOrder = inOrder(first, second);
+    // Call: model.openModule(first)
+    inOrder.verify(first).init(model);
+    inOrder.verify(first).activate();
+    // Call: model.openModule(second)
+    inOrder.verify(first).deactivate();
+    inOrder.verify(second).init(model);
+    inOrder.verify(second).activate();
+    // Call: model.closeModule(first)
+    inOrder.verify(first).destroy();
+  }
+
+  /**
+   * Precondition: openModule tests pass.
+   */
+  @Test
+  void closeModuleLeft2() {
+    // open two modules, close left module
+    // left active
+    model.openModule(first);
+    model.openModule(second);
+    model.openModule(first);
+    model.closeModule(first);
+    
+    assertSame(second,model.getActiveModule());
+    assertSame(mockNodes[SECOND_INDEX],model.getActiveModuleView());
+    assertEquals(1, model.getOpenModules().size());
+    
+    InOrder inOrder = inOrder(first, second);
+    // Call: model.openModule(first)
+    inOrder.verify(first).init(model);
+    inOrder.verify(first).activate();
+    // Call: model.openModule(second)
+    inOrder.verify(first).deactivate();
+    inOrder.verify(second).init(model);
+    inOrder.verify(second).activate();
+    // Call: model.openModule(first)
+    inOrder.verify(second).deactivate();
+    inOrder.verify(first).activate();
+    // Call: model.closeModule(first)
+    inOrder.verify(first).deactivate();
+    inOrder.verify(second).activate();
+    inOrder.verify(first).destroy();
+  }
+
+  /**
+   * Precondition: openModule tests pass.
+   */
+  @Test
+  void closeModuleRight1() {
+    // open two modules, close right module
+    // right active
+    model.openModule(first);
+    model.openModule(second);
+    model.closeModule(second);
+    
+    assertSame(first,model.getActiveModule());
+    assertSame(mockNodes[FIRST_INDEX],model.getActiveModuleView());
+    assertEquals(1, model.getOpenModules().size());
+    
+    InOrder inOrder = inOrder(first, second);
+    // Call: model.openModule(first)
+    inOrder.verify(first).init(model);
+    inOrder.verify(first).activate();
+    // Call: model.openModule(second)
+    inOrder.verify(first).deactivate();
+    inOrder.verify(second).init(model);
+    inOrder.verify(second).activate();
+    // Call: model.closeModule(second)
+    inOrder.verify(second).deactivate();
+    inOrder.verify(first).activate();
+    inOrder.verify(second).destroy();
+  }
+
+  /**
+   * Precondition: openModule tests pass.
+   */
+  @Test
+  void closeModuleRight2() {
+    // open two modules, close right module
+    // left active
+    model.openModule(first);
+    model.openModule(second);
+    model.openModule(first);
+    model.closeModule(second);
+    
+    assertSame(first,model.getActiveModule());
+    assertSame(mockNodes[FIRST_INDEX],model.getActiveModuleView());
+    assertEquals(1, model.getOpenModules().size());
+    
+    InOrder inOrder = inOrder(first, second);
+    // Call: model.openModule(first)
+    inOrder.verify(first).init(model);
+    inOrder.verify(first).activate();
+    // Call: model.openModule(second)
+    inOrder.verify(first).deactivate();
+    inOrder.verify(second).init(model);
+    inOrder.verify(second).activate();
+    // Call: model.openModule(first)
+    inOrder.verify(second).deactivate();
+    inOrder.verify(first).activate();
+    // Call: model.closeModule(second)
+    inOrder.verify(second).destroy();
+  }
+
+  /**
+   * Precondition: openModule tests pass.
+   */
+  @Test
+  void closeModuleMiddleActive() {
+    // open three modules and close middle module
+    // middle active
+    model.openModule(first);
+    model.openModule(second);
+    model.openModule(last);
+    model.openModule(second);
+    model.closeModule(second);
+
+    assertSame(first,model.getActiveModule());
+    assertSame(mockNodes[FIRST_INDEX],model.getActiveModuleView());
+    assertEquals(2, model.getOpenModules().size());
+
+    InOrder inOrder = inOrder(first, second, last);
+    // Call: model.openModule(first)
+    inOrder.verify(first).init(model);
+    inOrder.verify(first).activate();
+    // Call: model.openModule(second)
+    inOrder.verify(first).deactivate();
+    inOrder.verify(second).init(model);
+    inOrder.verify(second).activate();
+    // Call: model.openModule(last)
+    inOrder.verify(second).deactivate();
+    inOrder.verify(last).init(model);
+    inOrder.verify(last).activate();
+    // Call: model.openModule(second)
+    inOrder.verify(last).deactivate();
+    inOrder.verify(second).activate();
+    // Call: model.closeModule(second)
+    inOrder.verify(second).deactivate();
+    inOrder.verify(first).activate();
+    inOrder.verify(second).destroy();
   }
 
   @Test
