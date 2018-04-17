@@ -6,20 +6,27 @@ import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.util.Callback;
 
 /**
  * Skeletal implementation of a {@link Module}.
  * Extend this class to simply implement a new module and override methods as needed.
  */
 public abstract class AbstractModule implements Module {
-  private final String name;
 
-  private final Node tile;
-  private final Node tab;
   protected WorkbenchFxModel workbenchModel;
+  private ObjectProperty<Callback<Integer, Node>> tabFactory =
+      new SimpleObjectProperty<Callback<Integer, Node>>(this, "tabFactory");
+  private ObjectProperty<Callback<Integer, Node>> tileFactory =
+      new SimpleObjectProperty<Callback<Integer, Node>>(this, "tileFactory");
 
   /**
    * Super constructor to be called by the implementing class.
@@ -28,16 +35,8 @@ public abstract class AbstractModule implements Module {
    * @param icon of this module
    */
   protected AbstractModule(String name, Image icon) {
-    this.name = name;
-    this.tile = new TileControl(name, new ImageView(icon));
-    this.tab = new TabControl(name, new ImageView(icon));
-    initTab();
-  }
-
-  private void initTab() {
-    TabControl tabControl = (TabControl) tab;
-    tabControl.setOnCloseRequest(e -> workbenchModel.closeModule(this));
-    tabControl.setOnActiveRequest(e -> workbenchModel.openModule(this));
+    initTab(name, icon);
+    initTile(name, icon);
   }
 
   /**
@@ -47,10 +46,8 @@ public abstract class AbstractModule implements Module {
    * @param icon of this module
    */
   protected AbstractModule(String name, FontAwesomeIcon icon) {
-    this.name = name;
-    this.tile = new TileControl(name, new FontAwesomeIconView(icon));
-    this.tab = new TabControl(name, new FontAwesomeIconView(icon));
-    initTab();
+    initTab(name, icon);
+    initTile(name, icon);
   }
 
   /**
@@ -64,10 +61,8 @@ public abstract class AbstractModule implements Module {
    */
   protected AbstractModule(String name, Node tileIcon, Node tabIcon) {
     WorkbenchFxUtils.assertNodeNotSame(tileIcon, tabIcon);
-    this.name = name;
-    this.tile = new TileControl(name, tileIcon);
-    this.tab = new TabControl(name, tabIcon);
-    initTab();
+    initTab(name, tabIcon);
+    initTile(name, tileIcon);
   }
 
   /**
@@ -80,10 +75,61 @@ public abstract class AbstractModule implements Module {
    */
   protected AbstractModule(Node tile, Node tab) {
     WorkbenchFxUtils.assertNodeNotSame(tile, tab);
-    this.name = null;
-    this.tile = tile;
-    this.tab = tab;
-    initTab();
+    initTab(null, tab);
+    initTile(null, tile);
+  }
+
+  private void initTab(String name, Node icon) {
+    setTabFactory(integer -> {
+      TabControl tabControl = new TabControl(name, icon);
+      return setupRequests(tabControl);
+    });
+  }
+
+  private void initTab(String name, FontAwesomeIcon icon) {
+    setTabFactory(integer -> {
+      TabControl tabControl = new TabControl(name, new FontAwesomeIconView(icon));
+      return setupRequests(tabControl);
+    });
+  }
+
+  private void initTab(String name, Image icon) {
+    setTabFactory(integer -> {
+      TabControl tabControl = new TabControl(name, new ImageView(icon));
+      return setupRequests(tabControl);
+    });
+  }
+
+  private TabControl setupRequests(TabControl tabControl) {
+    tabControl.setOnCloseRequest(e -> workbenchModel.closeModule(this));
+    tabControl.setOnActiveRequest(e -> workbenchModel.openModule(this));
+    return tabControl;
+  }
+
+  private void initTile(String name, Node icon) {
+    setTileFactory(integer -> {
+      TileControl tileControl = new TileControl(name, icon);
+      return setupRequests(tileControl);
+    });
+  }
+
+  private void initTile(String name, FontAwesomeIcon icon) {
+    setTileFactory(integer -> {
+      TileControl tileControl = new TileControl(name, new FontAwesomeIconView(icon));
+      return setupRequests(tileControl);
+    });
+  }
+
+  private void initTile(String name, Image icon) {
+    setTileFactory(integer -> {
+      TileControl tileControl = new TileControl(name, new ImageView(icon));
+      return setupRequests(tileControl);
+    });
+  }
+
+  private TileControl setupRequests(TileControl tileControl) {
+    tileControl.setOnActiveRequest(e -> workbenchModel.openModule(this));
+    return tileControl;
   }
 
   /**
@@ -95,11 +141,25 @@ public abstract class AbstractModule implements Module {
   }
 
   /**
+   * @param value
+   */
+  public final void setTabFactory(Callback<Integer, Node> value) {
+    tabFactory.set(value);
+  }
+
+  /**
+   * @param value
+   */
+  public final void setTileFactory(Callback<Integer, Node> value) {
+    tileFactory.set(value);
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override
   public Node getTab() {
-    return tab;
+    return tabFactory.get().call(0);
   }
 
   /**
@@ -107,7 +167,7 @@ public abstract class AbstractModule implements Module {
    */
   @Override
   public Node getTile() {
-    return tile;
+    return tileFactory.get().call(0);
   }
 
   /**

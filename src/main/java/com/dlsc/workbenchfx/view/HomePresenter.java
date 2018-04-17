@@ -19,10 +19,13 @@ public class HomePresenter implements Presenter {
   @Override
   public void setupEventHandlers() {
     // For each module's module-tile: When clicking at it, open the module
-    model.getModules()
-        .forEach(module -> module.getTile()
-            .setOnMouseClicked(event -> model.openModule(module))
-        );
+//    model.getModules()
+//        .forEach(module -> module.getTile()
+//            .setOnMouseClicked(event -> {
+//              model.openModule(module);
+//              System.out.println("Done");
+//            })
+//        );
   }
 
   /**
