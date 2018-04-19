@@ -2,11 +2,9 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
 import com.dlsc.workbenchfx.model.module.Module;
-import com.dlsc.workbenchfx.view.module.TabControl;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import javafx.collections.ListChangeListener;
+import javafx.scene.Node;
 
 public class ToolBarPresenter implements Presenter {
   private final WorkbenchFxModel model;
@@ -23,7 +21,7 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    model.getOpenModules().forEach(module -> view.getChildren().add(module.getTab()));
+    model.getOpenModules().forEach(module -> view.getChildren().add(model.getTab(module)));
   }
 
   /**
@@ -51,7 +49,7 @@ public class ToolBarPresenter implements Presenter {
           for (Module module : c.getAddedSubList()) {
             System.out.println("Add");
             if (!Objects.isNull(module)) {
-              TabControl tabControl = (TabControl) module.getTab();
+              Node tabControl = model.getTab(module);
               view.getChildren().add(tabControl);
               tabControl.requestFocus();
             }
