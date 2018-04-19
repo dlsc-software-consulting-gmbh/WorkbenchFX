@@ -1,6 +1,8 @@
 package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.model.module.Module;
+import com.dlsc.workbenchfx.view.module.TabControl;
+import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.Objects;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -8,6 +10,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -41,12 +44,64 @@ public class WorkbenchFxModel {
   private final ObjectProperty<Module> activeModule = new SimpleObjectProperty<>();
   private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
+  private ObjectProperty<Callback<Module, Node>> tabFactory =
+      new SimpleObjectProperty<>(this, "tabFactory");
+
+  private ObjectProperty<Callback<Module, Node>> tileFactory =
+      new SimpleObjectProperty<>(this, "tileFactory");
+
   /**
    * Initializes a new model.
    */
   public WorkbenchFxModel(Module... modules) {
     this.modules.addAll(modules);
+
+    setTabFactory(module -> {
+      TabControl tabControl = new TabControl(module);
+      setupRequests(tabControl, module);
+      return tabControl;
+    });
+
+    setTileFactory(module -> {
+      TileControl tileControl = new TileControl(module);
+      setupRequests(tileControl, module);
+      return tileControl;
+    });
+
     initLifecycle();
+  }
+
+  private TileControl setupRequests(TileControl tileControl, Module module) {
+    tileControl.setOnActiveRequest(e -> openModule(module));
+    return tileControl;
+  }
+
+  private TabControl setupRequests(TabControl tabControl, Module module) {
+    tabControl.setOnCloseRequest(e -> closeModule(module));
+    tabControl.setOnActiveRequest(e -> openModule(module));
+    return tabControl;
+  }
+
+  /**
+   * @param value
+   */
+  public final void setTabFactory(Callback<Module, Node> value) {
+    tabFactory.set(value);
+  }
+
+  /**
+   * @param value
+   */
+  public final void setTileFactory(Callback<Module, Node> value) {
+    tileFactory.set(value);
+  }
+
+  public Node getTab(Module module) {
+    return tabFactory.get().call(module);
+  }
+
+  public Node getTile(Module module) {
+    return tileFactory.get().call(module);
   }
 
   private void initLifecycle() {
