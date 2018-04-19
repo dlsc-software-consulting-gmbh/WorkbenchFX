@@ -2,16 +2,12 @@ package com.dlsc.workbenchfx.model.module;
 
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
 import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
-import com.dlsc.workbenchfx.view.module.TabControl;
-import com.dlsc.workbenchfx.view.module.TileControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import java.util.Objects;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Callback;
 
 /**
  * Skeletal implementation of a {@link Module}.
@@ -20,15 +16,11 @@ import javafx.util.Callback;
 public abstract class AbstractModule implements Module {
 
   protected WorkbenchFxModel workbenchModel;
-
-  private final String name;
-  private final Node tileIcon;
-  private final Node tabIcon;
-
-  private ObjectProperty<Callback<Integer, Node>> tabFactory =
-      new SimpleObjectProperty<Callback<Integer, Node>>(this, "tabFactory");
-  private ObjectProperty<Callback<Integer, Node>> tileFactory =
-      new SimpleObjectProperty<Callback<Integer, Node>>(this, "tileFactory");
+  private String name;
+  private Node tileIcon;
+  private Node tabIcon;
+  private FontAwesomeIcon faIcon;
+  private Image imgIcon;
 
   /**
    * Super constructor to be called by the implementing class.
@@ -37,7 +29,8 @@ public abstract class AbstractModule implements Module {
    * @param icon of this module
    */
   protected AbstractModule(String name, Image icon) {
-    this(name, new ImageView(icon), new ImageView(icon));
+    this.name = name;
+    this.imgIcon = icon;
   }
 
   /**
@@ -47,7 +40,8 @@ public abstract class AbstractModule implements Module {
    * @param icon of this module
    */
   protected AbstractModule(String name, FontAwesomeIcon icon) {
-    this(name, new FontAwesomeIconView(icon), new FontAwesomeIconView(icon));
+    this.name = name;
+    faIcon = icon;
   }
 
   /**
@@ -66,13 +60,18 @@ public abstract class AbstractModule implements Module {
     this.tabIcon = tabIcon;
   }
 
-  private void setupRequests(TabControl tabControl) {
-    tabControl.setOnCloseRequest(e -> workbenchModel.closeModule(this));
-    tabControl.setOnActiveRequest(e -> workbenchModel.openModule(this));
-  }
-
-  private void setupRequests(TileControl tileControl) {
-    tileControl.setOnActiveRequest(e -> workbenchModel.openModule(this));
+  /**
+   * Super constructor to be called by the implementing class.
+   *
+   * @param tile node to be used for the tile control in the home screen
+   * @param tab  node to be used for the tab control
+   * @throws IllegalArgumentException if tile == tab, since one {@link Node} instance
+   *                                  can only be displayed once in a JavaFX scene graph.
+   */
+  protected AbstractModule(Node tile, Node tab) {
+    WorkbenchFxUtils.assertNodeNotSame(tile, tab);
+    tileIcon = tile;
+    tabIcon = tab;
   }
 
   /**
@@ -81,46 +80,16 @@ public abstract class AbstractModule implements Module {
   @Override
   public void init(WorkbenchFxModel workbenchModel) {
     this.workbenchModel = workbenchModel;
-    setTabFactory(integer -> {
-      TabControl tabControl = new TabControl(name, tabIcon);
-      setupRequests(tabControl);
-      return tabControl;
-    });
-    setTileFactory(integer -> {
-      TileControl tileControl = new TileControl(name, tileIcon);
-      setupRequests(tileControl);
-      return tileControl;
-    });
   }
 
-  /**
-   * @param value
-   */
-  public final void setTabFactory(Callback<Integer, Node> value) {
-    tabFactory.set(value);
-  }
-
-  /**
-   * @param value
-   */
-  public final void setTileFactory(Callback<Integer, Node> value) {
-    tileFactory.set(value);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   @Override
-  public Node getTab() {
-    return tabFactory.get().call(0);
+  public Node getGraphic() {
+    return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
-  public Node getTile() {
-    return tileFactory.get().call(0);
+  public String getName() {
+    return Objects.isNull(name) ? "" : name;
   }
 
   /**

@@ -1,19 +1,17 @@
 package com.dlsc.workbenchfx.view.module;
 
+import com.dlsc.workbenchfx.model.module.Module;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
 public class TileControl extends Button {
-  private final String name;
-  private final Node icon;
+  private Module module;
 
-  public TileControl(String name, Node icon) {
-    this.name = name;
-    this.icon = icon;
-    setText(name);
-    setGraphic(icon);
+  public TileControl(Module module) {
+    this.module = module;
+    setText(module.getName());
+    setGraphic(module.getGraphic());
   }
 
   public void setOnActiveRequest(EventHandler<MouseEvent> event) {

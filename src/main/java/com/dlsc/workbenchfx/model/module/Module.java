@@ -11,15 +11,9 @@ import javafx.scene.Node;
  */
 public interface Module {
 
-  /**
-   * Returns the node to be displayed in the toolbar for the tab of this module.
-   */
-  Node getTab();
+  Node getGraphic();
 
-  /**
-   * Returns the node of the tile to be displayed for this module in the home screen.
-   */
-  Node getTile();
+  String getName();
 
   // Lifecycle
 
