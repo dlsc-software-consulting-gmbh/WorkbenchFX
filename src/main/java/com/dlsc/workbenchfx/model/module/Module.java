@@ -11,8 +11,18 @@ import javafx.scene.Node;
  */
 public interface Module {
 
+  /**
+   * Gets called from the Tab- and TileControl when creating the Tabs and Tiles of the module.
+   *
+   * @return the representative Graphic-Node
+   */
   Node getGraphic();
 
+  /**
+   * Gets called from the Tab- and TileControl when creating the Tabs and Tiles of the module.
+   *
+   * @return the name of the module
+   */
   String getName();
 
   // Lifecycle
@@ -29,7 +39,7 @@ public interface Module {
    *
    * @return content to be displayed in this module
    * @implNote if a module is being opened from the overview for the first time, it will
-   * get initialized first by calling init(), afterwards activate() will be called.
+    get initialized first by calling init(), afterwards activate() will be called.
    */
   Node activate();
 
@@ -38,9 +48,9 @@ public interface Module {
    * switched to another module.
    *
    * @implNote Assuming Module 1 and Module 2, with both being already initialized and Module 1
-   * being the currently displayed content.
-   * When switching the content to Module 2, deactivate() gets called on Module 1,
-   * followed by a call of activate() on Module 2.
+    being the currently displayed content.
+    When switching the content to Module 2, deactivate() gets called on Module 1,
+    followed by a call of activate() on Module 2.
    */
   void deactivate();
 
@@ -49,11 +59,10 @@ public interface Module {
    *
    * @return true if successful
    * @implNote Assuming Module 1 and Module 2, with both being already initialized and Module 1
-   * being the currently displayed content.
-   * When calling destroy() on Module 1, the active module will first be switched to Module 2,
-   * only then destroy() will be called on Module 2.
+    being the currently displayed content.
+    When calling destroy() on Module 1, the active module will first be switched to Module 2,
+    only then destroy() will be called on Module 2.
    */
   boolean destroy();
-
 
 }

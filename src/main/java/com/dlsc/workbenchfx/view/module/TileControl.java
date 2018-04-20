@@ -8,6 +8,9 @@ import javafx.scene.input.MouseEvent;
 public class TileControl extends Button {
   private Module module;
 
+  /**
+   * The Constructor of the {@code TileControl}.
+   */
   public TileControl(Module module) {
     this.module = module;
     setText(module.getName());

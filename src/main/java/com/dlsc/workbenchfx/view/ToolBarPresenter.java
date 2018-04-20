@@ -10,6 +10,9 @@ public class ToolBarPresenter implements Presenter {
   private final WorkbenchFxModel model;
   private final ToolBarView view;
 
+  /**
+   * The Constructor of the {@code ToolBarPresenter}.
+   */
   public ToolBarPresenter(WorkbenchFxModel model, ToolBarView view) {
     this.model = model;
     this.view = view;
@@ -31,7 +34,14 @@ public class ToolBarPresenter implements Presenter {
   public void setupEventHandlers() {
     // When the home button is clicked, the view changes
     view.homeBtn.setOnAction(event -> model.openHomeScreen());
+  }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupValueChangedListeners() {
+    // When the List of the currently open modules is changed, the view is updated.
     model.getOpenModules().addListener((ListChangeListener<? super Module>) c -> {
       while (c.next()) {
         if (c.wasPermutated()) {
@@ -58,17 +68,6 @@ public class ToolBarPresenter implements Presenter {
         }
       }
     });
-
-    // Control -> closebutton -> module.
-
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void setupValueChangedListeners() {
-
   }
 
   /**

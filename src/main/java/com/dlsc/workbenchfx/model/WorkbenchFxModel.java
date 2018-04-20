@@ -44,14 +44,18 @@ public class WorkbenchFxModel {
   private final ObjectProperty<Module> activeModule = new SimpleObjectProperty<>();
   private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
+  /**
+   * The factories which are called when creating Tabs and Tiles for the Views.
+   * They require a module whose attributes are used to create the Nodes.
+   */
   private ObjectProperty<Callback<Module, Node>> tabFactory =
       new SimpleObjectProperty<>(this, "tabFactory");
-
   private ObjectProperty<Callback<Module, Node>> tileFactory =
       new SimpleObjectProperty<>(this, "tileFactory");
 
   /**
    * Initializes a new model.
+   * Sets also the default tab- and tileFactories for creating the Tabs and Tiles for the views.
    */
   public WorkbenchFxModel(Module... modules) {
     this.modules.addAll(modules);
@@ -71,9 +75,14 @@ public class WorkbenchFxModel {
     initLifecycle();
   }
 
-  private TileControl setupRequests(TileControl tileControl, Module module) {
-    tileControl.setOnActiveRequest(e -> openModule(module));
-    return tileControl;
+  /**
+   * Sets the value of the {@code tabFactory} using the given callback.
+   * The callback defines the way the Tabs are created.
+   *
+   * @param value the callback to be set
+   */
+  public final void setTabFactory(Callback<Module, Node> value) {
+    tabFactory.set(value);
   }
 
   private TabControl setupRequests(TabControl tabControl, Module module) {
@@ -82,26 +91,18 @@ public class WorkbenchFxModel {
     return tabControl;
   }
 
-  /**
-   * @param value
-   */
-  public final void setTabFactory(Callback<Module, Node> value) {
-    tabFactory.set(value);
+  private TileControl setupRequests(TileControl tileControl, Module module) {
+    tileControl.setOnActiveRequest(e -> openModule(module));
+    return tileControl;
   }
 
   /**
-   * @param value
+   * Sets the value of the {@code tileFactory} using the given callback.
+   *
+   * @param value the callback which defines the way the Tiles are created
    */
   public final void setTileFactory(Callback<Module, Node> value) {
     tileFactory.set(value);
-  }
-
-  public Node getTab(Module module) {
-    return tabFactory.get().call(module);
-  }
-
-  public Node getTile(Module module) {
-    return tileFactory.get().call(module);
   }
 
   private void initLifecycle() {
@@ -124,6 +125,28 @@ public class WorkbenchFxModel {
         activeModuleView.setValue(newModule.activate());
       }
     });
+  }
+
+  /**
+   * The method is called from the views when they need a TabControl to display.
+   * Each module generates its own Tab.
+   *
+   * @param module the module for which the Tab should be created
+   * @return a corresponding Tab which contains the values of the module
+   */
+  public Node getTab(Module module) {
+    return tabFactory.get().call(module);
+  }
+
+  /**
+   * The method is called from the views when they need a TileControl to display.
+   * Each module generates its own Tile.
+   *
+   * @param module the module for which the Tile should be created
+   * @return a corresponding Tile which contains the values of the module
+   */
+  public Node getTile(Module module) {
+    return tileFactory.get().call(module);
   }
 
   /**
@@ -202,4 +225,5 @@ public class WorkbenchFxModel {
   public ReadOnlyObjectProperty<Node> activeModuleViewProperty() {
     return activeModuleView;
   }
+
 }

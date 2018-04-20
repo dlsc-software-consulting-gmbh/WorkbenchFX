@@ -82,11 +82,17 @@ public abstract class AbstractModule implements Module {
     this.workbenchModel = workbenchModel;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Node getGraphic() {
     return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String getName() {
     return Objects.isNull(name) ? "" : name;

@@ -6,6 +6,9 @@ public class HomePresenter implements Presenter {
   private final WorkbenchFxModel model;
   private final HomeView view;
 
+  /**
+   * The Constructor of the {@code HomePresenter}.
+   */
   public HomePresenter(WorkbenchFxModel model, HomeView view) {
     this.model = model;
     this.view = view;

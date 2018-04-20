@@ -13,6 +13,9 @@ public class HomeView extends HBox implements View {
   private final WorkbenchFxModel model;
   Map<Node, Module> moduleMap;
 
+  /**
+   * The Constructor of the {@code HomeView}.
+   */
   public HomeView(WorkbenchFxModel model) {
     this.model = model;
     moduleMap = new HashMap<>();

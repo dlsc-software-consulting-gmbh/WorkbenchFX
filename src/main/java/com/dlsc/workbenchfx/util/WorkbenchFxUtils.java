@@ -11,9 +11,16 @@ import javafx.scene.Node;
  */
 public class WorkbenchFxUtils {
 
+  /**
+   * Checks if two Nodes are equal. This problem might happen when generating the Tabs and Tiles.
+   *
+   * @param node1 the first of the two Nodes to be compared
+   * @param node2 the second of the two Nodes to be compared
+   */
   public static void assertNodeNotSame(Node node1, Node node2) {
     if (node1 == node2) {
-      throw new IllegalArgumentException("Node can only have one parent. Please use two different Node object instances.");
+      throw new IllegalArgumentException("Node can only have one parent. "
+          + "Please use two different Node object instances.");
     }
   }
 
