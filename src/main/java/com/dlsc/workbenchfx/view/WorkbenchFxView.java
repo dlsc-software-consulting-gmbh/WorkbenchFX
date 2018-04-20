@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
+import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,6 +51,8 @@ public class WorkbenchFxView extends BorderPane implements View {
   public void layoutParts() {
     setTop(toolBarView);
     setCenter(centerView);
+
+    setPadding(new Insets(10));
   }
 
   /**

@@ -1,5 +1,8 @@
-$font-stack:    Helvetica, sans-serif;
-$primary-color: #c3e5b5;
+$font-stack: Helvetica, sans-serif;
+$primary-color-light: #f3fafa;
+$primary-color: #edf4f4;
+$primary-color-dark: #353a3a;
+$danger-color: #ff4e61;
 $border: 2px;
 
 * {
@@ -23,7 +26,40 @@ $border: 2px;
   -fx-alignment: center;
 }
 
-.label {
-  -fx-background-color: #fff1d3;
-  -fx-padding: 5em;
+.tileControl {
+  -fx-background-color: $primary-color;
+  -fx-border-radius: 5px;
+  -fx-border-color: $primary-color-dark;
+  -fx-border-width: 2px;
+  -fx-text-fill: $primary-color-dark;
+  -fx-pref-width: 200px;
+  -fx-pref-height: 88px;
+  -fx-alignment: center center;
+}
+
+.tileControl:hover {
+  -fx-background-color: $primary-color-light;
+}
+
+.tabControl {
+  -fx-background-color: $primary-color;
+  -fx-border-color: $primary-color-dark;
+  -fx-border-width: 1px;
+  -fx-text-fill: $primary-color-dark;
+  -fx-padding: .5em;
+  -fx-pref-height: 44px;
+  -fx-alignment: center center;
+}
+
+.tabControl:hover {
+  -fx-background-color: $primary-color-light;
+}
+
+.tabControl > .button {
+  -fx-background-color: transparent;
+  -fx-border-width: 0;
+}
+
+.tabControl > .button:hover {
+  -fx-text-fill: $danger-color;
 }

@@ -50,6 +50,7 @@ public class ToolBarPresenter implements Presenter {
             System.out.println("Add");
             if (!Objects.isNull(module)) {
               Node tabControl = model.getTab(module);
+              tabControl.getStyleClass().add("tabControl");
               view.getChildren().add(tabControl);
               tabControl.requestFocus();
             }

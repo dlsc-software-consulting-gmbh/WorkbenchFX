@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
@@ -18,7 +19,7 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void initializeParts() {
-
+    getStylesheets().add("./com/dlsc/workbenchfx/css/main.css");
   }
 
   /**
@@ -26,6 +27,8 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
+    homeBtn.getStyleClass().add("tabControl");
+    setSpacing(10);
     getChildren().add(homeBtn);
   }
 
