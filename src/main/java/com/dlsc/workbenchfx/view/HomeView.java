@@ -2,7 +2,6 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
 import com.dlsc.workbenchfx.model.module.Module;
-import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.geometry.Insets;

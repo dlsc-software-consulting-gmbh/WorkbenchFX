@@ -23,7 +23,9 @@ import org.apache.logging.log4j.Logger;
 public class WorkbenchFxModel {
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchFxModel.class.getName());
 
-  /** List of all modules. */
+  /**
+   * List of all modules.
+   */
   private final ObservableList<Module> modules = FXCollections.observableArrayList();
 
   /**
@@ -161,7 +163,9 @@ public class WorkbenchFxModel {
     activeModule.setValue(module);
   }
 
-  /** Goes back to the home screen where the user can choose between modules. */
+  /**
+   * Goes back to the home screen where the user can choose between modules.
+   */
   public void openHomeScreen() {
     activeModule.setValue(null);
   }

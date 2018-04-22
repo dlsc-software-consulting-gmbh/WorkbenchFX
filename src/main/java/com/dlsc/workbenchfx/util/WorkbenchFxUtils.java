@@ -17,6 +17,7 @@ public class WorkbenchFxUtils {
    * associated with one parent, if two {@link Node}s are being passed in, there is a certain risk
    * the API user may pass in the same node twice, which will result in the node only being rendered
    * in the GUI once.
+   *
    * @param node1 first node to check
    * @param node2 second node to check
    * @throws IllegalArgumentException if node1 == node2

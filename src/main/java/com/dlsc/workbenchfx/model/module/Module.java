@@ -39,7 +39,7 @@ public interface Module {
    *
    * @return content to be displayed in this module
    * @implNote if a module is being opened from the overview for the first time, it will get
-   *     initialized first by calling init(), afterwards activate() will be called.
+   * initialized first by calling init(), afterwards activate() will be called.
    */
   Node activate();
 
@@ -48,8 +48,8 @@ public interface Module {
    * switched to another module.
    *
    * @implNote Assuming Module 1 and Module 2, with both being already initialized and Module 1
-   *     being the currently displayed content. When switching the content to Module 2, deactivate()
-   *     gets called on Module 1, followed by a call of activate() on Module 2.
+   * being the currently displayed content. When switching the content to Module 2, deactivate()
+   * gets called on Module 1, followed by a call of activate() on Module 2.
    */
   void deactivate();
 
@@ -58,12 +58,12 @@ public interface Module {
    *
    * @return true if successful
    * @implNote Assuming Module 1 and Module 2, with both being already initialized and Module 2
-   *     being the currently active and displayed module. When calling destroy() on Module 1: If
-   *     true is returned, Module 2 will be removed Module 1 will be set as the active module. If
-   *     false is returned, Module 2 will not be removed and kept as the active module. When
-   *     implementing a closing dialog, make sure to switch to this module first, so the user can
-   *     see it, even if this module is being closed in its deactivated state, by calling: {@code
-   *     workbenchModel.openModule(this)} before opening the dialog.
+   * being the currently active and displayed module. When calling destroy() on Module 1: If
+   * true is returned, Module 2 will be removed Module 1 will be set as the active module. If
+   * false is returned, Module 2 will not be removed and kept as the active module. When
+   * implementing a closing dialog, make sure to switch to this module first, so the user can
+   * see it, even if this module is being closed in its deactivated state, by calling: {@code
+   * workbenchModel.openModule(this)} before opening the dialog.
    */
   boolean destroy();
 }

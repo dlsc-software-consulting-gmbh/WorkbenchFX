@@ -53,7 +53,9 @@ public class WorkbenchFx {
     workbenchFxPresenter = new WorkbenchFxPresenter(workbenchFxModel, workbenchFxView);
   }
 
-  /** Creates the Workbench window. */
+  /**
+   * Creates the Workbench window.
+   */
   public static WorkbenchFx of(Module... modules) {
     return new WorkbenchFx(modules);
   }
