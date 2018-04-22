@@ -37,6 +37,8 @@ asciidoctor pdf  // PDF format
 ```
 Afterwards, you will find them in the `build/docs/` subdirectory.
 
+All files in the `docs/include` directory are automatically being copied over to the `build/docs/html5` and `build/docs/pdf` folders via a gradle task.
+
 ## Structure
 A preferences dialog can contain multiple `Categories`.  
 Each `Category` contains one to multiple `Groups`  
@@ -62,7 +64,7 @@ We created several demos to visualize the capabilities of `PreferencesFX`.
 To change between demos, simply uncomment the desired demo in the imports of `preferencesfx-demo/src/com/dlsc/preferencesfx/AppStarter.java`
 ```Java
 // Change this import depending on the demo
-import com.dlsc.workbenchfx.standard.RootPane;
+import com.dlsc.workbenchfx.standard.com.dlsc.workbenchfx.RootPane;
 workbenchcom.dlsc.workbenchfxchfx
 ```
 

@@ -1,6 +1,10 @@
 package com.dlsc.workbenchfx.view;
 
+import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
+import com.dlsc.workbenchfx.model.module.Module;
+import java.util.Objects;
+import javafx.scene.control.Button;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,17 +19,17 @@ public class WorkbenchFxPresenter implements Presenter {
       LogManager.getLogger(WorkbenchFxPresenter.class.getName());
 
   private WorkbenchFxModel model;
-  private WorkbenchFxView workbenchFxView;
+  private WorkbenchFxView view;
 
   /**
    * Constructs a new presenter for the {@link WorkbenchFxView}.
    *
-   * @param model           the model of WorkbenchFX
-   * @param workbenchFxView corresponding view to this presenter
+   * @param model the model of WorkbenchFX
+   * @param view  corresponding view to this presenter
    */
-  public WorkbenchFxPresenter(WorkbenchFxModel model, WorkbenchFxView workbenchFxView) {
+  public WorkbenchFxPresenter(WorkbenchFxModel model, WorkbenchFxView view) {
     this.model = model;
-    this.workbenchFxView = workbenchFxView;
+    this.view = view;
     init();
   }
 
@@ -34,7 +38,7 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-
+    view.centerView.setContentNode(view.homeView);
   }
 
   /**
@@ -43,6 +47,10 @@ public class WorkbenchFxPresenter implements Presenter {
   @Override
   public void setupEventHandlers() {
 
+    // When the active module changes, the new view is set od the home screen if null.
+    model.activeModuleViewProperty().addListener((observable, oldValue, newValue) ->
+      view.centerView.setContentNode(Objects.isNull(newValue) ? view.homeView : newValue)
+    );
   }
 
   /**

@@ -3,4 +3,62 @@ François Martin; Marco Sanfratello
 
 This document describes all of the design decisions, which are made in WorkbenchFX.
 
-== Design decision 1
+== API
+=== Approach 1
+==== Using premade controls by us
+FoldBar left = new FoldBar()
+left.getChildern().addAll(... , ... , ...)
+workbenchfx.setLeft(left);
+==== Using own controls
+MyCustomControl custom = new My...
+workbenchfx.setLeft(custom);
+=== Approach 2 - Using Types to specify the content of the sides
+workbenfx.setLeftType(Type.FOLDBAR)
+workbenfx.setLeftType(Type.TOOLBAR)
+workbenfx.setLeftType(Type.STATUSBAR)
+=== Steps from MVP to Full options
+1. Center, Left, Right, Top, Bottom => Resizable BorderPane
+2. left, right, bottom => Drawers, Top = Toolbar, Bottom = Statusbar
+3. Mix & Match
+
+== Verschachteln
+Drawer aufmachen => Dann Toolbar und Content
+	=> Content => Weitere Drawer usw.
+
+== API Type
+Mix aus Fluent API & Normal
+	setLeft etc. => normal
+	ToolBar.of() => fluent
+
+
+== Interfaces
+* CustomBar
+* ToolBar
+* StatusBar
+* DrawerBar
+
+class MyCustomBar implements CustomBar {...}
+workbenchfx.setLeft(new MyCustomBar());
+=> Workbench compares type of parameter with interfaces
+workbenchfx.setLeft(ToolBar.of(Element.of(tooltipName, icon, event), Element.of()));
+
+workbenchfx.setLeft(DrawerBar.of(Drawer.of(name, icon, node), Drawer.of(name, icon, node));
+VBox node2 = new VBox(ToolBar.of(Element.of(...)), contentNode);
+
+== Further Simplification
+Bar b = Bar.of(...)
+Depending on the content of the parameters, it creates a CustomBar, ToolBar, StatusBar etc.
+
+== Possibility of multiple bars
+Add multiple bars in "setLeft(...)" which are then stacked left to each other
+
+== "BorderPane Approach"
+No center pane, but every node that is added is contained in a BorderPane.
+Every node can be further split apart right / left / top / bottom
+=> Lego-Like extendability
+
+== Module Lifecycle
+Initially, we had the return type of destroy() be void.
+Then, we noticed, if for example the module is a text editor and the API user would want to display a popup, asking if the window should be closed with unsaved changes, the API user should have the ability to have the destroy() operation stopped. // TODO: better formulation
+This is why we add "boolean" as a return type of destroy().
+This way, the API user can return false, then the module won't be removed from the tabs yet.

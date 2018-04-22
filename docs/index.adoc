@@ -14,9 +14,91 @@ François Martin; Marco Sanfratello
 == The way to WorkbenchFX
 === Briefing
 
-=== Fluent API
+=== Syntax
+Fluent API or not?
 
 === First thoughts
+
+== Analysis
+=== Architecture
+API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
+//They want to be able to define their own design to ensure it blends in with the design of their components.
+//The standard for custom controls in JavaFX is to use an implementation based on a control, separated from the skin. TODO: source?
+//TODO: maybe explain a little with graphics how this structure works?
+
+==== Modular Approach
+Power users need the utmost of customizability, to ensure they can change the workspace to be the most ergonomic for their workflow.
+In terms of the architecture, it could mean that it would need to allow the following:
+
+* Separation between `Control` and `Skin`
+** Skin can be replaced by API users, if they want to use a custom style
+* Flexible panes
+** can be rearranged across the whole window
+** different modes for fixation TODO: explain more
+*** Pinned mode
+*** Docked mode
+*** Floating mode
+*** Window mode
+*** Split mode
+* TODO: add more
+
+The architecture for such an approach looks like this: link:UML/modular_approach.asta[UML class diagram]
+// TODO: include picture as well
+
+==== Simple Approach
+Our customer states that the intended API user would not have the need to entirely replace the `Skin`, as it is rarely done.
+For this reason, we will not separate between Control and Skin.
+Panes don't need to be as flexible.
+It is more important that the user experience is straightforward.
+Still, the possibility of extending the workbench using modules is important to our customer.
+
+=== Module Naming
+To plug in functionality by the API user, we use modules.
+However, the name "Module" is not ideal, since a lot of things are already being called "Module"
+To avoid confusion, we want to come up with a name which makes it clearer and less ambiguous.
+// TODO: maybe include more precise definition, specifying what exactly a module is for us?
+// TODO: include brainstorming_module.pdf with image as link
+At first, we chose "Capsule" as a working title, since no classes exist yet in Java which are called like this.
+This means we can easily refactor the name later and focus more on the API design than on the name in the beginning.
+
+=== API Design of Module
+We analyzed which "touch points" a module in the workbench would have, which resulted in 3 points:
+* Main view to be displayed
+* Tab representation of module
+* Tile representation of module in home screen
+Which is why we decided to include them in the API design of the `Module` class. // TODO: improve representation, less duplication in documentation and display
+* Main view to be displayed => Node gets returned by init()
+* Tab representation of module => Node gets returned by getTab()
+* Tile representation of module in home screen => Node gets returned by getTile()
+
+==== Icon: Image vs File vs Node
+As for the icon, there are different ways to implement the inclusion of one in a module.
+
+One possibility is to accept an `Image` object as a parameter of the constructor.
+The advantage is, that the API user doesn't need to care about how the image is being displayed
+The disadvantage however is, that it is for example not possible to specify a FontAwesome icon as a `Node`, to use vector objects.
+
+Also, it would be possible to have the API user include an image file in the resources, to use as an icon.
+Using "convention over configuration", the API user would simply choose the same name for the icon file as for the module, which makes it possible to easily identify the corresponding icon file of a module.
+This brings the advantage of having less code per module, since the icon doesn't need to be specified in the code.
+However, this is also limiting for the same reasons as with the `Image` object above, it is not possible to pass in objects to be displayed.
+
+This is why we decided to have the API user pass in a `Node` object to the constructor of the module.
+This allows for a maximum of flexibility and not much overhead in terms of code. // TODO: maybe write more?
+
+// TODO: maybe, decision in AbstractModule between adding "content" as parameter in constructor and overriding init() or not including "content" as parameter and not overriding init(). Chose to do the latter since the node would not be used anywhere else and it would be about the same in terms of code, but is easier to override that way.
+
+==== WorkbenchFxUtils.assertNodeNotSame
+// TODO: add comment from AbstractModule, issues with icons as nodes not being possible to display => also to prevent Fabian from making this mistake, throw exception when constructor of AbstractModule is called.
+
+== Why should someone use our Workbench instead of coding on their own?
+* Simple Design
+* Fast
+* Fast learning curve
+* Easy to use
+* Modular
+* Extendable
+
 ==== Persona
 Who is the persona?
 
@@ -28,48 +110,89 @@ Who is the persona?
 Challenge:
 
 * Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
+* Unique glossary --> Like in the previous project, we aknowledge, that a shared understanding with the customer is needed.
+Thus, we're going to define a unique glossary.
+So everyone talks the same language.
 
-During looking for a fitting GUI, we looked at several applications
+To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
+This includes features, usability and general appearance of the specific workbench.
 
-* Blender (Tool for creating 3D models)
-** Blender is divided up into five sections.
-*** Header --> Most important and the common settings
-*** Left Bar --> Tools
-*** Right Bar --> Tools
-*** Footer --> Animation, and view-modes
-*** Center --> The model, which is created
-** All sections are resizable
-** If their size becomes 0, they disappear but can be restored using the short code (-)
-** Using short codes to show/hide the bars. (+)
+===== Blender (Tool for creating 3D models)
+* Blender is divided up into five sections.
+** Header --> Most important and the common settings
+** Left Bar --> Tools
+** Right Bar --> Tools
+** Footer --> Animation, and view-modes
+** Center --> The model, which is created
+* All sections are resizable
+* If their size becomes 0, they disappear but can be restored using the short code (-)
+* Using short codes to show/hide the bars. (+)
 Each bar has it's own short code.
 There is no animation, when showing or hiding.
 No possibility to show/hide the bars manually (-)
-** Top right corner --> drag and create so a new window.
+* Top right corner --> drag and create so a new window.
 Each window shows the same part, but it's view is independent. (+)
 To delete the window: Drag the corner back (-)
-** Items in a bar can be moved manually, but only in the bar itself.
+* Items in a bar can be moved manually, but only in the bar itself.
 The bar itself is fixed and can't be moved.
-** Items in the bar can be collapsed, in order to save space and make it cleaner.
-** The tools in the toolbar are stored in tabs.
-** When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
+* Items in the bar can be collapsed, in order to save space and make it cleaner.
+* The tools in the toolbar are stored in tabs.
+* When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
 
-* Photoshop / Illustrator
+===== Photoshop / Illustrator (Design tools)
+* Photoshop (Image tool, Pixel based)
+**
 
-* IntelliJ
+* Illustrator (Design tool, Vector based)
+** Multiple windows possible. Are per default in the background opened. Navigation is done by tabs. (+)
+** Tabs can be navigated to other places.
+This is done by drag and drop
+** Tabs can be placed anywhere in the application (- Needs for sure to be discussed. Has certainly it's advantages)
+** Workspace can be restored to default using the equivalent setting. (+)
+Custom workspaces can be stored. (+)
+Multiple workspaces can be stored and it can be switched to. (+)
+** Tabs
+*** When double-clicking on the Tabs, they collapse (+)
+*** They have 3 states (not likely to understand) and it's collapsing behaviour is not intuitive. (-)
+**4
 
-* MSOffice
-
-* Sublime Text
-
+===== IntelliJ
+* all possibilities available,
+Right click on the tab, then one can decide the behaviour of it.
+* "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
+* "Restore default layout" doesn't restore all layout changes (-)
+* Layout changes should be stored at one place.
 *
 
+===== MSOffice
+
+===== Sublime Text
+
 ===== Minimal viable product
+As a result of our research we have enough information to create the most valuable workbench for our use case.
+Nonetheless we need to break down the functionality to it's simplest scenario.
+This way, we can assure our customer, that he minimal viable product as a result from this project.
+The reason why we do this is, that this way both parties are talking the same language regarding the expectations of the outcome of the project.
+Furthermore it's an assurance for both of them.
+
+Characteristically for all programs is:
+
+* A menu-bar on top of the application.
+* Below the menu-bar is often a tool-bar, which contains the current, or most important tools represented through buttons (without collapsing).
+* In center is often the window, in which the work is done.
+* Usually there are on the left and right of the application bars, which can collapse.
+They contain either further tools, buttons or a tree-view for navigation.
+* Sometimes another bar which is collapsible is set below the main-window.
+* Finally another tool-bar is set below the application.
+It contains the least used tools, or tools which are needed at the end of the process.
 
 ==== The way creating the workbench
 
 === Challenges
 
 === Architecture
+WorkbenchFX seems like a gigantic pane.
+Maybe the panes are giving us some inspiration?
 
 === Testing
 

@@ -1,0 +1,22 @@
+* {
+  -fx-font: 100% Helvetica, sans-serif;
+  -fx-color: #c3e5b5; }
+
+.box {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px; }
+
+.rootPane {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  -fx-alignment: center; }
+
+.label {
+  -fx-background-color: #fff1d3;
+  -fx-padding: 5em; }
+
+/*# sourceMappingURL=main.css.map */
