@@ -12,16 +12,19 @@ import javafx.scene.Node;
 public class WorkbenchFxUtils {
 
   /**
-   * Checks if two Nodes are equal. This problem might happen when generating the Tabs and Tiles.
-   *
-   * @param node1 the first of the two Nodes to be compared
-   * @param node2 the second of the two Nodes to be compared
+   * Makes sure the addresses of two nodes aren't the same.
+   * Is used to check {@link Node}s passed in by an API user. Since every {@link Node} can only be
+   * associated with one parent, if two {@link Node}s are being passed in, there is a certain risk
+   * the API user may pass in the same node twice, which will result in the node only being rendered
+   * in the GUI once.
+   * @param node1 first node to check
+   * @param node2 second node to check
+   * @throws IllegalArgumentException if node1 == node2
    */
   public static void assertNodeNotSame(Node node1, Node node2) {
     if (node1 == node2) {
-      throw new IllegalArgumentException("Node can only have one parent. "
-          + "Please use two different Node object instances.");
+      throw new IllegalArgumentException(
+          "Node can only have one parent. Please use two different Node object instances.");
     }
   }
-
 }

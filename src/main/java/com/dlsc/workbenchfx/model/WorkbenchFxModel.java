@@ -21,27 +21,24 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class WorkbenchFxModel {
-  private static final Logger LOGGER =
-      LogManager.getLogger(WorkbenchFxModel.class.getName());
+  private static final Logger LOGGER = LogManager.getLogger(WorkbenchFxModel.class.getName());
 
-  /**
-   * List of all modules.
-   */
+  /** List of all modules. */
   private final ObservableList<Module> modules = FXCollections.observableArrayList();
 
   /**
-   * List of all currently open modules.
-   * Open modules are being displayed as open tabs in the application.
+   * List of all currently open modules. Open modules are being displayed as open tabs in the
+   * application.
    */
   private final ObservableList<Module> openModules = FXCollections.observableArrayList();
 
   /**
-   * Currently active module.
-   * Active module is the module, which is currently being displayed in the view.
-   * When the home screen is being displayed, {@code activeModule} and {@code activeModuleView}
-   * are null.
+   * Currently active module. Active module is the module, which is currently being displayed in the
+   * view. When the home screen is being displayed, {@code activeModule} and {@code
+   * activeModuleView} are null.
    */
   private final ObjectProperty<Module> activeModule = new SimpleObjectProperty<>();
+
   private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
   /**
@@ -106,25 +103,27 @@ public class WorkbenchFxModel {
   }
 
   private void initLifecycle() {
-    activeModule.addListener((observable, oldModule, newModule) -> {
-      if (oldModule != newModule) {
-        if (oldModule != null) {
-          // a different module is currently active
-          oldModule.deactivate();
-        }
-        if (newModule == null) {
-          // switch to home screen
-          activeModuleView.setValue(null);
-          return;
-        }
-        if (!openModules.contains(newModule)) {
-          // module has not been loaded yet
-          newModule.init(this);
-          openModules.add(newModule);
-        }
-        activeModuleView.setValue(newModule.activate());
-      }
-    });
+    activeModule.addListener(
+        (observable, oldModule, newModule) -> {
+          if (oldModule != newModule) {
+            boolean isDestroyed = !openModules.contains(oldModule);
+            if (oldModule != null && !isDestroyed) {
+              // switch from one module to another
+              oldModule.deactivate();
+            }
+            if (newModule == null) {
+              // switch to home screen
+              activeModuleView.setValue(null);
+              return;
+            }
+            if (!openModules.contains(newModule)) {
+              // module has not been loaded yet
+              newModule.init(this);
+              openModules.add(newModule);
+            }
+            activeModuleView.setValue(newModule.activate());
+          }
+        });
   }
 
   /**
@@ -162,9 +161,7 @@ public class WorkbenchFxModel {
     activeModule.setValue(module);
   }
 
-  /**
-   * Goes back to the home screen where the user can choose between modules.
-   */
+  /** Goes back to the home screen where the user can choose between modules. */
   public void openHomeScreen() {
     activeModule.setValue(null);
   }
@@ -225,5 +222,4 @@ public class WorkbenchFxModel {
   public ReadOnlyObjectProperty<Node> activeModuleViewProperty() {
     return activeModuleView;
   }
-
 }

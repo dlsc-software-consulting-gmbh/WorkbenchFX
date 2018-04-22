@@ -6,6 +6,4 @@ package com.dlsc.workbenchfx.util;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class Constants {
-
-}
+public class Constants {}
