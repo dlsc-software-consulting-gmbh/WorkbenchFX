@@ -21,8 +21,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class WorkbenchFx {
-  private static final Logger LOGGER =
-      LogManager.getLogger(WorkbenchFx.class.getName());
+  private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
 
   private WorkbenchFxModel workbenchFxModel;
 
@@ -54,9 +53,7 @@ public class WorkbenchFx {
     workbenchFxPresenter = new WorkbenchFxPresenter(workbenchFxModel, workbenchFxView);
   }
 
-  /**
-   * Creates the Workbench window.
-   */
+  /** Creates the Workbench window. */
   public static WorkbenchFx of(Module... modules) {
     return new WorkbenchFx(modules);
   }
