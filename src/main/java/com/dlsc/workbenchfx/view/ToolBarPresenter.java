@@ -44,18 +44,14 @@ public class ToolBarPresenter implements Presenter {
     // When the List of the currently open modules is changed, the view is updated.
     model.getOpenModules().addListener((ListChangeListener<? super Module>) c -> {
       while (c.next()) {
-        if (c.wasPermutated()) {
-          for (int i = c.getFrom(); i < c.getTo(); ++i) {
-            System.out.println("Permutate");
-          }
-        } else if (c.wasUpdated()) {
-          System.out.println("Update Item");
-        } else {
+        if (c.wasRemoved()) {
           for (Module module : c.getRemoved()) {
             System.out.println("Remove");
             // +1 because of home
             view.getChildren().remove(c.getFrom() + 1);
           }
+        }
+        if (c.wasAdded()) {
           for (Module module : c.getAddedSubList()) {
             System.out.println("Add");
             if (!Objects.isNull(module)) {
