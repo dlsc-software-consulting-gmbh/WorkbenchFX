@@ -1,5 +1,5 @@
 * {
-  -fx-font: 100% Helvetica, sans-serif;
+  -fx-font: 1em Helvetica, sans-serif;
   -fx-color: #edf4f4; }
 
 .tileControl {
@@ -29,5 +29,11 @@
     -fx-border-width: 0; }
     .tabControl > .button:hover, #homeButton > .button:hover {
       -fx-text-fill: #ff4e61; }
+
+#toolbar {
+  -fx-spacing: 0.75em; }
+
+#tabBox {
+  -fx-spacing: 0.45em; }
 
 /*# sourceMappingURL=main.css.map */
