@@ -1,5 +1,7 @@
 package com.dlsc.workbenchfx;
 
+import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
+
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.CenterPresenter;
 import com.dlsc.workbenchfx.view.CenterView;
@@ -12,6 +14,7 @@ import com.dlsc.workbenchfx.view.WorkbenchFxView;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.Objects;
+import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -86,6 +89,7 @@ public class WorkbenchFx extends StackPane {
     initFactories();
     initViews();
     getChildren().add(workbenchFxView);
+    addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
   }
 
   private void initModules(Module... modules) {

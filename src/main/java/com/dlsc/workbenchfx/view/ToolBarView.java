@@ -17,9 +17,7 @@ public class ToolBarView extends HBox implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeParts() {
-    getStylesheets().add("./com/dlsc/workbenchfx/css/main.css");
-  }
+  public void initializeParts() {}
 
   /**
    * {@inheritDoc}

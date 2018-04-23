@@ -22,11 +22,7 @@ public class HomePresenter implements Presenter {
   @Override
   public void initializeViewParts() {
     // Adds the module-tiles to the view
-    model.getModules().forEach(module -> {
-      Node tileControl = model.getTile(module);
-      tileControl.getStyleClass().add("tileControl");
-      view.getChildren().add(tileControl);
-    });
+    model.getModules().forEach(module -> view.getChildren().add(model.getTile(module)));
   }
 
   /**
