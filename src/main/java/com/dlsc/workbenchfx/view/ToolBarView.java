@@ -6,8 +6,8 @@ import javafx.scene.layout.HBox;
 
 public class ToolBarView extends HBox implements View {
   private final WorkbenchFx model;
-  final Button homeBtn = new Button("Home");
-
+  Button homeBtn;
+  HBox tabBox;
 
   public ToolBarView(WorkbenchFx model) {
     this.model = model;
@@ -19,6 +19,8 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void initializeParts() {
+    homeBtn = new Button("Home");
+    tabBox = new HBox();
   }
 
   /**
