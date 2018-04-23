@@ -1,9 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
-import com.dlsc.workbenchfx.model.module.Module;
-import java.util.List;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 

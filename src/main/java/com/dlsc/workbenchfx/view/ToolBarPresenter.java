@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
-import com.dlsc.workbenchfx.model.module.Module;
+import com.dlsc.workbenchfx.module.Module;
 import javafx.collections.ListChangeListener;
 
 public class ToolBarPresenter implements Presenter {

@@ -1,10 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.model.WorkbenchFxModel;
-import com.dlsc.workbenchfx.model.module.Module;
 import java.util.Objects;
-import javafx.scene.control.Button;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
