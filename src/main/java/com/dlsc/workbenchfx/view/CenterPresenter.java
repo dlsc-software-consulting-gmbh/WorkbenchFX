@@ -9,5 +9,38 @@ public class CenterPresenter implements Presenter {
   public CenterPresenter(WorkbenchFx model, CenterView view) {
     this.model = model;
     this.view = view;
+    init();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeViewParts() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupEventHandlers() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupValueChangedListeners() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupBindings() {
+
   }
 }
