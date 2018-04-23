@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.view.module;
 
-import com.dlsc.workbenchfx.model.module.Module;
+import com.dlsc.workbenchfx.module.Module;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;

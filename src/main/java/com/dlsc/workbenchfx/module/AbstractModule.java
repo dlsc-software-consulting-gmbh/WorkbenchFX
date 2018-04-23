@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx.module;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
-import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.Objects;
@@ -70,7 +69,8 @@ public abstract class AbstractModule implements Module {
    * {@inheritDoc}
    */
   @Override
-  public void deactivate() {}
+  public void deactivate() {
+  }
 
   /**
    * {@inheritDoc}

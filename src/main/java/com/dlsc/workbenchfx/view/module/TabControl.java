@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.view.module;
 
-import com.dlsc.workbenchfx.model.module.Module;
+import com.dlsc.workbenchfx.module.Module;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;

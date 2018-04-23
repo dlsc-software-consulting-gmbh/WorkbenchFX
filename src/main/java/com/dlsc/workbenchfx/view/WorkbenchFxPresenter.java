@@ -20,7 +20,8 @@ public class WorkbenchFxPresenter implements Presenter {
 
   /**
    * Constructs a new presenter for the {@link WorkbenchFxView}.
-   *  @param model the model of WorkbenchFX
+   *
+   * @param model the model of WorkbenchFX
    * @param view  corresponding view to this presenter
    */
   public WorkbenchFxPresenter(WorkbenchFx model, WorkbenchFxView view) {
