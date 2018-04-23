@@ -35,7 +35,7 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    view.centerView.setContentNode(view.homeView);
+    view.centerView.setContent(view.homeView);
   }
 
   /**
@@ -46,7 +46,7 @@ public class WorkbenchFxPresenter implements Presenter {
 
     // When the active module changes, the new view is set od the home screen if null.
     model.activeModuleViewProperty().addListener((observable, oldValue, newValue) ->
-        view.centerView.setContentNode(Objects.isNull(newValue) ? view.homeView : newValue)
+        view.centerView.setContent(Objects.isNull(newValue) ? view.homeView : newValue)
     );
   }
 

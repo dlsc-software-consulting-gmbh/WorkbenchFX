@@ -33,7 +33,7 @@ public class CenterView extends StackPane implements View {
    *
    * @param node the module content as a Node
    */
-  public void setContentNode(Node node) {
+  public void setContent(Node node) {
     getChildren().clear();
     getChildren().add(node);
   }
