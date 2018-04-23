@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 
 public class TabControl extends HBox {
   private final Button closeBtn = new Button("x");
-  private Module module;
+  private final Module module;
 
   /**
    * Constructs a new {@link TabControl}.

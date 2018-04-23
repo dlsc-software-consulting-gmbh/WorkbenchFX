@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
 public class TileControl extends Button {
-  private Module module;
+  private final Module module;
 
   /**
    * Constructs a new {@link TileControl}.
