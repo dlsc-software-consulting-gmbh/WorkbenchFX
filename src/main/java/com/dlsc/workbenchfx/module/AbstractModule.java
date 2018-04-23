@@ -1,6 +1,6 @@
-package com.dlsc.workbenchfx.model.module;
+package com.dlsc.workbenchfx.module;
 
-import com.dlsc.workbenchfx.model.WorkbenchFxModel;
+import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -15,7 +15,7 @@ import javafx.scene.image.ImageView;
  */
 public abstract class AbstractModule implements Module {
 
-  protected WorkbenchFxModel workbenchModel;
+  protected WorkbenchFx workbench;
   private String name;
   private FontAwesomeIcon faIcon;
   private Image imgIcon;
@@ -46,8 +46,8 @@ public abstract class AbstractModule implements Module {
    * {@inheritDoc}
    */
   @Override
-  public void init(WorkbenchFxModel workbenchModel) {
-    this.workbenchModel = workbenchModel;
+  public void init(WorkbenchFx workbench) {
+    this.workbench = workbench;
   }
 
   /**
@@ -70,8 +70,7 @@ public abstract class AbstractModule implements Module {
    * {@inheritDoc}
    */
   @Override
-  public void deactivate() {
-  }
+  public void deactivate() {}
 
   /**
    * {@inheritDoc}
