@@ -60,7 +60,4 @@ $border: 2px;
   }
 }
 
-#homeButton {
-  @extend .tabControl
-}
-
+@import "toolbar";
