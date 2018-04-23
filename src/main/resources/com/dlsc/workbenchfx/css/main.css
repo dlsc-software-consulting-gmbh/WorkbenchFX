@@ -31,7 +31,7 @@
   -fx-border-color: #464b4b;
   -fx-border-width: 1px;
   -fx-text-fill: #464b4b;
-  -fx-padding: .5em;
+  -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 44px;
   -fx-alignment: center center; }
 
