@@ -1,20 +1,33 @@
 $font-stack: Helvetica, sans-serif;
 $primary-color-light: #f3fafa;
 $primary-color: #edf4f4;
-$primary-color-dark: #353a3a;
+$primary-color-dark: #464b4b;
 $danger-color: #ff4e61;
+//$danger-color-dark: #b44153;
 $border: 2px;
-
-* {
-  -fx-font: 100% $font-stack;
-  -fx-color: $primary-color;
-}
 
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
   -moz-border-radius: $radius;
   -ms-border-radius: $radius;
   border-radius: $radius;
+}
+
+@mixin margin($margin) {
+  -fx-padding: $margin;
+  -fx-border-insets: $margin;
+  -fx-background-insets: $margin;
+}
+
+@mixin margin($margin-top, $margin-right, $margin-bottom, $margin-left) {
+  -fx-padding: $margin-top $margin-right $margin-bottom $margin-left;
+  -fx-border-insets: $margin-top $margin-right $margin-bottom $margin-left;
+  -fx-background-insets: $margin-top $margin-right $margin-bottom $margin-left;
+}
+
+* {
+  -fx-font: 100% $font-stack;
+  -fx-color: $primary-color;
 }
 
 .box {
@@ -55,11 +68,34 @@ $border: 2px;
   -fx-background-color: $primary-color-light;
 }
 
-.tabControl > .button {
+.closeBtn {
+  -fx-padding: 5px;
+  -fx-border-insets: 5px;
+  -fx-background-insets: 5px;
+
   -fx-background-color: transparent;
   -fx-border-width: 0;
 }
 
-.tabControl > .button:hover {
-  -fx-text-fill: $danger-color;
+.closeBtn:hover .closeIconView {
+  -icons-color: $danger-color;
+}
+
+.closeBtn:armed {
+  -fx-background-color: transparent;
+  -fx-border-width: 0;
+}
+
+.closeBtn:armed .closeIconView {
+  -icons-color: black;
+}
+
+.glyph-icon {
+  -fx-text-fill: -icons-color;
+  -fx-fill: -icons-color;
+  -glyph-size: 48px;
+}
+
+.tabNameLbl {
+  @include margin(0, 0, 0, .5em);
 }
