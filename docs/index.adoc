@@ -160,6 +160,27 @@ Maybe the panes are giving us some inspiration?
 
 === Testing
 
+== Build Process
+=== GitHub
+The programming is being done in a private GitHub repository.
+We work by using the GitFlow model // TODO add link.
+// TODO explain gitflow
+Every change is represented in a pull request to develop from the feature branch(es).
+=== Code Review
+To improve the quality of the code and also ensure https://www.agilealliance.org/glossary/collective-ownership/[collective code ownership], every pull request gets code reviewed by the other person.
+// TODO: maybe add more?
+=== Travis CI
+To simplify the code review process, we are using Travis CI.
+Travis CI is a build server similar to Jenkins.
+Compared with Jenkins, it runs in the cloud and is much more straight forward to set up.
+The biggest advantage is the tight integration with GitHub, which for example allows automatic builing of pull requests.
+GitHub then directly shows the build status in every pull request and we also set up that a pull request can't get merged until the build passes.
+With every build, Travis will compile the code, run tests and checkstyle.
+We set checkstyle up in a way which makes the build fail, if style violations are found.
+This provides us with immediate feedback when we open a new pull request and forget to run checkstyle checks.
+Also, it makes it easier for the reviewer, since they don't need to run the tests and checkstyle themselves every time.
+// TODO: maybe add more to travis?
+
 == Lessons learned
 
 == Summary
