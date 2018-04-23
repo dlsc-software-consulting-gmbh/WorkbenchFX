@@ -16,7 +16,7 @@ public class TileControl extends Button {
   public TileControl(Module module) {
     this.module = module;
     setText(module.getName());
-    setGraphic(module.getGraphic());
+    setGraphic(module.getIcon());
     getStyleClass().add("tileControl");
   }
 

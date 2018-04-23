@@ -53,7 +53,7 @@ public abstract class AbstractModule implements Module {
    * {@inheritDoc}
    */
   @Override
-  public Node getGraphic() {
+  public Node getIcon() {
     return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
   }
 

@@ -21,7 +21,7 @@ public class TabControl extends HBox {
    */
   public TabControl(Module module) {
     this.module = module;
-    Node icon = module.getGraphic();
+    Node icon = module.getIcon();
     Label nameLbl = new Label(module.getName());
     getChildren().addAll(
         icon,

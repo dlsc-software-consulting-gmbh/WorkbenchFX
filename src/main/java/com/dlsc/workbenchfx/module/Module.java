@@ -16,7 +16,7 @@ public interface Module {
    *
    * @return the representative Graphic-Node
    */
-  Node getGraphic();
+  Node getIcon();
 
   /**
    * Gets called from the Tab- and TileControl when creating the Tabs and Tiles of the module.
