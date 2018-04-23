@@ -32,6 +32,14 @@ public class TemplatePresenter implements Presenter {
    * {@inheritDoc}
    */
   @Override
+  public void initializeViewParts() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void setupEventHandlers() {
 
   }

@@ -16,6 +16,9 @@ public class HomePresenter implements Presenter {
     init();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void initializeViewParts() {
     // Adds the module-tiles to the view
