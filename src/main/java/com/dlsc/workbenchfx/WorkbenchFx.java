@@ -83,19 +83,7 @@ public class WorkbenchFx extends StackPane {
 
   private WorkbenchFx(Module... modules) {
     initModules(modules);
-
-    setTabFactory(module -> {
-      TabControl tabControl = new TabControl(module);
-      setupRequests(tabControl, module);
-      return tabControl;
-    });
-
-    setTileFactory(module -> {
-      TileControl tileControl = new TileControl(module);
-      setupRequests(tileControl, module);
-      return tileControl;
-    });
-
+    initFactories();
     initViews();
     getChildren().add(workbenchFxView);
   }
@@ -125,6 +113,20 @@ public class WorkbenchFx extends StackPane {
             activeModuleView.setValue(newModule.activate());
           }
         });
+  }
+
+  private void initFactories() {
+    setTabFactory(module -> {
+      TabControl tabControl = new TabControl(module);
+      setupRequests(tabControl, module);
+      return tabControl;
+    });
+
+    setTileFactory(module -> {
+      TileControl tileControl = new TileControl(module);
+      setupRequests(tileControl, module);
+      return tileControl;
+    });
   }
 
   private TabControl setupRequests(TabControl tabControl, Module module) {
