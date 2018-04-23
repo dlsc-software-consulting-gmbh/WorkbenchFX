@@ -30,7 +30,7 @@ public class ToolBarView extends HBox implements View {
   public void layoutParts() {
     homeBtn.setId("homeButton");
     setSpacing(10);
-    getChildren().add(homeBtn);
+    getChildren().addAll(homeBtn, tabBox);
   }
 
 }
