@@ -7,13 +7,12 @@ $danger-color: #ff4e61;
 $border: 2px;
 
 @mixin border-radius($radius) {
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-  -ms-border-radius: $radius;
-  border-radius: $radius;
+  @each $prefix in -moz-, -webkit-, null {
+    #{$prefix}border-radius: $radius;
+  }
 }
 
-@mixin margin($margin) {
+@mixin margin-all($margin) {
   -fx-padding: $margin;
   -fx-border-insets: $margin;
   -fx-background-insets: $margin;
