@@ -14,7 +14,6 @@ import com.dlsc.workbenchfx.view.WorkbenchFxView;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.Objects;
-import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -260,10 +259,10 @@ public class WorkbenchFx extends StackPane {
 
   /**
    * Defines how {@link Node} should be created to be used as the tab in the view.
-   * @implNote Use this to replace the control which is used for the tab with your own
-   * implementation.
    *
    * @param value the callback to be set
+   * @implNote Use this to replace the control which is used for the tab with your own
+   * implementation.
    */
   public final void setTabFactory(Callback<Module, Node> value) {
     tabFactory.set(value);
@@ -271,10 +270,10 @@ public class WorkbenchFx extends StackPane {
 
   /**
    * Defines how {@link Node} should be created to be used as the tile in the view.
-   * @implNote Use this to replace the control which is used for the tile with your own
-   * implementation.
    *
    * @param value the callback which defines the way the Tiles are created
+   * @implNote Use this to replace the control which is used for the tile with your own
+   * implementation.
    */
   public final void setTileFactory(Callback<Module, Node> value) {
     tileFactory.set(value);

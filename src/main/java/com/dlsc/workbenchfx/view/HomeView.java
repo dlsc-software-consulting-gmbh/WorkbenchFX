@@ -16,7 +16,8 @@ public class HomeView extends HBox implements View {
   }
 
   @Override
-  public void initializeParts() {}
+  public void initializeParts() {
+  }
 
   @Override
   public void layoutParts() {

@@ -22,6 +22,7 @@ public interface Module {
   Node getIcon();
 
   // Lifecycle
+
   /**
    * Gets called when the module is being opened from the overview for the first time.
    *

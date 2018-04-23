@@ -17,7 +17,8 @@ public class ToolBarView extends HBox implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeParts() {}
+  public void initializeParts() {
+  }
 
   /**
    * {@inheritDoc}

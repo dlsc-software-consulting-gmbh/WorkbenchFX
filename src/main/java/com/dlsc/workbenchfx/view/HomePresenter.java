@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
-import javafx.scene.Node;
 
 public class HomePresenter implements Presenter {
   private final WorkbenchFx model;
