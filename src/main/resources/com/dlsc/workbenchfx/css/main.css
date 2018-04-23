@@ -2,6 +2,10 @@
   -fx-font: 1em Helvetica, sans-serif;
   -fx-color: #edf4f4; }
 
+#tileBox {
+  -fx-spacing: 2.5em;
+  -fx-alignment: center; }
+
 .tileControl {
   -fx-background-color: #edf4f4;
   -fx-border-radius: 5px;
