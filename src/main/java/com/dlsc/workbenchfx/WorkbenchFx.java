@@ -262,7 +262,7 @@ public class WorkbenchFx extends StackPane {
    *
    * @param value the callback to be set
    * @implNote Use this to replace the control which is used for the tab with your own
-   * implementation.
+   *           implementation.
    */
   public final void setTabFactory(Callback<Module, Node> value) {
     tabFactory.set(value);
@@ -273,7 +273,7 @@ public class WorkbenchFx extends StackPane {
    *
    * @param value the callback which defines the way the Tiles are created
    * @implNote Use this to replace the control which is used for the tile with your own
-   * implementation.
+   *           implementation.
    */
   public final void setTileFactory(Callback<Module, Node> value) {
     tileFactory.set(value);
