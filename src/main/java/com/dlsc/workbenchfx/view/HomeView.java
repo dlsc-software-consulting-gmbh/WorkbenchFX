@@ -1,12 +1,12 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.model.WorkbenchFxModel;
+import com.dlsc.workbenchfx.WorkbenchFx;
 import javafx.scene.layout.HBox;
 
 public class HomeView extends HBox implements View {
-  private final WorkbenchFxModel model;
+  private final WorkbenchFx model;
 
-  public HomeView(WorkbenchFxModel model) {
+  public HomeView(WorkbenchFx model) {
     this.model = model;
     init();
   }

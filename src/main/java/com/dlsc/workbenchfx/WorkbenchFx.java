@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx;
 
-import com.dlsc.workbenchfx.model.WorkbenchFxModel;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.CenterPresenter;
 import com.dlsc.workbenchfx.view.CenterView;
@@ -65,17 +64,17 @@ public class WorkbenchFx {
     initLifecycle();
 
     // initialize views
-    toolBarView = new ToolBarView(workbenchFxModel);
-    toolBarPresenter = new ToolBarPresenter(workbenchFxModel, toolBarView);
+    toolBarView = new ToolBarView(this);
+    toolBarPresenter = new ToolBarPresenter(this, toolBarView);
 
-    homeView = new HomeView(workbenchFxModel);
-    homePresenter = new HomePresenter(workbenchFxModel, homeView);
+    homeView = new HomeView(this);
+    homePresenter = new HomePresenter(this, homeView);
 
-    centerView = new CenterView(workbenchFxModel);
-    centerPresenter = new CenterPresenter(workbenchFxModel, centerView);
+    centerView = new CenterView(this);
+    centerPresenter = new CenterPresenter(this, centerView);
 
     workbenchFxView = new WorkbenchFxView(toolBarView, homeView, centerView);
-    workbenchFxPresenter = new WorkbenchFxPresenter(workbenchFxModel, workbenchFxView);
+    workbenchFxPresenter = new WorkbenchFxPresenter(this, workbenchFxView);
   }
 
   /** Creates the Workbench window. */

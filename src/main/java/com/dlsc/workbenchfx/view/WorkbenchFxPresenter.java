@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.model.WorkbenchFxModel;
+import com.dlsc.workbenchfx.WorkbenchFx;
 import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,16 +15,15 @@ public class WorkbenchFxPresenter implements Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchFxPresenter.class.getName());
 
-  private WorkbenchFxModel model;
+  private WorkbenchFx model;
   private WorkbenchFxView view;
 
   /**
    * Constructs a new presenter for the {@link WorkbenchFxView}.
-   *
-   * @param model the model of WorkbenchFX
+   *  @param model the model of WorkbenchFX
    * @param view  corresponding view to this presenter
    */
-  public WorkbenchFxPresenter(WorkbenchFxModel model, WorkbenchFxView view) {
+  public WorkbenchFxPresenter(WorkbenchFx model, WorkbenchFxView view) {
     this.model = model;
     this.view = view;
     init();
