@@ -24,9 +24,8 @@
   -fx-pref-width: 200px;
   -fx-pref-height: 88px;
   -fx-alignment: center center; }
-
-.tileControl:hover {
-  -fx-background-color: #f3fafa; }
+  .tileControl:hover {
+    -fx-background-color: #f3fafa; }
 
 .tabControl {
   -fx-background-color: #edf4f4;
@@ -36,15 +35,12 @@
   -fx-padding: .5em;
   -fx-pref-height: 44px;
   -fx-alignment: center center; }
-
-.tabControl:hover {
-  -fx-background-color: #f3fafa; }
-
-.tabControl > .button {
-  -fx-background-color: transparent;
-  -fx-border-width: 0; }
-
-.tabControl > .button:hover {
-  -fx-text-fill: #ff4e61; }
+  .tabControl:hover {
+    -fx-background-color: #f3fafa; }
+  .tabControl > .button {
+    -fx-background-color: transparent;
+    -fx-border-width: 0; }
+    .tabControl > .button:hover {
+      -fx-text-fill: #ff4e61; }
 
 /*# sourceMappingURL=main.css.map */

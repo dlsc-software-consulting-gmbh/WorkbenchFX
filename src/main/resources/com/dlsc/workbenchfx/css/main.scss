@@ -35,10 +35,9 @@ $border: 2px;
   -fx-pref-width: 200px;
   -fx-pref-height: 88px;
   -fx-alignment: center center;
-}
-
-.tileControl:hover {
-  -fx-background-color: $primary-color-light;
+  &:hover {
+    -fx-background-color: $primary-color-light;
+  }
 }
 
 .tabControl {
@@ -49,17 +48,14 @@ $border: 2px;
   -fx-padding: .5em;
   -fx-pref-height: 44px;
   -fx-alignment: center center;
-}
-
-.tabControl:hover {
-  -fx-background-color: $primary-color-light;
-}
-
-.tabControl > .button {
-  -fx-background-color: transparent;
-  -fx-border-width: 0;
-}
-
-.tabControl > .button:hover {
-  -fx-text-fill: $danger-color;
+  &:hover {
+    -fx-background-color: $primary-color-light;
+  }
+  & > .button {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    &:hover{
+      -fx-text-fill: $danger-color;
+    }
+  }
 }
