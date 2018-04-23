@@ -217,7 +217,7 @@ public class WorkbenchFx extends StackPane {
    * Using the given {@link Module}, it calls the {@code tabFactory} which generates the Tab.
    *
    * @param module the module for which the Tab should be created
-   * @return a corresponding Tab which contains the values of the module
+   * @return a corresponding Tab which is created from the {@code tabFactory}
    */
   public Node getTab(Module module) {
     return tabFactory.get().call(module);
