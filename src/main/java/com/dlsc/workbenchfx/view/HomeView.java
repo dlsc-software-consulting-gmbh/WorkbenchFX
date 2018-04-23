@@ -8,7 +8,7 @@ public class HomeView extends HBox implements View {
   private final WorkbenchFx model;
 
   /**
-   * The Constructor of the {@code HomeView}.
+   * Creates a new {@link HomeView}.
    */
   public HomeView(WorkbenchFx model) {
     this.model = model;
