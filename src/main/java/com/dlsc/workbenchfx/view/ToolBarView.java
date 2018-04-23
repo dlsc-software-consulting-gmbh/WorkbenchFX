@@ -18,7 +18,6 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void initializeParts() {
-
   }
 
   /**
@@ -26,6 +25,8 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
+    homeBtn.getStyleClass().add("tabControl");
+    setSpacing(10);
     getChildren().add(homeBtn);
   }
 

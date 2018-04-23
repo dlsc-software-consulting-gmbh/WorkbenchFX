@@ -19,8 +19,9 @@ public class WorkbenchFxPresenter implements Presenter {
   private WorkbenchFxView view;
 
   /**
-   * Constructs a new presenter for the {@link WorkbenchFxView}.
-   *  @param model the model of WorkbenchFX
+   * Constructs a new {@link WorkbenchFxPresenter} for the {@link WorkbenchFxView}.
+   *
+   * @param model the model of WorkbenchFX
    * @param view  corresponding view to this presenter
    */
   public WorkbenchFxPresenter(WorkbenchFx model, WorkbenchFxView view) {
@@ -34,7 +35,7 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    view.centerView.setContentNode(view.homeView);
+    view.centerView.setContent(view.homeView);
   }
 
   /**
@@ -44,8 +45,8 @@ public class WorkbenchFxPresenter implements Presenter {
   public void setupEventHandlers() {
 
     // When the active module changes, the new view is set od the home screen if null.
-    model.activeModuleViewProperty().addListener((observable, oldValue, newValue) ->
-      view.centerView.setContentNode(Objects.isNull(newValue) ? view.homeView : newValue)
+    model.activeModuleViewProperty().addListener((observable, oldModule, newModule) ->
+        view.centerView.setContent(Objects.isNull(newModule) ? view.homeView : newModule)
     );
   }
 

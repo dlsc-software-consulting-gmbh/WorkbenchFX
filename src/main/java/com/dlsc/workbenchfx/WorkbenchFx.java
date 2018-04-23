@@ -1,5 +1,7 @@
 package com.dlsc.workbenchfx;
 
+import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
+
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.CenterPresenter;
 import com.dlsc.workbenchfx.view.CenterView;
@@ -9,6 +11,8 @@ import com.dlsc.workbenchfx.view.ToolBarPresenter;
 import com.dlsc.workbenchfx.view.ToolBarView;
 import com.dlsc.workbenchfx.view.WorkbenchFxPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchFxView;
+import com.dlsc.workbenchfx.view.module.TabControl;
+import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.Objects;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -16,7 +20,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.Control;
+import javafx.scene.layout.StackPane;
+import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +31,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchFx extends Control {
+public class WorkbenchFx extends StackPane {
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
 
   // Views
@@ -43,7 +48,9 @@ public class WorkbenchFx extends Control {
   private WorkbenchFxPresenter workbenchFxPresenter;
 
   // Modules
-  /** List of all modules. */
+  /**
+   * List of all modules.
+   */
   private final ObservableList<Module> modules = FXCollections.observableArrayList();
 
   /**
@@ -60,15 +67,28 @@ public class WorkbenchFx extends Control {
   private final ObjectProperty<Module> activeModule = new SimpleObjectProperty<>();
   private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
-  /** Creates the Workbench window. */
+  /**
+   * The factories which are called when creating Tabs and Tiles for the Views.
+   * They require a module whose attributes are used to create the Nodes.
+   */
+  private ObjectProperty<Callback<Module, Node>> tabFactory =
+      new SimpleObjectProperty<>(this, "tabFactory");
+  private ObjectProperty<Callback<Module, Node>> tileFactory =
+      new SimpleObjectProperty<>(this, "tileFactory");
+
+  /**
+   * Creates the Workbench window.
+   */
   public static WorkbenchFx of(Module... modules) {
     return new WorkbenchFx(modules);
   }
 
   private WorkbenchFx(Module... modules) {
     initModules(modules);
+    initFactories();
     initViews();
     getChildren().add(workbenchFxView);
+    addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
   }
 
   private void initModules(Module... modules) {
@@ -98,6 +118,32 @@ public class WorkbenchFx extends Control {
         });
   }
 
+  private void initFactories() {
+    setTabFactory(module -> {
+      TabControl tabControl = new TabControl(module);
+      setupRequests(tabControl, module);
+      return tabControl;
+    });
+
+    setTileFactory(module -> {
+      TileControl tileControl = new TileControl(module);
+      setupRequests(tileControl, module);
+      return tileControl;
+    });
+  }
+
+  private TabControl setupRequests(TabControl tabControl, Module module) {
+    tabControl.setOnClose(e -> closeModule(module));
+    tabControl.setOnActive(e -> openModule(module));
+    return tabControl;
+  }
+
+  private TileControl setupRequests(TileControl tileControl, Module module) {
+    tileControl.setOnActive(e -> openModule(module));
+    return tileControl;
+  }
+
+
   private void initViews() {
     toolBarView = new ToolBarView(this);
     toolBarPresenter = new ToolBarPresenter(this, toolBarView);
@@ -125,7 +171,9 @@ public class WorkbenchFx extends Control {
     activeModule.setValue(module);
   }
 
-  /** Goes back to the home screen where the user can choose between modules. */
+  /**
+   * Goes back to the home screen where the user can choose between modules.
+   */
   public void openHomeScreen() {
     activeModule.setValue(null);
   }
@@ -163,6 +211,28 @@ public class WorkbenchFx extends Control {
     }
   }
 
+  /**
+   * Generates a new Node which is then used as a Tab.
+   * Using the given {@link Module}, it calls the {@code tabFactory} which generates the Tab.
+   *
+   * @param module the module for which the Tab should be created
+   * @return a corresponding Tab which is created from the {@code tabFactory}
+   */
+  public Node getTab(Module module) {
+    return tabFactory.get().call(module);
+  }
+
+  /**
+   * Generates a new Node which is then used as a Tile.
+   * Using the given {@link Module}, it calls the {@code tileFactory} which generates the Tile.
+   *
+   * @param module the module for which the Tile should be created
+   * @return a corresponding Tile which contains the values of the module
+   */
+  public Node getTile(Module module) {
+    return tileFactory.get().call(module);
+  }
+
   public ObservableList<Module> getOpenModules() {
     return FXCollections.unmodifiableObservableList(openModules);
   }
@@ -185,5 +255,27 @@ public class WorkbenchFx extends Control {
 
   public ReadOnlyObjectProperty<Node> activeModuleViewProperty() {
     return activeModuleView;
+  }
+
+  /**
+   * Defines how {@link Node} should be created to be used as the tab in the view.
+   *
+   * @param value the callback to be set
+   * @implNote Use this to replace the control which is used for the tab with your own
+   *           implementation.
+   */
+  public final void setTabFactory(Callback<Module, Node> value) {
+    tabFactory.set(value);
+  }
+
+  /**
+   * Defines how {@link Node} should be created to be used as the tile in the view.
+   *
+   * @param value the callback which defines the way the Tiles are created
+   * @implNote Use this to replace the control which is used for the tile with your own
+   *           implementation.
+   */
+  public final void setTileFactory(Callback<Module, Node> value) {
+    tileFactory.set(value);
   }
 }

@@ -2,12 +2,21 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
+import java.util.Objects;
 import javafx.collections.ListChangeListener;
+import javafx.scene.Node;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ToolBarPresenter implements Presenter {
+  private static final Logger LOGGER =
+      LogManager.getLogger(ToolBarPresenter.class.getName());
   private final WorkbenchFx model;
   private final ToolBarView view;
 
+  /**
+   * Creates a new {@link ToolBarPresenter} object for a corresponding {@link ToolBarView}.
+   */
   public ToolBarPresenter(WorkbenchFx model, ToolBarView view) {
     this.model = model;
     this.view = view;
@@ -19,7 +28,7 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    model.getOpenModules().forEach(module -> view.getChildren().add(module.getTab()));
+    model.getOpenModules().forEach(module -> view.getChildren().add(model.getTab(module)));
   }
 
   /**
@@ -28,11 +37,7 @@ public class ToolBarPresenter implements Presenter {
   @Override
   public void setupEventHandlers() {
     // When the home button is clicked, the view changes
-    view.homeBtn.setOnAction(event -> model.openModule(null));
-
-    model.getOpenModules().addListener((ListChangeListener<? super Module>) change -> {
-//      https://docs.oracle.com/javase/8/javafx/api/javafx/collections/ListChangeListener.Change.html
-    });
+    view.homeBtn.setOnAction(event -> model.openHomeScreen());
   }
 
   /**
@@ -40,7 +45,28 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-
+    // When the List of the currently open modules is changed, the view is updated.
+    model.getOpenModules().addListener((ListChangeListener<? super Module>) c -> {
+      while (c.next()) {
+        if (c.wasRemoved()) {
+          for (Module module : c.getRemoved()) {
+            LOGGER.debug("MODULE CLOSED");
+            // +1 because of home
+            view.getChildren().remove(c.getFrom() + 1);
+          }
+        }
+        if (c.wasAdded()) {
+          for (Module module : c.getAddedSubList()) {
+            LOGGER.debug("MODULE OPENED");
+            if (!Objects.isNull(module)) {
+              Node tabControl = model.getTab(module);
+              view.getChildren().add(tabControl);
+              tabControl.requestFocus();
+            }
+          }
+        }
+      }
+    });
   }
 
   /**
