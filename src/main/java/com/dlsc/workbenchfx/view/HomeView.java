@@ -15,10 +15,25 @@ public class HomeView extends HBox implements View {
     init();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  public void initializeParts() {
+  public void initializeSelf() {
+    setId("home");
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void layoutParts() {
     setSpacing(50);

@@ -15,6 +15,14 @@ public class CenterView extends StackPane implements View {
    * {@inheritDoc}
    */
   @Override
+  public void initializeSelf() {
+    setId("center");
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void initializeParts() {
 
   }
@@ -24,6 +32,14 @@ public class CenterView extends StackPane implements View {
    */
   @Override
   public void layoutParts() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void bindFieldsToModel() {
 
   }
 

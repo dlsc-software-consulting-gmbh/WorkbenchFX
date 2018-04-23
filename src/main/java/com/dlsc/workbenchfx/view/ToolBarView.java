@@ -19,9 +19,15 @@ public class ToolBarView extends HBox implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeParts() {
+  public void initializeSelf() {
     setId("toolbar");
+  }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
     homeBtn = new Button("Home");
     homeBtn.setId("homeButton");
 
@@ -35,6 +41,14 @@ public class ToolBarView extends HBox implements View {
   @Override
   public void layoutParts() {
     getChildren().addAll(homeBtn, tabBox);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void bindFieldsToModel() {
+
   }
 
   public void addTab(Node tab) {
