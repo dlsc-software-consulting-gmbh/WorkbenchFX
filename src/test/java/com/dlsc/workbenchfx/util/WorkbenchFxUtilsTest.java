@@ -27,7 +27,8 @@ public class WorkbenchFxUtilsTest {
     Node node1 = new Button();
     Node node2 = new Button();
     WorkbenchFxUtils.assertNodeNotSame(node1, node2); // should not throw
-    assertThrows(IllegalArgumentException.class,
+    assertThrows(
+        IllegalArgumentException.class,
         () -> WorkbenchFxUtils.assertNodeNotSame(node1, node1)
     );
   }
