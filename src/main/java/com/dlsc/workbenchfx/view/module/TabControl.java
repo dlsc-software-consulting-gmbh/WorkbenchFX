@@ -31,11 +31,11 @@ public class TabControl extends HBox {
     setMargin(closeBtn, new Insets(-30, -10, 0, 0));
   }
 
-  public void setOnCloseRequest(EventHandler<ActionEvent> event) {
+  public void setOnClose(EventHandler<ActionEvent> event) {
     closeBtn.setOnAction(event);
   }
 
-  public void setOnActiveRequest(EventHandler<MouseEvent> event) {
+  public void setOnActive(EventHandler<MouseEvent> event) {
     setOnMouseClicked(event);
   }
 }

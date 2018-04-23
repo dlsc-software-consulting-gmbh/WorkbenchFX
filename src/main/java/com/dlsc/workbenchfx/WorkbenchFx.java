@@ -128,8 +128,8 @@ public class WorkbenchFx extends StackPane {
   }
 
   private TabControl setupRequests(TabControl tabControl, Module module) {
-    tabControl.setOnCloseRequest(e -> closeModule(module));
-    tabControl.setOnActiveRequest(e -> openModule(module));
+    tabControl.setOnClose(e -> closeModule(module));
+    tabControl.setOnActive(e -> openModule(module));
     return tabControl;
   }
 
