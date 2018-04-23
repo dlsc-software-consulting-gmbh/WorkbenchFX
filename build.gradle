@@ -1,17 +1,3 @@
-group 'com.dlsc'
-
-task wrapper(type: Wrapper) {
-    description = 'Generates gradlew[.bat] scripts'
-    gradleVersion = '4.6'
-}
-
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-}
-
 buildscript {
     repositories {
         jcenter()
@@ -24,7 +10,6 @@ buildscript {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.6'
         classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.4.1'
         classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.1.0'
         classpath 'de.jensd:fontawesomefx-commons:9.1.2'
         classpath 'de.jensd:fontawesomefx-fontawesome:4.7.0-9.1.2'
         classpath 'com.jfoenix:jfoenix:1.4.0'
@@ -33,18 +18,42 @@ buildscript {
     }
 }
 
-ext.checkstyleVersion = '8.8'
-ext.junitVintageVersion  = '5.1.0'
-ext.junitPlatformVersion = '1.1.0'
-ext.junitJupiterVersion  = '5.1.0'
-ext.log4jVersion  = '2.11.0'
+plugins {
+    id 'com.gradle.build-scan' version '1.12.1'
+    id 'java'
+    id 'idea'
+    id 'maven'
+    id "org.asciidoctor.convert" version "1.5.7"
+    id 'checkstyle'
+}
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'maven'
-apply plugin: 'org.junit.platform.gradle.plugin'
-apply plugin: 'org.asciidoctor.convert'
-apply plugin: 'checkstyle'
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
+
+ext.checkstyleVersion = '8.8'
+ext.junitVintageVersion  = '5.1.1'
+ext.junitPlatformVersion = '1.1.1'
+ext.junitJupiterVersion  = '5.1.1'
+ext.log4jVersion = '2.11.0'
+
+group 'com.dlsc'
+
+task wrapper(type: Wrapper) {
+    description = 'Generates gradlew[.bat] scripts'
+    gradleVersion = '4.6'
+}
+
+int javaVersion = Integer.valueOf((String) JavaVersion.current().getMajorVersion())
+if (javaVersion < 10) apply plugin: 'jacoco'
+
+buildScan {
+    licenseAgreementUrl = "https://gradle.com/terms-of-service"
+    licenseAgree = "yes"
+}
 
 sourceSets {
     main {
@@ -80,6 +89,9 @@ dependencies {
     // JUnit Jupiter API and TestEngine implementation
     testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+    testRuntime("org.junit.platform:junit-platform-launcher:${junitPlatformVersion}") {
+        because 'allows tests to run from IDEs that bundle older version of launcher'
+    }
 
     // To use Log4J's LogManager
     compile("org.apache.logging.log4j:log4j-core:${log4jVersion}")
@@ -138,21 +150,23 @@ checkstyle {
     toolVersion = "${checkstyleVersion}"
 }
 
-junitPlatform {
-    // platformVersion '1.1.0'
-    filters {
-        engines {
-            // include 'junit-jupiter', 'junit-vintage'
-            // exclude 'custom-engine'
-        }
-        tags {
-            // include 'fast'
-            exclude 'slow'
-        }
-        // includeClassNamePattern '.*Test'
+test {
+    useJUnitPlatform {
+        // includeEngines 'junit-jupiter', 'junit-vintage'
+        // excludeEngines 'custom-engine'
+
+        // includeTags 'fast'
+        excludeTags 'slow'
     }
-    // configurationParameter 'junit.jupiter.conditions.deactivate', '*'
-    // enableStandardTestTask true
-    // reportsDir file('build/test-results/junit-platform') // this is the default
-    logManager 'org.apache.logging.log4j.jul.LogManager'
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+
+    reports {
+        html.enabled = true
+    }
+
+    if (javaVersion < 10) finalizedBy jacocoTestReport
 }
+
