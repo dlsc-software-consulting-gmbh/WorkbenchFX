@@ -5,8 +5,12 @@ import com.dlsc.workbenchfx.module.Module;
 import java.util.Objects;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ToolBarPresenter implements Presenter {
+  private static final Logger LOGGER =
+      LogManager.getLogger(ToolBarPresenter.class.getName());
   private final WorkbenchFx model;
   private final ToolBarView view;
 
@@ -46,14 +50,14 @@ public class ToolBarPresenter implements Presenter {
       while (c.next()) {
         if (c.wasRemoved()) {
           for (Module module : c.getRemoved()) {
-            System.out.println("Remove");
+            LOGGER.info("MODULE CLOSED");
             // +1 because of home
             view.getChildren().remove(c.getFrom() + 1);
           }
         }
         if (c.wasAdded()) {
           for (Module module : c.getAddedSubList()) {
-            System.out.println("Add");
+            LOGGER.info("MODULE OPENED");
             if (!Objects.isNull(module)) {
               Node tabControl = model.getTab(module);
               view.getChildren().add(tabControl);
