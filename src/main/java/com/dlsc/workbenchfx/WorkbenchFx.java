@@ -213,8 +213,8 @@ public class WorkbenchFx extends StackPane {
   }
 
   /**
-   * The method is called from the views when they need a TabControl to display.
-   * Each module generates its own Tab.
+   * Generates a new Node which is then used as a Tab.
+   * Using the given {@link Module}, it calls the {@code tabFactory} which generates the Tab.
    *
    * @param module the module for which the Tab should be created
    * @return a corresponding Tab which contains the values of the module
@@ -224,8 +224,8 @@ public class WorkbenchFx extends StackPane {
   }
 
   /**
-   * The method is called from the views when they need a TileControl to display.
-   * Each module generates its own Tile.
+   * Generates a new Node which is then used as a Tile.
+   * Using the given {@link Module}, it calls the {@code tileFactory} which generates the Tile.
    *
    * @param module the module for which the Tile should be created
    * @return a corresponding Tile which contains the values of the module
