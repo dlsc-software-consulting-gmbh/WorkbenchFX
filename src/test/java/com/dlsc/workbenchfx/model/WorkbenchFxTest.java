@@ -136,6 +136,7 @@ class WorkbenchFxTest {
     inOrder = inOrder(second);
     inOrder.verify(second).init(workbench);
     inOrder.verify(second).activate();
+    inOrder.verifyNoMoreInteractions();
   }
 
   @Test
@@ -164,6 +165,7 @@ class WorkbenchFxTest {
     inOrder.verify(first).activate();
     // Call: workbench.closeModule(first)
     inOrder.verify(first).destroy();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -192,6 +194,7 @@ class WorkbenchFxTest {
     inOrder.verify(second).activate();
     // Call: workbench.closeModule(first)
     inOrder.verify(first).destroy();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -224,6 +227,7 @@ class WorkbenchFxTest {
     // Call: workbench.closeModule(first)
     inOrder.verify(first).destroy();
     inOrder.verify(second).activate();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -252,6 +256,7 @@ class WorkbenchFxTest {
     // Call: workbench.closeModule(second)
     inOrder.verify(second).destroy();
     inOrder.verify(first).activate();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -283,6 +288,7 @@ class WorkbenchFxTest {
     inOrder.verify(first).activate();
     // Call: workbench.closeModule(second)
     inOrder.verify(second).destroy();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -320,6 +326,7 @@ class WorkbenchFxTest {
     // Call: workbench.closeModule(second)
     inOrder.verify(second).destroy();
     inOrder.verify(first).activate();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -350,6 +357,7 @@ class WorkbenchFxTest {
     // destroy second
     inOrder.verify(second).destroy();
     // notice destroy() was unsuccessful, keep focus on second
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -380,6 +388,7 @@ class WorkbenchFxTest {
     // destroy second
     inOrder.verify(first).destroy();
     // notice destroy() was unsuccessful, keep focus on second
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -420,6 +429,7 @@ class WorkbenchFxTest {
     inOrder.verify(first).activate();
     // destroy() returns true, switch to second
     inOrder.verify(second).activate();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -459,6 +469,7 @@ class WorkbenchFxTest {
     inOrder.verify(second).deactivate();
     inOrder.verify(first).activate();
     // destroy() returns false, first stays the active module
+    inOrder.verifyNoMoreInteractions();
   }
 
   @Test
