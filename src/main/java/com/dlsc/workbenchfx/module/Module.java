@@ -12,21 +12,16 @@ import javafx.scene.Node;
 public interface Module {
 
   /**
-   * Gets called from the Tab- and TileControl when creating the Tabs and Tiles of the module.
-   *
-   * @return the representative Graphic-Node
-   */
-  Node getIcon();
-
-  /**
-   * Gets called from the Tab- and TileControl when creating the Tabs and Tiles of the module.
-   *
-   * @return the name of the module
+   * Returns the name of this module.
    */
   String getName();
 
-  // Lifecycle
+  /**
+   * Returns the icon of this module as a {@link Node}.
+   */
+  Node getIcon();
 
+  // Lifecycle
   /**
    * Gets called when the module is being opened from the overview for the first time.
    *
