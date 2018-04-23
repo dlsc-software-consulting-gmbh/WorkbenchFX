@@ -15,7 +15,9 @@ public class TabControl extends HBox {
   private Module module;
 
   /**
-   * The Constructor of the {@code TabControl}.
+   * Constructs a new {@link TabControl}.
+   *
+   * @param module which is used to create the {@link TabControl}
    */
   public TabControl(Module module) {
     this.module = module;

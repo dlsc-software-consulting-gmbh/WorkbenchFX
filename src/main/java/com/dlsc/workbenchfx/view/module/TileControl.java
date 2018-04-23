@@ -9,7 +9,9 @@ public class TileControl extends Button {
   private Module module;
 
   /**
-   * The Constructor of the {@code TileControl}.
+   * Constructs a new {@link TileControl}.
+   *
+   * @param module which is used to create the {@link TileControl}
    */
   public TileControl(Module module) {
     this.module = module;
