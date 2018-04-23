@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
+import javafx.scene.Node;
 
 public class HomePresenter implements Presenter {
   private final WorkbenchFx model;
@@ -13,6 +14,16 @@ public class HomePresenter implements Presenter {
     this.model = model;
     this.view = view;
     init();
+  }
+
+  @Override
+  public void initializeViewParts() {
+    // Adds the module-tiles to the view
+    model.getModules().forEach(module -> {
+      Node tileControl = model.getTile(module);
+      tileControl.getStyleClass().add("tileControl");
+      view.getChildren().add(tileControl);
+    });
   }
 
   /**
