@@ -4,7 +4,6 @@ import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.standard.calendar.CalendarModule;
 import com.dlsc.workbenchfx.standard.notes.NotesModule;
 import com.dlsc.workbenchfx.standard.preferences.PreferencesModule;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.scene.layout.StackPane;
 
 public class DemoPane extends StackPane {
@@ -17,7 +16,7 @@ public class DemoPane extends StackPane {
         new NotesModule(),
         new PreferencesModule()
     );
-    getChildren().add(workbenchFx.getView());
+    getChildren().add(workbenchFx);
   }
 
 }
