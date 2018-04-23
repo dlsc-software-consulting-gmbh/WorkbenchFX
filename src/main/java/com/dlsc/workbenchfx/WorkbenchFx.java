@@ -59,30 +59,20 @@ public class WorkbenchFx {
   private final ObjectProperty<Module> activeModule = new SimpleObjectProperty<>();
   private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
-  private WorkbenchFx(Module... modules) {
-    this.modules.addAll(modules);
-    initLifecycle();
-
-    // initialize views
-    toolBarView = new ToolBarView(this);
-    toolBarPresenter = new ToolBarPresenter(this, toolBarView);
-
-    homeView = new HomeView(this);
-    homePresenter = new HomePresenter(this, homeView);
-
-    centerView = new CenterView(this);
-    centerPresenter = new CenterPresenter(this, centerView);
-
-    workbenchFxView = new WorkbenchFxView(toolBarView, homeView, centerView);
-    workbenchFxPresenter = new WorkbenchFxPresenter(this, workbenchFxView);
-  }
-
   /** Creates the Workbench window. */
   public static WorkbenchFx of(Module... modules) {
     return new WorkbenchFx(modules);
   }
 
-  private void initLifecycle() {
+  private WorkbenchFx(Module... modules) {
+    initModules();
+    initializeViews();
+  }
+
+  private void initModules() {
+    this.modules.addAll(modules);
+
+    // handle changes of the active module
     activeModule.addListener(
         (observable, oldModule, newModule) -> {
           if (oldModule != newModule) {
@@ -104,6 +94,20 @@ public class WorkbenchFx {
             activeModuleView.setValue(newModule.activate());
           }
         });
+  }
+
+  private void initializeViews() {
+    toolBarView = new ToolBarView(this);
+    toolBarPresenter = new ToolBarPresenter(this, toolBarView);
+
+    homeView = new HomeView(this);
+    homePresenter = new HomePresenter(this, homeView);
+
+    centerView = new CenterView(this);
+    centerPresenter = new CenterPresenter(this, centerView);
+
+    workbenchFxView = new WorkbenchFxView(toolBarView, homeView, centerView);
+    workbenchFxPresenter = new WorkbenchFxPresenter(this, workbenchFxView);
   }
 
   /**
