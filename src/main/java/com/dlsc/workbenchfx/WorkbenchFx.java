@@ -134,7 +134,7 @@ public class WorkbenchFx extends StackPane {
   }
 
   private TileControl setupRequests(TileControl tileControl, Module module) {
-    tileControl.setOnActiveRequest(e -> openModule(module));
+    tileControl.setOnActive(e -> openModule(module));
     return tileControl;
   }
 

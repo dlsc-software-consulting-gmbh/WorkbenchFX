@@ -17,7 +17,7 @@ public class TileControl extends Button {
     setGraphic(module.getGraphic());
   }
 
-  public void setOnActiveRequest(EventHandler<MouseEvent> event) {
+  public void setOnActive(EventHandler<MouseEvent> event) {
     setOnMouseClicked(event);
   }
 }
