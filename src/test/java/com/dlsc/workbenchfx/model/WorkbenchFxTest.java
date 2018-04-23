@@ -18,6 +18,8 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -33,11 +35,11 @@ class WorkbenchFxTest {
 
   private static final int FIRST_INDEX = 0;
   private static final int SECOND_INDEX = 1;
-  private static final int LAST_INDEX = SIZE-1;
+  private static final int LAST_INDEX = SIZE - 1;
   WorkbenchFx workbench;
 
   Module[] mockModules = new Module[SIZE];
-  Node[] mockNodes = new Node[SIZE];
+  Node[] moduleNodes = new Node[SIZE];
 
   Module first;
   Module second;
@@ -48,18 +50,18 @@ class WorkbenchFxTest {
     // is needed to avoid "java.lang.IllegalStateException: Toolkit not initialized"
     JFXPanel jfxPanel = new JFXPanel();
 
-    for (int i = 0; i < mockNodes.length; i++) {
-      mockNodes[i] = mock(Node.class);
+    for (int i = 0; i < moduleNodes.length; i++) {
+      moduleNodes[i] = new Label("Module Content");
     }
 
     for (int i = 0; i < mockModules.length; i++) {
       mockModules[i] = mock(Module.class);
-      when(mockModules[i].activate()).thenReturn(mockNodes[i]);
+      when(mockModules[i].activate()).thenReturn(moduleNodes[i]);
       when(mockModules[i].destroy()).thenReturn(true);
-      when(mockModules[i].getTile()).thenReturn(mock(Node.class));
-      when(mockModules[i].getTab()).thenReturn(mock(Node.class));
     }
     workbench = WorkbenchFx.of(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX], mockModules[LAST_INDEX]);
+    workbench.setTabFactory(param -> new Label("Module Tab"));
+    workbench.setTileFactory(param -> new Label("Module Tile"));
 
     first = mockModules[FIRST_INDEX];
     second = mockModules[SECOND_INDEX];
@@ -67,7 +69,7 @@ class WorkbenchFxTest {
   }
 
   @Test
-  void testCtor(){
+  void testCtor() {
     assertEquals(mockModules.length, workbench.getModules().size());
     for (int i = 0; i < mockModules.length; i++) {
       assertSame(mockModules[i], workbench.getModules().get(i));
@@ -83,7 +85,7 @@ class WorkbenchFxTest {
     // Open first
     workbench.openModule(first);
     assertSame(first, workbench.getActiveModule());
-    assertSame(mockNodes[FIRST_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
     assertEquals(1, workbench.getOpenModules().size());
     InOrder inOrder = inOrder(first);
     inOrder.verify(first).init(workbench);
@@ -91,7 +93,7 @@ class WorkbenchFxTest {
     // Open last
     workbench.openModule(last);
     assertSame(last, workbench.getActiveModule());
-    assertSame(mockNodes[LAST_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[LAST_INDEX], workbench.getActiveModuleView());
     assertEquals(2, workbench.getOpenModules().size());
     inOrder = inOrder(first, last);
     inOrder.verify(first).deactivate();
@@ -100,7 +102,7 @@ class WorkbenchFxTest {
     // Open last again
     workbench.openModule(last);
     assertSame(last, workbench.getActiveModule());
-    assertSame(mockNodes[LAST_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[LAST_INDEX], workbench.getActiveModuleView());
     assertEquals(2, workbench.getOpenModules().size());
     verify(last, times(1)).init(workbench);
     verify(last, times(1)).activate();
@@ -108,7 +110,7 @@ class WorkbenchFxTest {
     // Open first (already initialized)
     workbench.openModule(first);
     assertSame(first, workbench.getActiveModule());
-    assertSame(mockNodes[FIRST_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
     assertEquals(2, workbench.getOpenModules().size());
     verify(first, times(1)).init(workbench); // no additional init on first
     verify(last, times(1)).init(workbench); // no additional init on last
@@ -127,7 +129,7 @@ class WorkbenchFxTest {
     // Open second
     workbench.openModule(second);
     assertSame(second, workbench.getActiveModule());
-    assertSame(mockNodes[SECOND_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
     assertEquals(3, workbench.getOpenModules().size());
     inOrder = inOrder(second);
     inOrder.verify(second).init(workbench);
@@ -174,7 +176,7 @@ class WorkbenchFxTest {
     workbench.closeModule(first);
 
     assertSame(second, workbench.getActiveModule());
-    assertSame(mockNodes[SECOND_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
     assertEquals(1, workbench.getOpenModules().size());
     verify(second, never()).deactivate();
 
@@ -203,7 +205,7 @@ class WorkbenchFxTest {
     workbench.closeModule(first);
 
     assertSame(second, workbench.getActiveModule());
-    assertSame(mockNodes[SECOND_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
     assertEquals(1, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);
@@ -234,7 +236,7 @@ class WorkbenchFxTest {
     workbench.closeModule(second);
 
     assertSame(first, workbench.getActiveModule());
-    assertSame(mockNodes[FIRST_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
     assertEquals(1, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);
@@ -263,7 +265,7 @@ class WorkbenchFxTest {
     workbench.closeModule(second);
 
     assertSame(first, workbench.getActiveModule());
-    assertSame(mockNodes[FIRST_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
     assertEquals(1, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);
@@ -295,7 +297,7 @@ class WorkbenchFxTest {
     workbench.closeModule(second);
 
     assertSame(first, workbench.getActiveModule());
-    assertSame(mockNodes[FIRST_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
     assertEquals(2, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second, last);
@@ -331,7 +333,7 @@ class WorkbenchFxTest {
     workbench.closeModule(second);
 
     assertSame(second, workbench.getActiveModule());
-    assertSame(mockNodes[SECOND_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
     assertEquals(2, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);
@@ -361,7 +363,7 @@ class WorkbenchFxTest {
     workbench.closeModule(first);
 
     assertSame(second, workbench.getActiveModule());
-    assertSame(mockNodes[SECOND_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
     assertEquals(2, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);
@@ -388,16 +390,16 @@ class WorkbenchFxTest {
     // open two modules, close first (inactive) module
     // destroy() on first module will return false, so the module shouldn't get closed
     when(first.destroy()).then(invocation -> {
-          workbench.openModule(first);
-          // dialog opens, user confirms closing module
-          return true;
-        });
+      workbench.openModule(first);
+      // dialog opens, user confirms closing module
+      return true;
+    });
     workbench.openModule(first);
     workbench.openModule(second);
     workbench.closeModule(first);
 
     assertSame(second, workbench.getActiveModule());
-    assertSame(mockNodes[SECOND_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
     assertEquals(1, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);
@@ -437,7 +439,7 @@ class WorkbenchFxTest {
     workbench.closeModule(first);
 
     assertSame(first, workbench.getActiveModule());
-    assertSame(mockNodes[FIRST_INDEX], workbench.getActiveModuleView());
+    assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
     assertEquals(2, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);

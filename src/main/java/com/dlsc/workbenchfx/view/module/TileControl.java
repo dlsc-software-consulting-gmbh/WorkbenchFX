@@ -17,6 +17,7 @@ public class TileControl extends Button {
     this.module = module;
     setText(module.getName());
     setGraphic(module.getGraphic());
+    getStyleClass().add("tileControl");
   }
 
   public void setOnActive(EventHandler<MouseEvent> event) {

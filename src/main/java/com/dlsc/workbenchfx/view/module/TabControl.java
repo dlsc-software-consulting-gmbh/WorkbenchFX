@@ -31,6 +31,7 @@ public class TabControl extends HBox {
     setMargin(icon, new Insets(0, 0, 0, 10));
     setMargin(nameLbl, new Insets(0, 0, 0, 5));
     setMargin(closeBtn, new Insets(-30, -10, 0, 0));
+    getStyleClass().add("tabControl");
   }
 
   public void setOnClose(EventHandler<ActionEvent> event) {
