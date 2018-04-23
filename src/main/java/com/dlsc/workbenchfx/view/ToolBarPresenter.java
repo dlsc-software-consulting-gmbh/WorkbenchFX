@@ -50,14 +50,14 @@ public class ToolBarPresenter implements Presenter {
       while (c.next()) {
         if (c.wasRemoved()) {
           for (Module module : c.getRemoved()) {
-            LOGGER.info("MODULE CLOSED");
+            LOGGER.debug("MODULE CLOSED");
             // +1 because of home
             view.getChildren().remove(c.getFrom() + 1);
           }
         }
         if (c.wasAdded()) {
           for (Module module : c.getAddedSubList()) {
-            LOGGER.info("MODULE OPENED");
+            LOGGER.debug("MODULE OPENED");
             if (!Objects.isNull(module)) {
               Node tabControl = model.getTab(module);
               view.getChildren().add(tabControl);
