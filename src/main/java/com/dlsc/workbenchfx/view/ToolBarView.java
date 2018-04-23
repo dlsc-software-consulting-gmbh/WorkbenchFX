@@ -6,7 +6,8 @@ import javafx.scene.layout.HBox;
 
 public class ToolBarView extends HBox implements View {
   private final WorkbenchFx model;
-  final Button homeBtn = new Button("Home");
+  private final Button homeBtn = new Button("Home");
+
 
   public ToolBarView(WorkbenchFx model) {
     this.model = model;
@@ -25,7 +26,7 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    homeBtn.getStyleClass().add("tabControl");
+    homeBtn.setId("homeButton");
     setSpacing(10);
     getChildren().add(homeBtn);
   }
