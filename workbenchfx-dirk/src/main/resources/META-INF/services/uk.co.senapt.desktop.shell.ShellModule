@@ -1,0 +1,11 @@
+uk.co.senapt.desktop.ui.modules.BillingManagementModule
+uk.co.senapt.desktop.ui.modules.BrokersManagementModule
+uk.co.senapt.desktop.ui.modules.ComplaintsModule
+uk.co.senapt.desktop.ui.modules.DeptManagementModule
+uk.co.senapt.desktop.ui.modules.FinanceModule
+uk.co.senapt.desktop.ui.modules.MeterManagementModule
+uk.co.senapt.desktop.ui.modules.ReportsModule
+uk.co.senapt.desktop.ui.modules.SalesManagementModule
+uk.co.senapt.desktop.ui.modules.TarrifManagementModule
+uk.co.senapt.desktop.ui.modules.TaskManagementModule
+uk.co.senapt.desktop.ui.modules.TemplatesModule

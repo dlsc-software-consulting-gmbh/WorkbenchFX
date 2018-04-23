@@ -1,10 +1,7 @@
 package com.dlsc.workbenchfx;
 
 // Change this import depending on the demo
-//import com.dlsc.workbenchfx.standard.RootPane;
-import com.dlsc.workbenchfx.i18n.RootPane;
-//import com.dlsc.workbenchfx.oneCategory.RootPane;
-//import com.dlsc.workbenchfx.extended.RootPane;
+import com.dlsc.workbenchfx.standard.DemoPane;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -18,8 +15,8 @@ public class AppStarter extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    RootPane rootPane = new RootPane();
-    Scene myScene = new Scene(rootPane);
+    DemoPane demoPane = new DemoPane();
+    Scene myScene = new Scene(demoPane);
 
     primaryStage.setTitle("WorkbenchFX Demo");
     primaryStage.setScene(myScene);

@@ -1,0 +1,648 @@
+/* ----------------------------------------------------------------------------
+ * Billing Management
+ */
+.billing-management-icon {
+    -fx-graphic: url("modules/icons/billingmanagement/billing-management-icon.png");
+}
+
+.billing-management-icon:pressed {
+    -fx-graphic: url("modules/icons/billingmanagement/billing-management-icon-hover.png");
+}
+
+.billing-management-icon:hover {
+    -fx-graphic: url("modules/icons/billingmanagement/billing-management-icon-hover.png");
+}
+
+.billing-management-icon:selected {
+    -fx-graphic: url("modules/icons/billingmanagement/billing-management-icon-hover.png");
+}
+
+
+
+.billing-management-icon-menu {
+    -fx-graphic: url("modules/icons/billingmanagement/menu-billing-management-icon.png");
+}
+
+.billing-management-icon-menu:pressed {
+    -fx-graphic: url("modules/icons/billingmanagement/menu-billing-management-icon-hover.png");
+}
+
+.billing-management-icon-menu:showing {
+    -fx-graphic: url("modules/icons/billingmanagement/menu-billing-management-icon-hover.png");
+}
+
+.billing-management-icon-menu:hover {
+    -fx-graphic: url("modules/icons/billingmanagement/menu-billing-management-icon-hover.png");
+}
+
+.billing-management-icon-menu:selected {
+    -fx-graphic: url("modules/icons/billingmanagement/menu-billing-management-icon-hover.png");
+}
+
+
+
+.billing-management-icon-taskbar {
+    -fx-graphic: url("modules/icons/billingmanagement/taskbar-billing-management-icon-hover.png");
+}
+
+.billing-management-icon-taskbar:pressed {
+    -fx-graphic: url("modules/icons/billingmanagement/taskbar-billing-management-icon-hover.png");
+}
+
+.billing-management-icon-taskbar:hover {
+    -fx-graphic: url("modules/icons/billingmanagement/taskbar-billing-management-icon-hover.png");
+}
+
+.billing-management-icon-taskbar:selected {
+    -fx-graphic: url("modules/icons/billingmanagement/taskbar-billing-management-icon-hover.png");
+}
+
+/* ----------------------------------------------------------------------------
+ * Brokers Management
+ */
+.brokers-management-icon {
+    -fx-graphic: url("modules/icons/brokersmanagement/brokers-management-icon.png");
+}
+
+.brokers-management-icon:pressed {
+    -fx-graphic: url("modules/icons/brokersmanagement/brokers-management-icon-hover.png");
+}
+
+.brokers-management-icon:hover {
+    -fx-graphic: url("modules/icons/brokersmanagement/brokers-management-icon-hover.png");
+}
+
+.brokers-management-icon:selected {
+    -fx-graphic: url("modules/icons/brokersmanagement/brokers-management-icon-hover.png");
+}
+
+
+
+.brokers-management-icon-menu {
+    -fx-graphic: url("modules/icons/brokersmanagement/menu-brokers-management-icon.png");
+}
+
+.brokers-management-icon-menu:pressed {
+    -fx-graphic: url("modules/icons/brokersmanagement/menu-brokers-management-icon-hover.png");
+}
+
+.brokers-management-icon-menu:showing {
+    -fx-graphic: url("modules/icons/brokersmanagement/menu-brokers-management-icon-hover.png");
+}
+
+.brokers-management-icon-menu:hover {
+    -fx-graphic: url("modules/icons/brokersmanagement/menu-brokers-management-icon-hover.png");
+}
+
+.brokers-management-icon-menu:selected {
+    -fx-graphic: url("modules/icons/brokersmanagement/menu-brokers-management-icon-hover.png");
+}
+
+
+
+.brokers-management-icon-taskbar {
+    -fx-graphic: url("modules/icons/brokersmanagement/taskbar-brokers-management-icon-hover.png");
+}
+
+.brokers-management-icon-taskbar:pressed {
+    -fx-graphic: url("modules/icons/brokersmanagement/taskbar-brokers-management-icon-hover.png");
+}
+
+.brokers-management-icon-taskbar:hover {
+    -fx-graphic: url("modules/icons/brokersmanagement/taskbar-brokers-management-icon-hover.png");
+}
+
+.brokers-management-icon-taskbar:selected {
+    -fx-graphic: url("modules/icons/brokersmanagement/taskbar-brokers-management-icon-hover.png");
+}
+
+/* ----------------------------------------------------------------------------
+ * Complaints
+ */
+.complaints-icon {
+    -fx-graphic: url("modules/icons/complaints/complaints-icon.png");
+}
+
+.complaints-icon:pressed {
+    -fx-graphic: url("modules/icons/complaints/complaints-icon-hover.png");
+}
+
+.complaints-icon:hover {
+    -fx-graphic: url("modules/icons/complaints/complaints-icon-hover.png");
+}
+
+.complaints-icon:selected {
+    -fx-graphic: url("modules/icons/complaints/complaints-icon-hover.png");
+}
+
+
+
+.complaints-icon-menu {
+    -fx-graphic: url("modules/icons/complaints/menu-complaints-icon.png");
+}
+
+.complaints-icon-menu:pressed {
+    -fx-graphic: url("modules/icons/complaints/menu-complaints-icon-hover.png");
+}
+
+.complaints-icon-menu:showing {
+    -fx-graphic: url("modules/icons/complaints/menu-complaints-icon-hover.png");
+}
+
+.complaints-icon-menu:hover {
+    -fx-graphic: url("modules/icons/complaints/menu-complaints-icon-hover.png");
+}
+
+.complaints-icon-menu:selected {
+    -fx-graphic: url("modules/icons/complaints/menu-complaints-icon-hover.png");
+}
+
+
+
+.complaints-icon-taskbar {
+    -fx-graphic: url("modules/icons/complaints/taskbar-complaints-icon-hover.png");
+}
+
+.complaints-icon-taskbar:pressed {
+    -fx-graphic: url("modules/icons/complaints/taskbar-complaints-icon-hover.png");
+}
+
+.complaints-icon-taskbar:hover {
+    -fx-graphic: url("modules/icons/complaints/taskbar-complaints-icon-hover.png");
+}
+
+.complaints-icon-taskbar:selected {
+    -fx-graphic: url("modules/icons/complaints/taskbar-complaints-icon-hover.png");
+}
+
+/* ----------------------------------------------------------------------------
+ * Dept Management
+ */
+.debt-management-icon {
+    -fx-graphic: url("modules/icons/debt-management/debt-management-icon.png");
+}
+
+.debt-management-icon:pressed {
+    -fx-graphic: url("modules/icons/debt-management/debt-management-icon-hover.png");
+}
+
+.debt-management-icon:hover {
+    -fx-graphic: url("modules/icons/debt-management/debt-management-icon-hover.png");
+}
+
+.debt-management-icon:selected {
+    -fx-graphic: url("modules/icons/debt-management/debt-management-icon-hover.png");
+}
+
+
+
+.debt-management-icon-menu {
+    -fx-graphic: url("modules/icons/debt-management/menu-debt-management-icon.png");
+}
+
+.debt-management-icon-menu:pressed {
+    -fx-graphic: url("modules/icons/debt-management/menu-debt-management-icon-hover.png");
+}
+
+.debt-management-icon-menu:showing {
+    -fx-graphic: url("modules/icons/debt-management/menu-debt-management-icon-hover.png");
+}
+
+.debt-management-icon-menu:hover {
+    -fx-graphic: url("modules/icons/debt-management/menu-debt-management-icon-hover.png");
+}
+
+.debt-management-icon-menu:selected {
+    -fx-graphic: url("modules/icons/debt-management/menu-debt-management-icon-hover.png");
+}
+
+
+
+.debt-management-icon-taskbar {
+    -fx-graphic: url("modules/icons/debt-management/taskbar-debt-management-icon-hover.png");
+}
+
+.debt-management-icon-taskbar:pressed {
+    -fx-graphic: url("modules/icons/debt-management/taskbar-debt-management-icon-hover.png");
+}
+
+.debt-management-icon-taskbar:hover {
+    -fx-graphic: url("modules/icons/debt-management/taskbar-debt-management-icon-hover.png");
+}
+
+.debt-management-icon-taskbar:selected {
+    -fx-graphic: url("modules/icons/debt-management/taskbar-debt-management-icon-hover.png");
+}
+
+/* ----------------------------------------------------------------------------
+ * Finance.
+ */
+.finance-icon {
+    -fx-graphic: url("modules/icons/finance/finance-icon.png");
+}
+
+.finance-icon:pressed {
+    -fx-graphic: url("modules/icons/finance/finance-icon-hover.png");
+}
+
+.finance-icon:hover {
+    -fx-graphic: url("modules/icons/finance/finance-icon-hover.png");
+}
+
+.finance-icon:selected {
+    -fx-graphic: url("modules/icons/finance/finance-icon-hover.png");
+}
+
+
+
+.finance-icon-menu {
+    -fx-graphic: url("modules/icons/finance/menu-finance-icon.png");
+}
+
+.finance-icon-menu:pressed {
+    -fx-graphic: url("modules/icons/finance/menu-finance-icon-hover.png");
+}
+
+.finance-icon-menu:showing {
+    -fx-graphic: url("modules/icons/finance/menu-finance-icon-hover.png");
+}
+
+.finance-icon-menu:hover {
+    -fx-graphic: url("modules/icons/finance/menu-finance-icon-hover.png");
+}
+
+.finance-icon-menu:selected {
+    -fx-graphic: url("modules/icons/finance/menu-finance-icon-hover.png");
+}
+
+
+
+.finance-icon-taskbar {
+    -fx-graphic: url("modules/icons/finance/taskbar-finance-icon-hover.png");
+}
+
+.finance-icon-taskbar:pressed {
+    -fx-graphic: url("modules/icons/finance/taskbar-finance-icon-hover.png");
+}
+
+.finance-icon-taskbar:hover {
+    -fx-graphic: url("modules/icons/finance/taskbar-finance-icon-hover.png");
+}
+
+.finance-icon-taskbar:selected {
+    -fx-graphic: url("modules/icons/finance/taskbar-finance-icon-hover.png");
+}
+
+/* ----------------------------------------------------------------------------
+ * Meter Management.
+ */
+.meter-management-icon {
+    -fx-graphic: url("modules/icons/metermanagement/meter-management-icon.png");
+}
+
+.meter-management-icon:pressed {
+    -fx-graphic: url("modules/icons/metermanagement/meter-management-icon-hover.png");
+}
+
+.meter-management-icon:hover {
+    -fx-graphic: url("modules/icons/metermanagement/meter-management-icon-hover.png");
+}
+
+.meter-management-icon:selected {
+    -fx-graphic: url("modules/icons/metermanagement/meter-management-icon-hover.png");
+}
+
+
+
+.meter-management-icon-menu {
+    -fx-graphic: url("modules/icons/metermanagement/menu-meter-management-icon.png");
+}
+
+.meter-management-icon-menu:pressed {
+    -fx-graphic: url("modules/icons/metermanagement/menu-meter-management-icon-hover.png");
+}
+
+.meter-management-icon-menu:showing {
+    -fx-graphic: url("modules/icons/metermanagement/menu-meter-management-icon-hover.png");
+}
+
+.meter-management-icon-menu:hover {
+    -fx-graphic: url("modules/icons/metermanagement/menu-meter-management-icon-hover.png");
+}
+
+.meter-management-icon-menu:selected {
+    -fx-graphic: url("modules/icons/metermanagement/menu-meter-management-icon-hover.png");
+}
+
+
+
+.meter-management-icon-taskbar {
+    -fx-graphic: url("modules/icons/metermanagement/taskbar-meter-management-icon-hover.png");
+}
+
+.meter-management-icon-taskbar:pressed {
+    -fx-graphic: url("modules/icons/metermanagement/taskbar-meter-management-icon-hover.png");
+}
+
+.meter-management-icon-taskbar:hover {
+    -fx-graphic: url("modules/icons/metermanagement/taskbar-meter-management-icon-hover.png");
+}
+
+.meter-management-icon-taskbar:selected {
+    -fx-graphic: url("modules/icons/metermanagement/taskbar-meter-management-icon-hover.png");
+}
+
+/* ----------------------------------------------------------------------------
+ * Reports.
+ */
+.reports-icon {
+    -fx-graphic: url("modules/icons/reports/reports-icon.png");
+}
+
+.reports-icon:pressed {
+    -fx-graphic: url("modules/icons/reports/reports-icon-hover.png");
+}
+
+.reports-icon:hover {
+    -fx-graphic: url("modules/icons/reports/reports-icon-hover.png");
+}
+
+.reports-icon:selected {
+    -fx-graphic: url("modules/icons/reports/reports-icon-hover.png");
+}
+
+
+
+.reports-icon-menu {
+    -fx-graphic: url("modules/icons/reports/menu-reports-icon.png");
+}
+
+.reports-icon-menu:pressed {
+    -fx-graphic: url("modules/icons/reports/menu-reports-icon-hover.png");
+}
+
+.reports-icon-menu:showing {
+    -fx-graphic: url("modules/icons/reports/menu-reports-icon-hover.png");
+}
+
+.reports-icon-menu:hover {
+    -fx-graphic: url("modules/icons/reports/menu-reports-icon-hover.png");
+}
+
+.reports-icon-menu:selected {
+    -fx-graphic: url("modules/icons/reports/menu-reports-icon-hover.png");
+}
+
+
+
+.reports-icon-taskbar {
+    -fx-graphic: url("modules/icons/reports/taskbar-reports-icon-hover.png");
+}
+
+.reports-icon-taskbar:pressed {
+    -fx-graphic: url("modules/icons/reports/taskbar-reports-icon-hover.png");
+}
+
+.reports-icon-taskbar:hover {
+    -fx-graphic: url("modules/icons/reports/taskbar-reports-icon-hover.png");
+}
+
+.reports-icon-taskbar:selected {
+    -fx-graphic: url("modules/icons/reports/taskbar-reports-icon-hover.png");
+}
+
+/* ----------------------------------------------------------------------------
+ * Sales Management.
+ */
+.sales-management-icon {
+    -fx-graphic: url("modules/icons/salesmanagement/sales-management-icon.png");
+}
+
+.sales-management-icon:pressed {
+    -fx-graphic: url("modules/icons/salesmanagement/sales-management-icon-hover.png");
+}
+
+.sales-management-icon:hover {
+    -fx-graphic: url("modules/icons/salesmanagement/sales-management-icon-hover.png");
+}
+
+.sales-management-icon:selected {
+    -fx-graphic: url("modules/icons/salesmanagement/sales-management-icon-hover.png");
+}
+
+
+
+.sales-management-icon-menu {
+    -fx-graphic: url("modules/icons/salesmanagement/menu-sales-management-icon.png");
+}
+
+.sales-management-icon-menu:pressed {
+    -fx-graphic: url("modules/icons/salesmanagement/menu-sales-management-icon-hover.png");
+}
+
+.sales-management-icon-menu:showing {
+    -fx-graphic: url("modules/icons/salesmanagement/menu-sales-management-icon-hover.png");
+}
+
+.sales-management-icon-menu:hover {
+    -fx-graphic: url("modules/icons/salesmanagement/menu-sales-management-icon-hover.png");
+}
+
+.sales-management-icon-menu:selected {
+    -fx-graphic: url("modules/icons/salesmanagement/menu-sales-management-icon-hover.png");
+}
+
+
+
+.sales-management-icon-taskbar {
+    -fx-graphic: url("modules/icons/salesmanagement/taskbar-sales-management-icon-hover.png");
+}
+
+.sales-management-icon-taskbar:pressed {
+    -fx-graphic: url("modules/icons/salesmanagement/taskbar-sales-management-icon-hover.png");
+}
+
+.sales-management-icon-taskbar:hover {
+    -fx-graphic: url("modules/icons/salesmanagement/taskbar-sales-management-icon-hover.png");
+}
+
+.sales-management-icon-taskbar:selected {
+    -fx-graphic: url("modules/icons/salesmanagement/taskbar-sales-management-icon-hover.png");
+}
+
+/* ----------------------------------------------------------------------------
+ * Tariff Management.
+ */
+.tariff-management-icon {
+    -fx-graphic: url("modules/icons/tariffmanagement/tariff-management-icon.png");
+}
+
+.tariff-management-icon:pressed {
+    -fx-graphic: url("modules/icons/tariffmanagement/tariff-management-icon-hover.png");
+}
+
+.tariff-management-icon:hover {
+    -fx-graphic: url("modules/icons/tariffmanagement/tariff-management-icon-hover.png");
+}
+
+.tariff-management-icon:selected {
+    -fx-graphic: url("modules/icons/tariffmanagement/tariff-management-icon-hover.png");
+}
+
+
+
+.tariff-management-icon-menu {
+    -fx-graphic: url("modules/icons/tariffmanagement/menu-tariff-management-icon.png");
+}
+
+.tariff-management-icon-menu:pressed {
+    -fx-graphic: url("modules/icons/tariffmanagement/menu-tariff-management-icon-hover.png");
+}
+
+.tariff-management-icon-menu:showing {
+    -fx-graphic: url("modules/icons/tariffmanagement/menu-tariff-management-icon-hover.png");
+}
+
+.tariff-management-icon-menu:hover {
+    -fx-graphic: url("modules/icons/tariffmanagement/menu-tariff-management-icon-hover.png");
+}
+
+.tariff-management-icon-menu:selected {
+    -fx-graphic: url("modules/icons/tariffmanagement/menu-tariff-management-icon-hover.png");
+}
+
+
+
+.tariff-management-icon-taskbar {
+    -fx-graphic: url("modules/icons/tariffmanagement/taskbar-tariff-management-icon-hover.png");
+}
+
+.tariff-management-icon-taskbar:pressed {
+    -fx-graphic: url("modules/icons/tariffmanagement/taskbar-tariff-management-icon-hover.png");
+}
+
+.tariff-management-icon-taskbar:hover {
+    -fx-graphic: url("modules/icons/tariffmanagement/taskbar-tariff-management-icon-hover.png");
+}
+
+.tariff-management-icon-taskbar:selected {
+    -fx-graphic: url("modules/icons/tariffmanagement/taskbar-tariff-management-icon-hover.png");
+}
+
+/* ----------------------------------------------------------------------------
+ * Task Management.
+ */
+.task-management-icon {
+    -fx-graphic: url("modules/icons/taskmanagement/task-management-icon.png");
+}
+
+.task-management-icon:pressed {
+    -fx-graphic: url("modules/icons/taskmanagement/task-management-icon-hover.png");
+}
+
+.task-management-icon:hover {
+    -fx-graphic: url("modules/icons/taskmanagement/task-management-icon-hover.png");
+}
+
+.task-management-icon:selected {
+    -fx-graphic: url("modules/icons/taskmanagement/task-management-icon-hover.png");
+}
+
+
+
+.task-management-icon-menu {
+    -fx-graphic: url("modules/icons/taskmanagement/menu-task-management-icon.png");
+}
+
+.task-management-icon-menu:pressed {
+    -fx-graphic: url("modules/icons/taskmanagement/menu-task-management-icon-hover.png");
+}
+
+.task-management-icon-menu:showing {
+    -fx-graphic: url("modules/icons/taskmanagement/menu-task-management-icon-hover.png");
+}
+
+.task-management-icon-menu:hover {
+    -fx-graphic: url("modules/icons/taskmanagement/menu-task-management-icon-hover.png");
+}
+
+.task-management-icon-menu:selected {
+    -fx-graphic: url("modules/icons/taskmanagement/menu-task-management-icon-hover.png");
+}
+
+
+
+.task-management-icon-taskbar {
+    -fx-graphic: url("modules/icons/taskmanagement/taskbar-task-management-icon-hover.png");
+}
+
+.task-management-icon-taskbar:pressed {
+    -fx-graphic: url("modules/icons/taskmanagement/taskbar-task-management-icon-hover.png");
+}
+
+.task-management-icon-taskbar:hover {
+    -fx-graphic: url("modules/icons/taskmanagement/taskbar-task-management-icon-hover.png");
+}
+
+.task-management-icon-taskbar:selected {
+    -fx-graphic: url("modules/icons/taskmanagement/taskbar-task-management-icon-hover.png");
+}
+
+/* ----------------------------------------------------------------------------
+ * Templates.
+ */
+.templates-icon {
+    -fx-graphic: url("modules/icons/templates/templates-icon.png");
+}
+
+.templates-icon:pressed {
+    -fx-graphic: url("modules/icons/templates/templates-icon-hover.png");
+}
+
+.templates-icon:hover {
+    -fx-graphic: url("modules/icons/templates/templates-icon-hover.png");
+}
+
+.templates-icon:selected {
+    -fx-graphic: url("modules/icons/templates/templates-icon-hover.png");
+}
+
+
+
+.templates-icon-menu {
+    -fx-graphic: url("modules/icons/templates/menu-templates-icon.png");
+}
+
+.templates-icon-menu:pressed {
+    -fx-graphic: url("modules/icons/templates/menu-templates-icon-hover.png");
+}
+
+.templates-icon-menu:showing {
+    -fx-graphic: url("modules/icons/templates/menu-templates-icon-hover.png");
+}
+
+.templates-icon-menu:hover {
+    -fx-graphic: url("modules/icons/templates/menu-templates-icon-hover.png");
+}
+
+.templates-icon-menu:selected {
+    -fx-graphic: url("modules/icons/templates/menu-templates-icon-hover.png");
+}
+
+
+
+.templates-icon-taskbar {
+    -fx-graphic: url("modules/icons/templates/taskbar-templates-icon-hover.png");
+}
+
+.templates-icon-taskbar:pressed {
+    -fx-graphic: url("modules/icons/templates/taskbar-templates-icon-hover.png");
+}
+
+.templates-icon-taskbar:hover {
+    -fx-graphic: url("modules/icons/templates/taskbar-templates-icon-hover.png");
+}
+
+.templates-icon-taskbar:selected {
+    -fx-graphic: url("modules/icons/templates/taskbar-templates-icon-hover.png");
+}
