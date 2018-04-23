@@ -12,7 +12,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.dlsc.workbenchfx.model.module.Module;
+import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.module.Module;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.JFXPanel;
@@ -26,14 +27,14 @@ import org.mockito.InOrder;
  * Created by François Martin on 20.03.18.
  */
 @Tag("fast")
-class WorkbenchFxModelTest {
+class WorkbenchFxTest {
 
   private final static int SIZE = 3;
 
   private static final int FIRST_INDEX = 0;
   private static final int SECOND_INDEX = 1;
   private static final int LAST_INDEX = SIZE-1;
-  WorkbenchFxModel model;
+  WorkbenchFx workbench;
 
   Module[] mockModules = new Module[SIZE];
   Node[] mockNodes = new Node[SIZE];
@@ -55,8 +56,10 @@ class WorkbenchFxModelTest {
       mockModules[i] = mock(Module.class);
       when(mockModules[i].activate()).thenReturn(mockNodes[i]);
       when(mockModules[i].destroy()).thenReturn(true);
+      when(mockModules[i].getTile()).thenReturn(mock(Node.class));
+      when(mockModules[i].getTab()).thenReturn(mock(Node.class));
     }
-    model = new WorkbenchFxModel(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX], mockModules[LAST_INDEX]);
+    workbench = WorkbenchFx.of(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX], mockModules[LAST_INDEX]);
 
     first = mockModules[FIRST_INDEX];
     second = mockModules[SECOND_INDEX];
@@ -65,69 +68,69 @@ class WorkbenchFxModelTest {
 
   @Test
   void testCtor(){
-    assertEquals(mockModules.length, model.getModules().size());
+    assertEquals(mockModules.length, workbench.getModules().size());
     for (int i = 0; i < mockModules.length; i++) {
-      assertSame(mockModules[i], model.getModules().get(i));
+      assertSame(mockModules[i], workbench.getModules().get(i));
     }
 
-    assertEquals(0, model.getOpenModules().size());
+    assertEquals(0, workbench.getOpenModules().size());
 
-    assertNull(model.activeModuleViewProperty().get());
+    assertNull(workbench.activeModuleViewProperty().get());
   }
 
   @Test
   void openModule() {
     // Open first
-    model.openModule(first);
-    assertSame(first,model.getActiveModule());
-    assertSame(mockNodes[FIRST_INDEX],model.getActiveModuleView());
-    assertEquals(1, model.getOpenModules().size());
+    workbench.openModule(first);
+    assertSame(first, workbench.getActiveModule());
+    assertSame(mockNodes[FIRST_INDEX], workbench.getActiveModuleView());
+    assertEquals(1, workbench.getOpenModules().size());
     InOrder inOrder = inOrder(first);
-    inOrder.verify(first).init(model);
+    inOrder.verify(first).init(workbench);
     inOrder.verify(first).activate();
     // Open last
-    model.openModule(last);
-    assertSame(last,model.getActiveModule());
-    assertSame(mockNodes[LAST_INDEX],model.getActiveModuleView());
-    assertEquals(2, model.getOpenModules().size());
+    workbench.openModule(last);
+    assertSame(last, workbench.getActiveModule());
+    assertSame(mockNodes[LAST_INDEX], workbench.getActiveModuleView());
+    assertEquals(2, workbench.getOpenModules().size());
     inOrder = inOrder(first, last);
     inOrder.verify(first).deactivate();
-    inOrder.verify(last).init(model);
+    inOrder.verify(last).init(workbench);
     inOrder.verify(last).activate();
     // Open last again
-    model.openModule(last);
-    assertSame(last,model.getActiveModule());
-    assertSame(mockNodes[LAST_INDEX],model.getActiveModuleView());
-    assertEquals(2, model.getOpenModules().size());
-    verify(last, times(1)).init(model);
+    workbench.openModule(last);
+    assertSame(last, workbench.getActiveModule());
+    assertSame(mockNodes[LAST_INDEX], workbench.getActiveModuleView());
+    assertEquals(2, workbench.getOpenModules().size());
+    verify(last, times(1)).init(workbench);
     verify(last, times(1)).activate();
     verify(last, never()).deactivate();
     // Open first (already initialized)
-    model.openModule(first);
-    assertSame(first,model.getActiveModule());
-    assertSame(mockNodes[FIRST_INDEX],model.getActiveModuleView());
-    assertEquals(2, model.getOpenModules().size());
-    verify(first, times(1)).init(model); // no additional init on first
-    verify(last, times(1)).init(model); // no additional init on last
+    workbench.openModule(first);
+    assertSame(first, workbench.getActiveModule());
+    assertSame(mockNodes[FIRST_INDEX], workbench.getActiveModuleView());
+    assertEquals(2, workbench.getOpenModules().size());
+    verify(first, times(1)).init(workbench); // no additional init on first
+    verify(last, times(1)).init(workbench); // no additional init on last
     inOrder = inOrder(first, last);
     inOrder.verify(last).deactivate();
     inOrder.verify(first).activate();
     verify(first, times(2)).activate();
     // Switch to home screen
-    model.openHomeScreen();
-    assertSame(null,model.getActiveModule());
-    assertSame(null,model.getActiveModuleView());
-    assertEquals(2, model.getOpenModules().size());
-    verify(first, times(1)).init(model); // no additional init on first
-    verify(last, times(1)).init(model); // no additional init on last
+    workbench.openHomeScreen();
+    assertSame(null, workbench.getActiveModule());
+    assertSame(null, workbench.getActiveModuleView());
+    assertEquals(2, workbench.getOpenModules().size());
+    verify(first, times(1)).init(workbench); // no additional init on first
+    verify(last, times(1)).init(workbench); // no additional init on last
     verify(first, times(2)).deactivate();
     // Open second
-    model.openModule(second);
-    assertSame(second,model.getActiveModule());
-    assertSame(mockNodes[SECOND_INDEX],model.getActiveModuleView());
-    assertEquals(3, model.getOpenModules().size());
+    workbench.openModule(second);
+    assertSame(second, workbench.getActiveModule());
+    assertSame(mockNodes[SECOND_INDEX], workbench.getActiveModuleView());
+    assertEquals(3, workbench.getOpenModules().size());
     inOrder = inOrder(second);
-    inOrder.verify(second).init(model);
+    inOrder.verify(second).init(workbench);
     inOrder.verify(second).activate();
   }
 
@@ -135,7 +138,7 @@ class WorkbenchFxModelTest {
   void openModuleInvalid() {
     /* Test if opening a module which has not been passed in the constructor of WorkbenchFxModel
     throws an exception */
-    assertThrows(IllegalArgumentException.class, () -> model.openModule(mock(Module.class)));
+    assertThrows(IllegalArgumentException.class, () -> workbench.openModule(mock(Module.class)));
   }
 
   /**
@@ -144,18 +147,18 @@ class WorkbenchFxModelTest {
   @Test
   void closeModuleOne() {
     // open and close module
-    model.openModule(first);
-    model.closeModule(first);
+    workbench.openModule(first);
+    workbench.closeModule(first);
 
-    assertSame(null,model.getActiveModule());
-    assertSame(null,model.getActiveModuleView());
-    assertEquals(0, model.getOpenModules().size());
+    assertSame(null, workbench.getActiveModule());
+    assertSame(null, workbench.getActiveModuleView());
+    assertEquals(0, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first);
-    // Call: model.openModule(first)
-    inOrder.verify(first).init(model);
+    // Call: workbench.openModule(first)
+    inOrder.verify(first).init(workbench);
     inOrder.verify(first).activate();
-    // Call: model.closeModule(first)
+    // Call: workbench.closeModule(first)
     inOrder.verify(first).destroy();
   }
 
@@ -166,24 +169,24 @@ class WorkbenchFxModelTest {
   void closeModuleLeft1() {
     // open two modules, close left module
     // right active
-    model.openModule(first);
-    model.openModule(second);
-    model.closeModule(first);
+    workbench.openModule(first);
+    workbench.openModule(second);
+    workbench.closeModule(first);
 
-    assertSame(second,model.getActiveModule());
-    assertSame(mockNodes[SECOND_INDEX],model.getActiveModuleView());
-    assertEquals(1, model.getOpenModules().size());
+    assertSame(second, workbench.getActiveModule());
+    assertSame(mockNodes[SECOND_INDEX], workbench.getActiveModuleView());
+    assertEquals(1, workbench.getOpenModules().size());
     verify(second, never()).deactivate();
 
     InOrder inOrder = inOrder(first, second);
-    // Call: model.openModule(first)
-    inOrder.verify(first).init(model);
+    // Call: workbench.openModule(first)
+    inOrder.verify(first).init(workbench);
     inOrder.verify(first).activate();
-    // Call: model.openModule(second)
+    // Call: workbench.openModule(second)
     inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(model);
+    inOrder.verify(second).init(workbench);
     inOrder.verify(second).activate();
-    // Call: model.closeModule(first)
+    // Call: workbench.closeModule(first)
     inOrder.verify(first).destroy();
   }
 
@@ -194,27 +197,27 @@ class WorkbenchFxModelTest {
   void closeModuleLeft2() {
     // open two modules, close left module
     // left active
-    model.openModule(first);
-    model.openModule(second);
-    model.openModule(first);
-    model.closeModule(first);
+    workbench.openModule(first);
+    workbench.openModule(second);
+    workbench.openModule(first);
+    workbench.closeModule(first);
 
-    assertSame(second,model.getActiveModule());
-    assertSame(mockNodes[SECOND_INDEX],model.getActiveModuleView());
-    assertEquals(1, model.getOpenModules().size());
+    assertSame(second, workbench.getActiveModule());
+    assertSame(mockNodes[SECOND_INDEX], workbench.getActiveModuleView());
+    assertEquals(1, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);
-    // Call: model.openModule(first)
-    inOrder.verify(first).init(model);
+    // Call: workbench.openModule(first)
+    inOrder.verify(first).init(workbench);
     inOrder.verify(first).activate();
-    // Call: model.openModule(second)
+    // Call: workbench.openModule(second)
     inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(model);
+    inOrder.verify(second).init(workbench);
     inOrder.verify(second).activate();
-    // Call: model.openModule(first)
+    // Call: workbench.openModule(first)
     inOrder.verify(second).deactivate();
     inOrder.verify(first).activate();
-    // Call: model.closeModule(first)
+    // Call: workbench.closeModule(first)
     inOrder.verify(first).destroy();
     inOrder.verify(second).activate();
   }
@@ -226,23 +229,23 @@ class WorkbenchFxModelTest {
   void closeModuleRight1() {
     // open two modules, close right module
     // right active
-    model.openModule(first);
-    model.openModule(second);
-    model.closeModule(second);
+    workbench.openModule(first);
+    workbench.openModule(second);
+    workbench.closeModule(second);
 
-    assertSame(first,model.getActiveModule());
-    assertSame(mockNodes[FIRST_INDEX],model.getActiveModuleView());
-    assertEquals(1, model.getOpenModules().size());
+    assertSame(first, workbench.getActiveModule());
+    assertSame(mockNodes[FIRST_INDEX], workbench.getActiveModuleView());
+    assertEquals(1, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);
-    // Call: model.openModule(first)
-    inOrder.verify(first).init(model);
+    // Call: workbench.openModule(first)
+    inOrder.verify(first).init(workbench);
     inOrder.verify(first).activate();
-    // Call: model.openModule(second)
+    // Call: workbench.openModule(second)
     inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(model);
+    inOrder.verify(second).init(workbench);
     inOrder.verify(second).activate();
-    // Call: model.closeModule(second)
+    // Call: workbench.closeModule(second)
     inOrder.verify(second).destroy();
     inOrder.verify(first).activate();
   }
@@ -254,27 +257,27 @@ class WorkbenchFxModelTest {
   void closeModuleRight2() {
     // open two modules, close right module
     // left active
-    model.openModule(first);
-    model.openModule(second);
-    model.openModule(first);
-    model.closeModule(second);
+    workbench.openModule(first);
+    workbench.openModule(second);
+    workbench.openModule(first);
+    workbench.closeModule(second);
 
-    assertSame(first,model.getActiveModule());
-    assertSame(mockNodes[FIRST_INDEX],model.getActiveModuleView());
-    assertEquals(1, model.getOpenModules().size());
+    assertSame(first, workbench.getActiveModule());
+    assertSame(mockNodes[FIRST_INDEX], workbench.getActiveModuleView());
+    assertEquals(1, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);
-    // Call: model.openModule(first)
-    inOrder.verify(first).init(model);
+    // Call: workbench.openModule(first)
+    inOrder.verify(first).init(workbench);
     inOrder.verify(first).activate();
-    // Call: model.openModule(second)
+    // Call: workbench.openModule(second)
     inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(model);
+    inOrder.verify(second).init(workbench);
     inOrder.verify(second).activate();
-    // Call: model.openModule(first)
+    // Call: workbench.openModule(first)
     inOrder.verify(second).deactivate();
     inOrder.verify(first).activate();
-    // Call: model.closeModule(second)
+    // Call: workbench.closeModule(second)
     inOrder.verify(second).destroy();
   }
 
@@ -285,32 +288,32 @@ class WorkbenchFxModelTest {
   void closeModuleMiddleActive() {
     // open three modules and close middle module
     // middle active
-    model.openModule(first);
-    model.openModule(second);
-    model.openModule(last);
-    model.openModule(second);
-    model.closeModule(second);
+    workbench.openModule(first);
+    workbench.openModule(second);
+    workbench.openModule(last);
+    workbench.openModule(second);
+    workbench.closeModule(second);
 
-    assertSame(first,model.getActiveModule());
-    assertSame(mockNodes[FIRST_INDEX],model.getActiveModuleView());
-    assertEquals(2, model.getOpenModules().size());
+    assertSame(first, workbench.getActiveModule());
+    assertSame(mockNodes[FIRST_INDEX], workbench.getActiveModuleView());
+    assertEquals(2, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second, last);
-    // Call: model.openModule(first)
-    inOrder.verify(first).init(model);
+    // Call: workbench.openModule(first)
+    inOrder.verify(first).init(workbench);
     inOrder.verify(first).activate();
-    // Call: model.openModule(second)
+    // Call: workbench.openModule(second)
     inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(model);
+    inOrder.verify(second).init(workbench);
     inOrder.verify(second).activate();
-    // Call: model.openModule(last)
+    // Call: workbench.openModule(last)
     inOrder.verify(second).deactivate();
-    inOrder.verify(last).init(model);
+    inOrder.verify(last).init(workbench);
     inOrder.verify(last).activate();
-    // Call: model.openModule(second)
+    // Call: workbench.openModule(second)
     inOrder.verify(last).deactivate();
     inOrder.verify(second).activate();
-    // Call: model.closeModule(second)
+    // Call: workbench.closeModule(second)
     inOrder.verify(second).destroy();
     inOrder.verify(first).activate();
   }
@@ -323,23 +326,23 @@ class WorkbenchFxModelTest {
     // open two modules, close second (active) module
     // destroy() on second module will return false, so the module shouldn't get closed
     when(second.destroy()).thenReturn(false);
-    model.openModule(first);
-    model.openModule(second);
-    model.closeModule(second);
+    workbench.openModule(first);
+    workbench.openModule(second);
+    workbench.closeModule(second);
 
-    assertSame(second,model.getActiveModule());
-    assertSame(mockNodes[SECOND_INDEX],model.getActiveModuleView());
-    assertEquals(2, model.getOpenModules().size());
+    assertSame(second, workbench.getActiveModule());
+    assertSame(mockNodes[SECOND_INDEX], workbench.getActiveModuleView());
+    assertEquals(2, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);
-    // Call: model.openModule(first)
-    inOrder.verify(first).init(model);
+    // Call: workbench.openModule(first)
+    inOrder.verify(first).init(workbench);
     inOrder.verify(first).activate();
-    // Call: model.openModule(second)
+    // Call: workbench.openModule(second)
     inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(model);
+    inOrder.verify(second).init(workbench);
     inOrder.verify(second).activate();
-    // Call: model.closeModule(second)
+    // Call: workbench.closeModule(second)
     // destroy second
     inOrder.verify(second).destroy();
     // notice destroy() was unsuccessful, keep focus on second
@@ -353,23 +356,23 @@ class WorkbenchFxModelTest {
     // open two modules, close first (inactive) module
     // destroy() on first module will return false, so the module shouldn't get closed
     when(first.destroy()).thenReturn(false);
-    model.openModule(first);
-    model.openModule(second);
-    model.closeModule(first);
+    workbench.openModule(first);
+    workbench.openModule(second);
+    workbench.closeModule(first);
 
-    assertSame(second,model.getActiveModule());
-    assertSame(mockNodes[SECOND_INDEX],model.getActiveModuleView());
-    assertEquals(2, model.getOpenModules().size());
+    assertSame(second, workbench.getActiveModule());
+    assertSame(mockNodes[SECOND_INDEX], workbench.getActiveModuleView());
+    assertEquals(2, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);
-    // Call: model.openModule(first)
-    inOrder.verify(first).init(model);
+    // Call: workbench.openModule(first)
+    inOrder.verify(first).init(workbench);
     inOrder.verify(first).activate();
-    // Call: model.openModule(second)
+    // Call: workbench.openModule(second)
     inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(model);
+    inOrder.verify(second).init(workbench);
     inOrder.verify(second).activate();
-    // Call: model.closeModule(second)
+    // Call: workbench.closeModule(second)
     // destroy second
     inOrder.verify(first).destroy();
     // notice destroy() was unsuccessful, keep focus on second
@@ -385,30 +388,30 @@ class WorkbenchFxModelTest {
     // open two modules, close first (inactive) module
     // destroy() on first module will return false, so the module shouldn't get closed
     when(first.destroy()).then(invocation -> {
-          model.openModule(first);
+          workbench.openModule(first);
           // dialog opens, user confirms closing module
           return true;
         });
-    model.openModule(first);
-    model.openModule(second);
-    model.closeModule(first);
+    workbench.openModule(first);
+    workbench.openModule(second);
+    workbench.closeModule(first);
 
-    assertSame(second,model.getActiveModule());
-    assertSame(mockNodes[SECOND_INDEX],model.getActiveModuleView());
-    assertEquals(1, model.getOpenModules().size());
+    assertSame(second, workbench.getActiveModule());
+    assertSame(mockNodes[SECOND_INDEX], workbench.getActiveModuleView());
+    assertEquals(1, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);
-    // Call: model.openModule(first)
-    inOrder.verify(first).init(model);
+    // Call: workbench.openModule(first)
+    inOrder.verify(first).init(workbench);
     inOrder.verify(first).activate();
-    // Call: model.openModule(second)
+    // Call: workbench.openModule(second)
     inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(model);
+    inOrder.verify(second).init(workbench);
     inOrder.verify(second).activate();
-    // Call: model.closeModule(first)
+    // Call: workbench.closeModule(first)
     // attempt to destroy first
     inOrder.verify(first).destroy();
-    // destroy() opens itself: model.openModule(first)
+    // destroy() opens itself: workbench.openModule(first)
     inOrder.verify(second).deactivate();
     inOrder.verify(first).activate();
     // destroy() returns true, switch to second
@@ -425,30 +428,30 @@ class WorkbenchFxModelTest {
     // open two modules, close first (inactive) module
     // destroy() on first module will return false, so the module shouldn't get closed
     when(first.destroy()).then(invocation -> {
-      model.openModule(first);
+      workbench.openModule(first);
       // dialog opens, user confirms NOT closing module
       return false;
     });
-    model.openModule(first);
-    model.openModule(second);
-    model.closeModule(first);
+    workbench.openModule(first);
+    workbench.openModule(second);
+    workbench.closeModule(first);
 
-    assertSame(first,model.getActiveModule());
-    assertSame(mockNodes[FIRST_INDEX],model.getActiveModuleView());
-    assertEquals(2, model.getOpenModules().size());
+    assertSame(first, workbench.getActiveModule());
+    assertSame(mockNodes[FIRST_INDEX], workbench.getActiveModuleView());
+    assertEquals(2, workbench.getOpenModules().size());
 
     InOrder inOrder = inOrder(first, second);
-    // Call: model.openModule(first)
-    inOrder.verify(first).init(model);
+    // Call: workbench.openModule(first)
+    inOrder.verify(first).init(workbench);
     inOrder.verify(first).activate();
-    // Call: model.openModule(second)
+    // Call: workbench.openModule(second)
     inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(model);
+    inOrder.verify(second).init(workbench);
     inOrder.verify(second).activate();
-    // Call: model.closeModule(first)
+    // Call: workbench.closeModule(first)
     // attempt to destroy first
     inOrder.verify(first).destroy();
-    // destroy() opens itself: model.openModule(first)
+    // destroy() opens itself: workbench.openModule(first)
     inOrder.verify(second).deactivate();
     inOrder.verify(first).activate();
     // destroy() returns false, first stays the active module
@@ -457,34 +460,34 @@ class WorkbenchFxModelTest {
   @Test
   void closeModuleInvalid() {
     // Test for null
-    assertThrows(NullPointerException.class, () -> model.closeModule(null));
+    assertThrows(NullPointerException.class, () -> workbench.closeModule(null));
     // Test if closing a module not included in the modules at all throws an exception
-    assertThrows(IllegalArgumentException.class, () -> model.closeModule(mock(Module.class)));
+    assertThrows(IllegalArgumentException.class, () -> workbench.closeModule(mock(Module.class)));
     // Test if closing a module not opened throws an exception
-    assertThrows(IllegalArgumentException.class, () -> model.closeModule(mockModules[0]));
+    assertThrows(IllegalArgumentException.class, () -> workbench.closeModule(mockModules[0]));
   }
 
   @Test
   void getOpenModules() {
-    ObservableList<Module> modules = model.getOpenModules();
+    ObservableList<Module> modules = workbench.getOpenModules();
     // Test if unmodifiable list is returned
     assertThrows(UnsupportedOperationException.class, () -> modules.remove(0));
   }
 
   @Test
   void getModules() {
-    ObservableList<Module> modules = model.getModules();
+    ObservableList<Module> modules = workbench.getModules();
     // Test if unmodifiable list is returned
     assertThrows(UnsupportedOperationException.class, () -> modules.remove(0));
   }
 
   @Test
   void activeModuleViewProperty() {
-    assertTrue(model.activeModuleViewProperty() instanceof ReadOnlyObjectProperty);
+    assertTrue(workbench.activeModuleViewProperty() instanceof ReadOnlyObjectProperty);
   }
 
   @Test
   void activeModuleProperty() {
-    assertTrue(model.activeModuleProperty() instanceof ReadOnlyObjectProperty);
+    assertTrue(workbench.activeModuleProperty() instanceof ReadOnlyObjectProperty);
   }
 }

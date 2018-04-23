@@ -1,14 +1,14 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.model.WorkbenchFxModel;
-import com.dlsc.workbenchfx.model.module.Module;
+import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.module.Module;
 import javafx.collections.ListChangeListener;
 
 public class ToolBarPresenter implements Presenter {
-  private final WorkbenchFxModel model;
+  private final WorkbenchFx model;
   private final ToolBarView view;
 
-  public ToolBarPresenter(WorkbenchFxModel model, ToolBarView view) {
+  public ToolBarPresenter(WorkbenchFx model, ToolBarView view) {
     this.model = model;
     this.view = view;
     init();

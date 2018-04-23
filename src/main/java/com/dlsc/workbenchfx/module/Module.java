@@ -1,6 +1,6 @@
-package com.dlsc.workbenchfx.model.module;
+package com.dlsc.workbenchfx.module;
 
-import com.dlsc.workbenchfx.model.WorkbenchFxModel;
+import com.dlsc.workbenchfx.WorkbenchFx;
 import javafx.scene.Node;
 
 /**
@@ -22,9 +22,9 @@ public interface Module {
   /**
    * Gets called when the module is being opened from the overview for the first time.
    *
-   * @param workbenchModel the calling workbench object
+   * @param workbench the calling workbench object
    */
-  void init(WorkbenchFxModel workbenchModel);
+  void init(WorkbenchFx workbench);
 
   /**
    * Gets called whenever the currently displayed content is being switched to this module.

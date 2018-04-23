@@ -1,13 +1,12 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.model.WorkbenchFxModel;
-import javafx.scene.control.Button;
+import com.dlsc.workbenchfx.WorkbenchFx;
 
 public class HomePresenter implements Presenter {
-  private final WorkbenchFxModel model;
+  private final WorkbenchFx model;
   private final HomeView view;
 
-  public HomePresenter(WorkbenchFxModel model, HomeView view) {
+  public HomePresenter(WorkbenchFx model, HomeView view) {
     this.model = model;
     this.view = view;
     init();

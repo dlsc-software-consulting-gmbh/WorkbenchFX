@@ -1,6 +1,6 @@
-package com.dlsc.workbenchfx.model.module;
+package com.dlsc.workbenchfx.module;
 
-import com.dlsc.workbenchfx.model.WorkbenchFxModel;
+import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
@@ -19,7 +19,7 @@ public abstract class AbstractModule implements Module {
 
   private final Node tile;
   private final Node tab;
-  protected WorkbenchFxModel workbenchModel;
+  protected WorkbenchFx workbench;
 
   /**
    * Super constructor to be called by the implementing class.
@@ -80,8 +80,8 @@ public abstract class AbstractModule implements Module {
    * {@inheritDoc}
    */
   @Override
-  public void init(WorkbenchFxModel workbenchModel) {
-    this.workbenchModel = workbenchModel;
+  public void init(WorkbenchFx workbench) {
+    this.workbench = workbench;
   }
 
   /**
