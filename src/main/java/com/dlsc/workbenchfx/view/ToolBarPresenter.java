@@ -45,7 +45,7 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-// When the List of the currently open modules is changed, the view is updated.
+    // When the List of the currently open modules is changed, the view is updated.
     model.getOpenModules().addListener((ListChangeListener<? super Module>) c -> {
       while (c.next()) {
         if (c.wasRemoved()) {

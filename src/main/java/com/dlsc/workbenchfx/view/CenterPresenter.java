@@ -6,6 +6,9 @@ public class CenterPresenter implements Presenter {
   private final WorkbenchFx model;
   private final CenterView view;
 
+  /**
+   * Creates a new {@link CenterPresenter} object for a corresponding {@link CenterView}.
+   */
   public CenterPresenter(WorkbenchFx model, CenterView view) {
     this.model = model;
     this.view = view;
