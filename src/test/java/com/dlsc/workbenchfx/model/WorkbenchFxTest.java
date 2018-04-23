@@ -472,6 +472,34 @@ class WorkbenchFxTest {
   }
 
   @Test
+  void closeInactiveModule() {
+    workbench.openModule(first);
+    workbench.openModule(second);
+    workbench.openModule(last);
+    workbench.closeModule(second);
+
+    assertSame(last, workbench.getActiveModule());
+    assertSame(moduleNodes[LAST_INDEX], workbench.getActiveModuleView());
+    assertEquals(2, workbench.getOpenModules().size());
+
+    InOrder inOrder = inOrder(first, second, last);
+    // Call: workbench.openModule(first)
+    inOrder.verify(first).init(workbench);
+    inOrder.verify(first).activate();
+    // Call: workbench.openModule(second)
+    inOrder.verify(first).deactivate();
+    inOrder.verify(second).init(workbench);
+    inOrder.verify(second).activate();
+    // Call: workbench.openModule(last)
+    inOrder.verify(second).deactivate();
+    inOrder.verify(last).init(workbench);
+    inOrder.verify(last).activate();
+    // Call: workbench.closeModule(second)
+    inOrder.verify(second).destroy();
+    inOrder.verifyNoMoreInteractions();
+  }
+
+  @Test
   void getOpenModules() {
     ObservableList<Module> modules = workbench.getOpenModules();
     // Test if unmodifiable list is returned
