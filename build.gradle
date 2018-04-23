@@ -101,6 +101,10 @@ dependencies {
     // FontAwesomeFX
     compile 'de.jensd:fontawesomefx-commons:9.1.2'
     compile 'de.jensd:fontawesomefx-fontawesome:4.7.0-9.1.2'
+
+    // TestFX
+    testCompile "org.testfx:testfx-core:4.0.13-alpha"
+    testCompile "org.testfx:testfx-junit:4.0.13-alpha"
 }
 
 asciidoctorj {
