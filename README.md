@@ -1,4 +1,6 @@
 # WorkbenchFX
+[![Build Status](https://travis-ci.com/FHNW-IP5-IP6/WorkbenchFX.svg?token=8WqsSGJvE4SAqmHHx2Z7&branch=develop)](https://travis-ci.com/FHNW-IP5-IP6/WorkbenchFX)
+
 **The one and only library to build large JavaFX Applications!**
 
 ![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
@@ -64,7 +66,7 @@ We created several demos to visualize the capabilities of `PreferencesFX`.
 To change between demos, simply uncomment the desired demo in the imports of `preferencesfx-demo/src/com/dlsc/preferencesfx/AppStarter.java`
 ```Java
 // Change this import depending on the demo
-import com.dlsc.workbenchfx.standard.RootPane;
+import com.dlsc.workbenchfx.standard.com.dlsc.workbenchfx.RootPane;
 workbenchcom.dlsc.workbenchfxchfx
 ```
 

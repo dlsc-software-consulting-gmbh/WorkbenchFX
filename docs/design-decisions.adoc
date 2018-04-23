@@ -56,3 +56,9 @@ Add multiple bars in "setLeft(...)" which are then stacked left to each other
 No center pane, but every node that is added is contained in a BorderPane.
 Every node can be further split apart right / left / top / bottom
 => Lego-Like extendability
+
+== Module Lifecycle
+Initially, we had the return type of destroy() be void.
+Then, we noticed, if for example the module is a text editor and the API user would want to display a popup, asking if the window should be closed with unsaved changes, the API user should have the ability to have the destroy() operation stopped. // TODO: better formulation
+This is why we add "boolean" as a return type of destroy().
+This way, the API user can return false, then the module won't be removed from the tabs yet.

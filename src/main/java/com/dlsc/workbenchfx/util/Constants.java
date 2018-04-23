@@ -7,5 +7,4 @@ package com.dlsc.workbenchfx.util;
  * @author Marco Sanfratello
  */
 public class Constants {
-
 }

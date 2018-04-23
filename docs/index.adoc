@@ -26,7 +26,7 @@ API Users of WorkbenchFX don't only care about the API design, but also about th
 //The standard for custom controls in JavaFX is to use an implementation based on a control, separated from the skin. TODO: source?
 //TODO: maybe explain a little with graphics how this structure works?
 
-=== Modular Approach
+==== Modular Approach
 Power users need the utmost of customizability, to ensure they can change the workspace to be the most ergonomic for their workflow.
 In terms of the architecture, it could mean that it would need to allow the following:
 
@@ -45,11 +45,59 @@ In terms of the architecture, it could mean that it would need to allow the foll
 The architecture for such an approach looks like this: link:UML/modular_approach.asta[UML class diagram]
 // TODO: include picture as well
 
-=== Simple Approach
+==== Simple Approach
 Our customer states that the intended API user would not have the need to entirely replace the `Skin`, as it is rarely done.
 For this reason, we will not separate between Control and Skin.
 Panes don't need to be as flexible.
 It is more important that the user experience is straightforward.
+Still, the possibility of extending the workbench using modules is important to our customer.
+
+=== Module Naming
+To plug in functionality by the API user, we use modules.
+However, the name "Module" is not ideal, since a lot of things are already being called "Module"
+To avoid confusion, we want to come up with a name which makes it clearer and less ambiguous.
+// TODO: maybe include more precise definition, specifying what exactly a module is for us?
+// TODO: include brainstorming_module.pdf with image as link
+At first, we chose "Capsule" as a working title, since no classes exist yet in Java which are called like this.
+This means we can easily refactor the name later and focus more on the API design than on the name in the beginning.
+
+=== API Design of Module
+We analyzed which "touch points" a module in the workbench would have, which resulted in 3 points:
+* Main view to be displayed
+* Tab representation of module
+* Tile representation of module in home screen
+Which is why we decided to include them in the API design of the `Module` class. // TODO: improve representation, less duplication in documentation and display
+* Main view to be displayed => Node gets returned by init()
+* Tab representation of module => Node gets returned by getTab()
+* Tile representation of module in home screen => Node gets returned by getTile()
+
+==== Icon: Image vs File vs Node
+As for the icon, there are different ways to implement the inclusion of one in a module.
+
+One possibility is to accept an `Image` object as a parameter of the constructor.
+The advantage is, that the API user doesn't need to care about how the image is being displayed
+The disadvantage however is, that it is for example not possible to specify a FontAwesome icon as a `Node`, to use vector objects.
+
+Also, it would be possible to have the API user include an image file in the resources, to use as an icon.
+Using "convention over configuration", the API user would simply choose the same name for the icon file as for the module, which makes it possible to easily identify the corresponding icon file of a module.
+This brings the advantage of having less code per module, since the icon doesn't need to be specified in the code.
+However, this is also limiting for the same reasons as with the `Image` object above, it is not possible to pass in objects to be displayed.
+
+This is why we decided to have the API user pass in a `Node` object to the constructor of the module.
+This allows for a maximum of flexibility and not much overhead in terms of code. // TODO: maybe write more?
+
+// TODO: maybe, decision in AbstractModule between adding "content" as parameter in constructor and overriding init() or not including "content" as parameter and not overriding init(). Chose to do the latter since the node would not be used anywhere else and it would be about the same in terms of code, but is easier to override that way.
+
+==== WorkbenchFxUtils.assertNodeNotSame
+// TODO: add comment from AbstractModule, issues with icons as nodes not being possible to display => also to prevent Fabian from making this mistake, throw exception when constructor of AbstractModule is called.
+
+==== MVP
+MVP (Model View Presenter) was used as general architecture pattern.
+// TODO: why?
+At first, we used a separate `WorkbenchFxModel` object for the model.
+Our customer suggests that it would be easier to skip the `WorkbenchFxModel` class and just put the logic in `WorkbenchFx`, since that's the place where he would expect such logic.
+We decide to change it in a way that `WorkbenchFx` is the model object in the MVP pattern in our case.
+This simplifies the architecture and readability is improved, since methods are where they would be expected.
 
 == Why should someone use our Workbench instead of coding on their own?
 * Simple Design

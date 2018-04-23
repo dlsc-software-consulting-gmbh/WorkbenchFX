@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.model.WorkbenchFxModel;
+import com.dlsc.workbenchfx.WorkbenchFx;
+import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,18 +15,18 @@ public class WorkbenchFxPresenter implements Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchFxPresenter.class.getName());
 
-  private WorkbenchFxModel model;
-  private WorkbenchFxView workbenchFxView;
+  private WorkbenchFx model;
+  private WorkbenchFxView view;
 
   /**
-   * Constructs a new presenter for the {@link WorkbenchFxView}.
+   * Constructs a new {@link WorkbenchFxPresenter} for the {@link WorkbenchFxView}.
    *
-   * @param model           the model of WorkbenchFX
-   * @param workbenchFxView corresponding view to this presenter
+   * @param model the model of WorkbenchFX
+   * @param view  corresponding view to this presenter
    */
-  public WorkbenchFxPresenter(WorkbenchFxModel model, WorkbenchFxView workbenchFxView) {
+  public WorkbenchFxPresenter(WorkbenchFx model, WorkbenchFxView view) {
     this.model = model;
-    this.workbenchFxView = workbenchFxView;
+    this.view = view;
     init();
   }
 
@@ -34,7 +35,7 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-
+    view.centerView.setContent(view.homeView);
   }
 
   /**
@@ -43,6 +44,10 @@ public class WorkbenchFxPresenter implements Presenter {
   @Override
   public void setupEventHandlers() {
 
+    // When the active module changes, the new view is set od the home screen if null.
+    model.activeModuleViewProperty().addListener((observable, oldModule, newModule) ->
+        view.centerView.setContent(Objects.isNull(newModule) ? view.homeView : newModule)
+    );
   }
 
   /**
