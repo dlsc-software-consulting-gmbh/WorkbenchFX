@@ -65,11 +65,11 @@ public class WorkbenchFx {
   }
 
   private WorkbenchFx(Module... modules) {
-    initModules();
+    initModules(modules);
     initializeViews();
   }
 
-  private void initModules() {
+  private void initModules(Module... modules) {
     this.modules.addAll(modules);
 
     // handle changes of the active module
