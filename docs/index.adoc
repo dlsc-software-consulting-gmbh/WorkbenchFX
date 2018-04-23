@@ -65,9 +65,9 @@ Who are the persona?
 [cols="1,1,1"]
 .Persona
 |===
-|image:persona/stefanie_berner.png[Stefanie Berner], link:persona/stefanie_berner.png[Stefanie "SteffieFX" Berner]
-|image:persona/fabian_zimmer.png[Stefanie Berner], Fabian Zimmer
-|image:persona/anna_leutner.png[Stefanie Berner], Anna Leutner
+|link:persona/stefanie_berner.pdf[image:persona/stefanie_berner.png[Stefanie Berner]]
+|link:persona/fabian_zimmer.pdf[image:persona/fabian_zimmer.png[Fabian Zimmer]]
+|link:persona/anna_leutner.pdf[image:persona/anna_leutner.png[Anna Leutner]]
 |===
 
 === Layout
@@ -132,7 +132,7 @@ Right click on the tab, then one can decide the behaviour of it.
 
 === Sublime Text
 
-=== Minimal viable product
+=== Minimal viable product (MVP)
 As a result of our research we have enough information to create the most valuable workbench for our use case.
 Nonetheless we need to break down the functionality to it's simplest scenario.
 This way, we can assure our customer, that he minimal viable product as a result from this project.
@@ -150,9 +150,35 @@ They contain either further tools, buttons or a tree-view for navigation.
 * Finally another tool-bar is set below the application.
 It contains the least used tools, or tools which are needed at the end of the process.
 
+The outcome of our research results in a minimalistic version of the workbench, our customer developed.
+The MVP is designed with the prototyping-tool `Figma`.
+It's clickable prototype can be found at:
+https://www.figma.com/proto/LY7jPWrDVQ5GG1zmvBdlA2MT/WorkbenchFX?scaling=contain&node-id=47%3A129[figma-prototype]
+
+Below it is shown the final prototype:
+[cols="1,1"]
+.Minimal Viable Product (MVP)
+|===
+|link:mvp/home.png[image:mvp/home.png[Home Screen]]
+|link:mvp/module.png[image:mvp/module.png[Module Screen]]
+|===
+
 ==== The way creating the workbench
 
 === Challenges
+Setting the node-icon twice:
+When creating a new module, one declares a node or an icon for visualizing the module.
+After creation, a tab- and a tile-view is created and displayed.
+Sadly, the given icon is displayed in only one of the two views.
+A short research reveals the problem:
+https://stackoverflow.com/questions/27696414/javafx-why-does-adding-a-node-to-a-pane-multiple-times-or-to-different-panes-r[Stack Overflow]
+
+Every `Node` has a `Parent`.
+When creating a `TabControl`, the Compiler references the TabControl as the Parent of the icon.
+In a next step, we create the `TileControl`.
+The Compiler redirects now the Parent-reference of TabControl to the TileControl.
+As a result, the icon is only displayed in the TileControl.
+
 
 === Architecture
 WorkbenchFX seems like a gigantic pane.
