@@ -66,7 +66,7 @@ public class WorkbenchFx {
 
   private WorkbenchFx(Module... modules) {
     initModules(modules);
-    initializeViews();
+    initViews();
   }
 
   private void initModules(Module... modules) {
@@ -96,7 +96,7 @@ public class WorkbenchFx {
         });
   }
 
-  private void initializeViews() {
+  private void initViews() {
     toolBarView = new ToolBarView(this);
     toolBarPresenter = new ToolBarPresenter(this, toolBarView);
 
