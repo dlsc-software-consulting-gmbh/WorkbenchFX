@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
@@ -19,8 +20,13 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void initializeParts() {
+    setId("toolbar");
+
     homeBtn = new Button("Home");
+    homeBtn.setId("homeButton");
+
     tabBox = new HBox();
+    tabBox.setId("tabBox");
   }
 
   /**
@@ -28,9 +34,19 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    homeBtn.setId("homeButton");
-    setSpacing(10);
     getChildren().addAll(homeBtn, tabBox);
+  }
+
+  public void addTab(Node tab) {
+    tabBox.getChildren().add(tab);
+  }
+
+  public void removeTab(Node tab) {
+    tabBox.getChildren().remove(tab);
+  }
+
+  public void removeTab(int index) {
+    tabBox.getChildren().remove(index);
   }
 
 }

@@ -52,7 +52,7 @@ public class ToolBarPresenter implements Presenter {
           for (Module module : c.getRemoved()) {
             LOGGER.debug("MODULE CLOSED");
             // +1 because of home
-            view.getChildren().remove(c.getFrom() + 1);
+            view.removeTab(c.getFrom());
           }
         }
         if (c.wasAdded()) {
@@ -60,7 +60,7 @@ public class ToolBarPresenter implements Presenter {
             LOGGER.debug("MODULE OPENED");
             if (!Objects.isNull(module)) {
               Node tabControl = model.getTab(module);
-              view.getChildren().add(tabControl);
+              view.addTab(tabControl);
               tabControl.requestFocus();
             }
           }
