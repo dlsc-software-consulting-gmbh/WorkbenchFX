@@ -259,8 +259,9 @@ public class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Sets the value of the {@code tabFactory} using the given callback.
-   * The callback defines the way the Tabs are created.
+   * Defines how {@link Node} should be created to be used as the tab in the view.
+   * @implNote Use this to replace the control which is used for the tab with your own
+   * implementation.
    *
    * @param value the callback to be set
    */
@@ -269,7 +270,9 @@ public class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Sets the value of the {@code tileFactory} using the given callback.
+   * Defines how {@link Node} should be created to be used as the tile in the view.
+   * @implNote Use this to replace the control which is used for the tile with your own
+   * implementation.
    *
    * @param value the callback which defines the way the Tiles are created
    */
