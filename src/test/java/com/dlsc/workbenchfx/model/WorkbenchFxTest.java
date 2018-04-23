@@ -31,7 +31,7 @@ import org.mockito.InOrder;
 @Tag("fast")
 class WorkbenchFxTest {
 
-  private final static int SIZE = 3;
+  private static final int SIZE = 3;
 
   private static final int FIRST_INDEX = 0;
   private static final int SECOND_INDEX = 1;
