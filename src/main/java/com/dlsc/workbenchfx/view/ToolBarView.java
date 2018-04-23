@@ -41,10 +41,6 @@ public class ToolBarView extends HBox implements View {
     tabBox.getChildren().add(tab);
   }
 
-  public void removeTab(Node tab) {
-    tabBox.getChildren().remove(tab);
-  }
-
   public void removeTab(int index) {
     tabBox.getChildren().remove(index);
   }
