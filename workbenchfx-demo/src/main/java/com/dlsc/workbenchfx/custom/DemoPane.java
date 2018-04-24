@@ -1,5 +1,7 @@
 package com.dlsc.workbenchfx.custom;
 
+import static com.dlsc.workbenchfx.WorkbenchFx.ACTIVE_TAB;
+
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
@@ -11,15 +13,31 @@ import java.util.function.BiFunction;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DemoPane extends StackPane {
 
+  private static final Logger LOGGER = LogManager.getLogger(DemoPane.class.getName());
   public WorkbenchFx workbenchFx;
 
   BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
     TabControl tabControl = new TabControl(module);
+    workbench.activeModuleProperty().addListener((observable, oldValue, newValue) -> {
+      LOGGER.trace("Tab Factory - Old Module: " + oldValue);
+      LOGGER.trace("Tab Factory - New Module: " + oldValue);
+      if (module == newValue) {
+        tabControl.getStyleClass().add(ACTIVE_TAB);
+        LOGGER.error("STYLE SET");
+      }
+      if (module == oldValue) {
+        // switch from this to other tab
+        tabControl.getStyleClass().remove(ACTIVE_TAB);
+      }
+    });
     tabControl.setOnClose(e -> workbench.closeModule(module));
     tabControl.setOnActive(e -> workbench.openModule(module));
+    tabControl.getStyleClass().add(ACTIVE_TAB);
     System.out.println("This tab was proudly created by SteffiFX");
     return tabControl;
   };
@@ -66,10 +84,10 @@ public class DemoPane extends StackPane {
         new NotesModule(),
         new PreferencesModule()
     ).modulesPerPage(2)
-     .tabFactory(tabFactory)
-     .tileFactory(tileFactory)
-     .pageFactory(pageFactory)
-     .build();
+        .tabFactory(tabFactory)
+        .tileFactory(tileFactory)
+        .pageFactory(pageFactory)
+        .build();
     getChildren().add(workbenchFx);
   }
 
