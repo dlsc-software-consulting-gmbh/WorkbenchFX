@@ -80,6 +80,9 @@ public abstract class AbstractModule implements Module {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
     return name;
