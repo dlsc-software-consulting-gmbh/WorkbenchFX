@@ -1,9 +1,10 @@
 package com.dlsc.workbenchfx.view.module;
 
 import com.dlsc.workbenchfx.module.Module;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,8 +12,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 public class TabControl extends HBox {
-  private final Button closeBtn = new Button("x");
+  private final Button closeBtn;
   private final Module module;
+  private final Node icon;
+  private final Label nameLbl;
+  private final FontAwesomeIconView closeIconView;
 
   /**
    * Constructs a new {@link TabControl}.
@@ -21,16 +25,29 @@ public class TabControl extends HBox {
    */
   public TabControl(Module module) {
     this.module = module;
-    Node icon = module.getIcon();
-    Label nameLbl = new Label(module.getName());
+
+    this.icon = module.getIcon();
+    this.nameLbl = new Label(module.getName());
+
+    closeIconView = new FontAwesomeIconView(FontAwesomeIcon.CLOSE);
+    this.closeBtn = new Button("", closeIconView);
+
+    layoutParts();
+  }
+
+  private void layoutParts() {
     getChildren().addAll(
         icon,
         nameLbl,
         closeBtn
     );
-    setMargin(icon, new Insets(0, 0, 0, 10));
-    setMargin(nameLbl, new Insets(0, 0, 0, 5));
-    setMargin(closeBtn, new Insets(-30, -10, 0, 0));
+
+    icon.getStyleClass().add("tabIcon");
+    nameLbl.getStyleClass().add("tabNameLbl");
+
+    closeBtn.getStyleClass().add("closeBtn");
+    closeIconView.setStyleClass("closeIconView");
+
     getStyleClass().add("tabControl");
   }
 
@@ -41,4 +58,5 @@ public class TabControl extends HBox {
   public void setOnActive(EventHandler<MouseEvent> event) {
     setOnMouseClicked(event);
   }
+
 }

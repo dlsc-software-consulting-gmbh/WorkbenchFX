@@ -1,6 +1,12 @@
-* {
+.root {
   -fx-font: 12px Helvetica, sans-serif;
-  -fx-color: #edf4f4; }
+  -fx-color: #edf4f4;
+  -icons-color: black; }
+
+.glyph-icon {
+  -fx-text-fill: -icons-color;
+  -fx-fill: -icons-color;
+  -fx-font-size: 1.5em !important; }
 
 #tileBox {
   -fx-spacing: 2.5em;
@@ -8,12 +14,12 @@
 
 .tileControl {
   -fx-background-color: #edf4f4;
-  -fx-border-radius: 5px;
+  -fx-border-radius: .5em;
   -fx-border-color: #353a3a;
   -fx-border-width: 2px;
   -fx-text-fill: #353a3a;
-  -fx-pref-width: 200px;
-  -fx-pref-height: 88px;
+  -fx-pref-width: 16em;
+  -fx-pref-height: 9em;
   -fx-alignment: center center; }
   .tileControl:hover {
     -fx-background-color: #f3fafa; }
@@ -23,19 +29,37 @@
   -fx-border-color: #353a3a;
   -fx-border-width: 1px;
   -fx-text-fill: #353a3a;
-  -fx-padding: .5em;
-  -fx-pref-height: 44px;
+  -fx-padding: .5em .5em .5em 1em;
+  -fx-pref-height: 3.5em;
   -fx-alignment: center center; }
   .tabControl:hover, #homeButton:hover {
     -fx-background-color: #f3fafa; }
-  .tabControl > .button, #homeButton > .button {
+  .tabControl .tabNameLbl, #homeButton .tabNameLbl {
+    -fx-padding: 0 0 0 0.5em;
+    -fx-border-insets: 0 0 0 0.5em;
+    -fx-background-insets: 0 0 0 0.5em; }
+  .tabControl .closeBtn, #homeButton .closeBtn {
+    -fx-padding: 0 0.5em 0 1em;
+    -fx-border-insets: 0 0.5em 0 1em;
+    -fx-background-insets: 0 0.5em 0 1em;
     -fx-background-color: transparent;
     -fx-border-width: 0; }
-    .tabControl > .button:hover, #homeButton > .button:hover {
-      -fx-text-fill: #ff4e61; }
+    .tabControl .closeBtn .closeIconView, #homeButton .closeBtn .closeIconView {
+      -fx-font-size: 1em !important; }
+    .tabControl .closeBtn:hover .closeIconView, #homeButton .closeBtn:hover .closeIconView {
+      -icons-color: #ff4e61; }
+    .tabControl .closeBtn:armed, #homeButton .closeBtn:armed {
+      -fx-background-color: transparent;
+      -fx-border-width: 0; }
+      .tabControl .closeBtn:armed .closeIconView, #homeButton .closeBtn:armed .closeIconView {
+        -icons-color: black; }
 
 #toolbar {
   -fx-spacing: 0.75em; }
+
+#homeButton {
+  -fx-padding: .5em .5em .5em .5em;
+  -fx-pref-width: 3.5em; }
 
 #tabBox {
   -fx-spacing: 0.45em; }
