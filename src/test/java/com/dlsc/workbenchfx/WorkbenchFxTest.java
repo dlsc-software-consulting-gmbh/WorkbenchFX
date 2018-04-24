@@ -58,7 +58,8 @@ class WorkbenchFxTest {
       when(mockModules[i].destroy()).thenReturn(true);
     }
 
-    workbench = WorkbenchFx.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX], mockModules[LAST_INDEX])
+    workbench = WorkbenchFx.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX],
+        mockModules[LAST_INDEX])
         .tabFactory((workbench, module) -> new Label("Module Tab"))
         .tileFactory((workbench, module) -> new Label("Module Tile"))
         .build();
