@@ -213,6 +213,37 @@ Below it is shown the final prototype:
 
 ==== The way creating the workbench
 
+=== SCSS instead of CSS
+// TODO: Explain reason why we use SCSS instead of CSS
+Less code.
+Easier to read.
+Plugin for IntelliJ which translates SCSS code into CSS:
+https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[SCSS to CSS]
+
+There is no margin in JavaFX CSS.
+We've made a workaround using a `SASS Mixin` which looks like this:
+
+Creating the `Mixin`:
+[source,sass]
+----
+@mixin margin-all($margin) {
+  -fx-padding: $margin;
+  -fx-border-insets: $margin;
+  -fx-background-insets: $margin;
+}
+----
+
+Using the `Mixin` in code:
+[source,sass]
+----
+.my-class {
+  @include margin-all(1.5em);
+}
+----
+
+A `Mixin` includes code, created by the `Mixin` and puts it in the place where it was called.
+Link: http://thesassway.com/advanced/pure-sass-functions[SASS - Mixin]
+
 === Challenges
 Setting the node-icon twice:
 When creating a new module, one declares a node or an icon for visualizing the module.
