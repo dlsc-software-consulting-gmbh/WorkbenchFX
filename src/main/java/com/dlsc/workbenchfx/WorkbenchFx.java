@@ -97,8 +97,8 @@ public class WorkbenchFx extends StackPane {
     private BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
       TabControl tabControl = new TabControl(module);
       workbench.activeModuleProperty().addListener((observable, oldValue, newValue) -> {
-        if(oldValue != null) { LOGGER.error("Old Module: " + oldValue.getName()); } else { LOGGER.error("Old Module: null"); };
-        if(newValue != null) { LOGGER.error("New Module: " + newValue.getName()); } else { LOGGER.error("New Module: null"); };
+        LOGGER.trace("Tab Factory - Old Module: " + oldValue);
+        LOGGER.trace("Tab Factory - New Module: " + oldValue);
         if (module == newValue) {
           tabControl.getStyleClass().add("active-tab");
           LOGGER.error("STYLE SET");
@@ -185,6 +185,8 @@ public class WorkbenchFx extends StackPane {
     // handle changes of the active module
     activeModule.addListener(
         (observable, oldModule, newModule) -> {
+          LOGGER.trace("Module Listener - Old Module: " + oldModule);
+          LOGGER.trace("Module Listener - New Module: " + newModule);
           if (oldModule != newModule) {
             boolean isDestroyed = !openModules.contains(oldModule);
             if (oldModule != null && !isDestroyed) {
