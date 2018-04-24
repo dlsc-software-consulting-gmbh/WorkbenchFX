@@ -22,6 +22,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -105,6 +106,33 @@ public class WorkbenchFx extends StackPane {
       tileControl.setOnActive(e -> workbench.openModule(module));
       return tileControl;
     };
+    private BiFunction<WorkbenchFx, Integer, Node> pageFactory = (workbench, pageIndex) -> {
+      final int COLUMNS_PER_ROW = 3;
+
+      GridPane gridPane = new GridPane();
+      gridPane.getStyleClass().add("tilePage");
+
+      int position = pageIndex * workbench.MODULES_PER_PAGE;
+      int count = 0;
+      int column = 0;
+      int row = 0;
+
+      while (count < workbench.MODULES_PER_PAGE && position < workbench.getModules().size()) {
+        Module module = workbench.getModules().get(position);
+        Node tile = workbench.getTile(module);
+        gridPane.add(tile, column, row);
+
+        position++;
+        count++;
+        column++;
+
+        if (column == COLUMNS_PER_ROW) {
+          column = 0;
+          row++;
+        }
+      }
+      return gridPane;
+    };
 
     private WorkbenchFxBuilder(Module... modules) {
       this.modules = modules;
@@ -143,6 +171,19 @@ public class WorkbenchFx extends StackPane {
      */
     public WorkbenchFxBuilder tileFactory(BiFunction<WorkbenchFx, Module, Node> tileFactory) {
       this.tileFactory = tileFactory;
+      return this;
+    }
+
+    /**
+     * Defines how a page with tiles of {@link Module}s should be created.
+     *
+     * @param pageFactory to be used to create the page for the tiles
+     * @return builder for chaining
+     * @implNote Use this to replace the page which is used in the home screen to display tiles of
+     *           the modules with your own implementation.
+     */
+    public WorkbenchFxBuilder pageFactory(BiFunction<WorkbenchFx, Integer, Node> pageFactory) {
+      this.pageFactory = pageFactory;
       return this;
     }
 
