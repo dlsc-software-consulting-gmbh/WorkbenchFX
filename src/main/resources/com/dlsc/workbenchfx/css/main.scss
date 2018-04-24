@@ -3,7 +3,22 @@ $primary-color-light: #f3fafa;
 $primary-color: #edf4f4;
 $primary-color-dark: #353a3a;
 $danger-color: #ff4e61;
+//$danger-color-dark: #b44153;
 $border: 2px;
+
+// Sets a margin for all sides of the element
+@mixin margin-all($margin) {
+  -fx-padding: $margin;
+  -fx-border-insets: $margin;
+  -fx-background-insets: $margin;
+}
+
+// Sets a margin for each side of the element. Order: Top, Right, Bottom, Left
+@mixin margin($margin-top, $margin-right, $margin-bottom, $margin-left) {
+  -fx-padding: $margin-top $margin-right $margin-bottom $margin-left;
+  -fx-border-insets: $margin-top $margin-right $margin-bottom $margin-left;
+  -fx-background-insets: $margin-top $margin-right $margin-bottom $margin-left;
+}
 
 * {
   -fx-font: 12px $font-stack;
