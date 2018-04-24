@@ -9,6 +9,7 @@ import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.function.BiFunction;
 import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 public class DemoPane extends StackPane {
@@ -28,6 +29,34 @@ public class DemoPane extends StackPane {
     return tileControl;
   };
 
+  BiFunction<WorkbenchFx, Integer, Node> pageFactory = (workbench, pageIndex) -> {
+    final int COLUMNS_PER_ROW = 3;
+
+    GridPane gridPane = new GridPane();
+    gridPane.getStyleClass().add("tilePage");
+
+    int position = pageIndex * workbench.MODULES_PER_PAGE;
+    int count = 0;
+    int column = 0;
+    int row = 0;
+
+    while (count < workbench.MODULES_PER_PAGE && position < workbench.getModules().size()) {
+      Module module = workbench.getModules().get(position);
+      Node tile = workbench.getTile(module);
+      gridPane.add(tile, column, row);
+
+      position++;
+      count++;
+      column++;
+
+      if (column == COLUMNS_PER_ROW) {
+        column = 0;
+        row++;
+      }
+    }
+    return gridPane;
+  };
+
   public DemoPane() {
 
     workbenchFx = WorkbenchFx.builder(
@@ -37,6 +66,7 @@ public class DemoPane extends StackPane {
     ).modulesPerPage(20)
      .tabFactory(tabFactory)
      .tileFactory(tileFactory)
+     .pageFactory(pageFactory)
      .build();
     getChildren().add(workbenchFx);
   }
