@@ -14,6 +14,7 @@ import com.dlsc.workbenchfx.view.WorkbenchFxView;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.Objects;
+import java.util.function.BiFunction;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -33,6 +34,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class WorkbenchFx extends StackPane {
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
+  public final int MODULES_PER_PAGE;
 
   // Views
   private ToolBarView toolBarView;
@@ -71,21 +73,69 @@ public class WorkbenchFx extends StackPane {
    * The factories which are called when creating Tabs and Tiles for the Views.
    * They require a module whose attributes are used to create the Nodes.
    */
-  private ObjectProperty<Callback<Module, Node>> tabFactory =
+  private ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tabFactory =
       new SimpleObjectProperty<>(this, "tabFactory");
-  private ObjectProperty<Callback<Module, Node>> tileFactory =
+  private ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tileFactory =
       new SimpleObjectProperty<>(this, "tileFactory");
 
   /**
    * Creates the Workbench window.
    */
   public static WorkbenchFx of(Module... modules) {
-    return new WorkbenchFx(modules);
+    return WorkbenchFx.builder(modules).build();
   }
 
-  private WorkbenchFx(Module... modules) {
-    initModules(modules);
-    initFactories();
+  public static WorkbenchFxBuilder builder(Module... modules) {
+    return new WorkbenchFxBuilder(modules);
+  }
+
+  private static class WorkbenchFxBuilder {
+    // Required parameters
+    private final Module[] modules;
+    // Optional parameters - initialized to default values
+    private int modulesPerPage = 9;
+    private BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
+      TabControl tabControl = new TabControl(module);
+      tabControl.setOnClose(e -> workbench.closeModule(module));
+      tabControl.setOnActive(e -> workbench.openModule(module));
+      return tabControl;
+    };
+
+    private BiFunction<WorkbenchFx, Module, Node> tileFactory = (workbench, module) -> {
+      TileControl tileControl = new TileControl(module);
+      tileControl.setOnActive(e -> workbench.openModule(module));
+      return tileControl;
+    };
+
+    private WorkbenchFxBuilder(Module... modules) {
+      this.modules = modules;
+    }
+
+    public WorkbenchFxBuilder modulesPerPage(int modulesPerPage) {
+      this.modulesPerPage = modulesPerPage;
+      return this;
+    }
+
+    public WorkbenchFxBuilder tabFactory(BiFunction<WorkbenchFx, Module, Node> tabFactory) {
+      this.tabFactory = tabFactory;
+      return this;
+    }
+
+    public WorkbenchFxBuilder tileFactory(BiFunction<WorkbenchFx, Module, Node> tileFactory) {
+      this.tileFactory = tileFactory;
+      return this;
+    }
+
+    public WorkbenchFx build() {
+      return new WorkbenchFx(this);
+    }
+  }
+
+  private WorkbenchFx(WorkbenchFxBuilder builder) {
+    MODULES_PER_PAGE = builder.modulesPerPage;
+    tabFactory.set(builder.tabFactory);
+    tileFactory.set(builder.tileFactory);
+    initModules(builder.modules);
     initViews();
     getChildren().add(workbenchFxView);
     addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
@@ -142,7 +192,6 @@ public class WorkbenchFx extends StackPane {
     tileControl.setOnActive(e -> openModule(module));
     return tileControl;
   }
-
 
   private void initViews() {
     toolBarView = new ToolBarView(this);
