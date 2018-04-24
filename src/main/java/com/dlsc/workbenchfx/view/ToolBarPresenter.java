@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
+import java.util.Objects;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
@@ -57,7 +58,6 @@ public class ToolBarPresenter implements Presenter {
           for (Module module : c.getAddedSubList()) {
             LOGGER.debug("Module " + module.getName() + " opened");
             Node tabControl = model.getTab(module);
-//            tabControl.getStyleClass().add("active-tab");
             view.addTab(tabControl);
             tabControl.requestFocus();
           }
@@ -65,38 +65,16 @@ public class ToolBarPresenter implements Presenter {
       }
     });
 
-//    model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
-//      if (Objects.isNull(oldModule)) {
-//        // Home is the old value
-//        System.out.println("REMOVED HOME");
-//        view.homeBtn.getStyleClass().remove("active-tab");
-//      } else {
-//        // Some other is the old module
-//        Node oldTab = model.getTab(oldModule);
-//        view.tabBox.getChildren().forEach(tab -> {
-//          if (Objects.equals(oldTab, tab)) {
-//            tab.getStyleClass().remove("active-tab");
-//            System.out.println("REMOVED " + oldModule.getName());
-//          }
-//        });
-//      }
-//
-//      if (Objects.isNull(newModule)) {
-//        // Home is the new value
-//        view.homeBtn.getStyleClass().add("active-tab");
-//        System.out.println("ADDED HOME");
-//      } else {
-//        // Some other is the new module
-//        Node newTab = model.getTab(newModule);
-//        view.tabBox.getChildren().forEach(tab -> {
-//          if (Objects.equals(newTab, tab)) {
-//            tab.getStyleClass().add("active-tab");
-//            System.out.println("ADDED " + newModule.getName());
-//          }
-//        });
-//      }
-//
-//    });
+    model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
+      if (Objects.isNull(oldModule)) {
+        // Home is the old value
+        view.homeBtn.getStyleClass().remove("active-tab");
+      }
+      if (Objects.isNull(newModule)) {
+        // Home is the new value
+        view.homeBtn.getStyleClass().add("active-tab");
+      }
+    });
   }
 
   /**
