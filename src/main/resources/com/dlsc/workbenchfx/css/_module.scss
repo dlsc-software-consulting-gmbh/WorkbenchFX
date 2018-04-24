@@ -1,0 +1,33 @@
+.tileControl {
+  -fx-background-color: $primary-color;
+  -fx-border-radius: 5px;
+  -fx-border-color: $primary-color-dark;
+  -fx-border-width: 2px;
+  -fx-text-fill: $primary-color-dark;
+  -fx-pref-width: 200px;
+  -fx-pref-height: 88px;
+  -fx-alignment: center center;
+  &:hover {
+    -fx-background-color: $primary-color-light;
+  }
+}
+
+.tabControl {
+  -fx-background-color: $primary-color;
+  -fx-border-color: $primary-color-dark;
+  -fx-border-width: 1px;
+  -fx-text-fill: $primary-color-dark;
+  -fx-padding: .5em;
+  -fx-pref-height: 44px;
+  -fx-alignment: center center;
+  &:hover {
+    -fx-background-color: $primary-color-light;
+  }
+  & > .button {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    &:hover{
+      -fx-text-fill: $danger-color;
+    }
+  }
+}

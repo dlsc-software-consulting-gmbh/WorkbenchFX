@@ -33,7 +33,7 @@ public class WorkbenchFxView extends BorderPane implements View {
    */
   @Override
   public void initializeSelf() {
-
+    setId("workbench");
   }
 
   /**
