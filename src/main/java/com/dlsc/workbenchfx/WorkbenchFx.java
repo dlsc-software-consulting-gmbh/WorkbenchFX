@@ -191,17 +191,6 @@ public class WorkbenchFx extends StackPane {
         });
   }
 
-  private TabControl setupRequests(TabControl tabControl, Module module) {
-    tabControl.setOnClose(e -> closeModule(module));
-    tabControl.setOnActive(e -> openModule(module));
-    return tabControl;
-  }
-
-  private TileControl setupRequests(TileControl tileControl, Module module) {
-    tileControl.setOnActive(e -> openModule(module));
-    return tileControl;
-  }
-
   private void initViews() {
     toolBarView = new ToolBarView(this);
     toolBarPresenter = new ToolBarPresenter(this, toolBarView);
