@@ -57,11 +57,12 @@ class WorkbenchFxTest {
       when(mockModules[i].activate()).thenReturn(moduleNodes[i]);
       when(mockModules[i].destroy()).thenReturn(true);
     }
-    workbench = WorkbenchFx.of(
-        mockModules[FIRST_INDEX], mockModules[SECOND_INDEX], mockModules[LAST_INDEX]
-    );
-    workbench.setTabFactory(param -> new Label("Module Tab"));
-    workbench.setTileFactory(param -> new Label("Module Tile"));
+
+    workbench = WorkbenchFx.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX],
+        mockModules[LAST_INDEX])
+        .tabFactory((workbench, module) -> new Label("Module Tab"))
+        .tileFactory((workbench, module) -> new Label("Module Tile"))
+        .build();
 
     first = mockModules[FIRST_INDEX];
     second = mockModules[SECOND_INDEX];
