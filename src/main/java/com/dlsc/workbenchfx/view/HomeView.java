@@ -1,9 +1,8 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.module.Module;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Pagination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -38,9 +37,9 @@ public class HomeView extends StackPane implements View {
     tileBox = new HBox();
     tileBox.setId("tileBox");
 
-    Pagination pagination = new Pagination(model.getModules().size() / model.MODULES_PER_PAGE + 1);
-    pagination
-    pagination.setPageFactory(pageIndex -> createPage(pageIndex));
+    int pageCount = model.getModules().size() / model.MODULES_PER_PAGE + 1;
+    Pagination pagination = new Pagination(pageCount);
+    pagination.setPageFactory(this::createPage);
     pagination.setMaxPageIndicatorCount(100);
     pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
 
@@ -50,31 +49,23 @@ public class HomeView extends StackPane implements View {
     AnchorPane.setBottomAnchor(pagination, 60.0);
     AnchorPane.setLeftAnchor(pagination, 10.0);
     anchor.getChildren().addAll(pagination);
-
   }
 
   private Node createPage(int pageIndex) {
-    GridPane gridPane = new GridPane();
-    gridPane.getStyleClass().add("modules-page");
+    int COLUMNS_PER_ROW = 3;
 
-    int position = pageIndex * MODULE_BUTTONS_PER_PAGE;
+    GridPane gridPane = new GridPane();
+    gridPane.getStyleClass().add("tilePage");
+
+    int position = pageIndex * model.MODULES_PER_PAGE;
     int count = 0;
     int column = 0;
     int row = 0;
 
-    while (count < MODULE_BUTTONS_PER_PAGE && position < getSkinnable().getShell().getModules().size()) {
-      ShellModule module = getSkinnable().getShell().getModules().get(position);
-      final Button button = new Button(module.getName());
-      button.getStyleClass().add("module-button");
-      button.getStyleClass().add(module.getIconClass());
-      button.setContentDisplay(ContentDisplay.TOP);
-      gridPane.add(button, column, row);
-
-      if (module.isImplemented()) {
-        button.getStyleClass().add("implemented");
-      }
-
-      button.setOnAction(evt -> getSkinnable().getShell().openModule(module));
+    while (count < model.MODULES_PER_PAGE && position < model.getModules().size()) {
+      Module module = model.getModules().get(position);
+      Node tile = model.getTile(module);
+      gridPane.add(tile, column, row);
 
       position++;
       count++;
