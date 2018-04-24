@@ -37,12 +37,12 @@ public class DemoPane extends StackPane {
     GridPane gridPane = new GridPane();
     gridPane.getStyleClass().add("tilePage");
 
-    int position = pageIndex * workbench.MODULES_PER_PAGE;
+    int position = pageIndex * workbench.modulesPerPage;
     int count = 0;
     int column = 0;
     int row = 0;
 
-    while (count < workbench.MODULES_PER_PAGE && position < workbench.getModules().size()) {
+    while (count < workbench.modulesPerPage && position < workbench.getModules().size()) {
       Module module = workbench.getModules().get(position);
       Node tile = workbench.getTile(module);
       gridPane.add(tile, column, row);

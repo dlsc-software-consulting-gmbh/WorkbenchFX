@@ -31,7 +31,7 @@ public class HomeView extends StackPane implements View {
    */
   @Override
   public void initializeParts() {
-    int pageCount = model.getModules().size() / model.MODULES_PER_PAGE + 1;
+    int pageCount = model.getModules().size() / model.modulesPerPage + 1;
     Pagination pagination = new Pagination(pageCount);
     pagination.setPageFactory(model::getPage);
     pagination.setMaxPageIndicatorCount(Integer.MAX_VALUE);

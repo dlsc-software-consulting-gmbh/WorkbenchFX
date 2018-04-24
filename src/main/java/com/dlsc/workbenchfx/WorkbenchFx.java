@@ -35,7 +35,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class WorkbenchFx extends StackPane {
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
-  public final int MODULES_PER_PAGE;
+  public final int modulesPerPage;
 
   // Views
   private ToolBarView toolBarView;
@@ -114,12 +114,12 @@ public class WorkbenchFx extends StackPane {
       GridPane gridPane = new GridPane();
       gridPane.getStyleClass().add("tilePage");
 
-      int position = pageIndex * workbench.MODULES_PER_PAGE;
+      int position = pageIndex * workbench.modulesPerPage;
       int count = 0;
       int column = 0;
       int row = 0;
 
-      while (count < workbench.MODULES_PER_PAGE && position < workbench.getModules().size()) {
+      while (count < workbench.modulesPerPage && position < workbench.getModules().size()) {
         Module module = workbench.getModules().get(position);
         Node tile = workbench.getTile(module);
         gridPane.add(tile, column, row);
@@ -199,7 +199,7 @@ public class WorkbenchFx extends StackPane {
   }
 
   private WorkbenchFx(WorkbenchFxBuilder builder) {
-    MODULES_PER_PAGE = builder.modulesPerPage;
+    modulesPerPage = builder.modulesPerPage;
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
