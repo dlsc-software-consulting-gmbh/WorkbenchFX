@@ -199,18 +199,22 @@ public class WorkbenchFx extends StackPane {
       throw new IllegalArgumentException("Module has not been loaded yet.");
     }
     // set new active module
-    Module active;
-    if (openModules.size() == 1) {
+    Module oldActive = getActiveModule();
+    Module newActive;
+    if (oldActive != module) {
+      // if we are not closing the currently active module, stay at the current
+      newActive = oldActive;
+    } else if (openModules.size() == 1) {
       // go to home screen
-      active = null;
+      newActive = null;
       LOGGER.trace("closeModule - Next active: Home Screen");
     } else if (i == 0) {
       // multiple modules open, leftmost is active
-      active = openModules.get(i + 1);
-      LOGGER.trace("closeModule - Next active: Next Module - " + active);
+      newActive = openModules.get(i + 1);
+      LOGGER.trace("closeModule - Next active: Next Module - " + newActive);
     } else {
-      active = openModules.get(i - 1);
-      LOGGER.trace("closeModule - Next active: Previous Module - " + active);
+      newActive = openModules.get(i - 1);
+      LOGGER.trace("closeModule - Next active: Previous Module - " + newActive);
     }
     // attempt to destroy module
     if (!module.destroy()) {
@@ -221,8 +225,8 @@ public class WorkbenchFx extends StackPane {
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
       LOGGER.trace("closeModule - Destroy, Removal successful: " + removal + " - " + module);
-      LOGGER.trace("closeModule - Set active module to: " + active);
-      activeModule.setValue(active);
+      LOGGER.trace("closeModule - Set active module to: " + newActive);
+      activeModule.setValue(newActive);
       return removal;
     }
   }
