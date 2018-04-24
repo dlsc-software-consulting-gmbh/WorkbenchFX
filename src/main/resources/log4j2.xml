@@ -15,7 +15,7 @@
         </File>
     </Appenders>
     <Loggers>
-        <Root level="info">
+        <Root level="trace">
             <AppenderRef ref="Console"/>
             <!-- Uncomment this for logging to file
             <AppenderRef ref="File"/>

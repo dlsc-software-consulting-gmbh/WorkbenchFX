@@ -79,4 +79,12 @@ public abstract class AbstractModule implements Module {
   public boolean destroy() {
     return true;
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String toString() {
+    return name;
+  }
 }
