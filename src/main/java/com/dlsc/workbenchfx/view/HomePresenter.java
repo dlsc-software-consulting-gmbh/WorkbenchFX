@@ -20,8 +20,9 @@ public class HomePresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    // Adds the module-tiles to the view
-    //model.getModules().forEach(module -> view.addTile(model.getTile(module)));
+    view.pagination.setPageCount(model.getModules().size() / model.modulesPerPage + 1);
+    view.pagination.setPageFactory(model::getPage);
+    view.pagination.setMaxPageIndicatorCount(Integer.MAX_VALUE);
   }
 
   /**

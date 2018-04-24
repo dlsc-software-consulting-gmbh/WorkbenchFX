@@ -9,6 +9,7 @@ import javafx.scene.layout.StackPane;
 public class HomeView extends StackPane implements View {
   private final WorkbenchFx model;
   AnchorPane tilePane;
+  Pagination pagination;
 
   /**
    * Creates a new {@link HomeView}.
@@ -31,19 +32,10 @@ public class HomeView extends StackPane implements View {
    */
   @Override
   public void initializeParts() {
-    int pageCount = model.getModules().size() / model.modulesPerPage + 1;
-    Pagination pagination = new Pagination(pageCount);
-    pagination.setPageFactory(model::getPage);
-    pagination.setMaxPageIndicatorCount(Integer.MAX_VALUE);
-    pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
+    pagination = new Pagination();
 
     tilePane = new AnchorPane();
     tilePane.setId("tilePane");
-    AnchorPane.setTopAnchor(pagination, 0.0);
-    AnchorPane.setRightAnchor(pagination, 10.0);
-    AnchorPane.setBottomAnchor(pagination, 60.0);
-    AnchorPane.setLeftAnchor(pagination, 10.0);
-    tilePane.getChildren().addAll(pagination);
   }
 
   /**
@@ -51,10 +43,15 @@ public class HomeView extends StackPane implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().add(tilePane);
-  }
+    AnchorPane.setTopAnchor(pagination, 0.0);
+    AnchorPane.setRightAnchor(pagination, 10.0);
+    AnchorPane.setBottomAnchor(pagination, 60.0);
+    AnchorPane.setLeftAnchor(pagination, 10.0);
 
-  public void addTile(Node tile) {
-    tilePane.getChildren().add(tile);
+    pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
+
+    tilePane.getChildren().addAll(pagination);
+
+    getChildren().add(tilePane);
   }
 }
