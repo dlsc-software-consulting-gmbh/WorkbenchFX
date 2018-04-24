@@ -96,6 +96,18 @@ public class WorkbenchFx extends StackPane {
     private int modulesPerPage = 9;
     private BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
       TabControl tabControl = new TabControl(module);
+      workbench.activeModuleProperty().addListener((observable, oldValue, newValue) -> {
+        if(oldValue != null) { LOGGER.error("Old Module: " + oldValue.getName()); } else { LOGGER.error("Old Module: null"); };
+        if(newValue != null) { LOGGER.error("New Module: " + newValue.getName()); } else { LOGGER.error("New Module: null"); };
+        if (module == newValue) {
+          tabControl.getStyleClass().add("active-tab");
+          LOGGER.error("STYLE SET");
+        }
+        if (module == oldValue) {
+          // switch from this to other tab
+          tabControl.getStyleClass().remove("active-tab");
+        }
+      });
       tabControl.setOnClose(e -> workbench.closeModule(module));
       tabControl.setOnActive(e -> workbench.openModule(module));
       return tabControl;
@@ -218,6 +230,7 @@ public class WorkbenchFx extends StackPane {
       throw new IllegalArgumentException(
           "Module was not passed in with the constructor of WorkbenchFxModel");
     }
+    LOGGER.error("Set active module to: " + module.getName());
     activeModule.setValue(module);
   }
 
