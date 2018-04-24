@@ -202,7 +202,32 @@ It contains the least used tools, or tools which are needed at the end of the pr
 
 === Challenges
 === Customizability
-Since we want to enable the API user to customize the workbench as much as possible,
+Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
+Of course, the resulting API design from this needs to work with our implementation as well.
+When we implemented the pagination in the home screen, we wanted the API user to be able to choose the amount of modules shown per page.
+To do so, our initial idea was to design the API for creating a `WorkbenchFx` object like this:
+[source,java]
+----
+WorkbenchFx.of(module1, module2)
+           .modulesPerPage(10);
+----
+This would be very easy to use, but it turned out to be not possible, since the `GridPane` with the module tiles are being initialized in the constructor of `WorkbenchFx`.
+Changing the amount of modules per page after the constructor was called, would mean that we would have needed to rebuild all of the pages with the modules again.
+This is not only very inefficient, but also a very bad solution for this problem.
+
+Another way of solving this would've been to initialize the `WorkbenchFx` object with a separate method after setting the amount of modules per page, like this:
+[source,java]
+----
+WorkbenchFx.of(module1, module2)
+           .modulesPerPage(10)
+           .init();
+----
+This would mean that the `GridPane` with the tiles would only need to be built once.
+However, this solution is also very unelegant.
+If the API user doesn't want to set the amount of modules per page, they still need to call "init()".
+Also, in this case the API user must rememeber to call `init()`, which is easy to forget.
+
+
 
 === Architecture
 WorkbenchFX seems like a gigantic pane.
