@@ -88,7 +88,7 @@ public class WorkbenchFx extends StackPane {
     return new WorkbenchFxBuilder(modules);
   }
 
-  private static class WorkbenchFxBuilder {
+  public static class WorkbenchFxBuilder {
     // Required parameters
     private final Module[] modules;
     // Optional parameters - initialized to default values
