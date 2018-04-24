@@ -25,12 +25,18 @@ public class ToolBarView extends HBox implements View {
     setId("toolbar");
   }
 
+  FontAwesomeIconView fav;
+
   /**
    * {@inheritDoc}
    */
   @Override
   public void initializeParts() {
+//    FontAwesomeIcon hIcon = FontAwesomeIcon.HOME;
+    fav = new FontAwesomeIconView();
+//    fav.setGlyphSize(100);
     homeBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.HOME));
+    fav.setStyleClass("glyph-icon");
     homeBtn.setId("homeButton");
 
     tabBox = new HBox();
@@ -42,7 +48,7 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().addAll(homeBtn, tabBox);
+    getChildren().addAll(fav, homeBtn, tabBox);
   }
 
   /**

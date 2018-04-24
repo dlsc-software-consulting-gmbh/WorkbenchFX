@@ -23,7 +23,6 @@
   -fx-border-color: #353a3a;
   -fx-border-width: 1px;
   -fx-text-fill: #353a3a;
-  -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center; }
   .tabControl:hover, #homeButton:hover {
@@ -46,17 +45,29 @@
       .tabControl .closeBtn:armed .closeIconView, #homeButton .closeBtn:armed .closeIconView {
         -icons-color: black; }
 
-.glyph-icon {
-  -fx-text-fill: -icons-color;
-  -fx-fill: -icons-color;
-  -glyph-size: 3em; }
-
 #toolbar {
   -fx-spacing: 0.75em; }
 
 #homeButton {
-  -fx-padding: .5em .5em .5em .5em;
   -fx-pref-width: 3.5em; }
+
+.root {
+  -icons-color: black; }
+
+.glyph-icon {
+  -fx-text-fill: -icons-color;
+  -fx-fill: -icons-color;
+  -fx-font-size: 72px; }
+
+.homeIconView {
+  -glyph-name: "THUMBS_UP";
+  -icons-color: yellowgreen; }
+
+.homeIconView:hover {
+  -fx-effect: dropshadow(three-pass-box, rgba(154, 205, 55, 0.7), 10, 0, 0, 0); }
+
+.homeIconView:pressed {
+  -fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0); }
 
 #tabBox {
   -fx-spacing: 0.45em; }
