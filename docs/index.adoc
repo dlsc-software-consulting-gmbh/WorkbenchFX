@@ -4,6 +4,8 @@ François Martin; Marco Sanfratello
 // Path to the code references
 :sourcedir: ../src/main/java
 :sourcedirdemo: ../workbenchfx-demo/src/main/java
+// Check symbol
+:y: &#10003;
 
 == Front page
 
@@ -227,7 +229,74 @@ However, this solution is also very unelegant.
 If the API user doesn't want to set the amount of modules per page, they still need to call "init()".
 Also, in this case the API user must rememeber to call `init()`, which is easy to forget.
 
+One of the better options would be to solve it like this:
+[source,java]
+----
+WorkbenchFx.of(10, module1, module2);
+----
+We would simply pass in the amount of modules to the `.of()` method.
+This would work, however it has some disadvantages.
+For example, the readability suffers: "What does that 10 mean again?".
+Also, since we want the API user to be able to define their own controls for the tabs and tiles using factories, we noticed that we also need to pass those factories in the same way.
+This would not only make the readability worse, but this also means that if we want to stick to our paradigm, we would need to add multiple overloaded `of()` methods.
+With 3 parameters (modules per page, tab and tile factory) this would result in the following combinations:
 
+.Combinations of overloaded WorkbenchFx.of() methods
+|===
+|No. |Modules per Page |Tab Factory |Tile Factory
+
+|1
+|
+|
+|
+
+|2
+|{y}
+|
+|
+
+|3
+|
+|{y}
+|
+
+|4
+|
+|
+|{y}
+
+|5
+|{y}
+|{y}
+|
+
+|6
+|
+|{y}
+|{y}
+
+|7
+|{y}
+|{y}
+|{y}
+|===
+
+Only 3 parameters result in 7 overloaded `of()` methods, which is already quite a lot.
+Should we need to add more parameters in the future, it would get even worse.
+
+This is why we decided to go with our final solution, to *use the builder pattern*.
+Using it results in the following syntax:
+[source,java]
+----
+WorkbenchFx.builder(module1, module2)
+           .modulesPerPage(10)
+           .build();
+----
+This solution solves all of the problems.
+It's not possible to forget `build()`, since else it won't return a `WorkbenchFx` object.
+It's expandable to a large amount of parameters.
+It allows for maximum flexibility, i. e. any combination of the parameters in any order can be specified.
+We decided to still keep the original `WorkbenchFx.of(module1, module2)` notation, to reduce boilerplate code if one doesn't want to customize anything.
 
 === Architecture
 WorkbenchFX seems like a gigantic pane.
