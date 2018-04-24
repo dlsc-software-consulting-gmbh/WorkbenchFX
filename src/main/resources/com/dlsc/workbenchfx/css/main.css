@@ -36,24 +36,24 @@
   -fx-alignment: center center; }
   .tabControl:hover, #homeButton:hover {
     -fx-background-color: #f3fafa; }
-  .tabControl .tabNameLbl, #homeButton .tabNameLbl {
+  .tabControl.tabNameLbl, .tabNameLbl#homeButton {
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
     -fx-background-insets: 0 0 0 0.5em; }
-  .tabControl .closeBtn, #homeButton .closeBtn {
+  .tabControl.closeBtn, .closeBtn#homeButton {
     -fx-padding: 0 0.5em 0 1em;
     -fx-border-insets: 0 0.5em 0 1em;
     -fx-background-insets: 0 0.5em 0 1em;
     -fx-background-color: transparent;
     -fx-border-width: 0; }
-    .tabControl .closeBtn .closeIconView, #homeButton .closeBtn .closeIconView {
+    .tabControl.closeBtn.closeIconView, .closeBtn.closeIconView#homeButton {
       -fx-font-size: 1em !important; }
-    .tabControl .closeBtn:hover .closeIconView, #homeButton .closeBtn:hover .closeIconView {
+    .tabControl.closeBtn:hover .closeIconView, .closeBtn#homeButton:hover .closeIconView {
       -icons-color: #ff4e61; }
-    .tabControl .closeBtn:armed, #homeButton .closeBtn:armed {
+    .tabControl.closeBtn:armed, .closeBtn#homeButton:armed {
       -fx-background-color: transparent;
       -fx-border-width: 0; }
-      .tabControl .closeBtn:armed .closeIconView, #homeButton .closeBtn:armed .closeIconView {
+      .tabControl.closeBtn:armed .closeIconView, .closeBtn#homeButton:armed .closeIconView {
         -icons-color: black; }
 
 #toolbar {
