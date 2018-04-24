@@ -35,9 +35,9 @@
       -fx-text-fill: #ff4e61; }
 
 .active-module {
-  -fx-background-color: #ff4e61; }
+  -fx-background-color: GREEN; }
   .active-module:hover {
-    -fx-background-color: #ff4e61; }
+    -fx-background-color: GREEN; }
 
 #toolbar {
   -fx-spacing: 0.75em; }

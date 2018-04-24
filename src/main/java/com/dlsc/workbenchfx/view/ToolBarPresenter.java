@@ -65,6 +65,16 @@ public class ToolBarPresenter implements Presenter {
         }
       }
     });
+
+    model.activeModuleProperty().addListener((observable, oldValue, newValue) -> {
+      // Home is the old value
+      if (Objects.isNull(oldValue)) {
+        view.homeBtn.getStyleClass().remove("active-module");
+        System.out.println("HOME");
+      }
+//      System.out.println(oldValue);
+//      System.out.println(newValue);
+    });
   }
 
   /**
