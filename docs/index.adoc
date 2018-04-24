@@ -221,7 +221,7 @@ Plugin for IntelliJ which translates SCSS code into CSS:
 https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[SCSS to CSS]
 
 There is no margin in JavaFX CSS.
-We've made a workaround using a `SASS Mixin` which looks like this:
+We've made a workaround using a `SCSS Mixin` which looks like this:
 
 Creating the `Mixin`:
 [source,sass]
@@ -242,7 +242,47 @@ Using the `Mixin` in code:
 ----
 
 A `Mixin` includes code, created by the `Mixin` and puts it in the place where it was called.
-Link: http://thesassway.com/advanced/pure-sass-functions[SASS - Mixin]
+Link: http://thesassway.com/advanced/pure-sass-functions[SCSS - Mixin]
+
+==== General Conventions
+We have decided to define some general conventions:
+
+In CSS it is possible to give multiple classes the same layout.
+For example:
+[source,sass]
+----
+.myClass-1, .myClass-2 {
+  -fx-padding: 1em;
+  -fx-border-insets: 1em;
+  -fx-background-insets: 1em;
+}
+----
+this is possible, but it's readability is not that good.
+SCSS provides a special tag for such situations, the `@extend`-tag:
+[source,sass]
+----
+.myClass-1 {
+  -fx-padding: 1em;
+  -fx-border-insets: 1em;
+  -fx-background-insets: 1em;
+}
+
+.myClass-2 {
+  @extend .myClass-1;
+}
+----
+In both cases, both classes have the same attributes.
+But the readability is much better in the second example.
+Plus, there is the possibility to add another attributes in `.myClass-2`.
+[source,sass]
+----
+.myClass-2 {
+  @extend .myClass-1;
+  -fx-color: RED;
+}
+----
+`.myClass-2` inherits from `.myClass-1` and can be extended.
+https://sass-lang.com/guide[SCSS - @extend]
 
 === Challenges
 Setting the node-icon twice:
