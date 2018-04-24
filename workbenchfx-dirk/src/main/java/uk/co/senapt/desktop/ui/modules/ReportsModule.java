@@ -13,7 +13,7 @@ public class ReportsModule extends ShellModule {
 
     @Override
     public String getPrimaryColorStyleClass() {
-        return "primary-color-inactive-reports";
+        return "primary-color-reports";
     }
 
     @Override

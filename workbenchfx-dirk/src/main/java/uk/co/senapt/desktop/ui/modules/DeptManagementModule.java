@@ -13,7 +13,7 @@ public class DeptManagementModule extends ShellModule {
 
     @Override
     public String getPrimaryColorStyleClass() {
-        return "primary-color-inactive-debt-management";
+        return "primary-color-debt-management";
     }
 
     @Override

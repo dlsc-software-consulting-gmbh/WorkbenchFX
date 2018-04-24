@@ -13,7 +13,7 @@ public class ComplaintsModule extends ShellModule {
 
     @Override
     public String getPrimaryColorStyleClass() {
-        return "primary-color-inactive-complaints";
+        return "primary-color-complaints";
     }
 
     @Override

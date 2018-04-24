@@ -13,7 +13,7 @@ public class BillingManagementModule extends ShellModule {
 
     @Override
     public String getPrimaryColorStyleClass() {
-        return "primary-color-inactive-billing-management";
+        return "primary-color-billing-management";
     }
 
     @Override

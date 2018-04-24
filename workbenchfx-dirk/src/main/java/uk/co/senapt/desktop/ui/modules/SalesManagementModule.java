@@ -13,7 +13,7 @@ public class SalesManagementModule extends ShellModule {
 
     @Override
     public String getPrimaryColorStyleClass() {
-        return "primary-color-inactive-sales-management";
+        return "primary-color-sales-management";
     }
 
     @Override
