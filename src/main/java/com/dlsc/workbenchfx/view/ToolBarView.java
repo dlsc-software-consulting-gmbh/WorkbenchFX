@@ -1,14 +1,18 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
 public class ToolBarView extends HBox implements View {
   private final WorkbenchFx model;
+  private FontAwesomeIconView homeIconView;
   Button homeBtn;
-  HBox tabBox;
+  private HBox tabBox;
+
 
   public ToolBarView(WorkbenchFx model) {
     this.model = model;
@@ -28,7 +32,10 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void initializeParts() {
-    homeBtn = new Button("Home");
+    homeIconView = new FontAwesomeIconView(FontAwesomeIcon.HOME);
+    homeIconView.setId("homeIconView");
+
+    homeBtn = new Button("", homeIconView);
     homeBtn.setId("homeButton");
     homeBtn.getStyleClass().add("active-tab");
 

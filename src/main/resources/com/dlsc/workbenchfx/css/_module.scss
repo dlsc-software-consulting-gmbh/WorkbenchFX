@@ -1,11 +1,11 @@
 .tileControl {
   -fx-background-color: $primary-color;
-  -fx-border-radius: 5px;
+  -fx-border-radius: .5em;
   -fx-border-color: $primary-color-dark;
   -fx-border-width: 2px;
   -fx-text-fill: $primary-color-dark;
-  -fx-pref-width: 200px;
-  -fx-pref-height: 88px;
+  -fx-pref-width: 16em;
+  -fx-pref-height: 9em;
   -fx-alignment: center center;
   &:hover {
     -fx-background-color: $primary-color-light;
@@ -17,18 +17,38 @@
   -fx-border-color: $primary-color-dark;
   -fx-border-width: 1px;
   -fx-text-fill: $primary-color-dark;
-  -fx-padding: .5em;
-  -fx-pref-height: 44px;
+  -fx-padding: .5em .5em .5em 1em;
+  -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   &:hover {
     -fx-background-color: $primary-color-light;
   }
-  & > .button {
+  & .tabIcon {
+
+  }
+  & .tabNameLbl {
+    @include margin(0, 0, 0, .5em);
+  }
+  & .closeBtn {
+    @include margin(0, .5em, 0, 1em);
     -fx-background-color: transparent;
     -fx-border-width: 0;
-    &:hover{
-      -fx-text-fill: $danger-color;
+    & .closeIconView {
+      -fx-font-size: 1em !important;
     }
+    &:hover .closeIconView {
+      -icons-color: $danger-color;
+    }
+    &:armed {
+      -fx-background-color: transparent;
+      -fx-border-width: 0;
+      & .closeIconView {
+        -icons-color: black;
+      }
+    }
+  }
+  & .closeIconView {
+
   }
 }
 

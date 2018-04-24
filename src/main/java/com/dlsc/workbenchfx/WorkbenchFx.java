@@ -14,6 +14,8 @@ import com.dlsc.workbenchfx.view.WorkbenchFxView;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.Objects;
+import java.util.function.BiFunction;
+import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -21,7 +23,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
-import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,6 +34,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class WorkbenchFx extends StackPane {
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
+  public final int MODULES_PER_PAGE;
 
   // Views
   private ToolBarView toolBarView;
@@ -71,23 +73,97 @@ public class WorkbenchFx extends StackPane {
    * The factories which are called when creating Tabs and Tiles for the Views.
    * They require a module whose attributes are used to create the Nodes.
    */
-  private ObjectProperty<Callback<Module, Node>> tabFactory =
+  private ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tabFactory =
       new SimpleObjectProperty<>(this, "tabFactory");
-  private ObjectProperty<Callback<Module, Node>> tileFactory =
+  private ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tileFactory =
       new SimpleObjectProperty<>(this, "tileFactory");
 
   /**
    * Creates the Workbench window.
    */
   public static WorkbenchFx of(Module... modules) {
-    return new WorkbenchFx(modules);
+    return WorkbenchFx.builder(modules).build();
   }
 
-  private WorkbenchFx(Module... modules) {
-    initModules(modules);
-    initFactories();
+  public static WorkbenchFxBuilder builder(Module... modules) {
+    return new WorkbenchFxBuilder(modules);
+  }
+
+  public static class WorkbenchFxBuilder {
+    // Required parameters
+    private final Module[] modules;
+    // Optional parameters - initialized to default values
+    private int modulesPerPage = 9;
+    private BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
+      TabControl tabControl = new TabControl(module);
+      tabControl.setOnClose(e -> workbench.closeModule(module));
+      tabControl.setOnActive(e -> workbench.openModule(module));
+      return tabControl;
+    };
+    private BiFunction<WorkbenchFx, Module, Node> tileFactory = (workbench, module) -> {
+      TileControl tileControl = new TileControl(module);
+      tileControl.setOnActive(e -> workbench.openModule(module));
+      return tileControl;
+    };
+
+    private WorkbenchFxBuilder(Module... modules) {
+      this.modules = modules;
+    }
+
+    /**
+     * Defines how many modules should be shown per page on the home screen.
+     * @param modulesPerPage amount of modules to be shown per page
+     * @return builder for chaining
+     */
+    public WorkbenchFxBuilder modulesPerPage(int modulesPerPage) {
+      this.modulesPerPage = modulesPerPage;
+      return this;
+    }
+
+    /**
+     * Defines how {@link Node} should be created to be used as the tab in the view.
+     *
+     * @param tabFactory to be used to create the {@link Node} for the tabs
+     * @return builder for chaining
+     * @implNote Use this to replace the control which is used for the tab with your own
+     *           implementation.
+     */
+    public WorkbenchFxBuilder tabFactory(BiFunction<WorkbenchFx, Module, Node> tabFactory) {
+      this.tabFactory = tabFactory;
+      return this;
+    }
+
+    /**
+     * Defines how {@link Node} should be created to be used as the tile in the home screen.
+     *
+     * @param tileFactory to be used to create the {@link Node} for the tiles
+     * @return builder for chaining
+     * @implNote Use this to replace the control which is used for the tile with your own
+     *           implementation.
+     */
+    public WorkbenchFxBuilder tileFactory(BiFunction<WorkbenchFx, Module, Node> tileFactory) {
+      this.tileFactory = tileFactory;
+      return this;
+    }
+
+    /**
+     * Builds and fully initializes a {@link WorkbenchFx} object.
+     * @return the {@link WorkbenchFx} object
+     */
+    public WorkbenchFx build() {
+      return new WorkbenchFx(this);
+    }
+  }
+
+  private WorkbenchFx(WorkbenchFxBuilder builder) {
+    MODULES_PER_PAGE = builder.modulesPerPage;
+    tabFactory.set(builder.tabFactory);
+    tileFactory.set(builder.tileFactory);
+    initModules(builder.modules);
     initViews();
     getChildren().add(workbenchFxView);
+//    Application.setUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
+    Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
     addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
   }
 
@@ -117,32 +193,6 @@ public class WorkbenchFx extends StackPane {
           }
         });
   }
-
-  private void initFactories() {
-    setTabFactory(module -> {
-      TabControl tabControl = new TabControl(module);
-      setupRequests(tabControl, module);
-      return tabControl;
-    });
-
-    setTileFactory(module -> {
-      TileControl tileControl = new TileControl(module);
-      setupRequests(tileControl, module);
-      return tileControl;
-    });
-  }
-
-  private TabControl setupRequests(TabControl tabControl, Module module) {
-    tabControl.setOnClose(e -> closeModule(module));
-    tabControl.setOnActive(e -> openModule(module));
-    return tabControl;
-  }
-
-  private TileControl setupRequests(TileControl tileControl, Module module) {
-    tileControl.setOnActive(e -> openModule(module));
-    return tileControl;
-  }
-
 
   private void initViews() {
     toolBarView = new ToolBarView(this);
@@ -219,7 +269,7 @@ public class WorkbenchFx extends StackPane {
    * @return a corresponding Tab which is created from the {@code tabFactory}
    */
   public Node getTab(Module module) {
-    return tabFactory.get().call(module);
+    return tabFactory.get().apply(this, module);
   }
 
   /**
@@ -230,7 +280,7 @@ public class WorkbenchFx extends StackPane {
    * @return a corresponding Tile which contains the values of the module
    */
   public Node getTile(Module module) {
-    return tileFactory.get().call(module);
+    return tileFactory.get().apply(this, module);
   }
 
   public ObservableList<Module> getOpenModules() {
@@ -255,27 +305,5 @@ public class WorkbenchFx extends StackPane {
 
   public ReadOnlyObjectProperty<Node> activeModuleViewProperty() {
     return activeModuleView;
-  }
-
-  /**
-   * Defines how {@link Node} should be created to be used as the tab in the view.
-   *
-   * @param value the callback to be set
-   * @implNote Use this to replace the control which is used for the tab with your own
-   *           implementation.
-   */
-  public final void setTabFactory(Callback<Module, Node> value) {
-    tabFactory.set(value);
-  }
-
-  /**
-   * Defines how {@link Node} should be created to be used as the tile in the view.
-   *
-   * @param value the callback which defines the way the Tiles are created
-   * @implNote Use this to replace the control which is used for the tile with your own
-   *           implementation.
-   */
-  public final void setTileFactory(Callback<Module, Node> value) {
-    tileFactory.set(value);
   }
 }
