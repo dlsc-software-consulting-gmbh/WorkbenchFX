@@ -1,12 +1,17 @@
 .root {
+  -fx-background-color: white;
   -fx-font: 12px Helvetica, sans-serif;
-  -fx-color: #edf4f4;
-  -icons-color: black; }
+  -fx-color: #F2F2F2;
+  -icons-color: derive(#F2F2F2, -70%); }
 
 .glyph-icon {
-  -fx-text-fill: -icons-color;
+  -fx-text-fill: derive(#F2F2F2, -70%);
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
+
+#center {
+  -fx-border-width: 1.75em 0 0 0;
+  -fx-border-color: #F2F2F2; }
 
 #home .tilePage {
   -fx-vgap: 40;
@@ -17,36 +22,35 @@
   -fx-arrows-visible: false;
   -fx-page-information-visible: false;
   -fx-tooltip-visible: false; }
-#home .pagination > .pagination-control > .control-box > .bullet-button {
-  -fx-background-radius: 4em;
-  -fx-padding: 0.333em;
-  -fx-background-color: #353a3a;
-  -fx-background-insets: 7; }
-#home .pagination > .pagination-control > .control-box > .bullet-button:selected {
-  -fx-background-color: #00aaff; }
+  #home .pagination > .pagination-control > .control-box > .bullet-button {
+    -fx-background-radius: 4em;
+    -fx-padding: 0.333em;
+    -fx-background-color: derive(#F2F2F2, -50%);
+    -fx-background-insets: 5.25; }
+    #home .pagination > .pagination-control > .control-box > .bullet-button:hover {
+      -fx-background-color: derive(#F2F2F2, -30%); }
+    #home .pagination > .pagination-control > .control-box > .bullet-button:selected {
+      -fx-background-color: #00aaff; }
+      #home .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
+        -fx-background-color: derive(#00aaff, 20%); }
 
 .tileControl {
-  -fx-background-color: #edf4f4;
-  -fx-border-radius: .5em;
-  -fx-border-color: #353a3a;
-  -fx-border-width: 2px;
-  -fx-text-fill: #353a3a;
+  -fx-background-color: #F2F2F2;
+  -fx-text-fill: derive(#F2F2F2, -70%);
   -fx-pref-width: 16em;
   -fx-pref-height: 9em;
   -fx-alignment: center center; }
   .tileControl:hover {
-    -fx-background-color: #f3fafa; }
+    -fx-background-color: derive(#F2F2F2, 15%); }
 
 .tabControl, #homeButton {
-  -fx-background-color: #edf4f4;
-  -fx-border-color: #353a3a;
-  -fx-border-width: 1px;
-  -fx-text-fill: #353a3a;
+  -fx-background-color: derive(#F2F2F2, -15%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
-  -fx-alignment: center center; }
+  -fx-alignment: center center;
+  -fx-background-radius: 0; }
   .tabControl:hover, #homeButton:hover {
-    -fx-background-color: #f3fafa; }
+    -fx-background-color: derive(#F2F2F2, -7.5%); }
   .tabControl .tabNameLbl, #homeButton .tabNameLbl {
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
@@ -58,14 +62,17 @@
     -fx-background-color: transparent;
     -fx-border-width: 0; }
     .tabControl .closeBtn .closeIconView, #homeButton .closeBtn .closeIconView {
-      -fx-font-size: 1em !important; }
+      -fx-font-size: 1em; }
     .tabControl .closeBtn:hover .closeIconView, #homeButton .closeBtn:hover .closeIconView {
-      -icons-color: #ff4e61; }
+      -icons-color: #DB4437; }
     .tabControl .closeBtn:armed, #homeButton .closeBtn:armed {
       -fx-background-color: transparent;
       -fx-border-width: 0; }
       .tabControl .closeBtn:armed .closeIconView, #homeButton .closeBtn:armed .closeIconView {
         -icons-color: black; }
+
+.active-tab {
+  -fx-background-color: #F2F2F2 !important; }
 
 #toolbar {
   -fx-spacing: 0.75em; }

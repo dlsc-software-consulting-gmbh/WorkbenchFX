@@ -36,6 +36,7 @@ import org.apache.logging.log4j.Logger;
 public class WorkbenchFx extends StackPane {
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
   public final int modulesPerPage;
+  public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
 
   // Views
   private ToolBarView toolBarView;
@@ -99,8 +100,21 @@ public class WorkbenchFx extends StackPane {
     private int modulesPerPage = 9;
     private BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
       TabControl tabControl = new TabControl(module);
+      workbench.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
+        LOGGER.trace("Tab Factory - Old Module: " + oldModule);
+        LOGGER.trace("Tab Factory - New Module: " + oldModule);
+        if (module == newModule) {
+          tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
+          LOGGER.trace("STYLE SET");
+        }
+        if (module == oldModule) {
+          // switch from this to other tab
+          tabControl.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
+        }
+      });
       tabControl.setOnClose(e -> workbench.closeModule(module));
       tabControl.setOnActive(e -> workbench.openModule(module));
+      tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
       return tabControl;
     };
     private BiFunction<WorkbenchFx, Module, Node> tileFactory = (workbench, module) -> {
@@ -216,6 +230,8 @@ public class WorkbenchFx extends StackPane {
     // handle changes of the active module
     activeModule.addListener(
         (observable, oldModule, newModule) -> {
+          LOGGER.trace("Module Listener - Old Module: " + oldModule);
+          LOGGER.trace("Module Listener - New Module: " + newModule);
           if (oldModule != newModule) {
             boolean fromHomeScreen = oldModule == null;
             LOGGER.trace("Active Module Listener - Previous view home screen: " + fromHomeScreen);
@@ -269,6 +285,7 @@ public class WorkbenchFx extends StackPane {
       throw new IllegalArgumentException(
           "Module was not passed in with the constructor of WorkbenchFxModel");
     }
+    LOGGER.trace("openModule - set active module to " + module);
     activeModule.setValue(module);
   }
 

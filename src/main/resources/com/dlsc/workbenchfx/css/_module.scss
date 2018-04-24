@@ -1,27 +1,22 @@
 .tileControl {
   -fx-background-color: $primary-color;
-  -fx-border-radius: .5em;
-  -fx-border-color: $primary-color-dark;
-  -fx-border-width: 2px;
-  -fx-text-fill: $primary-color-dark;
+  -fx-text-fill: $text-color;
   -fx-pref-width: 16em;
   -fx-pref-height: 9em;
   -fx-alignment: center center;
   &:hover {
-    -fx-background-color: $primary-color-light;
+    -fx-background-color: derive($primary-color, 15%);
   }
 }
 
 .tabControl {
-  -fx-background-color: $primary-color;
-  -fx-border-color: $primary-color-dark;
-  -fx-border-width: 1px;
-  -fx-text-fill: $primary-color-dark;
+  -fx-background-color: derive($primary-color, -15%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center;
+  -fx-background-radius: 0;
   &:hover {
-    -fx-background-color: $primary-color-light;
+    -fx-background-color: derive($primary-color, -7.5%);
   }
   & .tabIcon {
 
@@ -34,7 +29,7 @@
     -fx-background-color: transparent;
     -fx-border-width: 0;
     & .closeIconView {
-      -fx-font-size: 1em !important;
+      -fx-font-size: 1em;
     }
     &:hover .closeIconView {
       -icons-color: $danger-color;
@@ -50,4 +45,8 @@
   & .closeIconView {
 
   }
+}
+
+.active-tab {
+  -fx-background-color: $primary-color !important;
 }

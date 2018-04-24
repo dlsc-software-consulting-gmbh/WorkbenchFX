@@ -1,5 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
+import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
+
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
 import java.util.Objects;
@@ -57,13 +59,22 @@ public class ToolBarPresenter implements Presenter {
         if (c.wasAdded()) {
           for (Module module : c.getAddedSubList()) {
             LOGGER.debug("Module " + module + " opened");
-            if (!Objects.isNull(module)) {
-              Node tabControl = model.getTab(module);
-              view.addTab(tabControl);
-              tabControl.requestFocus();
-            }
+            Node tabControl = model.getTab(module);
+            view.addTab(tabControl);
+            tabControl.requestFocus();
           }
         }
+      }
+    });
+
+    model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
+      if (Objects.isNull(oldModule)) {
+        // Home is the old value
+        view.homeBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
+      }
+      if (Objects.isNull(newModule)) {
+        // Home is the new value
+        view.homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
       }
     });
   }

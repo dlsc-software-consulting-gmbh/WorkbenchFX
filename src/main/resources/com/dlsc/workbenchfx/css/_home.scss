@@ -10,16 +10,20 @@
     -fx-arrows-visible: false;
     -fx-page-information-visible: false;
     -fx-tooltip-visible: false;
-  }
-
-  .pagination > .pagination-control > .control-box > .bullet-button {
-    -fx-background-radius: 4em;
-    -fx-padding: 0.333em;
-    -fx-background-color: $primary-color-dark;
-    -fx-background-insets: 7;
-  }
-
-  .pagination > .pagination-control > .control-box > .bullet-button:selected {
-    -fx-background-color: $accent-color;
+    & > .pagination-control > .control-box > .bullet-button {
+      -fx-background-radius: 4em;
+      -fx-padding: 0.333em;
+      -fx-background-color: derive($primary-color, -50%);
+      -fx-background-insets: 5.25;
+      &:hover {
+        -fx-background-color: derive($primary-color, -30%);
+      }
+      &:selected {
+        -fx-background-color: $accent-color;
+        &:hover {
+          -fx-background-color: derive($accent-color, 20%);
+        }
+      }
+    }
   }
 }
