@@ -17,7 +17,7 @@
   -fx-border-color: $primary-color-dark;
   -fx-border-width: 1px;
   -fx-text-fill: $primary-color-dark;
-  //-fx-padding: .5em .5em .5em 1em;
+  -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   &:hover {
@@ -42,10 +42,3 @@
     }
   }
 }
-
-// So that the -closeIconView can change the color
-//.glyph-icon {
-//  -fx-text-fill: -icons-color;
-//  -fx-fill: -icons-color;
-//  -glyph-size: 3em;
-//}

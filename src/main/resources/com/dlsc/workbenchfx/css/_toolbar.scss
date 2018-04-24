@@ -6,47 +6,9 @@ $tabSpacing: 0.75em;
 
 #homeButton {
   @extend .tabControl;
-  //-fx-padding: .5em .5em .5em .5em;
+  -fx-padding: .5em .5em .5em .5em;
   -fx-pref-width: 3.5em;
 }
-
-.root{
-  -icons-color: black;
-}
-
-.glyph-icon{
-  -fx-text-fill: -icons-color;
-  -fx-fill: -icons-color;
-  -fx-font-size: 72px;
-  //-glyph-size: 48px;
-}
-
-.homeIconView{
-  -glyph-name: "THUMBS_UP";
-  -icons-color: yellowgreen;
-}
-.homeIconView:hover{
-  -fx-effect:  dropshadow(three-pass-box, rgba(154,205,55,0.7), 10, 0, 0, 0);
-}
-
-.homeIconView:pressed{
-  -fx-effect:  dropshadow(three-pass-box, rgba(0,0,0,1.0), 10, 0, 0, 0);
-}
-
-//.root{
-//  -icons-color: black;
-//}
-//
-//.glyph-icon{
-//  -fx-text-fill: -icons-color;
-//  -fx-fill: -icons-color;
-//  -glyph-size: 48px;
-//}
-//
-//#homeIconView {
-//  -glyph-size: 100px;
-  //-fx-font-size: 100px;
-//}
 
 #tabBox {
   -fx-spacing: 0.6*$tabSpacing;

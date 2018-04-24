@@ -20,9 +20,20 @@ $border: 2px;
   -fx-background-insets: $margin-top $margin-right $margin-bottom $margin-left;
 }
 
+.root{
+  -icons-color: black;
+}
+
 * {
   -fx-font: 12px $font-stack;
   -fx-color: $primary-color;
+}
+
+// So that the -closeIconView can change the color
+.glyph-icon {
+  -fx-text-fill: -icons-color;
+  -fx-fill: -icons-color;
+  -fx-font-size: 1.5em !important;
 }
 
 @import "center";
