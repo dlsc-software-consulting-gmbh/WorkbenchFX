@@ -22,7 +22,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
-import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -168,20 +167,6 @@ public class WorkbenchFx extends StackPane {
         });
   }
 
-  private void initFactories() {
-    setTabFactory(module -> {
-      TabControl tabControl = new TabControl(module);
-      setupRequests(tabControl, module);
-      return tabControl;
-    });
-
-    setTileFactory(module -> {
-      TileControl tileControl = new TileControl(module);
-      setupRequests(tileControl, module);
-      return tileControl;
-    });
-  }
-
   private TabControl setupRequests(TabControl tabControl, Module module) {
     tabControl.setOnClose(e -> closeModule(module));
     tabControl.setOnActive(e -> openModule(module));
@@ -268,7 +253,7 @@ public class WorkbenchFx extends StackPane {
    * @return a corresponding Tab which is created from the {@code tabFactory}
    */
   public Node getTab(Module module) {
-    return tabFactory.get().call(module);
+    return tabFactory.get().apply(this, module);
   }
 
   /**
@@ -279,7 +264,7 @@ public class WorkbenchFx extends StackPane {
    * @return a corresponding Tile which contains the values of the module
    */
   public Node getTile(Module module) {
-    return tileFactory.get().call(module);
+    return tileFactory.get().apply(this, module);
   }
 
   public ObservableList<Module> getOpenModules() {
@@ -313,9 +298,9 @@ public class WorkbenchFx extends StackPane {
    * @implNote Use this to replace the control which is used for the tab with your own
    *           implementation.
    */
-  public final void setTabFactory(Callback<Module, Node> value) {
+  /*public final void setTabFactory(Callback<Module, Node> value) {
     tabFactory.set(value);
-  }
+  }*/
 
   /**
    * Defines how {@link Node} should be created to be used as the tile in the view.
@@ -324,7 +309,7 @@ public class WorkbenchFx extends StackPane {
    * @implNote Use this to replace the control which is used for the tile with your own
    *           implementation.
    */
-  public final void setTileFactory(Callback<Module, Node> value) {
+  /*public final void setTileFactory(Callback<Module, Node> value) {
     tileFactory.set(value);
-  }
+  }*/
 }
