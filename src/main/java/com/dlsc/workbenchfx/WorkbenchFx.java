@@ -105,7 +105,7 @@ public class WorkbenchFx extends StackPane {
         LOGGER.trace("Tab Factory - New Module: " + oldValue);
         if (module == newValue) {
           tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-          LOGGER.error("STYLE SET");
+          LOGGER.trace("STYLE SET");
         }
         if (module == oldValue) {
           // switch from this to other tab
