@@ -10,6 +10,7 @@ François Martin; Marco Sanfratello
 == Abstract / Management summary
 
 == Introduction
+The paradigm of WorkbenchFX is: "Give the API user as much customizability as reasonable, but make sure they don't have to use them."
 
 == The way to WorkbenchFX
 === Briefing
@@ -98,6 +99,9 @@ At first, we used a separate `WorkbenchFxModel` object for the model.
 Our customer suggests that it would be easier to skip the `WorkbenchFxModel` class and just put the logic in `WorkbenchFx`, since that's the place where he would expect such logic.
 We decide to change it in a way that `WorkbenchFx` is the model object in the MVP pattern in our case.
 This simplifies the architecture and readability is improved, since methods are where they would be expected.
+
+==== Builder Pattern
+
 
 == Why should someone use our Workbench instead of coding on their own?
 * Simple Design
@@ -197,6 +201,8 @@ It contains the least used tools, or tools which are needed at the end of the pr
 ==== The way creating the workbench
 
 === Challenges
+=== Customizability
+Since we want to enable the API user to customize the workbench as much as possible,
 
 === Architecture
 WorkbenchFX seems like a gigantic pane.
