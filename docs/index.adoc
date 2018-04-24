@@ -103,7 +103,7 @@ We decide to change it in a way that `WorkbenchFx` is the model object in the MV
 This simplifies the architecture and readability is improved, since methods are where they would be expected.
 
 ==== Builder Pattern
-
+// TODO: explain how builder pattern works in WorkbenchFx.java
 
 == Why should someone use our Workbench instead of coding on their own?
 * Simple Design
