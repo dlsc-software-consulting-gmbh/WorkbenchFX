@@ -10,13 +10,8 @@
   -fx-font-size: 1.5em !important; }
 
 #center {
-  -fx-border-width: 2em;
-  -fx-border-color: black;
-  -fx-border-style: solid;
-  -fx-padding: 10 0 0 0;
-  -fx-background-color: #F2F2F2 !important;
-  -fx-background-insets: 2em !important;
-  -fx-border-insets: 2em !important; }
+  -fx-border-width: 2em 0 0 0;
+  -fx-border-color: #F2F2F2; }
 
 .tilePage {
   -fx-spacing: 2.5em;
