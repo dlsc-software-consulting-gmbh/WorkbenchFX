@@ -33,7 +33,7 @@ public class ToolBarView extends HBox implements View {
   @Override
   public void initializeParts() {
     homeIconView = new FontAwesomeIconView(FontAwesomeIcon.HOME);
-    homeIconView.setStyleClass("homeIconView");
+    homeIconView.setId("homeIconView");
 
     homeBtn = new Button("", homeIconView);
     homeBtn.setId("homeButton");
