@@ -15,6 +15,7 @@ import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.Objects;
 import java.util.function.BiFunction;
+import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -161,6 +162,8 @@ public class WorkbenchFx extends StackPane {
     initModules(builder.modules);
     initViews();
     getChildren().add(workbenchFxView);
+//    Application.setUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
+    Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
     addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
   }
 
