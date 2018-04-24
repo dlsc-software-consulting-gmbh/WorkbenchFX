@@ -46,6 +46,8 @@
     -fx-background-insets: 0 0.5em 0 1em;
     -fx-background-color: transparent;
     -fx-border-width: 0; }
+    .tabControl .closeBtn .closeIconView, #homeButton .closeBtn .closeIconView {
+      -fx-font-size: 1em !important; }
     .tabControl .closeBtn:hover .closeIconView, #homeButton .closeBtn:hover .closeIconView {
       -icons-color: #ff4e61; }
     .tabControl .closeBtn:armed, #homeButton .closeBtn:armed {
