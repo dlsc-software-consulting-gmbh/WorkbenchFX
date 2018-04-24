@@ -71,13 +71,15 @@ public class WorkbenchFx extends StackPane {
   private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
   /**
-   * The factories which are called when creating Tabs and Tiles for the Views.
+   * The factories which are called when creating Tabs, Tiles and Pages of Tiles for the Views.
    * They require a module whose attributes are used to create the Nodes.
    */
   private ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tabFactory =
       new SimpleObjectProperty<>(this, "tabFactory");
   private ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tileFactory =
       new SimpleObjectProperty<>(this, "tileFactory");
+  private ObjectProperty<BiFunction<WorkbenchFx, Integer, Node>> pageFactory =
+      new SimpleObjectProperty<>(this, "pageFactory");
 
   /**
    * Creates the Workbench window.
@@ -321,6 +323,17 @@ public class WorkbenchFx extends StackPane {
    */
   public Node getTile(Module module) {
     return tileFactory.get().apply(this, module);
+  }
+
+  /**
+   * Generates a new Node which is then used as a page for the tiles on the home screen.
+   * Using the given {@code pageIndex}, it calls the {@code pageFactory} which generates the page.
+   *
+   * @param pageIndex the page index for which the page should be created
+   * @return a corresponding page
+   */
+  public Node getPage(int pageIndex) {
+    return pageFactory.get().apply(this, pageIndex);
   }
 
   public ObservableList<Module> getOpenModules() {
