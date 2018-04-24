@@ -1,5 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
+import static com.dlsc.workbenchfx.WorkbenchFx.ACTIVE_TAB;
+
 import com.dlsc.workbenchfx.WorkbenchFx;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -37,7 +39,7 @@ public class ToolBarView extends HBox implements View {
 
     homeBtn = new Button("", homeIconView);
     homeBtn.setId("homeButton");
-    homeBtn.getStyleClass().add("active-tab");
+    homeBtn.getStyleClass().add(ACTIVE_TAB);
 
     tabBox = new HBox();
     tabBox.setId("tabBox");
