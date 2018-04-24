@@ -26,7 +26,8 @@
   -fx-background-color: derive(#F2F2F2, -10%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
-  -fx-alignment: center center; }
+  -fx-alignment: center center;
+  -fx-background-radius: 0; }
   .tabControl:hover, #homeButton:hover {
     -fx-background-color: derive(#F2F2F2, -5%); }
   .tabControl .tabNameLbl, #homeButton .tabNameLbl {

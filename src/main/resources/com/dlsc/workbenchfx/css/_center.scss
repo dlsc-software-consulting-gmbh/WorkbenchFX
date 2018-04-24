@@ -1,3 +1,11 @@
 #center {
-
+  //-fx-border-width: 2em;
+  //-fx-border-color: black;
+  //-fx-border-style: solid;
+  //-fx-padding: 10 0 0 0;
+  //-fx-border-color: $primary-color;
+  //-fx-background-color: $primary-color !important;
+  //-fx-background-insets: 2em !important;
+  //-fx-border-insets: 2em !important;
+  //-fx-border-width: 2em 0 0 0 !important;
 }
