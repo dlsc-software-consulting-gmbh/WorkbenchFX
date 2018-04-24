@@ -13,7 +13,7 @@ public class TarrifManagementModule extends ShellModule {
 
     @Override
     public String getPrimaryColorStyleClass() {
-        return "primary-color-tarrifs-management";
+        return "primary-color-inactive-tarrifs-management";
     }
 
     @Override

@@ -1,6 +1,6 @@
 .root {
   -fx-font: 12px Helvetica, sans-serif;
-  -fx-color: #edf4f4;
+  -fx-color: #e2ebff;
   -icons-color: black; }
 
 .glyph-icon {
@@ -13,27 +13,21 @@
   -fx-alignment: center; }
 
 .tileControl {
-  -fx-background-color: #edf4f4;
-  -fx-border-radius: .5em;
-  -fx-border-color: #353a3a;
-  -fx-border-width: 2px;
-  -fx-text-fill: #353a3a;
+  -fx-background-color: #e2ebff;
+  -fx-text-fill: derive(#e2ebff, -70%);
   -fx-pref-width: 16em;
   -fx-pref-height: 9em;
   -fx-alignment: center center; }
   .tileControl:hover {
-    -fx-background-color: #f3fafa; }
+    -fx-background-color: derive(#e2ebff, 10%); }
 
 .tabControl, #homeButton {
-  -fx-background-color: #edf4f4;
-  -fx-border-color: #353a3a;
-  -fx-border-width: 1px;
-  -fx-text-fill: #353a3a;
+  -fx-background-color: derive(#e2ebff, -10%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center; }
   .tabControl:hover, #homeButton:hover {
-    -fx-background-color: #f3fafa; }
+    -fx-background-color: derive(#e2ebff, -5%); }
   .tabControl .tabNameLbl, #homeButton .tabNameLbl {
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
@@ -55,9 +49,10 @@
         -icons-color: black; }
 
 .active-tab {
-  -fx-background-color: GREEN !important; }
-  .active-tab:focused {
-    -fx-background-color: GREEN !important; }
+  -fx-background-color: #e2ebff !important;
+  -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 0, 0, 0, 1); }
+  .active-tab:hover {
+    -fx-background-color: derive(#e2ebff, 5%); }
 
 #toolbar {
   -fx-spacing: 0.75em; }

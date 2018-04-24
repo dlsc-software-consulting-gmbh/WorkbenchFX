@@ -13,7 +13,7 @@ public class MeterManagementModule extends ShellModule {
 
     @Override
     public String getPrimaryColorStyleClass() {
-        return "primary-color-meter-management";
+        return "primary-color-inactive-meter-management";
     }
 
     @Override

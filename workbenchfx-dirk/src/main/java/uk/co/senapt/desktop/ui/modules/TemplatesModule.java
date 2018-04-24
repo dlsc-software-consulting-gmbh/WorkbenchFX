@@ -13,7 +13,7 @@ public class TemplatesModule extends ShellModule {
 
     @Override
     public String getPrimaryColorStyleClass() {
-        return "primary-color-templates";
+        return "primary-color-inactive-templates";
     }
 
     @Override

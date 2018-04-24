@@ -13,7 +13,7 @@ public class BrokersManagementModule extends ShellModule {
 
     @Override
     public String getPrimaryColorStyleClass() {
-        return "primary-color-brokers-management";
+        return "primary-color-inactive-brokers-management";
     }
 
     @Override

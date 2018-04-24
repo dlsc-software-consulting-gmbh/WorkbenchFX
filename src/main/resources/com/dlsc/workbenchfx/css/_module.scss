@@ -1,27 +1,21 @@
 .tileControl {
   -fx-background-color: $primary-color;
-  -fx-border-radius: .5em;
-  -fx-border-color: $primary-color-dark;
-  -fx-border-width: 2px;
-  -fx-text-fill: $primary-color-dark;
+  -fx-text-fill: derive($primary-color, -70%);
   -fx-pref-width: 16em;
   -fx-pref-height: 9em;
   -fx-alignment: center center;
   &:hover {
-    -fx-background-color: $primary-color-light;
+    -fx-background-color: derive($primary-color, 10%);
   }
 }
 
 .tabControl {
-  -fx-background-color: $primary-color;
-  -fx-border-color: $primary-color-dark;
-  -fx-border-width: 1px;
-  -fx-text-fill: $primary-color-dark;
+  -fx-background-color: derive($primary-color, -10%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   &:hover {
-    -fx-background-color: $primary-color-light;
+    -fx-background-color: derive($primary-color, -5%);
   }
   & .tabIcon {
 
@@ -53,8 +47,9 @@
 }
 
 .active-tab {
-  -fx-background-color: GREEN !important;
-  &:focused{
-    -fx-background-color: GREEN !important;
+  -fx-background-color: $primary-color !important;
+  -fx-effect: dropshadow( gaussian , rgba(255, 255, 255, 0.5), 0,0,0,1 );
+  &:hover {
+    -fx-background-color: derive($primary-color, 5%);
   }
 }

@@ -1,9 +1,6 @@
 $font-stack: Helvetica, sans-serif;
-$primary-color-light: #f3fafa;
-$primary-color: #edf4f4;
-$primary-color-dark: #353a3a;
+$primary-color: #e2ebff;
 $danger-color: #ff4e61;
-//$danger-color-dark: #b44153;
 $border: 2px;
 
 // Sets a margin for all sides of the element
@@ -31,26 +28,6 @@ $border: 2px;
   -fx-text-fill: -icons-color;
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important;
-}
-
-.myCustomButtonFirst {
-  -fx-background-color: #ffd1ca;
-  //&:hover {
-  //  -fx-background-color: #ffd1ca;
-  //}
-  &:focused {
-    -fx-background-color: #ffd1ca;
-  }
-}
-
-.myCustomButtonSecond {
-  -fx-background-color: #d7ffe8;
-  //&:hover {
-  //  -fx-background-color: #d7ffe8;
-  //}
-  &:focused {
-    -fx-background-color: #d7ffe8;
-  }
 }
 
 @import "center";

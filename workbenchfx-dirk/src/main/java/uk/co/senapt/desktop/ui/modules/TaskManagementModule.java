@@ -13,7 +13,7 @@ public class TaskManagementModule extends ShellModule {
 
     @Override
     public String getPrimaryColorStyleClass() {
-        return "primary-color-task-management";
+        return "primary-color-inactive-task-management";
     }
 
     @Override

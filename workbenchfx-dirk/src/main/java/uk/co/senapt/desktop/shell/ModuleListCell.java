@@ -20,7 +20,7 @@ public class ModuleListCell extends ListCell<ShellModule> {
 
     public ModuleListCell(Shell shell, boolean showPrimaryColor) {
         getStyleClass().add("module-list-cell");
-        primaryColor.getStyleClass().add("primary-color-field");
+        primaryColor.getStyleClass().add("primary-color-inactive-field");
 
         if (showPrimaryColor) {
             container = new HBox(primaryColor, moduleName, closeIcon);
@@ -61,7 +61,7 @@ public class ModuleListCell extends ListCell<ShellModule> {
     }
 
     private boolean removePrimaryColorClasses() {
-        return getStyleClass().removeIf(clazz -> clazz.startsWith("primary-color"));
+        return getStyleClass().removeIf(clazz -> clazz.startsWith("primary-color-inactive"));
     }
 
     @Override

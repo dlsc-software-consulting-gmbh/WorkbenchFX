@@ -13,7 +13,7 @@ public class FinanceModule extends ShellModule {
 
     @Override
     public String getPrimaryColorStyleClass() {
-        return "primary-color-finance";
+        return "primary-color-inactive-finance";
     }
 
     @Override
