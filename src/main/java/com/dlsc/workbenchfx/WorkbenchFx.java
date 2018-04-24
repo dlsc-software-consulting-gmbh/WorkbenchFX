@@ -99,22 +99,28 @@ public class WorkbenchFx extends StackPane {
         (observable, oldModule, newModule) -> {
           if (oldModule != newModule) {
             boolean fromHomeScreen = oldModule == null;
+            LOGGER.trace("Active Module Listener - Previous view home screen: " + fromHomeScreen);
             boolean fromDestroyed = !openModules.contains(oldModule);
+            LOGGER.trace("Active Module Listener - Previous module destroyed: " + fromDestroyed);
             if (!fromHomeScreen && !fromDestroyed) {
               // switch from one module to another
+              LOGGER.trace("Active Module Listener - Deactivating old module");
               oldModule.deactivate();
             }
             boolean toHomeScreen = newModule == null;
             if (toHomeScreen) {
               // switch to home screen
+              LOGGER.trace("Active Module Listener - Switched to home screen");
               activeModuleView.setValue(null);
               return;
             }
             if (!openModules.contains(newModule)) {
               // module has not been loaded yet
+              LOGGER.trace("Active Module Listener - Initializing module");
               newModule.init(this);
               openModules.add(newModule);
             }
+            LOGGER.trace("Active Module Listener - Activating module");
             activeModuleView.setValue(newModule.activate());
           }
         });
@@ -196,20 +202,27 @@ public class WorkbenchFx extends StackPane {
     Module active;
     if (openModules.size() == 1) {
       // go to home screen
+      LOGGER.trace("closeModule - Next active: Home Screen");
       active = null;
     } else if (i == 0) {
       // multiple modules open, leftmost is active
+      LOGGER.trace("closeModule - Next active: Next Module");
       active = openModules.get(i + 1);
     } else {
+      LOGGER.trace("closeModule - Next active: Previous Module");
       active = openModules.get(i - 1);
     }
     // attempt to destroy module
     if (!module.destroy()) {
       // module should or could not be destroyed
+      LOGGER.trace("closeModule - Destroy: Fail");
       return false;
     } else {
+      LOGGER.trace("closeModule - Destroy: Success");
+      boolean removal = openModules.remove(module);
+      LOGGER.trace("closeModule - Destroy, Removal successful: " + removal);
       activeModule.setValue(active);
-      return openModules.remove(module);
+      return removal;
     }
   }
 
