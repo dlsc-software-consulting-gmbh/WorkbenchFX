@@ -255,6 +255,16 @@ This provides us with immediate feedback when we open a new pull request and for
 Also, it makes it easier for the reviewer, since they don't need to run the tests and checkstyle themselves every time.
 // TODO: maybe add more to travis?
 
+In order to not overload the amount of work Travis has to compile we have adjusted the default parapeters for checking each push.
+Normally, Travis checks the repo after each push.
+To reduce the amount of checks, we have overwritten the settings, so that Travis checks only the last push in case a lot of pushes are made.
+
+Travis makes two checks each time you make a push to the repository.
+The first check is the "push-check", which tests the compatibility of the current branch.
+The second one is the "pr-check", which emulates a merging with the develop branch in order to check if some errors occur when merging.
+This has the huge advantage, that our work is not only easier but also safer to accomplish.
+For further information we reference to following link: https://github.com/JuliaGraphs/LightGraphs.jl/issues/475[GitHub issue #475].
+
 == Lessons learned
 
 == Summary
