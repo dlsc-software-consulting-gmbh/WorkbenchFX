@@ -232,7 +232,7 @@ public class WorkbenchFx extends StackPane {
       throw new IllegalArgumentException(
           "Module was not passed in with the constructor of WorkbenchFxModel");
     }
-    LOGGER.trace("openModule - set active module to" + module);
+    LOGGER.trace("openModule - set active module to " + module);
     activeModule.setValue(module);
   }
 
