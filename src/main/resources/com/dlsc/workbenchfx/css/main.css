@@ -8,7 +8,7 @@
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
-#tileBox {
+.tilePage {
   -fx-spacing: 2.5em;
   -fx-alignment: center; }
 
