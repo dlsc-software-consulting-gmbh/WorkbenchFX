@@ -23,17 +23,17 @@
   &:hover {
     -fx-background-color: $primary-color-light;
   }
-  &.tabIcon {
+  & .tabIcon {
 
   }
-  &.tabNameLbl {
+  & .tabNameLbl {
     @include margin(0, 0, 0, .5em);
   }
-  &.closeBtn {
+  & .closeBtn {
     @include margin(0, .5em, 0, 1em);
     -fx-background-color: transparent;
     -fx-border-width: 0;
-    &.closeIconView {
+    & .closeIconView {
       -fx-font-size: 1em !important;
     }
     &:hover .closeIconView {
@@ -47,7 +47,7 @@
       }
     }
   }
-  &.closeIconView {
+  & .closeIconView {
 
   }
 }

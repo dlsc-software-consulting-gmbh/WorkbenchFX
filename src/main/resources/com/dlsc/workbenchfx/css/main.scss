@@ -21,12 +21,9 @@ $border: 2px;
 }
 
 .root{
-  -icons-color: black;
-}
-
-* {
   -fx-font: 12px $font-stack;
   -fx-color: $primary-color;
+  -icons-color: black;
 }
 
 // So that the -closeIconView can change the color

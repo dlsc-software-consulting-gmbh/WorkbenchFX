@@ -1,9 +1,7 @@
 .root {
-  -icons-color: black; }
-
-* {
   -fx-font: 12px Helvetica, sans-serif;
-  -fx-color: #edf4f4; }
+  -fx-color: #edf4f4;
+  -icons-color: black; }
 
 .glyph-icon {
   -fx-text-fill: -icons-color;
@@ -36,24 +34,24 @@
   -fx-alignment: center center; }
   .tabControl:hover, #homeButton:hover {
     -fx-background-color: #f3fafa; }
-  .tabControl.tabNameLbl, .tabNameLbl#homeButton {
+  .tabControl .tabNameLbl, #homeButton .tabNameLbl {
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
     -fx-background-insets: 0 0 0 0.5em; }
-  .tabControl.closeBtn, .closeBtn#homeButton {
+  .tabControl .closeBtn, #homeButton .closeBtn {
     -fx-padding: 0 0.5em 0 1em;
     -fx-border-insets: 0 0.5em 0 1em;
     -fx-background-insets: 0 0.5em 0 1em;
     -fx-background-color: transparent;
     -fx-border-width: 0; }
-    .tabControl.closeBtn.closeIconView, .closeBtn.closeIconView#homeButton {
+    .tabControl .closeBtn .closeIconView, #homeButton .closeBtn .closeIconView {
       -fx-font-size: 1em !important; }
-    .tabControl.closeBtn:hover .closeIconView, .closeBtn#homeButton:hover .closeIconView {
+    .tabControl .closeBtn:hover .closeIconView, #homeButton .closeBtn:hover .closeIconView {
       -icons-color: #ff4e61; }
-    .tabControl.closeBtn:armed, .closeBtn#homeButton:armed {
+    .tabControl .closeBtn:armed, #homeButton .closeBtn:armed {
       -fx-background-color: transparent;
       -fx-border-width: 0; }
-      .tabControl.closeBtn:armed .closeIconView, .closeBtn#homeButton:armed .closeIconView {
+      .tabControl .closeBtn:armed .closeIconView, #homeButton .closeBtn:armed .closeIconView {
         -icons-color: black; }
 
 #toolbar {
