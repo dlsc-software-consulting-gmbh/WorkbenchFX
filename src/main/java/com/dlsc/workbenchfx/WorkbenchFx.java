@@ -104,7 +104,8 @@ public class WorkbenchFx extends StackPane {
               // switch from one module to another
               oldModule.deactivate();
             }
-            if (newModule == null) {
+            boolean toHomeScreen = newModule == null;
+            if (toHomeScreen) {
               // switch to home screen
               activeModuleView.setValue(null);
               return;
