@@ -98,8 +98,9 @@ public class WorkbenchFx extends StackPane {
     activeModule.addListener(
         (observable, oldModule, newModule) -> {
           if (oldModule != newModule) {
-            boolean isDestroyed = !openModules.contains(oldModule);
-            if (oldModule != null && !isDestroyed) {
+            boolean wasDestroyed = !openModules.contains(oldModule);
+            boolean wasHomeScreen = oldModule == null;
+            if (!wasHomeScreen && !wasDestroyed) {
               // switch from one module to another
               oldModule.deactivate();
             }
