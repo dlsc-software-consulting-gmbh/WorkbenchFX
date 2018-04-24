@@ -100,14 +100,14 @@ public class WorkbenchFx extends StackPane {
     private int modulesPerPage = 9;
     private BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
       TabControl tabControl = new TabControl(module);
-      workbench.activeModuleProperty().addListener((observable, oldValue, newValue) -> {
-        LOGGER.trace("Tab Factory - Old Module: " + oldValue);
-        LOGGER.trace("Tab Factory - New Module: " + oldValue);
-        if (module == newValue) {
+      workbench.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
+        LOGGER.trace("Tab Factory - Old Module: " + oldModule);
+        LOGGER.trace("Tab Factory - New Module: " + oldModule);
+        if (module == newModule) {
           tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
           LOGGER.trace("STYLE SET");
         }
-        if (module == oldValue) {
+        if (module == oldModule) {
           // switch from this to other tab
           tabControl.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
         }
