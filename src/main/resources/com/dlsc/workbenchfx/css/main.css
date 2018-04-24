@@ -34,9 +34,9 @@
     .tabControl > .button:hover, #homeButton > .button:hover {
       -fx-text-fill: #ff4e61; }
 
-.active-module {
+.active-tab {
   -fx-background-color: GREEN; }
-  .active-module:hover {
+  .active-tab:hover {
     -fx-background-color: GREEN; }
 
 #toolbar {

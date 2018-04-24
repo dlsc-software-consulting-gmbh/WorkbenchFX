@@ -30,7 +30,7 @@ public class ToolBarView extends HBox implements View {
   public void initializeParts() {
     homeBtn = new Button("Home");
     homeBtn.setId("homeButton");
-    homeBtn.getStyleClass().add("active-module");
+    homeBtn.getStyleClass().add("active-tab");
 
     tabBox = new HBox();
     tabBox.setId("tabBox");
