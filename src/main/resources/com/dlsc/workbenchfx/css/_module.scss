@@ -1,0 +1,53 @@
+.tileControl {
+  -fx-background-color: $primary-color;
+  -fx-border-radius: .5em;
+  -fx-border-color: $primary-color-dark;
+  -fx-border-width: 2px;
+  -fx-text-fill: $primary-color-dark;
+  -fx-pref-width: 16em;
+  -fx-pref-height: 9em;
+  -fx-alignment: center center;
+  &:hover {
+    -fx-background-color: $primary-color-light;
+  }
+}
+
+.tabControl {
+  -fx-background-color: $primary-color;
+  -fx-border-color: $primary-color-dark;
+  -fx-border-width: 1px;
+  -fx-text-fill: $primary-color-dark;
+  -fx-padding: .5em .5em .5em 1em;
+  -fx-pref-height: 3.5em;
+  -fx-alignment: center center;
+  &:hover {
+    -fx-background-color: $primary-color-light;
+  }
+  & .tabIcon {
+
+  }
+  & .tabNameLbl {
+    @include margin(0, 0, 0, .5em);
+  }
+  & .closeBtn {
+    @include margin(0, .5em, 0, 1em);
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    & .closeIconView {
+      -fx-font-size: 1em !important;
+    }
+    &:hover .closeIconView {
+      -icons-color: $danger-color;
+    }
+    &:armed {
+      -fx-background-color: transparent;
+      -fx-border-width: 0;
+      & .closeIconView {
+        -icons-color: black;
+      }
+    }
+  }
+  & .closeIconView {
+
+  }
+}
