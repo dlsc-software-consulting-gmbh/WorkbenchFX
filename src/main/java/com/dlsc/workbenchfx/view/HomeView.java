@@ -32,12 +32,7 @@ public class HomeView extends StackPane implements View {
    */
   @Override
   public void initializeParts() {
-    int pageCount = model.getModules().size() / model.modulesPerPage + 1;
-
-    pagination = new Pagination(pageCount);
-    pagination.setPageFactory(model::getPage);
-    pagination.setMaxPageIndicatorCount(Integer.MAX_VALUE);
-    pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
+    pagination = new Pagination();
 
     tilePane = new AnchorPane();
     tilePane.setId("tilePane");
@@ -52,6 +47,8 @@ public class HomeView extends StackPane implements View {
     AnchorPane.setRightAnchor(pagination, 10.0);
     AnchorPane.setBottomAnchor(pagination, 60.0);
     AnchorPane.setLeftAnchor(pagination, 10.0);
+
+    pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
 
     tilePane.getChildren().addAll(pagination);
 
