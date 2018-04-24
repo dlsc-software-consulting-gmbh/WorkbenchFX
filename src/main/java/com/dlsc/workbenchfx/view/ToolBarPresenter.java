@@ -57,11 +57,10 @@ public class ToolBarPresenter implements Presenter {
         if (c.wasAdded()) {
           for (Module module : c.getAddedSubList()) {
             LOGGER.debug("Module " + module.getName() + " opened");
-            if (!Objects.isNull(module)) {
-              Node tabControl = model.getTab(module);
-              view.addTab(tabControl);
-              tabControl.requestFocus();
-            }
+            Node tabControl = model.getTab(module);
+            tabControl.getStyleClass().add("active-module");
+            view.addTab(tabControl);
+            tabControl.requestFocus();
           }
         }
       }
