@@ -1,11 +1,11 @@
 .tileControl {
   -fx-background-color: $primary-color;
-  -fx-border-radius: 5px;
+  -fx-border-radius: .5em;
   -fx-border-color: $primary-color-dark;
   -fx-border-width: 2px;
   -fx-text-fill: $primary-color-dark;
-  -fx-pref-width: 200px;
-  -fx-pref-height: 88px;
+  -fx-pref-width: 16em;
+  -fx-pref-height: 9em;
   -fx-alignment: center center;
   &:hover {
     -fx-background-color: $primary-color-light;
@@ -18,7 +18,7 @@
   -fx-border-width: 1px;
   -fx-text-fill: $primary-color-dark;
   -fx-padding: .5em .5em .5em 1em;
-  -fx-pref-height: 44px;
+  -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   &:hover {
     -fx-background-color: $primary-color-light;
@@ -47,5 +47,5 @@
 .glyph-icon {
   -fx-text-fill: -icons-color;
   -fx-fill: -icons-color;
-  -glyph-size: 48px;
+  -glyph-size: 1em;
 }
