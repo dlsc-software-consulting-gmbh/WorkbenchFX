@@ -1,11 +1,12 @@
 .root {
   -fx-background-color: white;
   -fx-font: 12px Helvetica, sans-serif;
-  -fx-color: #F2F2F2; }
+  -fx-color: #F2F2F2;
+  -icons-color: derive(#F2F2F2, -70%); }
 
 .glyph-icon {
   -fx-text-fill: derive(#F2F2F2, -70%);
-  -fx-fill: derive(#F2F2F2, -70%);
+  -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
 .tilePage {

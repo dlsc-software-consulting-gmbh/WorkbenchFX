@@ -22,12 +22,13 @@ $border: 2px;
   -fx-background-color: white;
   -fx-font: 12px $font-stack;
   -fx-color: $primary-color;
+  -icons-color: $text-color;
 }
 
 // Default styling of icons. This enables changing the icons styles later on
 .glyph-icon {
   -fx-text-fill: $text-color;
-  -fx-fill: $text-color;
+  -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important;
 }
 
