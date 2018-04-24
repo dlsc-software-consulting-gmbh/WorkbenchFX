@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.model;
+package com.dlsc.workbenchfx;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -12,13 +12,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -58,12 +56,14 @@ class WorkbenchFxTest {
       mockModules[i] = mock(Module.class);
       when(mockModules[i].activate()).thenReturn(moduleNodes[i]);
       when(mockModules[i].destroy()).thenReturn(true);
+      when(mockModules[i].toString()).thenReturn("Module " + i);
     }
-    workbench = WorkbenchFx.of(
-        mockModules[FIRST_INDEX], mockModules[SECOND_INDEX], mockModules[LAST_INDEX]
-    );
-    workbench.setTabFactory(param -> new Label("Module Tab"));
-    workbench.setTileFactory(param -> new Label("Module Tile"));
+
+    workbench = WorkbenchFx.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX],
+        mockModules[LAST_INDEX])
+        .tabFactory((workbench, module) -> new Label("Module Tab"))
+        .tileFactory((workbench, module) -> new Label("Module Tile"))
+        .build();
 
     first = mockModules[FIRST_INDEX];
     second = mockModules[SECOND_INDEX];
@@ -136,6 +136,7 @@ class WorkbenchFxTest {
     inOrder = inOrder(second);
     inOrder.verify(second).init(workbench);
     inOrder.verify(second).activate();
+    inOrder.verifyNoMoreInteractions();
   }
 
   @Test
@@ -164,6 +165,7 @@ class WorkbenchFxTest {
     inOrder.verify(first).activate();
     // Call: workbench.closeModule(first)
     inOrder.verify(first).destroy();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -192,6 +194,7 @@ class WorkbenchFxTest {
     inOrder.verify(second).activate();
     // Call: workbench.closeModule(first)
     inOrder.verify(first).destroy();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -224,6 +227,7 @@ class WorkbenchFxTest {
     // Call: workbench.closeModule(first)
     inOrder.verify(first).destroy();
     inOrder.verify(second).activate();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -252,6 +256,7 @@ class WorkbenchFxTest {
     // Call: workbench.closeModule(second)
     inOrder.verify(second).destroy();
     inOrder.verify(first).activate();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -283,6 +288,7 @@ class WorkbenchFxTest {
     inOrder.verify(first).activate();
     // Call: workbench.closeModule(second)
     inOrder.verify(second).destroy();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -320,6 +326,7 @@ class WorkbenchFxTest {
     // Call: workbench.closeModule(second)
     inOrder.verify(second).destroy();
     inOrder.verify(first).activate();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -350,6 +357,7 @@ class WorkbenchFxTest {
     // destroy second
     inOrder.verify(second).destroy();
     // notice destroy() was unsuccessful, keep focus on second
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -380,6 +388,7 @@ class WorkbenchFxTest {
     // destroy second
     inOrder.verify(first).destroy();
     // notice destroy() was unsuccessful, keep focus on second
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -420,6 +429,7 @@ class WorkbenchFxTest {
     inOrder.verify(first).activate();
     // destroy() returns true, switch to second
     inOrder.verify(second).activate();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -459,6 +469,7 @@ class WorkbenchFxTest {
     inOrder.verify(second).deactivate();
     inOrder.verify(first).activate();
     // destroy() returns false, first stays the active module
+    inOrder.verifyNoMoreInteractions();
   }
 
   @Test
@@ -469,6 +480,34 @@ class WorkbenchFxTest {
     assertThrows(IllegalArgumentException.class, () -> workbench.closeModule(mock(Module.class)));
     // Test if closing a module not opened throws an exception
     assertThrows(IllegalArgumentException.class, () -> workbench.closeModule(mockModules[0]));
+  }
+
+  @Test
+  void closeInactiveModule() {
+    workbench.openModule(first);
+    workbench.openModule(second);
+    workbench.openModule(last);
+    workbench.closeModule(second);
+
+    assertSame(last, workbench.getActiveModule());
+    assertSame(moduleNodes[LAST_INDEX], workbench.getActiveModuleView());
+    assertEquals(2, workbench.getOpenModules().size());
+
+    InOrder inOrder = inOrder(first, second, last);
+    // Call: workbench.openModule(first)
+    inOrder.verify(first).init(workbench);
+    inOrder.verify(first).activate();
+    // Call: workbench.openModule(second)
+    inOrder.verify(first).deactivate();
+    inOrder.verify(second).init(workbench);
+    inOrder.verify(second).activate();
+    // Call: workbench.openModule(last)
+    inOrder.verify(second).deactivate();
+    inOrder.verify(last).init(workbench);
+    inOrder.verify(last).activate();
+    // Call: workbench.closeModule(second)
+    inOrder.verify(second).destroy();
+    inOrder.verifyNoMoreInteractions();
   }
 
   @Test

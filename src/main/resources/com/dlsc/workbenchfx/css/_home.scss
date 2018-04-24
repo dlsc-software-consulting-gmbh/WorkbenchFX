@@ -1,0 +1,29 @@
+#home {
+  .tilePage {
+    -fx-vgap: 40;
+    -fx-hgap: 40;
+    -fx-alignment: center;
+    -fx-padding: 20;
+  }
+
+  .pagination {
+    -fx-arrows-visible: false;
+    -fx-page-information-visible: false;
+    -fx-tooltip-visible: false;
+    & > .pagination-control > .control-box > .bullet-button {
+      -fx-background-radius: 4em;
+      -fx-padding: 0.333em;
+      -fx-background-color: derive($primary-color, -50%);
+      -fx-background-insets: 5.25;
+      &:hover {
+        -fx-background-color: derive($primary-color, -30%);
+      }
+      &:selected {
+        -fx-background-color: $accent-color;
+        &:hover {
+          -fx-background-color: derive($accent-color, 20%);
+        }
+      }
+    }
+  }
+}

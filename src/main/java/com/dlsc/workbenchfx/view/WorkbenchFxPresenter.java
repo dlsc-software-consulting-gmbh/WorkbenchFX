@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import java.util.Objects;
+import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,6 +49,7 @@ public class WorkbenchFxPresenter implements Presenter {
     model.activeModuleViewProperty().addListener((observable, oldModule, newModule) ->
         view.centerView.setContent(Objects.isNull(newModule) ? view.homeView : newModule)
     );
+
   }
 
   /**

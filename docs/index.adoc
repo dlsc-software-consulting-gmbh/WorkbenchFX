@@ -4,12 +4,15 @@ François Martin; Marco Sanfratello
 // Path to the code references
 :sourcedir: ../src/main/java
 :sourcedirdemo: ../workbenchfx-demo/src/main/java
+// Check symbol
+:y: &#10003;
 
 == Front page
 
 == Abstract / Management summary
 
 == Introduction
+The paradigm of WorkbenchFX is: "Give the API user as much customizability as reasonable, but make sure they don't have to use them."
 
 == The way to WorkbenchFX
 === Briefing
@@ -98,6 +101,9 @@ At first, we used a separate `WorkbenchFxModel` object for the model.
 Our customer suggests that it would be easier to skip the `WorkbenchFxModel` class and just put the logic in `WorkbenchFx`, since that's the place where he would expect such logic.
 We decide to change it in a way that `WorkbenchFx` is the model object in the MVP pattern in our case.
 This simplifies the architecture and readability is improved, since methods are where they would be expected.
+
+==== Builder Pattern
+// TODO: explain how builder pattern works in WorkbenchFx.java
 
 == Why should someone use our Workbench instead of coding on their own?
 * Simple Design
@@ -197,6 +203,100 @@ It contains the least used tools, or tools which are needed at the end of the pr
 ==== The way creating the workbench
 
 === Challenges
+=== Customizability
+Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
+Of course, the resulting API design from this needs to work with our implementation as well.
+When we implemented the pagination in the home screen, we wanted the API user to be able to choose the amount of modules shown per page.
+To do so, our initial idea was to design the API for creating a `WorkbenchFx` object like this:
+[source,java]
+----
+WorkbenchFx.of(module1, module2)
+           .modulesPerPage(10);
+----
+This would be very easy to use, but it turned out to be not possible, since the `GridPane` with the module tiles are being initialized in the constructor of `WorkbenchFx`.
+Changing the amount of modules per page after the constructor was called, would mean that we would have needed to rebuild all of the pages with the modules again.
+This is not only very inefficient, but also a very bad solution for this problem.
+
+Another way of solving this would've been to initialize the `WorkbenchFx` object with a separate method after setting the amount of modules per page, like this:
+[source,java]
+----
+WorkbenchFx.of(module1, module2)
+           .modulesPerPage(10)
+           .init();
+----
+This would mean that the `GridPane` with the tiles would only need to be built once.
+However, this solution is also very unelegant.
+If the API user doesn't want to set the amount of modules per page, they still need to call "init()".
+Also, in this case the API user must rememeber to call `init()`, which is easy to forget.
+
+One of the better options would be to solve it like this:
+[source,java]
+----
+WorkbenchFx.of(10, module1, module2);
+----
+We would simply pass in the amount of modules to the `.of()` method.
+This would work, however it has some disadvantages.
+For example, the readability suffers: "What does that 10 mean again?".
+Also, since we want the API user to be able to define their own controls for the tabs and tiles using factories, we noticed that we also need to pass those factories in the same way.
+This would not only make the readability worse, but this also means that if we want to stick to our paradigm, we would need to add multiple overloaded `of()` methods.
+With 3 parameters (modules per page, tab and tile factory) this would result in the following combinations:
+
+.Combinations of overloaded WorkbenchFx.of() methods
+|===
+|No. |Modules per Page |Tab Factory |Tile Factory
+
+|1
+|
+|
+|
+
+|2
+|{y}
+|
+|
+
+|3
+|
+|{y}
+|
+
+|4
+|
+|
+|{y}
+
+|5
+|{y}
+|{y}
+|
+
+|6
+|
+|{y}
+|{y}
+
+|7
+|{y}
+|{y}
+|{y}
+|===
+
+Only 3 parameters result in 7 overloaded `of()` methods, which is already quite a lot.
+Should we need to add more parameters in the future, it would get even worse.
+
+This is why we decided to go with our final solution, to *use the builder pattern*.
+Using it results in the following syntax:
+[source,java]
+----
+WorkbenchFx.builder(module1, module2)
+           .modulesPerPage(10)
+           .build();
+----
+This solution solves all of the problems.
+It's not possible to forget `build()`, since else it won't return a `WorkbenchFx` object.
+It's expandable to a large amount of parameters.
+It allows for maximum flexibility, i. e. any combination of the parameters in any order can be specified.
+We decided to still keep the original `WorkbenchFx.of(module1, module2)` notation, to reduce boilerplate code if one doesn't want to customize anything.
 
 === Architecture
 WorkbenchFX seems like a gigantic pane.

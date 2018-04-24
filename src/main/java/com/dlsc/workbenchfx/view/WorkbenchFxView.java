@@ -33,7 +33,7 @@ public class WorkbenchFxView extends BorderPane implements View {
    */
   @Override
   public void initializeSelf() {
-
+    setId("workbench");
   }
 
   /**
@@ -51,8 +51,6 @@ public class WorkbenchFxView extends BorderPane implements View {
   public void layoutParts() {
     setTop(toolBarView);
     setCenter(centerView);
-
-    setPadding(new Insets(10));
   }
 
   /**

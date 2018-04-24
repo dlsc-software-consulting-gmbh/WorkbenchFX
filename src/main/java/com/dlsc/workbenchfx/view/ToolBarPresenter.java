@@ -1,5 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
+import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
+
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
 import java.util.Objects;
@@ -50,21 +52,29 @@ public class ToolBarPresenter implements Presenter {
       while (c.next()) {
         if (c.wasRemoved()) {
           for (Module module : c.getRemoved()) {
-            LOGGER.debug("MODULE CLOSED");
-            // +1 because of home
-            view.getChildren().remove(c.getFrom() + 1);
+            LOGGER.debug("Module " + module + " closed");
+            view.removeTab(c.getFrom());
           }
         }
         if (c.wasAdded()) {
           for (Module module : c.getAddedSubList()) {
-            LOGGER.debug("MODULE OPENED");
-            if (!Objects.isNull(module)) {
-              Node tabControl = model.getTab(module);
-              view.getChildren().add(tabControl);
-              tabControl.requestFocus();
-            }
+            LOGGER.debug("Module " + module + " opened");
+            Node tabControl = model.getTab(module);
+            view.addTab(tabControl);
+            tabControl.requestFocus();
           }
         }
+      }
+    });
+
+    model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
+      if (Objects.isNull(oldModule)) {
+        // Home is the old value
+        view.homeBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
+      }
+      if (Objects.isNull(newModule)) {
+        // Home is the new value
+        view.homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
       }
     });
   }

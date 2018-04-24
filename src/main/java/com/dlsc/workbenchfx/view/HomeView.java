@@ -1,11 +1,15 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
-import javafx.geometry.Insets;
-import javafx.scene.layout.HBox;
+import javafx.scene.Node;
+import javafx.scene.control.Pagination;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 
-public class HomeView extends HBox implements View {
+public class HomeView extends StackPane implements View {
   private final WorkbenchFx model;
+  AnchorPane tilePane;
+  Pagination pagination;
 
   /**
    * Creates a new {@link HomeView}.
@@ -15,13 +19,39 @@ public class HomeView extends HBox implements View {
     init();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  public void initializeParts() {
+  public void initializeSelf() {
+    setId("home");
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
+    pagination = new Pagination();
+
+    tilePane = new AnchorPane();
+    tilePane.setId("tilePane");
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void layoutParts() {
-    setSpacing(50);
-    setPadding(new Insets(50));
+    AnchorPane.setTopAnchor(pagination, 0.0);
+    AnchorPane.setRightAnchor(pagination, 10.0);
+    AnchorPane.setBottomAnchor(pagination, 60.0);
+    AnchorPane.setLeftAnchor(pagination, 10.0);
+
+    pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
+
+    tilePane.getChildren().addAll(pagination);
+
+    getChildren().add(tilePane);
   }
 }

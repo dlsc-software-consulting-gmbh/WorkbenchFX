@@ -9,6 +9,15 @@ public class CenterView extends StackPane implements View {
 
   public CenterView(WorkbenchFx model) {
     this.model = model;
+    init();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeSelf() {
+    setId("center");
   }
 
   /**
@@ -24,6 +33,14 @@ public class CenterView extends StackPane implements View {
    */
   @Override
   public void layoutParts() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void bindFieldsToModel() {
 
   }
 
