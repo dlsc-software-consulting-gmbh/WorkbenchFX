@@ -5,18 +5,18 @@
   -fx-pref-height: 9em;
   -fx-alignment: center center;
   &:hover {
-    -fx-background-color: derive($primary-color, 10%);
+    -fx-background-color: derive($primary-color, 15%);
   }
 }
 
 .tabControl {
-  -fx-background-color: derive($primary-color, -10%);
+  -fx-background-color: derive($primary-color, -15%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   -fx-background-radius: 0;
   &:hover {
-    -fx-background-color: derive($primary-color, -5%);
+    -fx-background-color: derive($primary-color, -7.5%);
   }
   & .tabIcon {
 
@@ -49,8 +49,4 @@
 
 .active-tab {
   -fx-background-color: $primary-color !important;
-  -fx-effect: dropshadow( gaussian , rgba(255, 255, 255, 0.5), 0,0,0,1 );
-  &:hover {
-    -fx-background-color: derive($primary-color, 5%);
-  }
 }

@@ -1,9 +1,9 @@
 package com.dlsc.workbenchfx;
 
 // Change this import depending on the demo
-import com.dlsc.workbenchfx.standard.DemoPane;
+//import com.dlsc.workbenchfx.standard.DemoPane;
 //import com.dlsc.workbenchfx.custom.DemoPane;
-//import com.dlsc.workbenchfx.extended.DemoPane;
+import com.dlsc.workbenchfx.extended.DemoPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
