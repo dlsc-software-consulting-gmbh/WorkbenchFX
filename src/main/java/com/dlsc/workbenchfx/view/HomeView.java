@@ -34,7 +34,7 @@ public class HomeView extends StackPane implements View {
     int pageCount = model.getModules().size() / model.MODULES_PER_PAGE + 1;
     Pagination pagination = new Pagination(pageCount);
     pagination.setPageFactory(model::getPage);
-    pagination.setMaxPageIndicatorCount(100);
+    pagination.setMaxPageIndicatorCount(Integer.MAX_VALUE);
     pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
 
     tilePane = new AnchorPane();
