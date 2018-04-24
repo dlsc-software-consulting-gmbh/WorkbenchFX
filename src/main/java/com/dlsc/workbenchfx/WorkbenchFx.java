@@ -115,11 +115,25 @@ public class WorkbenchFx extends StackPane {
       return this;
     }
 
+    /**
+     * Defines how {@link Node} should be created to be used as the tab in the view.
+     *
+     * @param tabFactory to be used to create the {@link Node} for the tabs
+     * @implNote Use this to replace the control which is used for the tab with your own
+     *           implementation.
+     */
     public WorkbenchFxBuilder tabFactory(BiFunction<WorkbenchFx, Module, Node> tabFactory) {
       this.tabFactory = tabFactory;
       return this;
     }
 
+    /**
+     * Defines how {@link Node} should be created to be used as the tile in the home screen.
+     *
+     * @param tileFactory to be used to create the {@link Node} for the tiles
+     * @implNote Use this to replace the control which is used for the tile with your own
+     *           implementation.
+     */
     public WorkbenchFxBuilder tileFactory(BiFunction<WorkbenchFx, Module, Node> tileFactory) {
       this.tileFactory = tileFactory;
       return this;
@@ -290,26 +304,4 @@ public class WorkbenchFx extends StackPane {
   public ReadOnlyObjectProperty<Node> activeModuleViewProperty() {
     return activeModuleView;
   }
-
-  /**
-   * Defines how {@link Node} should be created to be used as the tab in the view.
-   *
-   * @param value the callback to be set
-   * @implNote Use this to replace the control which is used for the tab with your own
-   *           implementation.
-   */
-  /*public final void setTabFactory(Callback<Module, Node> value) {
-    tabFactory.set(value);
-  }*/
-
-  /**
-   * Defines how {@link Node} should be created to be used as the tile in the view.
-   *
-   * @param value the callback which defines the way the Tiles are created
-   * @implNote Use this to replace the control which is used for the tile with your own
-   *           implementation.
-   */
-  /*public final void setTileFactory(Callback<Module, Node> value) {
-    tileFactory.set(value);
-  }*/
 }
