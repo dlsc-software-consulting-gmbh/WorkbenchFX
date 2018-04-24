@@ -34,6 +34,11 @@
     .tabControl > .button:hover, #homeButton > .button:hover {
       -fx-text-fill: #ff4e61; }
 
+.active-module {
+  -fx-background-color: #ff4e61; }
+  .active-module:hover {
+    -fx-background-color: #ff4e61; }
+
 #toolbar {
   -fx-spacing: 0.75em; }
 

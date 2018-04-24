@@ -31,3 +31,10 @@
     }
   }
 }
+
+.active-module {
+  -fx-background-color: $danger-color;
+  &:hover {
+    -fx-background-color: $danger-color;
+  }
+}
