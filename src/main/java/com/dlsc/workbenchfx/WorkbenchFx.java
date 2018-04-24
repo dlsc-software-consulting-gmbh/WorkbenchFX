@@ -110,6 +110,7 @@ public class WorkbenchFx extends StackPane {
       });
       tabControl.setOnClose(e -> workbench.closeModule(module));
       tabControl.setOnActive(e -> workbench.openModule(module));
+      tabControl.getStyleClass().add("active-tab");
       return tabControl;
     };
     private BiFunction<WorkbenchFx, Module, Node> tileFactory = (workbench, module) -> {

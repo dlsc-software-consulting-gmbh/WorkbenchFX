@@ -2,7 +2,6 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
-import java.util.Objects;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
