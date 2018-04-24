@@ -36,7 +36,7 @@ import org.apache.logging.log4j.Logger;
 public class WorkbenchFx extends StackPane {
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
   public final int modulesPerPage;
-  public static final String ACTIVE_TAB = "active-tab";
+  public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
 
   // Views
   private ToolBarView toolBarView;
@@ -104,17 +104,17 @@ public class WorkbenchFx extends StackPane {
         LOGGER.trace("Tab Factory - Old Module: " + oldValue);
         LOGGER.trace("Tab Factory - New Module: " + oldValue);
         if (module == newValue) {
-          tabControl.getStyleClass().add(ACTIVE_TAB);
+          tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
           LOGGER.error("STYLE SET");
         }
         if (module == oldValue) {
           // switch from this to other tab
-          tabControl.getStyleClass().remove(ACTIVE_TAB);
+          tabControl.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
         }
       });
       tabControl.setOnClose(e -> workbench.closeModule(module));
       tabControl.setOnActive(e -> workbench.openModule(module));
-      tabControl.getStyleClass().add(ACTIVE_TAB);
+      tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
       return tabControl;
     };
     private BiFunction<WorkbenchFx, Module, Node> tileFactory = (workbench, module) -> {

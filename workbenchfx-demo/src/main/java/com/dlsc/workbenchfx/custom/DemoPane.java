@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.custom;
 
-import static com.dlsc.workbenchfx.WorkbenchFx.ACTIVE_TAB;
+import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
@@ -27,17 +27,17 @@ public class DemoPane extends StackPane {
       LOGGER.trace("Tab Factory - Old Module: " + oldValue);
       LOGGER.trace("Tab Factory - New Module: " + oldValue);
       if (module == newValue) {
-        tabControl.getStyleClass().add(ACTIVE_TAB);
+        tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
         LOGGER.error("STYLE SET");
       }
       if (module == oldValue) {
         // switch from this to other tab
-        tabControl.getStyleClass().remove(ACTIVE_TAB);
+        tabControl.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
       }
     });
     tabControl.setOnClose(e -> workbench.closeModule(module));
     tabControl.setOnActive(e -> workbench.openModule(module));
-    tabControl.getStyleClass().add(ACTIVE_TAB);
+    tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
     System.out.println("This tab was proudly created by SteffiFX");
     return tabControl;
   };
