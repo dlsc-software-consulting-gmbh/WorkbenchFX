@@ -174,7 +174,6 @@ public class WorkbenchFx extends StackPane {
     initModules(builder.modules);
     initViews();
     getChildren().add(workbenchFxView);
-//    Application.setUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
     addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
   }
