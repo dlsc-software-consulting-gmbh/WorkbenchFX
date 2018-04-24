@@ -284,6 +284,20 @@ Plus, there is the possibility to add another attributes in `.myClass-2`.
 `.myClass-2` inherits from `.myClass-1` and can be extended.
 https://sass-lang.com/guide[SCSS - @extend]
 
+Another convention we use is the separation of all scss-files.
+For readability we have the `main.scss` file separated into multiple scss files.
+In the `main.scss` we include all those other files and this "main file" will be compiled as a css file.
+Using the `@include` tag looks like this:
+[source,sass]
+----
+main.scss {
+  @include file1;
+  @include file2;
+  @include file3;
+}
+----
+The files to be included are named with an underscore as prefix: `_file1.scss`.
+
 === Challenges
 Setting the node-icon twice:
 When creating a new module, one declares a node or an icon for visualizing the module.
