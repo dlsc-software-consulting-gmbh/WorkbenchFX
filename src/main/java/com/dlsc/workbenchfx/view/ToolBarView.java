@@ -1,12 +1,14 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
 public class ToolBarView extends HBox implements View {
   private final WorkbenchFx model;
-  final Button homeBtn = new Button("Home");
+  Button homeBtn;
+  HBox tabBox;
 
   public ToolBarView(WorkbenchFx model) {
     this.model = model;
@@ -17,7 +19,20 @@ public class ToolBarView extends HBox implements View {
    * {@inheritDoc}
    */
   @Override
+  public void initializeSelf() {
+    setId("toolbar");
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void initializeParts() {
+    homeBtn = new Button("Home");
+    homeBtn.setId("homeButton");
+
+    tabBox = new HBox();
+    tabBox.setId("tabBox");
   }
 
   /**
@@ -25,9 +40,23 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    homeBtn.getStyleClass().add("tabControl");
-    setSpacing(10);
-    getChildren().add(homeBtn);
+    getChildren().addAll(homeBtn, tabBox);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void bindFieldsToModel() {
+
+  }
+
+  public void addTab(Node tab) {
+    tabBox.getChildren().add(tab);
+  }
+
+  public void removeTab(int index) {
+    tabBox.getChildren().remove(index);
   }
 
 }

@@ -1,11 +1,13 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
-import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
-public class HomeView extends HBox implements View {
+public class HomeView extends StackPane implements View {
   private final WorkbenchFx model;
+  HBox tileBox;
 
   /**
    * Creates a new {@link HomeView}.
@@ -15,13 +17,32 @@ public class HomeView extends HBox implements View {
     init();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  public void initializeParts() {
+  public void initializeSelf() {
+    setId("home");
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
+    tileBox = new HBox();
+    tileBox.setId("tileBox");
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void layoutParts() {
-    setSpacing(50);
-    setPadding(new Insets(50));
+    getChildren().add(tileBox);
+  }
+
+  public void addTile(Node tile) {
+    tileBox.getChildren().add(tile);
   }
 }

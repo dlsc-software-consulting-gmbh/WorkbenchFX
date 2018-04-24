@@ -1,100 +1,17 @@
 $font-stack: Helvetica, sans-serif;
 $primary-color-light: #f3fafa;
 $primary-color: #edf4f4;
-$primary-color-dark: #464b4b;
+$primary-color-dark: #353a3a;
 $danger-color: #ff4e61;
-//$danger-color-dark: #b44153;
 $border: 2px;
 
-@mixin border-radius($radius) {
-  @each $prefix in -moz-, -webkit-, null {
-    #{$prefix}border-radius: $radius;
-  }
-}
-
-@mixin margin-all($margin) {
-  -fx-padding: $margin;
-  -fx-border-insets: $margin;
-  -fx-background-insets: $margin;
-}
-
-@mixin margin($margin-top, $margin-right, $margin-bottom, $margin-left) {
-  -fx-padding: $margin-top $margin-right $margin-bottom $margin-left;
-  -fx-border-insets: $margin-top $margin-right $margin-bottom $margin-left;
-  -fx-background-insets: $margin-top $margin-right $margin-bottom $margin-left;
-}
-
 * {
-  -fx-font: 100% $font-stack;
+  -fx-font: 12px $font-stack;
   -fx-color: $primary-color;
 }
 
-.box {
-  @include border-radius(10px);
-}
-
-.rootPane {
-  @include border-radius(5px);
-  -fx-alignment: center;
-}
-
-.tileControl {
-  -fx-background-color: $primary-color;
-  -fx-border-radius: 5px;
-  -fx-border-color: $primary-color-dark;
-  -fx-border-width: 2px;
-  -fx-text-fill: $primary-color-dark;
-  -fx-pref-width: 200px;
-  -fx-pref-height: 88px;
-  -fx-alignment: center center;
-}
-
-.tileControl:hover {
-  -fx-background-color: $primary-color-light;
-}
-
-.tabControl {
-  -fx-background-color: $primary-color;
-  -fx-border-color: $primary-color-dark;
-  -fx-border-width: 1px;
-  -fx-text-fill: $primary-color-dark;
-  -fx-padding: .5em .5em .5em 1em;
-  -fx-pref-height: 44px;
-  -fx-alignment: center center;
-}
-
-.tabControl:hover {
-  -fx-background-color: $primary-color-light;
-}
-
-.closeBtn {
-  -fx-padding: 5px;
-  -fx-border-insets: 5px;
-  -fx-background-insets: 5px;
-
-  -fx-background-color: transparent;
-  -fx-border-width: 0;
-}
-
-.closeBtn:hover .closeIconView {
-  -icons-color: $danger-color;
-}
-
-.closeBtn:armed {
-  -fx-background-color: transparent;
-  -fx-border-width: 0;
-}
-
-.closeBtn:armed .closeIconView {
-  -icons-color: black;
-}
-
-.glyph-icon {
-  -fx-text-fill: -icons-color;
-  -fx-fill: -icons-color;
-  -glyph-size: 48px;
-}
-
-.tabNameLbl {
-  @include margin(0, 0, 0, .5em);
-}
+@import "center";
+@import "home";
+@import "module";
+@import "toolbar";
+@import "workbench";

@@ -1,68 +1,43 @@
 * {
-  -fx-font: 100% Helvetica, sans-serif;
+  -fx-font: 12px Helvetica, sans-serif;
   -fx-color: #edf4f4; }
 
-.box {
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px; }
-
-.rootPane {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
+#tileBox {
+  -fx-spacing: 2.5em;
   -fx-alignment: center; }
 
 .tileControl {
   -fx-background-color: #edf4f4;
   -fx-border-radius: 5px;
-  -fx-border-color: #464b4b;
+  -fx-border-color: #353a3a;
   -fx-border-width: 2px;
-  -fx-text-fill: #464b4b;
+  -fx-text-fill: #353a3a;
   -fx-pref-width: 200px;
   -fx-pref-height: 88px;
   -fx-alignment: center center; }
+  .tileControl:hover {
+    -fx-background-color: #f3fafa; }
 
-.tileControl:hover {
-  -fx-background-color: #f3fafa; }
-
-.tabControl {
+.tabControl, #homeButton {
   -fx-background-color: #edf4f4;
-  -fx-border-color: #464b4b;
+  -fx-border-color: #353a3a;
   -fx-border-width: 1px;
-  -fx-text-fill: #464b4b;
-  -fx-padding: .5em .5em .5em 1em;
+  -fx-text-fill: #353a3a;
+  -fx-padding: .5em;
   -fx-pref-height: 44px;
   -fx-alignment: center center; }
+  .tabControl:hover, #homeButton:hover {
+    -fx-background-color: #f3fafa; }
+  .tabControl > .button, #homeButton > .button {
+    -fx-background-color: transparent;
+    -fx-border-width: 0; }
+    .tabControl > .button:hover, #homeButton > .button:hover {
+      -fx-text-fill: #ff4e61; }
 
-.tabControl:hover {
-  -fx-background-color: #f3fafa; }
+#toolbar {
+  -fx-spacing: 0.75em; }
 
-.closeBtn {
-  -fx-padding: 5px;
-  -fx-border-insets: 5px;
-  -fx-background-insets: 5px;
-  -fx-background-color: transparent;
-  -fx-border-width: 0; }
-
-.closeBtn:hover .closeIconView {
-  -icons-color: #ff4e61; }
-
-.closeBtn:armed {
-  -fx-background-color: transparent;
-  -fx-border-width: 0; }
-
-.closeBtn:armed .closeIconView {
-  -icons-color: black; }
-
-.glyph-icon {
-  -fx-text-fill: -icons-color;
-  -fx-fill: -icons-color;
-  -glyph-size: 48px; }
-
-.tabNameLbl {
-  -fx-padding: 0 0 0 0.5em;
-  -fx-border-insets: 0 0 0 0.5em;
-  -fx-background-insets: 0 0 0 0.5em; }
+#tabBox {
+  -fx-spacing: 0.45em; }
 
 /*# sourceMappingURL=main.css.map */
