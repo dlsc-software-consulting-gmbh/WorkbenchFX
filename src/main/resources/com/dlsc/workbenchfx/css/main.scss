@@ -4,10 +4,9 @@ $primary-color: #edf4f4;
 $primary-color-dark: #353a3a;
 $danger-color: #ff4e61;
 $border: 2px;
-$rem: 1em;
 
 * {
-  -fx-font: $rem $font-stack;
+  -fx-font: 12px $font-stack;
   -fx-color: $primary-color;
 }
 
