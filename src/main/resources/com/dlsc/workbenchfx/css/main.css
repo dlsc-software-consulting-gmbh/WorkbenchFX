@@ -2,6 +2,16 @@
   -fx-font: 12px Helvetica, sans-serif;
   -fx-color: #edf4f4; }
 
+.myCustomButtonFirst {
+  -fx-background-color: #ffd1ca; }
+  .myCustomButtonFirst:focused {
+    -fx-background-color: #ffd1ca; }
+
+.myCustomButtonSecond {
+  -fx-background-color: #d7ffe8; }
+  .myCustomButtonSecond:focused {
+    -fx-background-color: #d7ffe8; }
+
 #tileBox {
   -fx-spacing: 2.5em;
   -fx-alignment: center; }
@@ -35,9 +45,9 @@
       -fx-text-fill: #ff4e61; }
 
 .active-tab {
-  -fx-background-color: GREEN; }
-  .active-tab:hover {
-    -fx-background-color: GREEN; }
+  -fx-background-color: GREEN !important; }
+  .active-tab:focused {
+    -fx-background-color: GREEN !important; }
 
 #toolbar {
   -fx-spacing: 0.75em; }

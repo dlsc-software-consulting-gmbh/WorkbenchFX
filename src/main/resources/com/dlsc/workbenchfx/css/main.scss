@@ -10,6 +10,26 @@ $border: 2px;
   -fx-color: $primary-color;
 }
 
+.myCustomButtonFirst {
+  -fx-background-color: #ffd1ca;
+  //&:hover {
+  //  -fx-background-color: #ffd1ca;
+  //}
+  &:focused {
+    -fx-background-color: #ffd1ca;
+  }
+}
+
+.myCustomButtonSecond {
+  -fx-background-color: #d7ffe8;
+  //&:hover {
+  //  -fx-background-color: #d7ffe8;
+  //}
+  &:focused {
+    -fx-background-color: #d7ffe8;
+  }
+}
+
 @import "center";
 @import "home";
 @import "module";

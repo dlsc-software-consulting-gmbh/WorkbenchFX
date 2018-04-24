@@ -33,8 +33,8 @@
 }
 
 .active-tab {
-  -fx-background-color: GREEN;
-  &:hover {
-    -fx-background-color: GREEN;
+  -fx-background-color: GREEN !important;
+  &:focused{
+    -fx-background-color: GREEN !important;
   }
 }
