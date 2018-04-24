@@ -99,7 +99,6 @@ public class WorkbenchFx extends StackPane {
       tabControl.setOnActive(e -> workbench.openModule(module));
       return tabControl;
     };
-
     private BiFunction<WorkbenchFx, Module, Node> tileFactory = (workbench, module) -> {
       TileControl tileControl = new TileControl(module);
       tileControl.setOnActive(e -> workbench.openModule(module));
@@ -110,6 +109,11 @@ public class WorkbenchFx extends StackPane {
       this.modules = modules;
     }
 
+    /**
+     * Defines how many modules should be shown per page on the home screen.
+     * @param modulesPerPage amount of modules to be shown per page
+     * @return builder for chaining
+     */
     public WorkbenchFxBuilder modulesPerPage(int modulesPerPage) {
       this.modulesPerPage = modulesPerPage;
       return this;
@@ -119,6 +123,7 @@ public class WorkbenchFx extends StackPane {
      * Defines how {@link Node} should be created to be used as the tab in the view.
      *
      * @param tabFactory to be used to create the {@link Node} for the tabs
+     * @return builder for chaining
      * @implNote Use this to replace the control which is used for the tab with your own
      *           implementation.
      */
@@ -131,6 +136,7 @@ public class WorkbenchFx extends StackPane {
      * Defines how {@link Node} should be created to be used as the tile in the home screen.
      *
      * @param tileFactory to be used to create the {@link Node} for the tiles
+     * @return builder for chaining
      * @implNote Use this to replace the control which is used for the tile with your own
      *           implementation.
      */
@@ -139,6 +145,10 @@ public class WorkbenchFx extends StackPane {
       return this;
     }
 
+    /**
+     * Builds and fully initializes a {@link WorkbenchFx} object.
+     * @return the {@link WorkbenchFx} object
+     */
     public WorkbenchFx build() {
       return new WorkbenchFx(this);
     }
