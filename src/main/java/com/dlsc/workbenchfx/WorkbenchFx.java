@@ -202,6 +202,7 @@ public class WorkbenchFx extends StackPane {
     MODULES_PER_PAGE = builder.modulesPerPage;
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
+    pageFactory.set(builder.pageFactory);
     initModules(builder.modules);
     initViews();
     getChildren().add(workbenchFxView);
