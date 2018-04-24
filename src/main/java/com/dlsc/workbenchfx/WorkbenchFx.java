@@ -109,7 +109,7 @@ public class WorkbenchFx extends StackPane {
       return tileControl;
     };
     private BiFunction<WorkbenchFx, Integer, Node> pageFactory = (workbench, pageIndex) -> {
-      final int COLUMNS_PER_ROW = 3;
+      final int columnsPerRow = 3;
 
       GridPane gridPane = new GridPane();
       gridPane.getStyleClass().add("tilePage");
@@ -128,7 +128,7 @@ public class WorkbenchFx extends StackPane {
         count++;
         column++;
 
-        if (column == COLUMNS_PER_ROW) {
+        if (column == columnsPerRow) {
           column = 0;
           row++;
         }
