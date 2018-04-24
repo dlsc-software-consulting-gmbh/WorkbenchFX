@@ -58,6 +58,7 @@ class WorkbenchFxTest {
       mockModules[i] = mock(Module.class);
       when(mockModules[i].activate()).thenReturn(moduleNodes[i]);
       when(mockModules[i].destroy()).thenReturn(true);
+      when(mockModules[i].toString()).thenReturn("Module " + i);
     }
     workbench = WorkbenchFx.of(
         mockModules[FIRST_INDEX], mockModules[SECOND_INDEX], mockModules[LAST_INDEX]
