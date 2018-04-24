@@ -26,13 +26,13 @@
     -fx-background-radius: 4em;
     -fx-padding: 0.333em;
     -fx-background-color: derive(#F2F2F2, -50%);
-    -fx-background-insets: 7; }
+    -fx-background-insets: 5.25; }
+    #home .pagination > .pagination-control > .control-box > .bullet-button:hover {
+      -fx-background-color: derive(#F2F2F2, -30%); }
     #home .pagination > .pagination-control > .control-box > .bullet-button:selected {
       -fx-background-color: #00aaff; }
       #home .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
         -fx-background-color: derive(#00aaff, 20%); }
-    #home .pagination > .pagination-control > .control-box > .bullet-button:hover {
-      -fx-background-color: derive(#F2F2F2, -30%); }
 
 .tileControl {
   -fx-background-color: #F2F2F2;
