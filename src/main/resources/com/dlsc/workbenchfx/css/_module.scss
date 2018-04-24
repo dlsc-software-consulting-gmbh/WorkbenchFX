@@ -1,6 +1,6 @@
 .tileControl {
   -fx-background-color: $primary-color;
-  -fx-text-fill: derive($primary-color, -70%);
+  -fx-text-fill: $text-color;
   -fx-pref-width: 16em;
   -fx-pref-height: 9em;
   -fx-alignment: center center;

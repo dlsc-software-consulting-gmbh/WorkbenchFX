@@ -1,5 +1,6 @@
 $font-stack: Helvetica, sans-serif;
 $primary-color: #F2F2F2;
+$text-color: derive($primary-color, -70%);
 $danger-color: #DB4437;
 $border: 2px;
 
@@ -21,13 +22,12 @@ $border: 2px;
   -fx-background-color: white;
   -fx-font: 12px $font-stack;
   -fx-color: $primary-color;
-  -icons-color: black;
 }
 
 // Default styling of icons. This enables changing the icons styles later on
 .glyph-icon {
-  -fx-text-fill: -icons-color;
-  -fx-fill: -icons-color;
+  -fx-text-fill: $text-color;
+  -fx-fill: $text-color;
   -fx-font-size: 1.5em !important;
 }
 
