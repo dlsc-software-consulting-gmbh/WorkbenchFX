@@ -15,7 +15,7 @@ public class ToolBarView extends HBox implements View {
   Button homeBtn;
   private HBox tabBox;
 
-
+  // TODO: add javadoc comment
   public ToolBarView(WorkbenchFx model) {
     this.model = model;
     init();
@@ -61,10 +61,12 @@ public class ToolBarView extends HBox implements View {
 
   }
 
+  // TODO: add javadoc comment
   public void addTab(Node tab) {
     tabBox.getChildren().add(tab);
   }
 
+  // TODO: add javadoc comment
   public void removeTab(int index) {
     tabBox.getChildren().remove(index);
   }

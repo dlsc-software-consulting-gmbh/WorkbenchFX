@@ -20,6 +20,7 @@ public class TileControl extends Button {
     getStyleClass().add("tileControl");
   }
 
+  // TODO: add javadoc comment
   public void setOnActive(EventHandler<MouseEvent> event) {
     setOnMouseClicked(event);
   }

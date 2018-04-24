@@ -89,6 +89,7 @@ public class WorkbenchFx extends StackPane {
     return WorkbenchFx.builder(modules).build();
   }
 
+  // TODO: add javadoc comment
   public static WorkbenchFxBuilder builder(Module... modules) {
     return new WorkbenchFxBuilder(modules);
   }

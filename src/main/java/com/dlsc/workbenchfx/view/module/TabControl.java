@@ -51,10 +51,12 @@ public class TabControl extends HBox {
     getStyleClass().add("tabControl");
   }
 
+  // TODO: add javadoc comment
   public void setOnClose(EventHandler<ActionEvent> event) {
     closeBtn.setOnAction(event);
   }
 
+  // TODO: add javadoc comment
   public void setOnActive(EventHandler<MouseEvent> event) {
     setOnMouseClicked(event);
   }
