@@ -5,7 +5,9 @@ $tabSpacing: 0.75em;
 }
 
 #homeButton {
-  @extend .tabControl
+  @extend .tabControl;
+  -fx-padding: .5em .5em .5em .5em;
+  -fx-pref-width: 3.5em;
 }
 
 #tabBox {
