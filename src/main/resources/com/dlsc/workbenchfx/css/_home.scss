@@ -1,8 +1,25 @@
 #home {
-  
-}
+  .tilePage {
+    -fx-vgap: 40;
+    -fx-hgap: 40;
+    -fx-alignment: center;
+    -fx-padding: 20;
+  }
 
-.tilePage {
-  -fx-spacing: 2.5em;
-  -fx-alignment: center;
+  .pagination {
+    -fx-arrows-visible: false;
+    -fx-page-information-visible: false;
+    -fx-tooltip-visible: false;
+  }
+
+  .pagination > .pagination-control > .control-box > .bullet-button {
+    -fx-background-radius: 4em;
+    -fx-padding: 0.333em;
+    -fx-background-color: $primary-color-dark;
+    -fx-background-insets: 7;
+  }
+
+  .pagination > .pagination-control > .control-box > .bullet-button:selected {
+    -fx-background-color: $accent-color;
+  }
 }

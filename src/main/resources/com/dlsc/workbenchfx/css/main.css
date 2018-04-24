@@ -1,39 +1,52 @@
 .root {
-  -fx-background-color: white;
   -fx-font: 12px Helvetica, sans-serif;
-  -fx-color: #F2F2F2;
-  -icons-color: derive(#F2F2F2, -70%); }
+  -fx-color: #edf4f4;
+  -icons-color: black; }
 
 .glyph-icon {
-  -fx-text-fill: derive(#F2F2F2, -70%);
+  -fx-text-fill: -icons-color;
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
-#center {
-  -fx-border-width: 2em 0 0 0;
-  -fx-border-color: #F2F2F2; }
-
-.tilePage {
-  -fx-spacing: 2.5em;
-  -fx-alignment: center; }
+#home .tilePage {
+  -fx-vgap: 40;
+  -fx-hgap: 40;
+  -fx-alignment: center;
+  -fx-padding: 20; }
+#home .pagination {
+  -fx-arrows-visible: false;
+  -fx-page-information-visible: false;
+  -fx-tooltip-visible: false; }
+#home .pagination > .pagination-control > .control-box > .bullet-button {
+  -fx-background-radius: 4em;
+  -fx-padding: 0.333em;
+  -fx-background-color: #353a3a;
+  -fx-background-insets: 7; }
+#home .pagination > .pagination-control > .control-box > .bullet-button:selected {
+  -fx-background-color: #00aaff; }
 
 .tileControl {
-  -fx-background-color: #F2F2F2;
-  -fx-text-fill: derive(#F2F2F2, -70%);
+  -fx-background-color: #edf4f4;
+  -fx-border-radius: .5em;
+  -fx-border-color: #353a3a;
+  -fx-border-width: 2px;
+  -fx-text-fill: #353a3a;
   -fx-pref-width: 16em;
   -fx-pref-height: 9em;
   -fx-alignment: center center; }
   .tileControl:hover {
-    -fx-background-color: derive(#F2F2F2, 10%); }
+    -fx-background-color: #f3fafa; }
 
 .tabControl, #homeButton {
-  -fx-background-color: derive(#F2F2F2, -10%);
+  -fx-background-color: #edf4f4;
+  -fx-border-color: #353a3a;
+  -fx-border-width: 1px;
+  -fx-text-fill: #353a3a;
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
-  -fx-alignment: center center;
-  -fx-background-radius: 0; }
+  -fx-alignment: center center; }
   .tabControl:hover, #homeButton:hover {
-    -fx-background-color: derive(#F2F2F2, -5%); }
+    -fx-background-color: #f3fafa; }
   .tabControl .tabNameLbl, #homeButton .tabNameLbl {
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
@@ -47,18 +60,12 @@
     .tabControl .closeBtn .closeIconView, #homeButton .closeBtn .closeIconView {
       -fx-font-size: 1em !important; }
     .tabControl .closeBtn:hover .closeIconView, #homeButton .closeBtn:hover .closeIconView {
-      -icons-color: #DB4437; }
+      -icons-color: #ff4e61; }
     .tabControl .closeBtn:armed, #homeButton .closeBtn:armed {
       -fx-background-color: transparent;
       -fx-border-width: 0; }
       .tabControl .closeBtn:armed .closeIconView, #homeButton .closeBtn:armed .closeIconView {
         -icons-color: black; }
-
-.active-tab {
-  -fx-background-color: #F2F2F2 !important;
-  -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 0, 0, 0, 1); }
-  .active-tab:hover {
-    -fx-background-color: derive(#F2F2F2, 5%); }
 
 #toolbar {
   -fx-spacing: 0.75em; }

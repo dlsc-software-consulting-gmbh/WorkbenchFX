@@ -22,6 +22,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +35,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class WorkbenchFx extends StackPane {
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
-  public final int MODULES_PER_PAGE;
+  public final int modulesPerPage;
   public static final String ACTIVE_TAB = "active-tab";
 
   // Views
@@ -71,13 +72,15 @@ public class WorkbenchFx extends StackPane {
   private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
   /**
-   * The factories which are called when creating Tabs and Tiles for the Views.
+   * The factories which are called when creating Tabs, Tiles and Pages of Tiles for the Views.
    * They require a module whose attributes are used to create the Nodes.
    */
   private ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tabFactory =
       new SimpleObjectProperty<>(this, "tabFactory");
   private ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tileFactory =
       new SimpleObjectProperty<>(this, "tileFactory");
+  private ObjectProperty<BiFunction<WorkbenchFx, Integer, Node>> pageFactory =
+      new SimpleObjectProperty<>(this, "pageFactory");
 
   /**
    * Creates the Workbench window.
@@ -118,6 +121,33 @@ public class WorkbenchFx extends StackPane {
       TileControl tileControl = new TileControl(module);
       tileControl.setOnActive(e -> workbench.openModule(module));
       return tileControl;
+    };
+    private BiFunction<WorkbenchFx, Integer, Node> pageFactory = (workbench, pageIndex) -> {
+      final int columnsPerRow = 3;
+
+      GridPane gridPane = new GridPane();
+      gridPane.getStyleClass().add("tilePage");
+
+      int position = pageIndex * workbench.modulesPerPage;
+      int count = 0;
+      int column = 0;
+      int row = 0;
+
+      while (count < workbench.modulesPerPage && position < workbench.getModules().size()) {
+        Module module = workbench.getModules().get(position);
+        Node tile = workbench.getTile(module);
+        gridPane.add(tile, column, row);
+
+        position++;
+        count++;
+        column++;
+
+        if (column == columnsPerRow) {
+          column = 0;
+          row++;
+        }
+      }
+      return gridPane;
     };
 
     private WorkbenchFxBuilder(Module... modules) {
@@ -161,6 +191,19 @@ public class WorkbenchFx extends StackPane {
     }
 
     /**
+     * Defines how a page with tiles of {@link Module}s should be created.
+     *
+     * @param pageFactory to be used to create the page for the tiles
+     * @return builder for chaining
+     * @implNote Use this to replace the page which is used in the home screen to display tiles of
+     *           the modules with your own implementation.
+     */
+    public WorkbenchFxBuilder pageFactory(BiFunction<WorkbenchFx, Integer, Node> pageFactory) {
+      this.pageFactory = pageFactory;
+      return this;
+    }
+
+    /**
      * Builds and fully initializes a {@link WorkbenchFx} object.
      * @return the {@link WorkbenchFx} object
      */
@@ -170,9 +213,10 @@ public class WorkbenchFx extends StackPane {
   }
 
   private WorkbenchFx(WorkbenchFxBuilder builder) {
-    MODULES_PER_PAGE = builder.modulesPerPage;
+    modulesPerPage = builder.modulesPerPage;
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
+    pageFactory.set(builder.pageFactory);
     initModules(builder.modules);
     initViews();
     getChildren().add(workbenchFxView);
@@ -297,6 +341,17 @@ public class WorkbenchFx extends StackPane {
    */
   public Node getTile(Module module) {
     return tileFactory.get().apply(this, module);
+  }
+
+  /**
+   * Generates a new Node which is then used as a page for the tiles on the home screen.
+   * Using the given {@code pageIndex}, it calls the {@code pageFactory} which generates the page.
+   *
+   * @param pageIndex the page index for which the page should be created
+   * @return a corresponding page
+   */
+  public Node getPage(int pageIndex) {
+    return pageFactory.get().apply(this, pageIndex);
   }
 
   public ObservableList<Module> getOpenModules() {
