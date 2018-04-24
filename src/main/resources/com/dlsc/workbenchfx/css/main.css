@@ -8,6 +8,16 @@
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
+.myCustomButtonFirst {
+  -fx-background-color: #ffd1ca; }
+  .myCustomButtonFirst:focused {
+    -fx-background-color: #ffd1ca; }
+
+.myCustomButtonSecond {
+  -fx-background-color: #d7ffe8; }
+  .myCustomButtonSecond:focused {
+    -fx-background-color: #d7ffe8; }
+
 .tilePage {
   -fx-spacing: 2.5em;
   -fx-alignment: center; }
