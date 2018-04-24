@@ -9,6 +9,7 @@ public class CenterView extends StackPane implements View {
 
   public CenterView(WorkbenchFx model) {
     this.model = model;
+    init();
   }
 
   /**
