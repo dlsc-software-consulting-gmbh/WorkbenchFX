@@ -1,9 +1,8 @@
 $font-stack: Helvetica, sans-serif;
-$primary-color-light: #f3fafa;
-$primary-color: #edf4f4;
-$primary-color-dark: #353a3a;
-$danger-color: #ff4e61;
-//$danger-color-dark: #b44153;
+$primary-color: #F2F2F2;
+$text-color: derive($primary-color, -70%);
+$danger-color: #DB4437;
+$accent-color: #00aaff;
 $border: 2px;
 
 // Sets a margin for all sides of the element
@@ -21,14 +20,15 @@ $border: 2px;
 }
 
 .root {
+  -fx-background-color: white;
   -fx-font: 12px $font-stack;
   -fx-color: $primary-color;
-  -icons-color: black;
+  -icons-color: $text-color;
 }
 
 // Default styling of icons. This enables changing the icons styles later on
 .glyph-icon {
-  -fx-text-fill: -icons-color;
+  -fx-text-fill: $text-color;
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important;
 }
