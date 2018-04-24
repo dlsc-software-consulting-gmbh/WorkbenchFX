@@ -1,6 +1,7 @@
 .root {
+  -fx-background-color: white;
   -fx-font: 12px Helvetica, sans-serif;
-  -fx-color: #e2ebff;
+  -fx-color: #F2F2F2;
   -icons-color: black; }
 
 .glyph-icon {
@@ -8,36 +9,26 @@
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
-.myCustomButtonFirst {
-  -fx-background-color: #ffd1ca; }
-  .myCustomButtonFirst:focused {
-    -fx-background-color: #ffd1ca; }
-
-.myCustomButtonSecond {
-  -fx-background-color: #d7ffe8; }
-  .myCustomButtonSecond:focused {
-    -fx-background-color: #d7ffe8; }
-
 .tilePage {
   -fx-spacing: 2.5em;
   -fx-alignment: center; }
 
 .tileControl {
-  -fx-background-color: #e2ebff;
-  -fx-text-fill: derive(#e2ebff, -70%);
+  -fx-background-color: #F2F2F2;
+  -fx-text-fill: derive(#F2F2F2, -70%);
   -fx-pref-width: 16em;
   -fx-pref-height: 9em;
   -fx-alignment: center center; }
   .tileControl:hover {
-    -fx-background-color: derive(#e2ebff, 10%); }
+    -fx-background-color: derive(#F2F2F2, 10%); }
 
 .tabControl, #homeButton {
-  -fx-background-color: derive(#e2ebff, -10%);
+  -fx-background-color: derive(#F2F2F2, -10%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center; }
   .tabControl:hover, #homeButton:hover {
-    -fx-background-color: derive(#e2ebff, -5%); }
+    -fx-background-color: derive(#F2F2F2, -5%); }
   .tabControl .tabNameLbl, #homeButton .tabNameLbl {
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
@@ -51,7 +42,7 @@
     .tabControl .closeBtn .closeIconView, #homeButton .closeBtn .closeIconView {
       -fx-font-size: 1em !important; }
     .tabControl .closeBtn:hover .closeIconView, #homeButton .closeBtn:hover .closeIconView {
-      -icons-color: #ff4e61; }
+      -icons-color: #DB4437; }
     .tabControl .closeBtn:armed, #homeButton .closeBtn:armed {
       -fx-background-color: transparent;
       -fx-border-width: 0; }
@@ -59,10 +50,10 @@
         -icons-color: black; }
 
 .active-tab {
-  -fx-background-color: #e2ebff !important;
+  -fx-background-color: #F2F2F2 !important;
   -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 0, 0, 0, 1); }
   .active-tab:hover {
-    -fx-background-color: derive(#e2ebff, 5%); }
+    -fx-background-color: derive(#F2F2F2, 5%); }
 
 #toolbar {
   -fx-spacing: 0.75em; }
