@@ -14,9 +14,12 @@ import org.apache.logging.log4j.Logger;
 /**
  * Created by François Martin on 29.12.17.
  */
-public class Dropdown extends HBox implements View {
+public class Dropdown extends VBox implements View {
     private static final Logger LOGGER =
             LogManager.getLogger(Dropdown.class.getName());
+
+    private final HBox buttonBox;
+    private final VBox menuBox;
 
     private final Node iconView;
     private final VBox descriptionBox;
@@ -26,6 +29,8 @@ public class Dropdown extends HBox implements View {
     private final FontAwesomeIconView arrowIcon;
 
     public Dropdown(Node iconView, String title, String subtitle, Node... contentNodes) {
+        this.buttonBox = new HBox();
+        this.menuBox = new VBox();
         this.descriptionBox = new VBox();
 
         this.iconView = iconView;
@@ -35,8 +40,8 @@ public class Dropdown extends HBox implements View {
             double ratio = imageView.getImage().getWidth() / imageView.getImage().getHeight();
 
             // Bind the dimensions of the ImageView to the dropdown's height
-            imageView.fitHeightProperty().bind(prefHeightProperty().subtract(15));
-            imageView.fitWidthProperty().bind(prefHeightProperty().subtract(15).multiply(ratio));
+            imageView.fitHeightProperty().bind(buttonBox.prefHeightProperty().subtract(15));
+            imageView.fitWidthProperty().bind(buttonBox.prefHeightProperty().subtract(15).multiply(ratio));
         }
         this.titleLbl = new Label(title);
         this.subtitleLbl = new Label(subtitle);
@@ -51,11 +56,15 @@ public class Dropdown extends HBox implements View {
     @Override
     public void initializeSelf() {
         getStyleClass().add("dropdown");
+        buttonBox.getStyleClass().add("buttonBox");
+
         iconView.getStyleClass().add("iconView");
         titleLbl.getStyleClass().add("titleLbl");
         subtitleLbl.getStyleClass().add("subtitleLbl");
         descriptionBox.getStyleClass().add("descriptionBox");
         arrowIcon.getStyleClass().add("arrowIcon");
+
+        menuBox.getStyleClass().add("menuBox");
     }
 
     /**
@@ -63,15 +72,23 @@ public class Dropdown extends HBox implements View {
      */
     @Override
     public void initializeParts() {
+
         descriptionBox.getChildren().addAll(
                 titleLbl,
                 subtitleLbl
         );
 
-        getChildren().addAll(
+        buttonBox.getChildren().addAll(
                 iconView,
                 descriptionBox,
                 arrowIcon
+        );
+
+        menuBox.getChildren().addAll(contentNodes);
+
+        getChildren().addAll(
+                buttonBox,
+                menuBox
         );
     }
 

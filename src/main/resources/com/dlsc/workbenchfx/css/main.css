@@ -43,32 +43,32 @@
   .tileControl:hover {
     -fx-background-color: derive(#F2F2F2, 15%); }
 
-.tabControl, #homeButton, .dropdown {
+.tabControl, #homeButton, .dropdown .buttonBox {
   -fx-background-color: derive(#F2F2F2, -15%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   -fx-background-radius: 0; }
-  .tabControl:hover, #homeButton:hover, .dropdown:hover {
+  .tabControl:hover, #homeButton:hover, .dropdown .buttonBox:hover {
     -fx-background-color: derive(#F2F2F2, -7.5%); }
-  .tabControl .tabNameLbl, #homeButton .tabNameLbl, .dropdown .tabNameLbl {
+  .tabControl .tabNameLbl, #homeButton .tabNameLbl, .dropdown .buttonBox .tabNameLbl {
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
     -fx-background-insets: 0 0 0 0.5em; }
-  .tabControl .closeBtn, #homeButton .closeBtn, .dropdown .closeBtn {
+  .tabControl .closeBtn, #homeButton .closeBtn, .dropdown .buttonBox .closeBtn {
     -fx-padding: 0 0.5em 0 1em;
     -fx-border-insets: 0 0.5em 0 1em;
     -fx-background-insets: 0 0.5em 0 1em;
     -fx-background-color: transparent;
     -fx-border-width: 0; }
-    .tabControl .closeBtn .closeIconView, #homeButton .closeBtn .closeIconView, .dropdown .closeBtn .closeIconView {
+    .tabControl .closeBtn .closeIconView, #homeButton .closeBtn .closeIconView, .dropdown .buttonBox .closeBtn .closeIconView {
       -fx-font-size: 1em !important; }
-    .tabControl .closeBtn:hover .closeIconView, #homeButton .closeBtn:hover .closeIconView, .dropdown .closeBtn:hover .closeIconView {
+    .tabControl .closeBtn:hover .closeIconView, #homeButton .closeBtn:hover .closeIconView, .dropdown .buttonBox .closeBtn:hover .closeIconView {
       -icons-color: #DB4437; }
-    .tabControl .closeBtn:armed, #homeButton .closeBtn:armed, .dropdown .closeBtn:armed {
+    .tabControl .closeBtn:armed, #homeButton .closeBtn:armed, .dropdown .buttonBox .closeBtn:armed {
       -fx-background-color: transparent;
       -fx-border-width: 0; }
-      .tabControl .closeBtn:armed .closeIconView, #homeButton .closeBtn:armed .closeIconView, .dropdown .closeBtn:armed .closeIconView {
+      .tabControl .closeBtn:armed .closeIconView, #homeButton .closeBtn:armed .closeIconView, .dropdown .buttonBox .closeBtn:armed .closeIconView {
         -icons-color: black; }
 
 .active-tab {
@@ -87,18 +87,18 @@
 #dropdownBox {
   -fx-spacing: 0.45em; }
 
-.dropdown {
+.dropdown .buttonBox {
   -fx-padding: .5em 1em .5em 1em;
   -fx-spacing: .5em; }
-  .dropdown .descriptionBox {
+  .dropdown .buttonBox .descriptionBox {
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
     -fx-background-insets: 0 0 0 0.5em; }
-  .dropdown .subtitleLbl {
+  .dropdown .buttonBox .subtitleLbl {
     -fx-font-size: .75em; }
-  .dropdown .arrowIcon {
+  .dropdown .buttonBox .arrowIcon {
     -fx-font-size: 2em !important; }
-  .dropdown .arrowIcon:hover {
+  .dropdown .buttonBox .arrowIcon:hover {
     -icons-color: #47aa71; }
 
 /*# sourceMappingURL=main.css.map */
