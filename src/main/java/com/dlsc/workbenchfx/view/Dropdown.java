@@ -3,7 +3,9 @@ package com.dlsc.workbenchfx.view;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
@@ -49,8 +51,8 @@ public class Dropdown extends VBox implements View {
             double ratio = imageView.getImage().getWidth() / imageView.getImage().getHeight();
 
             // Bind the dimensions of the ImageView to the dropdown's height
-            imageView.fitHeightProperty().bind(buttonBox.prefHeightProperty().subtract(15));
-            imageView.fitWidthProperty().bind(buttonBox.prefHeightProperty().subtract(15).multiply(ratio));
+            imageView.fitHeightProperty().bind(buttonBox.prefHeightProperty().multiply(.7));
+            imageView.fitWidthProperty().bind(buttonBox.prefHeightProperty().multiply(.7).multiply(ratio));
         }
         this.titleLbl = new Label(title);
         this.subtitleLbl = new Label(subtitle);

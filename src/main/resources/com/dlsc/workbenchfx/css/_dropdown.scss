@@ -19,7 +19,7 @@
     & .arrowIcon {
       -fx-font-size: 2em !important;
       &:hover {
-        -icons-color: $success-color;
+        -icons-color: derive($accent-color, -20%);
       }
     }
   }
