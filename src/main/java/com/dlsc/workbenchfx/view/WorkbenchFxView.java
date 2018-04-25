@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
@@ -52,6 +53,7 @@ public class WorkbenchFxView extends StackPane implements View {
   public void layoutParts() {
     viewBox.getChildren().addAll(toolBarView, centerView);
     getChildren().add(viewBox);
+    VBox.setVgrow(centerView, Priority.ALWAYS);
   }
 
   /**
