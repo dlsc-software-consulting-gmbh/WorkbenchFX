@@ -84,7 +84,10 @@ public class Dropdown extends VBox implements View {
                 arrowIcon
         );
 
-        menuBox.getChildren().addAll(contentNodes);
+        for (Node content : contentNodes) {
+            content.getStyleClass().add("contentNode");
+            menuBox.getChildren().add(content);
+        }
 
         getChildren().addAll(
                 buttonBox,

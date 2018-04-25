@@ -25,6 +25,11 @@
   }
 
   & .menuBox {
-
+    & .contentNode {
+      -fx-background-color: derive($primary-color, -7.5%);
+      &:hover {
+        -fx-background-color: derive($primary-color, -3.75%);
+      }
+    }
   }
 }
