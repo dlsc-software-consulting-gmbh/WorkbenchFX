@@ -2,7 +2,11 @@ package com.dlsc.workbenchfx.view;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -28,7 +32,11 @@ public class Dropdown extends VBox implements View {
     private final Node[] contentNodes;
     private final FontAwesomeIconView arrowIcon;
 
+    private final BooleanProperty expanded;
+
     public Dropdown(Node iconView, String title, String subtitle, Node... contentNodes) {
+        this.expanded = new SimpleBooleanProperty();
+
         this.buttonBox = new HBox();
         this.menuBox = new VBox();
         this.descriptionBox = new VBox();
@@ -48,7 +56,11 @@ public class Dropdown extends VBox implements View {
         this.contentNodes = contentNodes;
         arrowIcon = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_DOWN);
         init();
+        setupListeners();
+        setupEventHandlers();
+        setupBindings();
     }
+
 
     /**
      * {@inheritDoc}
@@ -100,7 +112,11 @@ public class Dropdown extends VBox implements View {
      */
     @Override
     public void layoutParts() {
-
+//        menuBox.relocate(buttonBox.getLayoutX() - 2, contentY - (1 - userOptionsVisibility.get()) * menuBox.getHeight());
+        menuBox.relocate(100, 0);
+//        menuBox.relocate(500, -50);
+        menuBox.setVisible(false);
+//        translateYProperty().bind(menuBox.heightProperty());
     }
 
     /**
@@ -111,4 +127,17 @@ public class Dropdown extends VBox implements View {
 
     }
 
+    private void setupEventHandlers() {
+        buttonBox.setOnMouseClicked(event -> expanded.set(!expanded.get()));
+    }
+
+    private void setupBindings() {
+        menuBox.visibleProperty().bind(expanded);
+    }
+
+    private void setupListeners() {
+        expanded.addListener((observable, oldValue, newValue) ->
+                arrowIcon.setIcon(newValue ? FontAwesomeIcon.ANGLE_UP : FontAwesomeIcon.ANGLE_DOWN)
+        );
+    }
 }

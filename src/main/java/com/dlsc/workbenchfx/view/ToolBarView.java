@@ -55,7 +55,6 @@ public class ToolBarView extends HBox implements View {
     @Override
     public void layoutParts() {
         model.getDropdowns().forEach(dropdown -> dropdownBox.getChildren().add(dropdown));
-        System.out.println(model.getDropdowns().size());
         getChildren().addAll(homeBtn, tabBox, dropdownBox);
     }
 
