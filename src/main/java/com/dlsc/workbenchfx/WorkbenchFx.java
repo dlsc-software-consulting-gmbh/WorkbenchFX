@@ -423,4 +423,8 @@ public class WorkbenchFx extends StackPane {
   public void setGlobalMenuShown(boolean globalMenuShown) {
     this.globalMenuShown.set(globalMenuShown);
   }
+
+  public MenuDrawer getGlobalMenu() {
+    return globalMenu;
+  }
 }
