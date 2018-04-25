@@ -12,6 +12,7 @@ import com.dlsc.workbenchfx.view.ToolBarView;
 import com.dlsc.workbenchfx.view.WorkbenchFxPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchFxView;
 import com.dlsc.workbenchfx.view.controls.MenuDrawer;
+import com.dlsc.workbenchfx.view.controls.MenuDrawerSkin;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.Objects;
@@ -56,6 +57,7 @@ public class WorkbenchFx extends StackPane {
 
   // Custom Controls
   private MenuDrawer globalMenu;
+  private MenuDrawerSkin globalMenuSkin;
 
   // Modules
   /**
@@ -236,6 +238,8 @@ public class WorkbenchFx extends StackPane {
 
   private void initCustomControls() {
     globalMenu = new MenuDrawer(this);
+    globalMenuSkin = new MenuDrawerSkin(globalMenu);
+
   }
 
   private void initModules(Module... modules) {
