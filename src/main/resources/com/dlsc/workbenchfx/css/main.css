@@ -1,4 +1,4 @@
-.root {
+* {
   -fx-background-color: white;
   -fx-font: 12px Helvetica, sans-serif;
   -fx-color: #F2F2F2;
@@ -120,51 +120,51 @@
   -fx-pref-width: 0 !important;
   -fx-pref-height: 0 !important; }
 
-.menu-drawer .context-menu {
-  -fx-background-color: -slate-green;
+.menu-drawer {
+  -fx-background-color: blue;
   -fx-background-insets: 0;
   -fx-background-radius: 0;
   -fx-padding: 0;
   -fx-effect: null; }
 
-.menu-drawer .context-menu .label {
+.menu-drawer .label {
   -fx-text-fill: white; }
 
-.menu-drawer .context-menu .menu .arrow {
-  -fx-background-color: -white-four;
+.menu-drawer .menu .arrow {
+  -fx-background-color: green;
   -fx-background-insets: 0;
   -fx-padding: 0.25em;
   -fx-shape: "M 0 -3.5 v 7 l 4 -3.5 z"; }
 
-.menu-drawer .context-menu .menu:hover .arrow,
-.menu-drawer .context-menu .menu:showing .arrow {
-  -fx-background-color: -white-four; }
+.menu-drawer .menu:hover .arrow,
+.menu-drawer .menu:showing .arrow {
+  -fx-background-color: green; }
 
-.menu-drawer .context-menu .menu-item:focused,
-.menu-drawer .context-menu .menu-item:hover {
-  -fx-background-color: derive(-slate-green, -10%); }
+.menu-drawer .menu-item:focused,
+.menu-drawer .menu-item:hover {
+  -fx-background-color: derive(blue, -10%); }
 
-.menu-drawer .context-menu .menu-item:pressed {
+.menu-drawer .menu-item:pressed {
   -fx-background-color: white; }
 
-.menu-drawer .context-menu .menu-item:pressed .label {
-  -fx-text-fill: -slate-green; }
+.menu-drawer .menu-item:pressed .label {
+  -fx-text-fill: blue; }
 
-.menu-drawer .context-menu .separator:horizontal .line {
+.menu-drawer .separator:horizontal .line {
   -fx-border-color: -fx-box-border transparent transparent transparent;
   -fx-border-insets: 1 0 0 0; }
 
-.menu-drawer .context-menu > .scroll-arrow {
+.menu-drawer > .scroll-arrow {
   -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em;
   /* 5 */
   -fx-background-color: transparent; }
 
-.menu-drawer .context-menu > .scroll-arrow:hover {
+.menu-drawer > .scroll-arrow:hover {
   -fx-background: -fx-selection-bar;
   -fx-background-color: -fx-background;
   -fx-text-fill: -fx-text-background-color; }
 
-.menu-drawer .context-menu:show-mnemonics > .mnemonic-underline {
+.menu-drawer :show-mnemonics > .mnemonic-underline {
   -fx-stroke: -fx-text-fill; }
 
 .header {

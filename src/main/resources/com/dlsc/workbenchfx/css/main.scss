@@ -4,6 +4,9 @@ $text-color: derive($primary-color, -70%);
 $danger-color: #DB4437;
 $accent-color: #00aaff;
 $border: 2px;
+$custom-color-1: blue;
+$custom-color-2: green;
+
 
 // Sets a margin for all sides of the element
 @mixin margin-all($margin) {
@@ -19,7 +22,7 @@ $border: 2px;
   -fx-background-insets: $margin-top $margin-right $margin-bottom $margin-left;
 }
 
-.root {
+* {
   -fx-background-color: white;
   -fx-font: 12px $font-stack;
   -fx-color: $primary-color;
