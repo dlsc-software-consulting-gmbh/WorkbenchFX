@@ -33,6 +33,7 @@ import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+// TODO: hide menu button?
 /**
  * Represents the main WorkbenchFX class.
  *
