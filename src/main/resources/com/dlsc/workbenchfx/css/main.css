@@ -94,15 +94,18 @@
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
     -fx-background-insets: 0 0 0 0.5em; }
-  .dropdown .buttonBox .subtitleLbl {
-    -fx-font-size: .75em; }
+    .dropdown .buttonBox .descriptionBox .subtitleLbl {
+      -fx-font-size: .75em; }
   .dropdown .buttonBox .arrowIcon {
     -fx-font-size: 2em !important; }
-  .dropdown .buttonBox .arrowIcon:hover {
-    -icons-color: #47aa71; }
-.dropdown .menuBox .contentNode {
+    .dropdown .buttonBox .arrowIcon:hover {
+      -icons-color: #47aa71; }
+.dropdown .menuBox .contentBox {
   -fx-background-color: derive(#F2F2F2, -7.5%); }
-  .dropdown .menuBox .contentNode:hover {
+  .dropdown .menuBox .contentBox:hover {
     -fx-background-color: derive(#F2F2F2, -3.75%); }
+  .dropdown .menuBox .contentBox .contentNode {
+    -fx-padding: .5em;
+    -fx-alignment: center center; }
 
 /*# sourceMappingURL=main.css.map */

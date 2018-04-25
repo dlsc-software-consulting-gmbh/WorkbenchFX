@@ -9,26 +9,30 @@
     }
     & .descriptionBox {
       @include margin(0, 0, 0, .5em);
-    }
-    & .titleLbl {
+      & .titleLbl {
 
-    }
-    & .subtitleLbl {
-      -fx-font-size: .75em;
+      }
+      & .subtitleLbl {
+        -fx-font-size: .75em;
+      }
     }
     & .arrowIcon {
       -fx-font-size: 2em !important;
-    }
-    & .arrowIcon:hover {
-      -icons-color: $success-color;
+      &:hover {
+        -icons-color: $success-color;
+      }
     }
   }
 
   & .menuBox {
-    & .contentNode {
+    & .contentBox {
       -fx-background-color: derive($primary-color, -7.5%);
       &:hover {
         -fx-background-color: derive($primary-color, -3.75%);
+      }
+      & .contentNode {
+        -fx-padding: .5em;
+        -fx-alignment: center center;
       }
     }
   }

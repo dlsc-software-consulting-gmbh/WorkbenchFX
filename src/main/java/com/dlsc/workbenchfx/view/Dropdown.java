@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -96,9 +97,11 @@ public class Dropdown extends VBox implements View {
                 arrowIcon
         );
 
-        for (Node content : contentNodes) {
-            content.getStyleClass().add("contentNode");
-            menuBox.getChildren().add(content);
+        for (Node contentNode : contentNodes) {
+            contentNode.getStyleClass().add("contentNode");
+            HBox contentBox = new HBox(contentNode);
+            contentBox.getStyleClass().add("contentBox");
+            menuBox.getChildren().add(contentBox);
         }
 
         getChildren().addAll(
@@ -133,6 +136,7 @@ public class Dropdown extends VBox implements View {
 
     private void setupBindings() {
         menuBox.visibleProperty().bind(expanded);
+        menuBox.prefWidthProperty().bind(widthProperty());
     }
 
     private void setupListeners() {
