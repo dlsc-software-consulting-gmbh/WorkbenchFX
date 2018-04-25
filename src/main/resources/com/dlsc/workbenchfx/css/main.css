@@ -92,4 +92,87 @@
 #tabBox {
   -fx-spacing: 0.45em; }
 
+.pretty-scroll-pane {
+  -fx-background-insets: 0; }
+
+.pretty-scroll-pane .scroll-bar {
+  -fx-background-color: transparent;
+  -fx-pref-width: 12;
+  -fx-pref-height: 12;
+  -fx-padding: 2; }
+
+.pretty-scroll-pane .scroll-bar .thumb {
+  -fx-background-color: rgba(0, 0, 0, 0.2);
+  -fx-background-radius: 1000;
+  -fx-pref-width: 12;
+  -fx-pref-height: 12; }
+
+.pretty-scroll-pane .scroll-bar:vertical .thumb {
+  -fx-background-insets: 0 2 0 0; }
+
+.pretty-scroll-pane .scroll-bar:horizontal .thumb {
+  -fx-background-insets: 0 0 2 0; }
+
+.pretty-scroll-pane .scroll-bar .increment-button,
+.pretty-scroll-pane .scroll-bar .increment-arrow,
+.pretty-scroll-pane .scroll-bar .decrement-button,
+.pretty-scroll-pane .scroll-bar .decrement-arrow {
+  -fx-pref-width: 0 !important;
+  -fx-pref-height: 0 !important; }
+
+.menu-drawer .context-menu {
+  -fx-background-color: -slate-green;
+  -fx-background-insets: 0;
+  -fx-background-radius: 0;
+  -fx-padding: 0;
+  -fx-effect: null; }
+
+.menu-drawer .context-menu .label {
+  -fx-text-fill: white; }
+
+.menu-drawer .context-menu .menu .arrow {
+  -fx-background-color: -white-four;
+  -fx-background-insets: 0;
+  -fx-padding: 0.25em;
+  -fx-shape: "M 0 -3.5 v 7 l 4 -3.5 z"; }
+
+.menu-drawer .context-menu .menu:hover .arrow,
+.menu-drawer .context-menu .menu:showing .arrow {
+  -fx-background-color: -white-four; }
+
+.menu-drawer .context-menu .menu-item:focused,
+.menu-drawer .context-menu .menu-item:hover {
+  -fx-background-color: derive(-slate-green, -10%); }
+
+.menu-drawer .context-menu .menu-item:pressed {
+  -fx-background-color: white; }
+
+.menu-drawer .context-menu .menu-item:pressed .label {
+  -fx-text-fill: -slate-green; }
+
+.menu-drawer .context-menu .separator:horizontal .line {
+  -fx-border-color: -fx-box-border transparent transparent transparent;
+  -fx-border-insets: 1 0 0 0; }
+
+.menu-drawer .context-menu > .scroll-arrow {
+  -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em;
+  /* 5 */
+  -fx-background-color: transparent; }
+
+.menu-drawer .context-menu > .scroll-arrow:hover {
+  -fx-background: -fx-selection-bar;
+  -fx-background-color: -fx-background;
+  -fx-text-fill: -fx-text-background-color; }
+
+.menu-drawer .context-menu:show-mnemonics > .mnemonic-underline {
+  -fx-stroke: -fx-text-fill; }
+
+.header {
+  -fx-spacing: 25;
+  -fx-alignment: center; }
+
+.header .separator .line {
+  -fx-border-color: -white;
+  -fx-border-width: 1; }
+
 /*# sourceMappingURL=main.css.map */
