@@ -86,31 +86,24 @@ public class WorkbenchFx extends StackPane {
     /**
      * Creates the Workbench window.
      */
-    public static WorkbenchFx of(ObservableList<Dropdown> dropdowns, Module... modules) {
-        return WorkbenchFx.builder(dropdowns, modules).build();
-    }
-
     public static WorkbenchFx of(Module... modules) {
         return WorkbenchFx.builder(modules).build();
     }
 
     // TODO: add javadoc comment
-    public static WorkbenchFxBuilder builder(ObservableList<Dropdown> dropdowns, Module... modules) {
-        return new WorkbenchFxBuilder(dropdowns, modules);
-    }
-
     public static WorkbenchFxBuilder builder(Module... modules) {
-        return new WorkbenchFxBuilder(FXCollections.observableArrayList(), modules);
+        return new WorkbenchFxBuilder(modules);
     }
 
-    public static Dropdown createDropdown(Node iconNode, String title, String subtitle, Node... contentNodes) {
-        return Dropdown.of(iconNode, title, subtitle, contentNodes);
+    public WorkbenchFx dropdowns(Dropdown... dropdowns) {
+        this.dropdowns.addAll(dropdowns);
+        return this;
     }
 
     public static class WorkbenchFxBuilder {
         // Required parameters
         private final Module[] modules;
-        private ObservableList<Dropdown> dropdowns;
+        private ObservableList<Dropdown> dropdowns = FXCollections.observableArrayList();
         // Optional parameters - initialized to default values
         private int modulesPerPage = 9;
         private BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
@@ -165,8 +158,7 @@ public class WorkbenchFx extends StackPane {
             return gridPane;
         };
 
-        private WorkbenchFxBuilder(ObservableList<Dropdown> dropdowns, Module... modules) {
-            this.dropdowns = dropdowns;
+        private WorkbenchFxBuilder(Module... modules) {
             this.modules = modules;
         }
 
@@ -237,7 +229,7 @@ public class WorkbenchFx extends StackPane {
 
     private WorkbenchFx(WorkbenchFxBuilder builder) {
         modulesPerPage = builder.modulesPerPage;
-        dropdowns.addAll(builder.dropdowns);
+        this.dropdowns.addAll(builder.dropdowns);
 
         tabFactory.set(builder.tabFactory);
         tileFactory.set(builder.tileFactory);

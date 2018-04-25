@@ -25,34 +25,23 @@ public class DemoPane extends StackPane {
 
     public DemoPane() {
         workbenchFx = WorkbenchFx.of(
-                initDropdowns(),
                 new CalendarModule(),
                 new NotesModule(),
                 new PreferencesModule()
-        );
-        getChildren().add(workbenchFx);
-    }
-
-    private ObservableList<Dropdown> initDropdowns() {
-        ObservableList<Dropdown> dropdowns = FXCollections.observableArrayList();
-        dropdowns.add(
-                WorkbenchFx.createDropdown(
+        ).dropdowns(
+                Dropdown.of(
                         new FontAwesomeIconView(FontAwesomeIcon.ENVELOPE),
                         "Messages",
                         "Your Inbox"
-                )
-        );
-        dropdowns.add(
-                WorkbenchFx.createDropdown(
+                ),
+                Dropdown.of(
                         new ImageView("com/dlsc/workbenchfx/jfx_logo.png"),
                         "ImageView",
                         "A dropdown with an Image",
                         new Label("Content 1"),
                         new Label("Content 2")
-                )
-        );
-        dropdowns.add(
-                WorkbenchFx.createDropdown(
+                ),
+                Dropdown.of(
                         new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                         "FAIconView",
                         "A dropdown with an Icon",
@@ -60,6 +49,6 @@ public class DemoPane extends StackPane {
                         new Label("Content 2")
                 )
         );
-        return dropdowns;
+        getChildren().add(workbenchFx);
     }
 }
