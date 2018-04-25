@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.view;
 import com.dlsc.workbenchfx.WorkbenchFx;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -53,19 +54,38 @@ public class WorkbenchFxPresenter implements Presenter {
 
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public void setupValueChangedListeners() {
     // Show and hide global menu depending on property
     model.globalMenuShownProperty().addListener((observable, oldShown, newShown) -> {
-      if (newShown) {
-        addOverlay(model.getGlobalMenu());
-      } else {
-        removeOverlay(model.getGlobalMenu());
-      }
-    });
+              if (newShown) {
+                addOverlay(model.getGlobalMenu());
+              } else {
+                removeOverlay(model.getGlobalMenu());
+              }
+            });
+    view.getChildren()
+        .addListener(
+            (ListChangeListener<? super Node>)
+                c -> {
+                  if (view.getChildren().size() == 2) { // TODO: magic number
+                    // only viewBox and glassPane are left
+                    model.setGlassPaneShown(false);
+                  } else {
+                    // at least one overlay is being shown
+                    model.setGlassPaneShown(true);
+                  }
+                  while (c.next()) {
+                    if (c.wasRemoved()) {
+                      for (Node node : c.getRemoved()) {
+                        if (node == model.getGlobalMenu()) {
+                          model.setGlobalMenuShown(false);
+                        }
+                      }
+                    }
+                  }
+                });
   }
 
   /**
@@ -81,7 +101,6 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   public void addOverlay(Node view) {
     this.view.getChildren().add(view);
-    model.setGlassPaneShown(true);
   }
 
   /**
@@ -89,7 +108,6 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   public void removeOverlay(Node view) {
     this.view.getChildren().remove(view);
-    model.setGlassPaneShown(false);
   }
 
   /**
@@ -101,7 +119,5 @@ public class WorkbenchFxPresenter implements Presenter {
         .skip(2) // the viewBox and glassPane
         .collect(Collectors.toList())
     );
-    model.setGlassPaneShown(false);
-    model.setGlobalMenuShown(false);
   }
 }
