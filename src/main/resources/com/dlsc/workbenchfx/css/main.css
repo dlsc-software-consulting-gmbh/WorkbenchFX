@@ -81,6 +81,14 @@
   -fx-padding: .5em .5em .5em .5em;
   -fx-pref-width: 3.5em; }
 
+#menuIconView {
+  -fx-fill: white; }
+
+#menuButton {
+  -fx-background-color: derive(#F2F2F2, -70%); }
+  #menuButton:hover {
+    -fx-background-color: derive(derive(#F2F2F2, -70%), 10%); }
+
 #tabBox {
   -fx-spacing: 0.45em; }
 

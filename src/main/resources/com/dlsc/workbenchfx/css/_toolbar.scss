@@ -15,11 +15,15 @@ $tabSpacing: 0.75em;
 }
 
 #menuIconView {
-
+  -fx-fill: white;
 }
 
 #menuButton {
   @extend #homeButton;
+  -fx-background-color: $text-color;
+  &:hover {
+    -fx-background-color: derive($text-color, 10%);
+  }
 }
 
 #tabBox {
