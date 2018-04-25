@@ -12,7 +12,9 @@ import javafx.scene.layout.HBox;
 public class ToolBarView extends HBox implements View {
   private final WorkbenchFx model;
   private FontAwesomeIconView homeIconView;
+  private FontAwesomeIconView menuIconView;
   Button homeBtn;
+  Button menuBtn;
   private HBox tabBox;
 
   // TODO: add javadoc comment
@@ -36,10 +38,14 @@ public class ToolBarView extends HBox implements View {
   public void initializeParts() {
     homeIconView = new FontAwesomeIconView(FontAwesomeIcon.HOME);
     homeIconView.setId("homeIconView");
-
     homeBtn = new Button("", homeIconView);
     homeBtn.setId("homeButton");
     homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
+
+    menuIconView = new FontAwesomeIconView(FontAwesomeIcon.BARS);
+    menuIconView.setId("menuIconView");
+    menuBtn = new Button("", menuIconView);
+    menuBtn.setId("menuButton");
 
     tabBox = new HBox();
     tabBox.setId("tabBox");
@@ -50,7 +56,7 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().addAll(homeBtn, tabBox);
+    getChildren().addAll(menuBtn, homeBtn, tabBox);
   }
 
   /**

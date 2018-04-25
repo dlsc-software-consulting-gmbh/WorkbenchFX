@@ -43,32 +43,32 @@
   .tileControl:hover {
     -fx-background-color: derive(#F2F2F2, 15%); }
 
-.tabControl, #homeButton {
+.tabControl, #homeButton, #menuButton {
   -fx-background-color: derive(#F2F2F2, -15%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   -fx-background-radius: 0; }
-  .tabControl:hover, #homeButton:hover {
+  .tabControl:hover, #homeButton:hover, #menuButton:hover {
     -fx-background-color: derive(#F2F2F2, -7.5%); }
-  .tabControl .tabNameLbl, #homeButton .tabNameLbl {
+  .tabControl .tabNameLbl, #homeButton .tabNameLbl, #menuButton .tabNameLbl {
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
     -fx-background-insets: 0 0 0 0.5em; }
-  .tabControl .closeBtn, #homeButton .closeBtn {
+  .tabControl .closeBtn, #homeButton .closeBtn, #menuButton .closeBtn {
     -fx-padding: 0 0.5em 0 1em;
     -fx-border-insets: 0 0.5em 0 1em;
     -fx-background-insets: 0 0.5em 0 1em;
     -fx-background-color: transparent;
     -fx-border-width: 0; }
-    .tabControl .closeBtn .closeIconView, #homeButton .closeBtn .closeIconView {
+    .tabControl .closeBtn .closeIconView, #homeButton .closeBtn .closeIconView, #menuButton .closeBtn .closeIconView {
       -fx-font-size: 1em; }
-    .tabControl .closeBtn:hover .closeIconView, #homeButton .closeBtn:hover .closeIconView {
+    .tabControl .closeBtn:hover .closeIconView, #homeButton .closeBtn:hover .closeIconView, #menuButton .closeBtn:hover .closeIconView {
       -icons-color: #DB4437; }
-    .tabControl .closeBtn:armed, #homeButton .closeBtn:armed {
+    .tabControl .closeBtn:armed, #homeButton .closeBtn:armed, #menuButton .closeBtn:armed {
       -fx-background-color: transparent;
       -fx-border-width: 0; }
-      .tabControl .closeBtn:armed .closeIconView, #homeButton .closeBtn:armed .closeIconView {
+      .tabControl .closeBtn:armed .closeIconView, #homeButton .closeBtn:armed .closeIconView, #menuButton .closeBtn:armed .closeIconView {
         -icons-color: black; }
 
 .active-tab {
@@ -77,7 +77,7 @@
 #toolbar {
   -fx-spacing: 0.75em; }
 
-#homeButton {
+#homeButton, #menuButton {
   -fx-padding: .5em .5em .5em .5em;
   -fx-pref-width: 3.5em; }
 
