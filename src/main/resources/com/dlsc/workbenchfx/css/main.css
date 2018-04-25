@@ -163,4 +163,8 @@
     #backButton:hover #backIconView {
       -fx-fill: derive(-icons-color, 20%); }
 
+.glass-pane {
+  -fx-background-color: black;
+  -fx-opacity: .6; }
+
 /*# sourceMappingURL=main.css.map */
