@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import java.util.Objects;
+import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -71,7 +72,23 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   @Override
   public void setupBindings() {
+    view.glassPane.hideProperty().bind(model.glassPaneShownProperty().not());
+  }
 
+  /**
+   * TODO
+   */
+  public void addOverlay(Node view) {
+    this.view.getChildren().add(view);
+    model.setGlassPaneShown(true);
+  }
+
+  /**
+   * TODO
+   */
+  public void removeOverlay(Node view) {
+    this.view.getChildren().remove(view);
+    model.setGlassPaneShown(false);
   }
 
   /**

@@ -70,18 +70,4 @@ public class WorkbenchFxView extends StackPane implements View {
   public void bindFieldsToModel() {
 
   }
-
-  /**
-   * TODO
-   */
-  public void addOverlay(Node view) {
-    getChildren().add(view);
-  }
-
-  /**
-   * TODO
-   */
-  public void removeOverlay(Node view) {
-    getChildren().remove(view);
-  }
 }
