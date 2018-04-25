@@ -60,9 +60,9 @@ public class WorkbenchFxPresenter implements Presenter {
     // Show and hide global menu depending on property
     model.globalMenuShownProperty().addListener((observable, oldShown, newShown) -> {
       if (newShown) {
-        view.addOverlay(model.getGlobalMenu());
+        addOverlay(model.getGlobalMenu());
       } else {
-        view.removeOverlay(model.getGlobalMenu());
+        removeOverlay(model.getGlobalMenu());
       }
     });
   }
