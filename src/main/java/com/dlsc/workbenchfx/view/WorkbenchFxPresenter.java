@@ -98,7 +98,7 @@ public class WorkbenchFxPresenter implements Presenter {
   public void removeAllOverlays() {
     view.getChildren().removeAll(
         view.getChildren().stream()
-        .skip(2) // the viewBox and glasspane
+        .skip(2) // the viewBox and glassPane
         .collect(Collectors.toList())
     );
     model.setGlassPaneShown(false);
