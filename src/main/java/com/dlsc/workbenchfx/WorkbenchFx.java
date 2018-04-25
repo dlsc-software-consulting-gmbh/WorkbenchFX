@@ -3,14 +3,7 @@ package com.dlsc.workbenchfx;
 import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
 
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.view.CenterPresenter;
-import com.dlsc.workbenchfx.view.CenterView;
-import com.dlsc.workbenchfx.view.HomePresenter;
-import com.dlsc.workbenchfx.view.HomeView;
-import com.dlsc.workbenchfx.view.ToolBarPresenter;
-import com.dlsc.workbenchfx.view.ToolBarView;
-import com.dlsc.workbenchfx.view.WorkbenchFxPresenter;
-import com.dlsc.workbenchfx.view.WorkbenchFxView;
+import com.dlsc.workbenchfx.view.*;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 
@@ -98,6 +91,10 @@ public class WorkbenchFx extends StackPane {
     // TODO: add javadoc comment
     public static WorkbenchFxBuilder builder(List<Dropdown> dropdowns, Module... modules) {
         return new WorkbenchFxBuilder(dropdowns, modules);
+    }
+
+    public static Dropdown createDropdown(Node iconNode, String title, String subtitle, Node... contentNodes) {
+        return new Dropdown(iconNode, title, subtitle, contentNodes);
     }
 
     public static class WorkbenchFxBuilder {

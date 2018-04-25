@@ -1,0 +1,25 @@
+.dropdown {
+
+  @extend .tabControl;
+  -fx-padding: .5em 1em .5em 1em;
+  -fx-spacing: .5em;
+
+  & .iconView {
+
+  }
+  & .descriptionBox {
+    @include margin(0, 0, 0, .5em);
+  }
+  & .titleLbl {
+
+  }
+  & .subtitleLbl {
+    -fx-font-size: .75em;
+  }
+  & .arrowIcon {
+    -fx-font-size: 2em !important;
+  }
+  & .arrowIcon:hover {
+    -icons-color: $success-color;
+  }
+}

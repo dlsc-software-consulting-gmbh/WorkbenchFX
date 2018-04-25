@@ -1,18 +1,16 @@
 package com.dlsc.workbenchfx.standard;
 
-import com.dlsc.workbenchfx.Dropdown;
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.standard.calendar.CalendarModule;
 import com.dlsc.workbenchfx.standard.notes.NotesModule;
 import com.dlsc.workbenchfx.standard.preferences.PreferencesModule;
+import com.dlsc.workbenchfx.view.Dropdown;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class DemoPane extends StackPane {
@@ -35,7 +33,7 @@ public class DemoPane extends StackPane {
 
     private void initDropdowns() {
         dropdowns.add(
-                new Dropdown(
+                WorkbenchFx.createDropdown(
                         new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                         "Title",
                         "Subtitle",
