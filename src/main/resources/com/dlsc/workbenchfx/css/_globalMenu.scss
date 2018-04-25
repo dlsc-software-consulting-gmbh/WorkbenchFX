@@ -1,30 +1,15 @@
 .menu-drawer  {
-  -fx-background-color: $custom-color-1;
+  -fx-background-color: #ffffff;
+  -fx-border-color: transparent derive($text-color, 150%) transparent transparent;
   -fx-background-insets: 0;
   -fx-background-radius: 0;
   -fx-padding: 0;
   -fx-effect: null;
 }
 
-.menu-drawer  .label {
-  -fx-text-fill: white;
-}
-
-.menu-drawer  .menu .arrow {
-  -fx-background-color: $custom-color-2;
-  -fx-background-insets: 0;
-  -fx-padding: 0.25em;
-  -fx-shape: "M 0 -3.5 v 7 l 4 -3.5 z";
-}
-
-.menu-drawer  .menu:hover .arrow,
-.menu-drawer  .menu:showing .arrow {
-  -fx-background-color: $custom-color-2;
-}
-
 .menu-drawer  .menu-item:focused,
 .menu-drawer  .menu-item:hover {
-  -fx-background-color: derive($custom-color-1, -10%);
+  //-fx-background-color: derive($custom-color-1, -10%);
 }
 
 .menu-drawer  .menu-item:pressed {
@@ -32,11 +17,11 @@
 }
 
 .menu-drawer  .menu-item:pressed .label {
-  -fx-text-fill: $custom-color-1;
+  //-fx-text-fill: $custom-color-1;
 }
 
 .menu-drawer  .separator:horizontal .line {
-  -fx-border-color: -fx-box-border transparent transparent transparent;
+  -fx-border-color: derive($text-color, 20%) transparent transparent transparent;
   -fx-border-insets: 1 0 0 0;
 }
 
@@ -61,6 +46,21 @@
 }
 
 .header .separator .line {
-  -fx-border-color: -white;
+  -fx-border-color: white;
   -fx-border-width: 1;
+}
+
+#backIconView {
+
+}
+
+#backButton {
+  @extend #homeButton;
+  -fx-background-color: transparent;
+  &:hover {
+    -fx-background-color: transparent;
+    & #backIconView {
+      -fx-fill: derive(-icons-color, 20%);
+    }
+  }
 }

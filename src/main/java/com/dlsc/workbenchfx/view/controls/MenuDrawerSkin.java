@@ -1,5 +1,7 @@
 package com.dlsc.workbenchfx.view.controls;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -38,17 +40,20 @@ public class MenuDrawerSkin extends SkinBase<MenuDrawer> {
         PrettyScrollPane scrollPane = new PrettyScrollPane(menuContainer);
         vBox.getChildren().add(scrollPane);
 
-        Label backIcon = new Label();
-        backIcon.getStyleClass().add("shape");
-        backIcon.setOnMouseClicked(evt -> menuDrawer.getWorkbench().setGlobalMenuShown(false));
-        BorderPane.setAlignment(backIcon, Pos.CENTER_LEFT);
+
+        FontAwesomeIconView backIconView = new FontAwesomeIconView(FontAwesomeIcon.LONG_ARROW_LEFT);
+        backIconView.setId("backIconView");
+        Button backBtn = new Button("", backIconView);
+        backBtn.setId("backButton");
+        backBtn.setOnAction(evt -> menuDrawer.getWorkbench().setGlobalMenuShown(false));
+        BorderPane.setAlignment(backBtn, Pos.CENTER_LEFT);
 
         ImageView companyLogo = new ImageView();
         companyLogo.getStyleClass().add("logo");
         companyLogo.setFitWidth(140);
         BorderPane.setMargin(companyLogo, new Insets(20, 0, 0, 0));
         BorderPane.setAlignment(companyLogo, Pos.CENTER_LEFT);
-        header.setTop(backIcon);
+        header.setTop(backBtn);
         header.setCenter(companyLogo);
 
         getChildren().add(vBox);

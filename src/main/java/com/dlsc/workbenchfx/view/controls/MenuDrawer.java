@@ -47,14 +47,6 @@ public class MenuDrawer extends Control {
         MenuItem itemB = new MenuItem("Printing");
         MenuItem itemC = new MenuItem("Settings");
 
-        menu1.getStyleClass().add("customer-management-icon-menu");
-        menu2.getStyleClass().add("tariff-management-icon-menu");
-        menu3.getStyleClass().add("complaints-icon-menu");
-
-        itemA.getStyleClass().add("blank-icon-small");
-        itemB.getStyleClass().add("blank-icon-small");
-        itemC.getStyleClass().add("blank-icon-small");
-
         item21.getItems().addAll(item211,item212, item213, item214, item215);
 
         menu1.getItems().addAll(item11, item12, item13, item14);

@@ -25,6 +25,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -237,6 +238,8 @@ public class WorkbenchFx extends StackPane {
 
   private void initCustomControls() {
     globalMenu = new MenuDrawer(this);
+    StackPane.setAlignment(globalMenu, Pos.TOP_LEFT);
+    globalMenu.maxWidthProperty().bind(widthProperty().divide(2.5));
   }
 
   private void initModules(Module... modules) {

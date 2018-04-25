@@ -22,7 +22,7 @@ $custom-color-2: green;
   -fx-background-insets: $margin-top $margin-right $margin-bottom $margin-left;
 }
 
-* {
+.root {
   -fx-background-color: white;
   -fx-font: 12px $font-stack;
   -fx-color: $primary-color;
