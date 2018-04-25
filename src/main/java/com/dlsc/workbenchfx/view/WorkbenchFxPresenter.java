@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -95,8 +96,11 @@ public class WorkbenchFxPresenter implements Presenter {
    * TODO
    */
   public void removeAllOverlays() {
-    view.getChildren().stream()
+    view.getChildren().removeAll(
+        view.getChildren().stream()
         .skip(2) // the viewBox and glasspane
-        .forEach(node -> view.getChildren().remove(node));
+        .collect(Collectors.toList())
+    );
+    model.setGlassPaneShown(false);
   }
 }
