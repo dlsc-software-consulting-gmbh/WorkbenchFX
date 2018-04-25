@@ -36,7 +36,6 @@ public class WorkbenchFx extends StackPane {
     private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
     public final int modulesPerPage;
     public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
-    private final List<Dropdown> dropdowns;
 
     // Views
     private ToolBarView toolBarView;
@@ -51,6 +50,8 @@ public class WorkbenchFx extends StackPane {
     private WorkbenchFxView workbenchFxView;
     private WorkbenchFxPresenter workbenchFxPresenter;
 
+
+    private final ObservableList<Dropdown> dropdowns = FXCollections.observableArrayList();
     // Modules
     /**
      * List of all modules.
@@ -85,7 +86,7 @@ public class WorkbenchFx extends StackPane {
     /**
      * Creates the Workbench window.
      */
-    public static WorkbenchFx of(List<Dropdown> dropdowns, Module... modules) {
+    public static WorkbenchFx of(ObservableList<Dropdown> dropdowns, Module... modules) {
         return WorkbenchFx.builder(dropdowns, modules).build();
     }
 
@@ -94,12 +95,12 @@ public class WorkbenchFx extends StackPane {
     }
 
     // TODO: add javadoc comment
-    public static WorkbenchFxBuilder builder(List<Dropdown> dropdowns, Module... modules) {
+    public static WorkbenchFxBuilder builder(ObservableList<Dropdown> dropdowns, Module... modules) {
         return new WorkbenchFxBuilder(dropdowns, modules);
     }
 
     public static WorkbenchFxBuilder builder(Module... modules) {
-        return new WorkbenchFxBuilder(new ArrayList<>(), modules);
+        return new WorkbenchFxBuilder(FXCollections.observableArrayList(), modules);
     }
 
     public static Dropdown createDropdown(Node iconNode, String title, String subtitle, Node... contentNodes) {
@@ -109,7 +110,7 @@ public class WorkbenchFx extends StackPane {
     public static class WorkbenchFxBuilder {
         // Required parameters
         private final Module[] modules;
-        private List<Dropdown> dropdowns;
+        private ObservableList<Dropdown> dropdowns;
         // Optional parameters - initialized to default values
         private int modulesPerPage = 9;
         private BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
@@ -164,7 +165,7 @@ public class WorkbenchFx extends StackPane {
             return gridPane;
         };
 
-        private WorkbenchFxBuilder(List<Dropdown> dropdowns, Module... modules) {
+        private WorkbenchFxBuilder(ObservableList<Dropdown> dropdowns, Module... modules) {
             this.dropdowns = dropdowns;
             this.modules = modules;
         }
@@ -231,7 +232,7 @@ public class WorkbenchFx extends StackPane {
 
     private WorkbenchFx(WorkbenchFxBuilder builder) {
         modulesPerPage = builder.modulesPerPage;
-        dropdowns = builder.dropdowns;
+        dropdowns.addAll(builder.dropdowns);
 
         tabFactory.set(builder.tabFactory);
         tileFactory.set(builder.tileFactory);
@@ -417,7 +418,7 @@ public class WorkbenchFx extends StackPane {
         return activeModuleView;
     }
 
-    public List<Dropdown> getDropdowns() {
-        return dropdowns;
+    public ObservableList<Dropdown> getDropdowns() {
+        return FXCollections.unmodifiableObservableList(dropdowns);
     }
 }

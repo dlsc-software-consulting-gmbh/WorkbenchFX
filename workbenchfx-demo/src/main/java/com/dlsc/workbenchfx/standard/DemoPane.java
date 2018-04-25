@@ -7,6 +7,8 @@ import com.dlsc.workbenchfx.standard.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.view.Dropdown;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -20,10 +22,10 @@ import java.util.List;
 public class DemoPane extends StackPane {
 
     private final WorkbenchFx workbenchFx;
-    private final List<Dropdown> dropdowns;
+    private final ObservableList<Dropdown> dropdowns;
 
     public DemoPane() {
-        dropdowns = new ArrayList<>();
+        dropdowns = FXCollections.observableArrayList();
         initDropdowns();
 
         workbenchFx = WorkbenchFx.of(
