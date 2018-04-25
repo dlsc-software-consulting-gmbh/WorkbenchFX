@@ -384,12 +384,12 @@ public class WorkbenchFx extends StackPane {
 
   /** TODO */
   public void addOverlay(Node node) {
-    workbenchFxView.addOverlay(node);
+    workbenchFxPresenter.addOverlay(node);
   }
 
   /** TODO */
   public void removeOverlay(Node node) {
-    workbenchFxView.addOverlay(node);
+    workbenchFxPresenter.removeOverlay(node);
   }
 
   /** TODO */
