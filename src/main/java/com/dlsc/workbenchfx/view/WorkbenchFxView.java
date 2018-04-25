@@ -18,18 +18,22 @@ import org.apache.logging.log4j.Logger;
 public class WorkbenchFxView extends StackPane implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchFxView.class.getName());
+  private final WorkbenchFx model;
   final ToolBarView toolBarView;
   final HomeView homeView;
   final CenterView centerView;
+  final GlassPane glassPane;
   VBox viewBox;
 
   /**
    * Displays all of the view parts, representing the master view.
    */
-  public WorkbenchFxView(WorkbenchFx workbenchFx, ToolBarView toolBarView, HomeView homeView, CenterView centerView, GlassPane glassPane) {
+  public WorkbenchFxView(WorkbenchFx model, ToolBarView toolBarView, HomeView homeView, CenterView centerView, GlassPane glassPane) {
+    this.model = model;
     this.toolBarView = toolBarView;
     this.homeView = homeView;
     this.centerView = centerView;
+    this.glassPane = glassPane;
     init();
   }
 
@@ -55,7 +59,7 @@ public class WorkbenchFxView extends StackPane implements View {
   @Override
   public void layoutParts() {
     viewBox.getChildren().addAll(toolBarView, centerView);
-    getChildren().add(viewBox);
+    getChildren().add(viewBox, glassPane);
     VBox.setVgrow(centerView, Priority.ALWAYS);
   }
 
