@@ -11,6 +11,7 @@ import com.dlsc.workbenchfx.view.ToolBarPresenter;
 import com.dlsc.workbenchfx.view.ToolBarView;
 import com.dlsc.workbenchfx.view.WorkbenchFxPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchFxView;
+import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.MenuDrawer;
 import com.dlsc.workbenchfx.view.controls.MenuDrawerSkin;
 import com.dlsc.workbenchfx.view.module.TabControl;
@@ -60,6 +61,7 @@ public class WorkbenchFx extends StackPane {
 
   // Custom Controls
   private Node globalMenu;
+  private GlassPane glassPane;
 
   // Modules
   /**
@@ -253,7 +255,6 @@ public class WorkbenchFx extends StackPane {
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
     globalMenuFactory.setValue(builder.globalMenuFactory);
-
     initModules(builder.modules);
     initViews();
     getChildren().add(workbenchFxView);
@@ -308,7 +309,9 @@ public class WorkbenchFx extends StackPane {
     centerView = new CenterView(this);
     centerPresenter = new CenterPresenter(this, centerView);
 
-    workbenchFxView = new WorkbenchFxView(toolBarView, homeView, centerView);
+    glassPane = new GlassPane(this);
+
+    workbenchFxView = new WorkbenchFxView(toolBarView, homeView, centerView, glassPane);
     workbenchFxPresenter = new WorkbenchFxPresenter(this, workbenchFxView);
   }
 

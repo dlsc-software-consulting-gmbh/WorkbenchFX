@@ -79,7 +79,7 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   public void removeAllOverlays() {
     view.getChildren().stream()
-        .skip(1) // the viewBox
+        .skip(2) // the viewBox and glasspane
         .forEach(node -> view.getChildren().remove(node));
   }
 }

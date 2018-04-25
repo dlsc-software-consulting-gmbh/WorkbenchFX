@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-class GlassPane extends StackPane {
+public class GlassPane extends StackPane {
 
   public GlassPane(WorkbenchFx workbench) {
     getStyleClass().add("glass-pane");

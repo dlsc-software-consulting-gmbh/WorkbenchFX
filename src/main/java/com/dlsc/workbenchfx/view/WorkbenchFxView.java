@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
+import com.dlsc.workbenchfx.view.controls.GlassPane;
 import javafx.scene.Node;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -24,7 +25,7 @@ public class WorkbenchFxView extends StackPane implements View {
   /**
    * Displays all of the view parts, representing the master view.
    */
-  public WorkbenchFxView(ToolBarView toolBarView, HomeView homeView, CenterView centerView) {
+  public WorkbenchFxView(ToolBarView toolBarView, HomeView homeView, CenterView centerView, GlassPane glassPane) {
     this.toolBarView = toolBarView;
     this.homeView = homeView;
     this.centerView = centerView;
