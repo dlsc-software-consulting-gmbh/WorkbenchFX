@@ -2,7 +2,6 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import java.util.Objects;
-import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -57,7 +56,14 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-
+    // Show and hide global menu depending on property
+    model.globalMenuShownProperty().addListener((observable, oldShown, newShown) -> {
+      if (newShown) {
+        view.addView(model.getGlobalMenu());
+      } else {
+        view.removeView(model.getGlobalMenu());
+      }
+    });
   }
 
   /**
