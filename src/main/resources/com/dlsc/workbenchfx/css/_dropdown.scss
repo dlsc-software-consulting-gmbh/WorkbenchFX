@@ -26,6 +26,7 @@
 
   & .menuBox {
     & .contentBox {
+      -fx-padding: .5em .5em .5em 1em;
       -fx-background-color: derive($primary-color, -7.5%);
       &:hover {
         -fx-background-color: derive($primary-color, -3.75%);

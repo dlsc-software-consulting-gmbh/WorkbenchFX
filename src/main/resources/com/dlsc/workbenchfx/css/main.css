@@ -101,6 +101,7 @@
     .dropdown .buttonBox .arrowIcon:hover {
       -icons-color: derive(#00aaff, -20%); }
 .dropdown .menuBox .contentBox {
+  -fx-padding: .5em .5em .5em 1em;
   -fx-background-color: derive(#F2F2F2, -7.5%); }
   .dropdown .menuBox .contentBox:hover {
     -fx-background-color: derive(#F2F2F2, -3.75%); }
