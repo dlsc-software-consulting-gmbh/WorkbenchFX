@@ -7,7 +7,9 @@ import com.dlsc.workbenchfx.standard.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.view.Dropdown;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -34,6 +36,15 @@ public class DemoPane extends StackPane {
     }
 
     private void initDropdowns() {
+        dropdowns.add(
+                WorkbenchFx.createDropdown(
+                        new FontAwesomeIconView(FontAwesomeIcon.SEARCH),
+                        "",
+                        "",
+                        new Label("This is a very advanced Search.. You can type in whatever you want to"),
+                        new TextField("Type in Text")
+                )
+        );
         dropdowns.add(
                 WorkbenchFx.createDropdown(
                         new ImageView("com/dlsc/workbenchfx/jfx_logo.png"),

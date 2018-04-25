@@ -25,45 +25,34 @@ public class Dropdown extends VBox implements View {
     private static final Logger LOGGER =
             LogManager.getLogger(Dropdown.class.getName());
 
-    private final HBox buttonBox;
-    private final VBox menuBox;
+    private final HBox buttonBox = new HBox();
+    private final VBox menuBox = new VBox();
+    private final VBox descriptionBox = new VBox();
+
+    private final FontAwesomeIconView arrowIcon = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_DOWN);
 
     private final Node iconView;
-    private final VBox descriptionBox;
     private final Label titleLbl;
     private final Label subtitleLbl;
     private final Node[] contentNodes;
-    private final FontAwesomeIconView arrowIcon;
 
-    private final BooleanProperty expanded;
+    private final BooleanProperty expanded = new SimpleBooleanProperty();
 
-    public Dropdown(Node iconView, String title, String subtitle, Node... contentNodes) {
-        this.expanded = new SimpleBooleanProperty();
-
-        this.buttonBox = new HBox();
-        this.menuBox = new VBox();
-        this.descriptionBox = new VBox();
-
+    private Dropdown(Node iconView, String title, String subtitle, Node... contentNodes) {
         this.iconView = iconView;
-        if (this.iconView instanceof ImageView) {
-            ImageView imageView = ((ImageView) this.iconView);
-            // Calculate ratio
-            double ratio = imageView.getImage().getWidth() / imageView.getImage().getHeight();
-
-            // Bind the dimensions of the ImageView to the dropdown's height
-            imageView.fitHeightProperty().bind(buttonBox.prefHeightProperty().multiply(.7));
-            imageView.fitWidthProperty().bind(buttonBox.prefHeightProperty().multiply(.7).multiply(ratio));
-        }
         this.titleLbl = new Label(title);
         this.subtitleLbl = new Label(subtitle);
         this.contentNodes = contentNodes;
-        arrowIcon = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_DOWN);
+
         init();
         setupListeners();
         setupEventHandlers();
         setupBindings();
     }
 
+    public static Dropdown of(Node iconView, String title, String subtitle, Node... contentNodes) {
+        return new Dropdown(iconView, title, subtitle, contentNodes);
+    }
 
     /**
      * {@inheritDoc}
@@ -88,6 +77,13 @@ public class Dropdown extends VBox implements View {
     @Override
     public void initializeParts() {
 
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void layoutParts() {
         descriptionBox.getChildren().addAll(
                 titleLbl,
                 subtitleLbl
@@ -110,13 +106,7 @@ public class Dropdown extends VBox implements View {
                 buttonBox,
                 menuBox
         );
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void layoutParts() {
 //        menuBox.relocate(buttonBox.getLayoutX() - 2, contentY - (1 - userOptionsVisibility.get()) * menuBox.getHeight());
         menuBox.relocate(100, 0);
 //        menuBox.relocate(500, -50);
@@ -139,6 +129,16 @@ public class Dropdown extends VBox implements View {
     private void setupBindings() {
         menuBox.visibleProperty().bind(expanded);
         menuBox.prefWidthProperty().bind(widthProperty());
+
+        if (this.iconView instanceof ImageView) {
+            ImageView imageView = ((ImageView) this.iconView);
+            // Calculate ratio
+            double ratio = imageView.getImage().getWidth() / imageView.getImage().getHeight();
+
+            // Bind the dimensions of the ImageView to the dropdown's height
+            imageView.fitHeightProperty().bind(buttonBox.prefHeightProperty().multiply(.7));
+            imageView.fitWidthProperty().bind(buttonBox.prefHeightProperty().multiply(.7).multiply(ratio));
+        }
     }
 
     private void setupListeners() {
