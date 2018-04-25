@@ -81,4 +81,13 @@ public class ToolBarView extends HBox implements View {
         tabBox.getChildren().remove(index);
     }
 
+    // TODO: add javadoc comment
+    public void removeDropdown(int index) {
+        dropdownBox.getChildren().remove(index);
+    }
+
+    // TODO: add javadoc comment
+    public void addDropdown(Dropdown dropdown) {
+        dropdownBox.getChildren().add(dropdown);
+    }
 }
