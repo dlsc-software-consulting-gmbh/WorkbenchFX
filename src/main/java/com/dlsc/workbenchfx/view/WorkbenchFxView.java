@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
-import javafx.geometry.Insets;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,12 +11,13 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchFxView extends BorderPane implements View {
+public class WorkbenchFxView extends StackPane implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchFxView.class.getName());
   final ToolBarView toolBarView;
   final HomeView homeView;
   final CenterView centerView;
+  VBox viewBox;
 
   /**
    * Displays all of the view parts, representing the master view.
@@ -41,7 +42,7 @@ public class WorkbenchFxView extends BorderPane implements View {
    */
   @Override
   public void initializeParts() {
-
+    viewBox = new VBox();
   }
 
   /**
@@ -49,8 +50,8 @@ public class WorkbenchFxView extends BorderPane implements View {
    */
   @Override
   public void layoutParts() {
-    setTop(toolBarView);
-    setCenter(centerView);
+    viewBox.getChildren().addAll(toolBarView, centerView);
+    getChildren().add(viewBox);
   }
 
   /**
