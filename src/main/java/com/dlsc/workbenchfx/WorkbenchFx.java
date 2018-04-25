@@ -29,6 +29,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -57,7 +58,7 @@ public class WorkbenchFx extends StackPane {
   private WorkbenchFxPresenter workbenchFxPresenter;
 
   // Custom Controls
-  private MenuDrawer globalMenu;
+  private Node globalMenu;
 
   // Modules
   /**
@@ -89,6 +90,8 @@ public class WorkbenchFx extends StackPane {
       new SimpleObjectProperty<>(this, "tileFactory");
   private ObjectProperty<BiFunction<WorkbenchFx, Integer, Node>> pageFactory =
       new SimpleObjectProperty<>(this, "pageFactory");
+  private ObjectProperty<Callback<WorkbenchFx, Node>> globalMenuFactory =
+      new SimpleObjectProperty<>(this, "globalMenuFactory");
 
   private BooleanProperty globalMenuShown = new SimpleBooleanProperty(false);
 
@@ -160,6 +163,12 @@ public class WorkbenchFx extends StackPane {
       }
       return gridPane;
     };
+    private Callback<WorkbenchFx, Node> globalMenuFactory = workbench -> {
+      MenuDrawer globalMenu = new MenuDrawer(workbench);
+      StackPane.setAlignment(globalMenu, Pos.TOP_LEFT);
+      globalMenu.maxWidthProperty().bind(workbench.widthProperty().divide(2.5));
+      return globalMenu;
+    };
 
     private WorkbenchFxBuilder(Module... modules) {
       this.modules = modules;
@@ -215,6 +224,20 @@ public class WorkbenchFx extends StackPane {
     }
 
     /**
+     * TODO
+     * Defines how a page with tiles of {@link Module}s should be created.
+     *
+     * @param globalMenuFactory to be used to create the page for the tiles
+     * @return builder for chaining
+     * @implNote Use this to replace the page which is used in the home screen to display tiles of
+     *           the modules with your own implementation.
+     */
+    public WorkbenchFxBuilder globalMenuFactory(Callback<WorkbenchFx, Node> globalMenuFactory) {
+      this.globalMenuFactory = globalMenuFactory;
+      return this;
+    }
+
+    /**
      * Builds and fully initializes a {@link WorkbenchFx} object.
      * @return the {@link WorkbenchFx} object
      */
@@ -228,18 +251,13 @@ public class WorkbenchFx extends StackPane {
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
+    globalMenuFactory.setValue(builder.globalMenuFactory);
+
     initModules(builder.modules);
     initViews();
-    initCustomControls();
     getChildren().add(workbenchFxView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
     addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
-  }
-
-  private void initCustomControls() {
-    globalMenu = new MenuDrawer(this);
-    StackPane.setAlignment(globalMenu, Pos.TOP_LEFT);
-    globalMenu.maxWidthProperty().bind(widthProperty().divide(2.5));
   }
 
   private void initModules(Module... modules) {
@@ -443,7 +461,10 @@ public class WorkbenchFx extends StackPane {
     this.globalMenuShown.set(globalMenuShown);
   }
 
-  public MenuDrawer getGlobalMenu() {
+  public Node getGlobalMenu() {
+    if (globalMenu == null) {
+      globalMenu = globalMenuFactory.get().call(this);
+    }
     return globalMenu;
   }
 }
