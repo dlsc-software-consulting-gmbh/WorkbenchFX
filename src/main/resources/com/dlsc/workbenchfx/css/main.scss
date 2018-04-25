@@ -1,3 +1,4 @@
+$font-size: 14px;
 $font-stack: Helvetica, sans-serif;
 $primary-color: #F2F2F2;
 $text-color: derive($primary-color, -70%);
@@ -22,7 +23,7 @@ $border: 2px;
 
 .root {
   -fx-background-color: white;
-  -fx-font: 12px $font-stack;
+  -fx-font: $font-size $font-stack;
   -fx-color: $primary-color;
   -icons-color: $text-color;
 }

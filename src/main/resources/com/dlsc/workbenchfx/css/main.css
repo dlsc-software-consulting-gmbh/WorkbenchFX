@@ -1,6 +1,6 @@
 .root {
   -fx-background-color: white;
-  -fx-font: 12px Helvetica, sans-serif;
+  -fx-font: 14px Helvetica, sans-serif;
   -fx-color: #F2F2F2;
   -icons-color: derive(#F2F2F2, -70%); }
 
