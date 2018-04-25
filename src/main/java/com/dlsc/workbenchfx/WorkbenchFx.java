@@ -97,6 +97,7 @@ public class WorkbenchFx extends StackPane {
       new SimpleObjectProperty<>(this, "globalMenuFactory");
 
   private BooleanProperty globalMenuShown = new SimpleBooleanProperty(false);
+  private BooleanProperty glassPaneShown = new SimpleBooleanProperty(false);
 
   /**
    * Creates the Workbench window.
@@ -470,5 +471,17 @@ public class WorkbenchFx extends StackPane {
       globalMenu = globalMenuFactory.get().call(this);
     }
     return globalMenu;
+  }
+
+  public boolean isGlassPaneShown() {
+    return glassPaneShown.get();
+  }
+
+  public BooleanProperty glassPaneShownProperty() {
+    return glassPaneShown;
+  }
+
+  public void setGlassPaneShown(boolean glassPaneShown) {
+    this.glassPaneShown.set(glassPaneShown);
   }
 }
