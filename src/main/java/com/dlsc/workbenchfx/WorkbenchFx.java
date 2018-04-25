@@ -88,6 +88,7 @@ public class WorkbenchFx extends StackPane {
     public static WorkbenchFx of(List<Dropdown> dropdowns, Module... modules) {
         return WorkbenchFx.builder(dropdowns, modules).build();
     }
+
     public static WorkbenchFx of(Module... modules) {
         return WorkbenchFx.builder(modules).build();
     }
@@ -96,12 +97,13 @@ public class WorkbenchFx extends StackPane {
     public static WorkbenchFxBuilder builder(List<Dropdown> dropdowns, Module... modules) {
         return new WorkbenchFxBuilder(dropdowns, modules);
     }
+
     public static WorkbenchFxBuilder builder(Module... modules) {
         return new WorkbenchFxBuilder(new ArrayList<>(), modules);
     }
 
     public static Dropdown createDropdown(Node iconNode, String title, String subtitle, Node... contentNodes) {
-        return new Dropdown(iconNode, title, subtitle, contentNodes);
+        return Dropdown.of(iconNode, title, subtitle, contentNodes);
     }
 
     public static class WorkbenchFxBuilder {
