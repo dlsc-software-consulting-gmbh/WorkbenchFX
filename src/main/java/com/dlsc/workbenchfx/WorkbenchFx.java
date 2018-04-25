@@ -16,8 +16,10 @@ import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -81,6 +83,8 @@ public class WorkbenchFx extends StackPane {
       new SimpleObjectProperty<>(this, "tileFactory");
   private ObjectProperty<BiFunction<WorkbenchFx, Integer, Node>> pageFactory =
       new SimpleObjectProperty<>(this, "pageFactory");
+
+  private BooleanProperty globalMenuShown = new SimpleBooleanProperty(false);
 
   /**
    * Creates the Workbench window.
@@ -397,5 +401,17 @@ public class WorkbenchFx extends StackPane {
 
   public ReadOnlyObjectProperty<Node> activeModuleViewProperty() {
     return activeModuleView;
+  }
+
+  public boolean isGlobalMenuShown() {
+    return globalMenuShown.get();
+  }
+
+  public BooleanProperty globalMenuShownProperty() {
+    return globalMenuShown;
+  }
+
+  public void setGlobalMenuShown(boolean globalMenuShown) {
+    this.globalMenuShown.set(globalMenuShown);
   }
 }
