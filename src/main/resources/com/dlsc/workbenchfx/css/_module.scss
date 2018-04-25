@@ -29,7 +29,7 @@
     -fx-background-color: transparent;
     -fx-border-width: 0;
     & .closeIconView {
-      -fx-font-size: 1em;
+      -fx-font-size: 1em !important;
     }
     &:hover .closeIconView {
       -icons-color: $danger-color;
