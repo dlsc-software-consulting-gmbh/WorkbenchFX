@@ -7,12 +7,19 @@ import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.view.Dropdown;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 
 import java.util.function.BiFunction;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
@@ -85,7 +92,9 @@ public class DemoPane extends StackPane {
                 new CalendarModule(),
                 new NotesModule(),
                 new PreferencesModule()
-        ).modulesPerPage(2)
+        )
+                .dropdowns(initDropdowns())
+                .modulesPerPage(2)
                 .tabFactory(tabFactory)
                 .tileFactory(tileFactory)
                 .pageFactory(pageFactory)
@@ -93,4 +102,33 @@ public class DemoPane extends StackPane {
         getChildren().add(workbenchFx);
     }
 
+    private ObservableList<Dropdown> initDropdowns() {
+        ObservableList<Dropdown> dropdowns = FXCollections.observableArrayList();
+        dropdowns.add(
+                WorkbenchFx.createDropdown(
+                        new FontAwesomeIconView(FontAwesomeIcon.ENVELOPE),
+                        "Messages",
+                        "Your Inbox"
+                )
+        );
+        dropdowns.add(
+                WorkbenchFx.createDropdown(
+                        new ImageView("com/dlsc/workbenchfx/jfx_logo.png"),
+                        "ImageView",
+                        "A dropdown with an Image",
+                        new Label("Content 1"),
+                        new Label("Content 2")
+                )
+        );
+        dropdowns.add(
+                WorkbenchFx.createDropdown(
+                        new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
+                        "FAIconView",
+                        "A dropdown with an Icon",
+                        new Label("Content 1"),
+                        new Label("Content 2")
+                )
+        );
+        return dropdowns;
+    }
 }

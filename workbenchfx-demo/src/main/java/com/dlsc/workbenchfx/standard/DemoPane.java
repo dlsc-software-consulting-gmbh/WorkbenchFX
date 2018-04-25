@@ -22,14 +22,10 @@ import java.util.List;
 public class DemoPane extends StackPane {
 
     private final WorkbenchFx workbenchFx;
-    private final ObservableList<Dropdown> dropdowns;
 
     public DemoPane() {
-        dropdowns = FXCollections.observableArrayList();
-        initDropdowns();
-
         workbenchFx = WorkbenchFx.of(
-                dropdowns,
+                initDropdowns(),
                 new CalendarModule(),
                 new NotesModule(),
                 new PreferencesModule()
@@ -37,7 +33,8 @@ public class DemoPane extends StackPane {
         getChildren().add(workbenchFx);
     }
 
-    private void initDropdowns() {
+    private ObservableList<Dropdown> initDropdowns() {
+        ObservableList<Dropdown> dropdowns = FXCollections.observableArrayList();
         dropdowns.add(
                 WorkbenchFx.createDropdown(
                         new FontAwesomeIconView(FontAwesomeIcon.ENVELOPE),
@@ -63,5 +60,6 @@ public class DemoPane extends StackPane {
                         new Label("Content 2")
                 )
         );
+        return dropdowns;
     }
 }

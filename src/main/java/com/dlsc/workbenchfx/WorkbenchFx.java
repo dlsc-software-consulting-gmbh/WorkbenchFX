@@ -228,6 +228,11 @@ public class WorkbenchFx extends StackPane {
         public WorkbenchFx build() {
             return new WorkbenchFx(this);
         }
+
+        public WorkbenchFxBuilder dropdowns(ObservableList<Dropdown> dropdowns) {
+            this.dropdowns = dropdowns;
+            return this;
+        }
     }
 
     private WorkbenchFx(WorkbenchFxBuilder builder) {
