@@ -1,22 +1,47 @@
 package com.dlsc.workbenchfx.standard;
 
+import com.dlsc.workbenchfx.Dropdown;
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.standard.calendar.CalendarModule;
 import com.dlsc.workbenchfx.standard.notes.NotesModule;
 import com.dlsc.workbenchfx.standard.preferences.PreferencesModule;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class DemoPane extends StackPane {
 
-  public WorkbenchFx workbenchFx;
+    private final WorkbenchFx workbenchFx;
+    private final List<Dropdown> dropdowns;
 
-  public DemoPane() {
-    workbenchFx = WorkbenchFx.of(
-        new CalendarModule(),
-        new NotesModule(),
-        new PreferencesModule()
-    );
-    getChildren().add(workbenchFx);
-  }
+    public DemoPane() {
+        dropdowns = new ArrayList<>();
+        initDropdowns();
 
+        workbenchFx = WorkbenchFx.of(
+                dropdowns,
+                new CalendarModule(),
+                new NotesModule(),
+                new PreferencesModule()
+        );
+        getChildren().add(workbenchFx);
+    }
+
+    private void initDropdowns() {
+        dropdowns.add(
+                new Dropdown(
+                        new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
+                        "Title",
+                        "Subtitle",
+                        new Label("Content 1"),
+                        new Label("Content 2")
+                )
+        );
+    }
 }
