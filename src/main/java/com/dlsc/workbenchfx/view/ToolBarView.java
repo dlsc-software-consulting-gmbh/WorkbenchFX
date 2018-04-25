@@ -5,9 +5,11 @@ import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
 import com.dlsc.workbenchfx.WorkbenchFx;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 public class ToolBarView extends HBox implements View {
     private final WorkbenchFx model;
@@ -55,6 +57,9 @@ public class ToolBarView extends HBox implements View {
     @Override
     public void layoutParts() {
         model.getDropdowns().forEach(dropdown -> dropdownBox.getChildren().add(dropdown));
+        HBox.setHgrow(dropdownBox, Priority.ALWAYS);
+        dropdownBox.setAlignment(Pos.CENTER_RIGHT);
+
         getChildren().addAll(homeBtn, tabBox, dropdownBox);
     }
 
