@@ -4,6 +4,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -25,11 +26,21 @@ public class Dropdown extends HBox implements View {
     private final FontAwesomeIconView arrowIcon;
 
     public Dropdown(Node iconView, String title, String subtitle, Node... contentNodes) {
+        this.descriptionBox = new VBox();
+
         this.iconView = iconView;
+        if (this.iconView instanceof ImageView) {
+            ImageView imageView = ((ImageView) this.iconView);
+            // Calculate ratio
+            double ratio = imageView.getImage().getWidth() / imageView.getImage().getHeight();
+
+            // Bind the dimensions of the ImageView to the dropdown's height
+            imageView.fitHeightProperty().bind(prefHeightProperty().subtract(15));
+            imageView.fitWidthProperty().bind(prefHeightProperty().subtract(15).multiply(ratio));
+        }
         this.titleLbl = new Label(title);
         this.subtitleLbl = new Label(subtitle);
         this.contentNodes = contentNodes;
-        this.descriptionBox = new VBox();
         arrowIcon = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_DOWN);
         init();
     }

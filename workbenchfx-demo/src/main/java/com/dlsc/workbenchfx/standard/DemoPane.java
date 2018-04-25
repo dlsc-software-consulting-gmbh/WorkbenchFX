@@ -8,6 +8,8 @@ import com.dlsc.workbenchfx.view.Dropdown;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
@@ -34,9 +36,18 @@ public class DemoPane extends StackPane {
     private void initDropdowns() {
         dropdowns.add(
                 WorkbenchFx.createDropdown(
+                        new ImageView("com/dlsc/workbenchfx/jfx_logo.png"),
+                        "ImageView",
+                        "A dropdown with an Image",
+                        new Label("Content 1"),
+                        new Label("Content 2")
+                )
+        );
+        dropdowns.add(
+                WorkbenchFx.createDropdown(
                         new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
-                        "Title",
-                        "Subtitle",
+                        "FAIconView",
+                        "A dropdown with an Icon",
                         new Label("Content 1"),
                         new Label("Content 2")
                 )
