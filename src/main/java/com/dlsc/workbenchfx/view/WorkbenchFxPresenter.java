@@ -102,5 +102,6 @@ public class WorkbenchFxPresenter implements Presenter {
         .collect(Collectors.toList())
     );
     model.setGlassPaneShown(false);
+    model.setGlobalMenuShown(false);
   }
 }
