@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
+import javafx.scene.Node;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -62,5 +63,19 @@ public class WorkbenchFxView extends StackPane implements View {
   @Override
   public void bindFieldsToModel() {
 
+  }
+
+  /**
+   * TODO
+   */
+  public void addView(Node view) {
+    getChildren().add(view);
+  }
+
+  /**
+   * TODO
+   */
+  public void removeView(Node view) {
+    getChildren().remove(view);
   }
 }
