@@ -59,7 +59,7 @@ public class WorkbenchFxView extends StackPane implements View {
   @Override
   public void layoutParts() {
     viewBox.getChildren().addAll(toolBarView, centerView);
-    getChildren().add(viewBox, glassPane);
+    getChildren().addAll(viewBox, glassPane);
     VBox.setVgrow(centerView, Priority.ALWAYS);
   }
 
