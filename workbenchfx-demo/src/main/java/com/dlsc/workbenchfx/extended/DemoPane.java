@@ -12,7 +12,6 @@ public class DemoPane extends StackPane {
 
     public DemoPane() {
         workbenchFx = WorkbenchFx.of(
-                null,
                 new PreferencesModule(),
                 new PreferencesModule(),
                 new PreferencesModule(),

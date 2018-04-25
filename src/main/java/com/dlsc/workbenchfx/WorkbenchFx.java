@@ -7,6 +7,7 @@ import com.dlsc.workbenchfx.view.*;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
@@ -87,10 +88,16 @@ public class WorkbenchFx extends StackPane {
     public static WorkbenchFx of(List<Dropdown> dropdowns, Module... modules) {
         return WorkbenchFx.builder(dropdowns, modules).build();
     }
+    public static WorkbenchFx of(Module... modules) {
+        return WorkbenchFx.builder(modules).build();
+    }
 
     // TODO: add javadoc comment
     public static WorkbenchFxBuilder builder(List<Dropdown> dropdowns, Module... modules) {
         return new WorkbenchFxBuilder(dropdowns, modules);
+    }
+    public static WorkbenchFxBuilder builder(Module... modules) {
+        return new WorkbenchFxBuilder(new ArrayList<>(), modules);
     }
 
     public static Dropdown createDropdown(Node iconNode, String title, String subtitle, Node... contentNodes) {

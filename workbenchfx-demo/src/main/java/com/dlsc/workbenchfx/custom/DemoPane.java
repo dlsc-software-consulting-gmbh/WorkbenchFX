@@ -82,7 +82,6 @@ public class DemoPane extends StackPane {
     public DemoPane() {
 
         workbenchFx = WorkbenchFx.builder(
-                null,
                 new CalendarModule(),
                 new NotesModule(),
                 new PreferencesModule()
