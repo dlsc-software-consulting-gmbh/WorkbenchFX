@@ -40,11 +40,9 @@ public class DemoPane extends StackPane {
     private void initDropdowns() {
         dropdowns.add(
                 WorkbenchFx.createDropdown(
-                        new FontAwesomeIconView(FontAwesomeIcon.SEARCH),
-                        "",
-                        "",
-                        new Label("This is a very advanced Search.. You can type in whatever you want to"),
-                        new TextField("Type in Text")
+                        new FontAwesomeIconView(FontAwesomeIcon.ENVELOPE),
+                        "Messages",
+                        "Your Inbox"
                 )
         );
         dropdowns.add(
