@@ -57,7 +57,6 @@ public class WorkbenchFx extends StackPane {
 
   // Custom Controls
   private MenuDrawer globalMenu;
-  private MenuDrawerSkin globalMenuSkin;
 
   // Modules
   /**
@@ -238,8 +237,6 @@ public class WorkbenchFx extends StackPane {
 
   private void initCustomControls() {
     globalMenu = new MenuDrawer(this);
-    globalMenuSkin = new MenuDrawerSkin(globalMenu);
-
   }
 
   private void initModules(Module... modules) {
