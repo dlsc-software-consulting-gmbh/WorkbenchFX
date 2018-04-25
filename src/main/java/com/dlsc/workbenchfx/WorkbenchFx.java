@@ -359,6 +359,21 @@ public class WorkbenchFx extends StackPane {
     }
   }
 
+  /** TODO */
+  public void addOverlay(Node node) {
+    workbenchFxView.addOverlay(node);
+  }
+
+  /** TODO */
+  public void removeOverlay(Node node) {
+    workbenchFxView.addOverlay(node);
+  }
+
+  /** TODO */
+  public void removeAllOverlays() {
+    workbenchFxPresenter.removeAllOverlays();
+  }
+
   /**
    * Generates a new Node which is then used as a Tab.
    * Using the given {@link Module}, it calls the {@code tabFactory} which generates the Tab.

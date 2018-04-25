@@ -59,9 +59,9 @@ public class WorkbenchFxPresenter implements Presenter {
     // Show and hide global menu depending on property
     model.globalMenuShownProperty().addListener((observable, oldShown, newShown) -> {
       if (newShown) {
-        view.addView(model.getGlobalMenu());
+        view.addOverlay(model.getGlobalMenu());
       } else {
-        view.removeView(model.getGlobalMenu());
+        view.removeOverlay(model.getGlobalMenu());
       }
     });
   }
@@ -72,5 +72,14 @@ public class WorkbenchFxPresenter implements Presenter {
   @Override
   public void setupBindings() {
 
+  }
+
+  /**
+   * TODO
+   */
+  public void removeAllOverlays() {
+    view.getChildren().stream()
+        .skip(1) // the viewBox
+        .forEach(node -> view.getChildren().remove(node));
   }
 }
