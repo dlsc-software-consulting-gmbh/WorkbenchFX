@@ -418,6 +418,45 @@ public class WorkbenchFx extends StackPane {
         return activeModuleView;
     }
 
+    /**
+     * Removes a {@link Dropdown} at the specified index if possible.
+     *
+     * @param index the index where the {@link Dropdown} should be removed
+     * @return the {@link Dropdown} which was removed
+     */
+    public Dropdown remove(int index) {
+        return dropdowns.remove(index);
+    }
+
+    /**
+     * Removes a {@link Dropdown} if one is in the {@code dropdowns}.
+     *
+     * @param dropdown the {@link Dropdown} which should be removed
+     * @return true if sucessful, false if not
+     */
+    public boolean remove(Dropdown dropdown) {
+        return dropdowns.remove(dropdown);
+    }
+
+    /**
+     * Inserts a given {@link Dropdown} at the specified index.
+     *
+     * @param index    where the {@link Dropdown} needs to be inserted
+     * @param dropdown the {@link Dropdown} to be added to the {@code dropdowns}
+     */
+    public void addDropdown(int index, Dropdown dropdown) {
+        dropdowns.add(index, dropdown);
+    }
+
+    /**
+     * Inserts a given {@link Dropdown} at the end of the {@code dropdowns}.
+     *
+     * @param dropdown the {@link Dropdown} to be added to the {@code dropdowns}
+     */
+    public void addDropdown(Dropdown dropdown) {
+        dropdowns.add(dropdown);
+    }
+
     public ObservableList<Dropdown> getDropdowns() {
         return FXCollections.unmodifiableObservableList(dropdowns);
     }
