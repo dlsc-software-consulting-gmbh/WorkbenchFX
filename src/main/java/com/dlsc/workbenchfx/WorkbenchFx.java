@@ -42,9 +42,6 @@ public class WorkbenchFx extends StackPane {
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
 
   // Views
-  private DropdownView dropdownView;
-  private DropdownPresenter dropdownPresenter;
-
   private ToolBarView toolBarView;
   private ToolBarPresenter toolBarPresenter;
 
@@ -243,9 +240,7 @@ public class WorkbenchFx extends StackPane {
     pageFactory.set(builder.pageFactory);
     initModules(builder.modules);
     initViews();
-    getChildren().addAll(
-        workbenchFxView
-    );
+    getChildren().add(workbenchFxView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
     addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
   }
@@ -288,10 +283,7 @@ public class WorkbenchFx extends StackPane {
   }
 
   private void initViews() {
-    dropdownView = new DropdownView(this);
-    dropdownPresenter = new DropdownPresenter(this, dropdownView);
-
-    toolBarView = new ToolBarView(this, dropdownView);
+    toolBarView = new ToolBarView(this);
     toolBarPresenter = new ToolBarPresenter(this, toolBarView);
 
     homeView = new HomeView(this);
@@ -466,7 +458,7 @@ public class WorkbenchFx extends StackPane {
     dropdowns.add(dropdown);
   }
 
-  public ObservableList<Dropdown> getDropdowns() {
+  public ObservableList<Dropdown> getToolBarControls() {
     return FXCollections.unmodifiableObservableList(dropdowns);
   }
 }

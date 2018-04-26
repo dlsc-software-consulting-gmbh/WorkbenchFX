@@ -12,20 +12,14 @@ import javafx.scene.layout.Priority;
 
 public class ToolBarView extends HBox implements View {
   private final WorkbenchFx model;
-  private DropdownView dropdownView;
   private FontAwesomeIconView homeIconView;
   Button homeBtn;
   private HBox tabBox;
+  private HBox controlBox;
 
   // TODO: add javadoc comment
   public ToolBarView(WorkbenchFx model) {
     this.model = model;
-    init();
-  }
-
-  public ToolBarView(WorkbenchFx model, DropdownView dropdownView) {
-    this.model = model;
-    this.dropdownView = dropdownView;
     init();
   }
 
@@ -51,6 +45,9 @@ public class ToolBarView extends HBox implements View {
 
     tabBox = new HBox();
     tabBox.setId("tabBox");
+
+    controlBox = new HBox();
+    controlBox.setId("controlBox");
   }
 
   /**
@@ -58,7 +55,8 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().addAll(homeBtn, tabBox, dropdownView);
+    controlBox.getChildren().addAll(model.getToolBarControls());
+    getChildren().addAll(homeBtn, tabBox, controlBox);
     setHgrow(tabBox, Priority.ALWAYS);
   }
 
@@ -80,4 +78,13 @@ public class ToolBarView extends HBox implements View {
     tabBox.getChildren().remove(index);
   }
 
+  // TODO: add javadoc comment
+  public void removeToolBarControl(int index) {
+    controlBox.getChildren().remove(index);
+  }
+
+  // TODO: add javadoc comment
+  public void addToolBarControl(Dropdown dropdown) {
+    controlBox.getChildren().add(dropdown);
+  }
 }
