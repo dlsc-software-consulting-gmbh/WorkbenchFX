@@ -37,5 +37,6 @@
 
   & .context-menu {
     -fx-background-color: derive(-primary-color, 15%);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 6, 0.0, 0, 4);
   }
 }
