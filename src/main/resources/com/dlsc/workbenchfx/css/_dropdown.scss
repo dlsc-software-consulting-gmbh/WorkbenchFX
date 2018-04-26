@@ -3,6 +3,7 @@
 }
 
 .dropdown {
+
   & .buttonBox {
     @extend .tabControl;
     -fx-padding: .5em 1em .5em 1em;

@@ -47,7 +47,7 @@ public class Dropdown extends MenuButton implements View {
     setGraphic(iconView);
     for (Node node : contentNodes) {
 //      setContextMenu(new ContextMenu(new MenuItem("", node)));
-      getItems().add(new MenuItem("", new Button("Hello")));
+      getItems().add(new MenuItem("", node));
     }
     hide();
 
