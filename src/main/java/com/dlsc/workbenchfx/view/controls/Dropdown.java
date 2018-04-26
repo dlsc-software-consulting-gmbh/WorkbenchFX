@@ -32,6 +32,14 @@ public class Dropdown extends Control {
     return new Dropdown(text, graphic, menuItems);
   }
 
+  public static Dropdown of(String text, MenuItem... menuItems) {
+    return new Dropdown(text, null, menuItems);
+  }
+
+  public static Dropdown of(Node graphic, MenuItem... menuItems) {
+    return new Dropdown(null, graphic, menuItems);
+  }
+
   @Override
   protected Skin<?> createDefaultSkin() {
     return new DropdownSkin(this);

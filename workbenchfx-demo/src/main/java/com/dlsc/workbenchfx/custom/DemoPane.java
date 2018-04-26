@@ -97,21 +97,29 @@ public class DemoPane extends StackPane {
         new PreferencesModule()
     )
         .toolBarControls(
-            new Button("", new FontAwesomeIconView(FontAwesomeIcon.HOME)),
             Dropdown.of(
-                "ImageView",
-                new ImageView("com/dlsc/workbenchfx/user_light.png"),
+                "Text",
                 new CustomMenuItem(new Label("Content 1")),
                 new CustomMenuItem(new Label("Content 2"))
             ),
             Dropdown.of(
-                "FAIconView",
                 new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
+                new CustomMenuItem(new Label("Content 1")),
+                new CustomMenuItem(new Label("Content 2"))
+            ),
+            Dropdown.of(
+                new ImageView("com/dlsc/workbenchfx/user_light.png"),
                 new Menu(
                     "Submenus", new FontAwesomeIconView(FontAwesomeIcon.PLUS),
                     new MenuItem("Submenu 1"),
                     new CustomMenuItem(new Label("CustomMenuItem"), false)
                 )
+            ),
+            Dropdown.of(
+                "Text",
+                new ImageView("com/dlsc/workbenchfx/user_light.png"),
+                new CustomMenuItem(new Label("Content 1")),
+                new CustomMenuItem(new Label("Content 2"))
             )
         )
         .modulesPerPage(2)
