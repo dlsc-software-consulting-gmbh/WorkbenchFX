@@ -2,9 +2,6 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import javafx.collections.ListChangeListener;
-import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -58,7 +55,7 @@ public class WorkbenchFxPresenter implements Presenter {
   @Override
   public void setupValueChangedListeners() {
     // Show and hide global menu depending on property
-    model.globalMenuShownProperty().addListener((observable, oldShown, newShown) -> {
+    /*model.globalMenuShownProperty().addListener((observable, oldShown, newShown) -> {
               if (newShown) {
                 addOverlay(model.getGlobalMenu());
               } else {
@@ -85,7 +82,7 @@ public class WorkbenchFxPresenter implements Presenter {
                       }
                     }
                   }
-                });
+                });*/
   }
 
   /**
@@ -94,30 +91,5 @@ public class WorkbenchFxPresenter implements Presenter {
   @Override
   public void setupBindings() {
     view.glassPane.hideProperty().bind(model.glassPaneShownProperty().not());
-  }
-
-  /**
-   * TODO
-   */
-  public void addOverlay(Node view) {
-    this.view.getChildren().add(view);
-  }
-
-  /**
-   * TODO
-   */
-  public void removeOverlay(Node view) {
-    this.view.getChildren().remove(view);
-  }
-
-  /**
-   * TODO
-   */
-  public void removeAllOverlays() {
-    view.getChildren().removeAll(
-        view.getChildren().stream()
-        .skip(2) // the viewBox and glassPane
-        .collect(Collectors.toList())
-    );
   }
 }
