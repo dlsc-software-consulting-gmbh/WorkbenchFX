@@ -8,6 +8,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 public class ToolBarView extends HBox implements View {
   private final WorkbenchFx model;
@@ -26,7 +27,6 @@ public class ToolBarView extends HBox implements View {
     this.model = model;
     this.dropdownView = dropdownView;
     init();
-    setMaxHeight(10);
   }
 
   /**
@@ -59,6 +59,7 @@ public class ToolBarView extends HBox implements View {
   @Override
   public void layoutParts() {
     getChildren().addAll(homeBtn, tabBox, dropdownView);
+    setHgrow(tabBox, Priority.ALWAYS);
   }
 
   /**
