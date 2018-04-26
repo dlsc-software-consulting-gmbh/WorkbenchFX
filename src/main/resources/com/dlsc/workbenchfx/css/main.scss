@@ -1,4 +1,9 @@
 $border: 2px;
+$custom-color-1: blue;
+$custom-color-2: red;
+$custom-color-3: green;
+$custom-color-4: purple;
+$custom-color-5: pink;
 
 // Sets a margin for all sides of the element
 @mixin margin-all($margin) {
@@ -25,7 +30,6 @@ $border: 2px;
   -border: $border;
   -fx-color: -primary-color;
   -icons-color: -text-color;
-  -fx-font: -font-size -font-stack;
   -module-background-color: derive(-primary-color, 140%);
   -fx-background-color: white;
 }

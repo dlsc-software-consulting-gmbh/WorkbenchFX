@@ -1,3 +1,18 @@
+#backIconView {
+
+}
+
+#backButton {
+  @extend %button-styling;
+  -fx-background-color: transparent;
+  &:hover {
+    -fx-background-color: transparent;
+    & #backIconView {
+      -fx-fill: derive(-icons-color, 20%);
+    }
+  }
+}
+
 .context-menu {
   -fx-background-color: $custom-color-1;
   -fx-background-insets: 0;
@@ -65,7 +80,7 @@
 
 .navigation-drawer  {
   -fx-background-color: #ffffff;
-  -fx-border-color: transparent derive($text-color, 150%) transparent transparent;
+  -fx-border-color: transparent derive(-text-color, 150%) transparent transparent;
   -fx-background-insets: 0;
   -fx-background-radius: 0;
   -fx-padding: 0;
@@ -86,7 +101,7 @@
 }
 
 .navigation-drawer  .separator:horizontal .line {
-  -fx-border-color: derive($text-color, 20%) transparent transparent transparent;
+  -fx-border-color: derive(-text-color, 20%) transparent transparent transparent;
   -fx-border-insets: 1 0 0 0;
 }
 
@@ -115,18 +130,45 @@
   -fx-border-width: 1;
 }
 
-#backIconView {
+.dropdown {
+  @extend .tabControl;
+  -fx-padding: .5em;
 
-}
+  &:hover .label {
+    -fx-text-fill: -text-color;
+  }
 
-#backButton {
-  @extend #homeButton;
-  -fx-background-color: transparent;
-  &:hover {
-    -fx-background-color: transparent;
-    & #backIconView {
-      -fx-fill: derive(-icons-color, 20%);
+  &:focused {
+    @extend .tabControl;
+    -fx-padding: .5em;
+  }
+
+  & .iconView {
+
+  }
+
+  & .contentNode {
+
+  }
+
+  & .customMenuItem {
+
+  }
+
+  & .menu-item {
+    -fx-padding: .5em;
+
+    &:hover {
+      -fx-background-color: derive(-primary-color, 30%);
+    }
+
+    &:focused {
+      -fx-background-color: derive(-primary-color, 30%);
     }
   }
-}
 
+  & .context-menu {
+    -fx-background-color: derive(-primary-color, 15%);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 6, 0.0, 0, 4);
+  }
+}

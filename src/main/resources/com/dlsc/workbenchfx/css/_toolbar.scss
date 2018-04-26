@@ -3,20 +3,30 @@ $tab-spacing: 0.75em;
 #toolbar {
   -fx-spacing: $tab-spacing;
 
-  & #homeButton {
-    @extend .tabControl;
-    -fx-padding: .5em .5em .5em .5em;
-    -fx-pref-width: 3.5em;
+  #homeButton {
+    @extend %button-styling;
     & #homeIconView {
 
     }
   }
 
-  & #tabBox {
+  #menuIconView {
+    -fx-fill: white;
+  }
+
+  #menuButton {
+    @extend %button-styling;
+    -fx-background-color: -text-color;
+    &:hover {
+      -fx-background-color: derive(-text-color, 10%);
+    }
+  }
+
+  #tabBox {
     -fx-spacing: 0.6 * $tab-spacing;
   }
 
-  & #controlBox {
+  #controlBox {
     -fx-spacing: 0.6 * $tab-spacing;
   }
 }
