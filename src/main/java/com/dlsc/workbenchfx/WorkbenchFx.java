@@ -481,9 +481,9 @@ public class WorkbenchFx extends StackPane {
   /** TODO */
   public void removeOverlay(Node node, boolean modal) {
     if (modal) {
-      modalOverlays.add(node);
+      modalOverlays.remove(node);
     } else {
-      overlays.add(node);
+      overlays.remove(node);
     }
   }
 
