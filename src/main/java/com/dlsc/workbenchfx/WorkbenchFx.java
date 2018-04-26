@@ -96,6 +96,9 @@ public class WorkbenchFx extends StackPane {
   private BooleanProperty globalMenuShown = new SimpleBooleanProperty(false);
   private BooleanProperty glassPaneShown = new SimpleBooleanProperty(false);
 
+  private ObservableList<Node> modalOverlays = FXCollections.observableArrayList();
+  private ObservableList<Node> overlays = FXCollections.observableArrayList();
+
   /**
    * Creates the Workbench window.
    */
@@ -384,21 +387,6 @@ public class WorkbenchFx extends StackPane {
     }
   }
 
-  /** TODO */
-  public void addOverlay(Node node) {
-    workbenchFxPresenter.addOverlay(node);
-  }
-
-  /** TODO */
-  public void removeOverlay(Node node) {
-    workbenchFxPresenter.removeOverlay(node);
-  }
-
-  /** TODO */
-  public void removeAllOverlays() {
-    workbenchFxPresenter.removeAllOverlays();
-  }
-
   /**
    * Generates a new Node which is then used as a Tab.
    * Using the given {@link Module}, it calls the {@code tabFactory} which generates the Tab.
@@ -482,5 +470,48 @@ public class WorkbenchFx extends StackPane {
 
   public void setGlassPaneShown(boolean glassPaneShown) {
     this.glassPaneShown.set(glassPaneShown);
+  }
+
+  /** TODO */
+  public ObservableList<Node> getModalOverlays() {
+    return FXCollections.unmodifiableObservableList(modalOverlays);
+  }
+
+  /** TODO */
+  public ObservableList<Node> getOverlays() {
+    return FXCollections.unmodifiableObservableList(overlays);
+  }
+
+  /** TODO */
+  public void addOverlay(Node node, boolean modal) {
+    if (modal) {
+      modalOverlays.add(node);
+    } else {
+      overlays.add(node);
+    }
+  }
+
+  /** TODO */
+  public void removeOverlay(Node node, boolean modal) {
+    if (modal) {
+      modalOverlays.add(node);
+    } else {
+      overlays.add(node);
+    }
+  }
+
+  /** TODO */
+  public void removeOverlays(boolean modal) {
+    if (modal) {
+      modalOverlays.clear();
+    } else {
+      overlays.clear();
+    }
+  }
+
+  /** TODO */
+  public void removeAllOverlays() {
+      modalOverlays.clear();
+      overlays.clear();
   }
 }
