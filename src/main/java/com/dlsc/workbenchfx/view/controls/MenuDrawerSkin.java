@@ -8,7 +8,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -45,7 +44,7 @@ public class MenuDrawerSkin extends SkinBase<MenuDrawer> {
         backIconView.setId("backIconView");
         Button backBtn = new Button("", backIconView);
         backBtn.setId("backButton");
-        backBtn.setOnAction(evt -> menuDrawer.getWorkbench().setGlobalMenuShown(false));
+        backBtn.setOnAction(evt -> menuDrawer.getWorkbench().removeOverlay(menuDrawer, true));
         BorderPane.setAlignment(backBtn, Pos.CENTER_LEFT);
 
         ImageView companyLogo = new ImageView();

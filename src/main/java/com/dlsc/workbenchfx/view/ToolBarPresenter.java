@@ -41,7 +41,7 @@ public class ToolBarPresenter implements Presenter {
     // When the home button is clicked, the view changes
     view.homeBtn.setOnAction(event -> model.openHomeScreen());
     // When the menu button is clicked, the global menu gets shown
-    view.menuBtn.setOnAction(event -> model.setGlobalMenuShown(true));
+    view.menuBtn.setOnAction(event -> model.addOverlay(model.getGlobalMenu(), true));
   }
 
   /**

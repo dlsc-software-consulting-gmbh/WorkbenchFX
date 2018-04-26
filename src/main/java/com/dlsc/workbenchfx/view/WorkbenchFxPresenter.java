@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import java.util.Objects;
+import javafx.beans.binding.Bindings;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,7 +44,6 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   @Override
   public void setupEventHandlers() {
-
     // When the active module changes, the new view is set od the home screen if null.
     model.activeModuleViewProperty().addListener((observable, oldModule, newModule) ->
         view.centerView.setContent(Objects.isNull(newModule) ? view.homeView : newModule)
@@ -54,35 +54,8 @@ public class WorkbenchFxPresenter implements Presenter {
   /** {@inheritDoc} */
   @Override
   public void setupValueChangedListeners() {
-    // Show and hide global menu depending on property
-    /*model.globalMenuShownProperty().addListener((observable, oldShown, newShown) -> {
-              if (newShown) {
-                addOverlay(model.getGlobalMenu());
-              } else {
-                removeOverlay(model.getGlobalMenu());
-              }
-            });
-    view.getChildren()
-        .addListener(
-            (ListChangeListener<? super Node>)
-                c -> {
-                  if (view.getChildren().size() == 2) { // TODO: magic number
-                    // only viewBox and glassPane are left
-                    model.setGlassPaneShown(false);
-                  } else {
-                    // at least one overlay is being shown
-                    model.setGlassPaneShown(true);
-                  }
-                  while (c.next()) {
-                    if (c.wasRemoved()) {
-                      for (Node node : c.getRemoved()) {
-                        if (node == model.getGlobalMenu()) {
-                          model.setGlobalMenuShown(false);
-                        }
-                      }
-                    }
-                  }
-                });*/
+    // Show and hide glass pane depending on whether there are modal overlays or not
+    model.glassPaneShownProperty().bind(Bindings.isEmpty(model.getModalOverlays()).not());
   }
 
   /**

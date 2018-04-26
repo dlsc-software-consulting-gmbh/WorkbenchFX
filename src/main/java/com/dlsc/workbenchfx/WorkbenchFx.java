@@ -93,7 +93,6 @@ public class WorkbenchFx extends StackPane {
   private ObjectProperty<BiFunction<WorkbenchFx, Integer, Node>> pageFactory =
       new SimpleObjectProperty<>(this, "pageFactory");
 
-  private BooleanProperty globalMenuShown = new SimpleBooleanProperty(false);
   private BooleanProperty glassPaneShown = new SimpleBooleanProperty(false);
 
   private ObservableList<Node> modalOverlays = FXCollections.observableArrayList();
@@ -442,18 +441,6 @@ public class WorkbenchFx extends StackPane {
 
   public ReadOnlyObjectProperty<Node> activeModuleViewProperty() {
     return activeModuleView;
-  }
-
-  public boolean isGlobalMenuShown() {
-    return globalMenuShown.get();
-  }
-
-  public BooleanProperty globalMenuShownProperty() {
-    return globalMenuShown;
-  }
-
-  public void setGlobalMenuShown(boolean globalMenuShown) {
-    this.globalMenuShown.set(globalMenuShown);
   }
 
   public Node getGlobalMenu() {
