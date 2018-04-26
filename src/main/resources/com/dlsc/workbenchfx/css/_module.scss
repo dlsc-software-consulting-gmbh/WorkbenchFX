@@ -10,9 +10,9 @@
 }
 
 .tabControl {
+  @extend %tool-bar-height;
   -fx-background-color: derive(-primary-color, -15%);
   -fx-padding: .5em .5em .5em 1em;
-  -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   -fx-background-radius: 0;
   &:hover {

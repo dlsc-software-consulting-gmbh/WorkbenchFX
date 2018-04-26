@@ -1,3 +1,6 @@
+.tabControl, #toolbar #homeButton, .dropdown, .dropdown:focused, .tool-bar-control {
+  -fx-pref-height: 3.5em; }
+
 .root {
   -fx-font-size: 14px;
   -fx-font-family: Helvetica, sans-serif;
@@ -59,7 +62,6 @@
 .tabControl, #toolbar #homeButton, .dropdown, .dropdown:focused {
   -fx-background-color: derive(-primary-color, -15%);
   -fx-padding: .5em .5em .5em 1em;
-  -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   -fx-background-radius: 0; }
   .tabControl:hover, #toolbar #homeButton:hover, .dropdown:hover {

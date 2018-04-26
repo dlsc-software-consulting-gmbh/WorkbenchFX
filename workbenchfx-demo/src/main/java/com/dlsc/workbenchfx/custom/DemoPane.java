@@ -17,6 +17,7 @@ import java.util.function.BiFunction;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -96,6 +97,7 @@ public class DemoPane extends StackPane {
         new PreferencesModule()
     )
         .toolBarControls(
+            new Button("", new FontAwesomeIconView(FontAwesomeIcon.HOME)),
             Dropdown.of(
                 new ImageView("com/dlsc/workbenchfx/user_light.png"),
                 "ImageView",

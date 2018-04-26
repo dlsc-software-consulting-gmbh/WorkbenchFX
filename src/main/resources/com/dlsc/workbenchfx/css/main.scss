@@ -1,4 +1,9 @@
 $border: 2px;
+$pref-height: 3.5em;
+
+%tool-bar-height {
+  -fx-pref-height: $pref-height;
+}
 
 // Sets a margin for all sides of the element
 @mixin margin-all($margin) {

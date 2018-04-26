@@ -6,7 +6,7 @@ $tab-spacing: 0.75em;
   & #homeButton {
     @extend .tabControl;
     -fx-padding: .5em .5em .5em .5em;
-    -fx-pref-width: 3.5em;
+    -fx-pref-width: $pref-height;
     & #homeIconView {
 
     }
@@ -19,4 +19,8 @@ $tab-spacing: 0.75em;
   & #controlBox {
     -fx-spacing: 0.6 * $tab-spacing;
   }
+}
+
+.tool-bar-control {
+  @extend %tool-bar-height;
 }
