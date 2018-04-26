@@ -4,8 +4,13 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -15,7 +20,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Created by François Martin on 29.12.17.
  */
-public class Dropdown extends VBox implements View {
+public class Dropdown extends MenuButton implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(Dropdown.class.getName());
 
@@ -38,10 +43,19 @@ public class Dropdown extends VBox implements View {
     this.subtitleLbl = new Label(subtitle);
     this.contentNodes = contentNodes;
 
+    setText(title);
+    setGraphic(iconView);
+    for (Node node : contentNodes) {
+//      setContextMenu(new ContextMenu(new MenuItem("", node)));
+      getItems().add(new MenuItem("", new Button("Hello")));
+    }
+    hide();
+
     init();
     setupListeners();
     setupEventHandlers();
     setupBindings();
+//    getContextMenu().setAutoHide(false);
   }
 
   public static Dropdown of(Node iconView, String title, String subtitle, Node... contentNodes) {
