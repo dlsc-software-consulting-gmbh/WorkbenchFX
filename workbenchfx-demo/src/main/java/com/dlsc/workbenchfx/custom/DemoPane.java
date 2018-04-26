@@ -7,7 +7,7 @@ import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.view.controls.MenuDrawer;
+import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.function.BiFunction;
@@ -53,7 +53,7 @@ public class DemoPane extends StackPane {
   };
 
   Callback<WorkbenchFx, Node> globalMenuFactory = workbench -> {
-    MenuDrawer globalMenu = new MenuDrawer(workbench);
+    NavigationDrawer globalMenu = new NavigationDrawer(workbench);
     StackPane.setAlignment(globalMenu, Pos.TOP_LEFT);
     globalMenu.maxWidthProperty().bind(workbench.widthProperty().divide(2));
     return globalMenu;

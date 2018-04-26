@@ -19,12 +19,12 @@ import javafx.scene.layout.VBox;
 /**
  * Created by lemmi on 22.08.17.
  */
-public class MenuDrawerSkin extends SkinBase<MenuDrawer> {
+public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
     private VBox menuContainer;
 
-    public MenuDrawerSkin(MenuDrawer menuDrawer) {
-        super(menuDrawer);
+    public NavigationDrawerSkin(NavigationDrawer navigationDrawer) {
+        super(navigationDrawer);
 
         VBox vBox = new VBox();
 
@@ -44,7 +44,7 @@ public class MenuDrawerSkin extends SkinBase<MenuDrawer> {
         backIconView.setId("backIconView");
         Button backBtn = new Button("", backIconView);
         backBtn.setId("backButton");
-        backBtn.setOnAction(evt -> menuDrawer.getWorkbench().hideOverlay(menuDrawer, true));
+        backBtn.setOnAction(evt -> navigationDrawer.getWorkbench().hideOverlay(navigationDrawer, true));
         BorderPane.setAlignment(backBtn, Pos.CENTER_LEFT);
 
         ImageView companyLogo = new ImageView();
@@ -57,7 +57,7 @@ public class MenuDrawerSkin extends SkinBase<MenuDrawer> {
 
         getChildren().add(vBox);
 
-        menuDrawer.getItems().addListener((Observable it) -> buildMenu());
+        navigationDrawer.getItems().addListener((Observable it) -> buildMenu());
         buildMenu();
     }
 

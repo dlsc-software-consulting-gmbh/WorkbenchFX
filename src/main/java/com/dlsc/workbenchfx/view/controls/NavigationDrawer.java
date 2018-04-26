@@ -12,14 +12,14 @@ import javafx.scene.control.Skin;
 /**
  * Created by lemmi on 22.08.17.
  */
-public class MenuDrawer extends Control {
+public class NavigationDrawer extends Control {
 
     private WorkbenchFx workbench;
 
-    public MenuDrawer(WorkbenchFx workbench) {
+    public NavigationDrawer(WorkbenchFx workbench) {
         this.workbench = Objects.requireNonNull(workbench);
 
-        getStyleClass().add("menu-drawer");
+        getStyleClass().add("navigation-drawer");
 
         Menu menu1 = new Menu("Customer");
         Menu menu2 = new Menu("Tariff Management");
@@ -56,14 +56,14 @@ public class MenuDrawer extends Control {
         getItems().addAll(menu1, menu2, menu3, itemA, itemB, itemC);
 
         /*MenuItem showRecentActivities = new MenuItem("Recent Activities");
-        showRecentActivities.getStyleClass().add("menu-drawer-icon-recent-activities");
+        showRecentActivities.getStyleClass().add("navigation-drawer-icon-recent-activities");
         showRecentActivities.setOnAction(evt -> shell.setShowLeftTray(true));
         getItems().add(showRecentActivities);*/
     }
 
     @Override
     protected Skin<?> createDefaultSkin() {
-        return new MenuDrawerSkin(this);
+        return new NavigationDrawerSkin(this);
     }
 
     public WorkbenchFx getWorkbench() {

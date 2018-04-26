@@ -1,4 +1,4 @@
-.menu-drawer  {
+.navigation-drawer  {
   -fx-background-color: #ffffff;
   -fx-border-color: transparent derive($text-color, 150%) transparent transparent;
   -fx-background-insets: 0;
@@ -7,36 +7,36 @@
   -fx-effect: null;
 }
 
-.menu-drawer  .menu-item:focused,
-.menu-drawer  .menu-item:hover {
+.navigation-drawer  .menu-item:focused,
+.navigation-drawer  .menu-item:hover {
   //-fx-background-color: derive($custom-color-1, -10%);
 }
 
-.menu-drawer  .menu-item:pressed {
+.navigation-drawer  .menu-item:pressed {
   -fx-background-color: white;
 }
 
-.menu-drawer  .menu-item:pressed .label {
+.navigation-drawer  .menu-item:pressed .label {
   //-fx-text-fill: $custom-color-1;
 }
 
-.menu-drawer  .separator:horizontal .line {
+.navigation-drawer  .separator:horizontal .line {
   -fx-border-color: derive($text-color, 20%) transparent transparent transparent;
   -fx-border-insets: 1 0 0 0;
 }
 
-.menu-drawer  > .scroll-arrow {
+.navigation-drawer  > .scroll-arrow {
   -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em; /* 5 */
   -fx-background-color: transparent;
 }
 
-.menu-drawer  > .scroll-arrow:hover {
+.navigation-drawer  > .scroll-arrow:hover {
   -fx-background: -fx-selection-bar;
   -fx-background-color: -fx-background;
   -fx-text-fill: -fx-text-background-color;
 }
 
-.menu-drawer :show-mnemonics > .mnemonic-underline {
+.navigation-drawer :show-mnemonics > .mnemonic-underline {
   -fx-stroke: -fx-text-fill;
 }
 
