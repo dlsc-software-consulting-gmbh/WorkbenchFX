@@ -439,8 +439,8 @@ public class WorkbenchFx extends StackPane {
   /**
    * Inserts a given {@link Node} at the specified index.
    *
-   * @param index    where the {@link Node} needs to be inserted
-   * @param Node the {@link Node} to be added to the {@code toolBarControls}
+   * @param index where the {@link Node} needs to be inserted
+   * @param Node  the {@link Node} to be added to the {@code toolBarControls}
    */
   public void addNode(int index, Node Node) {
     toolBarControls.add(index, Node);

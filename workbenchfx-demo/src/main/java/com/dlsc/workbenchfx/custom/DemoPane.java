@@ -99,14 +99,14 @@ public class DemoPane extends StackPane {
         .toolBarControls(
             new Button("", new FontAwesomeIconView(FontAwesomeIcon.HOME)),
             Dropdown.of(
-                new ImageView("com/dlsc/workbenchfx/user_light.png"),
                 "ImageView",
+                new ImageView("com/dlsc/workbenchfx/user_light.png"),
                 new CustomMenuItem(new Label("Content 1")),
                 new CustomMenuItem(new Label("Content 2"))
             ),
             Dropdown.of(
-                new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                 "FAIconView",
+                new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                 new Menu(
                     "Submenus", new FontAwesomeIconView(FontAwesomeIcon.PLUS),
                     new MenuItem("Submenu 1"),
