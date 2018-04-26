@@ -106,10 +106,10 @@ public class Dropdown extends MenuButton implements View {
   }
 
   private void setupListeners() {
-    // Sets the pref-width of the dropdown
+    // Sets the pref-width of the dropdown's items
     showingProperty().addListener((observable, oldValue, newValue) -> {
       if (!Objects.isNull(getItems()) && newValue) {
-        getItems().get(0).getParentPopup().setStyle("-fx-pref-width: " + getWidth());
+        getItems().get(0).getParentPopup().setStyle("-fx-min-width: " + getWidth());
       }
     });
   }
