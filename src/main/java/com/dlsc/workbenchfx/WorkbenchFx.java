@@ -271,7 +271,7 @@ public class WorkbenchFx extends StackPane {
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
     globalMenu = builder.globalMenuFactory.call(this);
-    globalMenu.setVisible(false);
+    addOverlay(globalMenu);
     initModelBindings();
     initModules(builder.modules);
     initViews();
