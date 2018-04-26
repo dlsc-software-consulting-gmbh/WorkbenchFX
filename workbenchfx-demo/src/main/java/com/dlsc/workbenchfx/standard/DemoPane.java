@@ -7,33 +7,39 @@ import com.dlsc.workbenchfx.standard.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.view.Dropdown;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 public class DemoPane extends StackPane {
 
-    private final WorkbenchFx workbenchFx;
+  private final WorkbenchFx workbenchFx;
 
-    public DemoPane() {
-        workbenchFx = WorkbenchFx.of(
-                new CalendarModule(),
-                new NotesModule(),
-                new PreferencesModule()
-        ).toolBarControls (
-                Dropdown.of(
-                        new ImageView("com/dlsc/workbenchfx/user.png"),
-                        "ImageView",
-                        new Label("Content 1"),
-                        new Label("Content 2")
-                ),
-                Dropdown.of(
-                        new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
-                        "FAIconView",
-                        new Label("Content 1"),
-                        new Label("Content 2")
-                )
-        );
-        getChildren().add(workbenchFx);
-    }
+  public DemoPane() {
+    workbenchFx = WorkbenchFx.of(
+        new CalendarModule(),
+        new NotesModule(),
+        new PreferencesModule()
+    ).toolBarControls(
+        Dropdown.of(
+            new ImageView("com/dlsc/workbenchfx/user.png"),
+            "ImageView",
+            new CustomMenuItem(new Label("Content 1")),
+            new CustomMenuItem(new Label("Content 2"))
+        ),
+        Dropdown.of(
+            new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
+            "FAIconView",
+            new CustomMenuItem(new Label("Content 1")),
+            new CustomMenuItem(new MenuBar(
+                new Menu("Menu 1"),
+                new Menu("Menu 2")
+            ))
+        )
+    );
+    getChildren().add(workbenchFx);
+  }
 }

@@ -18,7 +18,11 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
 import javafx.scene.Node;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -95,20 +99,19 @@ public class DemoPane extends StackPane {
     )
         .toolBarControls(
             Dropdown.of(
-                new FontAwesomeIconView(FontAwesomeIcon.ENVELOPE),
-                "Messages"
-            ),
-            Dropdown.of(
                 new ImageView("com/dlsc/workbenchfx/user_light.png"),
                 "ImageView",
-                new Label("Content 1"),
-                new Label("Content 2")
+                new CustomMenuItem(new Label("Content 1")),
+                new CustomMenuItem(new Label("Content 2"))
             ),
             Dropdown.of(
                 new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                 "FAIconView",
-                new Label("Content 1"),
-                new Label("Content 2")
+                new Menu(
+                    "Submenus", new FontAwesomeIconView(FontAwesomeIcon.PLUS),
+                    new MenuItem("Submenu 1"),
+                    new CustomMenuItem(new Label("CustomMenuItem"), false)
+                )
             )
         )
         .modulesPerPage(2)
@@ -117,7 +120,6 @@ public class DemoPane extends StackPane {
         .pageFactory(pageFactory)
         .build();
 
-//    Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
     addUserAgentStylesheet("com/dlsc/workbenchfx/customTheme.css");
     getChildren().add(workbenchFx);
   }

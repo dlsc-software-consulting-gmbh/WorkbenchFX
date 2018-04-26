@@ -29,14 +29,14 @@ public class Dropdown extends MenuButton implements View {
 
   private final Node iconView;
   private String title;
-  private final Node[] contentNodes;
+  private final MenuItem[] menuItems;
 
   private final BooleanProperty expanded = new SimpleBooleanProperty();
 
-  private Dropdown(Node iconView, String title, Node... contentNodes) {
+  private Dropdown(Node iconView, String title, MenuItem... menuItems) {
     this.iconView = iconView;
     this.title = title;
-    this.contentNodes = contentNodes;
+    this.menuItems = menuItems;
 
     init();
     setupListeners();
@@ -44,8 +44,8 @@ public class Dropdown extends MenuButton implements View {
     setupBindings();
   }
 
-  public static Dropdown of(Node iconView, String title, Node... contentNodes) {
-    return new Dropdown(iconView, title, contentNodes);
+  public static Dropdown of(Node iconView, String title, MenuItem... menuItems) {
+    return new Dropdown(iconView, title, menuItems);
   }
 
   /**
@@ -72,14 +72,10 @@ public class Dropdown extends MenuButton implements View {
   public void layoutParts() {
     setText(title);
     setGraphic(iconView);
-    for (Node contentNode : contentNodes) {
-      contentNode.getStyleClass().add("contentNode");
-      CustomMenuItem customMenuItem = new CustomMenuItem(contentNode);
-      contentNode.getStyleClass().add("customMenuItem");
-      if (!(contentNode instanceof ButtonBase)) {
-        customMenuItem.setHideOnClick(false);
-      }
-      getItems().add(customMenuItem);
+    for (MenuItem menuItem : menuItems) {
+      menuItem.getStyleClass().add("contentNode");
+      menuItem.getStyleClass().add("customMenuItem");
+      getItems().add(menuItem);
     }
   }
 
