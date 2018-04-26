@@ -7,12 +7,15 @@ import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.view.controls.MenuDrawer;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.function.BiFunction;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,6 +50,13 @@ public class DemoPane extends StackPane {
     tileControl.setOnActive(e -> workbench.openModule(module));
     System.out.println("This tile was proudly created by SteffiFX");
     return tileControl;
+  };
+
+  Callback<WorkbenchFx, Node> globalMenuFactory = workbench -> {
+    MenuDrawer globalMenu = new MenuDrawer(workbench);
+    StackPane.setAlignment(globalMenu, Pos.TOP_LEFT);
+    globalMenu.maxWidthProperty().bind(workbench.widthProperty().divide(2));
+    return globalMenu;
   };
 
   BiFunction<WorkbenchFx, Integer, Node> pageFactory = (workbench, pageIndex) -> {
@@ -87,6 +97,7 @@ public class DemoPane extends StackPane {
         .tabFactory(tabFactory)
         .tileFactory(tileFactory)
         .pageFactory(pageFactory)
+        .globalMenuFactory(globalMenuFactory)
         .build();
     getChildren().add(workbenchFx);
   }
