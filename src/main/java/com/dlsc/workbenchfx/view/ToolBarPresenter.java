@@ -47,23 +47,6 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-    // When the List of the currently open dropdowns is changed, the view is updated.
-    model.getDropdowns().addListener((ListChangeListener<? super Dropdown>) c -> {
-      while (c.next()) {
-        if (c.wasRemoved()) {
-          for (Dropdown dropdown : c.getRemoved()) {
-            LOGGER.debug("Dropdown " + dropdown + " removed");
-            view.removeDropdown(c.getFrom());
-          }
-        }
-        if (c.wasAdded()) {
-          for (Dropdown dropdown : c.getAddedSubList()) {
-            LOGGER.debug("Dropdown " + dropdown + " added");
-            view.addDropdown(dropdown);
-          }
-        }
-      }
-    });
 
     // When the List of the currently open modules is changed, the view is updated.
     model.getOpenModules().addListener((ListChangeListener<? super Module>) c -> {

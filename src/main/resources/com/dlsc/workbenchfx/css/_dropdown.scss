@@ -1,3 +1,7 @@
+#dropdownView {
+  -fx-max-height: 3.5em;
+}
+
 .dropdown {
   & .buttonBox {
     @extend .tabControl;

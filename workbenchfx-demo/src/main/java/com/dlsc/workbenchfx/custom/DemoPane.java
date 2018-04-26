@@ -15,8 +15,6 @@ import java.util.function.BiFunction;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -93,7 +91,7 @@ public class DemoPane extends StackPane {
                 new NotesModule(),
                 new PreferencesModule()
         )
-                .dropdowns(
+                .toolBarControls(
                         Dropdown.of(
                                 new FontAwesomeIconView(FontAwesomeIcon.ENVELOPE),
                                 "Messages",

@@ -7,17 +7,9 @@ import com.dlsc.workbenchfx.standard.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.view.Dropdown;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DemoPane extends StackPane {
 
@@ -28,12 +20,7 @@ public class DemoPane extends StackPane {
                 new CalendarModule(),
                 new NotesModule(),
                 new PreferencesModule()
-        ).dropdowns(
-                Dropdown.of(
-                        new FontAwesomeIconView(FontAwesomeIcon.ENVELOPE),
-                        "Messages",
-                        "Your Inbox"
-                ),
+        ).toolBarControls (
                 Dropdown.of(
                         new ImageView("com/dlsc/workbenchfx/jfx_logo.png"),
                         "ImageView",
