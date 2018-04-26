@@ -55,33 +55,33 @@
   .tileControl:hover {
     -fx-background-color: derive(-primary-color, 15%); }
 
-.tabControl, #toolbar #homeButton, #toolbar #menuButton, #backButton, .dropdown, .dropdown:focused {
+.tabControl, #toolbar #homeButton, #toolbar #menuButton, #backButton {
   -fx-background-color: derive(-primary-color, -15%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   -fx-background-radius: 0; }
-  .tabControl:hover, #toolbar #homeButton:hover, #toolbar #menuButton:hover, #backButton:hover, .dropdown:hover {
+  .tabControl:hover, #toolbar #homeButton:hover, #toolbar #menuButton:hover, #backButton:hover {
     -fx-background-color: derive(-primary-color, -7.5%); }
-  .tabControl .tabNameLbl, #toolbar #homeButton .tabNameLbl, #toolbar #menuButton .tabNameLbl, #backButton .tabNameLbl, .dropdown .tabNameLbl {
+  .tabControl .tabNameLbl, #toolbar #homeButton .tabNameLbl, #toolbar #menuButton .tabNameLbl, #backButton .tabNameLbl {
     -fx-text-fill: -text-color;
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
     -fx-background-insets: 0 0 0 0.5em; }
-  .tabControl .closeBtn, #toolbar #homeButton .closeBtn, #toolbar #menuButton .closeBtn, #backButton .closeBtn, .dropdown .closeBtn {
+  .tabControl .closeBtn, #toolbar #homeButton .closeBtn, #toolbar #menuButton .closeBtn, #backButton .closeBtn {
     -fx-padding: 0 0.5em 0 1em;
     -fx-border-insets: 0 0.5em 0 1em;
     -fx-background-insets: 0 0.5em 0 1em;
     -fx-background-color: transparent;
     -fx-border-width: 0; }
-    .tabControl .closeBtn .closeIconView, #toolbar #homeButton .closeBtn .closeIconView, #toolbar #menuButton .closeBtn .closeIconView, #backButton .closeBtn .closeIconView, .dropdown .closeBtn .closeIconView {
+    .tabControl .closeBtn .closeIconView, #toolbar #homeButton .closeBtn .closeIconView, #toolbar #menuButton .closeBtn .closeIconView, #backButton .closeBtn .closeIconView {
       -fx-font-size: 1em !important; }
-    .tabControl .closeBtn:hover .closeIconView, #toolbar #homeButton .closeBtn:hover .closeIconView, #toolbar #menuButton .closeBtn:hover .closeIconView, #backButton .closeBtn:hover .closeIconView, .dropdown .closeBtn:hover .closeIconView {
+    .tabControl .closeBtn:hover .closeIconView, #toolbar #homeButton .closeBtn:hover .closeIconView, #toolbar #menuButton .closeBtn:hover .closeIconView, #backButton .closeBtn:hover .closeIconView {
       -icons-color: -danger-color; }
-    .tabControl .closeBtn:armed, #toolbar #homeButton .closeBtn:armed, #toolbar #menuButton .closeBtn:armed, #backButton .closeBtn:armed, .dropdown .closeBtn:armed {
+    .tabControl .closeBtn:armed, #toolbar #homeButton .closeBtn:armed, #toolbar #menuButton .closeBtn:armed, #backButton .closeBtn:armed {
       -fx-background-color: transparent;
       -fx-border-width: 0; }
-      .tabControl .closeBtn:armed .closeIconView, #toolbar #homeButton .closeBtn:armed .closeIconView, #toolbar #menuButton .closeBtn:armed .closeIconView, #backButton .closeBtn:armed .closeIconView, .dropdown .closeBtn:armed .closeIconView {
+      .tabControl .closeBtn:armed .closeIconView, #toolbar #homeButton .closeBtn:armed .closeIconView, #toolbar #menuButton .closeBtn:armed .closeIconView, #backButton .closeBtn:armed .closeIconView {
         -icons-color: black; }
 
 .active-tab {
@@ -225,22 +225,6 @@
 .header .separator .line {
   -fx-border-color: white;
   -fx-border-width: 1; }
-
-.dropdown {
-  -fx-padding: .5em; }
-  .dropdown:hover .label {
-    -fx-text-fill: -text-color; }
-  .dropdown:focused {
-    -fx-padding: .5em; }
-  .dropdown .menu-item {
-    -fx-padding: .5em; }
-    .dropdown .menu-item:hover {
-      -fx-background-color: derive(-primary-color, 30%); }
-    .dropdown .menu-item:focused {
-      -fx-background-color: derive(-primary-color, 30%); }
-  .dropdown .context-menu {
-    -fx-background-color: derive(-primary-color, 15%);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0, 0, 4); }
 
 .glass-pane {
   -fx-background-color: black;
