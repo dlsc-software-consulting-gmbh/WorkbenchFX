@@ -1,21 +1,30 @@
 .root {
-  -fx-background-color: white;
-  -fx-font: 14px Helvetica, sans-serif;
-  -fx-color: #f2f2f2;
-  -icons-color: derive(#f2f2f2, -70%); }
+  -font-size: 14px;
+  -font-stack: Helvetica, sans-serif;
+  -primary-color: #f2f2f2;
+  -danger-color: #DB4437;
+  -success-color: #47aa71;
+  -accent-color: #00aaff;
+  -text-color: derive(-primary-color, -70%);
+  -border: 2px;
+  -fx-color: -primary-color;
+  -icons-color: -text-color;
+  -fx-font: -font-size -font-stack;
+  -module-background-color: derive(-primary-color, 140%);
+  -fx-background-color: white; }
 
 .glyph-icon {
-  -fx-text-fill: derive(#f2f2f2, -70%);
+  -fx-text-fill: -text-color;
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
 .module-background {
-  -fx-background-color: derive(#f2f2f2, 90%); }
+  -fx-background-color: -module-background-color; }
 
 #center {
   -fx-border-width: 1.75em 0 0 0;
-  -fx-border-color: #f2f2f2;
-  -fx-background-color: derive(#f2f2f2, 90%); }
+  -fx-border-color: -primary-color;
+  -fx-background-color: -module-background-color; }
 
 #home .tilePage {
   -fx-vgap: 40;
@@ -29,33 +38,34 @@
   #home .pagination > .pagination-control > .control-box > .bullet-button {
     -fx-background-radius: 4em;
     -fx-padding: 0.333em;
-    -fx-background-color: derive(#f2f2f2, -50%);
+    -fx-background-color: derive(-primary-color, -50%);
     -fx-background-insets: 5.25; }
     #home .pagination > .pagination-control > .control-box > .bullet-button:hover {
-      -fx-background-color: derive(#f2f2f2, -30%); }
+      -fx-background-color: derive(-primary-color, -30%); }
     #home .pagination > .pagination-control > .control-box > .bullet-button:selected {
-      -fx-background-color: #00aaff; }
+      -fx-background-color: -accent-color; }
       #home .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
-        -fx-background-color: derive(#00aaff, 20%); }
+        -fx-background-color: derive(-accent-color, 20%); }
 
 .tileControl {
-  -fx-background-color: #f2f2f2;
-  -fx-text-fill: derive(#f2f2f2, -70%);
+  -fx-background-color: -primary-color;
+  -fx-text-fill: -text-color;
   -fx-pref-width: 16em;
   -fx-pref-height: 9em;
   -fx-alignment: center center; }
   .tileControl:hover {
-    -fx-background-color: derive(#f2f2f2, 15%); }
+    -fx-background-color: derive(-primary-color, 15%); }
 
 .tabControl, #toolbar #homeButton, .dropdown, .dropdown:focused {
-  -fx-background-color: derive(#f2f2f2, -15%);
+  -fx-background-color: derive(-primary-color, -15%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   -fx-background-radius: 0; }
   .tabControl:hover, #toolbar #homeButton:hover, .dropdown:hover {
-    -fx-background-color: derive(#f2f2f2, -7.5%); }
+    -fx-background-color: derive(-primary-color, -7.5%); }
   .tabControl .tabNameLbl, #toolbar #homeButton .tabNameLbl, .dropdown .tabNameLbl {
+    -fx-text-fill: -text-color;
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
     -fx-background-insets: 0 0 0 0.5em; }
@@ -68,7 +78,7 @@
     .tabControl .closeBtn .closeIconView, #toolbar #homeButton .closeBtn .closeIconView, .dropdown .closeBtn .closeIconView {
       -fx-font-size: 1em !important; }
     .tabControl .closeBtn:hover .closeIconView, #toolbar #homeButton .closeBtn:hover .closeIconView, .dropdown .closeBtn:hover .closeIconView {
-      -icons-color: #DB4437; }
+      -icons-color: -danger-color; }
     .tabControl .closeBtn:armed, #toolbar #homeButton .closeBtn:armed, .dropdown .closeBtn:armed {
       -fx-background-color: transparent;
       -fx-border-width: 0; }
@@ -76,7 +86,7 @@
         -icons-color: black; }
 
 .active-tab {
-  -fx-background-color: #f2f2f2 !important; }
+  -fx-background-color: -primary-color !important; }
 
 #toolbar {
   -fx-spacing: 0.75em; }
@@ -90,7 +100,20 @@
 
 .dropdown {
   -fx-padding: .5em; }
+  .dropdown:hover .label {
+    -fx-text-fill: -text-color; }
   .dropdown:focused {
     -fx-padding: .5em; }
+  .dropdown .menu-item:focused {
+    -fx-background-color: derive(-primary-color, 0%); }
+    .dropdown .menu-item:focused .label {
+      -fx-text-fill: -accent-color; }
+  .dropdown .menu-item .label {
+    -fx-text-fill: -text-color; }
+  .dropdown .context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-color: derive(-primary-color, 20%);
+    -fx-padding: .5em;
+    /*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */ }
 
 /*# sourceMappingURL=main.css.map */

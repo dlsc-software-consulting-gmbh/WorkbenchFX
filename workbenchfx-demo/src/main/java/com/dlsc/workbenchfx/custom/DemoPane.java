@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.custom;
 
 import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
+import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
@@ -15,6 +16,7 @@ import java.util.function.BiFunction;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -97,7 +99,7 @@ public class DemoPane extends StackPane {
                 "Messages"
             ),
             Dropdown.of(
-                new ImageView("com/dlsc/workbenchfx/user.png.png"),
+                new ImageView("com/dlsc/workbenchfx/user_light.png"),
                 "ImageView",
                 new Label("Content 1"),
                 new Label("Content 2")
@@ -114,6 +116,9 @@ public class DemoPane extends StackPane {
         .tileFactory(tileFactory)
         .pageFactory(pageFactory)
         .build();
+
+//    Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
+    addUserAgentStylesheet("com/dlsc/workbenchfx/customTheme.css");
     getChildren().add(workbenchFx);
   }
 }

@@ -1,7 +1,7 @@
-$tabSpacing: 0.75em;
+$tab-spacing: 0.75em;
 
 #toolbar {
-  -fx-spacing: $tabSpacing;
+  -fx-spacing: $tab-spacing;
 
   & #homeButton {
     @extend .tabControl;
@@ -13,10 +13,10 @@ $tabSpacing: 0.75em;
   }
 
   & #tabBox {
-    -fx-spacing: 0.6 * $tabSpacing;
+    -fx-spacing: 0.6 * $tab-spacing;
   }
 
   & #controlBox {
-    -fx-spacing: 0.6 * $tabSpacing;
+    -fx-spacing: 0.6 * $tab-spacing;
   }
 }

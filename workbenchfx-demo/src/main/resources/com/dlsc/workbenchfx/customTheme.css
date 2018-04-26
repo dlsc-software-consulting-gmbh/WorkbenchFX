@@ -1,0 +1,14 @@
+.root {
+    -font-size: 14px;
+    -font-stack: Helvetica, sans-serif;
+    -primary-color: #8e24aa;
+    -danger-color: #DB4437;
+    -success-color: #47aa71;
+    -accent-color: #ffd8af;
+    -text-color: white;
+    -border: 2px;
+    -fx-color: -primary-color;
+    -icons-color: -text-color;
+    -fx-font: -font-size -font-stack;
+    -fx-background-color: white;
+}

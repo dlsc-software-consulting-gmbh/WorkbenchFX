@@ -2,6 +2,10 @@
   @extend .tabControl;
   -fx-padding: .5em;
 
+  &:hover .label {
+    -fx-text-fill: -text-color;
+  }
+
   &:focused {
     @extend .tabControl;
     -fx-padding: .5em;
@@ -17,5 +21,28 @@
 
   & .customMenuItem {
 
+  }
+
+  & .menu-item {
+
+    &:focused {
+      -fx-background-color: derive(-primary-color, 0%);
+      & .label {
+        -fx-text-fill: -accent-color;
+      }
+    }
+    & .label {
+      -fx-text-fill: -text-color;
+    }
+  }
+
+  & .context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-color: derive(-primary-color, 20%);
+    -fx-padding: .5em;
+    //-fx-background-insets: 0, 1, 2;
+    //-fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+    /*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
+    //-fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
   }
 }
