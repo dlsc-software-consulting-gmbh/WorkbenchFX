@@ -1,17 +1,21 @@
 .root {
   -fx-background-color: white;
   -fx-font: 14px Helvetica, sans-serif;
-  -fx-color: #F2F2F2;
-  -icons-color: derive(#F2F2F2, -70%); }
+  -fx-color: #f2f2f2;
+  -icons-color: derive(#f2f2f2, -70%); }
 
 .glyph-icon {
-  -fx-text-fill: derive(#F2F2F2, -70%);
+  -fx-text-fill: derive(#f2f2f2, -70%);
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
+.module-background {
+  -fx-background-color: derive(#f2f2f2, 90%); }
+
 #center {
   -fx-border-width: 1.75em 0 0 0;
-  -fx-border-color: #F2F2F2; }
+  -fx-border-color: #f2f2f2;
+  -fx-background-color: derive(#f2f2f2, 90%); }
 
 #home .tilePage {
   -fx-vgap: 40;
@@ -25,32 +29,32 @@
   #home .pagination > .pagination-control > .control-box > .bullet-button {
     -fx-background-radius: 4em;
     -fx-padding: 0.333em;
-    -fx-background-color: derive(#F2F2F2, -50%);
+    -fx-background-color: derive(#f2f2f2, -50%);
     -fx-background-insets: 5.25; }
     #home .pagination > .pagination-control > .control-box > .bullet-button:hover {
-      -fx-background-color: derive(#F2F2F2, -30%); }
+      -fx-background-color: derive(#f2f2f2, -30%); }
     #home .pagination > .pagination-control > .control-box > .bullet-button:selected {
       -fx-background-color: #00aaff; }
       #home .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
         -fx-background-color: derive(#00aaff, 20%); }
 
 .tileControl {
-  -fx-background-color: #F2F2F2;
-  -fx-text-fill: derive(#F2F2F2, -70%);
+  -fx-background-color: #f2f2f2;
+  -fx-text-fill: derive(#f2f2f2, -70%);
   -fx-pref-width: 16em;
   -fx-pref-height: 9em;
   -fx-alignment: center center; }
   .tileControl:hover {
-    -fx-background-color: derive(#F2F2F2, 15%); }
+    -fx-background-color: derive(#f2f2f2, 15%); }
 
 .tabControl, #toolbar #homeButton, .dropdown, .dropdown:focused {
-  -fx-background-color: derive(#F2F2F2, -15%);
+  -fx-background-color: derive(#f2f2f2, -15%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   -fx-background-radius: 0; }
   .tabControl:hover, #toolbar #homeButton:hover, .dropdown:hover {
-    -fx-background-color: derive(#F2F2F2, -7.5%); }
+    -fx-background-color: derive(#f2f2f2, -7.5%); }
   .tabControl .tabNameLbl, #toolbar #homeButton .tabNameLbl, .dropdown .tabNameLbl {
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
@@ -72,7 +76,7 @@
         -icons-color: black; }
 
 .active-tab {
-  -fx-background-color: #F2F2F2 !important; }
+  -fx-background-color: #f2f2f2 !important; }
 
 #toolbar {
   -fx-spacing: 0.75em; }

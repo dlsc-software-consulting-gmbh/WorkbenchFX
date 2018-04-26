@@ -1,6 +1,6 @@
 $font-size: 14px;
 $font-stack: Helvetica, sans-serif;
-$primary-color: #F2F2F2;
+$primary-color: #f2f2f2;
 $text-color: derive($primary-color, -70%);
 $danger-color: #DB4437;
 //$success-color: #47aa71;
@@ -33,6 +33,10 @@ $border: 2px;
   -fx-text-fill: $text-color;
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important;
+}
+
+.module-background {
+  -fx-background-color: derive($primary-color, 90%);
 }
 
 @import "center";
