@@ -4,7 +4,7 @@ import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.standard.calendar.CalendarModule;
 import com.dlsc.workbenchfx.standard.notes.NotesModule;
 import com.dlsc.workbenchfx.standard.preferences.PreferencesModule;
-import com.dlsc.workbenchfx.view.Dropdown;
+import com.dlsc.workbenchfx.view.controls.Dropdown;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.control.CustomMenuItem;

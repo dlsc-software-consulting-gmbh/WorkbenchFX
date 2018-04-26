@@ -5,7 +5,7 @@ import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.CenterPresenter;
 import com.dlsc.workbenchfx.view.CenterView;
-import com.dlsc.workbenchfx.view.Dropdown;
+import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.HomePresenter;
 import com.dlsc.workbenchfx.view.HomeView;
 import com.dlsc.workbenchfx.view.ToolBarPresenter;
