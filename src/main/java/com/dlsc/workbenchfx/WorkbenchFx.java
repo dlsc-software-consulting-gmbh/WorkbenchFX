@@ -96,7 +96,17 @@ public class WorkbenchFx extends StackPane {
 
   private BooleanProperty glassPaneShown = new SimpleBooleanProperty(false);
 
-  private ObservableList<Node> modalOverlays = FXCollections.observableArrayList();
+  /**
+   * List of the <b>modal</b> overlays which are currently being shown.
+   */
+  private ObservableList<Node> modalOverlaysShown = FXCollections.observableArrayList();
+  /**
+   * List of the overlays which are currently being shown.
+   */
+  private ObservableList<Node> overlaysShown = FXCollections.observableArrayList();
+  /**
+   * List of all overlays, which have been loaded onto the scene graph.
+   */
   private ObservableList<Node> overlays = FXCollections.observableArrayList();
 
   /**
@@ -261,6 +271,7 @@ public class WorkbenchFx extends StackPane {
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
     globalMenu = builder.globalMenuFactory.call(this);
+    globalMenu.setVisible(false);
     initModelBindings();
     initModules(builder.modules);
     initViews();
@@ -271,7 +282,7 @@ public class WorkbenchFx extends StackPane {
 
   private void initModelBindings() {
     // Show and hide glass pane depending on whether there are modal overlays or not
-    glassPaneShownProperty().bind(Bindings.isEmpty(getModalOverlays()).not());
+    glassPaneShownProperty().bind(Bindings.isEmpty(getModalOverlaysShown()).not());
   }
 
   private void initModules(Module... modules) {
@@ -467,8 +478,13 @@ public class WorkbenchFx extends StackPane {
   }
 
   /** TODO */
-  public ObservableList<Node> getModalOverlays() {
-    return FXCollections.unmodifiableObservableList(modalOverlays);
+  public ObservableList<Node> getModalOverlaysShown() {
+    return FXCollections.unmodifiableObservableList(modalOverlaysShown);
+  }
+
+  /** TODO */
+  public ObservableList<Node> getOverlaysShown() {
+    return FXCollections.unmodifiableObservableList(overlaysShown);
   }
 
   /** TODO */
@@ -477,35 +493,36 @@ public class WorkbenchFx extends StackPane {
   }
 
   /** TODO */
-  public void addOverlay(Node node, boolean modal) {
+  public void addOverlay(Node node) {
+    overlays.add(node);
+  }
+
+  /** TODO */
+  public void removeOverlay(Node node) {
+    overlays.remove(node);
+  }
+
+  /** TODO */
+  public void showOverlay(Node node, boolean modal) {
     if (modal) {
-      modalOverlays.add(node);
+      modalOverlaysShown.add(node);
     } else {
-      overlays.add(node);
+      overlaysShown.add(node);
     }
   }
 
   /** TODO */
-  public void removeOverlay(Node node, boolean modal) {
+  public void hideOverlay(Node node, boolean modal) {
     if (modal) {
-      modalOverlays.remove(node);
+      modalOverlaysShown.remove(node);
     } else {
-      overlays.remove(node);
+      overlaysShown.remove(node);
     }
   }
 
   /** TODO */
-  public void removeOverlays(boolean modal) {
-    if (modal) {
-      modalOverlays.clear();
-    } else {
-      overlays.clear();
-    }
-  }
-
-  /** TODO */
-  public void removeAllOverlays() {
-      modalOverlays.clear();
-      overlays.clear();
+  public void hideAllOverlays() {
+      modalOverlaysShown.clear();
+      overlaysShown.clear();
   }
 }

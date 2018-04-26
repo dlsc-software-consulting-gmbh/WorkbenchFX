@@ -13,7 +13,7 @@ public class GlassPane extends StackPane {
     getStyleClass().add("glass-pane");
 
     setMouseTransparent(false);
-    setOnMouseClicked(evt -> workbench.removeAllOverlays());
+    setOnMouseClicked(evt -> workbench.hideAllOverlays());
     setVisible(false);
 
     hideProperty().addListener(it -> {

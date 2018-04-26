@@ -59,31 +59,49 @@ public class WorkbenchFxPresenter implements Presenter {
       while (c.next()) {
         if (c.wasRemoved()) {
           for (Node node : c.getRemoved()) {
-            LOGGER.trace("Overlay closed");
+            LOGGER.trace("Overlay removed");
             view.getChildren().remove(node);
           }
         }
         if (c.wasAdded()) {
           for (Node node : c.getAddedSubList()) {
-            LOGGER.trace("Overlay opened");
+            LOGGER.trace("Overlay added");
+            node.setVisible(false);
             view.getChildren().add(node);
           }
         }
       }
     });
 
-    model.getModalOverlays().addListener((ListChangeListener<? super Node>) c -> {
+    model.getOverlaysShown().addListener((ListChangeListener<? super Node>) c -> {
+      while (c.next()) {
+        if (c.wasRemoved()) {
+          for (Node node : c.getRemoved()) {
+            LOGGER.trace("Overlay hidden");
+            node.setVisible(false);
+          }
+        }
+        if (c.wasAdded()) {
+          for (Node node : c.getAddedSubList()) {
+            LOGGER.trace("Overlay shown");
+            node.setVisible(true);
+          }
+        }
+      }
+    });
+
+    model.getModalOverlaysShown().addListener((ListChangeListener<? super Node>) c -> {
       while (c.next()) {
         if (c.wasRemoved()) {
           for (Node node : c.getRemoved()) {
             LOGGER.trace("Modal Overlay closed");
-            view.getChildren().remove(node);
+            node.setVisible(false);
           }
         }
         if (c.wasAdded()) {
           for (Node node : c.getAddedSubList()) {
             LOGGER.trace("Modal Overlay opened");
-            view.getChildren().add(node);
+            node.setVisible(true);
           }
         }
       }
