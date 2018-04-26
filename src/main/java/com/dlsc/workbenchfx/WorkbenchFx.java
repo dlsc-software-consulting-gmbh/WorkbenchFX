@@ -501,7 +501,7 @@ public class WorkbenchFx extends StackPane {
     overlays.add(node);
   }
 
-  /** TODO */
+  /** TODO: mention that this should only be used for performance reasons, since it will be removed from the scene graph */
   public void removeOverlay(Node node) {
     overlays.remove(node);
   }
