@@ -498,19 +498,24 @@ public class WorkbenchFx extends StackPane {
 
   /** TODO */
   public void addOverlay(Node node) {
+    LOGGER.trace("addOverlay");
     overlays.add(node);
   }
 
   /** TODO: mention that this should only be used for performance reasons, since it will be removed from the scene graph */
   public void removeOverlay(Node node) {
+    LOGGER.trace("removeOverlay");
     overlays.remove(node);
   }
 
   /** TODO */
   public void showOverlay(Node node, boolean modal) {
     if (modal) {
-      modalOverlaysShown.add(node);
+      LOGGER.trace("showOverlay - modal - " + node);
+      boolean result = modalOverlaysShown.add(node);
+      LOGGER.trace("showOverlay - modal - Result: " + result);
     } else {
+      LOGGER.trace("showOverlay - non-modal");
       overlaysShown.add(node);
     }
   }
@@ -518,15 +523,19 @@ public class WorkbenchFx extends StackPane {
   /** TODO */
   public void hideOverlay(Node node, boolean modal) {
     if (modal) {
-      modalOverlaysShown.remove(node);
+      LOGGER.trace("hideOverlay - modal");
+      boolean result = modalOverlaysShown.remove(node);
+      LOGGER.trace("hideOverlay - modal - Result: " + result);
     } else {
+      LOGGER.trace("hideOverlay - non-modal");
       overlaysShown.remove(node);
     }
   }
 
   /** TODO */
   public void hideAllOverlays() {
-      modalOverlaysShown.clear();
-      overlaysShown.clear();
+    LOGGER.trace("hideAllOverlays");
+    modalOverlaysShown.clear();
+    overlaysShown.clear();
   }
 }

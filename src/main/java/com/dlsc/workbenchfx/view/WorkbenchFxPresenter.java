@@ -63,7 +63,10 @@ public class WorkbenchFxPresenter implements Presenter {
   @Override
   public void setupValueChangedListeners() {
     model.getOverlays().addListener((ListChangeListener<? super Node>) c -> {
+      LOGGER.trace("Listener getOverlays fired");
       while (c.next()) {
+        LOGGER.trace(String.format("Changed - Added: %s, Removed: %s", c.getAddedSize(),
+            c.getRemovedSize()));
         if (c.wasRemoved()) {
           for (Node node : c.getRemoved()) {
             LOGGER.trace("Overlay removed");
@@ -80,7 +83,10 @@ public class WorkbenchFxPresenter implements Presenter {
     });
 
     model.getOverlaysShown().addListener((ListChangeListener<? super Node>) c -> {
+      LOGGER.trace("Listener getOverlaysShown fired");
       while (c.next()) {
+        LOGGER.trace(String.format("Changed - Added: %s, Removed: %s", c.getAddedSize(),
+            c.getRemovedSize()));
         if (c.wasRemoved()) {
           for (Node node : c.getRemoved()) {
             LOGGER.trace("Overlay hidden");
@@ -97,7 +103,10 @@ public class WorkbenchFxPresenter implements Presenter {
     });
 
     model.getModalOverlaysShown().addListener((ListChangeListener<? super Node>) c -> {
+      LOGGER.trace("Listener getModalOverlaysShown fired");
       while (c.next()) {
+        LOGGER.trace(String.format("Changed - Added: %s, Removed: %s", c.getAddedSize(),
+            c.getRemovedSize()));
         if (c.wasRemoved()) {
           for (Node node : c.getRemoved()) {
             LOGGER.trace("Modal Overlay closed");
@@ -115,6 +124,7 @@ public class WorkbenchFxPresenter implements Presenter {
   }
 
   private void addOverlay(Node node) {
+    LOGGER.trace("addOverlay");
     node.setVisible(false);
     view.getChildren().add(node);
   }
