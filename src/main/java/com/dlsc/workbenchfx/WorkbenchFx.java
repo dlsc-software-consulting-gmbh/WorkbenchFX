@@ -270,14 +270,18 @@ public class WorkbenchFx extends StackPane {
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
-    globalMenu = builder.globalMenuFactory.call(this);
+    initGlobalMenu(builder);
     initModelBindings();
     initModules(builder.modules);
     initViews();
-    addOverlay(globalMenu); // make it possible to add overlays before or after initializing the views?? TODO
     getChildren().add(workbenchFxView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
     addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
+  }
+
+  private void initGlobalMenu(WorkbenchFxBuilder builder) {
+    globalMenu = builder.globalMenuFactory.call(this);
+    addOverlay(globalMenu);
   }
 
   private void initModelBindings() {
