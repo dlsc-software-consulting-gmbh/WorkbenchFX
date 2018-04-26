@@ -2,7 +2,6 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import java.util.Objects;
-import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
@@ -56,9 +55,6 @@ public class WorkbenchFxPresenter implements Presenter {
   /** {@inheritDoc} */
   @Override
   public void setupValueChangedListeners() {
-    // Show and hide glass pane depending on whether there are modal overlays or not TODO: move to model?
-    model.glassPaneShownProperty().bind(Bindings.isEmpty(model.getModalOverlays()).not());
-
     model.getOverlays().addListener((ListChangeListener<? super Node>) c -> {
       while (c.next()) {
         if (c.wasRemoved()) {

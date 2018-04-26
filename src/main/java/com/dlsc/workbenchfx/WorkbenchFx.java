@@ -18,6 +18,7 @@ import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -260,11 +261,17 @@ public class WorkbenchFx extends StackPane {
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
     globalMenu = builder.globalMenuFactory.call(this);
+    initModelBindings();
     initModules(builder.modules);
     initViews();
     getChildren().add(workbenchFxView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
     addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
+  }
+
+  private void initModelBindings() {
+    // Show and hide glass pane depending on whether there are modal overlays or not
+    glassPaneShownProperty().bind(Bindings.isEmpty(getModalOverlays()).not());
   }
 
   private void initModules(Module... modules) {
