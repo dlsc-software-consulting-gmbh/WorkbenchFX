@@ -49,18 +49,18 @@ public class ToolBarPresenter implements Presenter {
   @Override
   public void setupValueChangedListeners() {
     // When the List of the currently open toolBarControls is changed, the view is updated.
-    model.getToolBarControls().addListener((ListChangeListener<? super Dropdown>) c -> {
+    model.getToolBarControls().addListener((ListChangeListener<? super Node>) c -> {
       while (c.next()) {
         if (c.wasRemoved()) {
-          for (Dropdown dropdown : c.getRemoved()) {
-            LOGGER.debug("Dropdown " + dropdown + " removed");
+          for (Node node : c.getRemoved()) {
+            LOGGER.debug("Dropdown " + node + " removed");
             view.removeToolBarControl(c.getFrom());
           }
         }
         if (c.wasAdded()) {
-          for (Dropdown dropdown : c.getAddedSubList()) {
-            LOGGER.debug("Dropdown " + dropdown + " added");
-            view.addToolBarControl(dropdown);
+          for (Node node : c.getAddedSubList()) {
+            LOGGER.debug("Dropdown " + node + " added");
+            view.addToolBarControl(node);
           }
         }
       }

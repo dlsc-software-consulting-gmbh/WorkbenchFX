@@ -85,7 +85,7 @@ public class ToolBarView extends HBox implements View {
   }
 
   // TODO: add javadoc comment
-  public void addToolBarControl(Dropdown dropdown) {
-    controlBox.getChildren().add(dropdown);
+  public void addToolBarControl(Node node) {
+    controlBox.getChildren().add(node);
   }
 }

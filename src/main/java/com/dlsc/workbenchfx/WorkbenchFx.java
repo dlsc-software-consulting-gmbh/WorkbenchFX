@@ -5,7 +5,6 @@ import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.CenterPresenter;
 import com.dlsc.workbenchfx.view.CenterView;
-import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.HomePresenter;
 import com.dlsc.workbenchfx.view.HomeView;
 import com.dlsc.workbenchfx.view.ToolBarPresenter;
@@ -53,7 +52,7 @@ public class WorkbenchFx extends StackPane {
   private WorkbenchFxPresenter workbenchFxPresenter;
 
 
-  private final ObservableList<Dropdown> dropdowns = FXCollections.observableArrayList();
+  private final ObservableList<Node> toolBarControls = FXCollections.observableArrayList();
   // Modules
   /**
    * List of all modules.
@@ -97,15 +96,15 @@ public class WorkbenchFx extends StackPane {
     return new WorkbenchFxBuilder(modules);
   }
 
-  public WorkbenchFx toolBarControls(Dropdown... dropdowns) {
-    this.dropdowns.addAll(dropdowns);
+  public WorkbenchFx toolBarControls(Node... Nodes) {
+    this.toolBarControls.addAll(Nodes);
     return this;
   }
 
   public static class WorkbenchFxBuilder {
     // Required parameters
     private final Module[] modules;
-    private ObservableList<Dropdown> dropdowns = FXCollections.observableArrayList();
+    private ObservableList<Node> toolBarControls = FXCollections.observableArrayList();
     // Optional parameters - initialized to default values
     private int modulesPerPage = 9;
     private BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
@@ -223,15 +222,15 @@ public class WorkbenchFx extends StackPane {
       return new WorkbenchFx(this);
     }
 
-    public WorkbenchFxBuilder toolBarControls(Dropdown... dropdowns) {
-      this.dropdowns.addAll(dropdowns);
+    public WorkbenchFxBuilder toolBarControls(Node... toolBarControls) {
+      this.toolBarControls.addAll(toolBarControls);
       return this;
     }
   }
 
   private WorkbenchFx(WorkbenchFxBuilder builder) {
     modulesPerPage = builder.modulesPerPage;
-    this.dropdowns.addAll(builder.dropdowns);
+    this.toolBarControls.addAll(builder.toolBarControls);
 
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
@@ -418,45 +417,45 @@ public class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Removes a {@link Dropdown} at the specified index if possible.
+   * Removes a {@link Node} at the specified index if possible.
    *
-   * @param index the index where the {@link Dropdown} should be removed
-   * @return the {@link Dropdown} which was removed
+   * @param index the index where the {@link Node} should be removed
+   * @return the {@link Node} which was removed
    */
-  public Dropdown remove(int index) {
-    return dropdowns.remove(index);
+  public Node remove(int index) {
+    return toolBarControls.remove(index);
   }
 
   /**
-   * Removes a {@link Dropdown} if one is in the {@code toolBarControls}.
+   * Removes a {@link Node} if one is in the {@code toolBarControls}.
    *
-   * @param dropdown the {@link Dropdown} which should be removed
+   * @param node the {@link Node} which should be removed
    * @return true if sucessful, false if not
    */
-  public boolean remove(Dropdown dropdown) {
-    return dropdowns.remove(dropdown);
+  public boolean remove(Node node) {
+    return toolBarControls.remove(node);
   }
 
   /**
-   * Inserts a given {@link Dropdown} at the specified index.
+   * Inserts a given {@link Node} at the specified index.
    *
-   * @param index    where the {@link Dropdown} needs to be inserted
-   * @param dropdown the {@link Dropdown} to be added to the {@code toolBarControls}
+   * @param index    where the {@link Node} needs to be inserted
+   * @param Node the {@link Node} to be added to the {@code toolBarControls}
    */
-  public void addDropdown(int index, Dropdown dropdown) {
-    dropdowns.add(index, dropdown);
+  public void addNode(int index, Node Node) {
+    toolBarControls.add(index, Node);
   }
 
   /**
-   * Inserts a given {@link Dropdown} at the end of the {@code toolBarControls}.
+   * Inserts a given {@link Node} at the end of the {@code toolBarControls}.
    *
-   * @param dropdown the {@link Dropdown} to be added to the {@code toolBarControls}
+   * @param Node the {@link Node} to be added to the {@code toolBarControls}
    */
-  public void addDropdown(Dropdown dropdown) {
-    dropdowns.add(dropdown);
+  public void addNode(Node Node) {
+    toolBarControls.add(Node);
   }
 
-  public ObservableList<Dropdown> getToolBarControls() {
-    return FXCollections.unmodifiableObservableList(dropdowns);
+  public ObservableList<Node> getToolBarControls() {
+    return FXCollections.unmodifiableObservableList(toolBarControls);
   }
 }
