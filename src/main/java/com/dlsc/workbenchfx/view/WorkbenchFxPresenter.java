@@ -30,6 +30,12 @@ public class WorkbenchFxPresenter implements Presenter {
     this.model = model;
     this.view = view;
     init();
+    initializeOverlays();
+  }
+
+  private void initializeOverlays() {
+    // initially load all overlays and hide them
+    model.getOverlays().forEach(this::addOverlay);
   }
 
   /**
@@ -38,6 +44,7 @@ public class WorkbenchFxPresenter implements Presenter {
   @Override
   public void initializeViewParts() {
     view.centerView.setContent(view.homeView);
+
   }
 
   /**
@@ -66,8 +73,7 @@ public class WorkbenchFxPresenter implements Presenter {
         if (c.wasAdded()) {
           for (Node node : c.getAddedSubList()) {
             LOGGER.trace("Overlay added");
-            node.setVisible(false);
-            view.getChildren().add(node);
+            addOverlay(node);
           }
         }
       }
@@ -106,6 +112,11 @@ public class WorkbenchFxPresenter implements Presenter {
         }
       }
     });
+  }
+
+  private void addOverlay(Node node) {
+    node.setVisible(false);
+    view.getChildren().add(node);
   }
 
   /**
