@@ -17,6 +17,7 @@ import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.Objects;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -442,11 +443,11 @@ public class WorkbenchFx extends StackPane {
   }
 
   public ObservableList<Module> getOpenModules() {
-    return FXCollections.unmodifiableObservableList(openModules);
+    return openModules;
   }
 
   public ObservableList<Module> getModules() {
-    return FXCollections.unmodifiableObservableList(modules);
+    return modules;
   }
 
   public Module getActiveModule() {
@@ -510,6 +511,7 @@ public class WorkbenchFx extends StackPane {
 
   /** TODO */
   public void showOverlay(Node node, boolean modal) {
+    node.setVisible(true);
     if (modal) {
       LOGGER.trace("showOverlay - modal - " + node);
       boolean result = modalOverlaysShown.add(node);
@@ -522,6 +524,7 @@ public class WorkbenchFx extends StackPane {
 
   /** TODO */
   public void hideOverlay(Node node, boolean modal) {
+    node.setVisible(false);
     if (modal) {
       LOGGER.trace("hideOverlay - modal");
       boolean result = modalOverlaysShown.remove(node);
@@ -535,6 +538,9 @@ public class WorkbenchFx extends StackPane {
   /** TODO */
   public void hideAllOverlays() {
     LOGGER.trace("hideAllOverlays");
+    Consumer<Node> hideOverlays = overlay -> overlay.setVisible(false);
+    modalOverlaysShown.forEach(hideOverlays);
+    overlaysShown.forEach(hideOverlays);
     modalOverlaysShown.clear();
     overlaysShown.clear();
   }

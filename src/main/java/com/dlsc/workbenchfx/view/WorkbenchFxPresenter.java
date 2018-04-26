@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.view;
 import com.dlsc.workbenchfx.WorkbenchFx;
 import java.util.Objects;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +21,8 @@ public class WorkbenchFxPresenter implements Presenter {
   private WorkbenchFx model;
   private WorkbenchFxView view;
 
+  private ObservableList<Node> overlays;
+
   /**
    * Constructs a new {@link WorkbenchFxPresenter} for the {@link WorkbenchFxView}.
    *
@@ -28,6 +31,7 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   public WorkbenchFxPresenter(WorkbenchFx model, WorkbenchFxView view) {
     this.model = model;
+    overlays = model.getOverlays();
     this.view = view;
     init();
     initializeOverlays();
@@ -62,7 +66,7 @@ public class WorkbenchFxPresenter implements Presenter {
   /** {@inheritDoc} */
   @Override
   public void setupValueChangedListeners() {
-    model.getOverlays().addListener((ListChangeListener<? super Node>) c -> {
+    overlays.addListener((ListChangeListener<? super Node>) c -> {
       LOGGER.trace("Listener getOverlays fired");
       while (c.next()) {
         LOGGER.trace(String.format("Changed - Added: %s, Removed: %s", c.getAddedSize(),
@@ -77,46 +81,6 @@ public class WorkbenchFxPresenter implements Presenter {
           for (Node node : c.getAddedSubList()) {
             LOGGER.trace("Overlay added");
             addOverlay(node);
-          }
-        }
-      }
-    });
-
-    model.getOverlaysShown().addListener((ListChangeListener<? super Node>) c -> {
-      LOGGER.trace("Listener getOverlaysShown fired");
-      while (c.next()) {
-        LOGGER.trace(String.format("Changed - Added: %s, Removed: %s", c.getAddedSize(),
-            c.getRemovedSize()));
-        if (c.wasRemoved()) {
-          for (Node node : c.getRemoved()) {
-            LOGGER.trace("Overlay hidden");
-            node.setVisible(false);
-          }
-        }
-        if (c.wasAdded()) {
-          for (Node node : c.getAddedSubList()) {
-            LOGGER.trace("Overlay shown");
-            node.setVisible(true);
-          }
-        }
-      }
-    });
-
-    model.getModalOverlaysShown().addListener((ListChangeListener<? super Node>) c -> {
-      LOGGER.trace("Listener getModalOverlaysShown fired");
-      while (c.next()) {
-        LOGGER.trace(String.format("Changed - Added: %s, Removed: %s", c.getAddedSize(),
-            c.getRemovedSize()));
-        if (c.wasRemoved()) {
-          for (Node node : c.getRemoved()) {
-            LOGGER.trace("Modal Overlay closed");
-            node.setVisible(false);
-          }
-        }
-        if (c.wasAdded()) {
-          for (Node node : c.getAddedSubList()) {
-            LOGGER.trace("Modal Overlay opened");
-            node.setVisible(true);
           }
         }
       }
