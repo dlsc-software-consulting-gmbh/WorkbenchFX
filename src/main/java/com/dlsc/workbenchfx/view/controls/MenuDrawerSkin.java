@@ -44,7 +44,7 @@ public class MenuDrawerSkin extends SkinBase<MenuDrawer> {
         backIconView.setId("backIconView");
         Button backBtn = new Button("", backIconView);
         backBtn.setId("backButton");
-        backBtn.setOnAction(evt -> menuDrawer.getWorkbench().removeOverlay(menuDrawer, true));
+        backBtn.setOnAction(evt -> menuDrawer.getWorkbench().hideOverlay(menuDrawer, true));
         BorderPane.setAlignment(backBtn, Pos.CENTER_LEFT);
 
         ImageView companyLogo = new ImageView();
