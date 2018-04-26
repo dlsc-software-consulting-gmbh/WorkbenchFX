@@ -13,7 +13,6 @@ import com.dlsc.workbenchfx.view.WorkbenchFxPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchFxView;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.MenuDrawer;
-import com.dlsc.workbenchfx.view.controls.MenuDrawerSkin;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.Objects;
@@ -93,8 +92,6 @@ public class WorkbenchFx extends StackPane {
       new SimpleObjectProperty<>(this, "tileFactory");
   private ObjectProperty<BiFunction<WorkbenchFx, Integer, Node>> pageFactory =
       new SimpleObjectProperty<>(this, "pageFactory");
-  private ObjectProperty<Callback<WorkbenchFx, Node>> globalMenuFactory =
-      new SimpleObjectProperty<>(this, "globalMenuFactory");
 
   private BooleanProperty globalMenuShown = new SimpleBooleanProperty(false);
   private BooleanProperty glassPaneShown = new SimpleBooleanProperty(false);
@@ -114,8 +111,10 @@ public class WorkbenchFx extends StackPane {
   public static class WorkbenchFxBuilder {
     // Required parameters
     private final Module[] modules;
+
     // Optional parameters - initialized to default values
     private int modulesPerPage = 9;
+
     private BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
       TabControl tabControl = new TabControl(module);
       workbench.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
@@ -135,11 +134,13 @@ public class WorkbenchFx extends StackPane {
       tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
       return tabControl;
     };
+
     private BiFunction<WorkbenchFx, Module, Node> tileFactory = (workbench, module) -> {
       TileControl tileControl = new TileControl(module);
       tileControl.setOnActive(e -> workbench.openModule(module));
       return tileControl;
     };
+
     private BiFunction<WorkbenchFx, Integer, Node> pageFactory = (workbench, pageIndex) -> {
       final int columnsPerRow = 3;
 
@@ -167,6 +168,7 @@ public class WorkbenchFx extends StackPane {
       }
       return gridPane;
     };
+
     private Callback<WorkbenchFx, Node> globalMenuFactory = workbench -> {
       MenuDrawer globalMenu = new MenuDrawer(workbench);
       StackPane.setAlignment(globalMenu, Pos.TOP_LEFT);
@@ -255,7 +257,7 @@ public class WorkbenchFx extends StackPane {
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
-    globalMenuFactory.setValue(builder.globalMenuFactory);
+    globalMenu = builder.globalMenuFactory.call(this);
     initModules(builder.modules);
     initViews();
     getChildren().add(workbenchFxView);
@@ -467,9 +469,6 @@ public class WorkbenchFx extends StackPane {
   }
 
   public Node getGlobalMenu() {
-    if (globalMenu == null) {
-      globalMenu = globalMenuFactory.get().call(this);
-    }
     return globalMenu;
   }
 
