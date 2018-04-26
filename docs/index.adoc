@@ -23,6 +23,11 @@ Fluent API or not?
 === First thoughts
 
 == Analysis
+
+=== Naming
+==== Navigation Drawer
+Comes from Material Design: https://material.io/guidelines/patterns/navigation-drawer.html
+
 === Architecture
 API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
 //They want to be able to define their own design to ensure it blends in with the design of their components.
