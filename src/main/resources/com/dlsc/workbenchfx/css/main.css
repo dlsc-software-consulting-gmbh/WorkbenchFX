@@ -1,170 +1,82 @@
-.root {
-  -fx-background-color: white;
-  -fx-font: 12px Helvetica, sans-serif;
-  -fx-color: #F2F2F2;
-  -icons-color: derive(#F2F2F2, -70%); }
+/*
+Error: Undefined variable: "$primary-color".
+        on line 3 of _center.scss
+        from line 44 of main.scss
 
-.glyph-icon {
-  -fx-text-fill: derive(#F2F2F2, -70%);
-  -fx-fill: -icons-color;
-  -fx-font-size: 1.5em !important; }
+1: $border: 2px;
+2: 
+3: // Sets a margin for all sides of the element
+4: @mixin margin-all($margin) {
+5:   -fx-padding: $margin;
+6:   -fx-border-insets: $margin;
+7:   -fx-background-insets: $margin;
+8: }
 
-#center {
-  -fx-border-width: 1.75em 0 0 0;
-  -fx-border-color: #F2F2F2; }
-
-#home .tilePage {
-  -fx-vgap: 40;
-  -fx-hgap: 40;
-  -fx-alignment: center;
-  -fx-padding: 20; }
-#home .pagination {
-  -fx-arrows-visible: false;
-  -fx-page-information-visible: false;
-  -fx-tooltip-visible: false; }
-  #home .pagination > .pagination-control > .control-box > .bullet-button {
-    -fx-background-radius: 4em;
-    -fx-padding: 0.333em;
-    -fx-background-color: derive(#F2F2F2, -50%);
-    -fx-background-insets: 5.25; }
-    #home .pagination > .pagination-control > .control-box > .bullet-button:hover {
-      -fx-background-color: derive(#F2F2F2, -30%); }
-    #home .pagination > .pagination-control > .control-box > .bullet-button:selected {
-      -fx-background-color: #00aaff; }
-      #home .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
-        -fx-background-color: derive(#00aaff, 20%); }
-
-.tileControl {
-  -fx-background-color: #F2F2F2;
-  -fx-text-fill: derive(#F2F2F2, -70%);
-  -fx-pref-width: 16em;
-  -fx-pref-height: 9em;
-  -fx-alignment: center center; }
-  .tileControl:hover {
-    -fx-background-color: derive(#F2F2F2, 15%); }
-
-.tabControl, #homeButton, #menuButton, #backButton {
-  -fx-background-color: derive(#F2F2F2, -15%);
-  -fx-padding: .5em .5em .5em 1em;
-  -fx-pref-height: 3.5em;
-  -fx-alignment: center center;
-  -fx-background-radius: 0; }
-  .tabControl:hover, #homeButton:hover, #menuButton:hover, #backButton:hover {
-    -fx-background-color: derive(#F2F2F2, -7.5%); }
-  .tabControl .tabNameLbl, #homeButton .tabNameLbl, #menuButton .tabNameLbl, #backButton .tabNameLbl {
-    -fx-padding: 0 0 0 0.5em;
-    -fx-border-insets: 0 0 0 0.5em;
-    -fx-background-insets: 0 0 0 0.5em; }
-  .tabControl .closeBtn, #homeButton .closeBtn, #menuButton .closeBtn, #backButton .closeBtn {
-    -fx-padding: 0 0.5em 0 1em;
-    -fx-border-insets: 0 0.5em 0 1em;
-    -fx-background-insets: 0 0.5em 0 1em;
-    -fx-background-color: transparent;
-    -fx-border-width: 0; }
-    .tabControl .closeBtn .closeIconView, #homeButton .closeBtn .closeIconView, #menuButton .closeBtn .closeIconView, #backButton .closeBtn .closeIconView {
-      -fx-font-size: 1em; }
-    .tabControl .closeBtn:hover .closeIconView, #homeButton .closeBtn:hover .closeIconView, #menuButton .closeBtn:hover .closeIconView, #backButton .closeBtn:hover .closeIconView {
-      -icons-color: #DB4437; }
-    .tabControl .closeBtn:armed, #homeButton .closeBtn:armed, #menuButton .closeBtn:armed, #backButton .closeBtn:armed {
-      -fx-background-color: transparent;
-      -fx-border-width: 0; }
-      .tabControl .closeBtn:armed .closeIconView, #homeButton .closeBtn:armed .closeIconView, #menuButton .closeBtn:armed .closeIconView, #backButton .closeBtn:armed .closeIconView {
-        -icons-color: black; }
-
-.active-tab {
-  -fx-background-color: #F2F2F2 !important; }
-
-#toolbar {
-  -fx-spacing: 0.75em; }
-
-#homeButton, #menuButton, #backButton {
-  -fx-padding: .5em .5em .5em .5em;
-  -fx-pref-width: 3.5em; }
-
-#menuIconView {
-  -fx-fill: white; }
-
-#menuButton {
-  -fx-background-color: derive(#F2F2F2, -70%); }
-  #menuButton:hover {
-    -fx-background-color: derive(derive(#F2F2F2, -70%), 10%); }
-
-#tabBox {
-  -fx-spacing: 0.45em; }
-
-.pretty-scroll-pane {
-  -fx-background-insets: 0; }
-
-.pretty-scroll-pane .scroll-bar {
-  -fx-background-color: transparent;
-  -fx-pref-width: 12;
-  -fx-pref-height: 12;
-  -fx-padding: 2; }
-
-.pretty-scroll-pane .scroll-bar .thumb {
-  -fx-background-color: rgba(0, 0, 0, 0.2);
-  -fx-background-radius: 1000;
-  -fx-pref-width: 12;
-  -fx-pref-height: 12; }
-
-.pretty-scroll-pane .scroll-bar:vertical .thumb {
-  -fx-background-insets: 0 2 0 0; }
-
-.pretty-scroll-pane .scroll-bar:horizontal .thumb {
-  -fx-background-insets: 0 0 2 0; }
-
-.pretty-scroll-pane .scroll-bar .increment-button,
-.pretty-scroll-pane .scroll-bar .increment-arrow,
-.pretty-scroll-pane .scroll-bar .decrement-button,
-.pretty-scroll-pane .scroll-bar .decrement-arrow {
-  -fx-pref-width: 0 !important;
-  -fx-pref-height: 0 !important; }
-
-.navigation-drawer {
-  -fx-background-color: #ffffff;
-  -fx-border-color: transparent derive(derive(#F2F2F2, -70%), 150%) transparent transparent;
-  -fx-background-insets: 0;
-  -fx-background-radius: 0;
-  -fx-padding: 0;
-  -fx-effect: null; }
-
-.navigation-drawer .menu-item:pressed {
-  -fx-background-color: white; }
-
-.navigation-drawer .separator:horizontal .line {
-  -fx-border-color: derive(derive(#F2F2F2, -70%), 20%) transparent transparent transparent;
-  -fx-border-insets: 1 0 0 0; }
-
-.navigation-drawer > .scroll-arrow {
-  -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em;
-  /* 5 */
-  -fx-background-color: transparent; }
-
-.navigation-drawer > .scroll-arrow:hover {
-  -fx-background: -fx-selection-bar;
-  -fx-background-color: -fx-background;
-  -fx-text-fill: -fx-text-background-color; }
-
-.navigation-drawer :show-mnemonics > .mnemonic-underline {
-  -fx-stroke: -fx-text-fill; }
-
-.header {
-  -fx-spacing: 25;
-  -fx-alignment: center; }
-
-.header .separator .line {
-  -fx-border-color: white;
-  -fx-border-width: 1; }
-
-#backButton {
-  -fx-background-color: transparent; }
-  #backButton:hover {
-    -fx-background-color: transparent; }
-    #backButton:hover #backIconView {
-      -fx-fill: derive(-icons-color, 20%); }
-
-.glass-pane {
-  -fx-background-color: black;
-  -fx-opacity: .6; }
-
-/*# sourceMappingURL=main.css.map */
+Backtrace:
+_center.scss:3
+main.scss:44
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/script/tree/variable.rb:49:in `_perform'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/script/tree/node.rb:50:in `perform'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:402:in `visit_prop'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:36:in `visit'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:79:in `block in with_base'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:135:in `with_frame'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:79:in `with_base'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:162:in `visit'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:444:in `block (2 levels) in visit_rule'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:444:in `map'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:444:in `block in visit_rule'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:442:in `visit_rule'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:36:in `visit'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:79:in `block in with_base'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:135:in `with_frame'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:79:in `with_base'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:162:in `visit'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:329:in `block (2 levels) in visit_import'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:329:in `map'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:329:in `block in visit_import'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:88:in `block in with_import'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:135:in `with_frame'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:88:in `with_import'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:326:in `visit_import'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:36:in `visit'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:79:in `block in with_base'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:135:in `with_frame'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:79:in `with_base'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:162:in `visit'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:52:in `map'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:171:in `block in visit_children'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:170:in `visit_children'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:190:in `visit_root'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:36:in `visit'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:161:in `visit'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:10:in `visit'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/root_node.rb:36:in `css_tree'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/engine.rb:389:in `_render_with_sourcemap'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/engine.rb:307:in `render_with_sourcemap'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:462:in `update_stylesheet'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:209:in `each'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/plugin.rb:82:in `update_stylesheets'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/exec/sass_scss.rb:340:in `watch_or_update'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/exec/sass_scss.rb:51:in `process_result'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/exec/base.rb:52:in `parse'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/lib/sass/exec/base.rb:19:in `parse!'
+/usr/local/lib/ruby/gems/2.5.0/gems/sass-3.5.6/bin/sass:13:in `<top (required)>'
+/usr/local/bin/sass:23:in `load'
+/usr/local/bin/sass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Undefined variable: \"$primary-color\".\A         on line 3 of _center.scss\A         from line 44 of main.scss\A \A 1: $border: 2px;\A 2: \A 3: // Sets a margin for all sides of the element\A 4: @mixin margin-all($margin) {\A 5:   -fx-padding: $margin;\A 6:   -fx-border-insets: $margin;\A 7:   -fx-background-insets: $margin;\A 8: }"; }

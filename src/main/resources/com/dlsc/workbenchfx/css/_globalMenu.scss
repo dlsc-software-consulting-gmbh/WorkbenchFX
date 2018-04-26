@@ -1,3 +1,68 @@
+.context-menu {
+  -fx-background-color: $custom-color-1;
+  -fx-background-insets: 0;
+  -fx-background-radius: 0;
+  -fx-padding: 0;
+}
+
+.context-menu .label {
+  -fx-text-fill: white;
+}
+
+.context-menu .menu .arrow {
+  -fx-background-color: $custom-color-2;
+  -fx-background-insets: 0;
+  -fx-padding: 0.25em;
+  -fx-shape: "M 0 -3.5 v 7 l 4 -3.5 z";
+}
+
+.context-menu .menu:hover .arrow,
+.context-menu .menu:showing .arrow {
+  -fx-background-color: $custom-color-2;
+}
+
+.context-menu .menu-item {
+  -fx-padding: 20;
+}
+
+.context-menu .menu-item .label {
+  -fx-font-size: 15;
+}
+
+.context-menu .menu-item:focused,
+.context-menu .menu-item:hover {
+  -fx-background-color: derive($custom-color-1, -10%);
+}
+
+.context-menu .menu-item:pressed {
+  -fx-background-color: white;
+}
+
+.context-menu .menu-item:pressed .label {
+  -fx-text-fill: $custom-color-1;
+}
+
+.context-menu .separator:horizontal .line {
+  -fx-border-color: $custom-color-3 transparent transparent transparent;
+  -fx-border-insets: 1 0 0 0;
+}
+
+.context-menu > .scroll-arrow {
+  -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em; /* 5 */
+  -fx-background-color: transparent;
+}
+
+.context-menu > .scroll-arrow:hover {
+  -fx-background: $custom-color-4;
+  -fx-background-color: -fx-background;
+  -fx-text-fill: $custom-color-5;
+}
+
+.context-menu:show-mnemonics > .mnemonic-underline {
+  -fx-stroke: -fx-text-fill;
+}
+
+
 .navigation-drawer  {
   -fx-background-color: #ffffff;
   -fx-border-color: transparent derive($text-color, 150%) transparent transparent;
@@ -26,7 +91,7 @@
 }
 
 .navigation-drawer  > .scroll-arrow {
-  -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em; /* 5 */
+  -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em;
   -fx-background-color: transparent;
 }
 
@@ -64,3 +129,4 @@
     }
   }
 }
+

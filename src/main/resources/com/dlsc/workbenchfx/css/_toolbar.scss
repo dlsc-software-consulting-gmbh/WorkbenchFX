@@ -1,31 +1,22 @@
-$tabSpacing: 0.75em;
+$tab-spacing: 0.75em;
 
 #toolbar {
-  -fx-spacing: $tabSpacing;
-}
+  -fx-spacing: $tab-spacing;
 
-#homeIconView {
+  & #homeButton {
+    @extend .tabControl;
+    -fx-padding: .5em .5em .5em .5em;
+    -fx-pref-width: 3.5em;
+    & #homeIconView {
 
-}
-
-#homeButton {
-  @extend .tabControl;
-  -fx-padding: .5em .5em .5em .5em;
-  -fx-pref-width: 3.5em;
-}
-
-#menuIconView {
-  -fx-fill: white;
-}
-
-#menuButton {
-  @extend #homeButton;
-  -fx-background-color: $text-color;
-  &:hover {
-    -fx-background-color: derive($text-color, 10%);
+    }
   }
-}
 
-#tabBox {
-  -fx-spacing: 0.6 * $tabSpacing;
+  & #tabBox {
+    -fx-spacing: 0.6 * $tab-spacing;
+  }
+
+  & #controlBox {
+    -fx-spacing: 0.6 * $tab-spacing;
+  }
 }

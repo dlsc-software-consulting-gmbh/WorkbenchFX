@@ -1,12 +1,4 @@
-$font-stack: Helvetica, sans-serif;
-$primary-color: #F2F2F2;
-$text-color: derive($primary-color, -70%);
-$danger-color: #DB4437;
-$accent-color: #00aaff;
 $border: 2px;
-$custom-color-1: blue;
-$custom-color-2: green;
-
 
 // Sets a margin for all sides of the element
 @mixin margin-all($margin) {
@@ -23,17 +15,30 @@ $custom-color-2: green;
 }
 
 .root {
+  -fx-font-size: 14px;
+  -fx-font-family: Helvetica, sans-serif;
+  -primary-color: #f2f2f2;
+  -danger-color: #DB4437;
+  -success-color: #47aa71;
+  -accent-color: #00aaff;
+  -text-color: derive(-primary-color, -70%);
+  -border: $border;
+  -fx-color: -primary-color;
+  -icons-color: -text-color;
+  -fx-font: -font-size -font-stack;
+  -module-background-color: derive(-primary-color, 140%);
   -fx-background-color: white;
-  -fx-font: 12px $font-stack;
-  -fx-color: $primary-color;
-  -icons-color: $text-color;
 }
 
 // Default styling of icons. This enables changing the icons styles later on
 .glyph-icon {
-  -fx-text-fill: $text-color;
+  -fx-text-fill: -text-color;
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important;
+}
+
+.module-background {
+  -fx-background-color: -module-background-color;
 }
 
 @import "center";
