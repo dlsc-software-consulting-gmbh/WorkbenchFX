@@ -25,98 +25,95 @@ import org.apache.logging.log4j.Logger;
 
 public class DemoPane extends StackPane {
 
-    private static final Logger LOGGER = LogManager.getLogger(DemoPane.class.getName());
-    public WorkbenchFx workbenchFx;
+  private static final Logger LOGGER = LogManager.getLogger(DemoPane.class.getName());
+  public WorkbenchFx workbenchFx;
 
-    BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
-        TabControl tabControl = new TabControl(module);
-        workbench.activeModuleProperty().addListener((observable, oldValue, newValue) -> {
-            LOGGER.trace("Tab Factory - Old Module: " + oldValue);
-            LOGGER.trace("Tab Factory - New Module: " + oldValue);
-            if (module == newValue) {
-                tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-                LOGGER.error("STYLE SET");
-            }
-            if (module == oldValue) {
-                // switch from this to other tab
-                tabControl.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
-            }
-        });
-        tabControl.setOnClose(e -> workbench.closeModule(module));
-        tabControl.setOnActive(e -> workbench.openModule(module));
+  BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
+    TabControl tabControl = new TabControl(module);
+    workbench.activeModuleProperty().addListener((observable, oldValue, newValue) -> {
+      LOGGER.trace("Tab Factory - Old Module: " + oldValue);
+      LOGGER.trace("Tab Factory - New Module: " + oldValue);
+      if (module == newValue) {
         tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-        System.out.println("This tab was proudly created by SteffiFX");
-        return tabControl;
-    };
+        LOGGER.error("STYLE SET");
+      }
+      if (module == oldValue) {
+        // switch from this to other tab
+        tabControl.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
+      }
+    });
+    tabControl.setOnClose(e -> workbench.closeModule(module));
+    tabControl.setOnActive(e -> workbench.openModule(module));
+    tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
+    System.out.println("This tab was proudly created by SteffiFX");
+    return tabControl;
+  };
 
-    BiFunction<WorkbenchFx, Module, Node> tileFactory = (workbench, module) -> {
-        TileControl tileControl = new TileControl(module);
-        tileControl.setOnActive(e -> workbench.openModule(module));
-        System.out.println("This tile was proudly created by SteffiFX");
-        return tileControl;
-    };
+  BiFunction<WorkbenchFx, Module, Node> tileFactory = (workbench, module) -> {
+    TileControl tileControl = new TileControl(module);
+    tileControl.setOnActive(e -> workbench.openModule(module));
+    System.out.println("This tile was proudly created by SteffiFX");
+    return tileControl;
+  };
 
-    BiFunction<WorkbenchFx, Integer, Node> pageFactory = (workbench, pageIndex) -> {
-        final int COLUMNS_PER_ROW = 2;
+  BiFunction<WorkbenchFx, Integer, Node> pageFactory = (workbench, pageIndex) -> {
+    final int COLUMNS_PER_ROW = 2;
 
-        GridPane gridPane = new GridPane();
-        gridPane.getStyleClass().add("tilePage");
+    GridPane gridPane = new GridPane();
+    gridPane.getStyleClass().add("tilePage");
 
-        int position = pageIndex * workbench.modulesPerPage;
-        int count = 0;
-        int column = 0;
-        int row = 0;
+    int position = pageIndex * workbench.modulesPerPage;
+    int count = 0;
+    int column = 0;
+    int row = 0;
 
-        while (count < workbench.modulesPerPage && position < workbench.getModules().size()) {
-            Module module = workbench.getModules().get(position);
-            Node tile = workbench.getTile(module);
-            gridPane.add(tile, column, row);
+    while (count < workbench.modulesPerPage && position < workbench.getModules().size()) {
+      Module module = workbench.getModules().get(position);
+      Node tile = workbench.getTile(module);
+      gridPane.add(tile, column, row);
 
-            position++;
-            count++;
-            column++;
+      position++;
+      count++;
+      column++;
 
-            if (column == COLUMNS_PER_ROW) {
-                column = 0;
-                row++;
-            }
-        }
-        return gridPane;
-    };
-
-    public DemoPane() {
-
-        workbenchFx = WorkbenchFx.builder(
-                new CalendarModule(),
-                new NotesModule(),
-                new PreferencesModule()
-        )
-                .toolBarControls(
-                        Dropdown.of(
-                                new FontAwesomeIconView(FontAwesomeIcon.ENVELOPE),
-                                "Messages",
-                                "Your Inbox"
-                        ),
-                        Dropdown.of(
-                                new ImageView("com/dlsc/workbenchfx/jfx_logo.png"),
-                                "ImageView",
-                                "A dropdown with an Image",
-                                new Label("Content 1"),
-                                new Label("Content 2")
-                        ),
-                        Dropdown.of(
-                                new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
-                                "FAIconView",
-                                "A dropdown with an Icon",
-                                new Label("Content 1"),
-                                new Label("Content 2")
-                        )
-                )
-                .modulesPerPage(2)
-                .tabFactory(tabFactory)
-                .tileFactory(tileFactory)
-                .pageFactory(pageFactory)
-                .build();
-        getChildren().add(workbenchFx);
+      if (column == COLUMNS_PER_ROW) {
+        column = 0;
+        row++;
+      }
     }
+    return gridPane;
+  };
+
+  public DemoPane() {
+
+    workbenchFx = WorkbenchFx.builder(
+        new CalendarModule(),
+        new NotesModule(),
+        new PreferencesModule()
+    )
+        .toolBarControls(
+            Dropdown.of(
+                new FontAwesomeIconView(FontAwesomeIcon.ENVELOPE),
+                "Messages"
+            ),
+            Dropdown.of(
+                new ImageView("com/dlsc/workbenchfx/user.png.png"),
+                "ImageView",
+                new Label("Content 1"),
+                new Label("Content 2")
+            ),
+            Dropdown.of(
+                new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
+                "FAIconView",
+                new Label("Content 1"),
+                new Label("Content 2")
+            )
+        )
+        .modulesPerPage(2)
+        .tabFactory(tabFactory)
+        .tileFactory(tileFactory)
+        .pageFactory(pageFactory)
+        .build();
+    getChildren().add(workbenchFx);
+  }
 }

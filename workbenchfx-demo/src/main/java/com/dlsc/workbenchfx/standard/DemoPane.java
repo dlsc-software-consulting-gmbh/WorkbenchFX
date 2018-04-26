@@ -22,16 +22,14 @@ public class DemoPane extends StackPane {
                 new PreferencesModule()
         ).toolBarControls (
                 Dropdown.of(
-                        new ImageView("com/dlsc/workbenchfx/jfx_logo.png"),
+                        new ImageView("com/dlsc/workbenchfx/user.png"),
                         "ImageView",
-                        "A dropdown with an Image",
                         new Label("Content 1"),
                         new Label("Content 2")
                 ),
                 Dropdown.of(
                         new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                         "FAIconView",
-                        "A dropdown with an Icon",
                         new Label("Content 1"),
                         new Label("Content 2")
                 )

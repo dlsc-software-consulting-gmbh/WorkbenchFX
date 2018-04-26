@@ -1,45 +1,21 @@
-#dropdownView {
-  -fx-max-height: 3.5em;
-}
-
 .dropdown {
+  @extend .tabControl;
+  -fx-padding: .5em;
 
-  & .buttonBox {
+  &:focused {
     @extend .tabControl;
-    -fx-padding: .5em 1em .5em 1em;
-    -fx-spacing: .5em;
-
-    & .iconView {
-
-    }
-    & .descriptionBox {
-      @include margin(0, 0, 0, .5em);
-      & .titleLbl {
-
-      }
-      & .subtitleLbl {
-        -fx-font-size: .75em;
-      }
-    }
-    & .arrowIcon {
-      -fx-font-size: 2em !important;
-      &:hover {
-        -icons-color: derive($accent-color, -20%);
-      }
-    }
+    -fx-padding: .5em;
   }
 
-  & .menuBox {
-    & .contentBox {
-      -fx-padding: .5em .5em .5em 1em;
-      -fx-background-color: derive($primary-color, -7.5%);
-      &:hover {
-        -fx-background-color: derive($primary-color, -3.75%);
-      }
-      & .contentNode {
-        -fx-padding: .5em;
-        -fx-alignment: center center;
-      }
-    }
+  & .iconView {
+
+  }
+
+  & .contentNode {
+
+  }
+
+  & .customMenuItem {
+
   }
 }
