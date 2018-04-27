@@ -1,7 +1,7 @@
 .tileControl {
   @extend %tool-bar-setup;
-  -fx-min-width: 16em;
-  -fx-min-height: 9em;
+  -fx-pref-width: 16em;
+  -fx-pref-height: 9em;
   &:hover {
     -fx-text-fill: -text-color;
   }

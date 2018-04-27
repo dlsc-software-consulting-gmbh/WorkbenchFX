@@ -65,8 +65,8 @@
         -fx-background-color: derive(-accent-color, 20%); }
 
 .tileControl {
-  -fx-min-width: 16em;
-  -fx-min-height: 9em; }
+  -fx-pref-width: 16em;
+  -fx-pref-height: 9em; }
   .tileControl:hover {
     -fx-text-fill: -text-color; }
 
