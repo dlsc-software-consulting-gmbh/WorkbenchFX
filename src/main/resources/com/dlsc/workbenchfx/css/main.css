@@ -1,21 +1,14 @@
-.tabControl, #toolbar #homeButton, .dropdown, .dropdown:focused, .tool-bar-control {
-  -fx-max-height: 3.5em;
-  -fx-min-height: 3.5em;
-  -fx-pref-height: 3.5em; }
-
 .root {
-  -fx-font-size: 14px;
-  -fx-font-family: Helvetica, sans-serif;
   -primary-color: #f2f2f2;
   -danger-color: #DB4437;
   -success-color: #47aa71;
   -accent-color: #00aaff;
   -text-color: derive(-primary-color, -70%);
-  -border: 2px;
-  -fx-color: -primary-color;
-  -icons-color: -text-color;
-  -fx-font: -font-size -font-stack;
   -module-background-color: derive(-primary-color, 140%);
+  -icons-color: -text-color;
+  -fx-font-size: 14px;
+  -fx-font-family: Helvetica, sans-serif;
+  -fx-color: -primary-color;
   -fx-background-color: white; }
 
 .glyph-icon {
@@ -25,6 +18,25 @@
 
 .module-background {
   -fx-background-color: -module-background-color; }
+
+.tileControl, .tabControl, #toolbar #homeButton, .dropdown {
+  -fx-max-height: 3.5em;
+  -fx-min-height: 3.5em;
+  -fx-pref-height: 3.5em;
+  -fx-background-color: derive(-primary-color, -15%);
+  -fx-padding: .5em;
+  -fx-spacing: .5em;
+  -fx-alignment: center center;
+  -fx-background-radius: 0;
+  -fx-border-radius: 0;
+  -fx-border-width: 0; }
+  .tileControl:hover, .tabControl:hover, #toolbar #homeButton:hover, .dropdown:hover {
+    -fx-background-color: derive(-primary-color, -7.5%); }
+  .tileControl:focused, .tabControl:focused, #toolbar #homeButton:focused, .dropdown:focused {
+    -fx-background-color: derive(-primary-color, -3.75%);
+    -fx-background-radius: 0; }
+  .tileControl .label, .tabControl .label, #toolbar #homeButton .label, .dropdown .label {
+    -fx-text-fill: -text-color; }
 
 #center {
   -fx-border-width: 1.75em 0 0 0;
@@ -53,41 +65,19 @@
         -fx-background-color: derive(-accent-color, 20%); }
 
 .tileControl {
-  -fx-background-color: -primary-color;
-  -fx-text-fill: -text-color;
-  -fx-pref-width: 16em;
-  -fx-pref-height: 9em;
-  -fx-alignment: center center; }
+  -fx-min-width: 16em;
+  -fx-min-height: 9em; }
   .tileControl:hover {
-    -fx-background-color: derive(-primary-color, 15%); }
+    -fx-text-fill: -text-color; }
 
-.tabControl, #toolbar #homeButton, .dropdown, .dropdown:focused {
-  -fx-background-color: derive(-primary-color, -15%);
-  -fx-padding: .5em .5em .5em 1em;
-  -fx-alignment: center center;
-  -fx-background-radius: 0; }
-  .tabControl:hover, #toolbar #homeButton:hover, .dropdown:hover {
-    -fx-background-color: derive(-primary-color, -7.5%); }
-  .tabControl .tabNameLbl, #toolbar #homeButton .tabNameLbl, .dropdown .tabNameLbl {
-    -fx-text-fill: -text-color;
-    -fx-padding: 0 0 0 0.5em;
-    -fx-border-insets: 0 0 0 0.5em;
-    -fx-background-insets: 0 0 0 0.5em; }
-  .tabControl .closeBtn, #toolbar #homeButton .closeBtn, .dropdown .closeBtn {
-    -fx-padding: 0 0.5em 0 1em;
-    -fx-border-insets: 0 0.5em 0 1em;
-    -fx-background-insets: 0 0.5em 0 1em;
-    -fx-background-color: transparent;
-    -fx-border-width: 0; }
-    .tabControl .closeBtn .closeIconView, #toolbar #homeButton .closeBtn .closeIconView, .dropdown .closeBtn .closeIconView {
+.tabControl {
+  -fx-padding: .5em .5em .5em 1em; }
+  .tabControl .closeBtn {
+    -fx-background-color: transparent; }
+    .tabControl .closeBtn .closeIconView {
       -fx-font-size: 1em !important; }
-    .tabControl .closeBtn:hover .closeIconView, #toolbar #homeButton .closeBtn:hover .closeIconView, .dropdown .closeBtn:hover .closeIconView {
+    .tabControl .closeBtn:hover .closeIconView {
       -icons-color: -danger-color; }
-    .tabControl .closeBtn:armed, #toolbar #homeButton .closeBtn:armed, .dropdown .closeBtn:armed {
-      -fx-background-color: transparent;
-      -fx-border-width: 0; }
-      .tabControl .closeBtn:armed .closeIconView, #toolbar #homeButton .closeBtn:armed .closeIconView, .dropdown .closeBtn:armed .closeIconView {
-        -icons-color: black; }
 
 .active-tab {
   -fx-background-color: -primary-color !important; }
@@ -95,27 +85,20 @@
 #toolbar {
   -fx-spacing: 0.75em; }
   #toolbar #homeButton {
-    -fx-padding: .5em .5em .5em .5em;
-    -fx-pref-width: 3.5em; }
+    -fx-min-width: 3.5em; }
   #toolbar #tabBox {
     -fx-spacing: 0.45em; }
   #toolbar #controlBox {
     -fx-spacing: 0.45em; }
 
-.dropdown {
+.dropdown .menu-item {
   -fx-padding: .5em; }
-  .dropdown:hover .label {
-    -fx-text-fill: -text-color; }
-  .dropdown:focused {
-    -fx-padding: .5em; }
-  .dropdown .menu-item {
-    -fx-padding: .5em; }
-    .dropdown .menu-item:hover {
-      -fx-background-color: derive(-primary-color, 30%); }
-    .dropdown .menu-item:focused {
-      -fx-background-color: derive(-primary-color, 30%); }
-  .dropdown .context-menu {
-    -fx-background-color: derive(-primary-color, 15%);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0, 0, 4); }
+  .dropdown .menu-item:hover {
+    -fx-background-color: derive(-primary-color, 30%); }
+  .dropdown .menu-item:focused {
+    -fx-background-color: derive(-primary-color, 30%); }
+.dropdown .context-menu {
+  -fx-background-color: derive(-primary-color, 15%);
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0, 0, 4); }
 
 /*# sourceMappingURL=main.css.map */

@@ -41,8 +41,7 @@ public class DropdownSkin extends SkinBase<Dropdown> {
 
     menuItems = dropdown.getItems();
     for (MenuItem menuItem : menuItems) {
-      menuItem.getStyleClass().add("contentNode");
-      menuItem.getStyleClass().add("customMenuItem");
+      menuItem.getStyleClass().add("content-node");
       menuButton.getItems().add(menuItem);
     }
 

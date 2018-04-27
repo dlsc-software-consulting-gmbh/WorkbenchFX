@@ -1,39 +1,18 @@
 $border: 2px;
-$pref-height: 3.5em;
-
-%tool-bar-height {
-  -fx-max-height: $pref-height;
-  -fx-min-height: $pref-height;
-  -fx-pref-height: $pref-height;
-}
-
-// Sets a margin for all sides of the element
-@mixin margin-all($margin) {
-  -fx-padding: $margin;
-  -fx-border-insets: $margin;
-  -fx-background-insets: $margin;
-}
-
-// Sets a margin for each side of the element. Order: Top, Right, Bottom, Left
-@mixin margin($margin-top, $margin-right, $margin-bottom, $margin-left) {
-  -fx-padding: $margin-top $margin-right $margin-bottom $margin-left;
-  -fx-border-insets: $margin-top $margin-right $margin-bottom $margin-left;
-  -fx-background-insets: $margin-top $margin-right $margin-bottom $margin-left;
-}
+$pref-size: 3.5em;
 
 .root {
-  -fx-font-size: 14px;
-  -fx-font-family: Helvetica, sans-serif;
   -primary-color: #f2f2f2;
   -danger-color: #DB4437;
   -success-color: #47aa71;
   -accent-color: #00aaff;
   -text-color: derive(-primary-color, -70%);
-  -border: $border;
-  -fx-color: -primary-color;
-  -icons-color: -text-color;
-  -fx-font: -font-size -font-stack;
   -module-background-color: derive(-primary-color, 140%);
+
+  -icons-color: -text-color;
+  -fx-font-size: 14px;
+  -fx-font-family: Helvetica, sans-serif;
+  -fx-color: -primary-color;
   -fx-background-color: white;
 }
 
@@ -48,6 +27,7 @@ $pref-height: 3.5em;
   -fx-background-color: -module-background-color;
 }
 
+@import "includes";
 @import "center";
 @import "home";
 @import "module";

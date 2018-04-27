@@ -11,7 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 public class ToolBarView extends HBox implements View {
-  public static final String TOOL_BAR_CONTROL = "tool-bar-control";
   private final WorkbenchFx model;
   private FontAwesomeIconView homeIconView;
   Button homeBtn;
@@ -56,10 +55,7 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    for (Node toolbarControl : model.getToolBarControls()) {
-      toolbarControl.getStyleClass().add(TOOL_BAR_CONTROL);
-      controlBox.getChildren().add(toolbarControl);
-    }
+    controlBox.getChildren().addAll(model.getToolBarControls());
     getChildren().addAll(homeBtn, tabBox, controlBox);
     setHgrow(tabBox, Priority.ALWAYS);
   }
@@ -89,9 +85,6 @@ public class ToolBarView extends HBox implements View {
 
   // TODO: add javadoc comment
   public void addToolBarControl(Node node) {
-    if (!node.getStyleClass().contains(TOOL_BAR_CONTROL)) {
-      node.getStyleClass().add(TOOL_BAR_CONTROL);
-    }
     controlBox.getChildren().add(node);
   }
 }

@@ -1,14 +1,14 @@
 .root {
-    -font-size: 14px;
-    -font-stack: Helvetica, sans-serif;
     -primary-color: #8e24aa;
-    -danger-color: #DB4437;
+    -danger-color: #f17a7a;
     -success-color: #47aa71;
-    -accent-color: #ffd8af;
+    -accent-color: #7ebe7b;
     -text-color: white;
-    -border: 2px;
-    -fx-color: -primary-color;
+    -module-background-color: derive(-primary-color, 140%);
+
     -icons-color: -text-color;
-    -fx-font: -font-size -font-stack;
+    -fx-font-size: 14px;
+    -fx-font-family: Helvetica, sans-serif;
+    -fx-color: -primary-color;
     -fx-background-color: white;
 }

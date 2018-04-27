@@ -1,28 +1,12 @@
 .dropdown {
-  @extend .tabControl;
-  -fx-padding: .5em;
+  @extend %tool-bar-setup;
 
-  &:hover .label {
-    -fx-text-fill: -text-color;
+  & .graphic {
+    // The graphic node of the dropdown
   }
-
-  &:focused {
-    @extend .tabControl;
-    -fx-padding: .5em;
+  & .content-node {
+    // Each menu-item in the list
   }
-
-  & .iconView {
-
-  }
-
-  & .contentNode {
-
-  }
-
-  & .customMenuItem {
-
-  }
-
   & .menu-item {
     -fx-padding: .5em;
 
