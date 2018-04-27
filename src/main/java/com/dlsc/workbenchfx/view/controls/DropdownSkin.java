@@ -26,7 +26,7 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   private final MenuButton menuButton;
   private final Node graphic;
   private final ObservableList<MenuItem> menuItems;
-  private StackPane arrowButton;
+  private StackPane arrowButtonPane;
 
   public DropdownSkin(Dropdown dropdown) {
     super(dropdown);
@@ -58,13 +58,16 @@ public class DropdownSkin extends SkinBase<Dropdown> {
     setupListeners();
   }
 
+  /**
+   * Replaces the default arrow icon of the {@code menuButton} with a custom fontawesome icon
+   */
   private void replaceArrowIcon() {
     Platform.runLater(() -> {
-      arrowButton = ((StackPane) ((MenuButtonSkin) menuButton.getSkin()).getChildren().get(1));
-      arrowButton.getChildren().clear();
+      arrowButtonPane = ((StackPane) ((MenuButtonSkin) menuButton.getSkin()).getChildren().get(1));
+      arrowButtonPane.getChildren().clear();
       FontAwesomeIconView angleDown = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_DOWN);
       angleDown.getStyleClass().add("angle-down");
-      arrowButton.getChildren().add(angleDown);
+      arrowButtonPane.getChildren().add(angleDown);
     });
   }
 
@@ -110,5 +113,15 @@ public class DropdownSkin extends SkinBase<Dropdown> {
       }
     });
 
+    // Changes orientation of the icon when the menu-items are showing
+    menuButton.showingProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue) {
+        ((FontAwesomeIconView) arrowButtonPane.getChildren().get(0))
+            .setIcon(FontAwesomeIcon.ANGLE_UP);
+      } else {
+        ((FontAwesomeIconView) arrowButtonPane.getChildren().get(0))
+            .setIcon(FontAwesomeIcon.ANGLE_DOWN);
+      }
+    });
   }
 }
