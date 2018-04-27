@@ -28,6 +28,11 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   private final ObservableList<MenuItem> menuItems;
   private StackPane arrowButtonPane;
 
+  /**
+   * Creates a new {@link DropdownSkin} object for a corresponding {@link Dropdown}.
+   *
+   * @param dropdown the {@link Dropdown} for which this Skin is created
+   */
   public DropdownSkin(Dropdown dropdown) {
     super(dropdown);
 
@@ -59,7 +64,7 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   }
 
   /**
-   * Replaces the default arrow icon of the {@code menuButton} with a custom fontawesome icon
+   * Replaces the default arrow icon of the {@code menuButton} with a custom fontawesome icon.
    */
   private void replaceArrowIcon() {
     Platform.runLater(() -> {

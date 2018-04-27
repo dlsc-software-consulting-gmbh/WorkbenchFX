@@ -96,8 +96,8 @@ public class WorkbenchFx extends StackPane {
     return new WorkbenchFxBuilder(modules);
   }
 
-  public WorkbenchFx toolBarControls(Node... Nodes) {
-    this.toolBarControls.addAll(Nodes);
+  public WorkbenchFx toolBarControls(Node... nodes) {
+    this.toolBarControls.addAll(nodes);
     return this;
   }
 
@@ -179,8 +179,8 @@ public class WorkbenchFx extends StackPane {
      *
      * @param tabFactory to be used to create the {@link Node} for the tabs
      * @return builder for chaining
-     * @implNote Use this to replace the control which is used for the tab with your own
-     * implementation.
+     * @implNote Use this to replace the control which is used for the tab
+     *           with your own implementation.
      */
     public WorkbenchFxBuilder tabFactory(BiFunction<WorkbenchFx, Module, Node> tabFactory) {
       this.tabFactory = tabFactory;
@@ -192,8 +192,8 @@ public class WorkbenchFx extends StackPane {
      *
      * @param tileFactory to be used to create the {@link Node} for the tiles
      * @return builder for chaining
-     * @implNote Use this to replace the control which is used for the tile with your own
-     * implementation.
+     * @implNote Use this to replace the control which is used for the tile
+     *           with your own implementation.
      */
     public WorkbenchFxBuilder tileFactory(BiFunction<WorkbenchFx, Module, Node> tileFactory) {
       this.tileFactory = tileFactory;
@@ -205,8 +205,8 @@ public class WorkbenchFx extends StackPane {
      *
      * @param pageFactory to be used to create the page for the tiles
      * @return builder for chaining
-     * @implNote Use this to replace the page which is used in the home screen to display tiles of
-     * the modules with your own implementation.
+     * @implNote Use this to replace the page which is used in the home screen
+     *           to display tiles of the modules with your own implementation.
      */
     public WorkbenchFxBuilder pageFactory(BiFunction<WorkbenchFx, Integer, Node> pageFactory) {
       this.pageFactory = pageFactory;
@@ -440,19 +440,19 @@ public class WorkbenchFx extends StackPane {
    * Inserts a given {@link Node} at the specified index.
    *
    * @param index where the {@link Node} needs to be inserted
-   * @param Node  the {@link Node} to be added to the {@code toolBarControls}
+   * @param node  the {@link Node} to be added to the {@code toolBarControls}
    */
-  public void addNode(int index, Node Node) {
-    toolBarControls.add(index, Node);
+  public void addNode(int index, Node node) {
+    toolBarControls.add(index, node);
   }
 
   /**
    * Inserts a given {@link Node} at the end of the {@code toolBarControls}.
    *
-   * @param Node the {@link Node} to be added to the {@code toolBarControls}
+   * @param node the {@link Node} to be added to the {@code toolBarControls}
    */
-  public void addNode(Node Node) {
-    toolBarControls.add(Node);
+  public void addNode(Node node) {
+    toolBarControls.add(node);
   }
 
   public ObservableList<Node> getToolBarControls() {
