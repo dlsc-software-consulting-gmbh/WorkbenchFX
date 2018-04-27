@@ -1,13 +1,18 @@
 package com.dlsc.workbenchfx.view.controls;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.Objects;
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
+import javafx.scene.control.skin.MenuButtonSkin;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,6 +26,7 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   private final MenuButton menuButton;
   private final Node graphic;
   private final ObservableList<MenuItem> menuItems;
+  private StackPane arrowButton;
 
   public DropdownSkin(Dropdown dropdown) {
     super(dropdown);
@@ -47,8 +53,19 @@ public class DropdownSkin extends SkinBase<Dropdown> {
 
     getChildren().add(menuButton);
 
+    replaceArrowIcon();
     setupBindings();
     setupListeners();
+  }
+
+  private void replaceArrowIcon() {
+    Platform.runLater(() -> {
+      arrowButton = ((StackPane) ((MenuButtonSkin) menuButton.getSkin()).getChildren().get(1));
+      arrowButton.getChildren().clear();
+      FontAwesomeIconView angleDown = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_DOWN);
+      angleDown.getStyleClass().add("angle-down");
+      arrowButton.getChildren().add(angleDown);
+    });
   }
 
   private void setupBindings() {
@@ -92,5 +109,6 @@ public class DropdownSkin extends SkinBase<Dropdown> {
         }
       }
     });
+
   }
 }
