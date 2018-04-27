@@ -29,6 +29,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
@@ -88,27 +89,29 @@ public class WorkbenchFx extends StackPane {
    * The factories which are called when creating Tabs, Tiles and Pages of Tiles for the Views.
    * They require a module whose attributes are used to create the Nodes.
    */
-  private ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tabFactory =
+  private final ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tabFactory =
       new SimpleObjectProperty<>(this, "tabFactory");
-  private ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tileFactory =
+  private final ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tileFactory =
       new SimpleObjectProperty<>(this, "tileFactory");
-  private ObjectProperty<BiFunction<WorkbenchFx, Integer, Node>> pageFactory =
+  private final ObjectProperty<BiFunction<WorkbenchFx, Integer, Node>> pageFactory =
       new SimpleObjectProperty<>(this, "pageFactory");
 
-  private BooleanProperty glassPaneShown = new SimpleBooleanProperty(false);
+  private final BooleanProperty glassPaneShown = new SimpleBooleanProperty(false);
 
   /**
    * List of the <b>modal</b> overlays which are currently being shown.
    */
-  private ObservableList<Node> modalOverlaysShown = FXCollections.observableArrayList();
+  private final ObservableList<Node> modalOverlaysShown = FXCollections.observableArrayList();
   /**
    * List of the overlays which are currently being shown.
    */
-  private ObservableList<Node> overlaysShown = FXCollections.observableArrayList();
+  private final ObservableList<Node> overlaysShown = FXCollections.observableArrayList();
   /**
    * List of all overlays, which have been loaded onto the scene graph.
    */
-  private ObservableList<Node> overlays = FXCollections.observableArrayList();
+  private final ObservableList<Node> overlays = FXCollections.observableArrayList();
+
+  private final MenuItem[] navigationDrawerItems; // TODO: make it possible to listen in observable list
 
   /**
    * Creates the Workbench window.
@@ -190,6 +193,8 @@ public class WorkbenchFx extends StackPane {
       return globalMenu;
     };
 
+    private MenuItem[] navigationDrawerItems; // TODO: hide navigation menu if no items
+
     private WorkbenchFxBuilder(Module... modules) {
       this.modules = modules;
     }
@@ -258,6 +263,16 @@ public class WorkbenchFx extends StackPane {
     }
 
     /**
+     * TODO
+     * @param navigationDrawerItems
+     * @return
+     */
+    public WorkbenchFxBuilder navigationDrawer(MenuItem... navigationDrawerItems) {
+      this.navigationDrawerItems = navigationDrawerItems;
+      return this;
+    }
+
+    /**
      * Builds and fully initializes a {@link WorkbenchFx} object.
      * @return the {@link WorkbenchFx} object
      */
@@ -271,6 +286,7 @@ public class WorkbenchFx extends StackPane {
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
+    navigationDrawerItems = builder.navigationDrawerItems;
     initGlobalMenu(builder);
     initModelBindings();
     initModules(builder.modules);
@@ -543,5 +559,9 @@ public class WorkbenchFx extends StackPane {
     overlaysShown.forEach(hideOverlays);
     modalOverlaysShown.clear();
     overlaysShown.clear();
+  }
+
+  public MenuItem[] getNavigationDrawerItems() {
+    return navigationDrawerItems;
   }
 }
