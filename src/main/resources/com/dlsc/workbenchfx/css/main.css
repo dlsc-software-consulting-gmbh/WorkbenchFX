@@ -65,10 +65,11 @@
         -fx-background-color: derive(-accent-color, 20%); }
 
 .tileControl {
-  -fx-pref-width: 16em;
-  -fx-pref-height: 9em; }
+  -fx-min-width: 16em;
+  -fx-min-height: 9em; }
   .tileControl:hover {
-    -fx-text-fill: -text-color; }
+    -fx-text-fill: -text-color;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2); }
 
 .tabControl {
   -fx-padding: .5em .5em .5em 1em; }
@@ -95,10 +96,14 @@
   -fx-padding: .5em; }
   .dropdown .menu-item:hover {
     -fx-background-color: derive(-primary-color, 30%); }
+    .dropdown .menu-item:hover .label {
+      -fx-text-fill: -text-color; }
   .dropdown .menu-item:focused {
     -fx-background-color: derive(-primary-color, 30%); }
+    .dropdown .menu-item:focused .label {
+      -fx-text-fill: -text-color; }
 .dropdown .context-menu {
   -fx-background-color: derive(-primary-color, 15%);
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0, 0, 4); }
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2); }
 
 /*# sourceMappingURL=main.css.map */

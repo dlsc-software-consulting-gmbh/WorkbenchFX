@@ -1,9 +1,10 @@
 .tileControl {
   @extend %tool-bar-setup;
-  -fx-pref-width: 16em;
-  -fx-pref-height: 9em;
+  -fx-min-width: 16em;
+  -fx-min-height: 9em;
   &:hover {
     -fx-text-fill: -text-color;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 3, 0.0, 0, 2);
   }
 }
 
