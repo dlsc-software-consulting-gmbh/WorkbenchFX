@@ -20,7 +20,7 @@ public class NavigationDrawer extends Control {
 
         getStyleClass().add("navigation-drawer");
 
-        getItems().addAll(workbench.get);
+        getItems().addAll(workbench.getNavigationDrawerItems());
     }
 
     @Override
