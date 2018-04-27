@@ -100,17 +100,6 @@ public class DemoPane extends StackPane {
     )
         .toolBarControls(
             Dropdown.of(
-                new HBox(
-                    new FontAwesomeIconView(FontAwesomeIcon.SEARCH),
-                    new VBox(
-                        new Label("Advanced"),
-                        new Label("Search")
-                    )
-                ),
-                new CustomMenuItem(new Label("Content 1")),
-                new CustomMenuItem(new Label("Content 2"))
-            ),
-            Dropdown.of(
                 new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                 new CustomMenuItem(new Label("Content 1")),
                 new CustomMenuItem(new Label("Content 2"))
