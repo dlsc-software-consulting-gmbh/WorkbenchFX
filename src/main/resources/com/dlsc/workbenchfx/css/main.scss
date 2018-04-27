@@ -2,6 +2,8 @@ $border: 2px;
 $pref-height: 3.5em;
 
 %tool-bar-height {
+  -fx-max-height: $pref-height;
+  -fx-min-height: $pref-height;
   -fx-pref-height: $pref-height;
 }
 

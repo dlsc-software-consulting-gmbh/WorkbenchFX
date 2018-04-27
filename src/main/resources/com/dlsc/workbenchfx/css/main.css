@@ -1,4 +1,6 @@
 .tabControl, #toolbar #homeButton, .dropdown, .dropdown:focused, .tool-bar-control {
+  -fx-max-height: 3.5em;
+  -fx-min-height: 3.5em;
   -fx-pref-height: 3.5em; }
 
 .root {

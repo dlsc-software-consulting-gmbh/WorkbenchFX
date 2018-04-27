@@ -24,7 +24,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -98,7 +100,13 @@ public class DemoPane extends StackPane {
     )
         .toolBarControls(
             Dropdown.of(
-                "Text",
+                new HBox(
+                    new FontAwesomeIconView(FontAwesomeIcon.SEARCH),
+                    new VBox(
+                        new Label("Advanced"),
+                        new Label("Search")
+                    )
+                ),
                 new CustomMenuItem(new Label("Content 1")),
                 new CustomMenuItem(new Label("Content 2"))
             ),
