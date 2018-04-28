@@ -31,6 +31,7 @@
   & .context-menu {
     -fx-background-color: derive(-primary-color, 15%);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 3, 0.0, 0, 2);
+
     & .scroll-arrow {
       -fx-background-color: derive(-primary-color, 45%);
       &:hover {
@@ -38,5 +39,8 @@
       }
     }
   }
+}
 
+.menu > .right-container > .arrow {
+  -fx-background-color: -text-color;
 }

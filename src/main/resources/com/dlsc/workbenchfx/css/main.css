@@ -110,4 +110,7 @@
     .dropdown .context-menu .scroll-arrow:hover {
       -fx-background-color: derive(-primary-color, 60%); }
 
+.menu > .right-container > .arrow {
+  -fx-background-color: -text-color; }
+
 /*# sourceMappingURL=main.css.map */
