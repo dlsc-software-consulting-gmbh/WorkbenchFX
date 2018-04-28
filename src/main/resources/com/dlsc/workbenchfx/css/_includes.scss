@@ -24,6 +24,7 @@
   -fx-background-radius: 0;
   -fx-border-radius: 0;
   -fx-border-width: 0;
+  -fx-text-fill: -text-color;
 
   &:hover {
     -fx-background-color: derive(-primary-color, -7.5%);

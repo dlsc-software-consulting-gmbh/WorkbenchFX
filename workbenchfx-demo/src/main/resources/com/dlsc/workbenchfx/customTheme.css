@@ -1,8 +1,8 @@
 .root {
-    -primary-color: #8e24aa;
+    -primary-color: #73a2aa;
     -danger-color: #f17a7a;
     -success-color: #47aa71;
-    -accent-color: #a3aa9c;
+    -accent-color: #aa8a70;
     -text-color: white;
     -module-background-color: derive(-primary-color, 140%);
 

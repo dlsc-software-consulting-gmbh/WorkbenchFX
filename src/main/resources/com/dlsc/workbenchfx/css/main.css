@@ -29,7 +29,8 @@
   -fx-alignment: center center;
   -fx-background-radius: 0;
   -fx-border-radius: 0;
-  -fx-border-width: 0; }
+  -fx-border-width: 0;
+  -fx-text-fill: -text-color; }
   .tileControl:hover, .tabControl:hover, #toolbar #homeButton:hover, .dropdown:hover {
     -fx-background-color: derive(-primary-color, -7.5%); }
   .tileControl:focused, .tabControl:focused, #toolbar #homeButton:focused, .dropdown:focused {
