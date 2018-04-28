@@ -41,6 +41,14 @@
   }
 }
 
-.menu > .right-container > .arrow {
-  -fx-background-color: -text-color;
+.menu {
+  &:hover > .right-container > .arrow {
+    -fx-background-color: -text-color;
+  }
+  &:focused > .right-container > .arrow {
+    -fx-background-color: -text-color;
+  }
+  & > .right-container > .arrow {
+    -fx-background-color: -text-color;
+  }
 }
