@@ -11,20 +11,27 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.skin.MenuButtonSkin;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Created by lemmi on 22.08.17.
+ * Represents the Skin which is made for the {@link Dropdown}.
+ * It uses a {@link MenuButton} to inherit the main functionality.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class DropdownSkin extends SkinBase<Dropdown> {
   private static final Logger LOGGER =
       LogManager.getLogger(DropdownSkin.class.getName());
 
+  private final int ARROW_NODE_INDEX = 1;
+  private final double RESIZING_FACTOR = .5;
   private final MenuButton menuButton;
-  private final Node graphic;
+  private final Node icon;
   private final ObservableList<MenuItem> menuItems;
   private StackPane arrowButtonPane;
 
@@ -44,10 +51,10 @@ public class DropdownSkin extends SkinBase<Dropdown> {
       menuButton.setText(text);
     }
 
-    graphic = dropdown.getGraphic();
-    if (!Objects.isNull(graphic)) {
-      menuButton.setGraphic(graphic);
-      graphic.getStyleClass().add("graphic");
+    icon = dropdown.getIcon();
+    if (!Objects.isNull(icon)) {
+      menuButton.setGraphic(icon);
+      icon.getStyleClass().add("icon");
     }
 
     menuItems = dropdown.getItems();
@@ -68,7 +75,8 @@ public class DropdownSkin extends SkinBase<Dropdown> {
    */
   private void replaceArrowIcon() {
     Platform.runLater(() -> {
-      arrowButtonPane = ((StackPane) ((MenuButtonSkin) menuButton.getSkin()).getChildren().get(1));
+      arrowButtonPane = ((StackPane) ((MenuButtonSkin) menuButton.getSkin()).getChildren().get(ARROW_NODE_INDEX));
+      // Removes the old arrow
       arrowButtonPane.getChildren().clear();
       FontAwesomeIconView angleDown = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_DOWN);
       angleDown.getStyleClass().add("angle-down");
@@ -77,19 +85,30 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   }
 
   private void setupBindings() {
-    if (graphic instanceof ImageView) {
-      ImageView imageView = ((ImageView) graphic);
+    if (icon instanceof ImageView) {
+      ImageView imageView = ((ImageView) icon);
       // Calculate ratio
-      double ratio = imageView.getImage().getWidth() / imageView.getImage().getHeight();
+      double ratio = getImage(imageView).getWidth() / getImage(imageView).getHeight();
 
-      // Bind the dimensions of the ImageView to the dropdown's height
+      // Binds the dimensions of the ImageView to the dropdown's height.
+      // Resizes the image with a RESIZING_FACTOR in order to fit in the Dropdown.
       imageView.fitHeightProperty().bind(
-          menuButton.prefHeightProperty().multiply(.5)
+          menuButton.prefHeightProperty().multiply(RESIZING_FACTOR)
       );
       imageView.fitWidthProperty().bind(
-          menuButton.prefHeightProperty().multiply(.5).multiply(ratio)
+          menuButton.prefHeightProperty().multiply(RESIZING_FACTOR).multiply(ratio)
       );
     }
+  }
+
+  /**
+   * Retrieves the {@link Image} of a given {@link ImageView and returns it.
+   *
+   * @param imageView the {@link ImageView} for which the {@link Image} should be extracted
+   * @return the found {@link Image}
+   */
+  private Image getImage(ImageView imageView) {
+    return imageView.getImage();
   }
 
   private void setupListeners() {

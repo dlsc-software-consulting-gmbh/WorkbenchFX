@@ -68,23 +68,39 @@ public class ToolBarView extends HBox implements View {
 
   }
 
-  // TODO: add javadoc comment
+  /**
+   * Adds a {@link Node} at the end of the {@code tabBox}.
+   *
+   * @param tab the {@link Node} to be added
+   */
   public void addTab(Node tab) {
     tabBox.getChildren().add(tab);
   }
 
-  // TODO: add javadoc comment
+  /**
+   * Removes a {@link Node} at the specified index of the {@code tabBox}.
+   *
+   * @param index the index where the specified {@link Node} should be removed
+   */
   public void removeTab(int index) {
     tabBox.getChildren().remove(index);
   }
 
-  // TODO: add javadoc comment
-  public void removeToolBarControl(int index) {
-    controlBox.getChildren().remove(index);
+  /**
+   * Adds a {@link Node} at the end of the {@code controlBox}.
+   *
+   * @param toolBarControl the {@link Node} to be added
+   */
+  public void addToolBarControl(Node toolBarControl) {
+    controlBox.getChildren().add(toolBarControl);
   }
 
-  // TODO: add javadoc comment
-  public void addToolBarControl(Node node) {
-    controlBox.getChildren().add(node);
+  /**
+   * Removes a {@link Node} at the specified index of the {@code controlBox}.
+   *
+   * @param index the index where the specified {@link Node} should be removed
+   */
+  public void removeToolBarControl(int index) {
+    controlBox.getChildren().remove(index);
   }
 }

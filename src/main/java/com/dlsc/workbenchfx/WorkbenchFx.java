@@ -96,6 +96,12 @@ public class WorkbenchFx extends StackPane {
     return new WorkbenchFxBuilder(modules);
   }
 
+  /**
+   * Creates the Controls which are placed on top-right of the ToolBar.
+   *
+   * @param nodes the {@link Node} which will be added to the ToolBar
+   * @return the updated {@link WorkbenchFx}
+   */
   public WorkbenchFx toolBarControls(Node... nodes) {
     this.toolBarControls.addAll(nodes);
     return this;
@@ -214,17 +220,23 @@ public class WorkbenchFx extends StackPane {
     }
 
     /**
+     * Creates the Controls which are placed on top-right of the ToolBar.
+     *
+     * @param toolBarControls the {@code toolBarControls} which will be added to the ToolBar
+     * @return the updated {@link WorkbenchFxBuilder}
+     */
+    public WorkbenchFxBuilder toolBarControls(Node... toolBarControls) {
+      this.toolBarControls.addAll(toolBarControls);
+      return this;
+    }
+
+    /**
      * Builds and fully initializes a {@link WorkbenchFx} object.
      *
      * @return the {@link WorkbenchFx} object
      */
     public WorkbenchFx build() {
       return new WorkbenchFx(this);
-    }
-
-    public WorkbenchFxBuilder toolBarControls(Node... toolBarControls) {
-      this.toolBarControls.addAll(toolBarControls);
-      return this;
     }
   }
 
@@ -417,33 +429,13 @@ public class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Removes a {@link Node} at the specified index if possible.
-   *
-   * @param index the index where the {@link Node} should be removed
-   * @return the {@link Node} which was removed
-   */
-  public Node remove(int index) {
-    return toolBarControls.remove(index);
-  }
-
-  /**
    * Removes a {@link Node} if one is in the {@code toolBarControls}.
    *
    * @param node the {@link Node} which should be removed
    * @return true if sucessful, false if not
    */
-  public boolean remove(Node node) {
+  public boolean removeToolBarControl(Node node) {
     return toolBarControls.remove(node);
-  }
-
-  /**
-   * Inserts a given {@link Node} at the specified index.
-   *
-   * @param index where the {@link Node} needs to be inserted
-   * @param node  the {@link Node} to be added to the {@code toolBarControls}
-   */
-  public void addNode(int index, Node node) {
-    toolBarControls.add(index, node);
   }
 
   /**
@@ -451,7 +443,7 @@ public class WorkbenchFx extends StackPane {
    *
    * @param node the {@link Node} to be added to the {@code toolBarControls}
    */
-  public void addNode(Node node) {
+  public void addToolBarControl(Node node) {
     toolBarControls.add(node);
   }
 

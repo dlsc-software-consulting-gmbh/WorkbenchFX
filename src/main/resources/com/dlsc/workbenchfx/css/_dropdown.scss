@@ -1,7 +1,7 @@
 .dropdown {
   @extend %tool-bar-setup;
 
-  & .graphic {
+  & .icon {
     // The graphic node of the dropdown
   }
   & .content-node {
