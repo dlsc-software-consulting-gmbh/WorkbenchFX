@@ -440,11 +440,17 @@ public class WorkbenchFx extends StackPane {
 
   /**
    * Inserts a given {@link Node} at the end of the {@code toolBarControls}.
+   * If the {@code toolBarControls} already contains the {@link Node} it will not be added.
    *
    * @param node the {@link Node} to be added to the {@code toolBarControls}
+   * @return true if {@code toolBarControls} was changed, false if not
    */
-  public void addToolBarControl(Node node) {
-    toolBarControls.add(node);
+  public boolean addToolBarControl(Node node) {
+    if (!toolBarControls.contains(node)) {
+      toolBarControls.add(node);
+      return true;
+    }
+    return false;
   }
 
   public ObservableList<Node> getToolBarControls() {
