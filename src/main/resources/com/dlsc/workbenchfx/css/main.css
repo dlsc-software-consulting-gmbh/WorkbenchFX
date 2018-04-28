@@ -105,5 +105,9 @@
 .dropdown .context-menu {
   -fx-background-color: derive(-primary-color, 15%);
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2); }
+  .dropdown .context-menu .scroll-arrow {
+    -fx-background-color: derive(-primary-color, 45%); }
+    .dropdown .context-menu .scroll-arrow:hover {
+      -fx-background-color: derive(-primary-color, 60%); }
 
 /*# sourceMappingURL=main.css.map */
