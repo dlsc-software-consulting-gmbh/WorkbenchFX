@@ -5,7 +5,10 @@ import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
 import java.util.Objects;
+
+import javafx.beans.property.DoublePropertyBase;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +18,7 @@ public class ToolBarPresenter implements Presenter {
       LogManager.getLogger(ToolBarPresenter.class.getName());
   private final WorkbenchFx model;
   private final ToolBarView view;
+  private final ObservableList<Node> toolBarControls;
 
   /**
    * Creates a new {@link ToolBarPresenter} object for a corresponding {@link ToolBarView}.
@@ -22,6 +26,7 @@ public class ToolBarPresenter implements Presenter {
   public ToolBarPresenter(WorkbenchFx model, ToolBarView view) {
     this.model = model;
     this.view = view;
+    toolBarControls = model.getToolBarControls();
     init();
   }
 
@@ -48,7 +53,7 @@ public class ToolBarPresenter implements Presenter {
   @Override
   public void setupValueChangedListeners() {
     // When the List of the currently open toolBarControls is changed, the view is updated.
-    model.getToolBarControls().addListener((ListChangeListener<? super Node>) c -> {
+    toolBarControls.addListener((ListChangeListener<? super Node>) c -> {
       while (c.next()) {
         if (c.wasRemoved()) {
           for (Node node : c.getRemoved()) {
