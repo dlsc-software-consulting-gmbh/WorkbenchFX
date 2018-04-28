@@ -64,7 +64,11 @@ public class TestModule extends AbstractModule {
         });
 
         removeItemBtn.setOnAction(
-                event -> customDropdown.getItems().remove(itemsLst.remove(itemsLst.size() - 1))
+                event -> {
+                    if (itemsLst.size() == 0) {
+                        customDropdown.getItems().remove(itemsLst.remove(itemsLst.size() - 1));
+                    }
+                }
         );
     }
 
