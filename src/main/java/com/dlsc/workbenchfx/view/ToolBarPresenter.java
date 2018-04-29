@@ -6,7 +6,6 @@ import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
 import java.util.Objects;
 
-import javafx.beans.property.DoublePropertyBase;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -35,7 +34,7 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    model.getOpenModules().forEach(module -> view.getChildren().add(model.getTab(module)));
+    model.getToolBarControls().forEach(view::addToolBarControl);
   }
 
   /**

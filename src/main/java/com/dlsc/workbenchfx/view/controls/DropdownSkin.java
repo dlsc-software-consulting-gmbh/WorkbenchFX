@@ -28,8 +28,8 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   private static final Logger LOGGER =
       LogManager.getLogger(DropdownSkin.class.getName());
 
-  private final int ARROW_NODE_INDEX = 1;
-  private final double RESIZING_FACTOR = .5;
+  private final int arrowNodeIndex = 1;
+  private final double resizingFactor = .5;
   private final MenuButton menuButton;
   private final Node icon;
   private final ObservableList<MenuItem> menuItems;
@@ -75,7 +75,8 @@ public class DropdownSkin extends SkinBase<Dropdown> {
    */
   private void replaceArrowIcon() {
     Platform.runLater(() -> {
-      arrowButtonPane = ((StackPane) ((MenuButtonSkin) menuButton.getSkin()).getChildren().get(ARROW_NODE_INDEX));
+      arrowButtonPane =
+              (StackPane) ((MenuButtonSkin) menuButton.getSkin()).getChildren().get(arrowNodeIndex);
       // Removes the old arrow
       arrowButtonPane.getChildren().clear();
       FontAwesomeIconView angleDown = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_DOWN);
@@ -91,20 +92,20 @@ public class DropdownSkin extends SkinBase<Dropdown> {
       double ratio = getImage(imageView).getWidth() / getImage(imageView).getHeight();
 
       // Binds the dimensions of the ImageView to the dropdown's height.
-      // Resizes the image with a RESIZING_FACTOR in order to fit in the Dropdown.
+      // Resizes the image with a resizingFactor in order to fit in the Dropdown.
       imageView.fitHeightProperty().bind(
-          menuButton.prefHeightProperty().multiply(RESIZING_FACTOR)
+          menuButton.prefHeightProperty().multiply(resizingFactor)
       );
       imageView.fitWidthProperty().bind(
-          menuButton.prefHeightProperty().multiply(RESIZING_FACTOR).multiply(ratio)
+          menuButton.prefHeightProperty().multiply(resizingFactor).multiply(ratio)
       );
     }
   }
 
   /**
-   * Retrieves the {@link Image} of a given {@link ImageView and returns it.
+   * Retrieves the {@link Image} of a given {@link ImageView} and returns it.
    *
-   * @param imageView the {@link ImageView} for which the {@link Image} should be extracted
+   * @param imageView the {@link ImageView} from which the {@link Image} should be extracted
    * @return the found {@link Image}
    */
   private Image getImage(ImageView imageView) {

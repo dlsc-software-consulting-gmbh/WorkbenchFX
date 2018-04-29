@@ -96,17 +96,6 @@ public class WorkbenchFx extends StackPane {
     return new WorkbenchFxBuilder(modules);
   }
 
-  /**
-   * Creates the Controls which are placed on top-right of the ToolBar.
-   *
-   * @param nodes the {@link Node} which will be added to the ToolBar
-   * @return the updated {@link WorkbenchFx}
-   */
-  public WorkbenchFx toolBarControls(Node... nodes) {
-    this.toolBarControls.addAll(nodes);
-    return this;
-  }
-
   public static class WorkbenchFxBuilder {
     // Required parameters
     private final Module[] modules;

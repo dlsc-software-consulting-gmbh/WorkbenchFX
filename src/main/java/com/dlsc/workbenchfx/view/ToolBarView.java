@@ -15,7 +15,7 @@ public class ToolBarView extends HBox implements View {
   private FontAwesomeIconView homeIconView;
   Button homeBtn;
   private HBox tabBox;
-  private HBox toolBarControlBox;
+  HBox toolBarControlBox;
 
   /**
    * Creates a new {@link ToolBarView} for the Workbench.
@@ -59,7 +59,6 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    toolBarControlBox.getChildren().addAll(model.getToolBarControls());
     getChildren().addAll(homeBtn, tabBox, toolBarControlBox);
     setHgrow(tabBox, Priority.ALWAYS);
   }
