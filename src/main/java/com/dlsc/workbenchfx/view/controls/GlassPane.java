@@ -16,22 +16,24 @@ public class GlassPane extends StackPane {
     setOnMouseClicked(evt -> workbench.hideAllOverlays());
     setVisible(false);
 
-    hideProperty().addListener(it -> {
+    hideProperty()
+        .addListener(
+            it -> {
+              setVisible(true);
 
-      setVisible(true);
-
-      FadeTransition fadeTransition = new FadeTransition();
-      fadeTransition.setDuration(Duration.millis(200));
-      fadeTransition.setNode(this);
-      fadeTransition.setFromValue(this.isHide() ? .5 : 0);
-      fadeTransition.setToValue(this.isHide() ? 0 : .5);
-      fadeTransition.setOnFinished(evt -> {
-        if (isHide()) {
-          setVisible(false);
-        }
-      });
-      fadeTransition.play();
-    });
+              FadeTransition fadeTransition = new FadeTransition();
+              fadeTransition.setDuration(Duration.millis(200));
+              fadeTransition.setNode(this);
+              fadeTransition.setFromValue(this.isHide() ? .5 : 0);
+              fadeTransition.setToValue(this.isHide() ? 0 : .5);
+              fadeTransition.setOnFinished(
+                  evt -> {
+                    if (isHide()) {
+                      setVisible(false);
+                    }
+                  });
+              fadeTransition.play();
+            });
   }
 
   private final BooleanProperty hide = new SimpleBooleanProperty(this, "hide");

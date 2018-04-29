@@ -16,81 +16,75 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-/**
- * Created by lemmi on 22.08.17.
- */
+/** Created by lemmi on 22.08.17. */
 public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
-    private VBox menuContainer;
+  private VBox menuContainer;
 
-    public NavigationDrawerSkin(NavigationDrawer navigationDrawer) {
-        super(navigationDrawer);
+  public NavigationDrawerSkin(NavigationDrawer navigationDrawer) {
+    super(navigationDrawer);
 
-        VBox vBox = new VBox();
+    VBox vBox = new VBox();
 
-        BorderPane header = new BorderPane();
-        header.getStyleClass().add("header");
-        vBox.getChildren().add(header);
+    BorderPane header = new BorderPane();
+    header.getStyleClass().add("header");
+    vBox.getChildren().add(header);
 
-        menuContainer = new VBox();
-        menuContainer.setFillWidth(true);
-        menuContainer.getStyleClass().add("menu-container");
+    menuContainer = new VBox();
+    menuContainer.setFillWidth(true);
+    menuContainer.getStyleClass().add("menu-container");
 
-        PrettyScrollPane scrollPane = new PrettyScrollPane(menuContainer);
-        vBox.getChildren().add(scrollPane);
+    PrettyScrollPane scrollPane = new PrettyScrollPane(menuContainer);
+    vBox.getChildren().add(scrollPane);
 
+    FontAwesomeIconView backIconView = new FontAwesomeIconView(FontAwesomeIcon.ARROW_LEFT);
+    backIconView.setId("backIconView");
+    Button backBtn = new Button("", backIconView);
+    backBtn.setId("backButton");
+    backBtn.setOnAction(evt -> navigationDrawer.getWorkbench().hideOverlay(navigationDrawer, true));
+    BorderPane.setAlignment(backBtn, Pos.CENTER_LEFT);
 
-        FontAwesomeIconView backIconView = new FontAwesomeIconView(FontAwesomeIcon.ARROW_LEFT);
-        backIconView.setId("backIconView");
-        Button backBtn = new Button("", backIconView);
-        backBtn.setId("backButton");
-        backBtn.setOnAction(evt -> navigationDrawer.getWorkbench().hideOverlay(navigationDrawer, true));
-        BorderPane.setAlignment(backBtn, Pos.CENTER_LEFT);
+    ImageView companyLogo = new ImageView();
+    companyLogo.getStyleClass().add("logo");
+    companyLogo.setFitWidth(140);
+    BorderPane.setMargin(companyLogo, new Insets(20, 0, 0, 0));
+    BorderPane.setAlignment(companyLogo, Pos.CENTER_LEFT);
+    header.setTop(backBtn);
+    header.setCenter(companyLogo);
 
-        ImageView companyLogo = new ImageView();
-        companyLogo.getStyleClass().add("logo");
-        companyLogo.setFitWidth(140);
-        BorderPane.setMargin(companyLogo, new Insets(20, 0, 0, 0));
-        BorderPane.setAlignment(companyLogo, Pos.CENTER_LEFT);
-        header.setTop(backBtn);
-        header.setCenter(companyLogo);
+    getChildren().add(vBox);
 
-        getChildren().add(vBox);
+    navigationDrawer.getItems().addListener((Observable it) -> buildMenu());
+    buildMenu();
+  }
 
-        navigationDrawer.getItems().addListener((Observable it) -> buildMenu());
-        buildMenu();
+  private void buildMenu() {
+    menuContainer.getChildren().clear();
+
+    for (MenuItem item : getSkinnable().getItems()) {
+
+      if (item instanceof Menu) {
+
+        Menu menu = (Menu) item;
+        MenuButton menuButton = new MenuButton();
+        menuButton.setPopupSide(Side.RIGHT);
+        menuButton.textProperty().bind(menu.textProperty());
+        menuButton.disableProperty().bind(menu.disableProperty());
+        menuButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        menuButton.getStyleClass().addAll(item.getStyleClass());
+        Bindings.bindContent(menuButton.getItems(), menu.getItems());
+        menuContainer.getChildren().add(menuButton);
+
+      } else {
+
+        Button button = new Button();
+        button.textProperty().bind(item.textProperty());
+        button.disableProperty().bind(item.disableProperty());
+        button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        button.getStyleClass().addAll(item.getStyleClass());
+        button.setOnAction(item.getOnAction());
+        menuContainer.getChildren().add(button);
+      }
     }
-
-    private void buildMenu() {
-        menuContainer.getChildren().clear();
-
-
-        for (MenuItem item : getSkinnable().getItems()) {
-
-            if (item instanceof Menu) {
-
-                Menu menu = (Menu) item;
-                MenuButton menuButton = new MenuButton();
-                menuButton.setPopupSide(Side.RIGHT);
-                menuButton.textProperty().bind(menu.textProperty());
-                menuButton.disableProperty().bind(menu.disableProperty());
-                menuButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-                menuButton.getStyleClass().addAll(item.getStyleClass());
-                Bindings.bindContent(menuButton.getItems(), menu.getItems());
-                menuContainer.getChildren().add(menuButton);
-
-            } else {
-
-                Button button = new Button();
-                button.textProperty().bind(item.textProperty());
-                button.disableProperty().bind(item.disableProperty());
-                button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-                button.getStyleClass().addAll(item.getStyleClass());
-                button.setOnAction(item.getOnAction());
-                menuContainer.getChildren().add(button);
-
-            }
-
-        }
-    }
+  }
 }
