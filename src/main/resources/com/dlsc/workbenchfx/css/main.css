@@ -223,7 +223,33 @@
   .navigation-drawer :show-mnemonics > .mnemonic-underline {
     -fx-stroke: -fx-text-fill; }
   .navigation-drawer .menu-item {
-    -fx-padding: 0.5em 0.5em 0.5em 4em; }
+    -fx-padding: 1em 2em 1em 2em; }
+    .navigation-drawer .menu-item > .graphic-container {
+      -fx-padding: 0 0.5em 0 0.5em; }
+  .navigation-drawer .menu-button > .label {
+    -fx-graphic-text-gap: 1em; }
+  .navigation-drawer .button {
+    -fx-graphic-text-gap: 1em; }
+  .navigation-drawer .icon {
+    -fx-fill: -text-color; }
+  .navigation-drawer .menu-container {
+    -fx-background-color: derive(-primary-color, -15%); }
+    .navigation-drawer .menu-container .label {
+      -fx-text-fill: -text-color; }
+    .navigation-drawer .menu-container .menu-button > .label {
+      -fx-text-fill: -text-color; }
+    .navigation-drawer .menu-container .context-menu .menu-item > .label {
+      -fx-text-fill: -text-color; }
+    .navigation-drawer .menu-container .menu-item {
+      -fx-text-fill: -text-color; }
+      .navigation-drawer .menu-container .menu-item:hover {
+        -fx-text-fill: -text-color; }
+        .navigation-drawer .menu-container .menu-item:hover .label {
+          -fx-text-fill: -text-color; }
+      .navigation-drawer .menu-container .menu-item:focused {
+        -fx-text-fill: -text-color; }
+        .navigation-drawer .menu-container .menu-item:focused .label, .navigation-drawer .menu-container .menu-item:focused > .label {
+          -fx-text-fill: -text-color; }
 
 .header {
   -fx-spacing: 25;

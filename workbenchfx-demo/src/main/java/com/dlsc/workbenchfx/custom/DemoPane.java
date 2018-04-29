@@ -105,32 +105,32 @@ public class DemoPane extends StackPane {
 
   public DemoPane() {
     // Navigation Drawer
-    Menu menu1 = new Menu("Customer", new FontAwesomeIconView(FontAwesomeIcon.USER));
-    Menu menu2 = new Menu("Tariff Management", new FontAwesomeIconView(FontAwesomeIcon.BUILDING));
-    Menu menu3 = new Menu("Complaints", new FontAwesomeIconView(FontAwesomeIcon.BOMB));
+    Menu menu1 = new Menu("Customer", createIcon(FontAwesomeIcon.USER));
+    Menu menu2 = new Menu("Tariff Management", createIcon(FontAwesomeIcon.BUILDING));
+    Menu menu3 = new Menu("Complaints", createIcon(FontAwesomeIcon.BOMB));
 
     FontAwesomeIcon genericIcon = FontAwesomeIcon.QUESTION;
-    MenuItem item11 = new MenuItem("Item 1.1", new FontAwesomeIconView(genericIcon));
-    MenuItem item12 = new MenuItem("Item 1.2", new FontAwesomeIconView(genericIcon));
-    MenuItem item13 = new MenuItem("Item 1.3", new FontAwesomeIconView(genericIcon));
-    MenuItem item14 = new MenuItem("Item 1.4", new FontAwesomeIconView(genericIcon));
+    MenuItem item11 = new MenuItem("Item 1.1", createIcon(genericIcon));
+    MenuItem item12 = new MenuItem("Item 1.2", createIcon(genericIcon));
+    MenuItem item13 = new MenuItem("Item 1.3", createIcon(genericIcon));
+    MenuItem item14 = new MenuItem("Item 1.4", createIcon(genericIcon));
 
-    Menu item21 = new Menu("Item 2.1", new FontAwesomeIconView(genericIcon));
-    MenuItem item22 = new MenuItem("Item 2.2", new FontAwesomeIconView(genericIcon));
+    Menu item21 = new Menu("Item 2.1", createIcon(genericIcon));
+    MenuItem item22 = new MenuItem("Item 2.2", createIcon(genericIcon));
 
-    MenuItem item211 = new MenuItem("Item 2.1.1", new FontAwesomeIconView(genericIcon));
-    MenuItem item212 = new MenuItem("Item 2.1.2", new FontAwesomeIconView(genericIcon));
-    MenuItem item213 = new MenuItem("Item 2.1.3", new FontAwesomeIconView(genericIcon));
-    MenuItem item214 = new MenuItem("Item 2.1.4", new FontAwesomeIconView(genericIcon));
-    MenuItem item215 = new MenuItem("Item 2.1.5", new FontAwesomeIconView(genericIcon));
+    MenuItem item211 = new MenuItem("Item 2.1.1", createIcon(genericIcon));
+    MenuItem item212 = new MenuItem("Item 2.1.2", createIcon(genericIcon));
+    MenuItem item213 = new MenuItem("Item 2.1.3", createIcon(genericIcon));
+    MenuItem item214 = new MenuItem("Item 2.1.4", createIcon(genericIcon));
+    MenuItem item215 = new MenuItem("Item 2.1.5", createIcon(genericIcon));
 
-    MenuItem item31 = new MenuItem("Item 3.1", new FontAwesomeIconView(genericIcon));
-    MenuItem item32 = new MenuItem("Item 3.2", new FontAwesomeIconView(genericIcon));
-    MenuItem item33 = new MenuItem("Item 3.3", new FontAwesomeIconView(genericIcon));
+    MenuItem item31 = new MenuItem("Item 3.1", createIcon(genericIcon));
+    MenuItem item32 = new MenuItem("Item 3.2", createIcon(genericIcon));
+    MenuItem item33 = new MenuItem("Item 3.3", createIcon(genericIcon));
 
-    MenuItem itemA = new MenuItem("Complaints", new FontAwesomeIconView(FontAwesomeIcon.BOMB));
-    MenuItem itemB = new MenuItem("Printing", new FontAwesomeIconView(FontAwesomeIcon.PRINT));
-    MenuItem itemC = new MenuItem("Settings", new FontAwesomeIconView(FontAwesomeIcon.COGS));
+    MenuItem itemA = new MenuItem("Complaints", createIcon(FontAwesomeIcon.BOMB));
+    MenuItem itemB = new MenuItem("Printing", createIcon(FontAwesomeIcon.PRINT));
+    MenuItem itemC = new MenuItem("Settings", createIcon(FontAwesomeIcon.COGS));
 
     MenuItem showOverlay = new MenuItem("Show overlay");
     MenuItem showModalOverlay = new MenuItem("Show modal overlay");
@@ -189,5 +189,11 @@ public class DemoPane extends StackPane {
     showModalOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(2), true));
 
     getStylesheets().add("com/dlsc/workbenchfx/customTheme.css");
+  }
+
+  private Node createIcon(FontAwesomeIcon icon) {
+    FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(icon);
+    fontAwesomeIconView.getStyleClass().add("icon");
+    return fontAwesomeIconView;
   }
 }
