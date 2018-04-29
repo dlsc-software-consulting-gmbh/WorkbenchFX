@@ -40,7 +40,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
         vBox.getChildren().add(scrollPane);
 
 
-        FontAwesomeIconView backIconView = new FontAwesomeIconView(FontAwesomeIcon.LONG_ARROW_LEFT);
+        FontAwesomeIconView backIconView = new FontAwesomeIconView(FontAwesomeIcon.ARROW_LEFT);
         backIconView.setId("backIconView");
         Button backBtn = new Button("", backIconView);
         backBtn.setId("backButton");
