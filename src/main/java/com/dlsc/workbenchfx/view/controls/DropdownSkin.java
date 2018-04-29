@@ -28,8 +28,8 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   private static final Logger LOGGER =
       LogManager.getLogger(DropdownSkin.class.getName());
 
-  private final int arrowNodeIndex = 1;
-  private final double resizingFactor = .5;
+  private static final int ARROW_NODE_INDEX = 1;
+  private static final double HALF_DROPDOWN_SIZE = 0.5d;
   private final MenuButton menuButton;
   private final Node icon;
   private final ObservableList<MenuItem> menuItems;
@@ -76,7 +76,8 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   private void replaceArrowIcon() {
     Platform.runLater(() -> {
       arrowButtonPane =
-              (StackPane) ((MenuButtonSkin) menuButton.getSkin()).getChildren().get(arrowNodeIndex);
+              (StackPane) ((MenuButtonSkin) menuButton.getSkin()).getChildren().get(
+                  ARROW_NODE_INDEX);
       // Removes the old arrow
       arrowButtonPane.getChildren().clear();
       FontAwesomeIconView angleDown = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_DOWN);
@@ -92,12 +93,12 @@ public class DropdownSkin extends SkinBase<Dropdown> {
       double ratio = getImage(imageView).getWidth() / getImage(imageView).getHeight();
 
       // Binds the dimensions of the ImageView to the dropdown's height.
-      // Resizes the image with a resizingFactor in order to fit in the Dropdown.
+      // Resizes the image with a HALF_DROPDOWN_SIZE in order to fit in the Dropdown.
       imageView.fitHeightProperty().bind(
-          menuButton.prefHeightProperty().multiply(resizingFactor)
+          menuButton.prefHeightProperty().multiply(HALF_DROPDOWN_SIZE)
       );
       imageView.fitWidthProperty().bind(
-          menuButton.prefHeightProperty().multiply(resizingFactor).multiply(ratio)
+          menuButton.prefHeightProperty().multiply(HALF_DROPDOWN_SIZE).multiply(ratio)
       );
     }
   }
