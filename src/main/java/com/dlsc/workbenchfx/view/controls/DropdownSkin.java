@@ -109,7 +109,7 @@ public class DropdownSkin extends SkinBase<Dropdown> {
    * @param imageView the {@link ImageView} from which the {@link Image} should be extracted
    * @return the found {@link Image}
    */
-  private Image getImage(ImageView imageView) {
+  private static Image getImage(ImageView imageView) {
     return imageView.getImage();
   }
 
