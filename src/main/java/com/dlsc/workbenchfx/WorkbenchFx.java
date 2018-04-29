@@ -348,7 +348,7 @@ public class WorkbenchFx extends StackPane {
     // if all pages are completely full
     if(amountOfModules % modulesPerPage == 0){
       return amountOfModules/modulesPerPage;
-    } else
+    } else {
       // if the last page is not full, round up to the next page
       return amountOfModules / modulesPerPage + 1;
     }
