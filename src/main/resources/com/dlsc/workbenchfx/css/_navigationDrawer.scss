@@ -2,12 +2,12 @@
 
 }
 
-#backButton {
+#back-button {
   @extend %button-styling;
   -fx-background-color: transparent;
   &:hover {
     -fx-background-color: transparent;
-    & #backIconView {
+    & #back-icon-view {
       -fx-fill: derive(-icons-color, 20%);
     }
   }

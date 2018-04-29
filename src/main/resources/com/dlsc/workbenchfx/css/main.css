@@ -55,39 +55,39 @@
   .tileControl:hover {
     -fx-background-color: derive(-primary-color, 15%); }
 
-.tabControl, #toolbar #homeButton, #toolbar #menuButton, #backButton {
+.tabControl, #toolbar #homeButton, #toolbar #menuButton, #back-button {
   -fx-background-color: derive(-primary-color, -15%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   -fx-background-radius: 0; }
-  .tabControl:hover, #toolbar #homeButton:hover, #toolbar #menuButton:hover, #backButton:hover {
+  .tabControl:hover, #toolbar #homeButton:hover, #toolbar #menuButton:hover, #back-button:hover {
     -fx-background-color: derive(-primary-color, -7.5%); }
-  .tabControl .tabNameLbl, #toolbar #homeButton .tabNameLbl, #toolbar #menuButton .tabNameLbl, #backButton .tabNameLbl {
+  .tabControl .tabNameLbl, #toolbar #homeButton .tabNameLbl, #toolbar #menuButton .tabNameLbl, #back-button .tabNameLbl {
     -fx-text-fill: -text-color;
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
     -fx-background-insets: 0 0 0 0.5em; }
-  .tabControl .closeBtn, #toolbar #homeButton .closeBtn, #toolbar #menuButton .closeBtn, #backButton .closeBtn {
+  .tabControl .closeBtn, #toolbar #homeButton .closeBtn, #toolbar #menuButton .closeBtn, #back-button .closeBtn {
     -fx-padding: 0 0.5em 0 1em;
     -fx-border-insets: 0 0.5em 0 1em;
     -fx-background-insets: 0 0.5em 0 1em;
     -fx-background-color: transparent;
     -fx-border-width: 0; }
-    .tabControl .closeBtn .closeIconView, #toolbar #homeButton .closeBtn .closeIconView, #toolbar #menuButton .closeBtn .closeIconView, #backButton .closeBtn .closeIconView {
+    .tabControl .closeBtn .closeIconView, #toolbar #homeButton .closeBtn .closeIconView, #toolbar #menuButton .closeBtn .closeIconView, #back-button .closeBtn .closeIconView {
       -fx-font-size: 1em !important; }
-    .tabControl .closeBtn:hover .closeIconView, #toolbar #homeButton .closeBtn:hover .closeIconView, #toolbar #menuButton .closeBtn:hover .closeIconView, #backButton .closeBtn:hover .closeIconView {
+    .tabControl .closeBtn:hover .closeIconView, #toolbar #homeButton .closeBtn:hover .closeIconView, #toolbar #menuButton .closeBtn:hover .closeIconView, #back-button .closeBtn:hover .closeIconView {
       -icons-color: -danger-color; }
-    .tabControl .closeBtn:armed, #toolbar #homeButton .closeBtn:armed, #toolbar #menuButton .closeBtn:armed, #backButton .closeBtn:armed {
+    .tabControl .closeBtn:armed, #toolbar #homeButton .closeBtn:armed, #toolbar #menuButton .closeBtn:armed, #back-button .closeBtn:armed {
       -fx-background-color: transparent;
       -fx-border-width: 0; }
-      .tabControl .closeBtn:armed .closeIconView, #toolbar #homeButton .closeBtn:armed .closeIconView, #toolbar #menuButton .closeBtn:armed .closeIconView, #backButton .closeBtn:armed .closeIconView {
+      .tabControl .closeBtn:armed .closeIconView, #toolbar #homeButton .closeBtn:armed .closeIconView, #toolbar #menuButton .closeBtn:armed .closeIconView, #back-button .closeBtn:armed .closeIconView {
         -icons-color: black; }
 
 .active-tab {
   -fx-background-color: -primary-color !important; }
 
-#toolbar #homeButton, #toolbar #menuButton, #backButton {
+#toolbar #homeButton, #toolbar #menuButton, #back-button {
   -fx-padding: .5em;
   -fx-pref-width: 3.5em; }
 
@@ -132,11 +132,11 @@
   -fx-pref-width: 0 !important;
   -fx-pref-height: 0 !important; }
 
-#backButton {
+#back-button {
   -fx-background-color: transparent; }
-  #backButton:hover {
+  #back-button:hover {
     -fx-background-color: transparent; }
-    #backButton:hover #backIconView {
+    #back-button:hover #back-icon-view {
       -fx-fill: derive(-icons-color, 20%); }
 
 .context-menu {

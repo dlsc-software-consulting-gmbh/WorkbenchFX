@@ -44,9 +44,9 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     drawerBox.getChildren().add(scrollPane);
 
     FontAwesomeIconView backIconView = new FontAwesomeIconView(FontAwesomeIcon.ARROW_LEFT);
-    backIconView.setId("backIconView");
+    backIconView.setId("back-icon-view");
     Button backBtn = new Button("", backIconView);
-    backBtn.setId("backButton");
+    backBtn.setId("back-button");
     backBtn.setOnAction(evt -> navigationDrawer.getWorkbench().hideOverlay(navigationDrawer, true));
     BorderPane.setAlignment(backBtn, Pos.CENTER_LEFT);
 
