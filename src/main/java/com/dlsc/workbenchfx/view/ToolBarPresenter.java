@@ -14,7 +14,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO
+ * Represents the presenter of the corresponding {@link ToolBarView}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class ToolBarPresenter implements Presenter {
   private static final Logger LOGGER =

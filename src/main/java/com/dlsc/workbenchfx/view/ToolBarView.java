@@ -11,6 +11,9 @@ import javafx.scene.layout.HBox;
 
 /**
  * TODO
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class ToolBarView extends HBox implements View {
   private final WorkbenchFx model;

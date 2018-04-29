@@ -11,6 +11,9 @@ import javafx.scene.image.ImageView;
 /**
  * Skeletal implementation of a {@link Module}. Extend this class to simply implement a new module
  * and override methods as needed.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public abstract class AbstractModule implements Module {
 

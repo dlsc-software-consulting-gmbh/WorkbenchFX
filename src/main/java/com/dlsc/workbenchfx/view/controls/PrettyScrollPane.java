@@ -9,6 +9,10 @@ import javafx.scene.control.ScrollPane;
 
 /**
  * TODO
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ * @author Dirk Lemmermann
  */
 public class PrettyScrollPane extends ScrollPane {
 

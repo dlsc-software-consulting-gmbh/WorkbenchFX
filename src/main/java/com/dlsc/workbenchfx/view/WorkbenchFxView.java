@@ -9,7 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the master view, which is used to show all view parts. TODO
+ * Represents the master view, which is used to show all view parts.
  *
  * @author François Martin
  * @author Marco Sanfratello

@@ -13,6 +13,9 @@ import javafx.scene.layout.HBox;
 
 /**
  * TODO
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class TabControl extends HBox {
   private final Button closeBtn;

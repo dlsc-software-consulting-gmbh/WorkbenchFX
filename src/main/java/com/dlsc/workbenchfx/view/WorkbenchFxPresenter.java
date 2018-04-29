@@ -9,7 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Contains presenter logic of the {@link WorkbenchFxView}.
+ * Represents the presenter of the corresponding {@link WorkbenchFxView}.
  *
  * @author François Martin
  * @author Marco Sanfratello

@@ -18,6 +18,10 @@ import javafx.scene.layout.VBox;
 
 /**
  * TODO
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ * @author Dirk Lemmermann
  */
 public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 

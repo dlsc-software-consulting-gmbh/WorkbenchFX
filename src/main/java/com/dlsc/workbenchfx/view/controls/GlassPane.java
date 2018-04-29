@@ -9,6 +9,10 @@ import javafx.util.Duration;
 
 /**
  * TODO
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ * @author Dirk Lemmermann
  */
 public class GlassPane extends StackPane {
 

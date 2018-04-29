@@ -9,6 +9,10 @@ import javafx.scene.control.Skin;
 
 /**
  * TODO
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ * @author Dirk Lemmermann
  */
 public class NavigationDrawer extends Control {
 

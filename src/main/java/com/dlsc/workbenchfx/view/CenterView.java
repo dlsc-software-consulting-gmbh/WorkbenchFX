@@ -5,7 +5,10 @@ import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 
 /**
- * TODO
+ * Displays the content of the currently active {@link Module}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class CenterView extends StackPane implements View {
   private final WorkbenchFx model;
