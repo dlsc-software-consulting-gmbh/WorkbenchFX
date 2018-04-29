@@ -62,8 +62,10 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     menuContainer.getChildren().clear();
     for (MenuItem item : getSkinnable().getItems()) {
       if (item instanceof Menu) {
+        // item is a submenu
         menuContainer.getChildren().add(buildSubmenu(item));
       } else {
+        // item is a regular menu item
         menuContainer.getChildren().add(buildMenuItem(item));
       }
     }
