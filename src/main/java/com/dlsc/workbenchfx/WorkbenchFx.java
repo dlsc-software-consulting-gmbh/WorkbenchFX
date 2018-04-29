@@ -111,7 +111,8 @@ public class WorkbenchFx extends StackPane {
    */
   private final ObservableList<Node> overlays = FXCollections.observableArrayList();
 
-  private final MenuItem[] navigationDrawerItems; // TODO: make it possible to listen in observable list
+  private final ObservableList<MenuItem> navigationDrawerItems =
+      FXCollections.observableArrayList();
 
   /**
    * Creates the Workbench window.
@@ -286,7 +287,6 @@ public class WorkbenchFx extends StackPane {
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
-    navigationDrawerItems = builder.navigationDrawerItems;
     initGlobalMenu(builder);
     initModelBindings();
     initModules(builder.modules);
@@ -297,6 +297,7 @@ public class WorkbenchFx extends StackPane {
   }
 
   private void initGlobalMenu(WorkbenchFxBuilder builder) {
+    navigationDrawerItems.addAll(builder.navigationDrawerItems);
     globalMenu = builder.globalMenuFactory.call(this);
     addOverlay(globalMenu);
   }
@@ -561,7 +562,7 @@ public class WorkbenchFx extends StackPane {
     overlaysShown.clear();
   }
 
-  public MenuItem[] getNavigationDrawerItems() {
-    return navigationDrawerItems;
+  public ObservableList<MenuItem> getNavigationDrawerItems() {
+    return FXCollections.unmodifiableObservableList(navigationDrawerItems);
   }
 }
