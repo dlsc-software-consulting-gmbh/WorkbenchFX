@@ -8,11 +8,14 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 
 /**
- * TODO
+ * Represents a stylized version of a {@link ScrollPane}, with a more modern design.
  *
+ * @see <a href="http://thisisnthappiness.com/post/32333764835/the-history-of-the-scroll-bar">Apple
+ *     Scroll Bar</a>
+ *
+ * @author Dirk Lemmermann
  * @author François Martin
  * @author Marco Sanfratello
- * @author Dirk Lemmermann
  */
 public class PrettyScrollPane extends ScrollPane {
 
@@ -20,7 +23,7 @@ public class PrettyScrollPane extends ScrollPane {
   private ScrollBar horizontalScrollBar = new ScrollBar();
 
   /**
-   * TODO
+   * Creates an empty {@link ScrollPane}.
    */
   public PrettyScrollPane() {
     super();
@@ -28,8 +31,9 @@ public class PrettyScrollPane extends ScrollPane {
   }
 
   /**
-   * TODO
-   * @param content
+   * Creates a {@link ScrollPane} with {@code content}.
+   *
+   * @param content to be shown inside of the {@link ScrollPane}
    */
   public PrettyScrollPane(Node content) {
     super(content);
@@ -37,13 +41,11 @@ public class PrettyScrollPane extends ScrollPane {
   }
 
   private void init() {
-    skinProperty()
-        .addListener(
-            it -> {
-              // first bind, then add new scrollbars, otherwise the new bars will be found
-              bindScrollBars();
-              getChildren().addAll(verticalScrollBar, horizontalScrollBar);
-            });
+    skinProperty().addListener(it -> {
+      // first bind, then add new scrollbars, otherwise the new bars will be found
+      bindScrollBars();
+      getChildren().addAll(verticalScrollBar, horizontalScrollBar);
+    });
 
     getStyleClass().add("pretty-scroll-pane");
     setFitToWidth(true);
@@ -58,9 +60,9 @@ public class PrettyScrollPane extends ScrollPane {
     horizontalScrollBar.setManaged(false);
     horizontalScrollBar.setOrientation(Orientation.HORIZONTAL);
     horizontalScrollBar.getStyleClass().add("horizontal-scrollbar");
-    horizontalScrollBar.visibleProperty().bind(
-        horizontalScrollBar.visibleAmountProperty().lessThan(1)
-    );
+    horizontalScrollBar
+        .visibleProperty()
+        .bind(horizontalScrollBar.visibleAmountProperty().lessThan(1));
   }
 
   private void bindScrollBars() {

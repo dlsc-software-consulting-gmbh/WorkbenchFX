@@ -17,19 +17,20 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 /**
- * TODO
+ * Represents the skin of the corresponding {@link NavigationDrawer}.
  *
+ * @author Dirk Lemmermann
  * @author François Martin
  * @author Marco Sanfratello
- * @author Dirk Lemmermann
  */
 public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
   private VBox menuContainer;
 
   /**
-   * TODO
-   * @param navigationDrawer
+   * Creates the skin for the {@link NavigationDrawer} control.
+   *
+   * @param navigationDrawer to create this skin for
    */
   public NavigationDrawerSkin(NavigationDrawer navigationDrawer) {
     super(navigationDrawer);

@@ -8,11 +8,12 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 /**
- * TODO
+ * Represents a black transparent overlay, which hides all currently shown overlays, when it is
+ * being clicked.
  *
+ * @author Dirk Lemmermann
  * @author François Martin
  * @author Marco Sanfratello
- * @author Dirk Lemmermann
  */
 public class GlassPane extends StackPane {
 
