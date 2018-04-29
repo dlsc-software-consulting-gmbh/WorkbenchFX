@@ -94,31 +94,34 @@
   .tileControl .label, .tabControl .label, #toolbar #homeButton .label, #toolbar #menuButton .label, .dropdown .label, #back-button .label {
     -fx-text-fill: -text-color; }
 
-.dropdown .menu-item, .context-menu .menu-item, .navigation-drawer .menu-item {
+.dropdown .menu-item, .navigation-drawer .menu-item {
   -fx-padding: .5em; }
-  .dropdown .menu-item:hover, .context-menu .menu-item:hover, .navigation-drawer .menu-item:hover {
+  .dropdown .menu-item:hover, .navigation-drawer .menu-item:hover {
     -fx-background-color: derive(-primary-color, 30%);
     -fx-text-fill: -text-color; }
-    .dropdown .menu-item:hover .label, .context-menu .menu-item:hover .label, .navigation-drawer .menu-item:hover .label {
+    .dropdown .menu-item:hover .label, .navigation-drawer .menu-item:hover .label {
       -fx-text-fill: -text-color; }
-  .dropdown .menu-item:focused, .context-menu .menu-item:focused, .navigation-drawer .menu-item:focused {
-    -fx-background-color: derive(-primary-color, 30%); }
-    .dropdown .menu-item:focused .label, .context-menu .menu-item:focused .label, .navigation-drawer .menu-item:focused .label {
+  .dropdown .menu-item:focused, .navigation-drawer .menu-item:focused {
+    -fx-background-color: derive(-primary-color, 30%);
+    -fx-text-fill: -text-color; }
+    .dropdown .menu-item:focused .label, .navigation-drawer .menu-item:focused .label, .dropdown .menu-item:focused > .label, .navigation-drawer .menu-item:focused > .label {
       -fx-text-fill: -text-color; }
 
-.dropdown .context-menu, .context-menu .context-menu, .navigation-drawer .context-menu {
+.dropdown .context-menu, .navigation-drawer .context-menu {
   -fx-background-color: derive(-primary-color, 15%);
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2); }
-  .dropdown .context-menu .scroll-arrow, .context-menu .context-menu .scroll-arrow, .navigation-drawer .context-menu .scroll-arrow {
+  .dropdown .context-menu .scroll-arrow, .navigation-drawer .context-menu .scroll-arrow {
     -fx-background-color: derive(-primary-color, 45%); }
-    .dropdown .context-menu .scroll-arrow:hover, .context-menu .context-menu .scroll-arrow:hover, .navigation-drawer .context-menu .scroll-arrow:hover {
+    .dropdown .context-menu .scroll-arrow:hover, .navigation-drawer .context-menu .scroll-arrow:hover {
       -fx-background-color: derive(-primary-color, 60%); }
-  .dropdown .context-menu .menu:hover > .right-container > .arrow, .context-menu .context-menu .menu:hover > .right-container > .arrow, .navigation-drawer .context-menu .menu:hover > .right-container > .arrow {
+  .dropdown .context-menu .menu:hover > .right-container > .arrow, .navigation-drawer .context-menu .menu:hover > .right-container > .arrow {
     -fx-background-color: -text-color; }
-  .dropdown .context-menu .menu:focused > .right-container > .arrow, .context-menu .context-menu .menu:focused > .right-container > .arrow, .navigation-drawer .context-menu .menu:focused > .right-container > .arrow {
+  .dropdown .context-menu .menu:focused > .right-container > .arrow, .navigation-drawer .context-menu .menu:focused > .right-container > .arrow {
     -fx-background-color: -text-color; }
-  .dropdown .context-menu .menu > .right-container > .arrow, .context-menu .context-menu .menu > .right-container > .arrow, .navigation-drawer .context-menu .menu > .right-container > .arrow {
+  .dropdown .context-menu .menu > .right-container > .arrow, .navigation-drawer .context-menu .menu > .right-container > .arrow {
     -fx-background-color: -text-color; }
+  .dropdown .context-menu .menu-item > .label, .navigation-drawer .context-menu .menu-item > .label {
+    -fx-text-fill: -text-color; }
 
 #center {
   -fx-border-width: 1.75em 0 0 0;
@@ -199,27 +202,25 @@
     .pretty-scroll-pane .scroll-bar:horizontal .thumb {
       -fx-background-insets: 0 0 2 0; }
 
-.context-menu, .navigation-drawer {
+.navigation-drawer {
   -fx-background-insets: 0;
   -fx-background-radius: 0;
-  -fx-padding: 0; }
-  .context-menu .separator:horizontal .line, .navigation-drawer .separator:horizontal .line {
-    -fx-border-color: derive(-text-color, 20%) transparent transparent transparent;
-    -fx-border-insets: 1 0 0 0; }
-  .context-menu > .scroll-arrow, .navigation-drawer > .scroll-arrow {
-    -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em;
-    -fx-background-color: transparent; }
-    .context-menu > .scroll-arrow:hover, .navigation-drawer > .scroll-arrow:hover {
-      -fx-background: -fx-selection-bar;
-      -fx-background-color: -fx-background;
-      -fx-text-fill: -fx-text-background-color; }
-  .context-menu :show-mnemonics > .mnemonic-underline, .navigation-drawer :show-mnemonics > .mnemonic-underline {
-    -fx-stroke: -fx-text-fill; }
-
-.navigation-drawer {
+  -fx-padding: 0;
   -fx-background-color: white;
   -fx-border-color: transparent derive(-text-color, 150%) transparent transparent;
   -fx-effect: null; }
+  .navigation-drawer .separator:horizontal .line {
+    -fx-border-color: derive(-text-color, 20%) transparent transparent transparent;
+    -fx-border-insets: 1 0 0 0; }
+  .navigation-drawer > .scroll-arrow {
+    -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em;
+    -fx-background-color: transparent; }
+    .navigation-drawer > .scroll-arrow:hover {
+      -fx-background: -fx-selection-bar;
+      -fx-background-color: -fx-background;
+      -fx-text-fill: -fx-text-background-color; }
+  .navigation-drawer :show-mnemonics > .mnemonic-underline {
+    -fx-stroke: -fx-text-fill; }
 
 .header {
   -fx-spacing: 25;

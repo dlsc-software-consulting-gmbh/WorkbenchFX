@@ -1,10 +1,11 @@
-.context-menu, .navigation-drawer {
+.navigation-drawer {
   -fx-background-insets: 0;
   -fx-background-radius: 0;
   -fx-padding: 0;
 
-  @extend %menu-item;
-  @extend %context-menu;
+  -fx-background-color: white;
+  -fx-border-color: transparent derive(-text-color, 150%) transparent transparent;
+  -fx-effect: null;
 
   .separator:horizontal .line {
     -fx-border-color: derive(-text-color, 20%) transparent transparent transparent;
@@ -25,12 +26,9 @@
     -fx-stroke: -fx-text-fill;
   }
 
-}
+  @extend %menu-item;
+  @extend %context-menu;
 
-.navigation-drawer {
-  -fx-background-color: white;
-  -fx-border-color: transparent derive(-text-color, 150%) transparent transparent;
-  -fx-effect: null;
 }
 
 .header {
