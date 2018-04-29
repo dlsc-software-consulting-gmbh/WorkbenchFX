@@ -10,12 +10,23 @@ import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
+import com.dlsc.workbenchfx.test.TestModule;
+import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
+
 import java.util.function.BiFunction;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.Node;
+import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
@@ -131,11 +142,34 @@ public class DemoPane extends StackPane {
 
     // WorkbenchFX
     workbenchFx = WorkbenchFx.builder(
+        new TestModule(),
         new CalendarModule(),
         new NotesModule(),
         new PreferencesModule(),
         new NavigationDrawerTestModule()
-    ).modulesPerPage(2)
+    )
+        .toolBarControls(
+            Dropdown.of(
+                new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
+                new CustomMenuItem(new Label("Content 1")),
+                new CustomMenuItem(new Label("Content 2"))
+            ),
+            Dropdown.of(
+                new ImageView("com/dlsc/workbenchfx/user_light.png"),
+                new Menu(
+                    "Submenus", new FontAwesomeIconView(FontAwesomeIcon.PLUS),
+                    new MenuItem("Submenu 1"),
+                    new CustomMenuItem(new Label("CustomMenuItem"), false)
+                )
+            ),
+            Dropdown.of(
+                "Text",
+                new ImageView("com/dlsc/workbenchfx/user_light.png"),
+                new CustomMenuItem(new Label("Content 1")),
+                new CustomMenuItem(new Label("Content 2"))
+            )
+        )
+        .modulesPerPage(2)
         .tabFactory(tabFactory)
         .tileFactory(tileFactory)
         .pageFactory(pageFactory)
@@ -146,6 +180,7 @@ public class DemoPane extends StackPane {
             workbench -> new CustomOverlay(workbench, true)
             )
         .build();
+
     getChildren().add(workbenchFx);
 
     ObservableList<Node> overlays = workbenchFx.getOverlays();
@@ -154,5 +189,4 @@ public class DemoPane extends StackPane {
 
     getStylesheets().add("com/dlsc/workbenchfx/customTheme.css");
   }
-
 }

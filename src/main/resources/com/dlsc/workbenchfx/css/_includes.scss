@@ -1,0 +1,39 @@
+// Sets a margin for all sides of the element
+@mixin margin-all($margin) {
+  -fx-padding: $margin;
+  -fx-border-insets: $margin;
+  -fx-background-insets: $margin;
+}
+
+// Sets a margin for each side of the element. Order: Top, Right, Bottom, Left
+@mixin margin($margin-top, $margin-right, $margin-bottom, $margin-left) {
+  -fx-padding: $margin-top $margin-right $margin-bottom $margin-left;
+  -fx-border-insets: $margin-top $margin-right $margin-bottom $margin-left;
+  -fx-background-insets: $margin-top $margin-right $margin-bottom $margin-left;
+}
+
+//Initiating the basic behaviour of any item in the toolbar
+%tool-bar-setup {
+  -fx-max-height: $pref-size;
+  -fx-min-height: $pref-size;
+  -fx-pref-height: $pref-size;
+  -fx-background-color: derive(-primary-color, -15%);
+  -fx-padding: .5em;
+  -fx-spacing: .5em;
+  -fx-alignment: center center;
+  -fx-background-radius: 0;
+  -fx-border-radius: 0;
+  -fx-border-width: 0;
+  -fx-text-fill: -text-color;
+
+  &:hover {
+    -fx-background-color: derive(-primary-color, -7.5%);
+  }
+  &:focused {
+    -fx-background-color: derive(-primary-color, -3.75%);
+    -fx-background-radius: 0;
+  }
+  & .label {
+    -fx-text-fill: -text-color;
+  }
+}

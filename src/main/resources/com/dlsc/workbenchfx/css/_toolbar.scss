@@ -3,30 +3,20 @@ $tab-spacing: 0.75em;
 #toolbar {
   -fx-spacing: $tab-spacing;
 
-  #homeButton {
-    @extend %button-styling;
+  & #homeButton {
+    @extend %tool-bar-setup;
+    -fx-min-width: $pref-size;
+
     & #homeIconView {
-
+      // The actual home-icon
     }
   }
 
-  #menuIconView {
-    -fx-fill: white;
-  }
-
-  #menuButton {
-    @extend %button-styling;
-    -fx-background-color: -text-color;
-    &:hover {
-      -fx-background-color: derive(-text-color, 10%);
-    }
-  }
-
-  #tabBox {
+  & #tabBox {
     -fx-spacing: 0.6 * $tab-spacing;
   }
 
-  #controlBox {
+  & #toolbar-control-box {
     -fx-spacing: 0.6 * $tab-spacing;
   }
 }

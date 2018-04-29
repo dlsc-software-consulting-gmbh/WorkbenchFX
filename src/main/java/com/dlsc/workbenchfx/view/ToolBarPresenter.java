@@ -6,6 +6,7 @@ import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
+
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -26,8 +27,9 @@ public class ToolBarPresenter implements Presenter {
   private final ToolBarView view;
 
   // Strong reference to prevent garbage collection
-  private ObservableList<Module> openModules;
+  private final ObservableList<Module> openModules;
   private final ObservableList<MenuItem> navigationDrawerItems;
+  private final ObservableList<Node> toolBarControls;
 
   /**
    * Creates a new {@link ToolBarPresenter} object for a corresponding {@link ToolBarView}.
@@ -37,6 +39,7 @@ public class ToolBarPresenter implements Presenter {
     this.view = view;
     openModules = model.getOpenModules();
     navigationDrawerItems = model.getNavigationDrawerItems();
+    toolBarControls = model.getToolBarControls();
     init();
   }
 
@@ -45,8 +48,7 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    // initially create all tabs
-    model.getOpenModules().forEach(module -> view.getChildren().add(model.getTab(module)));
+    model.getToolBarControls().forEach(view::addToolBarControl);
 
     // only add the menu button, if there is at least one navigation drawer item
     if (model.getNavigationDrawerItems().size() > 0) {
@@ -70,6 +72,24 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
+    // When the List of the currently open toolBarControls is changed, the view is updated.
+    toolBarControls.addListener((ListChangeListener<? super Node>) c -> {
+      while (c.next()) {
+        if (c.wasRemoved()) {
+          for (Node node : c.getRemoved()) {
+            LOGGER.debug("Dropdown " + node + " removed");
+            view.removeToolBarControl(c.getFrom());
+          }
+        }
+        if (c.wasAdded()) {
+          for (Node node : c.getAddedSubList()) {
+            LOGGER.debug("Dropdown " + node + " added");
+            view.addToolBarControl(node);
+          }
+        }
+      }
+    });
+
     // When the List of the currently open modules is changed, the view is updated.
     openModules.addListener((ListChangeListener<? super Module>) c -> {
       while (c.next()) {

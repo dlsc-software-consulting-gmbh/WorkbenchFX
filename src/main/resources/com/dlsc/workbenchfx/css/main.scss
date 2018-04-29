@@ -1,36 +1,23 @@
 $border: 2px;
+$pref-size: 3.5em;
 $custom-color-1: blue;
 $custom-color-2: red;
 $custom-color-3: green;
 $custom-color-4: purple;
 $custom-color-5: pink;
 
-// Sets a margin for all sides of the element
-@mixin margin-all($margin) {
-  -fx-padding: $margin;
-  -fx-border-insets: $margin;
-  -fx-background-insets: $margin;
-}
-
-// Sets a margin for each side of the element. Order: Top, Right, Bottom, Left
-@mixin margin($margin-top, $margin-right, $margin-bottom, $margin-left) {
-  -fx-padding: $margin-top $margin-right $margin-bottom $margin-left;
-  -fx-border-insets: $margin-top $margin-right $margin-bottom $margin-left;
-  -fx-background-insets: $margin-top $margin-right $margin-bottom $margin-left;
-}
-
 .root {
-  -fx-font-size: 14px;
-  -fx-font-family: Helvetica, sans-serif;
   -primary-color: #f2f2f2;
   -danger-color: #DB4437;
   -success-color: #47aa71;
   -accent-color: #00aaff;
   -text-color: derive(-primary-color, -70%);
-  -border: $border;
-  -fx-color: -primary-color;
-  -icons-color: -text-color;
   -module-background-color: derive(-primary-color, 140%);
+
+  -icons-color: -text-color;
+  -fx-font-size: 14px;
+  -fx-font-family: Helvetica, sans-serif;
+  -fx-color: -primary-color;
   -fx-background-color: white;
 }
 
@@ -45,11 +32,13 @@ $custom-color-5: pink;
   -fx-background-color: -module-background-color;
 }
 
+@import "includes";
 @import "center";
 @import "home";
 @import "module";
 @import "toolbar";
 @import "workbench";
+@import "dropdown";
 @import "prettyScrollPane";
 @import "navigationDrawer";
 @import "glassPane";

@@ -48,7 +48,6 @@ public class WorkbenchFxPresenter implements Presenter {
   @Override
   public void initializeViewParts() {
     view.centerView.setContent(view.homeView);
-
   }
 
   /**

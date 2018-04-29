@@ -62,8 +62,24 @@ public class WorkbenchFx extends StackPane {
 
   // Custom Controls
   private Node navigationDrawer;
-
   private GlassPane glassPane;
+
+  // Lists
+  private final ObservableList<Node> toolBarControls = FXCollections.observableArrayList();
+  private final ObservableList<MenuItem> navigationDrawerItems =
+      FXCollections.observableArrayList();
+  /**
+   * List of the <b>modal</b> overlays which are currently being shown.
+   */
+  private final ObservableList<Node> modalOverlaysShown = FXCollections.observableArrayList();
+  /**
+   * List of the overlays which are currently being shown.
+   */
+  private final ObservableList<Node> overlaysShown = FXCollections.observableArrayList();
+  /**
+   * List of all overlays, which have been loaded onto the scene graph.
+   */
+  private final ObservableList<Node> overlays = FXCollections.observableArrayList();
 
   // Modules
   /**
@@ -85,6 +101,7 @@ public class WorkbenchFx extends StackPane {
   private final ObjectProperty<Module> activeModule = new SimpleObjectProperty<>();
   private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
+  // Factories
   /**
    * The factories which are called when creating Tabs, Tiles and Pages of Tiles for the Views.
    * They require a module whose attributes are used to create the Nodes.
@@ -96,23 +113,9 @@ public class WorkbenchFx extends StackPane {
   private final ObjectProperty<BiFunction<WorkbenchFx, Integer, Node>> pageFactory =
       new SimpleObjectProperty<>(this, "pageFactory");
 
+  // Properties
   private final BooleanProperty glassPaneShown = new SimpleBooleanProperty(false);
 
-  /**
-   * List of the <b>modal</b> overlays which are currently being shown.
-   */
-  private final ObservableList<Node> modalOverlaysShown = FXCollections.observableArrayList();
-  /**
-   * List of the overlays which are currently being shown.
-   */
-  private final ObservableList<Node> overlaysShown = FXCollections.observableArrayList();
-  /**
-   * List of all overlays, which have been loaded onto the scene graph.
-   */
-  private final ObservableList<Node> overlays = FXCollections.observableArrayList();
-
-  private final ObservableList<MenuItem> navigationDrawerItems =
-      FXCollections.observableArrayList();
 
   /**
    * Creates the Workbench window.
@@ -191,6 +194,8 @@ public class WorkbenchFx extends StackPane {
       return gridPane;
     };
 
+    private ObservableList<Node> toolBarControls = FXCollections.observableArrayList();
+
     private Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
       NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
       StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
@@ -207,6 +212,7 @@ public class WorkbenchFx extends StackPane {
 
     /**
      * Defines how many modules should be shown per page on the home screen.
+     *
      * @param modulesPerPage amount of modules to be shown per page
      * @return builder for chaining
      */
@@ -220,8 +226,8 @@ public class WorkbenchFx extends StackPane {
      *
      * @param tabFactory to be used to create the {@link Node} for the tabs
      * @return builder for chaining
-     * @implNote Use this to replace the control which is used for the tab with your own
-     *           implementation.
+     * @implNote Use this to replace the control which is used for the tab
+     *           with your own implementation.
      */
     public WorkbenchFxBuilder tabFactory(BiFunction<WorkbenchFx, Module, Node> tabFactory) {
       this.tabFactory = tabFactory;
@@ -233,8 +239,8 @@ public class WorkbenchFx extends StackPane {
      *
      * @param tileFactory to be used to create the {@link Node} for the tiles
      * @return builder for chaining
-     * @implNote Use this to replace the control which is used for the tile with your own
-     *           implementation.
+     * @implNote Use this to replace the control which is used for the tile
+     *           with your own implementation.
      */
     public WorkbenchFxBuilder tileFactory(BiFunction<WorkbenchFx, Module, Node> tileFactory) {
       this.tileFactory = tileFactory;
@@ -246,8 +252,8 @@ public class WorkbenchFx extends StackPane {
      *
      * @param pageFactory to be used to create the page for the tiles
      * @return builder for chaining
-     * @implNote Use this to replace the page which is used in the home screen to display tiles of
-     *           the modules with your own implementation.
+     * @implNote Use this to replace the page which is used in the home screen
+     *           to display tiles of the modules with your own implementation.
      */
     public WorkbenchFxBuilder pageFactory(BiFunction<WorkbenchFx, Integer, Node> pageFactory) {
       this.pageFactory = pageFactory;
@@ -295,7 +301,19 @@ public class WorkbenchFx extends StackPane {
     }
 
     /**
+     * Creates the Controls which are placed on top-right of the ToolBar.
+     *
+     * @param toolBarControls the {@code toolBarControls} which will be added to the ToolBar
+     * @return the updated {@link WorkbenchFxBuilder}
+     */
+    public WorkbenchFxBuilder toolBarControls(Node... toolBarControls) {
+      this.toolBarControls.addAll(toolBarControls);
+      return this;
+    }
+
+    /**
      * Builds and fully initializes a {@link WorkbenchFx} object.
+     *
      * @return the {@link WorkbenchFx} object
      */
     public WorkbenchFx build() {
@@ -305,9 +323,11 @@ public class WorkbenchFx extends StackPane {
 
   private WorkbenchFx(WorkbenchFxBuilder builder) {
     modulesPerPage = builder.modulesPerPage;
+    toolBarControls.addAll(builder.toolBarControls);
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
+
     initNavigationDrawer(builder);
     initOverlays(builder);
     initModelBindings();
@@ -490,11 +510,11 @@ public class WorkbenchFx extends StackPane {
   }
 
   public ObservableList<Module> getOpenModules() {
-    return openModules;
+    return FXCollections.unmodifiableObservableList(openModules);
   }
 
   public ObservableList<Module> getModules() {
-    return modules;
+    return FXCollections.unmodifiableObservableList(modules);
   }
 
   public Module getActiveModule() {
@@ -520,6 +540,36 @@ public class WorkbenchFx extends StackPane {
   public boolean isGlassPaneShown() {
     return glassPaneShown.get();
   }
+
+  /**
+   * Removes a {@link Node} if one is in the {@code toolBarControls}.
+   *
+   * @param node the {@link Node} which should be removed
+   * @return true if sucessful, false if not
+   */
+  public boolean removeToolBarControl(Node node) {
+    return toolBarControls.remove(node);
+  }
+
+  /**
+   * Inserts a given {@link Node} at the end of the {@code toolBarControls}.
+   * If the {@code toolBarControls} already contains the {@link Node} it will not be added.
+   *
+   * @param node the {@link Node} to be added to the {@code toolBarControls}
+   * @return true if {@code toolBarControls} was changed, false if not
+   */
+  public boolean addToolBarControl(Node node) {
+    if (!toolBarControls.contains(node)) {
+      toolBarControls.add(node);
+      return true;
+    }
+    return false;
+  }
+
+  public ObservableList<Node> getToolBarControls() {
+    return FXCollections.unmodifiableObservableList(toolBarControls);
+  }
+}
 
   public BooleanProperty glassPaneShownProperty() {
     return glassPaneShown;
