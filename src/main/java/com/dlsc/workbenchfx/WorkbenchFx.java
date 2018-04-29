@@ -342,6 +342,11 @@ public class WorkbenchFx extends StackPane {
     }
   }
 
+  // TODO
+  public int amountOfPages() {
+    return getModules().size() / modulesPerPage + 1;
+  }
+
   /**
    * Generates a new Node which is then used as a Tab.
    * Using the given {@link Module}, it calls the {@code tabFactory} which generates the Tab.

@@ -20,7 +20,7 @@ public class HomePresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    view.pagination.setPageCount(model.getModules().size() / model.modulesPerPage + 1);
+    view.pagination.setPageCount(model.amountOfPages());
     view.pagination.setPageFactory(model::getPage);
     view.pagination.setMaxPageIndicatorCount(Integer.MAX_VALUE);
   }
