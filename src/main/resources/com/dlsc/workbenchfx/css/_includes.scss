@@ -32,4 +32,58 @@
   & .label {
     -fx-text-fill: -text-color;
   }
+  &:focused {
+    -fx-focus-color: transparent;
+    -fx-background-radius: 0;
+  }
 }
+
+%menu-item {
+  & .menu-item {
+    -fx-padding: .5em;
+
+    &:hover {
+      -fx-background-color: derive(-primary-color, 30%);
+      & .label {
+        -fx-text-fill: -text-color;
+      }
+    }
+
+    &:focused {
+      -fx-background-color: derive(-primary-color, 30%);
+      & .label {
+        -fx-text-fill: -text-color;
+      }
+    }
+  }
+}
+
+%context-menu {
+  & .context-menu {
+    -fx-background-color: derive(-primary-color, 15%);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 3, 0.0, 0, 2);
+
+    & .scroll-arrow {
+      -fx-background-color: derive(-primary-color, 45%);
+      &:hover {
+        -fx-background-color: derive(-primary-color, 60%);
+      }
+    }
+
+    .menu {
+      &:hover > .right-container > .arrow {
+        -fx-background-color: -text-color;
+      }
+      &:focused > .right-container > .arrow {
+        -fx-background-color: -text-color;
+      }
+      & > .right-container > .arrow {
+        -fx-background-color: -text-color;
+      }
+    }
+
+  }
+
+}
+
+

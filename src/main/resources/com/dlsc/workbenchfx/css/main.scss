@@ -1,5 +1,7 @@
 $border: 2px;
 $pref-size: 3.5em;
+$primary-color: #f2f2f2;
+$text-color: darken($primary-color, 70%);
 $custom-color-1: blue;
 $custom-color-2: red;
 $custom-color-3: green;
@@ -7,11 +9,12 @@ $custom-color-4: purple;
 $custom-color-5: pink;
 
 .root {
-  -primary-color: #f2f2f2;
+  -primary-color: $primary-color;
   -danger-color: #DB4437;
   -success-color: #47aa71;
   -accent-color: #00aaff;
-  -text-color: derive(-primary-color, -70%);
+  -text-color: $text-color;
+  -inverted-text-color: invert($text-color);
   -module-background-color: derive(-primary-color, 140%);
 
   -icons-color: -text-color;

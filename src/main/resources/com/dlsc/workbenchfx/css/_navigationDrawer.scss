@@ -3,20 +3,8 @@
   -fx-background-radius: 0;
   -fx-padding: 0;
 
-  .menu-item {
-    &:focused {
-      -fx-background-color: derive($custom-color-1, -10%);
-    }
-    &:hover {
-      -fx-background-color: derive($custom-color-1, -10%);
-    }
-    &:pressed {
-      -fx-background-color: white;
-      .label {
-        -fx-text-fill: $custom-color-1;
-      }
-    }
-  }
+  @extend %menu-item;
+  @extend %context-menu;
 
   .separator:horizontal .line {
     -fx-border-color: derive(-text-color, 20%) transparent transparent transparent;
@@ -36,36 +24,7 @@
   :show-mnemonics > .mnemonic-underline {
     -fx-stroke: -fx-text-fill;
   }
-}
 
-.context-menu {
-  -fx-background-color: $custom-color-1;
-
-  .label {
-    -fx-text-fill: white;
-  }
-
-  .menu {
-    .arrow {
-      -fx-background-color: $custom-color-2;
-      -fx-background-insets: 0;
-      -fx-padding: 0.25em;
-      -fx-shape: "M 0 -3.5 v 7 l 4 -3.5 z";
-    }
-    &:hover .arrow {
-      -fx-background-color: $custom-color-2;
-    }
-    &:showing .arrow {
-      -fx-background-color: $custom-color-2;
-    }
-  }
-
-  .menu-item {
-    -fx-padding: 20;
-    .label {
-      -fx-font-size: 15;
-    }
-  }
 }
 
 .navigation-drawer {
@@ -97,8 +56,12 @@
   &:hover {
     -fx-background-color: transparent;
     & #back-icon-view {
-      -fx-fill: derive(-icons-color, 20%);
+      -fx-fill: derive(-inverted-text-color, -15%);
     }
+  }
+
+  #back-icon-view {
+    -fx-fill: derive(-inverted-text-color, -55%);
   }
 }
 
