@@ -55,39 +55,39 @@
   .tileControl:hover {
     -fx-background-color: derive(-primary-color, 15%); }
 
-.tabControl, #toolbar #homeButton, #toolbar #menuButton, #back-button {
+.tabControl, #toolbar #homeButton, #toolbar #menuButton {
   -fx-background-color: derive(-primary-color, -15%);
   -fx-padding: .5em .5em .5em 1em;
   -fx-pref-height: 3.5em;
   -fx-alignment: center center;
   -fx-background-radius: 0; }
-  .tabControl:hover, #toolbar #homeButton:hover, #toolbar #menuButton:hover, #back-button:hover {
+  .tabControl:hover, #toolbar #homeButton:hover, #toolbar #menuButton:hover {
     -fx-background-color: derive(-primary-color, -7.5%); }
-  .tabControl .tabNameLbl, #toolbar #homeButton .tabNameLbl, #toolbar #menuButton .tabNameLbl, #back-button .tabNameLbl {
+  .tabControl .tabNameLbl, #toolbar #homeButton .tabNameLbl, #toolbar #menuButton .tabNameLbl {
     -fx-text-fill: -text-color;
     -fx-padding: 0 0 0 0.5em;
     -fx-border-insets: 0 0 0 0.5em;
     -fx-background-insets: 0 0 0 0.5em; }
-  .tabControl .closeBtn, #toolbar #homeButton .closeBtn, #toolbar #menuButton .closeBtn, #back-button .closeBtn {
+  .tabControl .closeBtn, #toolbar #homeButton .closeBtn, #toolbar #menuButton .closeBtn {
     -fx-padding: 0 0.5em 0 1em;
     -fx-border-insets: 0 0.5em 0 1em;
     -fx-background-insets: 0 0.5em 0 1em;
     -fx-background-color: transparent;
     -fx-border-width: 0; }
-    .tabControl .closeBtn .closeIconView, #toolbar #homeButton .closeBtn .closeIconView, #toolbar #menuButton .closeBtn .closeIconView, #back-button .closeBtn .closeIconView {
+    .tabControl .closeBtn .closeIconView, #toolbar #homeButton .closeBtn .closeIconView, #toolbar #menuButton .closeBtn .closeIconView {
       -fx-font-size: 1em !important; }
-    .tabControl .closeBtn:hover .closeIconView, #toolbar #homeButton .closeBtn:hover .closeIconView, #toolbar #menuButton .closeBtn:hover .closeIconView, #back-button .closeBtn:hover .closeIconView {
+    .tabControl .closeBtn:hover .closeIconView, #toolbar #homeButton .closeBtn:hover .closeIconView, #toolbar #menuButton .closeBtn:hover .closeIconView {
       -icons-color: -danger-color; }
-    .tabControl .closeBtn:armed, #toolbar #homeButton .closeBtn:armed, #toolbar #menuButton .closeBtn:armed, #back-button .closeBtn:armed {
+    .tabControl .closeBtn:armed, #toolbar #homeButton .closeBtn:armed, #toolbar #menuButton .closeBtn:armed {
       -fx-background-color: transparent;
       -fx-border-width: 0; }
-      .tabControl .closeBtn:armed .closeIconView, #toolbar #homeButton .closeBtn:armed .closeIconView, #toolbar #menuButton .closeBtn:armed .closeIconView, #back-button .closeBtn:armed .closeIconView {
+      .tabControl .closeBtn:armed .closeIconView, #toolbar #homeButton .closeBtn:armed .closeIconView, #toolbar #menuButton .closeBtn:armed .closeIconView {
         -icons-color: black; }
 
 .active-tab {
   -fx-background-color: -primary-color !important; }
 
-#toolbar #homeButton, #toolbar #menuButton, #back-button {
+#toolbar #homeButton, #toolbar #menuButton {
   -fx-padding: .5em;
   -fx-pref-width: 3.5em; }
 
@@ -132,99 +132,60 @@
   -fx-pref-width: 0 !important;
   -fx-pref-height: 0 !important; }
 
-#back-button {
-  -fx-background-color: transparent; }
-  #back-button:hover {
-    -fx-background-color: transparent; }
-    #back-button:hover #back-icon-view {
-      -fx-fill: derive(-icons-color, 20%); }
-
-.context-menu {
-  -fx-background-color: blue;
+.context-menu, .navigation-drawer {
   -fx-background-insets: 0;
   -fx-background-radius: 0;
   -fx-padding: 0; }
+  .context-menu .menu-item:focused, .navigation-drawer .menu-item:focused {
+    -fx-background-color: derive(blue, -10%); }
+  .context-menu .menu-item:hover, .navigation-drawer .menu-item:hover {
+    -fx-background-color: derive(blue, -10%); }
+  .context-menu .menu-item:pressed, .navigation-drawer .menu-item:pressed {
+    -fx-background-color: white; }
+    .context-menu .menu-item:pressed .label, .navigation-drawer .menu-item:pressed .label {
+      -fx-text-fill: blue; }
+  .context-menu .separator:horizontal .line, .navigation-drawer .separator:horizontal .line {
+    -fx-border-color: derive(-text-color, 20%) transparent transparent transparent;
+    -fx-border-insets: 1 0 0 0; }
+  .context-menu > .scroll-arrow, .navigation-drawer > .scroll-arrow {
+    -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em;
+    -fx-background-color: transparent; }
+    .context-menu > .scroll-arrow:hover, .navigation-drawer > .scroll-arrow:hover {
+      -fx-background: -fx-selection-bar;
+      -fx-background-color: -fx-background;
+      -fx-text-fill: -fx-text-background-color; }
+  .context-menu :show-mnemonics > .mnemonic-underline, .navigation-drawer :show-mnemonics > .mnemonic-underline {
+    -fx-stroke: -fx-text-fill; }
 
-.context-menu .label {
-  -fx-text-fill: white; }
-
-.context-menu .menu .arrow {
-  -fx-background-color: red;
-  -fx-background-insets: 0;
-  -fx-padding: 0.25em;
-  -fx-shape: "M 0 -3.5 v 7 l 4 -3.5 z"; }
-
-.context-menu .menu:hover .arrow,
-.context-menu .menu:showing .arrow {
-  -fx-background-color: red; }
-
-.context-menu .menu-item {
-  -fx-padding: 20; }
-
-.context-menu .menu-item .label {
-  -fx-font-size: 15; }
-
-.context-menu .menu-item:focused,
-.context-menu .menu-item:hover {
-  -fx-background-color: derive(blue, -10%); }
-
-.context-menu .menu-item:pressed {
-  -fx-background-color: white; }
-
-.context-menu .menu-item:pressed .label {
-  -fx-text-fill: blue; }
-
-.context-menu .separator:horizontal .line {
-  -fx-border-color: green transparent transparent transparent;
-  -fx-border-insets: 1 0 0 0; }
-
-.context-menu > .scroll-arrow {
-  -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em;
-  /* 5 */
-  -fx-background-color: transparent; }
-
-.context-menu > .scroll-arrow:hover {
-  -fx-background: purple;
-  -fx-background-color: -fx-background;
-  -fx-text-fill: pink; }
-
-.context-menu:show-mnemonics > .mnemonic-underline {
-  -fx-stroke: -fx-text-fill; }
+.context-menu {
+  -fx-background-color: blue; }
+  .context-menu .label {
+    -fx-text-fill: white; }
+  .context-menu .menu .arrow {
+    -fx-background-color: red;
+    -fx-background-insets: 0;
+    -fx-padding: 0.25em;
+    -fx-shape: "M 0 -3.5 v 7 l 4 -3.5 z"; }
+  .context-menu .menu:hover .arrow {
+    -fx-background-color: red; }
+  .context-menu .menu:showing .arrow {
+    -fx-background-color: red; }
+  .context-menu .menu-item {
+    -fx-padding: 20; }
+    .context-menu .menu-item .label {
+      -fx-font-size: 15; }
 
 .navigation-drawer {
-  -fx-background-color: #ffffff;
+  -fx-background-color: white;
   -fx-border-color: transparent derive(-text-color, 150%) transparent transparent;
-  -fx-background-insets: 0;
-  -fx-background-radius: 0;
-  -fx-padding: 0;
   -fx-effect: null; }
-
-.navigation-drawer .menu-item:pressed {
-  -fx-background-color: white; }
-
-.navigation-drawer .separator:horizontal .line {
-  -fx-border-color: derive(-text-color, 20%) transparent transparent transparent;
-  -fx-border-insets: 1 0 0 0; }
-
-.navigation-drawer > .scroll-arrow {
-  -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em;
-  -fx-background-color: transparent; }
-
-.navigation-drawer > .scroll-arrow:hover {
-  -fx-background: -fx-selection-bar;
-  -fx-background-color: -fx-background;
-  -fx-text-fill: -fx-text-background-color; }
-
-.navigation-drawer :show-mnemonics > .mnemonic-underline {
-  -fx-stroke: -fx-text-fill; }
 
 .header {
   -fx-spacing: 25;
   -fx-alignment: center; }
-
-.header .separator .line {
-  -fx-border-color: white;
-  -fx-border-width: 1; }
+  .header .separator .line {
+    -fx-border-color: white;
+    -fx-border-width: 1; }
 
 .glass-pane {
   -fx-background-color: black;

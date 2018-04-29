@@ -1,131 +1,84 @@
-#backIconView {
+.context-menu, .navigation-drawer {
+  -fx-background-insets: 0;
+  -fx-background-radius: 0;
+  -fx-padding: 0;
 
-}
-
-#back-button {
-  @extend %button-styling;
-  -fx-background-color: transparent;
-  &:hover {
-    -fx-background-color: transparent;
-    & #back-icon-view {
-      -fx-fill: derive(-icons-color, 20%);
+  .menu-item {
+    &:focused {
+      -fx-background-color: derive($custom-color-1, -10%);
     }
+    &:hover {
+      -fx-background-color: derive($custom-color-1, -10%);
+    }
+    &:pressed {
+      -fx-background-color: white;
+      .label {
+        -fx-text-fill: $custom-color-1;
+      }
+    }
+  }
+
+  .separator:horizontal .line {
+    -fx-border-color: derive(-text-color, 20%) transparent transparent transparent;
+    -fx-border-insets: 1 0 0 0;
+  }
+
+  > .scroll-arrow {
+    -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em;
+    -fx-background-color: transparent;
+    &:hover {
+      -fx-background: -fx-selection-bar;
+      -fx-background-color: -fx-background;
+      -fx-text-fill: -fx-text-background-color;
+    }
+  }
+
+  :show-mnemonics > .mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
   }
 }
 
 .context-menu {
   -fx-background-color: $custom-color-1;
-  -fx-background-insets: 0;
-  -fx-background-radius: 0;
-  -fx-padding: 0;
+
+  .label {
+    -fx-text-fill: white;
+  }
+
+  .menu {
+    .arrow {
+      -fx-background-color: $custom-color-2;
+      -fx-background-insets: 0;
+      -fx-padding: 0.25em;
+      -fx-shape: "M 0 -3.5 v 7 l 4 -3.5 z";
+    }
+    &:hover .arrow {
+      -fx-background-color: $custom-color-2;
+    }
+    &:showing .arrow {
+      -fx-background-color: $custom-color-2;
+    }
+  }
+
+  .menu-item {
+    -fx-padding: 20;
+    .label {
+      -fx-font-size: 15;
+    }
+  }
 }
 
-.context-menu .label {
-  -fx-text-fill: white;
-}
-
-.context-menu .menu .arrow {
-  -fx-background-color: $custom-color-2;
-  -fx-background-insets: 0;
-  -fx-padding: 0.25em;
-  -fx-shape: "M 0 -3.5 v 7 l 4 -3.5 z";
-}
-
-.context-menu .menu:hover .arrow,
-.context-menu .menu:showing .arrow {
-  -fx-background-color: $custom-color-2;
-}
-
-.context-menu .menu-item {
-  -fx-padding: 20;
-}
-
-.context-menu .menu-item .label {
-  -fx-font-size: 15;
-}
-
-.context-menu .menu-item:focused,
-.context-menu .menu-item:hover {
-  -fx-background-color: derive($custom-color-1, -10%);
-}
-
-.context-menu .menu-item:pressed {
+.navigation-drawer {
   -fx-background-color: white;
-}
-
-.context-menu .menu-item:pressed .label {
-  -fx-text-fill: $custom-color-1;
-}
-
-.context-menu .separator:horizontal .line {
-  -fx-border-color: $custom-color-3 transparent transparent transparent;
-  -fx-border-insets: 1 0 0 0;
-}
-
-.context-menu > .scroll-arrow {
-  -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em; /* 5 */
-  -fx-background-color: transparent;
-}
-
-.context-menu > .scroll-arrow:hover {
-  -fx-background: $custom-color-4;
-  -fx-background-color: -fx-background;
-  -fx-text-fill: $custom-color-5;
-}
-
-.context-menu:show-mnemonics > .mnemonic-underline {
-  -fx-stroke: -fx-text-fill;
-}
-
-
-.navigation-drawer  {
-  -fx-background-color: #ffffff;
   -fx-border-color: transparent derive(-text-color, 150%) transparent transparent;
-  -fx-background-insets: 0;
-  -fx-background-radius: 0;
-  -fx-padding: 0;
   -fx-effect: null;
-}
-
-.navigation-drawer  .menu-item:focused,
-.navigation-drawer  .menu-item:hover {
-  //-fx-background-color: derive($custom-color-1, -10%);
-}
-
-.navigation-drawer  .menu-item:pressed {
-  -fx-background-color: white;
-}
-
-.navigation-drawer  .menu-item:pressed .label {
-  //-fx-text-fill: $custom-color-1;
-}
-
-.navigation-drawer  .separator:horizontal .line {
-  -fx-border-color: derive(-text-color, 20%) transparent transparent transparent;
-  -fx-border-insets: 1 0 0 0;
-}
-
-.navigation-drawer  > .scroll-arrow {
-  -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em;
-  -fx-background-color: transparent;
-}
-
-.navigation-drawer  > .scroll-arrow:hover {
-  -fx-background: -fx-selection-bar;
-  -fx-background-color: -fx-background;
-  -fx-text-fill: -fx-text-background-color;
-}
-
-.navigation-drawer :show-mnemonics > .mnemonic-underline {
-  -fx-stroke: -fx-text-fill;
 }
 
 .header {
   -fx-spacing: 25;
   -fx-alignment: center;
-}
-
-.header .separator .line {
-  -fx-border-color: white;
-  -fx-border-width: 1;
+  .separator .line {
+    -fx-border-color: white;
+    -fx-border-width: 1;
+  }
 }
