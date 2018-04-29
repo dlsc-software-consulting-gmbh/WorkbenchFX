@@ -5,6 +5,7 @@ import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
+import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.module.Module;
@@ -12,6 +13,7 @@ import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.function.BiFunction;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
@@ -118,6 +120,9 @@ public class DemoPane extends StackPane {
     MenuItem itemB = new MenuItem("Printing");
     MenuItem itemC = new MenuItem("Settings");
 
+    MenuItem showOverlay = new MenuItem("Show overlay");
+    MenuItem showModalOverlay = new MenuItem("Show modal overlay");
+
     item21.getItems().addAll(item211,item212, item213, item214, item215);
 
     menu1.getItems().addAll(item11, item12, item13, item14);
@@ -135,10 +140,17 @@ public class DemoPane extends StackPane {
         .tileFactory(tileFactory)
         .pageFactory(pageFactory)
         .navigationDrawerFactory(navigationDrawerFactory)
-        .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC)
-        .overlays()
+        .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showModalOverlay)
+        .overlays(
+            workbench -> new CustomOverlay(workbench, false),
+            workbench -> new CustomOverlay(workbench, true)
+            )
         .build();
     getChildren().add(workbenchFx);
+
+    ObservableList<Node> overlays = workbenchFx.getOverlays();
+    showOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(1), false));
+    showModalOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(2), true));
 
     getStylesheets().add("com/dlsc/workbenchfx/customTheme.css");
   }

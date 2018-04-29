@@ -1,0 +1,7 @@
+.custom-overlay {
+    -fx-background-color: blue;
+    -fx-min-width: 300px;
+    -fx-max-width: 300px;
+    -fx-min-height: 300px;
+    -fx-max-height: 300px;
+}
