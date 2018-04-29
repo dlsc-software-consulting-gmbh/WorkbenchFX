@@ -56,7 +56,7 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().addAll(menuBtn, homeBtn, tabBox);
+    getChildren().addAll(homeBtn, tabBox);
   }
 
   /**
@@ -65,6 +65,18 @@ public class ToolBarView extends HBox implements View {
   @Override
   public void bindFieldsToModel() {
 
+  }
+
+  // TODO: add javadoc comment
+  public void addMenuButton() {
+    if (!getChildren().contains(menuBtn)) {
+      getChildren().add(0, menuBtn);
+    }
+  }
+
+  // TODO: add javadoc comment
+  public void removeMenuButton() {
+    getChildren().remove(menuBtn);
   }
 
   // TODO: add javadoc comment
