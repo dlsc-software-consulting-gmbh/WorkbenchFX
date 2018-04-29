@@ -308,8 +308,8 @@ public class WorkbenchFx extends StackPane {
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
-    initOverlays(builder);
     initNavigationDrawer(builder);
+    initOverlays(builder);
     initModelBindings();
     initModules(builder.modules);
     initViews();
@@ -548,8 +548,8 @@ public class WorkbenchFx extends StackPane {
    * Loads an overlay into the scene graph hidden, to be shown using
    * {@link WorkbenchFx#showOverlay(Node, boolean)}.
    *
-   * @implNote Preferably, use the builder method {@link WorkbenchFxBuilder#overlays(Node...)} and
-   *           load all of the overlays initially. Only use this method if keeping the overlay
+   * @implNote Preferably, use the builder method {@link WorkbenchFxBuilder#overlays(Callback[])})}
+   *           and load all of the overlays initially. Only use this method if keeping the overlay
    *           loaded in the background is not possible due to performance reasons!
    * @param overlay to be loaded into the scene graph
    */
@@ -560,7 +560,7 @@ public class WorkbenchFx extends StackPane {
 
   /**
    * Removes an overlay from the scene graph, which has previously been loaded either using
-   * {@link WorkbenchFx#addOverlay(Node)} or {@link WorkbenchFxBuilder#overlays(Node...)}.
+   * {@link WorkbenchFx#addOverlay(Node)} or {@link WorkbenchFxBuilder#overlays(Callback[])})}.
    *
    * @implNote Preferably, don't use this method to remove the overlays from the scene graph, but
    *           rather use {@link WorkbenchFx#hideOverlay(Node, boolean)}. Only use this method if
