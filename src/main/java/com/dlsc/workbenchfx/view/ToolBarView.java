@@ -15,7 +15,7 @@ public class ToolBarView extends HBox implements View {
   private FontAwesomeIconView homeIconView;
   Button homeBtn;
   private HBox tabBox;
-  private HBox controlBox;
+  private HBox toolBarControlBox;
 
   /**
    * Creates a new {@link ToolBarView} for the Workbench.
@@ -50,8 +50,8 @@ public class ToolBarView extends HBox implements View {
     tabBox = new HBox();
     tabBox.setId("tabBox");
 
-    controlBox = new HBox();
-    controlBox.setId("controlBox");
+    toolBarControlBox = new HBox();
+    toolBarControlBox.setId("toolbar-control-box");
   }
 
   /**
@@ -59,8 +59,8 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    controlBox.getChildren().addAll(model.getToolBarControls());
-    getChildren().addAll(homeBtn, tabBox, controlBox);
+    toolBarControlBox.getChildren().addAll(model.getToolBarControls());
+    getChildren().addAll(homeBtn, tabBox, toolBarControlBox);
     setHgrow(tabBox, Priority.ALWAYS);
   }
 
@@ -91,20 +91,20 @@ public class ToolBarView extends HBox implements View {
   }
 
   /**
-   * Adds a {@link Node} at the end of the {@code controlBox}.
+   * Adds a {@link Node} at the end of the {@code toolBarControlBox}.
    *
    * @param toolBarControl the {@link Node} to be added
    */
   public void addToolBarControl(Node toolBarControl) {
-    controlBox.getChildren().add(toolBarControl);
+    toolBarControlBox.getChildren().add(toolBarControl);
   }
 
   /**
-   * Removes a {@link Node} at the specified index of the {@code controlBox}.
+   * Removes a {@link Node} at the specified index of the {@code toolBarControlBox}.
    *
    * @param index the index where the specified {@link Node} should be removed
    */
   public void removeToolBarControl(int index) {
-    controlBox.getChildren().remove(index);
+    toolBarControlBox.getChildren().remove(index);
   }
 }

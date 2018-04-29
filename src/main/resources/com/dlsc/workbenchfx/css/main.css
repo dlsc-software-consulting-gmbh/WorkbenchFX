@@ -90,7 +90,7 @@
     -fx-min-width: 3.5em; }
   #toolbar #tabBox {
     -fx-spacing: 0.45em; }
-  #toolbar #controlBox {
+  #toolbar #toolbar-control-box {
     -fx-spacing: 0.45em; }
 
 .dropdown .menu-item {
