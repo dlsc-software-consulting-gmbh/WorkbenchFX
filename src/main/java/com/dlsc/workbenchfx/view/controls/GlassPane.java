@@ -29,7 +29,11 @@ public class GlassPane extends StackPane {
     setOnMouseClicked(evt -> workbench.hideAllOverlays());
     setVisible(false);
 
-    hideProperty().addListener(it -> {
+    hideProperty().addListener((observable, oldHide, newHide) -> {
+      // don't do anything if the state hasn't changed
+      if (oldHide == newHide) {
+        return;
+      }
       setVisible(true);
 
       FadeTransition fadeTransition = new FadeTransition();
