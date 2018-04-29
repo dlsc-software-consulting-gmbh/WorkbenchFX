@@ -36,7 +36,6 @@ import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-// TODO: hide menu button?
 /**
  * Represents the main WorkbenchFX class.
  *
@@ -194,7 +193,7 @@ public class WorkbenchFx extends StackPane {
       return globalMenu;
     };
 
-    private MenuItem[] navigationDrawerItems; // TODO: hide navigation menu if no items
+    private MenuItem[] navigationDrawerItems;
 
     private WorkbenchFxBuilder(Module... modules) {
       this.modules = modules;
@@ -297,7 +296,9 @@ public class WorkbenchFx extends StackPane {
   }
 
   private void initGlobalMenu(WorkbenchFxBuilder builder) {
-    navigationDrawerItems.addAll(builder.navigationDrawerItems);
+    if (builder.navigationDrawerItems != null) {
+      navigationDrawerItems.addAll(builder.navigationDrawerItems);
+    }
     globalMenu = builder.globalMenuFactory.call(this);
     addOverlay(globalMenu);
   }
