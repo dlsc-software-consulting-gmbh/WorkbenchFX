@@ -22,6 +22,7 @@ $custom-color-5: pink;
   -fx-font-family: Helvetica, sans-serif;
   -fx-color: -primary-color;
   -fx-background-color: white;
+
 }
 
 // Default styling of icons. This enables changing the icons styles later on
@@ -36,6 +37,7 @@ $custom-color-5: pink;
 }
 
 @import "includes";
+@import "removeFocus";
 @import "center";
 @import "home";
 @import "module";

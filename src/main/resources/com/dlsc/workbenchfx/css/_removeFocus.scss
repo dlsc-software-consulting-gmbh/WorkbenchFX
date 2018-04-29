@@ -1,0 +1,85 @@
+
+.button:focused,
+.toggle-button:focused,
+.radio-button:focused > .radio,
+.check-box:focused > .box,
+.menu-button:focused,
+.choice-box:focused,
+.color-picker.split-button:focused > .color-picker-label,
+.combo-box-base:focused,
+.slider:focused .thumb {
+  -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+  -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+  -fx-background-radius: 3px, 3px, 2px, 1px;
+}
+
+.scroll-pane:focused,
+.split-pane:focused,
+.list-view:focused,
+.tree-view:focused,
+.table-view:focused,
+.tree-table-view:focused,
+.html-editor:focused {
+  -fx-background-color: -fx-box-border, -fx-control-inner-background;
+  -fx-background-insets: 0, 1;
+  -fx-padding: 1;
+}
+
+.radio-button > .radio, .radio-button:focused > .radio  {
+  -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
+  -fx-padding: 0.333333em; /* 4 -- padding from outside edge to the inner black dot */
+}
+.split-menu-button:focused {
+  -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border;
+  -fx-background-insets: 0 0 -1 0, 0;
+  -fx-background-radius: 3, 3;
+}
+.split-menu-button:focused > .label {
+  -fx-text-fill: -fx-text-base-color;
+  -fx-background-color: -fx-inner-border, -fx-body-color;
+  -fx-background-insets: 1 0 1 1, 2 1 2 2;
+  -fx-background-radius: 2 0 0 2, 1 0 0 1;
+  -fx-padding: 0.333333em 0.667em 0.333333em 0.667em; /* 4 8 4 8 */
+}
+.split-menu-button:focused > .arrow-button {
+  -fx-background-color: -fx-inner-border, -fx-body-color;
+  -fx-background-insets: 1, 2;
+  -fx-background-radius: 0 2 2 0, 0 1 1 0;
+  -fx-padding: 0.5em 0.667em 0.5em 0.667em; /* 6 8 6 8 */
+}
+
+.scroll-bar:focused {
+  -fx-background-color: derive(-fx-box-border,30%), linear-gradient(to bottom, derive(-fx-base,-3%), derive(-fx-base,5%) 50%, derive(-fx-base,-3%));
+  -fx-background-insets: 0, 1 0 1 0;
+}
+.scroll-bar:vertical:focused {
+  -fx-background-color: derive(-fx-box-border,30%), linear-gradient(to right, derive(-fx-base,-3%), derive(-fx-base,5%) 50%, derive(-fx-base,-3%));
+  -fx-background-insets: 0, 0 1 0 1;
+}
+
+.text-input:focused {
+  -fx-highlight-fill: -fx-accent;
+  -fx-highlight-text-fill: white;
+  -fx-background-color: linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
+  linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+  -fx-background-insets: 0, 1;
+  -fx-background-radius: 3, 2;
+  -fx-prompt-text-fill: transparent;
+}
+
+.text-area:focused .content {
+  -fx-background-color:
+          linear-gradient(from 0px 0px to 0px 4px, derive(-fx-control-inner-background, -8%), -fx-control-inner-background);
+  -fx-background-radius: 2;
+}
+
+.titled-pane:focused > .title > .arrow-button > .arrow {
+  -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+  -fx-background-insets: 1 0 -1 0, 0;
+}
+
+.color-picker.split-button:focused > .arrow-button {
+  -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+  -fx-background-insets: 1 1 1 0, 1, 2;
+  -fx-background-radius: 0 3 3 0, 0 2 2 0, 0 1 1 0;
+}
