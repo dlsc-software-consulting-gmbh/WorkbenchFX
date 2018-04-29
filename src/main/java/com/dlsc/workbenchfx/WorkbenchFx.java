@@ -62,6 +62,7 @@ public class WorkbenchFx extends StackPane {
 
   // Custom Controls
   private Node navigationDrawer;
+
   private GlassPane glassPane;
 
   // Modules
@@ -120,7 +121,11 @@ public class WorkbenchFx extends StackPane {
     return WorkbenchFx.builder(modules).build();
   }
 
-  // TODO: add javadoc comment
+  /**
+   * Creates a builder for {@link WorkbenchFx}.
+   * @param modules which should be loaded for the application
+   * @return builder object
+   */
   public static WorkbenchFxBuilder builder(Module... modules) {
     return new WorkbenchFxBuilder(modules);
   }
@@ -249,12 +254,13 @@ public class WorkbenchFx extends StackPane {
     }
 
     /**
-     * TODO Defines how a page with tiles of {@link Module}s should be created.
+     * Defines how the navigation drawer should be created.
      *
-     * @param navigationDrawerFactory to be used to create the page for the tiles
+     * @param navigationDrawerFactory to be used to create the navigation drawer
      * @return builder for chaining
-     * @implNote Use this to replace the page which is used in the home screen to display tiles of
-     *     the modules with your own implementation.
+     * @implNote Use this to replace the navigation drawer, which is displayed when pressing the
+     *           menu icon, with your own implementation. To access the {@link MenuItem}s,
+     *           use {@link WorkbenchFx#getNavigationDrawerItems()}.
      */
     public WorkbenchFxBuilder navigationDrawerFactory(
         Callback<WorkbenchFx, Node> navigationDrawerFactory) {
@@ -263,9 +269,12 @@ public class WorkbenchFx extends StackPane {
     }
 
     /**
-     * TODO
-     * @param navigationDrawerItems
-     * @return
+     * Defines the {@link MenuItem}s, which will be rendered using the respective
+     * {@code navigationDrawerFactory}.
+     * @implNote the menu button will be hidden, if null is passed to {@code navigationDrawerItems}
+     * @param navigationDrawerItems the {@link MenuItem}s to display or null, if there should be
+     *                              no menu
+     * @return builder for chaining
      */
     public WorkbenchFxBuilder navigationDrawer(MenuItem... navigationDrawerItems) {
       this.navigationDrawerItems = navigationDrawerItems;
