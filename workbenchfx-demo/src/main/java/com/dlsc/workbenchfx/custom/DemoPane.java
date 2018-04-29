@@ -6,6 +6,7 @@ import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
+import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.module.TabControl;
@@ -127,7 +128,8 @@ public class DemoPane extends StackPane {
     workbenchFx = WorkbenchFx.builder(
         new CalendarModule(),
         new NotesModule(),
-        new PreferencesModule()
+        new PreferencesModule(),
+        new NavigationDrawerTestModule()
     ).modulesPerPage(2)
         .tabFactory(tabFactory)
         .tileFactory(tileFactory)
