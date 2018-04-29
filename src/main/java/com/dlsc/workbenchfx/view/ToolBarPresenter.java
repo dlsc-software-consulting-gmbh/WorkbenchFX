@@ -5,6 +5,7 @@ import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
 import java.util.Objects;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
@@ -86,7 +87,7 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void setupBindings() {
-
+    view.menuBtn.visibleProperty().bind(Bindings.isEmpty(model.getNavigationDrawerItems()).not());
   }
 
 }
