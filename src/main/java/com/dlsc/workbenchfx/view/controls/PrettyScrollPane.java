@@ -7,18 +7,26 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 
-/** Created by lemmi on 23.08.17. */
+/**
+ * TODO
+ */
 public class PrettyScrollPane extends ScrollPane {
 
   private ScrollBar vBar = new ScrollBar();
   private ScrollBar hBar = new ScrollBar();
 
+  /**
+   * TODO
+   */
   public PrettyScrollPane() {
     super();
-
     init();
   }
 
+  /**
+   * TODO
+   * @param content
+   */
   public PrettyScrollPane(Node content) {
     super(content);
     init();

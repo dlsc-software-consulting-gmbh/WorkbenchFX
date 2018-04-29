@@ -6,6 +6,9 @@ import javafx.scene.control.Pagination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
+/**
+ * TODO
+ */
 public class HomeView extends StackPane implements View {
   private final WorkbenchFx model;
   AnchorPane tilePane;

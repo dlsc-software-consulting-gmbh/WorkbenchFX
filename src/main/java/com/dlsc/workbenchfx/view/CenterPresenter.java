@@ -2,6 +2,9 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 
+/**
+ * TODO
+ */
 public class CenterPresenter implements Presenter {
   private final WorkbenchFx model;
   private final CenterView view;

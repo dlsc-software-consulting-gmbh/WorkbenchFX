@@ -5,6 +5,9 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * TODO
+ */
 public class TileControl extends Button {
   private final Module module;
 

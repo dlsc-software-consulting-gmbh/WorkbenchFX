@@ -16,11 +16,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-/** Created by lemmi on 22.08.17. */
+/**
+ * TODO
+ */
 public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
   private VBox menuContainer;
 
+  /**
+   * TODO
+   * @param navigationDrawer
+   */
   public NavigationDrawerSkin(NavigationDrawer navigationDrawer) {
     super(navigationDrawer);
 

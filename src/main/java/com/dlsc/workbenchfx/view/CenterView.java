@@ -4,6 +4,9 @@ import com.dlsc.workbenchfx.WorkbenchFx;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 
+/**
+ * TODO
+ */
 public class CenterView extends StackPane implements View {
   private final WorkbenchFx model;
 

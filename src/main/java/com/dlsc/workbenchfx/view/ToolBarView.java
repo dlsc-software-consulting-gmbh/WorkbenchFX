@@ -9,6 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
+/**
+ * TODO
+ */
 public class ToolBarView extends HBox implements View {
   private final WorkbenchFx model;
   private FontAwesomeIconView homeIconView;
@@ -67,24 +70,34 @@ public class ToolBarView extends HBox implements View {
 
   }
 
-  // TODO: add javadoc comment
+  /**
+   * TODO
+   */
   public void addMenuButton() {
     if (!getChildren().contains(menuBtn)) {
       getChildren().add(0, menuBtn);
     }
   }
 
-  // TODO: add javadoc comment
+  /**
+   * TODO
+   */
   public void removeMenuButton() {
     getChildren().remove(menuBtn);
   }
 
-  // TODO: add javadoc comment
+  /**
+   * TODO
+   * @param tab
+   */
   public void addTab(Node tab) {
     tabBox.getChildren().add(tab);
   }
 
-  // TODO: add javadoc comment
+  /**
+   * TODO
+   * @param index
+   */
   public void removeTab(int index) {
     tabBox.getChildren().remove(index);
   }

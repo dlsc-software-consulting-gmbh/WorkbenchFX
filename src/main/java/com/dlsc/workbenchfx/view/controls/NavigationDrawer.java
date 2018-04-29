@@ -7,12 +7,18 @@ import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
 
-/** Created by lemmi on 22.08.17. */
+/**
+ * TODO
+ */
 public class NavigationDrawer extends Control {
 
   private final ObservableList<MenuItem> items;
   private WorkbenchFx workbench;
 
+  /**
+   * TODO
+   * @param workbench
+   */
   public NavigationDrawer(WorkbenchFx workbench) {
     this.workbench = Objects.requireNonNull(workbench);
 

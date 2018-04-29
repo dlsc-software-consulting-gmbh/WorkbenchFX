@@ -13,6 +13,9 @@ import javafx.scene.control.MenuItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * TODO
+ */
 public class ToolBarPresenter implements Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(ToolBarPresenter.class.getName());
