@@ -60,31 +60,34 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
   private void buildMenu() {
     menuContainer.getChildren().clear();
-
     for (MenuItem item : getSkinnable().getItems()) {
-
       if (item instanceof Menu) {
-
-        Menu menu = (Menu) item;
-        MenuButton menuButton = new MenuButton();
-        menuButton.setPopupSide(Side.RIGHT);
-        menuButton.textProperty().bind(menu.textProperty());
-        menuButton.disableProperty().bind(menu.disableProperty());
-        menuButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        menuButton.getStyleClass().addAll(item.getStyleClass());
-        Bindings.bindContent(menuButton.getItems(), menu.getItems());
-        menuContainer.getChildren().add(menuButton);
-
+        menuContainer.getChildren().add(buildSubmenu(item));
       } else {
-
-        Button button = new Button();
-        button.textProperty().bind(item.textProperty());
-        button.disableProperty().bind(item.disableProperty());
-        button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        button.getStyleClass().addAll(item.getStyleClass());
-        button.setOnAction(item.getOnAction());
-        menuContainer.getChildren().add(button);
+        menuContainer.getChildren().add(buildMenuItem(item));
       }
     }
+  }
+
+  private MenuButton buildSubmenu(MenuItem item) {
+    Menu menu = (Menu) item;
+    MenuButton menuButton = new MenuButton();
+    menuButton.setPopupSide(Side.RIGHT);
+    menuButton.textProperty().bind(menu.textProperty());
+    menuButton.disableProperty().bind(menu.disableProperty());
+    menuButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+    menuButton.getStyleClass().addAll(item.getStyleClass());
+    Bindings.bindContent(menuButton.getItems(), menu.getItems());
+    return menuButton;
+  }
+
+  private Button buildMenuItem(MenuItem item) {
+    Button button = new Button();
+    button.textProperty().bind(item.textProperty());
+    button.disableProperty().bind(item.disableProperty());
+    button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+    button.getStyleClass().addAll(item.getStyleClass());
+    button.setOnAction(item.getOnAction());
+    return button;
   }
 }
