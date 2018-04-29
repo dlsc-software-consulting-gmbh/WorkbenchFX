@@ -6,7 +6,6 @@ import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
-import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -56,8 +55,8 @@ public class ToolBarPresenter implements Presenter {
   public void setupEventHandlers() {
     // When the home button is clicked, the view changes
     view.homeBtn.setOnAction(event -> model.openHomeScreen());
-    // When the menu button is clicked, the global menu gets shown
-    view.menuBtn.setOnAction(event -> model.showOverlay(model.getGlobalMenu(), true));
+    // When the menu button is clicked, the navigation drawer gets shown
+    view.menuBtn.setOnAction(event -> model.showOverlay(model.getNavigationDrawer(), true));
   }
 
   /**

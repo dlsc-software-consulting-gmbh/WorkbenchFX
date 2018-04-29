@@ -55,11 +55,11 @@ public class DemoPane extends StackPane {
     return tileControl;
   };
 
-  Callback<WorkbenchFx, Node> globalMenuFactory = workbench -> {
-    NavigationDrawer globalMenu = new NavigationDrawer(workbench);
-    StackPane.setAlignment(globalMenu, Pos.TOP_LEFT);
-    globalMenu.maxWidthProperty().bind(workbench.widthProperty().divide(2));
-    return globalMenu;
+  private Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
+    NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
+    StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
+    navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().divide(2));
+    return navigationDrawer;
   };
 
   BiFunction<WorkbenchFx, Integer, Node> pageFactory = (workbench, pageIndex) -> {
@@ -134,7 +134,7 @@ public class DemoPane extends StackPane {
         .tabFactory(tabFactory)
         .tileFactory(tileFactory)
         .pageFactory(pageFactory)
-        .globalMenuFactory(globalMenuFactory)
+        .navigationDrawerFactory(navigationDrawerFactory)
         .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC)
         .build();
     getChildren().add(workbenchFx);

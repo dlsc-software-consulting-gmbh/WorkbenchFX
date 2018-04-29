@@ -61,7 +61,7 @@ public class WorkbenchFx extends StackPane {
   private WorkbenchFxPresenter workbenchFxPresenter;
 
   // Custom Controls
-  private Node globalMenu;
+  private Node navigationDrawer;
   private GlassPane glassPane;
 
   // Modules
@@ -186,11 +186,11 @@ public class WorkbenchFx extends StackPane {
       return gridPane;
     };
 
-    private Callback<WorkbenchFx, Node> globalMenuFactory = workbench -> {
-      NavigationDrawer globalMenu = new NavigationDrawer(workbench);
-      StackPane.setAlignment(globalMenu, Pos.TOP_LEFT);
-      globalMenu.maxWidthProperty().bind(workbench.widthProperty().divide(2.5));
-      return globalMenu;
+    private Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
+      NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
+      StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
+      navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().divide(2.5));
+      return navigationDrawer;
     };
 
     private MenuItem[] navigationDrawerItems;
@@ -252,13 +252,13 @@ public class WorkbenchFx extends StackPane {
      * TODO
      * Defines how a page with tiles of {@link Module}s should be created.
      *
-     * @param globalMenuFactory to be used to create the page for the tiles
+     * @param navigationDrawerFactory to be used to create the page for the tiles
      * @return builder for chaining
      * @implNote Use this to replace the page which is used in the home screen to display tiles of
      *           the modules with your own implementation.
      */
-    public WorkbenchFxBuilder globalMenuFactory(Callback<WorkbenchFx, Node> globalMenuFactory) {
-      this.globalMenuFactory = globalMenuFactory;
+    public WorkbenchFxBuilder navigationDrawerFactory(Callback<WorkbenchFx, Node> navigationDrawerFactory) {
+      this.navigationDrawerFactory = navigationDrawerFactory;
       return this;
     }
 
@@ -286,7 +286,7 @@ public class WorkbenchFx extends StackPane {
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
-    initGlobalMenu(builder);
+    initNavigationDrawer(builder);
     initModelBindings();
     initModules(builder.modules);
     initViews();
@@ -295,12 +295,12 @@ public class WorkbenchFx extends StackPane {
     addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
   }
 
-  private void initGlobalMenu(WorkbenchFxBuilder builder) {
+  private void initNavigationDrawer(WorkbenchFxBuilder builder) {
     if (builder.navigationDrawerItems != null) {
       navigationDrawerItems.addAll(builder.navigationDrawerItems);
     }
-    globalMenu = builder.globalMenuFactory.call(this);
-    addOverlay(globalMenu);
+    navigationDrawer = builder.navigationDrawerFactory.call(this);
+    addOverlay(navigationDrawer);
   }
 
   private void initModelBindings() {
@@ -484,8 +484,8 @@ public class WorkbenchFx extends StackPane {
     return activeModuleView;
   }
 
-  public Node getGlobalMenu() {
-    return globalMenu;
+  public Node getNavigationDrawer() {
+    return navigationDrawer;
   }
 
   public boolean isGlassPaneShown() {
