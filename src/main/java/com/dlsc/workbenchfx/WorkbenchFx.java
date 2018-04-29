@@ -565,4 +565,13 @@ public class WorkbenchFx extends StackPane {
   public ObservableList<MenuItem> getNavigationDrawerItems() {
     return FXCollections.unmodifiableObservableList(navigationDrawerItems);
   }
+
+  public void addNavigationDrawerItems(MenuItem... menuItems) {
+    navigationDrawerItems.addAll(menuItems);
+  }
+
+  public void removeNavigationDrawerItems(MenuItem... menuItems) {
+    navigationDrawerItems.removeAll(menuItems);
+  }
 }
+
