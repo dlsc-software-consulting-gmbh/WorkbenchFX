@@ -566,7 +566,14 @@ public class WorkbenchFx extends StackPane {
     overlays.remove(overlay);
   }
 
-  /** TODO */
+  /**
+   * Makes an overlay, which has previously been loaded, visible.
+   *
+   * @param overlay the {@link Node} of the loaded overlay to be made visible
+   * @param modal if true, a transparent black {@link GlassPane} will be shown in the background of
+   *              the overlay, which makes the overlay disappear if the user clicks outside of the
+   *              overlay.
+   */
   public void showOverlay(Node overlay, boolean modal) {
     overlay.setVisible(true);
     if (modal) {
@@ -579,7 +586,14 @@ public class WorkbenchFx extends StackPane {
     }
   }
 
-  /** TODO */
+  /**
+   * Hides an overlay, which has previously been made visible using
+   * {@link WorkbenchFx#showOverlay(Node, boolean)}.
+   *
+   * @param overlay the {@link Node} of the already shown overlay to be hidden
+   * @param modal match this to what has previously been used for the call to
+   *              {@link WorkbenchFx#showOverlay(Node, boolean)} for the respective {@code overlay}.
+   */
   public void hideOverlay(Node overlay, boolean modal) {
     overlay.setVisible(false);
     if (modal) {
@@ -592,7 +606,9 @@ public class WorkbenchFx extends StackPane {
     }
   }
 
-  /** TODO */
+  /**
+   * Hides all overlays, both modal and non-modal, which are being shown.
+   */
   public void hideAllOverlays() {
     LOGGER.trace("hideAllOverlays");
     Consumer<Node> hideOverlays = overlay -> overlay.setVisible(false);
