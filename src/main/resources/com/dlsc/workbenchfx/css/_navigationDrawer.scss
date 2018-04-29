@@ -82,3 +82,24 @@
     -fx-border-width: 1;
   }
 }
+
+.menu-container {
+
+}
+
+#back-icon-view {
+
+}
+
+#back-button {
+
+}
+
+.logo {
+  @include margin(20, 0, 0, 0);
+  -fx-alignment: center-left;
+}
+
+.drawer-box {
+
+}

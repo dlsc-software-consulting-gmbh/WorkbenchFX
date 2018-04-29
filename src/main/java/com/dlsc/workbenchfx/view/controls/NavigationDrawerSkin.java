@@ -31,6 +31,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     super(navigationDrawer);
 
     VBox drawerBox = new VBox();
+    drawerBox.getStyleClass().add("drawer-box");
 
     BorderPane header = new BorderPane();
     header.getStyleClass().add("header");
@@ -52,9 +53,6 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
     ImageView companyLogo = new ImageView();
     companyLogo.getStyleClass().add("logo");
-    companyLogo.setFitWidth(140);
-    BorderPane.setMargin(companyLogo, new Insets(20, 0, 0, 0));
-    BorderPane.setAlignment(companyLogo, Pos.CENTER_LEFT);
     header.setTop(backBtn);
     header.setCenter(companyLogo);
 

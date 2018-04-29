@@ -187,6 +187,12 @@
     -fx-border-color: white;
     -fx-border-width: 1; }
 
+.logo {
+  -fx-padding: 20 0 0 0;
+  -fx-border-insets: 20 0 0 0;
+  -fx-background-insets: 20 0 0 0;
+  -fx-alignment: center-left; }
+
 .glass-pane {
   -fx-background-color: black;
   -fx-opacity: .6; }
