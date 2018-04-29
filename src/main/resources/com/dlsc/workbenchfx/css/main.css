@@ -1,17 +1,48 @@
 .root {
-  -fx-background-color: white;
-  -fx-font: 12px Helvetica, sans-serif;
-  -fx-color: #F2F2F2;
-  -icons-color: derive(#F2F2F2, -70%); }
+  -primary-color: #f2f2f2;
+  -danger-color: #DB4437;
+  -success-color: #47aa71;
+  -accent-color: #00aaff;
+  -text-color: derive(-primary-color, -70%);
+  -module-background-color: derive(-primary-color, 140%);
+  -icons-color: -text-color;
+  -fx-font-size: 14px;
+  -fx-font-family: Helvetica, sans-serif;
+  -fx-color: -primary-color;
+  -fx-background-color: white; }
 
 .glyph-icon {
-  -fx-text-fill: derive(#F2F2F2, -70%);
+  -fx-text-fill: -text-color;
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
+.module-background {
+  -fx-background-color: -module-background-color; }
+
+.tileControl, .tabControl, #toolbar #homeButton, .dropdown {
+  -fx-max-height: 3.5em;
+  -fx-min-height: 3.5em;
+  -fx-pref-height: 3.5em;
+  -fx-background-color: derive(-primary-color, -15%);
+  -fx-padding: .5em;
+  -fx-spacing: .5em;
+  -fx-alignment: center center;
+  -fx-background-radius: 0;
+  -fx-border-radius: 0;
+  -fx-border-width: 0;
+  -fx-text-fill: -text-color; }
+  .tileControl:hover, .tabControl:hover, #toolbar #homeButton:hover, .dropdown:hover {
+    -fx-background-color: derive(-primary-color, -7.5%); }
+  .tileControl:focused, .tabControl:focused, #toolbar #homeButton:focused, .dropdown:focused {
+    -fx-background-color: derive(-primary-color, -3.75%);
+    -fx-background-radius: 0; }
+  .tileControl .label, .tabControl .label, #toolbar #homeButton .label, .dropdown .label {
+    -fx-text-fill: -text-color; }
+
 #center {
   -fx-border-width: 1.75em 0 0 0;
-  -fx-border-color: #F2F2F2; }
+  -fx-border-color: -primary-color;
+  -fx-background-color: -module-background-color; }
 
 #home .tilePage {
   -fx-vgap: 40;
@@ -25,63 +56,66 @@
   #home .pagination > .pagination-control > .control-box > .bullet-button {
     -fx-background-radius: 4em;
     -fx-padding: 0.333em;
-    -fx-background-color: derive(#F2F2F2, -50%);
+    -fx-background-color: derive(-primary-color, -50%);
     -fx-background-insets: 5.25; }
     #home .pagination > .pagination-control > .control-box > .bullet-button:hover {
-      -fx-background-color: derive(#F2F2F2, -30%); }
+      -fx-background-color: derive(-primary-color, -30%); }
     #home .pagination > .pagination-control > .control-box > .bullet-button:selected {
-      -fx-background-color: #00aaff; }
+      -fx-background-color: -accent-color; }
       #home .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
-        -fx-background-color: derive(#00aaff, 20%); }
+        -fx-background-color: derive(-accent-color, 20%); }
 
 .tileControl {
-  -fx-background-color: #F2F2F2;
-  -fx-text-fill: derive(#F2F2F2, -70%);
-  -fx-pref-width: 16em;
-  -fx-pref-height: 9em;
-  -fx-alignment: center center; }
+  -fx-min-width: 16em;
+  -fx-min-height: 9em; }
   .tileControl:hover {
-    -fx-background-color: derive(#F2F2F2, 15%); }
+    -fx-text-fill: -text-color;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2); }
 
-.tabControl, #homeButton {
-  -fx-background-color: derive(#F2F2F2, -15%);
-  -fx-padding: .5em .5em .5em 1em;
-  -fx-pref-height: 3.5em;
-  -fx-alignment: center center;
-  -fx-background-radius: 0; }
-  .tabControl:hover, #homeButton:hover {
-    -fx-background-color: derive(#F2F2F2, -7.5%); }
-  .tabControl .tabNameLbl, #homeButton .tabNameLbl {
-    -fx-padding: 0 0 0 0.5em;
-    -fx-border-insets: 0 0 0 0.5em;
-    -fx-background-insets: 0 0 0 0.5em; }
-  .tabControl .closeBtn, #homeButton .closeBtn {
-    -fx-padding: 0 0.5em 0 1em;
-    -fx-border-insets: 0 0.5em 0 1em;
-    -fx-background-insets: 0 0.5em 0 1em;
-    -fx-background-color: transparent;
-    -fx-border-width: 0; }
-    .tabControl .closeBtn .closeIconView, #homeButton .closeBtn .closeIconView {
+.tabControl {
+  -fx-padding: .5em .5em .5em 1em; }
+  .tabControl .closeBtn {
+    -fx-background-color: transparent; }
+    .tabControl .closeBtn .closeIconView {
       -fx-font-size: 1em !important; }
-    .tabControl .closeBtn:hover .closeIconView, #homeButton .closeBtn:hover .closeIconView {
-      -icons-color: #DB4437; }
-    .tabControl .closeBtn:armed, #homeButton .closeBtn:armed {
-      -fx-background-color: transparent;
-      -fx-border-width: 0; }
-      .tabControl .closeBtn:armed .closeIconView, #homeButton .closeBtn:armed .closeIconView {
-        -icons-color: black; }
+    .tabControl .closeBtn:hover .closeIconView {
+      -icons-color: -danger-color; }
 
 .active-tab {
-  -fx-background-color: #F2F2F2 !important; }
+  -fx-background-color: -primary-color !important; }
 
 #toolbar {
   -fx-spacing: 0.75em; }
+  #toolbar #homeButton {
+    -fx-min-width: 3.5em; }
+  #toolbar #tabBox {
+    -fx-spacing: 0.45em; }
+  #toolbar #toolbar-control-box {
+    -fx-spacing: 0.45em; }
 
-#homeButton {
-  -fx-padding: .5em .5em .5em .5em;
-  -fx-pref-width: 3.5em; }
+.dropdown .menu-item {
+  -fx-padding: .5em; }
+  .dropdown .menu-item:hover {
+    -fx-background-color: derive(-primary-color, 30%); }
+    .dropdown .menu-item:hover .label {
+      -fx-text-fill: -text-color; }
+  .dropdown .menu-item:focused {
+    -fx-background-color: derive(-primary-color, 30%); }
+    .dropdown .menu-item:focused .label {
+      -fx-text-fill: -text-color; }
+.dropdown .context-menu {
+  -fx-background-color: derive(-primary-color, 15%);
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2); }
+  .dropdown .context-menu .scroll-arrow {
+    -fx-background-color: derive(-primary-color, 45%); }
+    .dropdown .context-menu .scroll-arrow:hover {
+      -fx-background-color: derive(-primary-color, 60%); }
 
-#tabBox {
-  -fx-spacing: 0.45em; }
+.menu:hover > .right-container > .arrow {
+  -fx-background-color: -text-color; }
+.menu:focused > .right-container > .arrow {
+  -fx-background-color: -text-color; }
+.menu > .right-container > .arrow {
+  -fx-background-color: -text-color; }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx.view;
 
-import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
