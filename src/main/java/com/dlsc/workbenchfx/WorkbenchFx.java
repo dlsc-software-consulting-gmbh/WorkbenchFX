@@ -199,6 +199,7 @@ public class WorkbenchFx extends StackPane {
     };
 
     private MenuItem[] navigationDrawerItems;
+    private Node[] overlays;
 
     private WorkbenchFxBuilder(Module... modules) {
       this.modules = modules;
@@ -254,6 +255,17 @@ public class WorkbenchFx extends StackPane {
     }
 
     /**
+     * Defines all of the overlays which should initially be loaded into the scene graph hidden, to
+     * be later shown using {@link WorkbenchFx#showOverlay(Node, boolean)}.
+     * @param overlays to be initially loaded into the scene graph
+     * @return builder for chaining
+     */
+    public WorkbenchFxBuilder overlays(Node... overlays) {
+      this.overlays = overlays;
+      return this;
+    }
+
+    /**
      * Defines how the navigation drawer should be created.
      *
      * @param navigationDrawerFactory to be used to create the navigation drawer
@@ -295,6 +307,7 @@ public class WorkbenchFx extends StackPane {
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
+    overlays.addAll(builder.overlays);
     initNavigationDrawer(builder);
     initModelBindings();
     initModules(builder.modules);
@@ -509,56 +522,73 @@ public class WorkbenchFx extends StackPane {
     this.glassPaneShown.set(glassPaneShown);
   }
 
-  /** TODO */
+  /** Returns the list of all modal overlays, which are currently being shown. */
   public ObservableList<Node> getModalOverlaysShown() {
     return FXCollections.unmodifiableObservableList(modalOverlaysShown);
   }
 
-  /** TODO */
+  /** Returns the list of all non-modal overlays, which are currently being shown. */
   public ObservableList<Node> getOverlaysShown() {
     return FXCollections.unmodifiableObservableList(overlaysShown);
   }
 
-  /** TODO */
+  /** Returns the list of all overlays. */
   public ObservableList<Node> getOverlays() {
     return FXCollections.unmodifiableObservableList(overlays);
   }
 
-  /** TODO */
-  public void addOverlay(Node node) {
+  /**
+   * Loads an overlay into the scene graph hidden, to be shown using
+   * {@link WorkbenchFx#showOverlay(Node, boolean)}.
+   *
+   * @implNote Preferably, use the builder method {@link WorkbenchFxBuilder#overlays(Node...)} and
+   *           load all of the overlays initially. Only use this method if keeping the overlay
+   *           loaded in the background is not possible due to performance reasons!
+   * @param overlay to be loaded into the scene graph
+   */
+  public void addOverlay(Node overlay) {
     LOGGER.trace("addOverlay");
-    overlays.add(node);
+    overlays.add(overlay);
   }
 
-  /** TODO: mention that this should only be used for performance reasons, since it will be removed from the scene graph */
-  public void removeOverlay(Node node) {
+  /**
+   * Removes an overlay from the scene graph, which has previously been loaded either using
+   * {@link WorkbenchFx#addOverlay(Node)} or {@link WorkbenchFxBuilder#overlays(Node...)}.
+   *
+   * @implNote Preferably, don't use this method to remove the overlays from the scene graph, but
+   *           rather use {@link WorkbenchFx#hideOverlay(Node, boolean)}. Only use this method if
+   *           keeping the overlay loaded in the background is not possible due to performance
+   *           reasons!
+   * @param overlay to be removed from the scene graph
+   */
+  public void removeOverlay(Node overlay) {
     LOGGER.trace("removeOverlay");
-    overlays.remove(node);
+    overlays.remove(overlay);
   }
 
   /** TODO */
-  public void showOverlay(Node node, boolean modal) {
-    node.setVisible(true);
+  public void showOverlay(Node overlay, boolean modal) {
+    overlay.setVisible(true);
     if (modal) {
-      LOGGER.trace("showOverlay - modal - " + node);
-      boolean result = modalOverlaysShown.add(node);
+      LOGGER.trace("showOverlay - modal - " + overlay);
+      boolean result = modalOverlaysShown.add(overlay);
       LOGGER.trace("showOverlay - modal - Result: " + result);
     } else {
       LOGGER.trace("showOverlay - non-modal");
-      overlaysShown.add(node);
+      overlaysShown.add(overlay);
     }
   }
 
   /** TODO */
-  public void hideOverlay(Node node, boolean modal) {
-    node.setVisible(false);
+  public void hideOverlay(Node overlay, boolean modal) {
+    overlay.setVisible(false);
     if (modal) {
       LOGGER.trace("hideOverlay - modal");
-      boolean result = modalOverlaysShown.remove(node);
+      boolean result = modalOverlaysShown.remove(overlay);
       LOGGER.trace("hideOverlay - modal - Result: " + result);
     } else {
       LOGGER.trace("hideOverlay - non-modal");
-      overlaysShown.remove(node);
+      overlaysShown.remove(overlay);
     }
   }
 
