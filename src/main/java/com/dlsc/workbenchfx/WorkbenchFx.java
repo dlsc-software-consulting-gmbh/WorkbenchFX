@@ -344,7 +344,13 @@ public class WorkbenchFx extends StackPane {
 
   // TODO
   public int amountOfPages() {
-    return getModules().size() / modulesPerPage + 1;
+    int amountOfModules = getModules().size();
+    // if all pages are filled
+    if(amountOfModules % modulesPerPage == 0){
+      return amountOfModules/modulesPerPage;
+    } else {
+      return amountOfModules / modulesPerPage + 1;
+    }
   }
 
   /**
