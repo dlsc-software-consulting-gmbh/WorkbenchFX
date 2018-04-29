@@ -110,6 +110,28 @@ This simplifies the architecture and readability is improved, since methods are 
 ==== Builder Pattern
 // TODO: explain how builder pattern works in WorkbenchFx.java
 
+==== Overlays
+To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `WorkbenchFx.showOverlay()` and `WorkbenchFx.hideOverlay()` methods.
+// TODO: include code of the above mentioned methods
+// TODO: explain glass pane
+The GUI of WorkbenchFX is organized in layers.
+At all times, there is a layer of the general WorkbenchFX GUI, which is being represented by the view class `WorkbenchFxView`.
+On top of that is the `GlassPane`, which is generally hidden and is only being displayed if a modal overlay is being shown.
+Stacked on top are all of the layers, which are either being added by WorkbenchFx internally or by the API user.
+One example of an internally added layer is the Navigation Drawer, which is being displayed when the menu button has been pressed.
+
+Overlays must first be loaded by using the `overlays()` method in the builder.
+The overlays are initially being loaded hidden and are being displayed on demand by calling `WorkbenchFx.showOverlay()`.
+This way, initial loading of the application may take longer, since all of the overlays have to be eagerly loaded.
+In turn, actions of the user causing an overlay to be displayed are instant and don't require rebuilding of the scene graph.
+Users generally prefer to wait a bit longer for an application to startup, rather than waiting for every action to have a longer loading time. // TODO: source?
+
+It is also possible to load an overlay at runtime, using the `WorkbenchFx.addOverlay()` method.
+However, since this requires a rebuild of the scene graph, it is not recommended. // TODO: source?
+This is only recommended when an overlay is so resource intensive, that it can't stay loaded in the background.
+
+// TODO: write more
+
 == Why should someone use our Workbench instead of coding on their own?
 * Simple Design
 * Fast
