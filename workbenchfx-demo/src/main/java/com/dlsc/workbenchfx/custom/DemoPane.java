@@ -136,8 +136,11 @@ public class DemoPane extends StackPane {
         .pageFactory(pageFactory)
         .navigationDrawerFactory(navigationDrawerFactory)
         .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC)
+        .overlays()
         .build();
     getChildren().add(workbenchFx);
+
+    getStylesheets().add("com/dlsc/workbenchfx/customTheme.css");
   }
 
 }

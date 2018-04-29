@@ -199,7 +199,7 @@ public class WorkbenchFx extends StackPane {
     };
 
     private MenuItem[] navigationDrawerItems;
-    private Node[] overlays;
+    private Callback<WorkbenchFx,Node>[] overlays;
 
     private WorkbenchFxBuilder(Module... modules) {
       this.modules = modules;
@@ -257,10 +257,11 @@ public class WorkbenchFx extends StackPane {
     /**
      * Defines all of the overlays which should initially be loaded into the scene graph hidden, to
      * be later shown using {@link WorkbenchFx#showOverlay(Node, boolean)}.
-     * @param overlays to be initially loaded into the scene graph
+     * @param overlays callback to construct the overlays to be initially loaded into the
+     *                 scene graph using a {@link WorkbenchFx} object
      * @return builder for chaining
      */
-    public WorkbenchFxBuilder overlays(Node... overlays) {
+    public WorkbenchFxBuilder overlays(Callback<WorkbenchFx,Node>... overlays) {
       this.overlays = overlays;
       return this;
     }
@@ -307,7 +308,7 @@ public class WorkbenchFx extends StackPane {
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
-    overlays.addAll(builder.overlays);
+    initOverlays(builder);
     initNavigationDrawer(builder);
     initModelBindings();
     initModules(builder.modules);
@@ -315,6 +316,12 @@ public class WorkbenchFx extends StackPane {
     getChildren().add(workbenchFxView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
     addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
+  }
+
+  private void initOverlays(WorkbenchFxBuilder builder) {
+    for (Callback<WorkbenchFx, Node> overlay: builder.overlays) {
+      overlays.add(overlay.call(this));
+    }
   }
 
   private void initNavigationDrawer(WorkbenchFxBuilder builder) {
