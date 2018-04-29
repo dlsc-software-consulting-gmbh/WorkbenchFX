@@ -3,7 +3,9 @@ package com.dlsc.workbenchfx.custom.test;
 import com.dlsc.workbenchfx.module.AbstractModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -23,6 +25,7 @@ public class NavigationDrawerTestModule extends AbstractModule {
 
   private final Button removeItemBtn = new Button("Remove 1 MenuItem");
   private final Button removeLotItemBtn = new Button("Remove 100 MenuItems");
+  private final Button removeAllItemBtn = new Button("Remove all MenuItems");
 
   private final List<MenuItem> itemsLst = new ArrayList<>();
 
@@ -42,6 +45,7 @@ public class NavigationDrawerTestModule extends AbstractModule {
 
     customPane.add(removeItemBtn, 1, 0);
     customPane.add(removeLotItemBtn, 1, 1);
+    customPane.add(removeAllItemBtn, 1, 2);
 
     customPane.setAlignment(Pos.CENTER);
   }
@@ -54,6 +58,16 @@ public class NavigationDrawerTestModule extends AbstractModule {
 
     removeItemBtn.setOnAction(event -> removeItems(1));
     removeLotItemBtn.setOnAction(event -> removeItems(100));
+    removeAllItemBtn.setOnAction(event -> removeAllItems());
+  }
+
+  private void removeAllItems() {
+    ObservableList<MenuItem> navigationDrawerItems = workbench.getNavigationDrawerItems();
+    MenuItem[] menuItems = new MenuItem[navigationDrawerItems.size()];
+    for (int i = 0; i < navigationDrawerItems.size();  ++i) {
+      menuItems[i] = navigationDrawerItems.get(i);
+    }
+    workbench.removeNavigationDrawerItems(menuItems);
   }
 
   private void addItems(int items) {
