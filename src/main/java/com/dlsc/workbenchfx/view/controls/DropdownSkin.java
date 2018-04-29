@@ -112,9 +112,9 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   }
 
   private void setupListeners() {
-    // Sets the pref-width of the dropdown's items
-    menuButton.showingProperty().addListener((observable, oldValue, newValue) -> {
-      if (!menuItems.isEmpty() && newValue) {
+    // Sets the pref-width of the dropdown's items when the ContextMenu is showing
+    menuButton.showingProperty().addListener((observable, wasShowing, isShowing) -> {
+      if (!menuItems.isEmpty() && isShowing) {
         menuItems.get(0).getParentPopup().setStyle("-fx-min-width: " + menuButton.getWidth());
       }
     });

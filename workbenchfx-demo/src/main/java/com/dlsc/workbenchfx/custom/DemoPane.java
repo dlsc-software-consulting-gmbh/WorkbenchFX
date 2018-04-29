@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx.custom;
 
 import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
-import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
@@ -18,16 +17,13 @@ import java.util.function.BiFunction;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -127,7 +123,7 @@ public class DemoPane extends StackPane {
         .pageFactory(pageFactory)
         .build();
 
-    addUserAgentStylesheet("com/dlsc/workbenchfx/customTheme.css");
+    getStylesheets().add("com/dlsc/workbenchfx/customTheme.css");
     getChildren().add(workbenchFx);
   }
 }

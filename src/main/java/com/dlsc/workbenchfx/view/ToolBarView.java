@@ -17,7 +17,11 @@ public class ToolBarView extends HBox implements View {
   private HBox tabBox;
   private HBox controlBox;
 
-  // TODO: add javadoc comment
+  /**
+   * Creates a new {@link ToolBarView} for the Workbench.
+   *
+   * @param model the {@link WorkbenchFx} as a model
+   */
   public ToolBarView(WorkbenchFx model) {
     this.model = model;
     init();
