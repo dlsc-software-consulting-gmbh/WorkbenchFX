@@ -569,7 +569,6 @@ public class WorkbenchFx extends StackPane {
   public ObservableList<Node> getToolBarControls() {
     return FXCollections.unmodifiableObservableList(toolBarControls);
   }
-}
 
   public BooleanProperty glassPaneShownProperty() {
     return glassPaneShown;

@@ -54,6 +54,8 @@ public class ToolBarPresenter implements Presenter {
     if (model.getNavigationDrawerItems().size() > 0) {
       view.addMenuButton();
     }
+
+    view.homeBtn.requestFocus();
   }
 
   /**

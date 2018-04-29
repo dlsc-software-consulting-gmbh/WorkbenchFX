@@ -29,10 +29,6 @@
   &:hover {
     -fx-background-color: derive(-primary-color, -7.5%);
   }
-  &:focused {
-    -fx-background-color: derive(-primary-color, -3.75%);
-    -fx-background-radius: 0;
-  }
   & .label {
     -fx-text-fill: -text-color;
   }

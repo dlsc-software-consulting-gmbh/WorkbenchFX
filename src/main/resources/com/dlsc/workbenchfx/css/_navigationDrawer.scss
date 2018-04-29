@@ -92,7 +92,7 @@
 }
 
 #back-button {
-  @extend %button-styling;
+  @extend %tool-bar-setup;
   -fx-background-color: transparent;
   &:hover {
     -fx-background-color: transparent;
