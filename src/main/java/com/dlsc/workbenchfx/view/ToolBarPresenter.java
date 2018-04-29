@@ -99,15 +99,13 @@ public class ToolBarPresenter implements Presenter {
     });
 
     // makes sure the menu button is only being displayed if there are navigation drawer items
-    navigationDrawerItems.addListener(
-        (InvalidationListener)
-            observable -> {
-              if (navigationDrawerItems.size() == 0) {
-                view.removeMenuButton();
-              } else {
-                view.addMenuButton();
-              }
-            });
+    navigationDrawerItems.addListener((InvalidationListener) observable -> {
+      if (navigationDrawerItems.size() == 0) {
+        view.removeMenuButton();
+      } else {
+        view.addMenuButton();
+      }
+    });
   }
 
   /**

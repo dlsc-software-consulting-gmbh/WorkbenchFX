@@ -12,8 +12,8 @@ import javafx.scene.control.ScrollPane;
  */
 public class PrettyScrollPane extends ScrollPane {
 
-  private ScrollBar vBar = new ScrollBar();
-  private ScrollBar hBar = new ScrollBar();
+  private ScrollBar verticalScrollBar = new ScrollBar();
+  private ScrollBar horizontalScrollBar = new ScrollBar();
 
   /**
    * TODO
@@ -38,7 +38,7 @@ public class PrettyScrollPane extends ScrollPane {
             it -> {
               // first bind, then add new scrollbars, otherwise the new bars will be found
               bindScrollBars();
-              getChildren().addAll(vBar, hBar);
+              getChildren().addAll(verticalScrollBar, horizontalScrollBar);
             });
 
     getStyleClass().add("pretty-scroll-pane");
@@ -46,15 +46,17 @@ public class PrettyScrollPane extends ScrollPane {
     setVbarPolicy(ScrollBarPolicy.NEVER);
     setHbarPolicy(ScrollBarPolicy.NEVER);
 
-    vBar.setManaged(false);
-    vBar.setOrientation(Orientation.VERTICAL);
-    vBar.getStyleClass().add("vertical-scrollbar");
-    vBar.visibleProperty().bind(vBar.visibleAmountProperty().lessThan(1));
+    verticalScrollBar.setManaged(false);
+    verticalScrollBar.setOrientation(Orientation.VERTICAL);
+    verticalScrollBar.getStyleClass().add("vertical-scrollbar");
+    verticalScrollBar.visibleProperty().bind(verticalScrollBar.visibleAmountProperty().lessThan(1));
 
-    hBar.setManaged(false);
-    hBar.setOrientation(Orientation.HORIZONTAL);
-    hBar.getStyleClass().add("horizontal-scrollbar");
-    hBar.visibleProperty().bind(hBar.visibleAmountProperty().lessThan(1));
+    horizontalScrollBar.setManaged(false);
+    horizontalScrollBar.setOrientation(Orientation.HORIZONTAL);
+    horizontalScrollBar.getStyleClass().add("horizontal-scrollbar");
+    horizontalScrollBar.visibleProperty().bind(
+        horizontalScrollBar.visibleAmountProperty().lessThan(1)
+    );
   }
 
   private void bindScrollBars() {
@@ -63,9 +65,9 @@ public class PrettyScrollPane extends ScrollPane {
       if (node instanceof ScrollBar) {
         ScrollBar bar = (ScrollBar) node;
         if (bar.getOrientation().equals(Orientation.VERTICAL)) {
-          bindScrollBars(vBar, bar);
+          bindScrollBars(verticalScrollBar, bar);
         } else if (bar.getOrientation().equals(Orientation.HORIZONTAL)) {
-          bindScrollBars(hBar, bar);
+          bindScrollBars(horizontalScrollBar, bar);
         }
       }
     }
@@ -87,15 +89,15 @@ public class PrettyScrollPane extends ScrollPane {
     Insets insets = getInsets();
     double w = getWidth();
     double h = getHeight();
-    final double prefWidth = vBar.prefWidth(-1);
-    vBar.resizeRelocate(
+    final double prefWidth = verticalScrollBar.prefWidth(-1);
+    verticalScrollBar.resizeRelocate(
         w - prefWidth - insets.getRight(),
         insets.getTop(),
         prefWidth,
         h - insets.getTop() - insets.getBottom());
 
-    final double prefHeight = hBar.prefHeight(-1);
-    hBar.resizeRelocate(
+    final double prefHeight = horizontalScrollBar.prefHeight(-1);
+    horizontalScrollBar.resizeRelocate(
         insets.getLeft(),
         h - prefHeight - insets.getBottom(),
         w - insets.getLeft() - insets.getRight(),

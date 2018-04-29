@@ -30,18 +30,18 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
   public NavigationDrawerSkin(NavigationDrawer navigationDrawer) {
     super(navigationDrawer);
 
-    VBox vBox = new VBox();
+    VBox drawerBox = new VBox();
 
     BorderPane header = new BorderPane();
     header.getStyleClass().add("header");
-    vBox.getChildren().add(header);
+    drawerBox.getChildren().add(header);
 
     menuContainer = new VBox();
     menuContainer.setFillWidth(true);
     menuContainer.getStyleClass().add("menu-container");
 
     PrettyScrollPane scrollPane = new PrettyScrollPane(menuContainer);
-    vBox.getChildren().add(scrollPane);
+    drawerBox.getChildren().add(scrollPane);
 
     FontAwesomeIconView backIconView = new FontAwesomeIconView(FontAwesomeIcon.ARROW_LEFT);
     backIconView.setId("backIconView");
@@ -58,7 +58,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     header.setTop(backBtn);
     header.setCenter(companyLogo);
 
-    getChildren().add(vBox);
+    getChildren().add(drawerBox);
 
     navigationDrawer.getItems().addListener((Observable it) -> buildMenu());
     buildMenu();

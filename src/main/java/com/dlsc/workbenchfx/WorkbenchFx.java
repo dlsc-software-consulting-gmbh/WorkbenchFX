@@ -249,15 +249,15 @@ public class WorkbenchFx extends StackPane {
     }
 
     /**
-     * TODO
-     * Defines how a page with tiles of {@link Module}s should be created.
+     * TODO Defines how a page with tiles of {@link Module}s should be created.
      *
      * @param navigationDrawerFactory to be used to create the page for the tiles
      * @return builder for chaining
      * @implNote Use this to replace the page which is used in the home screen to display tiles of
-     *           the modules with your own implementation.
+     *     the modules with your own implementation.
      */
-    public WorkbenchFxBuilder navigationDrawerFactory(Callback<WorkbenchFx, Node> navigationDrawerFactory) {
+    public WorkbenchFxBuilder navigationDrawerFactory(
+        Callback<WorkbenchFx, Node> navigationDrawerFactory) {
       this.navigationDrawerFactory = navigationDrawerFactory;
       return this;
     }

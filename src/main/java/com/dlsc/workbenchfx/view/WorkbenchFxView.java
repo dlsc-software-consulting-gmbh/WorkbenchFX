@@ -24,10 +24,13 @@ public class WorkbenchFxView extends StackPane implements View {
   final GlassPane glassPane;
   VBox viewBox;
 
-  /**
-   * Displays all of the view parts, representing the master view.
-   */
-  public WorkbenchFxView(WorkbenchFx model, ToolBarView toolBarView, HomeView homeView, CenterView centerView, GlassPane glassPane) {
+  /** Displays all of the view parts, representing the master view. */
+  public WorkbenchFxView(
+      WorkbenchFx model,
+      ToolBarView toolBarView,
+      HomeView homeView,
+      CenterView centerView,
+      GlassPane glassPane) {
     this.model = model;
     this.toolBarView = toolBarView;
     this.homeView = homeView;

@@ -63,7 +63,9 @@ public class WorkbenchFxPresenter implements Presenter {
 
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void setupValueChangedListeners() {
     overlays.addListener((ListChangeListener<? super Node>) c -> {
