@@ -29,6 +29,9 @@
   @extend %menu-item;
   @extend %context-menu;
 
+  & .menu-item {
+    -fx-padding: 0.5em 0.5em 0.5em 4em;
+  }
 }
 
 .header {

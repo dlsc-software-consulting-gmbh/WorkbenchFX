@@ -105,31 +105,32 @@ public class DemoPane extends StackPane {
 
   public DemoPane() {
     // Navigation Drawer
-    Menu menu1 = new Menu("Customer");
-    Menu menu2 = new Menu("Tariff Management");
-    Menu menu3 = new Menu("Complaints");
+    Menu menu1 = new Menu("Customer", new FontAwesomeIconView(FontAwesomeIcon.USER));
+    Menu menu2 = new Menu("Tariff Management", new FontAwesomeIconView(FontAwesomeIcon.BUILDING));
+    Menu menu3 = new Menu("Complaints", new FontAwesomeIconView(FontAwesomeIcon.BOMB));
 
-    MenuItem item11 = new MenuItem("Item 1.1");
-    MenuItem item12 = new MenuItem("Item 1.2");
-    MenuItem item13 = new MenuItem("Item 1.3");
-    MenuItem item14 = new MenuItem("Item 1.4");
+    FontAwesomeIcon genericIcon = FontAwesomeIcon.QUESTION;
+    MenuItem item11 = new MenuItem("Item 1.1", new FontAwesomeIconView(genericIcon));
+    MenuItem item12 = new MenuItem("Item 1.2", new FontAwesomeIconView(genericIcon));
+    MenuItem item13 = new MenuItem("Item 1.3", new FontAwesomeIconView(genericIcon));
+    MenuItem item14 = new MenuItem("Item 1.4", new FontAwesomeIconView(genericIcon));
 
-    Menu item21 = new Menu("Item 2.1");
-    MenuItem item22 = new MenuItem("Item 2.2");
+    Menu item21 = new Menu("Item 2.1", new FontAwesomeIconView(genericIcon));
+    MenuItem item22 = new MenuItem("Item 2.2", new FontAwesomeIconView(genericIcon));
 
-    MenuItem item211 = new MenuItem("Item 2.1.1");
-    MenuItem item212 = new MenuItem("Item 2.1.2");
-    MenuItem item213 = new MenuItem("Item 2.1.3");
-    MenuItem item214 = new MenuItem("Item 2.1.4");
-    MenuItem item215 = new MenuItem("Item 2.1.5");
+    MenuItem item211 = new MenuItem("Item 2.1.1", new FontAwesomeIconView(genericIcon));
+    MenuItem item212 = new MenuItem("Item 2.1.2", new FontAwesomeIconView(genericIcon));
+    MenuItem item213 = new MenuItem("Item 2.1.3", new FontAwesomeIconView(genericIcon));
+    MenuItem item214 = new MenuItem("Item 2.1.4", new FontAwesomeIconView(genericIcon));
+    MenuItem item215 = new MenuItem("Item 2.1.5", new FontAwesomeIconView(genericIcon));
 
-    MenuItem item31 = new MenuItem("Item 3.1");
-    MenuItem item32 = new MenuItem("Item 3.2");
-    MenuItem item33 = new MenuItem("Item 3.3");
+    MenuItem item31 = new MenuItem("Item 3.1", new FontAwesomeIconView(genericIcon));
+    MenuItem item32 = new MenuItem("Item 3.2", new FontAwesomeIconView(genericIcon));
+    MenuItem item33 = new MenuItem("Item 3.3", new FontAwesomeIconView(genericIcon));
 
-    MenuItem itemA = new MenuItem("Complaints");
-    MenuItem itemB = new MenuItem("Printing");
-    MenuItem itemC = new MenuItem("Settings");
+    MenuItem itemA = new MenuItem("Complaints", new FontAwesomeIconView(FontAwesomeIcon.BOMB));
+    MenuItem itemB = new MenuItem("Printing", new FontAwesomeIconView(FontAwesomeIcon.PRINT));
+    MenuItem itemC = new MenuItem("Settings", new FontAwesomeIconView(FontAwesomeIcon.COGS));
 
     MenuItem showOverlay = new MenuItem("Show overlay");
     MenuItem showModalOverlay = new MenuItem("Show modal overlay");

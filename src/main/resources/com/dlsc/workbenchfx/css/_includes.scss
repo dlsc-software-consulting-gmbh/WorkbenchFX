@@ -37,6 +37,7 @@
 
 %menu-item {
   & .menu-item {
+    -fx-alignment: center-left;
     -fx-padding: .5em;
 
     &:hover {

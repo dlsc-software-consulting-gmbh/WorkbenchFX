@@ -95,6 +95,7 @@
     -fx-text-fill: -text-color; }
 
 .dropdown .menu-item, .navigation-drawer .menu-item {
+  -fx-alignment: center-left;
   -fx-padding: .5em; }
   .dropdown .menu-item:hover, .navigation-drawer .menu-item:hover {
     -fx-background-color: derive(-primary-color, 30%);
@@ -221,6 +222,8 @@
       -fx-text-fill: -fx-text-background-color; }
   .navigation-drawer :show-mnemonics > .mnemonic-underline {
     -fx-stroke: -fx-text-fill; }
+  .navigation-drawer .menu-item {
+    -fx-padding: 0.5em 0.5em 0.5em 4em; }
 
 .header {
   -fx-spacing: 25;
