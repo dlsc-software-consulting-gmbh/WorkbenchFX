@@ -533,4 +533,36 @@ class WorkbenchFxTest {
   void activeModuleProperty() {
     assertTrue(workbench.activeModuleProperty() instanceof ReadOnlyObjectProperty);
   }
+
+  @Test
+  void amountOfPages() {
+    int modulesPerPage = 1;
+    assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
+    assertEquals(2, prepareWorkbench(2, modulesPerPage).amountOfPages());
+    assertEquals(3, prepareWorkbench(3, modulesPerPage).amountOfPages());
+
+    modulesPerPage = 2;
+    assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
+    assertEquals(1, prepareWorkbench(2, modulesPerPage).amountOfPages());
+    assertEquals(2, prepareWorkbench(3, modulesPerPage).amountOfPages());
+    assertEquals(2, prepareWorkbench(4, modulesPerPage).amountOfPages());
+    assertEquals(3, prepareWorkbench(5, modulesPerPage).amountOfPages());
+
+    modulesPerPage = 3;
+    assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
+    assertEquals(1, prepareWorkbench(2, modulesPerPage).amountOfPages());
+    assertEquals(1, prepareWorkbench(3, modulesPerPage).amountOfPages());
+    assertEquals(2, prepareWorkbench(4, modulesPerPage).amountOfPages());
+    assertEquals(2, prepareWorkbench(5, modulesPerPage).amountOfPages());
+    assertEquals(2, prepareWorkbench(6, modulesPerPage).amountOfPages());
+    assertEquals(3, prepareWorkbench(7, modulesPerPage).amountOfPages());
+  }
+
+  private WorkbenchFx prepareWorkbench(int moduleAmount, int modulesPerPage) {
+    Module[] modules = new Module[moduleAmount];
+    for(int i = 0; i < moduleAmount; i++) {
+      modules[i] = mock(Module.class);
+    }
+    return WorkbenchFx.builder(modules).modulesPerPage(modulesPerPage).build();
+  }
 }
