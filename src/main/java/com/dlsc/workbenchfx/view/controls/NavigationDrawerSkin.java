@@ -84,6 +84,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     Menu menu = (Menu) item;
     MenuButton menuButton = new MenuButton();
     menuButton.setPopupSide(Side.RIGHT);
+    menuButton.graphicProperty().bind(menu.graphicProperty());
     menuButton.textProperty().bind(menu.textProperty());
     menuButton.disableProperty().bind(menu.disableProperty());
     menuButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -95,6 +96,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
   private Button buildMenuItem(MenuItem item) {
     Button button = new Button();
     button.textProperty().bind(item.textProperty());
+    button.graphicProperty().bind(item.graphicProperty());
     button.disableProperty().bind(item.disableProperty());
     button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     button.getStyleClass().addAll(item.getStyleClass());
