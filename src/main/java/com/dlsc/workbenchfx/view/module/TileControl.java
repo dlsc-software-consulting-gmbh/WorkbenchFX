@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
 /**
- * TODO
+ * Represents the standard control used to display {@link Module}s as tiles in the home screen.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -26,7 +26,11 @@ public class TileControl extends Button {
     getStyleClass().add("tileControl");
   }
 
-  // TODO: add javadoc comment
+  /**
+   * Defines the {@link EventHandler} which should be called when this tile is being clicked on.
+   *
+   * @param event to be called
+   */
   public void setOnActive(EventHandler<MouseEvent> event) {
     setOnMouseClicked(event);
   }

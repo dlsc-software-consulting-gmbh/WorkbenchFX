@@ -13,7 +13,9 @@ import javafx.scene.layout.StackPane;
 public class CenterView extends StackPane implements View {
   private final WorkbenchFx model;
 
-  // TODO: add javadoc comment
+  /**
+   * Creates a new {@link CenterView}.
+   */
   public CenterView(WorkbenchFx model) {
     this.model = model;
     init();
