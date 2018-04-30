@@ -361,6 +361,24 @@ public class WorkbenchFx extends StackPane {
   }
 
   /**
+   * Calculates the amount of pages of modules (rendered as tiles).
+   *
+   * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}.
+   *           This is repeated until all modules are rendered as tiles.
+   * @return amount of pages
+   */
+  public int amountOfPages() {
+    int amountOfModules = getModules().size();
+    // if all pages are completely full
+    if (amountOfModules % modulesPerPage == 0) {
+      return amountOfModules / modulesPerPage;
+    } else {
+      // if the last page is not full, round up to the next page
+      return amountOfModules / modulesPerPage + 1;
+    }
+  }
+
+  /**
    * Generates a new Node which is then used as a Tab.
    * Using the given {@link Module}, it calls the {@code tabFactory} which generates the Tab.
    *
