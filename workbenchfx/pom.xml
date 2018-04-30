@@ -20,7 +20,7 @@
     </distributionManagement>
 
     <properties>
-        <checkstyle.path>config/checkstyle/checkstyle.xml</checkstyle.path>
+        <checkstyle.path>../config/checkstyle/checkstyle.xml</checkstyle.path>
         <junit.jupiter.version>5.2.0</junit.jupiter.version>
         <junit.platform.version>1.2.0</junit.platform.version>
     </properties>
