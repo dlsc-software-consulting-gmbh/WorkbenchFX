@@ -4,7 +4,7 @@ $tab-spacing: 0.75em;
   -fx-spacing: $tab-spacing;
 
   & #home-button {
-    @extend %tool-bar-setup;
+    @extend %toolbar-setup;
     -fx-min-width: $pref-size;
 
     & #home-icon-view {
@@ -17,7 +17,7 @@ $tab-spacing: 0.75em;
   }
 
   #menu-button {
-    @extend %tool-bar-setup;
+    @extend %toolbar-setup;
     -fx-min-width: $pref-size;
   }
 

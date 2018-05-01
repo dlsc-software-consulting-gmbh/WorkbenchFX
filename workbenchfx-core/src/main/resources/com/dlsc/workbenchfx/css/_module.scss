@@ -1,5 +1,5 @@
 .tile-control {
-  @extend %tool-bar-setup;
+  @extend %toolbar-setup;
   -fx-min-width: 16em;
   -fx-min-height: 9em;
   &:hover {
@@ -9,7 +9,7 @@
 }
 
 .tab-control {
-  @extend %tool-bar-setup;
+  @extend %toolbar-setup;
   -fx-padding: .5em .5em .5em 1em;
 
   & .tab-icon {

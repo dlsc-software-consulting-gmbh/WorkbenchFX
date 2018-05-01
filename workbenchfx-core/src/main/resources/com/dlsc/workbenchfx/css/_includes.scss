@@ -13,7 +13,7 @@
 }
 
 //Initiating the basic behaviour of any item in the toolbar
-%tool-bar-setup {
+%toolbar-setup {
   -fx-max-height: $pref-size;
   -fx-min-height: $pref-size;
   -fx-pref-height: $pref-size;
