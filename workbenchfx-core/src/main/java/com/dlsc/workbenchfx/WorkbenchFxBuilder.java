@@ -84,7 +84,7 @@ public final class WorkbenchFxBuilder {
     return gridPane;
   };
 
-  ObservableList<Node> toolBarControls = FXCollections.observableArrayList();
+  Node[] toolbarControls;
 
   Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
     // Defines the width of the navigationDrawer.
@@ -200,11 +200,11 @@ public final class WorkbenchFxBuilder {
   /**
    * Creates the Controls which are placed on top-right of the ToolBar.
    *
-   * @param toolBarControls the {@code toolBarControls} which will be added to the ToolBar
+   * @param toolbarControls the {@code toolbarControls} which will be added to the ToolBar
    * @return the updated {@link WorkbenchFxBuilder}
    */
-  public WorkbenchFxBuilder toolBarControls(Node... toolBarControls) {
-    this.toolBarControls.addAll(toolBarControls);
+  public WorkbenchFxBuilder toolbarControls(Node... toolbarControls) {
+    this.toolbarControls = toolbarControls;
     return this;
   }
 

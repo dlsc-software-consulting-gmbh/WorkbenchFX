@@ -114,10 +114,10 @@ public final class WorkbenchFx extends StackPane {
 
   WorkbenchFx(WorkbenchFxBuilder builder) {
     modulesPerPage = builder.modulesPerPage;
-    toolbarControls.addAll(builder.toolbarControls);
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
+    initToolbarControls(builder);
     initNavigationDrawer(builder);
     initOverlays(builder);
     initModelBindings();
@@ -126,6 +126,12 @@ public final class WorkbenchFx extends StackPane {
     getChildren().add(workbenchFxView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
     addUserAgentStylesheet(WorkbenchFx.class.getResource("css/main.css").toExternalForm());
+  }
+
+  private void initToolbarControls(WorkbenchFxBuilder builder) {
+    if (builder.toolbarControls != null) {
+      toolbarControls.addAll(builder.toolbarControls);
+    }
   }
 
   /**
