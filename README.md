@@ -273,6 +273,11 @@ It is possible to optionally add a [Validator](http://dlsc.com/wp-content/html/f
 | `SelectionLengthValidator` | Defines a length interval which is considered valid. This range can be limited in either one direction or in both directions. |
 | `StringLengthValidator` | Defines a length interval which is considered valid. This range can be limited in either one direction or in both directions. |
 
+## Version Management
+To change the version, set the property `workbenchfx.version` in the parent `pom.xml` file to the next version.
+Then, run: `mvn process-resources`
+It will then automatically proceed by updating all versions in all pom files automatically.
+
 ## Team
 - Marco Sanfratello
   - marco.sanfratello@students.fhnw.ch
