@@ -2,9 +2,12 @@
   @extend %tool-bar-setup;
   -fx-min-width: 16em;
   -fx-min-height: 9em;
+  -fx-background-radius: $border;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .3), 4, 0.0, 0, 3);
   &:hover {
     -fx-text-fill: -text-color;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 3, 0.0, 0, 2);
+    -fx-background-color: derive(-primary-color, 30%);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 4, 0.0, 0, 3);
   }
 }
 

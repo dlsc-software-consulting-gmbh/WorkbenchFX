@@ -1,7 +1,9 @@
-$tab-spacing: 0.75em;
+$tab-spacing: 0.0em;
 
 #toolbar {
   -fx-spacing: $tab-spacing;
+  -fx-background-color: -primary-color;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0.0, 0, 3);
 
   & #homeButton {
     @extend %tool-bar-setup;
@@ -13,7 +15,7 @@ $tab-spacing: 0.75em;
   }
 
   #menuIconView {
-    -fx-fill: white;
+    -fx-fill: -text-color;
   }
 
   #menuButton {

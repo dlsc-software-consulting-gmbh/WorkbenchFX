@@ -17,9 +17,6 @@
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
-.module-background {
-  -fx-background-color: -module-background-color; }
-
 .button:focused,
 .toggle-button:focused,
 .radio-button:focused > .radio,
@@ -124,11 +121,6 @@
   .dropdown .context-menu .menu-item > .label, .navigation-drawer .context-menu .menu-item > .label {
     -fx-text-fill: -text-color; }
 
-#center {
-  -fx-border-width: 1.75em 0 0 0;
-  -fx-border-color: -primary-color;
-  -fx-background-color: -module-background-color; }
-
 #home .tilePage {
   -fx-vgap: 40;
   -fx-hgap: 40;
@@ -152,10 +144,13 @@
 
 .tileControl {
   -fx-min-width: 16em;
-  -fx-min-height: 9em; }
+  -fx-min-height: 9em;
+  -fx-background-radius: 2px;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0, 0, 3); }
   .tileControl:hover {
     -fx-text-fill: -text-color;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2); }
+    -fx-background-color: derive(-primary-color, 30%);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 4, 0, 0, 3); }
 
 .tabControl {
   -fx-padding: .5em .5em .5em 1em; }
@@ -170,17 +165,19 @@
   -fx-background-color: -primary-color !important; }
 
 #toolbar {
-  -fx-spacing: 0.75em; }
+  -fx-spacing: 0em;
+  -fx-background-color: -primary-color;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 3); }
   #toolbar #homeButton {
     -fx-min-width: 3.5em; }
   #toolbar #menuIconView {
-    -fx-fill: white; }
+    -fx-fill: -text-color; }
   #toolbar #menuButton {
     -fx-min-width: 3.5em; }
   #toolbar #tabBox {
-    -fx-spacing: 0.45em; }
+    -fx-spacing: 0em; }
   #toolbar #toolbar-control-box {
-    -fx-spacing: 0.45em; }
+    -fx-spacing: 0em; }
 
 .pretty-scroll-pane .scroll-bar .increment-button, .pretty-scroll-pane .scroll-bar .increment-arrow, .pretty-scroll-pane .scroll-bar .decrement-button, .pretty-scroll-pane .scroll-bar .decrement-arrow {
   -fx-pref-width: 0 !important;

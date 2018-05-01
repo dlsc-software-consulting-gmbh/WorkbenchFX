@@ -32,9 +32,9 @@ $custom-color-5: pink;
   -fx-font-size: 1.5em !important;
 }
 
-.module-background {
-  -fx-background-color: -module-background-color;
-}
+//.module-background {
+//  -fx-background-color: -module-background-color;
+//}
 
 @import "removeFocus";
 @import "includes";
