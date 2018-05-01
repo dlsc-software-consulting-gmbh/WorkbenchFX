@@ -19,7 +19,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Created by François Martin on 01.05.18.
+ * Builder class to create a {@link WorkbenchFx} object.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public final class WorkbenchFxBuilder {
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
