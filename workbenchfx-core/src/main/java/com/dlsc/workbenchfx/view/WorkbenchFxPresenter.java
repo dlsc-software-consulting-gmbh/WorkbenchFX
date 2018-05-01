@@ -55,10 +55,6 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   @Override
   public void setupEventHandlers() {
-    // When the active module changes, the new view is set od the home screen if null.
-    model.activeModuleViewProperty().addListener((observable, oldModule, newModule) ->
-        view.contentView.setContent(Objects.isNull(newModule) ? view.homeView : newModule)
-    );
 
   }
 
@@ -67,6 +63,11 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
+    // When the active module changes, the new view is set od the home screen if null.
+    model.activeModuleViewProperty().addListener((observable, oldModule, newModule) ->
+        view.contentView.setContent(Objects.isNull(newModule) ? view.homeView : newModule)
+    );
+
     overlays.addListener((ListChangeListener<? super Node>) c -> {
       LOGGER.trace("Listener getOverlays fired");
       while (c.next()) {
