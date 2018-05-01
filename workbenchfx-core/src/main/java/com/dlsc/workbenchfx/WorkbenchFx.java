@@ -64,11 +64,11 @@ public final class WorkbenchFx extends StackPane {
   private final ObservableList<MenuItem> navigationDrawerItems =
       FXCollections.observableArrayList();
   /**
-   * List of the <b>modal</b> overlays which are currently being shown.
+   * List of the <b>blocking</b> overlays which are currently being shown.
    */
-  private final ObservableList<Node> modalOverlaysShown = FXCollections.observableArrayList();
+  private final ObservableList<Node> blockingOverlaysShown = FXCollections.observableArrayList();
   /**
-   * List of the overlays which are currently being shown.
+   * List of the <b>non-blocking</b> overlays which are currently being shown.
    */
   private final ObservableList<Node> overlaysShown = FXCollections.observableArrayList();
   /**
@@ -163,7 +163,7 @@ public final class WorkbenchFx extends StackPane {
 
   private void initModelBindings() {
     // Show and hide glass pane depending on whether there are modal overlays or not
-    glassPaneShownProperty().bind(Bindings.isEmpty(getModalOverlaysShown()).not());
+    glassPaneShownProperty().bind(Bindings.isEmpty(getBlockingOverlaysShown()).not());
   }
 
   private void initModules(Module... modules) {
@@ -407,8 +407,8 @@ public final class WorkbenchFx extends StackPane {
   /**
    * Returns the list of all modal overlays, which are currently being shown.
    */
-  public ObservableList<Node> getModalOverlaysShown() {
-    return FXCollections.unmodifiableObservableList(modalOverlaysShown);
+  public ObservableList<Node> getBlockingOverlaysShown() {
+    return FXCollections.unmodifiableObservableList(blockingOverlaysShown);
   }
 
   /**
@@ -465,7 +465,7 @@ public final class WorkbenchFx extends StackPane {
     overlay.setVisible(true);
     if (modal) {
       LOGGER.trace("showOverlay - modal - " + overlay);
-      boolean result = modalOverlaysShown.add(overlay);
+      boolean result = blockingOverlaysShown.add(overlay);
       LOGGER.trace("showOverlay - modal - Result: " + result);
     } else {
       LOGGER.trace("showOverlay - non-modal");
@@ -485,7 +485,7 @@ public final class WorkbenchFx extends StackPane {
     overlay.setVisible(false);
     if (modal) {
       LOGGER.trace("hideOverlay - modal");
-      boolean result = modalOverlaysShown.remove(overlay);
+      boolean result = blockingOverlaysShown.remove(overlay);
       LOGGER.trace("hideOverlay - modal - Result: " + result);
     } else {
       LOGGER.trace("hideOverlay - non-modal");
@@ -499,9 +499,9 @@ public final class WorkbenchFx extends StackPane {
   public void hideAllOverlays() {
     LOGGER.trace("hideAllOverlays");
     Consumer<Node> hideOverlays = overlay -> overlay.setVisible(false);
-    modalOverlaysShown.forEach(hideOverlays);
+    blockingOverlaysShown.forEach(hideOverlays);
     overlaysShown.forEach(hideOverlays);
-    modalOverlaysShown.clear();
+    blockingOverlaysShown.clear();
     overlaysShown.clear();
   }
 
