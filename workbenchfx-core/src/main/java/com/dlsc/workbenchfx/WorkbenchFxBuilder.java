@@ -198,9 +198,9 @@ public final class WorkbenchFxBuilder {
   }
 
   /**
-   * Creates the Controls which are placed on top-right of the ToolBar.
+   * Creates the Controls which are placed on top-right of the Toolbar.
    *
-   * @param toolbarControls the {@code toolbarControls} which will be added to the ToolBar
+   * @param toolbarControls the {@code toolbarControls} which will be added to the Toolbar
    * @return the updated {@link WorkbenchFxBuilder}
    */
   public WorkbenchFxBuilder toolbarControls(Node... toolbarControls) {
