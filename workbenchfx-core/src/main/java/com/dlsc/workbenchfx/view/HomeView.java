@@ -40,7 +40,7 @@ public class HomeView extends StackPane implements View {
     pagination = new Pagination();
 
     tilePane = new AnchorPane();
-    tilePane.setId("tilePane");
+    tilePane.setId("tile-pane");
   }
 
   /**

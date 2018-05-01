@@ -49,18 +49,18 @@ public class ToolBarView extends HBox implements View {
   @Override
   public void initializeParts() {
     homeIconView = new FontAwesomeIconView(FontAwesomeIcon.HOME);
-    homeIconView.setId("homeIconView");
+    homeIconView.setId("home-icon-view");
     homeBtn = new Button("", homeIconView);
-    homeBtn.setId("homeButton");
+    homeBtn.setId("home-button");
     homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
 
     menuIconView = new FontAwesomeIconView(FontAwesomeIcon.BARS);
-    menuIconView.setId("menuIconView");
+    menuIconView.setId("menu-iconView");
     menuBtn = new Button("", menuIconView);
-    menuBtn.setId("menuButton");
+    menuBtn.setId("menu-button");
 
     tabBox = new HBox();
-    tabBox.setId("tabBox");
+    tabBox.setId("tab-box");
 
     toolBarControlBox = new HBox();
     toolBarControlBox.setId("toolbar-control-box");

@@ -1,4 +1,4 @@
-.tileControl {
+.tile-control {
   @extend %tool-bar-setup;
   -fx-min-width: 16em;
   -fx-min-height: 9em;
@@ -8,16 +8,16 @@
   }
 }
 
-.tabControl {
+.tab-control {
   @extend %tool-bar-setup;
   -fx-padding: .5em .5em .5em 1em;
 
-  & .closeBtn {
+  & .close-btn {
     -fx-background-color: transparent;
-    & .closeIconView {
+    & .close-icon-view {
       -fx-font-size: 1em !important;
     }
-    &:hover .closeIconView {
+    &:hover .close-icon-view {
       -icons-color: -danger-color;
     }
   }
@@ -28,7 +28,7 @@
 }
 
 %button-styling {
-  @extend .tabControl;
+  @extend .tab-control;
   -fx-padding: .5em;
   -fx-pref-width: 3.5em;
 }
