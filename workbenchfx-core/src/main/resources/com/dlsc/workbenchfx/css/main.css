@@ -77,7 +77,7 @@
 .tab-pane > .tab-header-area > .control-buttons-tab > .container > .tab-down-button:pressed {
   -fx-color: -fx-pressed-base; }
 
-.tile-control, .tab-control, #toolbar #homeButton, #toolbar #menuButton, .dropdown, #back-button {
+.tile-control, .tab-control, #toolbar #home-button, #toolbar #menu-button, .dropdown, #back-button {
   -fx-max-height: 3.5em;
   -fx-min-height: 3.5em;
   -fx-pref-height: 3.5em;
@@ -89,9 +89,9 @@
   -fx-border-radius: 0;
   -fx-border-width: 0;
   -fx-text-fill: -text-color; }
-  .tile-control:hover, .tab-control:hover, #toolbar #homeButton:hover, #toolbar #menuButton:hover, .dropdown:hover, #back-button:hover {
+  .tile-control:hover, .tab-control:hover, #toolbar #home-button:hover, #toolbar #menu-button:hover, .dropdown:hover, #back-button:hover {
     -fx-background-color: derive(-primary-color, -7.5%); }
-  .tile-control .label, .tab-control .label, #toolbar #homeButton .label, #toolbar #menuButton .label, .dropdown .label, #back-button .label {
+  .tile-control .label, .tab-control .label, #toolbar #home-button .label, #toolbar #menu-button .label, .dropdown .label, #back-button .label {
     -fx-text-fill: -text-color; }
 
 .dropdown .menu-item, .navigation-drawer .menu-item {
@@ -159,11 +159,11 @@
 
 .tab-control {
   -fx-padding: .5em .5em .5em 1em; }
-  .tab-control .closeBtn {
+  .tab-control .close-btn {
     -fx-background-color: transparent; }
-    .tab-control .closeBtn .closeIconView {
+    .tab-control .close-btn .close-icon-view {
       -fx-font-size: 1em !important; }
-    .tab-control .closeBtn:hover .closeIconView {
+    .tab-control .close-btn:hover .close-icon-view {
       -icons-color: -danger-color; }
 
 .active-tab {
@@ -171,13 +171,13 @@
 
 #toolbar {
   -fx-spacing: 0.75em; }
-  #toolbar #homeButton {
+  #toolbar #home-button {
     -fx-min-width: 3.5em; }
-  #toolbar #menuIconView {
+  #toolbar #menu-icon-view {
     -fx-fill: white; }
-  #toolbar #menuButton {
+  #toolbar #menu-button {
     -fx-min-width: 3.5em; }
-  #toolbar #tabBox {
+  #toolbar #tab-box {
     -fx-spacing: 0.45em; }
   #toolbar #toolbar-control-box {
     -fx-spacing: 0.45em; }
