@@ -2,6 +2,12 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 
+/**
+ * Represents the presenter of the corresponding {@link HomeView}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class HomePresenter implements Presenter {
   private final WorkbenchFx model;
   private final HomeView view;

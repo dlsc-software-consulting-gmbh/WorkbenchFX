@@ -12,3 +12,11 @@
     -fx-color: -primary-color;
     -fx-background-color: white;
 }
+
+.custom-overlay {
+    -fx-background-color: #fff9e6;
+    -fx-min-width: 300px;
+    -fx-max-width: 300px;
+    -fx-min-height: 300px;
+    -fx-max-height: 300px;
+}

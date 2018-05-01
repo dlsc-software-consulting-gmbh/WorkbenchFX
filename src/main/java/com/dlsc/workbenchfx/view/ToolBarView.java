@@ -10,10 +10,18 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
+/**
+ * Represents the toolbar which is being shown at the top of the window.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class ToolBarView extends HBox implements View {
   private final WorkbenchFx model;
   private FontAwesomeIconView homeIconView;
+  private FontAwesomeIconView menuIconView;
   Button homeBtn;
+  Button menuBtn;
   private HBox tabBox;
   HBox toolBarControlBox;
 
@@ -42,10 +50,14 @@ public class ToolBarView extends HBox implements View {
   public void initializeParts() {
     homeIconView = new FontAwesomeIconView(FontAwesomeIcon.HOME);
     homeIconView.setId("homeIconView");
-
     homeBtn = new Button("", homeIconView);
     homeBtn.setId("homeButton");
     homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
+
+    menuIconView = new FontAwesomeIconView(FontAwesomeIcon.BARS);
+    menuIconView.setId("menuIconView");
+    menuBtn = new Button("", menuIconView);
+    menuBtn.setId("menuButton");
 
     tabBox = new HBox();
     tabBox.setId("tabBox");
@@ -72,6 +84,26 @@ public class ToolBarView extends HBox implements View {
   }
 
   /**
+   * Shows a menu button in the front of the toolbar.
+   */
+  public void addMenuButton() {
+    if (!getChildren().contains(menuBtn)) {
+      getChildren().add(0, menuBtn);
+    }
+  }
+
+  /**
+   * Removes the menu button from the toolbar.
+   */
+  public void removeMenuButton() {
+    getChildren().remove(menuBtn);
+  }
+
+  /**
+   * Adds a tab to the {@code tabBox}.
+   * @param tab to be added
+   */
+  /**
    * Adds a {@link Node} at the end of the {@code tabBox}.
    *
    * @param tab the {@link Node} to be added
@@ -84,6 +116,10 @@ public class ToolBarView extends HBox implements View {
    * Removes a {@link Node} at the specified index of the {@code tabBox}.
    *
    * @param index the index where the specified {@link Node} should be removed
+   */
+  /**
+   * Removes a tab to the {@code tabBox}.
+   * @param index of the tab to be removed
    */
   public void removeTab(int index) {
     tabBox.getChildren().remove(index);

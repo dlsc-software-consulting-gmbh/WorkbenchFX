@@ -26,3 +26,9 @@
 .active-tab {
   -fx-background-color: -primary-color !important;
 }
+
+%button-styling {
+  @extend .tabControl;
+  -fx-padding: .5em;
+  -fx-pref-width: 3.5em;
+}
