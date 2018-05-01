@@ -3,12 +3,12 @@ package com.dlsc.workbenchfx;
 import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
 
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.view.CenterPresenter;
-import com.dlsc.workbenchfx.view.CenterView;
+import com.dlsc.workbenchfx.view.ContentPresenter;
+import com.dlsc.workbenchfx.view.ContentView;
 import com.dlsc.workbenchfx.view.HomePresenter;
 import com.dlsc.workbenchfx.view.HomeView;
-import com.dlsc.workbenchfx.view.ToolBarPresenter;
-import com.dlsc.workbenchfx.view.ToolBarView;
+import com.dlsc.workbenchfx.view.ToolbarPresenter;
+import com.dlsc.workbenchfx.view.ToolbarView;
 import com.dlsc.workbenchfx.view.WorkbenchFxPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchFxView;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
@@ -48,14 +48,14 @@ public class WorkbenchFx extends StackPane {
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
 
   // Views
-  private ToolBarView toolBarView;
-  private ToolBarPresenter toolBarPresenter;
+  private ToolbarView toolbarView;
+  private ToolbarPresenter toolbarPresenter;
 
   private HomeView homeView;
   private HomePresenter homePresenter;
 
-  private CenterView centerView;
-  private CenterPresenter centerPresenter;
+  private ContentView contentView;
+  private ContentPresenter contentPresenter;
 
   private WorkbenchFxView workbenchFxView;
   private WorkbenchFxPresenter workbenchFxPresenter;
@@ -65,7 +65,7 @@ public class WorkbenchFx extends StackPane {
   private GlassPane glassPane;
 
   // Lists
-  private final ObservableList<Node> toolBarControls = FXCollections.observableArrayList();
+  private final ObservableList<Node> toolbarControls = FXCollections.observableArrayList();
   private final ObservableList<MenuItem> navigationDrawerItems =
       FXCollections.observableArrayList();
   /**
@@ -174,7 +174,7 @@ public class WorkbenchFx extends StackPane {
       final int columnsPerRow = 3;
 
       GridPane gridPane = new GridPane();
-      gridPane.getStyleClass().add("tilePage");
+      gridPane.getStyleClass().add("tile-page");
 
       int position = pageIndex * workbench.modulesPerPage;
       int count = 0;
@@ -198,7 +198,7 @@ public class WorkbenchFx extends StackPane {
       return gridPane;
     };
 
-    private ObservableList<Node> toolBarControls = FXCollections.observableArrayList();
+    private ObservableList<Node> toolbarControls = FXCollections.observableArrayList();
 
     private Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
       NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
@@ -305,13 +305,13 @@ public class WorkbenchFx extends StackPane {
     }
 
     /**
-     * Creates the Controls which are placed on top-right of the ToolBar.
+     * Creates the Controls which are placed on top-right of the Toolbar.
      *
-     * @param toolBarControls the {@code toolBarControls} which will be added to the ToolBar
+     * @param toolbarControls the {@code toolbarControls} which will be added to the Toolbar
      * @return the updated {@link WorkbenchFxBuilder}
      */
-    public WorkbenchFxBuilder toolBarControls(Node... toolBarControls) {
-      this.toolBarControls.addAll(toolBarControls);
+    public WorkbenchFxBuilder toolbarControls(Node... toolbarControls) {
+      this.toolbarControls.addAll(toolbarControls);
       return this;
     }
 
@@ -327,7 +327,7 @@ public class WorkbenchFx extends StackPane {
 
   private WorkbenchFx(WorkbenchFxBuilder builder) {
     modulesPerPage = builder.modulesPerPage;
-    toolBarControls.addAll(builder.toolBarControls);
+    toolbarControls.addAll(builder.toolbarControls);
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
@@ -339,7 +339,7 @@ public class WorkbenchFx extends StackPane {
     initViews();
     getChildren().add(workbenchFxView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
-    addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
+    addUserAgentStylesheet(WorkbenchFx.class.getResource("css/main.css").toExternalForm());
   }
 
   private void initOverlays(WorkbenchFxBuilder builder) {
@@ -402,18 +402,18 @@ public class WorkbenchFx extends StackPane {
   }
 
   private void initViews() {
-    toolBarView = new ToolBarView(this);
-    toolBarPresenter = new ToolBarPresenter(this, toolBarView);
+    toolbarView = new ToolbarView();
+    toolbarPresenter = new ToolbarPresenter(this, toolbarView);
 
-    homeView = new HomeView(this);
+    homeView = new HomeView();
     homePresenter = new HomePresenter(this, homeView);
 
-    centerView = new CenterView(this);
-    centerPresenter = new CenterPresenter(this, centerView);
+    contentView = new ContentView();
+    contentPresenter = new ContentPresenter(this, contentView);
 
     glassPane = new GlassPane(this);
 
-    workbenchFxView = new WorkbenchFxView(this, toolBarView, homeView, centerView, glassPane);
+    workbenchFxView = new WorkbenchFxView(toolbarView, homeView, contentView, glassPane);
     workbenchFxPresenter = new WorkbenchFxPresenter(this, workbenchFxView);
   }
 
@@ -567,32 +567,32 @@ public class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Removes a {@link Node} if one is in the {@code toolBarControls}.
+   * Removes a {@link Node} if one is in the {@code toolbarControls}.
    *
    * @param node the {@link Node} which should be removed
    * @return true if sucessful, false if not
    */
-  public boolean removeToolBarControl(Node node) {
-    return toolBarControls.remove(node);
+  public boolean removeToolbarControl(Node node) {
+    return toolbarControls.remove(node);
   }
 
   /**
-   * Inserts a given {@link Node} at the end of the {@code toolBarControls}.
-   * If the {@code toolBarControls} already contains the {@link Node} it will not be added.
+   * Inserts a given {@link Node} at the end of the {@code toolbarControls}.
+   * If the {@code toolbarControls} already contains the {@link Node} it will not be added.
    *
-   * @param node the {@link Node} to be added to the {@code toolBarControls}
-   * @return true if {@code toolBarControls} was changed, false if not
+   * @param node the {@link Node} to be added to the {@code toolbarControls}
+   * @return true if {@code toolbarControls} was changed, false if not
    */
-  public boolean addToolBarControl(Node node) {
-    if (!toolBarControls.contains(node)) {
-      toolBarControls.add(node);
+  public boolean addToolbarControl(Node node) {
+    if (!toolbarControls.contains(node)) {
+      toolbarControls.add(node);
       return true;
     }
     return false;
   }
 
-  public ObservableList<Node> getToolBarControls() {
-    return FXCollections.unmodifiableObservableList(toolBarControls);
+  public ObservableList<Node> getToolbarControls() {
+    return FXCollections.unmodifiableObservableList(toolbarControls);
   }
 
   public BooleanProperty glassPaneShownProperty() {

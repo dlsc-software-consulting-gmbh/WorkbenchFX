@@ -3,19 +3,19 @@ package com.dlsc.workbenchfx.view;
 import com.dlsc.workbenchfx.WorkbenchFx;
 
 /**
- * Represents the presenter of the corresponding {@link CenterView}.
+ * Represents the presenter of the corresponding {@link ContentView}.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class CenterPresenter implements Presenter {
+public class ContentPresenter implements Presenter {
   private final WorkbenchFx model;
-  private final CenterView view;
+  private final ContentView view;
 
   /**
-   * Creates a new {@link CenterPresenter} object for a corresponding {@link CenterView}.
+   * Creates a new {@link ContentPresenter} object for a corresponding {@link ContentView}.
    */
-  public CenterPresenter(WorkbenchFx model, CenterView view) {
+  public ContentPresenter(WorkbenchFx model, ContentView view) {
     this.model = model;
     this.view = view;
     init();

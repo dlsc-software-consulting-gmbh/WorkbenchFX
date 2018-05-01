@@ -16,22 +16,18 @@ import javafx.scene.layout.Priority;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ToolBarView extends HBox implements View {
-  private final WorkbenchFx model;
+public class ToolbarView extends HBox implements View {
   private FontAwesomeIconView homeIconView;
   private FontAwesomeIconView menuIconView;
   Button homeBtn;
   Button menuBtn;
   private HBox tabBox;
-  HBox toolBarControlBox;
+  HBox toolbarControlBox;
 
   /**
-   * Creates a new {@link ToolBarView} for the Workbench.
-   *
-   * @param model the {@link WorkbenchFx} as a model
+   * Creates a new {@link ToolbarView} for the Workbench.
    */
-  public ToolBarView(WorkbenchFx model) {
-    this.model = model;
+  public ToolbarView() {
     init();
   }
 
@@ -49,21 +45,21 @@ public class ToolBarView extends HBox implements View {
   @Override
   public void initializeParts() {
     homeIconView = new FontAwesomeIconView(FontAwesomeIcon.HOME);
-    homeIconView.setId("homeIconView");
+    homeIconView.setId("home-icon-view");
     homeBtn = new Button("", homeIconView);
-    homeBtn.setId("homeButton");
+    homeBtn.setId("home-button");
     homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
 
     menuIconView = new FontAwesomeIconView(FontAwesomeIcon.BARS);
-    menuIconView.setId("menuIconView");
+    menuIconView.setId("menu-icon-view");
     menuBtn = new Button("", menuIconView);
-    menuBtn.setId("menuButton");
+    menuBtn.setId("menu-button");
 
     tabBox = new HBox();
-    tabBox.setId("tabBox");
+    tabBox.setId("tab-box");
 
-    toolBarControlBox = new HBox();
-    toolBarControlBox.setId("toolbar-control-box");
+    toolbarControlBox = new HBox();
+    toolbarControlBox.setId("toolbar-control-box");
   }
 
   /**
@@ -71,16 +67,8 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().addAll(homeBtn, tabBox, toolBarControlBox);
+    getChildren().addAll(homeBtn, tabBox, toolbarControlBox);
     setHgrow(tabBox, Priority.ALWAYS);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void bindFieldsToModel() {
-
   }
 
   /**
@@ -126,20 +114,20 @@ public class ToolBarView extends HBox implements View {
   }
 
   /**
-   * Adds a {@link Node} at the end of the {@code toolBarControlBox}.
+   * Adds a {@link Node} at the end of the {@code toolbarControlBox}.
    *
-   * @param toolBarControl the {@link Node} to be added
+   * @param toolbarControl the {@link Node} to be added
    */
-  public void addToolBarControl(Node toolBarControl) {
-    toolBarControlBox.getChildren().add(toolBarControl);
+  public void addToolbarControl(Node toolbarControl) {
+    toolbarControlBox.getChildren().add(toolbarControl);
   }
 
   /**
-   * Removes a {@link Node} at the specified index of the {@code toolBarControlBox}.
+   * Removes a {@link Node} at the specified index of the {@code toolbarControlBox}.
    *
    * @param index the index where the specified {@link Node} should be removed
    */
-  public void removeToolBarControl(int index) {
-    toolBarControlBox.getChildren().remove(index);
+  public void removeToolbarControl(int index) {
+    toolbarControlBox.getChildren().remove(index);
   }
 }
