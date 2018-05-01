@@ -42,7 +42,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchFx extends StackPane {
+public final class WorkbenchFx extends StackPane {
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
   public final int modulesPerPage;
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
@@ -116,14 +116,6 @@ public class WorkbenchFx extends StackPane {
   // Properties
   private final BooleanProperty glassPaneShown = new SimpleBooleanProperty(false);
 
-
-  /**
-   * Creates the Workbench window.
-   */
-  public static WorkbenchFx of(Module... modules) {
-    return WorkbenchFx.builder(modules).build();
-  }
-
   /**
    * Creates a builder for {@link WorkbenchFx}.
    * @param modules which should be loaded for the application
@@ -133,205 +125,12 @@ public class WorkbenchFx extends StackPane {
     return new WorkbenchFxBuilder(modules);
   }
 
-  public static class WorkbenchFxBuilder {
-    // Required parameters
-    private final Module[] modules;
-
-    // Defines the width of the navigationDrawer.
-    // The value represents the percentage of the window which will be covered.
-    private final double widthPercentage = .333;
-
-    // Optional parameters - initialized to default values
-    private int modulesPerPage = 9;
-
-    private BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
-      TabControl tabControl = new TabControl(module);
-      workbench.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
-        LOGGER.trace("Tab Factory - Old Module: " + oldModule);
-        LOGGER.trace("Tab Factory - New Module: " + oldModule);
-        if (module == newModule) {
-          tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-          LOGGER.trace("STYLE SET");
-        }
-        if (module == oldModule) {
-          // switch from this to other tab
-          tabControl.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
-        }
-      });
-      tabControl.setOnClose(e -> workbench.closeModule(module));
-      tabControl.setOnActive(e -> workbench.openModule(module));
-      tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-      return tabControl;
-    };
-
-    private BiFunction<WorkbenchFx, Module, Node> tileFactory = (workbench, module) -> {
-      TileControl tileControl = new TileControl(module);
-      tileControl.setOnActive(e -> workbench.openModule(module));
-      return tileControl;
-    };
-
-    private BiFunction<WorkbenchFx, Integer, Node> pageFactory = (workbench, pageIndex) -> {
-      final int columnsPerRow = 3;
-
-      GridPane gridPane = new GridPane();
-      gridPane.getStyleClass().add("tilePage");
-
-      int position = pageIndex * workbench.modulesPerPage;
-      int count = 0;
-      int column = 0;
-      int row = 0;
-
-      while (count < workbench.modulesPerPage && position < workbench.getModules().size()) {
-        Module module = workbench.getModules().get(position);
-        Node tile = workbench.getTile(module);
-        gridPane.add(tile, column, row);
-
-        position++;
-        count++;
-        column++;
-
-        if (column == columnsPerRow) {
-          column = 0;
-          row++;
-        }
-      }
-      return gridPane;
-    };
-
-    private ObservableList<Node> toolBarControls = FXCollections.observableArrayList();
-
-    private Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
-      NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
-      StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
-      navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(widthPercentage));
-      return navigationDrawer;
-    };
-
-    private MenuItem[] navigationDrawerItems;
-    private Callback<WorkbenchFx,Node>[] overlays;
-
-    private WorkbenchFxBuilder(Module... modules) {
-      this.modules = modules;
-    }
-
-    /**
-     * Defines how many modules should be shown per page on the home screen.
-     *
-     * @param modulesPerPage amount of modules to be shown per page
-     * @return builder for chaining
-     */
-    public WorkbenchFxBuilder modulesPerPage(int modulesPerPage) {
-      this.modulesPerPage = modulesPerPage;
-      return this;
-    }
-
-    /**
-     * Defines how {@link Node} should be created to be used as the tab in the view.
-     *
-     * @param tabFactory to be used to create the {@link Node} for the tabs
-     * @return builder for chaining
-     * @implNote Use this to replace the control which is used for the tab
-     *           with your own implementation.
-     */
-    public WorkbenchFxBuilder tabFactory(BiFunction<WorkbenchFx, Module, Node> tabFactory) {
-      this.tabFactory = tabFactory;
-      return this;
-    }
-
-    /**
-     * Defines how {@link Node} should be created to be used as the tile in the home screen.
-     *
-     * @param tileFactory to be used to create the {@link Node} for the tiles
-     * @return builder for chaining
-     * @implNote Use this to replace the control which is used for the tile
-     *           with your own implementation.
-     */
-    public WorkbenchFxBuilder tileFactory(BiFunction<WorkbenchFx, Module, Node> tileFactory) {
-      this.tileFactory = tileFactory;
-      return this;
-    }
-
-    /**
-     * Defines how a page with tiles of {@link Module}s should be created.
-     *
-     * @param pageFactory to be used to create the page for the tiles
-     * @return builder for chaining
-     * @implNote Use this to replace the page which is used in the home screen
-     *           to display tiles of the modules with your own implementation.
-     */
-    public WorkbenchFxBuilder pageFactory(BiFunction<WorkbenchFx, Integer, Node> pageFactory) {
-      this.pageFactory = pageFactory;
-      return this;
-    }
-
-    /**
-     * Defines all of the overlays which should initially be loaded into the scene graph hidden, to
-     * be later shown using {@link WorkbenchFx#showOverlay(Node, boolean)}.
-     * @param overlays callback to construct the overlays to be initially loaded into the
-     *                 scene graph using a {@link WorkbenchFx} object
-     * @return builder for chaining
-     */
-    public WorkbenchFxBuilder overlays(Callback<WorkbenchFx,Node>... overlays) {
-      this.overlays = overlays;
-      return this;
-    }
-
-    /**
-     * Defines how the navigation drawer should be created.
-     *
-     * @param navigationDrawerFactory to be used to create the navigation drawer
-     * @return builder for chaining
-     * @implNote Use this to replace the navigation drawer, which is displayed when pressing the
-     *           menu icon, with your own implementation. To access the {@link MenuItem}s,
-     *           use {@link WorkbenchFx#getNavigationDrawerItems()}.
-     */
-    public WorkbenchFxBuilder navigationDrawerFactory(
-        Callback<WorkbenchFx, Node> navigationDrawerFactory) {
-      this.navigationDrawerFactory = navigationDrawerFactory;
-      return this;
-    }
-
-    /**
-     * Defines the {@link MenuItem}s, which will be rendered using the respective
-     * {@code navigationDrawerFactory}.
-     * @implNote the menu button will be hidden, if null is passed to {@code navigationDrawerItems}
-     * @param navigationDrawerItems the {@link MenuItem}s to display or null, if there should be
-     *                              no menu
-     * @return builder for chaining
-     */
-    public WorkbenchFxBuilder navigationDrawer(MenuItem... navigationDrawerItems) {
-      this.navigationDrawerItems = navigationDrawerItems;
-      return this;
-    }
-
-    /**
-     * Creates the Controls which are placed on top-right of the ToolBar.
-     *
-     * @param toolBarControls the {@code toolBarControls} which will be added to the ToolBar
-     * @return the updated {@link WorkbenchFxBuilder}
-     */
-    public WorkbenchFxBuilder toolBarControls(Node... toolBarControls) {
-      this.toolBarControls.addAll(toolBarControls);
-      return this;
-    }
-
-    /**
-     * Builds and fully initializes a {@link WorkbenchFx} object.
-     *
-     * @return the {@link WorkbenchFx} object
-     */
-    public WorkbenchFx build() {
-      return new WorkbenchFx(this);
-    }
-  }
-
-  private WorkbenchFx(WorkbenchFxBuilder builder) {
+  WorkbenchFx(WorkbenchFxBuilder builder) {
     modulesPerPage = builder.modulesPerPage;
     toolBarControls.addAll(builder.toolBarControls);
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
-
     initNavigationDrawer(builder);
     initOverlays(builder);
     initModelBindings();
@@ -340,6 +139,14 @@ public class WorkbenchFx extends StackPane {
     getChildren().add(workbenchFxView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
     addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
+  }
+
+  private void initNavigationDrawer(WorkbenchFxBuilder builder) {
+    if (builder.navigationDrawerItems != null) {
+      navigationDrawerItems.addAll(builder.navigationDrawerItems);
+    }
+    navigationDrawer = builder.navigationDrawerFactory.call(this);
+    addOverlay(navigationDrawer);
   }
 
   private void initOverlays(WorkbenchFxBuilder builder) {
@@ -351,14 +158,6 @@ public class WorkbenchFx extends StackPane {
     }
   }
 
-  private void initNavigationDrawer(WorkbenchFxBuilder builder) {
-    if (builder.navigationDrawerItems != null) {
-      navigationDrawerItems.addAll(builder.navigationDrawerItems);
-    }
-    navigationDrawer = builder.navigationDrawerFactory.call(this);
-    addOverlay(navigationDrawer);
-  }
-
   private void initModelBindings() {
     // Show and hide glass pane depending on whether there are modal overlays or not
     glassPaneShownProperty().bind(Bindings.isEmpty(getModalOverlaysShown()).not());
@@ -368,37 +167,36 @@ public class WorkbenchFx extends StackPane {
     this.modules.addAll(modules);
 
     // handle changes of the active module
-    activeModule.addListener(
-        (observable, oldModule, newModule) -> {
-          LOGGER.trace("Module Listener - Old Module: " + oldModule);
-          LOGGER.trace("Module Listener - New Module: " + newModule);
-          if (oldModule != newModule) {
-            boolean fromHomeScreen = oldModule == null;
-            LOGGER.trace("Active Module Listener - Previous view home screen: " + fromHomeScreen);
-            boolean fromDestroyed = !openModules.contains(oldModule);
-            LOGGER.trace("Active Module Listener - Previous module destroyed: " + fromDestroyed);
-            if (!fromHomeScreen && !fromDestroyed) {
-              // switch from one module to another
-              LOGGER.trace("Active Module Listener - Deactivating old module - " + oldModule);
-              oldModule.deactivate();
-            }
-            boolean toHomeScreen = newModule == null;
-            if (toHomeScreen) {
-              // switch to home screen
-              LOGGER.trace("Active Module Listener - Switched to home screen");
-              activeModuleView.setValue(null);
-              return;
-            }
-            if (!openModules.contains(newModule)) {
-              // module has not been loaded yet
-              LOGGER.trace("Active Module Listener - Initializing module - " + newModule);
-              newModule.init(this);
-              openModules.add(newModule);
-            }
-            LOGGER.trace("Active Module Listener - Activating module - " + newModule);
-            activeModuleView.setValue(newModule.activate());
-          }
-        });
+    activeModule.addListener((observable, oldModule, newModule) -> {
+      LOGGER.trace("Module Listener - Old Module: " + oldModule);
+      LOGGER.trace("Module Listener - New Module: " + newModule);
+      if (oldModule != newModule) {
+        boolean fromHomeScreen = oldModule == null;
+        LOGGER.trace("Active Module Listener - Previous view home screen: " + fromHomeScreen);
+        boolean fromDestroyed = !openModules.contains(oldModule);
+        LOGGER.trace("Active Module Listener - Previous module destroyed: " + fromDestroyed);
+        if (!fromHomeScreen && !fromDestroyed) {
+          // switch from one module to another
+          LOGGER.trace("Active Module Listener - Deactivating old module - " + oldModule);
+          oldModule.deactivate();
+        }
+        boolean toHomeScreen = newModule == null;
+        if (toHomeScreen) {
+          // switch to home screen
+          LOGGER.trace("Active Module Listener - Switched to home screen");
+          activeModuleView.setValue(null);
+          return;
+        }
+        if (!openModules.contains(newModule)) {
+          // module has not been loaded yet
+          LOGGER.trace("Active Module Listener - Initializing module - " + newModule);
+          newModule.init(this);
+          openModules.add(newModule);
+        }
+        LOGGER.trace("Active Module Listener - Activating module - " + newModule);
+        activeModuleView.setValue(newModule.activate());
+      }
+    });
   }
 
   private void initViews() {
