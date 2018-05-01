@@ -44,7 +44,6 @@ import org.apache.logging.log4j.Logger;
  */
 public final class WorkbenchFx extends StackPane {
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
-  public final int modulesPerPage;
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
 
   // Views
@@ -115,15 +114,7 @@ public final class WorkbenchFx extends StackPane {
 
   // Properties
   private final BooleanProperty glassPaneShown = new SimpleBooleanProperty(false);
-
-  /**
-   * Creates a builder for {@link WorkbenchFx}.
-   * @param modules which should be loaded for the application
-   * @return builder object
-   */
-  public static WorkbenchFxBuilder builder(Module... modules) {
-    return new WorkbenchFxBuilder(modules);
-  }
+  public final int modulesPerPage;
 
   WorkbenchFx(WorkbenchFxBuilder builder) {
     modulesPerPage = builder.modulesPerPage;
@@ -141,6 +132,16 @@ public final class WorkbenchFx extends StackPane {
     addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
   }
 
+  /**
+   * Creates a builder for {@link WorkbenchFx}.
+   *
+   * @param modules which should be loaded for the application
+   * @return builder object
+   */
+  public static WorkbenchFxBuilder builder(Module... modules) {
+    return new WorkbenchFxBuilder(modules);
+  }
+
   private void initNavigationDrawer(WorkbenchFxBuilder builder) {
     if (builder.navigationDrawerItems != null) {
       navigationDrawerItems.addAll(builder.navigationDrawerItems);
@@ -153,7 +154,7 @@ public final class WorkbenchFx extends StackPane {
     if (Objects.isNull(builder.overlays)) {
       return;
     }
-    for (Callback<WorkbenchFx, Node> overlay: builder.overlays) {
+    for (Callback<WorkbenchFx, Node> overlay : builder.overlays) {
       overlays.add(overlay.call(this));
     }
   }
@@ -284,9 +285,9 @@ public final class WorkbenchFx extends StackPane {
   /**
    * Calculates the amount of pages of modules (rendered as tiles).
    *
+   * @return amount of pages
    * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}.
    *           This is repeated until all modules are rendered as tiles.
-   * @return amount of pages
    */
   public int amountOfPages() {
     int amountOfModules = getModules().size();
@@ -364,6 +365,10 @@ public final class WorkbenchFx extends StackPane {
     return glassPaneShown.get();
   }
 
+  public void setGlassPaneShown(boolean glassPaneShown) {
+    this.glassPaneShown.set(glassPaneShown);
+  }
+
   /**
    * Removes a {@link Node} if one is in the {@code toolBarControls}.
    *
@@ -397,33 +402,35 @@ public final class WorkbenchFx extends StackPane {
     return glassPaneShown;
   }
 
-  public void setGlassPaneShown(boolean glassPaneShown) {
-    this.glassPaneShown.set(glassPaneShown);
-  }
-
-  /** Returns the list of all modal overlays, which are currently being shown. */
+  /**
+   * Returns the list of all modal overlays, which are currently being shown.
+   */
   public ObservableList<Node> getModalOverlaysShown() {
     return FXCollections.unmodifiableObservableList(modalOverlaysShown);
   }
 
-  /** Returns the list of all non-modal overlays, which are currently being shown. */
+  /**
+   * Returns the list of all non-modal overlays, which are currently being shown.
+   */
   public ObservableList<Node> getOverlaysShown() {
     return FXCollections.unmodifiableObservableList(overlaysShown);
   }
 
-  /** Returns the list of all overlays. */
+  /**
+   * Returns the list of all overlays.
+   */
   public ObservableList<Node> getOverlays() {
     return FXCollections.unmodifiableObservableList(overlays);
   }
 
   /**
-   * Loads an overlay into the scene graph hidden, to be shown using
-   * {@link WorkbenchFx#showOverlay(Node, boolean)}.
+   * Loads an overlay into the scene graph hidden, to be shown using {@link
+   * WorkbenchFx#showOverlay(Node, boolean)}.
    *
+   * @param overlay to be loaded into the scene graph
    * @implNote Preferably, use the builder method {@link WorkbenchFxBuilder#overlays(Callback[])})}
    *           and load all of the overlays initially. Only use this method if keeping the overlay
    *           loaded in the background is not possible due to performance reasons!
-   * @param overlay to be loaded into the scene graph
    */
   public void addOverlay(Node overlay) {
     LOGGER.trace("addOverlay");
@@ -434,11 +441,10 @@ public final class WorkbenchFx extends StackPane {
    * Removes an overlay from the scene graph, which has previously been loaded either using
    * {@link WorkbenchFx#addOverlay(Node)} or {@link WorkbenchFxBuilder#overlays(Callback[])})}.
    *
+   * @param overlay to be removed from the scene graph
    * @implNote Preferably, don't use this method to remove the overlays from the scene graph, but
    *           rather use {@link WorkbenchFx#hideOverlay(Node, boolean)}. Only use this method if
    *           keeping the overlay loaded in the background is not possible due to performance
-   *           reasons!
-   * @param overlay to be removed from the scene graph
    */
   public void removeOverlay(Node overlay) {
     LOGGER.trace("removeOverlay");
@@ -449,9 +455,9 @@ public final class WorkbenchFx extends StackPane {
    * Makes an overlay, which has previously been loaded, visible.
    *
    * @param overlay the {@link Node} of the loaded overlay to be made visible
-   * @param modal if true, a transparent black {@link GlassPane} will be shown in the background of
-   *              the overlay, which makes the overlay disappear if the user clicks outside of the
-   *              overlay.
+   * @param modal   if true, a transparent black {@link GlassPane} will be shown in the background
+   *                of the overlay, which makes the overlay disappear if the user clicks outside of
+   *                the overlay.
    */
   public void showOverlay(Node overlay, boolean modal) {
     overlay.setVisible(true);
@@ -470,8 +476,8 @@ public final class WorkbenchFx extends StackPane {
    * {@link WorkbenchFx#showOverlay(Node, boolean)}.
    *
    * @param overlay the {@link Node} of the already shown overlay to be hidden
-   * @param modal match this to what has previously been used for the call to
-   *              {@link WorkbenchFx#showOverlay(Node, boolean)} for the respective {@code overlay}.
+   * @param modal   match this to what has previously been used for the call to {@link
+   *                WorkbenchFx#showOverlay(Node, boolean)} for the respective {@code overlay}.
    */
   public void hideOverlay(Node overlay, boolean modal) {
     overlay.setVisible(false);
