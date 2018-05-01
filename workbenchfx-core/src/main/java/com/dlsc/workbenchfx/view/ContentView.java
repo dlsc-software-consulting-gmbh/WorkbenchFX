@@ -10,13 +10,13 @@ import javafx.scene.layout.StackPane;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class CenterView extends StackPane implements View {
+public class ContentView extends StackPane implements View {
   private final WorkbenchFx model;
 
   /**
-   * Creates a new {@link CenterView}.
+   * Creates a new {@link ContentView}.
    */
-  public CenterView(WorkbenchFx model) {
+  public ContentView(WorkbenchFx model) {
     this.model = model;
     init();
   }
@@ -26,7 +26,7 @@ public class CenterView extends StackPane implements View {
    */
   @Override
   public void initializeSelf() {
-    setId("center");
+    setId("content-view");
   }
 
   /**

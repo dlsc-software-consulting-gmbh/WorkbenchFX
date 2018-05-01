@@ -3,8 +3,8 @@ package com.dlsc.workbenchfx;
 import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
 
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.view.CenterPresenter;
-import com.dlsc.workbenchfx.view.CenterView;
+import com.dlsc.workbenchfx.view.ContentPresenter;
+import com.dlsc.workbenchfx.view.ContentView;
 import com.dlsc.workbenchfx.view.HomePresenter;
 import com.dlsc.workbenchfx.view.HomeView;
 import com.dlsc.workbenchfx.view.ToolbarPresenter;
@@ -54,8 +54,8 @@ public class WorkbenchFx extends StackPane {
   private HomeView homeView;
   private HomePresenter homePresenter;
 
-  private CenterView centerView;
-  private CenterPresenter centerPresenter;
+  private ContentView contentView;
+  private ContentPresenter contentPresenter;
 
   private WorkbenchFxView workbenchFxView;
   private WorkbenchFxPresenter workbenchFxPresenter;
@@ -408,12 +408,12 @@ public class WorkbenchFx extends StackPane {
     homeView = new HomeView(this);
     homePresenter = new HomePresenter(this, homeView);
 
-    centerView = new CenterView(this);
-    centerPresenter = new CenterPresenter(this, centerView);
+    contentView = new ContentView(this);
+    contentPresenter = new ContentPresenter(this, contentView);
 
     glassPane = new GlassPane(this);
 
-    workbenchFxView = new WorkbenchFxView(this, toolbarView, homeView, centerView, glassPane);
+    workbenchFxView = new WorkbenchFxView(this, toolbarView, homeView, contentView, glassPane);
     workbenchFxPresenter = new WorkbenchFxPresenter(this, workbenchFxView);
   }
 
