@@ -7,21 +7,21 @@ import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
+import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
-import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
+import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
-
-import java.util.function.BiFunction;
-import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
-
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.function.BiFunction;
+import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -29,13 +29,14 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class DemoPane extends StackPane {
+public class CustomDemo extends Application {
 
-  private static final Logger LOGGER = LogManager.getLogger(DemoPane.class.getName());
+  private static final Logger LOGGER = LogManager.getLogger(CustomDemo.class.getName());
   public WorkbenchFx workbenchFx;
 
   BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
@@ -65,14 +66,6 @@ public class DemoPane extends StackPane {
     System.out.println("This tile was proudly created by SteffiFX");
     return tileControl;
   };
-
-  private Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
-    NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
-    StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
-    navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(.5));
-    return navigationDrawer;
-  };
-
   BiFunction<WorkbenchFx, Integer, Node> pageFactory = (workbench, pageIndex) -> {
     final int COLUMNS_PER_ROW = 2;
 
@@ -100,8 +93,30 @@ public class DemoPane extends StackPane {
     }
     return gridPane;
   };
+  private Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
+    NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
+    StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
+    navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(.5));
+    return navigationDrawer;
+  };
 
-  public DemoPane() {
+  public static void main(String[] args) {
+    launch(args);
+  }
+
+  @Override
+  public void start(Stage primaryStage) {
+    Scene myScene = new Scene(initWorkbench());
+
+    primaryStage.setTitle("Custom WorkbenchFX Demo");
+    primaryStage.setScene(myScene);
+    primaryStage.setWidth(1000);
+    primaryStage.setHeight(700);
+    primaryStage.show();
+    primaryStage.centerOnScreen();
+  }
+
+  private WorkbenchFx initWorkbench() {
     // Navigation Drawer
     Menu menu1 = new Menu("Customer", createIcon(FontAwesomeIcon.USER));
     Menu menu2 = new Menu("Tariff Management", createIcon(FontAwesomeIcon.BUILDING));
@@ -133,7 +148,7 @@ public class DemoPane extends StackPane {
     MenuItem showOverlay = new MenuItem("Show overlay");
     MenuItem showModalOverlay = new MenuItem("Show modal overlay");
 
-    item21.getItems().addAll(item211,item212, item213, item214, item215);
+    item21.getItems().addAll(item211, item212, item213, item214, item215);
 
     menu1.getItems().addAll(item11, item12, item13, item14);
     menu2.getItems().addAll(item21, item22);
@@ -146,47 +161,46 @@ public class DemoPane extends StackPane {
         new NotesModule(),
         new PreferencesModule(),
         new NavigationDrawerTestModule()
-    )
-        .toolBarControls(
-            Dropdown.of(
-                new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
-                new CustomMenuItem(new Label("Content 1")),
-                new CustomMenuItem(new Label("Content 2"))
-            ),
-            Dropdown.of(
-                new ImageView("com/dlsc/workbenchfx/user_light.png"),
-                new Menu(
-                    "Submenus", new FontAwesomeIconView(FontAwesomeIcon.PLUS),
-                    new MenuItem("Submenu 1"),
-                    new CustomMenuItem(new Label("CustomMenuItem"), false)
-                )
-            ),
-            Dropdown.of(
-                "Text",
-                new ImageView("com/dlsc/workbenchfx/user_light.png"),
-                new CustomMenuItem(new Label("Content 1")),
-                new CustomMenuItem(new Label("Content 2"))
+    ).toolBarControls(
+        Dropdown.of(
+            new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
+            new CustomMenuItem(new Label("Content 1")),
+            new CustomMenuItem(new Label("Content 2"))
+        ),
+        Dropdown.of(
+            new ImageView("com/dlsc/workbenchfx/user_light.png"),
+            new Menu(
+                "Submenus", new FontAwesomeIconView(FontAwesomeIcon.PLUS),
+                new MenuItem("Submenu 1"),
+                new CustomMenuItem(new Label("CustomMenuItem"), false)
             )
+        ),
+        Dropdown.of(
+            "Text",
+            new ImageView("com/dlsc/workbenchfx/user_light.png"),
+            new CustomMenuItem(new Label("Content 1")),
+            new CustomMenuItem(new Label("Content 2"))
         )
-        .modulesPerPage(2)
-        .tabFactory(tabFactory)
-        .tileFactory(tileFactory)
-        .pageFactory(pageFactory)
-        .navigationDrawerFactory(navigationDrawerFactory)
-        .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showModalOverlay)
-        .overlays(
-            workbench -> new CustomOverlay(workbench, false),
-            workbench -> new CustomOverlay(workbench, true)
-            )
-        .build();
-
-    getChildren().add(workbenchFx);
+    )
+    .modulesPerPage(2)
+    .tabFactory(tabFactory)
+    .tileFactory(tileFactory)
+    .pageFactory(pageFactory)
+    .navigationDrawerFactory(navigationDrawerFactory)
+    .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showModalOverlay)
+    .overlays(
+        workbench -> new CustomOverlay(workbench, false),
+        workbench -> new CustomOverlay(workbench, true)
+    )
+    .build();
 
     ObservableList<Node> overlays = workbenchFx.getOverlays();
     showOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(1), false));
     showModalOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(2), true));
 
-    getStylesheets().add("com/dlsc/workbenchfx/customTheme.css");
+    workbenchFx.getStylesheets().add("com/dlsc/workbenchfx/customTheme.css");
+
+    return workbenchFx;
   }
 
   private Node createIcon(FontAwesomeIcon icon) {
