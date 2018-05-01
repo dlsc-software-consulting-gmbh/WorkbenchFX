@@ -17,7 +17,6 @@ import javafx.scene.layout.Priority;
  * @author Marco Sanfratello
  */
 public class ToolbarView extends HBox implements View {
-  private final WorkbenchFx model;
   private FontAwesomeIconView homeIconView;
   private FontAwesomeIconView menuIconView;
   Button homeBtn;
@@ -27,11 +26,8 @@ public class ToolbarView extends HBox implements View {
 
   /**
    * Creates a new {@link ToolbarView} for the Workbench.
-   *
-   * @param model the {@link WorkbenchFx} as a model
    */
-  public ToolbarView(WorkbenchFx model) {
-    this.model = model;
+  public ToolbarView() {
     init();
   }
 

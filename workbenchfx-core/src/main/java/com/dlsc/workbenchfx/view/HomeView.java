@@ -12,15 +12,13 @@ import javafx.scene.layout.StackPane;
  * @author Marco Sanfratello
  */
 public class HomeView extends StackPane implements View {
-  private final WorkbenchFx model;
   AnchorPane tilePane;
   Pagination pagination;
 
   /**
    * Creates a new {@link HomeView}.
    */
-  public HomeView(WorkbenchFx model) {
-    this.model = model;
+  public HomeView() {
     init();
   }
 

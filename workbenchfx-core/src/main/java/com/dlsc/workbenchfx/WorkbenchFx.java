@@ -402,18 +402,18 @@ public class WorkbenchFx extends StackPane {
   }
 
   private void initViews() {
-    toolbarView = new ToolbarView(this);
+    toolbarView = new ToolbarView();
     toolbarPresenter = new ToolbarPresenter(this, toolbarView);
 
-    homeView = new HomeView(this);
+    homeView = new HomeView();
     homePresenter = new HomePresenter(this, homeView);
 
-    contentView = new ContentView(this);
+    contentView = new ContentView();
     contentPresenter = new ContentPresenter(this, contentView);
 
     glassPane = new GlassPane(this);
 
-    workbenchFxView = new WorkbenchFxView(this, toolbarView, homeView, contentView, glassPane);
+    workbenchFxView = new WorkbenchFxView(toolbarView, homeView, contentView, glassPane);
     workbenchFxPresenter = new WorkbenchFxPresenter(this, workbenchFxView);
   }
 

@@ -11,13 +11,10 @@ import javafx.scene.layout.StackPane;
  * @author Marco Sanfratello
  */
 public class ContentView extends StackPane implements View {
-  private final WorkbenchFx model;
-
   /**
    * Creates a new {@link ContentView}.
    */
-  public ContentView(WorkbenchFx model) {
-    this.model = model;
+  public ContentView() {
     init();
   }
 

@@ -17,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 public class WorkbenchFxView extends StackPane implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchFxView.class.getName());
-  private final WorkbenchFx model;
   final ToolbarView toolbarView;
   final HomeView homeView;
   final ContentView contentView;
@@ -28,12 +27,10 @@ public class WorkbenchFxView extends StackPane implements View {
    * Displays all of the view parts, representing the master view.
    */
   public WorkbenchFxView(
-      WorkbenchFx model,
       ToolbarView toolbarView,
       HomeView homeView,
       ContentView contentView,
       GlassPane glassPane) {
-    this.model = model;
     this.toolbarView = toolbarView;
     this.homeView = homeView;
     this.contentView = contentView;
