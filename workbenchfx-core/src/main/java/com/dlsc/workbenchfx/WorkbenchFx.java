@@ -128,12 +128,6 @@ public final class WorkbenchFx extends StackPane {
     addUserAgentStylesheet(WorkbenchFx.class.getResource("css/main.css").toExternalForm());
   }
 
-  private void initToolbarControls(WorkbenchFxBuilder builder) {
-    if (builder.toolbarControls != null) {
-      toolbarControls.addAll(builder.toolbarControls);
-    }
-  }
-
   /**
    * Creates a builder for {@link WorkbenchFx}.
    *
@@ -142,6 +136,12 @@ public final class WorkbenchFx extends StackPane {
    */
   public static WorkbenchFxBuilder builder(Module... modules) {
     return new WorkbenchFxBuilder(modules);
+  }
+
+  private void initToolbarControls(WorkbenchFxBuilder builder) {
+    if (builder.toolbarControls != null) {
+      toolbarControls.addAll(builder.toolbarControls);
+    }
   }
 
   private void initNavigationDrawer(WorkbenchFxBuilder builder) {
