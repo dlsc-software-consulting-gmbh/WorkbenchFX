@@ -12,6 +12,15 @@ $tab-spacing: 0.75em;
     }
   }
 
+  #menuIconView {
+    -fx-fill: white;
+  }
+
+  #menuButton {
+    @extend %tool-bar-setup;
+    -fx-min-width: $pref-size;
+  }
+
   & #tabBox {
     -fx-spacing: 0.6 * $tab-spacing;
   }

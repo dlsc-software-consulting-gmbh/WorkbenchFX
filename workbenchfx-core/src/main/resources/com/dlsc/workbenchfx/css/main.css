@@ -3,7 +3,8 @@
   -danger-color: #DB4437;
   -success-color: #47aa71;
   -accent-color: #00aaff;
-  -text-color: derive(-primary-color, -70%);
+  -text-color: #404040;
+  -inverted-text-color: #bfbfbf;
   -module-background-color: derive(-primary-color, 140%);
   -icons-color: -text-color;
   -fx-font-size: 14px;
@@ -19,7 +20,64 @@
 .module-background {
   -fx-background-color: -module-background-color; }
 
-.tileControl, .tabControl, #toolbar #homeButton, .dropdown {
+.button:focused,
+.toggle-button:focused,
+.radio-button:focused > .radio,
+.check-box:focused > .box,
+.menu-button:focused,
+.choice-box:focused,
+.color-picker.split-button:focused > .color-picker-label,
+.combo-box-base:focused,
+.slider:focused .thumb {
+  -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+  -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+  -fx-background-radius: 0;
+  -fx-text-fill: -fx-text-base-color;
+  -fx-alignment: CENTER;
+  -fx-content-display: LEFT; }
+
+.button:hover,
+.toggle-button:hover,
+.radio-button:hover > .radio,
+.check-box:hover > .box,
+.menu-button:hover,
+.split-menu-button > .label:hover,
+.split-menu-button > .arrow-button:hover,
+.slider .thumb:hover,
+.scroll-bar > .thumb:hover,
+.scroll-bar > .increment-button:hover,
+.scroll-bar > .decrement-button:hover,
+.choice-box:hover,
+.color-picker.split-button > .arrow-button:hover,
+.color-picker.split-button > .color-picker-label:hover,
+.combo-box-base:hover,
+.combo-box-base:editable > .arrow-button:hover,
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover,
+.tab-pane > .tab-header-area > .control-buttons-tab > .container > .tab-down-button:hover {
+  -fx-color: -fx-hover-base; }
+
+.button:armed,
+.toggle-button:armed,
+.radio-button:armed > .radio,
+.check-box:armed .box,
+.menu-button:armed,
+.split-menu-button:armed > .label,
+.split-menu-button > .arrow-button:pressed,
+.split-menu-button:showing > .arrow-button,
+.slider .thumb:pressed,
+.scroll-bar > .thumb:pressed,
+.scroll-bar > .increment-button:pressed,
+.scroll-bar > .decrement-button:pressed,
+.choice-box:showing,
+.combo-box-base:showing,
+.combo-box-base:editable:showing > .arrow-button,
+.spinner .increment-arrow-button:pressed,
+.spinner .decrement-arrow-button:pressed,
+.tab-pane > .tab-header-area > .control-buttons-tab > .container > .tab-down-button:pressed {
+  -fx-color: -fx-pressed-base; }
+
+.tileControl, .tabControl, #toolbar #homeButton, #toolbar #menuButton, .dropdown, #back-button {
   -fx-max-height: 3.5em;
   -fx-min-height: 3.5em;
   -fx-pref-height: 3.5em;
@@ -31,12 +89,39 @@
   -fx-border-radius: 0;
   -fx-border-width: 0;
   -fx-text-fill: -text-color; }
-  .tileControl:hover, .tabControl:hover, #toolbar #homeButton:hover, .dropdown:hover {
+  .tileControl:hover, .tabControl:hover, #toolbar #homeButton:hover, #toolbar #menuButton:hover, .dropdown:hover, #back-button:hover {
     -fx-background-color: derive(-primary-color, -7.5%); }
-  .tileControl:focused, .tabControl:focused, #toolbar #homeButton:focused, .dropdown:focused {
-    -fx-background-color: derive(-primary-color, -3.75%);
-    -fx-background-radius: 0; }
-  .tileControl .label, .tabControl .label, #toolbar #homeButton .label, .dropdown .label {
+  .tileControl .label, .tabControl .label, #toolbar #homeButton .label, #toolbar #menuButton .label, .dropdown .label, #back-button .label {
+    -fx-text-fill: -text-color; }
+
+.dropdown .menu-item, .navigation-drawer .menu-item {
+  -fx-alignment: center-left;
+  -fx-padding: .5em; }
+  .dropdown .menu-item:hover, .navigation-drawer .menu-item:hover {
+    -fx-background-color: derive(-primary-color, 30%);
+    -fx-text-fill: -text-color; }
+    .dropdown .menu-item:hover .label, .navigation-drawer .menu-item:hover .label {
+      -fx-text-fill: -text-color; }
+  .dropdown .menu-item:focused, .navigation-drawer .menu-item:focused {
+    -fx-background-color: derive(-primary-color, 30%);
+    -fx-text-fill: -text-color; }
+    .dropdown .menu-item:focused .label, .navigation-drawer .menu-item:focused .label, .dropdown .menu-item:focused > .label, .navigation-drawer .menu-item:focused > .label {
+      -fx-text-fill: -text-color; }
+
+.dropdown .context-menu, .navigation-drawer .context-menu {
+  -fx-background-color: derive(-primary-color, 15%);
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2); }
+  .dropdown .context-menu .scroll-arrow, .navigation-drawer .context-menu .scroll-arrow {
+    -fx-background-color: derive(-primary-color, 45%); }
+    .dropdown .context-menu .scroll-arrow:hover, .navigation-drawer .context-menu .scroll-arrow:hover {
+      -fx-background-color: derive(-primary-color, 60%); }
+  .dropdown .context-menu .menu:hover > .right-container > .arrow, .navigation-drawer .context-menu .menu:hover > .right-container > .arrow {
+    -fx-background-color: -text-color; }
+  .dropdown .context-menu .menu:focused > .right-container > .arrow, .navigation-drawer .context-menu .menu:focused > .right-container > .arrow {
+    -fx-background-color: -text-color; }
+  .dropdown .context-menu .menu > .right-container > .arrow, .navigation-drawer .context-menu .menu > .right-container > .arrow {
+    -fx-background-color: -text-color; }
+  .dropdown .context-menu .menu-item > .label, .navigation-drawer .context-menu .menu-item > .label {
     -fx-text-fill: -text-color; }
 
 #center {
@@ -88,34 +173,108 @@
   -fx-spacing: 0.75em; }
   #toolbar #homeButton {
     -fx-min-width: 3.5em; }
+  #toolbar #menuIconView {
+    -fx-fill: white; }
+  #toolbar #menuButton {
+    -fx-min-width: 3.5em; }
   #toolbar #tabBox {
     -fx-spacing: 0.45em; }
   #toolbar #toolbar-control-box {
     -fx-spacing: 0.45em; }
 
-.dropdown .menu-item {
-  -fx-padding: .5em; }
-  .dropdown .menu-item:hover {
-    -fx-background-color: derive(-primary-color, 30%); }
-    .dropdown .menu-item:hover .label {
-      -fx-text-fill: -text-color; }
-  .dropdown .menu-item:focused {
-    -fx-background-color: derive(-primary-color, 30%); }
-    .dropdown .menu-item:focused .label {
-      -fx-text-fill: -text-color; }
-.dropdown .context-menu {
-  -fx-background-color: derive(-primary-color, 15%);
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2); }
-  .dropdown .context-menu .scroll-arrow {
-    -fx-background-color: derive(-primary-color, 45%); }
-    .dropdown .context-menu .scroll-arrow:hover {
-      -fx-background-color: derive(-primary-color, 60%); }
+.pretty-scroll-pane .scroll-bar .increment-button, .pretty-scroll-pane .scroll-bar .increment-arrow, .pretty-scroll-pane .scroll-bar .decrement-button, .pretty-scroll-pane .scroll-bar .decrement-arrow {
+  -fx-pref-width: 0 !important;
+  -fx-pref-height: 0 !important; }
 
-.menu:hover > .right-container > .arrow {
-  -fx-background-color: -text-color; }
-.menu:focused > .right-container > .arrow {
-  -fx-background-color: -text-color; }
-.menu > .right-container > .arrow {
-  -fx-background-color: -text-color; }
+.pretty-scroll-pane {
+  -fx-background-insets: 0; }
+  .pretty-scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12;
+    -fx-pref-height: 12;
+    -fx-padding: 2; }
+    .pretty-scroll-pane .scroll-bar .thumb {
+      -fx-background-color: rgba(0, 0, 0, 0.2);
+      -fx-background-radius: 1000;
+      -fx-pref-width: 12;
+      -fx-pref-height: 12; }
+    .pretty-scroll-pane .scroll-bar:vertical .thumb {
+      -fx-background-insets: 0 2 0 0; }
+    .pretty-scroll-pane .scroll-bar:horizontal .thumb {
+      -fx-background-insets: 0 0 2 0; }
+
+.navigation-drawer {
+  -fx-background-insets: 0;
+  -fx-background-radius: 0;
+  -fx-padding: 0;
+  -fx-background-color: white;
+  -fx-border-color: transparent derive(-text-color, 150%) transparent transparent;
+  -fx-effect: null; }
+  .navigation-drawer .separator:horizontal .line {
+    -fx-border-color: derive(-text-color, 20%) transparent transparent transparent;
+    -fx-border-insets: 1 0 0 0; }
+  .navigation-drawer > .scroll-arrow {
+    -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em;
+    -fx-background-color: transparent; }
+    .navigation-drawer > .scroll-arrow:hover {
+      -fx-background: -fx-selection-bar;
+      -fx-background-color: -fx-background;
+      -fx-text-fill: -fx-text-background-color; }
+  .navigation-drawer :show-mnemonics > .mnemonic-underline {
+    -fx-stroke: -fx-text-fill; }
+  .navigation-drawer .menu-item {
+    -fx-padding: 1em 2em 1em 2em; }
+    .navigation-drawer .menu-item > .graphic-container {
+      -fx-padding: 0 0.5em 0 0.5em; }
+  .navigation-drawer .menu-button > .label {
+    -fx-graphic-text-gap: 1em; }
+  .navigation-drawer .button {
+    -fx-graphic-text-gap: 1em; }
+  .navigation-drawer .icon {
+    -fx-fill: -text-color; }
+  .navigation-drawer .menu-container {
+    -fx-background-color: derive(-primary-color, -15%); }
+    .navigation-drawer .menu-container .label {
+      -fx-text-fill: -text-color; }
+    .navigation-drawer .menu-container .menu-button > .label {
+      -fx-text-fill: -text-color; }
+    .navigation-drawer .menu-container .context-menu .menu-item > .label {
+      -fx-text-fill: -text-color; }
+    .navigation-drawer .menu-container .menu-item {
+      -fx-text-fill: -text-color; }
+      .navigation-drawer .menu-container .menu-item:hover {
+        -fx-text-fill: -text-color; }
+        .navigation-drawer .menu-container .menu-item:hover .label {
+          -fx-text-fill: -text-color; }
+      .navigation-drawer .menu-container .menu-item:focused {
+        -fx-text-fill: -text-color; }
+        .navigation-drawer .menu-container .menu-item:focused .label, .navigation-drawer .menu-container .menu-item:focused > .label {
+          -fx-text-fill: -text-color; }
+
+.header {
+  -fx-spacing: 25;
+  -fx-alignment: center; }
+  .header .separator .line {
+    -fx-border-color: white;
+    -fx-border-width: 1; }
+
+#back-button {
+  -fx-background-color: transparent; }
+  #back-button:hover {
+    -fx-background-color: transparent; }
+    #back-button:hover #back-icon-view {
+      -fx-fill: derive(-inverted-text-color, -15%); }
+  #back-button #back-icon-view {
+    -fx-fill: derive(-inverted-text-color, -55%); }
+
+.logo {
+  -fx-padding: 20 0 0 0;
+  -fx-border-insets: 20 0 0 0;
+  -fx-background-insets: 20 0 0 0;
+  -fx-alignment: center-left; }
+
+.glass-pane {
+  -fx-background-color: black;
+  -fx-opacity: .6; }
 
 /*# sourceMappingURL=main.css.map */

@@ -11,6 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
+/**
+ * Represents the standard control used to display {@link Module}s as tabs in the toolbar.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class TabControl extends HBox {
   private final Button closeBtn;
   private final Module module;
@@ -51,12 +57,22 @@ public class TabControl extends HBox {
     getStyleClass().add("tabControl");
   }
 
-  // TODO: add javadoc comment
+  /**
+   * Defines the {@link EventHandler} which should be called when the close button on this tab is
+   * being pressed.
+   *
+   * @param event to be called
+   */
   public void setOnClose(EventHandler<ActionEvent> event) {
     closeBtn.setOnAction(event);
   }
 
-  // TODO: add javadoc comment
+  /**
+   * Defines the {@link EventHandler} which should be called when this control is being clicked on,
+   * setting the tab active.
+   *
+   * @param event to be called
+   */
   public void setOnActive(EventHandler<MouseEvent> event) {
     setOnMouseClicked(event);
   }

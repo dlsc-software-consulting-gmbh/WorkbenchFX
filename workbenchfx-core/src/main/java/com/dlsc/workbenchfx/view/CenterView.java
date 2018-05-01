@@ -4,10 +4,18 @@ import com.dlsc.workbenchfx.WorkbenchFx;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 
+/**
+ * Displays the content of the currently active {@link Module}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class CenterView extends StackPane implements View {
   private final WorkbenchFx model;
 
-  // TODO: add javadoc comment
+  /**
+   * Creates a new {@link CenterView}.
+   */
   public CenterView(WorkbenchFx model) {
     this.model = model;
     init();

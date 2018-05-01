@@ -2,6 +2,12 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 
+/**
+ * Represents the presenter of the corresponding {@link CenterView}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class CenterPresenter implements Presenter {
   private final WorkbenchFx model;
   private final CenterView view;
