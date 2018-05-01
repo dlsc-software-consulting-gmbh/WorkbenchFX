@@ -11,7 +11,7 @@ public class DemoPane extends StackPane {
   public WorkbenchFx workbenchFx;
 
   public DemoPane() {
-    workbenchFx = WorkbenchFx.of(
+    workbenchFx = WorkbenchFx.builder(
         new PreferencesModule(),
         new PreferencesModule(),
         new PreferencesModule(),
@@ -27,7 +27,7 @@ public class DemoPane extends StackPane {
         new NotesModule(),
         new NotesModule(),
         new NotesModule()
-    );
+    ).build();
     getChildren().add(workbenchFx);
   }
 

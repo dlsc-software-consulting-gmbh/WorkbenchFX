@@ -11,11 +11,11 @@ public class DemoPane extends StackPane {
   private final WorkbenchFx workbenchFx;
 
   public DemoPane() {
-    workbenchFx = WorkbenchFx.of(
+    workbenchFx = WorkbenchFx.builder(
         new CalendarModule(),
         new NotesModule(),
         new PreferencesModule()
-    );
+    ).build();
     getChildren().add(workbenchFx);
   }
 }
