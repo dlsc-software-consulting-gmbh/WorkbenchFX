@@ -186,7 +186,7 @@ public class DemoPane extends StackPane {
     showOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(1), false));
     showModalOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(2), true));
 
-    getStylesheets().add("com/dlsc/workbenchfx/customTheme.css");
+    getStylesheets().add(WorkbenchFx.class.getResource("customTheme.css").toExternalForm());
   }
 
   private Node createIcon(FontAwesomeIcon icon) {

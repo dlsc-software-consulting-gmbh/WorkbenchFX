@@ -339,7 +339,7 @@ public class WorkbenchFx extends StackPane {
     initViews();
     getChildren().add(workbenchFxView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
-    addUserAgentStylesheet("./com/dlsc/workbenchfx/css/main.css");
+    addUserAgentStylesheet(WorkbenchFx.class.getResource("css/main.css").toExternalForm());
   }
 
   private void initOverlays(WorkbenchFxBuilder builder) {
