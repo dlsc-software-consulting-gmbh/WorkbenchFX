@@ -32,8 +32,6 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 
 public class DemoPane extends StackPane {
 
@@ -149,7 +147,7 @@ public class DemoPane extends StackPane {
         new PreferencesModule(),
         new NavigationDrawerTestModule()
     )
-        .toolBarControls(
+        .toolbarControls(
             Dropdown.of(
                 new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                 new CustomMenuItem(new Label("Content 1")),

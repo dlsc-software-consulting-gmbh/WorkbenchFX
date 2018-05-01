@@ -16,21 +16,21 @@ import javafx.scene.layout.Priority;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ToolBarView extends HBox implements View {
+public class ToolbarView extends HBox implements View {
   private final WorkbenchFx model;
   private FontAwesomeIconView homeIconView;
   private FontAwesomeIconView menuIconView;
   Button homeBtn;
   Button menuBtn;
   private HBox tabBox;
-  HBox toolBarControlBox;
+  HBox toolbarControlBox;
 
   /**
-   * Creates a new {@link ToolBarView} for the Workbench.
+   * Creates a new {@link ToolbarView} for the Workbench.
    *
    * @param model the {@link WorkbenchFx} as a model
    */
-  public ToolBarView(WorkbenchFx model) {
+  public ToolbarView(WorkbenchFx model) {
     this.model = model;
     init();
   }
@@ -62,8 +62,8 @@ public class ToolBarView extends HBox implements View {
     tabBox = new HBox();
     tabBox.setId("tab-box");
 
-    toolBarControlBox = new HBox();
-    toolBarControlBox.setId("toolbar-control-box");
+    toolbarControlBox = new HBox();
+    toolbarControlBox.setId("toolbar-control-box");
   }
 
   /**
@@ -71,7 +71,7 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().addAll(homeBtn, tabBox, toolBarControlBox);
+    getChildren().addAll(homeBtn, tabBox, toolbarControlBox);
     setHgrow(tabBox, Priority.ALWAYS);
   }
 
@@ -126,20 +126,20 @@ public class ToolBarView extends HBox implements View {
   }
 
   /**
-   * Adds a {@link Node} at the end of the {@code toolBarControlBox}.
+   * Adds a {@link Node} at the end of the {@code toolbarControlBox}.
    *
-   * @param toolBarControl the {@link Node} to be added
+   * @param toolbarControl the {@link Node} to be added
    */
-  public void addToolBarControl(Node toolBarControl) {
-    toolBarControlBox.getChildren().add(toolBarControl);
+  public void addToolbarControl(Node toolbarControl) {
+    toolbarControlBox.getChildren().add(toolbarControl);
   }
 
   /**
-   * Removes a {@link Node} at the specified index of the {@code toolBarControlBox}.
+   * Removes a {@link Node} at the specified index of the {@code toolbarControlBox}.
    *
    * @param index the index where the specified {@link Node} should be removed
    */
-  public void removeToolBarControl(int index) {
-    toolBarControlBox.getChildren().remove(index);
+  public void removeToolbarControl(int index) {
+    toolbarControlBox.getChildren().remove(index);
   }
 }
