@@ -60,7 +60,7 @@ public final class WorkbenchFxBuilder {
     final int columnsPerRow = 3;
 
     GridPane gridPane = new GridPane();
-    gridPane.getStyleClass().add("tilePage");
+    gridPane.getStyleClass().add("tile-page");
 
     int position = pageIndex * workbench.modulesPerPage;
     int count = 0;
