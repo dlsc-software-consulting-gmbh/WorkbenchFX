@@ -32,14 +32,11 @@ Nr. | Feature | Description
 - | `Instant persistance` | Any changes to the application are saved instantly.
 
 ## Documentation
-This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following gradle tasks:
-```Gradle
-asciidoctor html // HTML format
-asciidoctor pdf  // PDF format
+This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following *maven* task:
+```Maven
+process-resources
 ```
-Afterwards, you will find them in the `build/docs/` subdirectory.
-
-All files in the `docs/include` directory are automatically being copied over to the `build/docs/html5` and `build/docs/pdf` folders via a gradle task.
+Afterwards, you will find the documentation in the `target/generated-docs/` subdirectory.
 
 ## Structure
 A preferences dialog can contain multiple `Categories`.  
@@ -275,6 +272,11 @@ It is possible to optionally add a [Validator](http://dlsc.com/wp-content/html/f
 | `RegexValidator` | Valiates text against a regular expression. This validator offers pre-defined expressions for common use cases, such as email addresses.
 | `SelectionLengthValidator` | Defines a length interval which is considered valid. This range can be limited in either one direction or in both directions. |
 | `StringLengthValidator` | Defines a length interval which is considered valid. This range can be limited in either one direction or in both directions. |
+
+## Version Management
+To change the version, set the property `workbenchfx.version` in the parent `pom.xml` file to the next version.
+Then, run: `mvn process-resources`
+It will then automatically proceed by updating all versions in all pom files automatically.
 
 ## Team
 - Marco Sanfratello

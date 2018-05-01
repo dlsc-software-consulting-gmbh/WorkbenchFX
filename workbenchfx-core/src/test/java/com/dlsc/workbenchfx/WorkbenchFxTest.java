@@ -560,7 +560,7 @@ class WorkbenchFxTest {
 
   private WorkbenchFx prepareWorkbench(int moduleAmount, int modulesPerPage) {
     Module[] modules = new Module[moduleAmount];
-    for(int i = 0; i < moduleAmount; i++) {
+    for (int i = 0; i < moduleAmount; i++) {
       modules[i] = mock(Module.class);
     }
     return WorkbenchFx.builder(modules).modulesPerPage(modulesPerPage).build();
