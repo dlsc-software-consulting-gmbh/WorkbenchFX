@@ -70,7 +70,7 @@ public class CustomDemo extends Application {
     final int COLUMNS_PER_ROW = 2;
 
     GridPane gridPane = new GridPane();
-    gridPane.getStyleClass().add("tilePage");
+    gridPane.getStyleClass().add("tile-page");
 
     int position = pageIndex * workbench.modulesPerPage;
     int count = 0;
@@ -161,7 +161,7 @@ public class CustomDemo extends Application {
         new NotesModule(),
         new PreferencesModule(),
         new NavigationDrawerTestModule()
-    ).toolBarControls(
+    ).toolbarControls(
         Dropdown.of(
             new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
             new CustomMenuItem(new Label("Content 1")),
@@ -198,7 +198,7 @@ public class CustomDemo extends Application {
     showOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(1), false));
     showModalOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(2), true));
 
-    workbenchFx.getStylesheets().add("com/dlsc/workbenchfx/customTheme.css");
+    workbenchFx.getStylesheets().add(WorkbenchFx.class.getResource("customTheme.css").toExternalForm());
 
     return workbenchFx;
   }

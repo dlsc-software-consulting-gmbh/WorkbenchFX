@@ -43,12 +43,4 @@ public class TemplateView extends Pane implements View {
 
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void bindFieldsToModel() {
-
-  }
-
 }
