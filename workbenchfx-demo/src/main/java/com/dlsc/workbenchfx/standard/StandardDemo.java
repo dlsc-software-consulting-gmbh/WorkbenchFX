@@ -32,19 +32,7 @@ public class StandardDemo extends Application {
   private WorkbenchFx initWorkbench() {
     return workbenchFx = WorkbenchFx.builder(
         new PreferencesModule(),
-        new PreferencesModule(),
-        new PreferencesModule(),
-        new PreferencesModule(),
-        new PreferencesModule(),
         new CalendarModule(),
-        new CalendarModule(),
-        new CalendarModule(),
-        new CalendarModule(),
-        new CalendarModule(),
-        new NotesModule(),
-        new NotesModule(),
-        new NotesModule(),
-        new NotesModule(),
         new NotesModule()
     ).build();
   }
