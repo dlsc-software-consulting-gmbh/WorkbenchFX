@@ -22,6 +22,7 @@ public interface Overlay {
 
   /**
    * Returns whether this overlay is blocking or not.
+   *
    * @implNote Each overlay will be opened with a black transparent {@link GlassPane} in the
    *           background.
    *           In case of a non-blocking overlay (return false), clicking outside of this overlay
