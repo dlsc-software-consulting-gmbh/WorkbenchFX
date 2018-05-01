@@ -63,12 +63,4 @@ public class WorkbenchFxView extends StackPane implements View {
     getChildren().addAll(viewBox, glassPane);
     VBox.setVgrow(contentView, Priority.ALWAYS);
   }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void bindFieldsToModel() {
-
-  }
 }

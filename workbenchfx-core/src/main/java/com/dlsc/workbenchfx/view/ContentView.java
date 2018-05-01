@@ -43,14 +43,6 @@ public class ContentView extends StackPane implements View {
   }
 
   /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void bindFieldsToModel() {
-
-  }
-
-  /**
    * Replaces the current displayed Node with a new one.
    * This is called when a new module is selected and displayed.
    *

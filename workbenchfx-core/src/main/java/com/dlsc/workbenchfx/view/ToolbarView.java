@@ -72,14 +72,6 @@ public class ToolbarView extends HBox implements View {
   }
 
   /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void bindFieldsToModel() {
-
-  }
-
-  /**
    * Shows a menu button in the front of the toolbar.
    */
   public void addMenuButton() {
