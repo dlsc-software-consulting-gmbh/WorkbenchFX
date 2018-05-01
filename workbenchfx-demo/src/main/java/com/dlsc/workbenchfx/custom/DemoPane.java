@@ -71,7 +71,7 @@ public class DemoPane extends StackPane {
   private Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
     NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
     StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
-    navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().divide(2));
+    navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(.5));
     return navigationDrawer;
   };
 

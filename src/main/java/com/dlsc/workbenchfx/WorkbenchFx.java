@@ -137,6 +137,10 @@ public class WorkbenchFx extends StackPane {
     // Required parameters
     private final Module[] modules;
 
+    // Defines the width of the navigationDrawer.
+    // The value represents the percentage of the window which will be covered.
+    private final double widthPercentage = .333;
+
     // Optional parameters - initialized to default values
     private int modulesPerPage = 9;
 
@@ -199,7 +203,7 @@ public class WorkbenchFx extends StackPane {
     private Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
       NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
       StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
-      navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().divide(2.5));
+      navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(widthPercentage));
       return navigationDrawer;
     };
 
