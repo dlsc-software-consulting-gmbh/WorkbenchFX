@@ -77,7 +77,7 @@ public class DemoPane extends StackPane {
     final int COLUMNS_PER_ROW = 2;
 
     GridPane gridPane = new GridPane();
-    gridPane.getStyleClass().add("tilePage");
+    gridPane.getStyleClass().add("tile-page");
 
     int position = pageIndex * workbench.modulesPerPage;
     int count = 0;
