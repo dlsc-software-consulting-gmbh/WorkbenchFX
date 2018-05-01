@@ -1,0 +1,18 @@
+.dropdown {
+  @extend %tool-bar-setup;
+
+  & .icon {
+    // The graphic node of the dropdown
+  }
+  & .content-node {
+    // Each menu-item in the list
+  }
+  & .angle-down {
+    // The angle-down button to the right
+  }
+
+  @extend %menu-item;
+  @extend %context-menu;
+}
+
+

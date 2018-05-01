@@ -8,7 +8,7 @@ import javafx.scene.layout.StackPane;
 
 public class DemoPane extends StackPane {
 
-  public WorkbenchFx workbenchFx;
+  private final WorkbenchFx workbenchFx;
 
   public DemoPane() {
     workbenchFx = WorkbenchFx.of(
@@ -18,5 +18,4 @@ public class DemoPane extends StackPane {
     );
     getChildren().add(workbenchFx);
   }
-
 }

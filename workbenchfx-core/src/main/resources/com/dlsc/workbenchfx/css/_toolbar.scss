@@ -1,0 +1,31 @@
+$tab-spacing: 0.75em;
+
+#toolbar {
+  -fx-spacing: $tab-spacing;
+
+  & #homeButton {
+    @extend %tool-bar-setup;
+    -fx-min-width: $pref-size;
+
+    & #homeIconView {
+      // The actual home-icon
+    }
+  }
+
+  #menuIconView {
+    -fx-fill: white;
+  }
+
+  #menuButton {
+    @extend %tool-bar-setup;
+    -fx-min-width: $pref-size;
+  }
+
+  & #tabBox {
+    -fx-spacing: 0.6 * $tab-spacing;
+  }
+
+  & #toolbar-control-box {
+    -fx-spacing: 0.6 * $tab-spacing;
+  }
+}

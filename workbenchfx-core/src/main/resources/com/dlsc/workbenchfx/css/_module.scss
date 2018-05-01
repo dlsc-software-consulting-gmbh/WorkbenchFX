@@ -1,0 +1,34 @@
+.tileControl {
+  @extend %tool-bar-setup;
+  -fx-min-width: 16em;
+  -fx-min-height: 9em;
+  &:hover {
+    -fx-text-fill: -text-color;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 3, 0.0, 0, 2);
+  }
+}
+
+.tabControl {
+  @extend %tool-bar-setup;
+  -fx-padding: .5em .5em .5em 1em;
+
+  & .closeBtn {
+    -fx-background-color: transparent;
+    & .closeIconView {
+      -fx-font-size: 1em !important;
+    }
+    &:hover .closeIconView {
+      -icons-color: -danger-color;
+    }
+  }
+}
+
+.active-tab {
+  -fx-background-color: -primary-color !important;
+}
+
+%button-styling {
+  @extend .tabControl;
+  -fx-padding: .5em;
+  -fx-pref-width: 3.5em;
+}

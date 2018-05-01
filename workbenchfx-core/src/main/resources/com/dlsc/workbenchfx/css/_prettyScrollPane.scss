@@ -1,0 +1,41 @@
+$size: 12;
+$scroll-pane-padding: 2;
+
+%zero-size {
+  -fx-pref-width: 0 !important;
+  -fx-pref-height: 0 !important;
+}
+
+.pretty-scroll-pane {
+  -fx-background-insets: 0; // no focus border
+  .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: $size;
+    -fx-pref-height: $size;
+    -fx-padding: $scroll-pane-padding;
+    .thumb {
+      -fx-background-color: rgba(0, 0, 0, .2);
+      -fx-background-radius: 1000;
+      -fx-pref-width: $size;
+      -fx-pref-height: $size;
+    }
+    .increment-button {
+      @extend %zero-size;
+    }
+    .increment-arrow {
+      @extend %zero-size;
+    }
+    .decrement-button {
+      @extend %zero-size;
+    }
+    .decrement-arrow {
+      @extend %zero-size;
+    }
+    &:vertical .thumb {
+      -fx-background-insets: 0 $scroll-pane-padding 0 0;
+    }
+    &:horizontal .thumb {
+      -fx-background-insets: 0 0 $scroll-pane-padding 0;
+    }
+  }
+}

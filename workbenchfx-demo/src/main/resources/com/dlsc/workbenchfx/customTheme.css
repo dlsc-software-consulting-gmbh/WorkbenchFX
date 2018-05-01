@@ -1,0 +1,22 @@
+.root {
+    -primary-color: #73a2aa;
+    -danger-color: #f17a7a;
+    -success-color: #47aa71;
+    -accent-color: #aa8a70;
+    -text-color: white;
+    -module-background-color: derive(-primary-color, 140%);
+
+    -icons-color: -text-color;
+    -fx-font-size: 14px;
+    -fx-font-family: Helvetica, sans-serif;
+    -fx-color: -primary-color;
+    -fx-background-color: white;
+}
+
+.custom-overlay {
+    -fx-background-color: #fff9e6;
+    -fx-min-width: 300px;
+    -fx-max-width: 300px;
+    -fx-min-height: 300px;
+    -fx-max-height: 300px;
+}
