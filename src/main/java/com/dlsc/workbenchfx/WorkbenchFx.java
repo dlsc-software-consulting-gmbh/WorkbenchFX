@@ -343,6 +343,9 @@ public class WorkbenchFx extends StackPane {
   }
 
   private void initOverlays(WorkbenchFxBuilder builder) {
+    if (Objects.isNull(builder.overlays)) {
+      return;
+    }
     for (Callback<WorkbenchFx, Node> overlay: builder.overlays) {
       overlays.add(overlay.call(this));
     }
