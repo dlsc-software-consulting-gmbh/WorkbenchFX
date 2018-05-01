@@ -12,6 +12,14 @@
   @extend %tool-bar-setup;
   -fx-padding: .5em .5em .5em 1em;
 
+  & .tab-icon {
+
+  }
+
+  & .tab-name-lbl {
+
+  }
+
   & .close-btn {
     -fx-background-color: transparent;
     & .close-icon-view {

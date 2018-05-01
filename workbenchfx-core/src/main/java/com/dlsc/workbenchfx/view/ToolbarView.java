@@ -55,7 +55,7 @@ public class ToolbarView extends HBox implements View {
     homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
 
     menuIconView = new FontAwesomeIconView(FontAwesomeIcon.BARS);
-    menuIconView.setId("menu-iconView");
+    menuIconView.setId("menu-icon-view");
     menuBtn = new Button("", menuIconView);
     menuBtn.setId("menu-button");
 
