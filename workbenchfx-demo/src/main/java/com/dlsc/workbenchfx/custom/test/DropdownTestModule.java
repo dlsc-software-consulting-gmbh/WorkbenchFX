@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.test;
+package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.module.AbstractModule;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
@@ -15,7 +15,7 @@ import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestModule extends AbstractModule {
+public class DropdownTestModule extends AbstractModule {
   private int itemsCount = 1;
 
   private final Button addMenuBtn = new Button("Add new Dropdown");
@@ -32,8 +32,8 @@ public class TestModule extends AbstractModule {
 
   private final GridPane customPane = new GridPane();
 
-  public TestModule() {
-    super("Test Module", FontAwesomeIcon.QUESTION);
+  public DropdownTestModule() {
+    super("Dropdown Test", FontAwesomeIcon.QUESTION);
     layoutParts();
     setupEventHandlers();
   }

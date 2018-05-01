@@ -10,7 +10,7 @@ import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
-import com.dlsc.workbenchfx.test.TestModule;
+import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
@@ -32,8 +32,6 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 
 public class DemoPane extends StackPane {
 
@@ -143,7 +141,7 @@ public class DemoPane extends StackPane {
 
     // WorkbenchFX
     workbenchFx = WorkbenchFx.builder(
-        new TestModule(),
+        new DropdownTestModule(),
         new CalendarModule(),
         new NotesModule(),
         new PreferencesModule(),

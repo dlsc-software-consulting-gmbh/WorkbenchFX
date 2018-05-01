@@ -39,6 +39,7 @@ import org.apache.logging.log4j.Logger;
  */
 public final class WorkbenchFx extends StackPane {
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
+
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
 
   // Views
@@ -510,4 +511,3 @@ public final class WorkbenchFx extends StackPane {
     navigationDrawerItems.removeAll(menuItems);
   }
 }
-
