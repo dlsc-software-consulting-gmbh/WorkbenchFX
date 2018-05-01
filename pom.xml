@@ -5,25 +5,33 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.dlsc.workbenchfx</groupId>
-    <artifactId>parent</artifactId>
-    <version>1.0.0</version>
+    <artifactId>workbenchfx-parent</artifactId>
+    <version>6.0.0</version>
     <packaging>pom</packaging>
 
-    <modules>
-        <module>workbenchfx</module>
-        <module>workbenchfx-demo</module>
-        <module>workbenchfx-dirk</module>
-    </modules>
-
     <properties>
+        <workbenchfx.version>6.0.0</workbenchfx.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <asciidoctor.maven.plugin.version>1.5.6</asciidoctor.maven.plugin.version>
         <asciidoctorj.version>1.5.6</asciidoctorj.version>
         <jruby.version>9.1.17.0</jruby.version>
     </properties>
 
+    <modules>
+        <module>workbenchfx-core</module>
+        <module>workbenchfx-demo</module>
+        <module>workbenchfx-dirk</module>
+    </modules>
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
@@ -67,6 +75,56 @@
                                 <linkattrs>true</linkattrs>
                                 <encoding>utf-8</encoding>
                             </attributes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>set-parent-version</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>versions:set</argument>
+                                <argument>-DnewVersion=${workbenchfx.version}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>update-children-version</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>versions:update-child-modules</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>set-core-version</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>-fworkbenchfx-core/pom.xml</argument>
+                                <argument>versions:set</argument>
+                                <argument>-DnewVersion=${workbenchfx.version}</argument>
+                            </arguments>
                         </configuration>
                     </execution>
                 </executions>
