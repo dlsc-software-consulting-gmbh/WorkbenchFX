@@ -132,14 +132,14 @@
   #home .pagination > .pagination-control > .control-box > .bullet-button {
     -fx-background-radius: 4em;
     -fx-padding: 0.333em;
-    -fx-background-color: derive(-primary-color, -50%);
+    -fx-background-color: derive(-text-color, -30%);
     -fx-background-insets: 5.25; }
     #home .pagination > .pagination-control > .control-box > .bullet-button:hover {
-      -fx-background-color: derive(-primary-color, -30%); }
+      -fx-background-color: derive(-text-color, -15%); }
     #home .pagination > .pagination-control > .control-box > .bullet-button:selected {
-      -fx-background-color: -accent-color; }
+      -fx-background-color: -primary-color; }
       #home .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
-        -fx-background-color: derive(-accent-color, 20%); }
+        -fx-background-color: derive(-primary-color, 30%); }
 
 .tileControl {
   -fx-min-width: 16em;

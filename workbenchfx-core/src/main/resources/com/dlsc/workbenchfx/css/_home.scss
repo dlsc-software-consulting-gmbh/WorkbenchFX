@@ -14,15 +14,15 @@
     & > .pagination-control > .control-box > .bullet-button {
       -fx-background-radius: 4em;
       -fx-padding: 0.333em;
-      -fx-background-color: derive(-primary-color, -50%);
+      -fx-background-color: derive(-text-color, -30%);
       -fx-background-insets: 5.25;
       &:hover {
-        -fx-background-color: derive(-primary-color, -30%);
+        -fx-background-color: derive(-text-color, -15%);
       }
       &:selected {
-        -fx-background-color: -accent-color;
+        -fx-background-color: -primary-color;
         &:hover {
-          -fx-background-color: derive(-accent-color, 20%);
+          -fx-background-color: derive(-primary-color, 30%);
         }
       }
     }
