@@ -122,7 +122,7 @@ public final class WorkbenchFxBuilder {
    * @param tabFactory to be used to create the {@link Node} for the tabs
    * @return builder for chaining
    * @implNote Use this to replace the control which is used for the tab with your own
-   * implementation.
+   *           implementation.
    */
   public WorkbenchFxBuilder tabFactory(BiFunction<WorkbenchFx, Module, Node> tabFactory) {
     this.tabFactory = tabFactory;
@@ -135,7 +135,7 @@ public final class WorkbenchFxBuilder {
    * @param tileFactory to be used to create the {@link Node} for the tiles
    * @return builder for chaining
    * @implNote Use this to replace the control which is used for the tile with your own
-   * implementation.
+   *           implementation.
    */
   public WorkbenchFxBuilder tileFactory(BiFunction<WorkbenchFx, Module, Node> tileFactory) {
     this.tileFactory = tileFactory;
@@ -148,7 +148,7 @@ public final class WorkbenchFxBuilder {
    * @param pageFactory to be used to create the page for the tiles
    * @return builder for chaining
    * @implNote Use this to replace the page which is used in the home screen to display tiles of the
-   * modules with your own implementation.
+   *           modules with your own implementation.
    */
   public WorkbenchFxBuilder pageFactory(BiFunction<WorkbenchFx, Integer, Node> pageFactory) {
     this.pageFactory = pageFactory;
@@ -174,8 +174,8 @@ public final class WorkbenchFxBuilder {
    * @param navigationDrawerFactory to be used to create the navigation drawer
    * @return builder for chaining
    * @implNote Use this to replace the navigation drawer, which is displayed when pressing the menu
-   * icon, with your own implementation. To access the {@link MenuItem}s, use {@link
-   * WorkbenchFx#getNavigationDrawerItems()}.
+   *           icon, with your own implementation. To access the {@link MenuItem}s, use
+   *           {@link WorkbenchFx#getNavigationDrawerItems()}.
    */
   public WorkbenchFxBuilder navigationDrawerFactory(
       Callback<WorkbenchFx, Node> navigationDrawerFactory) {
