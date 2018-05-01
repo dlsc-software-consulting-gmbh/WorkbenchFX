@@ -23,7 +23,7 @@ public class TileControl extends Button {
     this.module = module;
     setText(module.getName());
     setGraphic(module.getIcon());
-    getStyleClass().add("tileControl");
+    getStyleClass().add("tile-control");
   }
 
   /**

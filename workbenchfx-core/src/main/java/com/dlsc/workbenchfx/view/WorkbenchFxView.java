@@ -5,7 +5,6 @@ import com.dlsc.workbenchfx.view.controls.GlassPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.BorderPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,10 +17,9 @@ import org.apache.logging.log4j.Logger;
 public class WorkbenchFxView extends StackPane implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchFxView.class.getName());
-  private final WorkbenchFx model;
-  final ToolBarView toolBarView;
+  final ToolbarView toolbarView;
   final HomeView homeView;
-  final CenterView centerView;
+  final ContentView contentView;
   final GlassPane glassPane;
   VBox viewBox;
 
@@ -29,15 +27,13 @@ public class WorkbenchFxView extends StackPane implements View {
    * Displays all of the view parts, representing the master view.
    */
   public WorkbenchFxView(
-      WorkbenchFx model,
-      ToolBarView toolBarView,
+      ToolbarView toolbarView,
       HomeView homeView,
-      CenterView centerView,
+      ContentView contentView,
       GlassPane glassPane) {
-    this.model = model;
-    this.toolBarView = toolBarView;
+    this.toolbarView = toolbarView;
     this.homeView = homeView;
-    this.centerView = centerView;
+    this.contentView = contentView;
     this.glassPane = glassPane;
     init();
   }
@@ -63,16 +59,8 @@ public class WorkbenchFxView extends StackPane implements View {
    */
   @Override
   public void layoutParts() {
-    viewBox.getChildren().addAll(toolBarView, centerView);
+    viewBox.getChildren().addAll(toolbarView, contentView);
     getChildren().addAll(viewBox, glassPane);
-    VBox.setVgrow(centerView, Priority.ALWAYS);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void bindFieldsToModel() {
-
+    VBox.setVgrow(contentView, Priority.ALWAYS);
   }
 }

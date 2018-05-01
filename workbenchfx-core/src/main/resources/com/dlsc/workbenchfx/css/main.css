@@ -17,6 +17,9 @@
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
+.module-background {
+  -fx-background-color: -module-background-color; }
+
 .button:focused,
 .toggle-button:focused,
 .radio-button:focused > .radio,
@@ -74,9 +77,10 @@
 .tab-pane > .tab-header-area > .control-buttons-tab > .container > .tab-down-button:pressed {
   -fx-color: -fx-pressed-base; }
 
-.tileControl, .tabControl, #toolbar #menuButton, #toolbar #homeButton, .dropdown, #back-button {
+.tile-control, .tab-control, #toolbar #home-button, #toolbar #menu-button, .dropdown, #back-button {
+  -fx-max-height: 3.5em;
+  -fx-min-height: 3.5em;
   -fx-pref-height: 3.5em;
-  -fx-background-insets: 0;
   -fx-background-color: derive(-primary-color, -15%);
   -fx-padding: .5em;
   -fx-spacing: .5em;
@@ -85,9 +89,9 @@
   -fx-border-radius: 0;
   -fx-border-width: 0;
   -fx-text-fill: -text-color; }
-  .tileControl:hover, .tabControl:hover, #toolbar #menuButton:hover, #toolbar #homeButton:hover, .dropdown:hover, #back-button:hover {
+  .tile-control:hover, .tab-control:hover, #toolbar #home-button:hover, #toolbar #menu-button:hover, .dropdown:hover, #back-button:hover {
     -fx-background-color: derive(-primary-color, -7.5%); }
-  .tileControl .label, .tabControl .label, #toolbar #menuButton .label, #toolbar #homeButton .label, .dropdown .label, #back-button .label {
+  .tile-control .label, .tab-control .label, #toolbar #home-button .label, #toolbar #menu-button .label, .dropdown .label, #back-button .label {
     -fx-text-fill: -text-color; }
 
 .dropdown .menu-item, .navigation-drawer .menu-item {
@@ -120,7 +124,12 @@
   .dropdown .context-menu .menu-item > .label, .navigation-drawer .context-menu .menu-item > .label {
     -fx-text-fill: -text-color; }
 
-#home .tilePage {
+#content-view {
+  -fx-border-width: 1.75em 0 0 0;
+  -fx-border-color: -primary-color;
+  -fx-background-color: -module-background-color; }
+
+#home .tile-page {
   -fx-vgap: 40;
   -fx-hgap: 40;
   -fx-alignment: center;
@@ -132,54 +141,46 @@
   #home .pagination > .pagination-control > .control-box > .bullet-button {
     -fx-background-radius: 4em;
     -fx-padding: 0.333em;
-    -fx-background-color: derive(-text-color, -30%);
+    -fx-background-color: derive(-primary-color, -50%);
     -fx-background-insets: 5.25; }
     #home .pagination > .pagination-control > .control-box > .bullet-button:hover {
-      -fx-background-color: derive(-text-color, -15%); }
+      -fx-background-color: derive(-primary-color, -30%); }
     #home .pagination > .pagination-control > .control-box > .bullet-button:selected {
-      -fx-background-color: -primary-color; }
+      -fx-background-color: -accent-color; }
       #home .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
-        -fx-background-color: derive(-primary-color, 30%); }
+        -fx-background-color: derive(-accent-color, 20%); }
 
-.tileControl {
+.tile-control {
   -fx-min-width: 16em;
-  -fx-min-height: 9em;
-  -fx-background-radius: 2px;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0, 0, 3); }
-  .tileControl:hover {
+  -fx-min-height: 9em; }
+  .tile-control:hover {
     -fx-text-fill: -text-color;
-    -fx-background-color: derive(-primary-color, 30%);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 4, 0, 0, 3); }
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2); }
 
-.tabControl {
+.tab-control {
   -fx-padding: .5em .5em .5em 1em; }
-  .tabControl .closeBtn {
+  .tab-control .close-btn {
     -fx-background-color: transparent; }
-    .tabControl .closeBtn .closeIconView {
+    .tab-control .close-btn .close-icon-view {
       -fx-font-size: 1em !important; }
-    .tabControl .closeBtn:hover .closeIconView {
+    .tab-control .close-btn:hover .close-icon-view {
       -icons-color: -danger-color; }
 
 .active-tab {
   -fx-background-color: -primary-color !important; }
 
 #toolbar {
-  -fx-spacing: 0em;
-  -fx-background-color: -primary-color;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 3);
-  -fx-pref-height: 3.5em; }
-  #toolbar #menuButton {
+  -fx-spacing: 0.75em; }
+  #toolbar #home-button {
     -fx-min-width: 3.5em; }
-    #toolbar #menuButton #menuIconView {
-      -fx-fill: -text-color; }
-  #toolbar #homeButton {
+  #toolbar #menu-icon-view {
+    -fx-fill: white; }
+  #toolbar #menu-button {
     -fx-min-width: 3.5em; }
-  #toolbar #tabBox {
-    -fx-spacing: 0em; }
+  #toolbar #tab-box {
+    -fx-spacing: 0.45em; }
   #toolbar #toolbar-control-box {
-    -fx-spacing: 0em; }
-    #toolbar #toolbar-control-box .toolbar-control {
-      -fx-pref-height: 3.5em; }
+    -fx-spacing: 0.45em; }
 
 .pretty-scroll-pane .scroll-bar .increment-button, .pretty-scroll-pane .scroll-bar .increment-arrow, .pretty-scroll-pane .scroll-bar .decrement-button, .pretty-scroll-pane .scroll-bar .decrement-arrow {
   -fx-pref-width: 0 !important;

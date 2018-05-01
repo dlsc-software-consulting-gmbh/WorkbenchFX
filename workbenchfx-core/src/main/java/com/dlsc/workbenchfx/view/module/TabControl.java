@@ -48,13 +48,13 @@ public class TabControl extends HBox {
         closeBtn
     );
 
-    icon.getStyleClass().add("tabIcon");
-    nameLbl.getStyleClass().add("tabNameLbl");
+    icon.getStyleClass().add("tab-icon");
+    nameLbl.getStyleClass().add("tab-name-lbl");
 
-    closeBtn.getStyleClass().add("closeBtn");
-    closeIconView.setStyleClass("closeIconView");
+    closeBtn.getStyleClass().add("close-btn");
+    closeIconView.setStyleClass("close-icon-view");
 
-    getStyleClass().add("tabControl");
+    getStyleClass().add("tab-control");
   }
 
   /**

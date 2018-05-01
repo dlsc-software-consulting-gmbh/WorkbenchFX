@@ -6,7 +6,6 @@ import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
-
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -15,31 +14,31 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the presenter of the corresponding {@link ToolBarView}.
+ * Represents the presenter of the corresponding {@link ToolbarView}.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ToolBarPresenter implements Presenter {
+public class ToolbarPresenter implements Presenter {
   private static final Logger LOGGER =
-      LogManager.getLogger(ToolBarPresenter.class.getName());
+      LogManager.getLogger(ToolbarPresenter.class.getName());
   private final WorkbenchFx model;
-  private final ToolBarView view;
+  private final ToolbarView view;
 
   // Strong reference to prevent garbage collection
   private final ObservableList<Module> openModules;
   private final ObservableList<MenuItem> navigationDrawerItems;
-  private final ObservableList<Node> toolBarControls;
+  private final ObservableList<Node> toolbarControls;
 
   /**
-   * Creates a new {@link ToolBarPresenter} object for a corresponding {@link ToolBarView}.
+   * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
    */
-  public ToolBarPresenter(WorkbenchFx model, ToolBarView view) {
+  public ToolbarPresenter(WorkbenchFx model, ToolbarView view) {
     this.model = model;
     this.view = view;
     openModules = model.getOpenModules();
     navigationDrawerItems = model.getNavigationDrawerItems();
-    toolBarControls = model.getToolBarControls();
+    toolbarControls = model.getToolbarControls();
     init();
   }
 
@@ -48,7 +47,7 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    toolBarControls.forEach(view::addToolBarControl);
+    model.getToolbarControls().forEach(view::addToolbarControl);
 
     // only add the menu button, if there is at least one navigation drawer item
     if (model.getNavigationDrawerItems().size() > 0) {
@@ -74,19 +73,19 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-    // When the List of the currently open toolBarControls is changed, the view is updated.
-    toolBarControls.addListener((ListChangeListener<? super Node>) c -> {
+    // When the List of the currently open toolbarControls is changed, the view is updated.
+    toolbarControls.addListener((ListChangeListener<? super Node>) c -> {
       while (c.next()) {
         if (c.wasRemoved()) {
           for (Node node : c.getRemoved()) {
             LOGGER.debug("Dropdown " + node + " removed");
-            view.removeToolBarControl(c.getFrom());
+            view.removeToolbarControl(c.getFrom());
           }
         }
         if (c.wasAdded()) {
           for (Node node : c.getAddedSubList()) {
             LOGGER.debug("Dropdown " + node + " added");
-            view.addToolBarControl(node);
+            view.addToolbarControl(node);
           }
         }
       }

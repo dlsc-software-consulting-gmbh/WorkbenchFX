@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the Dropdown control wich is used in the ToolBar of WorkbenchFX.
+ * Represents the Dropdown control wich is used in the Toolbar of WorkbenchFX.
  * Its functionality is like that of a {@link MenuButton}.
  *
  * @author François Martin

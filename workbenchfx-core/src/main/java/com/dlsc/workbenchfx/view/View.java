@@ -24,7 +24,6 @@ public interface View {
     initializeSelf();
     initializeParts();
     layoutParts();
-    bindFieldsToModel();
   }
 
   /**
@@ -42,12 +41,6 @@ public interface View {
    * Defines the layout of all parts in the view.
    */
   void layoutParts();
-
-  /**
-   * Binds properties from the model to the view.
-   */
-  default void bindFieldsToModel() {
-  }
 
   /**
    * Adds the stylesheet files to the getStylesheets method.

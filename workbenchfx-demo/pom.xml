@@ -7,12 +7,13 @@
     <parent>
         <groupId>com.dlsc.workbenchfx</groupId>
         <artifactId>workbenchfx-parent</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.1</version>
     </parent>
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-demo</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.1</version>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
@@ -43,6 +44,28 @@
                     <target>1.9</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.dlsc.workbenchfx.AppStarter</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -50,7 +73,7 @@
         <dependency>
             <groupId>com.dlsc.workbenchfx</groupId>
             <artifactId>workbenchfx-core</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.1</version>
         </dependency>
     </dependencies>
 

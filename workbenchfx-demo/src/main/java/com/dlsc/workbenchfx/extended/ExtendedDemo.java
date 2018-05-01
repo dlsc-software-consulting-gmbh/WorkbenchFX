@@ -4,14 +4,32 @@ import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.extended.calendar.CalendarModule;
 import com.dlsc.workbenchfx.extended.notes.NotesModule;
 import com.dlsc.workbenchfx.extended.preferences.PreferencesModule;
-import javafx.scene.layout.StackPane;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class DemoPane extends StackPane {
+public class ExtendedDemo extends Application {
 
   public WorkbenchFx workbenchFx;
 
-  public DemoPane() {
-    workbenchFx = WorkbenchFx.of(
+  public static void main(String[] args) {
+    launch(args);
+  }
+
+  @Override
+  public void start(Stage primaryStage) {
+    Scene myScene = new Scene(initWorkbench());
+
+    primaryStage.setTitle("Extended WorkbenchFX Demo");
+    primaryStage.setScene(myScene);
+    primaryStage.setWidth(1000);
+    primaryStage.setHeight(700);
+    primaryStage.show();
+    primaryStage.centerOnScreen();
+  }
+
+  private WorkbenchFx initWorkbench() {
+    return workbenchFx = WorkbenchFx.builder(
         new PreferencesModule(),
         new PreferencesModule(),
         new PreferencesModule(),
@@ -27,8 +45,7 @@ public class DemoPane extends StackPane {
         new NotesModule(),
         new NotesModule(),
         new NotesModule()
-    );
-    getChildren().add(workbenchFx);
+    ).build();
   }
 
 }
