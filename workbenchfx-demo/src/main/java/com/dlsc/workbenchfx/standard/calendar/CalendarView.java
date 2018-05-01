@@ -1,15 +1,14 @@
 package com.dlsc.workbenchfx.standard.calendar;
 
-import javafx.application.Platform;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
+import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 
 public class CalendarView extends BorderPane {
 

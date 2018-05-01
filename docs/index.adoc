@@ -323,7 +323,7 @@ This solution solves all of the problems.
 It's not possible to forget `build()`, since else it won't return a `WorkbenchFx` object.
 It's expandable to a large amount of parameters.
 It allows for maximum flexibility, i. e. any combination of the parameters in any order can be specified.
-We decided to still keep the original `WorkbenchFx.of(module1, module2)` notation, to reduce boilerplate code if one doesn't want to customize anything.
+We decided against keeping the original `WorkbenchFx.of(module1, module2)` notation, since using the builder doesn't require a lot more code and doesn't introduce more complexity.
 
 === Architecture
 WorkbenchFX seems like a gigantic pane.
