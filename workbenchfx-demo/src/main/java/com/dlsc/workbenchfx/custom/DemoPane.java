@@ -26,6 +26,7 @@ import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -179,7 +180,7 @@ public class DemoPane extends StackPane {
         .overlays(
             workbench -> new CustomOverlay(workbench, false),
             workbench -> new CustomOverlay(workbench, true)
-            )
+        )
         .build();
 
     getChildren().add(workbenchFx);

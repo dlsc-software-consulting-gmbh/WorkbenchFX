@@ -74,10 +74,9 @@
 .tab-pane > .tab-header-area > .control-buttons-tab > .container > .tab-down-button:pressed {
   -fx-color: -fx-pressed-base; }
 
-.tileControl, .tabControl, #toolbar #homeButton, #toolbar #menuButton, .dropdown, #back-button {
-  -fx-max-height: 3.5em;
-  -fx-min-height: 3.5em;
+.tileControl, .tabControl, #toolbar #menuButton, #toolbar #homeButton, .dropdown, #back-button {
   -fx-pref-height: 3.5em;
+  -fx-background-insets: 0;
   -fx-background-color: derive(-primary-color, -15%);
   -fx-padding: .5em;
   -fx-spacing: .5em;
@@ -86,9 +85,9 @@
   -fx-border-radius: 0;
   -fx-border-width: 0;
   -fx-text-fill: -text-color; }
-  .tileControl:hover, .tabControl:hover, #toolbar #homeButton:hover, #toolbar #menuButton:hover, .dropdown:hover, #back-button:hover {
+  .tileControl:hover, .tabControl:hover, #toolbar #menuButton:hover, #toolbar #homeButton:hover, .dropdown:hover, #back-button:hover {
     -fx-background-color: derive(-primary-color, -7.5%); }
-  .tileControl .label, .tabControl .label, #toolbar #homeButton .label, #toolbar #menuButton .label, .dropdown .label, #back-button .label {
+  .tileControl .label, .tabControl .label, #toolbar #menuButton .label, #toolbar #homeButton .label, .dropdown .label, #back-button .label {
     -fx-text-fill: -text-color; }
 
 .dropdown .menu-item, .navigation-drawer .menu-item {
@@ -167,17 +166,20 @@
 #toolbar {
   -fx-spacing: 0em;
   -fx-background-color: -primary-color;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 3); }
-  #toolbar #homeButton {
-    -fx-min-width: 3.5em; }
-  #toolbar #menuIconView {
-    -fx-fill: -text-color; }
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 3);
+  -fx-pref-height: 3.5em; }
   #toolbar #menuButton {
+    -fx-min-width: 3.5em; }
+    #toolbar #menuButton #menuIconView {
+      -fx-fill: -text-color; }
+  #toolbar #homeButton {
     -fx-min-width: 3.5em; }
   #toolbar #tabBox {
     -fx-spacing: 0em; }
   #toolbar #toolbar-control-box {
     -fx-spacing: 0em; }
+    #toolbar #toolbar-control-box .toolbar-control {
+      -fx-pref-height: 3.5em; }
 
 .pretty-scroll-pane .scroll-bar .increment-button, .pretty-scroll-pane .scroll-bar .increment-arrow, .pretty-scroll-pane .scroll-bar .decrement-button, .pretty-scroll-pane .scroll-bar .decrement-arrow {
   -fx-pref-width: 0 !important;

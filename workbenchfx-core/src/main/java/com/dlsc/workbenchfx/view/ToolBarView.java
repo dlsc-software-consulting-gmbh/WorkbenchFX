@@ -131,6 +131,7 @@ public class ToolBarView extends HBox implements View {
    * @param toolBarControl the {@link Node} to be added
    */
   public void addToolBarControl(Node toolBarControl) {
+    toolBarControl.getStyleClass().add("toolbar-control");
     toolBarControlBox.getChildren().add(toolBarControl);
   }
 
