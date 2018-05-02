@@ -7,6 +7,7 @@
 
   & #home-button {
     @extend %toolbar-setup;
+    -fx-border-width: 0 0 $border 0;
     -fx-min-width: $pref-size;
     -fx-background-color: -text-color;
     -fx-border-color: -text-color;
@@ -16,13 +17,6 @@
       -fx-fill: -prim-color;
     }
 
-    & .active-tab {
-      //-fx-background-color: derive(-prim-color, -30%) !important;
-      //-fx-border-width: 0 0 $border 0 !important;
-      //-fx-border-color: derive(-prim-color, -30%) !important;
-      -fx-border-color: -prim-color !important;
-    }
-
     &:focused {
       -fx-background-color: -text-color;
     }
@@ -30,6 +24,7 @@
 
   #menu-button {
     @extend %toolbar-setup;
+    -fx-border-width: 0 0 $border 0;
     -fx-min-width: $pref-size;
     -fx-background-color: -text-color;
     -fx-border-color: -text-color;

@@ -58,25 +58,6 @@
   }
 }
 
-.active-tab {
-  //-fx-background-color: derive(-prim-color, -30%) !important;
-  //-fx-border-width: 0 0 $border 0 !important;
-  //-fx-border-color: derive(-prim-color, -30%) !important;
-  -fx-border-color: -text-color !important;
-
-  & .tab-icon {
-    -icons-color: -text-color !important;
-  }
-
-  & .tab-name-lbl {
-    -fx-text-fill: -text-color !important;
-  }
-
-  & .close-btn {
-    -icons-color: -text-color !important;
-  }
-}
-
 %button-styling {
   @extend .tab-control;
   -fx-padding: .5em;

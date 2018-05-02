@@ -41,6 +41,7 @@ public final class WorkbenchFx extends StackPane {
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
 
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
+  public static final String STYLE_CLASS_HOME_ACTIVE = "active-home";
 
   // Views
   private ToolbarView toolbarView;

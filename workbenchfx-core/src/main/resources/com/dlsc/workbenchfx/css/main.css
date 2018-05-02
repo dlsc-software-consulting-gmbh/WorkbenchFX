@@ -130,29 +130,20 @@
   .tab-control:hover .close-btn {
     -icons-color: -text-color; }
 
-.active-tab {
-  -fx-border-color: -text-color !important; }
-  .active-tab .tab-icon {
-    -icons-color: -text-color !important; }
-  .active-tab .tab-name-lbl {
-    -fx-text-fill: -text-color !important; }
-  .active-tab .close-btn {
-    -icons-color: -text-color !important; }
-
 #toolbar {
   -fx-background-color: -prim-color;
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 3); }
   #toolbar #home-button {
+    -fx-border-width: 0 0 3px 0;
     -fx-min-width: 3.5em;
     -fx-background-color: -text-color;
     -fx-border-color: -text-color; }
     #toolbar #home-button #home-icon-view {
       -fx-fill: -prim-color; }
-    #toolbar #home-button .active-tab {
-      -fx-border-color: -prim-color !important; }
     #toolbar #home-button:focused {
       -fx-background-color: -text-color; }
   #toolbar #menu-button {
+    -fx-border-width: 0 0 3px 0;
     -fx-min-width: 3.5em;
     -fx-background-color: -text-color;
     -fx-border-color: -text-color; }
@@ -255,5 +246,17 @@
 .glass-pane {
   -fx-background-color: black;
   -fx-opacity: .6; }
+
+.active-tab {
+  -fx-border-color: -text-color; }
+  .active-tab .tab-icon {
+    -icons-color: -text-color; }
+  .active-tab .tab-name-lbl {
+    -fx-text-fill: -text-color; }
+  .active-tab .close-btn {
+    -icons-color: -text-color; }
+
+.active-home {
+  -fx-border-color: -prim-color !important; }
 
 /*# sourceMappingURL=main.css.map */
