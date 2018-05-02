@@ -49,7 +49,7 @@
   }
 
   .menu-container {
-    -fx-background-color: derive(-primary-color, -15%);
+    -fx-background-color: derive(-prim-color, -15%);
     .label {
       -fx-text-fill: -text-color;
     }

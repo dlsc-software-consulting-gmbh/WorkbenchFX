@@ -17,12 +17,14 @@
       -fx-background-color: derive(-text-color, -30%);
       -fx-background-insets: 5.25;
       &:hover {
+        -fx-cursor: hand;
         -fx-background-color: derive(-text-color, -15%);
       }
       &:selected {
-        -fx-background-color: -primary-color;
+        -fx-background-color: -prim-color;
         &:hover {
-          -fx-background-color: derive(-primary-color, 30%);
+          -fx-cursor: hand;
+          -fx-background-color: -prim-color-hover;
         }
       }
     }

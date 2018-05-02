@@ -1,7 +1,8 @@
-$border: 2px;
+$border: 3px;
 $pref-size: 3.5em;
 $primary-color: #f2f2f2;
 $text-color: darken($primary-color, 70%);
+$text-color-transparent: transparentize($text-color, .2);
 $custom-color-1: blue;
 $custom-color-2: red;
 $custom-color-3: green;
@@ -9,20 +10,21 @@ $custom-color-4: purple;
 $custom-color-5: pink;
 
 .root {
-  -primary-color: $primary-color;
+  -prim-color: $primary-color;
+  -prim-color-hover: lighten($primary-color, 30%);;
   -danger-color: #DB4437;
   -success-color: #47aa71;
   -accent-color: #00aaff;
   -text-color: $text-color;
+  -text-color-transparent: $text-color-transparent;
   -inverted-text-color: invert($text-color);
-  -module-background-color: derive(-primary-color, 140%);
+  //-module-background-color: derive(-prim-color, 140%);
 
   -icons-color: -text-color;
   -fx-font-size: 14px;
   -fx-font-family: Helvetica, sans-serif;
-  -fx-color: -primary-color;
-  -fx-background-color: white;
-
+  //-fx-color: -prim-color;
+  //-fx-background-color: white;
 }
 
 // Default styling of icons. This enables changing the icons styles later on
@@ -36,7 +38,7 @@ $custom-color-5: pink;
 //  -fx-background-color: -module-background-color;
 //}
 
-@import "removeFocus";
+//@import "removeFocus";
 @import "includes";
 @import "contentView";
 @import "home";

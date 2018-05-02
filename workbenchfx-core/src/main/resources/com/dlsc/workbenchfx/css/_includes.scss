@@ -17,17 +17,38 @@
   -fx-max-height: $pref-size;
   -fx-min-height: $pref-size;
   -fx-pref-height: $pref-size;
-  -fx-background-color: derive(-primary-color, -15%);
+  //-fx-background-color: derive(-prim-color, -15%);
+  //-fx-background-color: none;
+  -fx-background-color: -prim-color;
   -fx-padding: .5em;
   -fx-spacing: .5em;
   -fx-alignment: center center;
   -fx-background-radius: 0;
   -fx-border-radius: 0;
-  -fx-border-width: 0;
+  //-fx-border-width: 0;
+  -fx-background-insets: 0;
   -fx-text-fill: -text-color;
 
+  -fx-border-width: 0;
+  -fx-border-color: -prim-color;
+
+  &:focused {
+    //-fx-background-insets: 0;
+    //-fx-background-color: none;
+    //-fx-border-width: 0;
+    //-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-color: -prim-color;
+
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    //-fx-text-fill: -fx-text-base-color;
+    //-fx-alignment: CENTER;
+    //-fx-content-display: LEFT;
+  }
+
   &:hover {
-    -fx-background-color: derive(-primary-color, -7.5%);
+    //-fx-background-color: derive(-prim-color, -7.5%);
+    -fx-cursor: hand;
   }
   & .label {
     -fx-text-fill: -text-color;
@@ -41,7 +62,8 @@
     -fx-padding: .5em;
 
     &:hover {
-      -fx-background-color: derive(-primary-color, 30%);
+      -fx-cursor: hand;
+      -fx-background-color: derive(-prim-color, 30%);
       -fx-text-fill: -text-color;
 
       & .label {
@@ -50,7 +72,7 @@
     }
 
     &:focused {
-      -fx-background-color: derive(-primary-color, 30%);
+      -fx-background-color: derive(-prim-color, 30%);
       -fx-text-fill: -text-color;
       & .label, > .label {
         -fx-text-fill: -text-color;
@@ -62,13 +84,14 @@
 
 %context-menu {
   & .context-menu {
-    -fx-background-color: derive(-primary-color, 15%);
+    -fx-background-color: derive(-prim-color, 15%);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 3, 0.0, 0, 2);
 
     & .scroll-arrow {
-      -fx-background-color: derive(-primary-color, 45%);
+      -fx-background-color: derive(-prim-color, 45%);
       &:hover {
-        -fx-background-color: derive(-primary-color, 60%);
+        -fx-cursor: hand;
+        -fx-background-color: derive(-prim-color, 60%);
       }
     }
 

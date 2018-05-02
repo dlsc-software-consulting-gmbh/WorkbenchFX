@@ -1,31 +1,53 @@
-$tab-spacing: 0.75em;
+//$tab-spacing: 0.0em;
 
 #toolbar {
-  -fx-spacing: $tab-spacing;
+  //-fx-spacing: $tab-spacing;
+  -fx-background-color: -prim-color;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0.0, 0, 3);
 
   & #home-button {
     @extend %toolbar-setup;
     -fx-min-width: $pref-size;
+    -fx-background-color: -text-color;
+    -fx-border-color: -text-color;
 
     & #home-icon-view {
       // The actual home-icon
+      -fx-fill: -prim-color;
     }
-  }
 
-  #menu-icon-view {
-    -fx-fill: white;
+    & .active-tab {
+      //-fx-background-color: derive(-prim-color, -30%) !important;
+      //-fx-border-width: 0 0 $border 0 !important;
+      //-fx-border-color: derive(-prim-color, -30%) !important;
+      -fx-border-color: -prim-color !important;
+    }
+
+    &:focused {
+      -fx-background-color: -text-color;
+    }
   }
 
   #menu-button {
     @extend %toolbar-setup;
     -fx-min-width: $pref-size;
+    -fx-background-color: -text-color;
+    -fx-border-color: -text-color;
+
+    & #menu-icon-view {
+      -fx-fill: -prim-color;
+    }
+
+    &:focused {
+      -fx-background-color: -text-color;
+    }
   }
 
   & #tab-box {
-    -fx-spacing: 0.6 * $tab-spacing;
+    //-fx-spacing: 0.6 * $tab-spacing;
   }
 
   & #toolbar-control-box {
-    -fx-spacing: 0.6 * $tab-spacing;
+    //-fx-spacing: 0.6 * $tab-spacing;
   }
 }

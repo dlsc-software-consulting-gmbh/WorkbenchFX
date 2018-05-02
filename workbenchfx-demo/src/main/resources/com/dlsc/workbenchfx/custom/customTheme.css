@@ -1,10 +1,12 @@
 .root {
-    -primary-color: #0085d6;
+    -prim-color: #3f51b5;
+    -prim-color-hover: #5566c3;
     -danger-color: #f17a7a;
     -success-color: #47aa71;
     -accent-color: #aa8a70;
     -text-color: white;
-    -module-background-color: derive(-primary-color, 140%);
+    -text-color-transparent: rgba(255, 255, 255, .7);
+    /*-module-background-color: derive(-primary-color, 140%);*/
 
     -icons-color: -text-color;
     -fx-font-size: 14px;
