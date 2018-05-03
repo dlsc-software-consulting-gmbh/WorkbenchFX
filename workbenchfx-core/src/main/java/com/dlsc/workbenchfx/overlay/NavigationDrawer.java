@@ -1,8 +1,10 @@
-package com.dlsc.workbenchfx.view.controls;
+package com.dlsc.workbenchfx.overlay;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Objects;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
@@ -18,9 +20,9 @@ import javafx.scene.control.Skin;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class NavigationDrawer extends Control {
+public class NavigationDrawer extends Control implements Overlay {
 
-  private final ObservableList<MenuItem> items;
+  private ObservableList<MenuItem> items;
   private WorkbenchFx workbench;
 
   /**
@@ -29,11 +31,7 @@ public class NavigationDrawer extends Control {
    * @param workbench to get the items for the menu from
    */
   public NavigationDrawer(WorkbenchFx workbench) {
-    this.workbench = Objects.requireNonNull(workbench);
-
     getStyleClass().add("navigation-drawer");
-
-    items = workbench.getNavigationDrawerItems();
   }
 
   @Override
@@ -47,5 +45,23 @@ public class NavigationDrawer extends Control {
 
   public final ObservableList<MenuItem> getItems() {
     return items;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Node init(WorkbenchFx workbench) {
+    this.workbench = workbench;
+    items = workbench.getNavigationDrawerItems();
+    return this;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isBlocking() {
+    return false;
   }
 }

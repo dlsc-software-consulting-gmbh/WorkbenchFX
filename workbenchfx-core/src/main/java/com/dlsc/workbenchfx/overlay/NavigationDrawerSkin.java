@@ -1,5 +1,6 @@
-package com.dlsc.workbenchfx.view.controls;
+package com.dlsc.workbenchfx.overlay;
 
+import com.dlsc.workbenchfx.view.controls.PrettyScrollPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.Observable;
