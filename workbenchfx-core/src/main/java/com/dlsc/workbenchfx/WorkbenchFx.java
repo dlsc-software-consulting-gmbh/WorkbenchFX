@@ -17,7 +17,6 @@ import com.google.common.collect.HashBiMap;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.function.BiFunction;
-import java.util.function.Consumer;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -426,8 +425,8 @@ public final class WorkbenchFx extends StackPane {
   /**
    * Returns the list of all overlays.
    */
-  public ObservableList<Node> getOverlays() {
-    return FXCollections.unmodifiableObservableList(overlays);
+  public ObservableMap<Overlay, GlassPane> getOverlays() {
+    return FXCollections.unmodifiableObservableMap(overlays);
   }
 
   /**

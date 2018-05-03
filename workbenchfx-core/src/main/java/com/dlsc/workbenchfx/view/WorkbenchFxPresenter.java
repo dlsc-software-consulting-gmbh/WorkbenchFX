@@ -1,9 +1,14 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.overlay.Overlay;
+import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Objects;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +26,7 @@ public class WorkbenchFxPresenter implements Presenter {
   private WorkbenchFx model;
   private WorkbenchFxView view;
 
-  private ObservableList<Node> overlays;
+  private ObservableMap<Overlay, GlassPane> overlays;
 
   /**
    * Constructs a new {@link WorkbenchFxPresenter} for the {@link WorkbenchFxView}.
@@ -69,31 +74,49 @@ public class WorkbenchFxPresenter implements Presenter {
         view.contentView.setContent(Objects.isNull(newModule) ? view.homeView : newModule)
     );
 
-    overlays.addListener((ListChangeListener<? super Node>) c -> {
-      LOGGER.trace("Listener getOverlays fired");
-      while (c.next()) {
-        LOGGER.trace(String.format("Changed - Added: %s, Removed: %s", c.getAddedSize(),
-            c.getRemovedSize()));
-        if (c.wasRemoved()) {
-          for (Node node : c.getRemoved()) {
-            LOGGER.trace("Overlay removed");
-            view.getChildren().remove(node);
-          }
-        }
-        if (c.wasAdded()) {
-          for (Node node : c.getAddedSubList()) {
-            LOGGER.trace("Overlay added");
-            addOverlay(node);
-          }
-        }
-      }
-    });
+    overlays.addListener(
+        (MapChangeListener<Overlay, GlassPane>)
+            c -> {
+              LOGGER.trace("Listener getOverlays fired");
+              if (c.wasAdded()) {
+
+              }
+              while (c.next()) {
+                LOGGER.trace(
+                    String.format(
+                        "Changed - Added: %s, Removed: %s", c.getAddedSize(), c.getRemovedSize()));
+                if (c.wasRemoved()) {
+                  for (Node node : c.getRemoved()) {
+                    LOGGER.trace("Overlay removed");
+                    view.getChildren().remove(node);
+                  }
+                }
+                if (c.wasAdded()) {
+                  for (Node node : c.getAddedSubList()) {
+                    LOGGER.trace("Overlay added");
+                    addOverlay(node);
+                  }
+                }
+              }
+            });
   }
 
-  private void addOverlay(Node node) {
+  private void addOverlay(Overlay overlay, GlassPane glassPane) {
     LOGGER.trace("addOverlay");
-    node.setVisible(false);
-    view.getChildren().add(node);
+    Node overlayNode = overlay.init(model);
+    overlayNode.setVisible(false);
+    view.getChildren().add(overlayNode);
+    Bindings.bindBidirectional(glassPane.hideProperty(), overlayNode.visibleProperty().not());
+    Bindings.bind
+    glassPane.hideProperty().bindBidirectional(overlayNode.visibleProperty());
+  }
+
+  private void removeOverlay(Overlay overlay, GlassPane glassPane) {
+    LOGGER.trace("removeOverlay");
+    Node overlayNode = overlay.init(model);
+    overlayNode.setVisible(false);
+    view.getChildren().add(overlayNode);
+    glassPane.hideProperty().bind(overlayNode.visibleProperty());
   }
 
   /**
