@@ -22,6 +22,7 @@ public class ToolbarView extends HBox implements View {
   Button homeBtn;
   Button menuBtn;
   private HBox tabBox;
+  HBox toolbarControlLeftBox;
   HBox toolbarControlBox;
 
   /**
@@ -58,6 +59,9 @@ public class ToolbarView extends HBox implements View {
     tabBox = new HBox();
     tabBox.setId("tab-box");
 
+    toolbarControlLeftBox = new HBox();
+    toolbarControlLeftBox.setId("toolbar-control-left-box");
+
     toolbarControlBox = new HBox();
     toolbarControlBox.setId("toolbar-control-box");
   }
@@ -67,7 +71,7 @@ public class ToolbarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().addAll(homeBtn, tabBox, toolbarControlBox);
+    getChildren().addAll(toolbarControlLeftBox, homeBtn, tabBox, toolbarControlBox);
     setHgrow(tabBox, Priority.ALWAYS);
   }
 
@@ -107,10 +111,29 @@ public class ToolbarView extends HBox implements View {
    */
   /**
    * Removes a tab to the {@code tabBox}.
+   *
    * @param index of the tab to be removed
    */
   public void removeTab(int index) {
     tabBox.getChildren().remove(index);
+  }
+
+  /**
+   * Adds a {@link Node} at the end of the {@code toolbarControlLeftBox}.
+   *
+   * @param toolbarControlLeft the {@link Node} to be added
+   */
+  public void addToolbarControlLeft(Node toolbarControlLeft) {
+    toolbarControlLeftBox.getChildren().add(toolbarControlLeft);
+  }
+
+  /**
+   * Removes a {@link Node} at the specified index of the {@code toolbarControlLeftBox}.
+   *
+   * @param index the index where the specified {@link Node} should be removed
+   */
+  public void removeToolbarControlLeft(int index) {
+    toolbarControlLeftBox.getChildren().remove(index);
   }
 
   /**

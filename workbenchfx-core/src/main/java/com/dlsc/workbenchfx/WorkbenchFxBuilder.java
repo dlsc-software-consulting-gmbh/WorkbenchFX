@@ -88,6 +88,7 @@ public final class WorkbenchFxBuilder {
   };
 
   Node[] toolbarControls;
+  Node[] toolbarControlsLeft;
 
   Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
     // Defines the width of the navigationDrawer.
@@ -197,6 +198,17 @@ public final class WorkbenchFxBuilder {
    */
   public WorkbenchFxBuilder navigationDrawer(MenuItem... navigationDrawerItems) {
     this.navigationDrawerItems = navigationDrawerItems;
+    return this;
+  }
+
+  /**
+   * Creates the Controls which are placed on top-left of the Toolbar.
+   *
+   * @param toolbarControlsLeft the {@code toolbarControls} which will be added to the Toolbar
+   * @return the updated {@link WorkbenchFxBuilder}
+   */
+  public WorkbenchFxBuilder toolbarLeft(Node... toolbarControlsLeft) {
+    this.toolbarControlsLeft = toolbarControlsLeft;
     return this;
   }
 

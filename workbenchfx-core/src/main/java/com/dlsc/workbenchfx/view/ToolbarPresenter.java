@@ -28,6 +28,7 @@ public class ToolbarPresenter implements Presenter {
   // Strong reference to prevent garbage collection
   private final ObservableList<Module> openModules;
   private final ObservableList<MenuItem> navigationDrawerItems;
+  private final ObservableList<Node> toolbarControlsLeft;
   private final ObservableList<Node> toolbarControls;
 
   /**
@@ -38,6 +39,7 @@ public class ToolbarPresenter implements Presenter {
     this.view = view;
     openModules = model.getOpenModules();
     navigationDrawerItems = model.getNavigationDrawerItems();
+    toolbarControlsLeft = model.getToolbarControlsLeft();
     toolbarControls = model.getToolbarControls();
     init();
   }
@@ -48,6 +50,7 @@ public class ToolbarPresenter implements Presenter {
   @Override
   public void initializeViewParts() {
     model.getToolbarControls().forEach(view::addToolbarControl);
+    model.getToolbarControlsLeft().forEach(view::addToolbarControlLeft);
 
     // only add the menu button, if there is at least one navigation drawer item
     if (model.getNavigationDrawerItems().size() > 0) {
@@ -73,6 +76,24 @@ public class ToolbarPresenter implements Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
+    // When the List of the currently open toolbarControlsLeft is changed, the view is updated.
+    toolbarControlsLeft.addListener((ListChangeListener<? super Node>) c -> {
+      while (c.next()) {
+        if (c.wasRemoved()) {
+          for (Node node : c.getRemoved()) {
+            LOGGER.debug("Dropdown " + node + " removed");
+            view.removeToolbarControlLeft(c.getFrom());
+          }
+        }
+        if (c.wasAdded()) {
+          for (Node node : c.getAddedSubList()) {
+            LOGGER.debug("Dropdown " + node + " added");
+            view.addToolbarControlLeft(node);
+          }
+        }
+      }
+    });
+
     // When the List of the currently open toolbarControls is changed, the view is updated.
     toolbarControls.addListener((ListChangeListener<? super Node>) c -> {
       while (c.next()) {

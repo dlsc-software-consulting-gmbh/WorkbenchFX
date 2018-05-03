@@ -163,38 +163,42 @@ public class CustomDemo extends Application {
         new NotesModule(),
         new PreferencesModule(),
         new NavigationDrawerTestModule()
-    ).toolbarControls(
-        Dropdown.of(
-            new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
-            new CustomMenuItem(new Label("Content 1")),
-            new CustomMenuItem(new Label("Content 2"))
-        ),
-        Dropdown.of(
-            new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
-            new Menu(
-                "Submenus", new FontAwesomeIconView(FontAwesomeIcon.PLUS),
-                new MenuItem("Submenu 1"),
-                new CustomMenuItem(new Label("CustomMenuItem"), false)
-            )
-        ),
-        Dropdown.of(
-            "Text",
-            new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
-            new CustomMenuItem(new Label("Content 1")),
-            new CustomMenuItem(new Label("Content 2"))
+    )
+        .toolbarLeft(
+            Dropdown.of(new FontAwesomeIconView(FontAwesomeIcon.GEARS))
         )
-    )
-    .modulesPerPage(2)
-    .tabFactory(tabFactory)
-    .tileFactory(tileFactory)
-    .pageFactory(pageFactory)
-    .navigationDrawerFactory(navigationDrawerFactory)
-    .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showModalOverlay)
-    .overlays(
-        workbench -> new CustomOverlay(workbench, false),
-        workbench -> new CustomOverlay(workbench, true)
-    )
-    .build();
+        .toolbarControls(
+            Dropdown.of(
+                new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
+                new CustomMenuItem(new Label("Content 1")),
+                new CustomMenuItem(new Label("Content 2"))
+            ),
+            Dropdown.of(
+                new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
+                new Menu(
+                    "Submenus", new FontAwesomeIconView(FontAwesomeIcon.PLUS),
+                    new MenuItem("Submenu 1"),
+                    new CustomMenuItem(new Label("CustomMenuItem"), false)
+                )
+            ),
+            Dropdown.of(
+                "Text",
+                new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
+                new CustomMenuItem(new Label("Content 1")),
+                new CustomMenuItem(new Label("Content 2"))
+            )
+        )
+        .modulesPerPage(2)
+        .tabFactory(tabFactory)
+        .tileFactory(tileFactory)
+        .pageFactory(pageFactory)
+        .navigationDrawerFactory(navigationDrawerFactory)
+        .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showModalOverlay)
+        .overlays(
+            workbench -> new CustomOverlay(workbench, false),
+            workbench -> new CustomOverlay(workbench, true)
+        )
+        .build();
 
     ObservableList<Node> overlays = workbenchFx.getOverlays();
     showOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(1), false));

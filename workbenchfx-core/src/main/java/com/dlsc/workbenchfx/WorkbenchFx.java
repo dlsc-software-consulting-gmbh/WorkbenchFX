@@ -61,6 +61,7 @@ public final class WorkbenchFx extends StackPane {
 
   // Lists
   private final ObservableList<Node> toolbarControls = FXCollections.observableArrayList();
+  private final ObservableList<Node> toolbarControlsLeft = FXCollections.observableArrayList();
   private final ObservableList<MenuItem> navigationDrawerItems =
       FXCollections.observableArrayList();
   /**
@@ -139,6 +140,10 @@ public final class WorkbenchFx extends StackPane {
   }
 
   private void initToolbarControls(WorkbenchFxBuilder builder) {
+    if (builder.toolbarControlsLeft != null) {
+      toolbarControlsLeft.addAll(builder.toolbarControlsLeft);
+    }
+
     if (builder.toolbarControls != null) {
       toolbarControls.addAll(builder.toolbarControls);
     }
@@ -369,6 +374,35 @@ public final class WorkbenchFx extends StackPane {
 
   public void setGlassPaneShown(boolean glassPaneShown) {
     this.glassPaneShown.set(glassPaneShown);
+  }
+
+  /**
+   * Removes a {@link Node} if one is in the {@code toolbarControlsLeft}.
+   *
+   * @param node the {@link Node} which should be removed
+   * @return true if sucessful, false if not
+   */
+  public boolean removeToolbarControlLeft(Node node) {
+    return toolbarControlsLeft.remove(node);
+  }
+
+  /**
+   * Inserts a given {@link Node} at the end of the {@code toolbarControlsLeft}.
+   * If the {@code toolbarControlsLeft} already contains the {@link Node} it will not be added.
+   *
+   * @param node the {@link Node} to be added to the {@code toolbarControlsLeft}
+   * @return true if {@code toolbarControlsLeft} was changed, false if not
+   */
+  public boolean addToolbarControlLeft(Node node) {
+    if (!toolbarControlsLeft.contains(node)) {
+      toolbarControlsLeft.add(node);
+      return true;
+    }
+    return false;
+  }
+
+  public ObservableList<Node> getToolbarControlsLeft() {
+    return FXCollections.unmodifiableObservableList(toolbarControlsLeft);
   }
 
   /**
