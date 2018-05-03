@@ -1,7 +1,4 @@
 .active-tab {
-  //-fx-background-color: derive(-prim-color, -30%) !important;
-  //-fx-border-width: 0 0 $border 0 !important;
-  //-fx-border-color: derive(-prim-color, -30%) !important;
   -fx-border-color: -text-color !important;
 
   & .tab-icon {

@@ -14,6 +14,7 @@
 
   &:focused {
     -fx-background-radius: $border;
+    -fx-background-color: derive(-prim-color, $darken-percentage);
   }
 }
 

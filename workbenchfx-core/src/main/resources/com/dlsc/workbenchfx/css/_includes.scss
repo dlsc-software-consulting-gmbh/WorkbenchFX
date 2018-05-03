@@ -14,18 +14,13 @@
 
 //Initiating the basic behaviour of any item in the toolbar
 %toolbar-setup {
-  -fx-max-height: $pref-size;
-  -fx-min-height: $pref-size;
   -fx-pref-height: $pref-size;
-  //-fx-background-color: derive(-prim-color, -15%);
-  //-fx-background-color: none;
   -fx-background-color: -prim-color;
   -fx-padding: .5em;
   -fx-spacing: .5em;
   -fx-alignment: center center;
   -fx-background-radius: 0;
   -fx-border-radius: 0;
-  //-fx-border-width: 0;
   -fx-background-insets: 0;
   -fx-text-fill: -text-color;
 
@@ -33,41 +28,46 @@
   -fx-border-color: -prim-color;
 
   &:focused {
-    //-fx-background-insets: 0;
-    //-fx-background-color: none;
-    //-fx-border-width: 0;
-    //-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
-    -fx-background-color: -prim-color;
-
     -fx-background-insets: 0;
     -fx-background-radius: 0;
-    //-fx-text-fill: -fx-text-base-color;
-    //-fx-alignment: CENTER;
-    //-fx-content-display: LEFT;
   }
 
   &:hover {
-    //-fx-background-color: derive(-prim-color, -7.5%);
     -fx-cursor: hand;
   }
+
   & .label {
     -fx-text-fill: -text-color;
   }
-
 }
 
 %menu-item {
-
   & .menu-item {
-    //-fx-padding: 1em 2em 1em 2em;
     -fx-padding: 1em 1.5em 1em 1.5em;
-
     -fx-alignment: center-left;
-    //-fx-padding: .5em;
     -fx-background-radius: 0;
     -fx-background-color: -text-color;
     -fx-text-fill: -prim-color;
     -icons-color: -prim-color;
+
+    // Hovering in the global menu
+    &:hover {
+      -fx-cursor: hand;
+      -fx-background-color: derive(-text-color, $darken-percentage);
+
+      & .label {
+        -fx-text-fill: -prim-color;
+      }
+    }
+
+    &:focused {
+      // Also active when hovering through the submenus
+      -fx-background-color: derive(-text-color, $darken-percentage);
+      -fx-text-fill: -prim-color;
+      & .label, > .label {
+        -fx-text-fill: -prim-color;
+      }
+    }
 
     & > .graphic-container {
       -fx-padding: 0 0.5em 0 0.5em;
@@ -83,28 +83,7 @@
         -fx-background-color: -prim-color;
       }
     }
-
-    // Hovering in the global menu
-    &:hover {
-      -fx-cursor: hand;
-      -fx-background-color: derive(-text-color, -5%);
-      //-fx-text-fill: -prim-color;
-
-      & .label {
-        -fx-text-fill: -prim-color;
-      }
-    }
-
-    &:focused {
-      // Also active when hovering through the submenus
-      -fx-background-color: derive(-text-color, -5%);
-      -fx-text-fill: -prim-color;
-      & .label, > .label {
-        -fx-text-fill: -prim-color;
-      }
-    }
   }
-
 }
 
 %context-menu {
@@ -113,9 +92,14 @@
     -fx-background-color: -text-color;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 3, 0.0, 0, 2);
 
-    & > .scroll-arrow { // ArrowMenuItem
+    // ArrowMenuItem
+    & > .scroll-arrow {
       -fx-padding: .75em;
       -fx-background-color: -prim-color;
+
+      &:hover {
+        -fx-background-color: derive(-prim-color, $darken-percentage);
+      }
 
       & .menu-up-arrow {
         -fx-background-color: -text-color;
@@ -125,10 +109,6 @@
       & .menu-down-arrow {
         -fx-background-color: -text-color;
         -fx-effect: 0;
-      }
-
-      &:hover {
-        -fx-background-color: derive(-prim-color, -30%);
       }
     }
 

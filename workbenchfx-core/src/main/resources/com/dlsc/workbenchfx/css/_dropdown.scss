@@ -2,11 +2,11 @@
   @extend %toolbar-setup;
 
   &:hover {
-    -fx-background-color: derive(-prim-color, -30%);
+    -fx-background-color: derive(-prim-color, $darken-percentage);
   }
 
   &:focused {
-    -fx-background-color: derive(-prim-color, -30%);
+    -fx-background-color: derive(-prim-color, $darken-percentage);
   }
 
   & .icon {
@@ -22,4 +22,3 @@
   @extend %menu-item;
   @extend %context-menu;
 }
-

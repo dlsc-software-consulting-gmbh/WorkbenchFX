@@ -1,7 +1,4 @@
-//$tab-spacing: 0.0em;
-
 #toolbar {
-  //-fx-spacing: $tab-spacing;
   -fx-background-color: -prim-color;
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0.0, 0, 3);
 
@@ -9,16 +6,9 @@
     @extend %toolbar-setup;
     -fx-border-width: 0 0 $border 0;
     -fx-min-width: $pref-size;
-    //-fx-background-color: -text-color;
-    //-fx-border-color: -prim-color;
 
     & #home-icon-view {
-      // The actual home-icon
-      //-fx-fill: -prim-color;
-    }
 
-    &:focused {
-      //-fx-background-color: -text-color;
     }
   }
 
@@ -39,10 +29,10 @@
   }
 
   & #tab-box {
-    //-fx-spacing: 0.6 * $tab-spacing;
+
   }
 
   & #toolbar-control-box {
-    //-fx-spacing: 0.6 * $tab-spacing;
+
   }
 }

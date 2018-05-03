@@ -2,12 +2,11 @@
   .tile-page {
     -fx-vgap: 40;
     -fx-hgap: 40;
-    -fx-alignment: center;
     -fx-padding: 20;
+    -fx-alignment: center center;
   }
 
   .pagination {
-
     -fx-arrows-visible: false;
     -fx-page-information-visible: false;
     -fx-tooltip-visible: false;
@@ -18,7 +17,7 @@
       -fx-background-insets: 5.25;
       &:hover {
         -fx-cursor: hand;
-        -fx-background-color: derive(-text-color, -15%);
+        -fx-background-color: derive(-text-color, $darken-percentage);
       }
       &:selected {
         -fx-background-color: -prim-color;
