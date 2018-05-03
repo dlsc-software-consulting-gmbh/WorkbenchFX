@@ -26,15 +26,12 @@ public class GlassPane extends StackPane {
   /**
    * Creates a {@link GlassPane} object and fully initializes it.
    *
-   * @param workbench to be used for calling {@link WorkbenchFx#hideAllOverlays()} on, when the
-   *     {@link GlassPane} is being clicked on by the user.
    * @param overlay which this glass pane belongs to and is shown with
    */
-  public GlassPane(WorkbenchFx workbench) {
+  public GlassPane() {
     getStyleClass().add("glass-pane");
 
     setMouseTransparent(false);
-    setOnMouseClicked(evt -> workbench.hideOverlay());
     setVisible(false);
 
     hideProperty().addListener((observable, oldHide, newHide) -> {

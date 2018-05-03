@@ -34,6 +34,7 @@ public class WorkbenchFxPresenter implements Presenter {
     overlays = model.getOverlays();
     this.view = view;
     init();
+
     initializeOverlays();
   }
 

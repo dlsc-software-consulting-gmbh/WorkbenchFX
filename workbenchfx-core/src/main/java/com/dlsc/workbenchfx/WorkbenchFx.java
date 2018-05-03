@@ -439,73 +439,23 @@ public final class WorkbenchFx extends StackPane {
    *           and load all of the overlays initially. Only use this method if keeping the overlay
    *           loaded in the background is not possible due to performance reasons!
    */
-  public void addOverlay(Node overlay) {
+  public void addOverlay(Overlay overlay) {
     LOGGER.trace("addOverlay");
-    overlays.put(overlay, new GlassPane(this));
+    overlays.put(overlay, new GlassPane());
   }
 
   /**
    * Removes an overlay from the scene graph, which has previously been loaded either using
-   * {@link WorkbenchFx#addOverlay(Node)} or {@link WorkbenchFxBuilder#overlays(Callback[])})}.
+   * {@link WorkbenchFx#addOverlay(Overlay)} or {@link WorkbenchFxBuilder#overlays(Callback[])})}.
    *
    * @param overlay to be removed from the scene graph
    * @implNote Preferably, don't use this method to remove the overlays from the scene graph, but
    *           rather use {@link WorkbenchFx#hideOverlay(Node, boolean)}. Only use this method if
    *           keeping the overlay loaded in the background is not possible due to performance
    */
-  public void removeOverlay(Node overlay) {
+  public void removeOverlay(Overlay overlay) {
     LOGGER.trace("removeOverlay");
     overlays.remove(overlay);
-  }
-
-  /**
-   * Makes an overlay, which has previously been loaded, visible.
-   *
-   * @param overlay the {@link Node} of the loaded overlay to be made visible
-   * @param modal   if true, a transparent black {@link GlassPane} will be shown in the background
-   *                of the overlay, which makes the overlay disappear if the user clicks outside of
-   *                the overlay.
-   */
-  public void showOverlay(Node overlay) {
-    overlay.setVisible(true);
-    if (modal) {
-      LOGGER.trace("showOverlay - modal - " + overlay);
-      boolean result = blockingOverlaysShown.add(overlay);
-      LOGGER.trace("showOverlay - modal - Result: " + result);
-    } else {
-      LOGGER.trace("showOverlay - non-modal");
-      overlaysShown.add(overlay);
-    }
-  }
-
-  /**
-   * Hides an overlay, which has previously been made visible using
-   * {@link WorkbenchFx#showOverlay(Node)}.
-   *
-   * @param overlay the {@link Node} of the already shown overlay to be hidden
-   */
-  public void hideOverlay(Node overlay) {
-    overlay.setVisible(false);
-    if (modal) {
-      LOGGER.trace("hideOverlay - modal");
-      boolean result = blockingOverlaysShown.remove(overlay);
-      LOGGER.trace("hideOverlay - modal - Result: " + result);
-    } else {
-      LOGGER.trace("hideOverlay - non-modal");
-      overlaysShown.remove(overlay);
-    }
-  }
-
-  /**
-   * Hides all overlays, both modal and non-modal, which are being shown.
-   */
-  public void hideAllOverlays() {
-    LOGGER.trace("hideAllOverlays");
-    Consumer<Node> hideOverlays = overlay -> overlay.setVisible(false);
-    blockingOverlaysShown.forEach(hideOverlays);
-    overlaysShown.forEach(hideOverlays);
-    blockingOverlaysShown.clear();
-    overlaysShown.clear();
   }
 
   public ObservableList<MenuItem> getNavigationDrawerItems() {
