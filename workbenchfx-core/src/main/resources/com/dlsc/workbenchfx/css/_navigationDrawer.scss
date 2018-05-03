@@ -40,23 +40,17 @@
 
   }
 
-  #back-icon-view {
-
-  }
-
   #back-button {
-    @extend %toolbar-setup;
-    -fx-border-width: 0 0 $border 0;
-    -fx-min-width: $pref-size;
-    -fx-background-color: -text-color;
-    -fx-border-color: -text-color;
+    // Comment in the button style you want to use
+    //@extend %button;
+    @extend %button-inverted;
 
-    & #back-icon-view {
-      -fx-fill: -prim-color;
+    & #menu-icon-view {
+
     }
 
-    &:focused {
-      -fx-background-color: -text-color;
+    & #back-icon-view {
+
     }
   }
 
@@ -80,5 +74,4 @@
       -fx-border-width: 1;
     }
   }
-
 }

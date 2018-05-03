@@ -50,6 +50,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
     FontAwesomeIconView backIconView = new FontAwesomeIconView(FontAwesomeIcon.ARROW_LEFT);
     backIconView.setId("back-icon-view");
+    backIconView.getStyleClass().add("icon-view");
     Button backBtn = new Button("", backIconView);
     backBtn.setId("back-button");
     backBtn.setOnAction(evt -> navigationDrawer.getWorkbench().hideOverlay(navigationDrawer, true));

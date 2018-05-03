@@ -1,9 +1,10 @@
 package com.dlsc.workbenchfx.view;
 
-import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
+import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_HOME;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -46,12 +47,14 @@ public class ToolbarView extends HBox implements View {
   public void initializeParts() {
     homeIconView = new FontAwesomeIconView(FontAwesomeIcon.HOME);
     homeIconView.setId("home-icon-view");
+    homeIconView.getStyleClass().add("icon-view");
     homeBtn = new Button("", homeIconView);
     homeBtn.setId("home-button");
-    homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
+    homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_HOME);
 
     menuIconView = new FontAwesomeIconView(FontAwesomeIcon.BARS);
     menuIconView.setId("menu-icon-view");
+    menuIconView.getStyleClass().add("icon-view");
     menuBtn = new Button("", menuIconView);
     menuBtn.setId("menu-button");
 
@@ -72,6 +75,7 @@ public class ToolbarView extends HBox implements View {
   public void layoutParts() {
     getChildren().addAll(toolbarControlLeftBox, homeBtn, tabBox, toolbarControlRightBox);
     setHgrow(tabBox, Priority.ALWAYS);
+    Platform.runLater(() -> homeBtn.requestFocus());
   }
 
   /**

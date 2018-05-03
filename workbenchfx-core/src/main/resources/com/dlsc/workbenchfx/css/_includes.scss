@@ -139,3 +139,53 @@
     }
   }
 }
+
+%button {
+  @extend %toolbar-setup;
+  -fx-min-width: $pref-size;
+  -fx-text-fill: -text-color;
+
+  & > .label {
+    -fx-min-width: null;
+    -fx-text-fill: -text-color;
+  }
+
+  &:hover {
+    -fx-background-color: derive(-prim-color, $darken-percentage);
+  }
+
+  &:pressed {
+    -fx-background-color: derive(-prim-color, $darken-percentage);
+  }
+}
+
+%button-inverted {
+  @extend %button;
+  -fx-background-color: -text-color;
+  -fx-text-fill: -prim-color;
+
+  & .glyph-icon {
+    -fx-fill: -prim-color;
+  }
+
+  & > .label {
+    -fx-text-fill: -prim-color;
+  }
+
+  &:hover {
+    -fx-background-color: -prim-color;
+    -fx-text-fill: -text-color;
+
+    & .glyph-icon {
+      -fx-fill: -text-color;
+    }
+
+    & > .label {
+      -fx-text-fill: -text-color;
+    }
+  }
+
+  &:pressed {
+    -fx-background-color: derive(-prim-color, $darken-percentage);
+  }
+}

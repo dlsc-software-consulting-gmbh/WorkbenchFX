@@ -2,29 +2,37 @@
   -fx-background-color: -prim-color;
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0.0, 0, 3);
 
-  & #home-button {
-    @extend %toolbar-setup;
-    -fx-border-width: 0 0 $border 0;
-    -fx-min-width: $pref-size;
-
-    & #home-icon-view {
-
-    }
-  }
-
   #menu-button {
-    @extend %toolbar-setup;
-    -fx-border-width: 0 0 $border 0;
-    -fx-min-width: $pref-size;
-    -fx-background-color: -text-color;
-    -fx-border-color: -text-color;
+    // Comment in the button style you want to use
+    //@extend %button;
+    @extend %button-inverted;
 
     & #menu-icon-view {
-      -fx-fill: -prim-color;
+      //-fx-fill: -prim-color;
     }
 
     &:focused {
-      -fx-background-color: -text-color;
+      //-fx-background-color: -text-color;
+    }
+  }
+
+  & #toolbar-control-left-box {
+    // Comment in the button style you want to use
+    & .button {
+      @extend %button;
+    }
+    & .button-inverted {
+      @extend %button-inverted;
+    }
+  }
+
+  & #home-button {
+    // Comment in the button style you want to use
+    @extend %button;
+    //@extend %button-inverted;
+
+    & #home-icon-view {
+
     }
   }
 
@@ -32,11 +40,9 @@
 
   }
 
-  & #toolbar-control-left-box {
-
-  }
-
   & #toolbar-control-right-box {
-
+    & .button {
+      @extend %button;
+    }
   }
 }

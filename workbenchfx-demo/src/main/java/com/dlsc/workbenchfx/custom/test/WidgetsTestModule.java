@@ -37,7 +37,14 @@ public class WidgetsTestModule extends AbstractModule {
     customPane.add(new CheckBox("CheckBox"), 0, 3);
     customPane.add(new ComboBox<String>(), 0, 4);
 
-    invert.setOnAction(event -> ((Dropdown)workbench.getToolbarControlsLeft().get(0)).invertStyle());
+    invert.setOnAction(event -> {
+      Button b = ((Button)workbench.getToolbarControlsLeft().get(0));
+      if (b.getStyleClass().contains("button-inverted")) {
+        b.getStyleClass().remove("button-inverted");
+      } else {
+        b.getStyleClass().add("button-inverted");
+      }
+    });
 
     customPane.setAlignment(Pos.CENTER);
   }
