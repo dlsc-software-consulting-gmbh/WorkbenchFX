@@ -150,4 +150,14 @@ public class DropdownSkin extends SkinBase<Dropdown> {
       }
     });
   }
+
+  public void invertStyle() {
+    if (menuButton.getStyleClass().contains("dropdown")) {
+      menuButton.getStyleClass().remove("dropdown");
+      menuButton.getStyleClass().add("dropdown-inverted");
+    } else {
+      menuButton.getStyleClass().remove("dropdown-inverted");
+      menuButton.getStyleClass().add("dropdown");
+    }
+  }
 }

@@ -22,3 +22,37 @@
   @extend %menu-item;
   @extend %context-menu;
 }
+
+.dropdown-inverted {
+  @extend %toolbar-setup;
+  -fx-background-color: -text-color;
+  -fx-text-fill: -prim-color;
+  -fx-border-color: -text-color;
+
+  & .label {
+    -fx-text-fill: -prim-color;
+  }
+
+  &:hover {
+    -fx-background-color: derive(-text-color, $darken-percentage);
+  }
+
+  &:focused {
+    -fx-background-color: derive(-text-color, $darken-percentage);
+  }
+
+  & .icon {
+    // The graphic node of the dropdown
+    -icons-color: -prim-color;
+  }
+  & .content-node {
+    // Each menu-item in the list
+  }
+  & .angle-down {
+    // The angle-down button to the right
+    -icons-color: -prim-color;
+  }
+
+  @extend %menu-item;
+  @extend %context-menu;
+}
