@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx;
 import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
 
 import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.overlay.Overlay;
 import com.dlsc.workbenchfx.view.ContentPresenter;
 import com.dlsc.workbenchfx.view.ContentView;
 import com.dlsc.workbenchfx.view.HomePresenter;
@@ -12,6 +13,8 @@ import com.dlsc.workbenchfx.view.ToolbarView;
 import com.dlsc.workbenchfx.view.WorkbenchFxPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchFxView;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.google.common.collect.HashBiMap;
+import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -24,6 +27,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
@@ -66,15 +70,16 @@ public final class WorkbenchFx extends StackPane {
   /**
    * List of the <b>blocking</b> overlays which are currently being shown.
    */
-  private final ObservableList<Node> blockingOverlaysShown = FXCollections.observableArrayList();
+  private final ObservableList<Overlay> blockingOverlaysShown = FXCollections.observableArrayList();
   /**
    * List of the <b>non-blocking</b> overlays which are currently being shown.
    */
   private final ObservableList<Node> overlaysShown = FXCollections.observableArrayList();
   /**
-   * List of all overlays, which have been loaded onto the scene graph.
+   * Map containing a linked list of all overlays which have been loaded onto the scene graph, with
+   * their corresponding {@link GlassPane}.
    */
-  private final ObservableList<Node> overlays = FXCollections.observableArrayList();
+  private final ObservableMap<Overlay, GlassPane> overlays = FXCollections.observableMap(HashBiMap.create(new LinkedHashMap<>()));
 
   // Modules
   /**
@@ -436,7 +441,7 @@ public final class WorkbenchFx extends StackPane {
    */
   public void addOverlay(Node overlay) {
     LOGGER.trace("addOverlay");
-    overlays.add(overlay);
+    overlays.put(overlay, new GlassPane(this));
   }
 
   /**
@@ -461,7 +466,7 @@ public final class WorkbenchFx extends StackPane {
    *                of the overlay, which makes the overlay disappear if the user clicks outside of
    *                the overlay.
    */
-  public void showOverlay(Node overlay, boolean modal) {
+  public void showOverlay(Node overlay) {
     overlay.setVisible(true);
     if (modal) {
       LOGGER.trace("showOverlay - modal - " + overlay);
@@ -475,13 +480,11 @@ public final class WorkbenchFx extends StackPane {
 
   /**
    * Hides an overlay, which has previously been made visible using
-   * {@link WorkbenchFx#showOverlay(Node, boolean)}.
+   * {@link WorkbenchFx#showOverlay(Node)}.
    *
    * @param overlay the {@link Node} of the already shown overlay to be hidden
-   * @param modal   match this to what has previously been used for the call to {@link
-   *                WorkbenchFx#showOverlay(Node, boolean)} for the respective {@code overlay}.
    */
-  public void hideOverlay(Node overlay, boolean modal) {
+  public void hideOverlay(Node overlay) {
     overlay.setVisible(false);
     if (modal) {
       LOGGER.trace("hideOverlay - modal");

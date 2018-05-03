@@ -1,9 +1,15 @@
 package com.dlsc.workbenchfx.view.controls;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.overlay.Overlay;
+import com.google.common.collect.HashBiMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
@@ -19,14 +25,16 @@ public class GlassPane extends StackPane {
 
   /**
    * Creates a {@link GlassPane} object and fully initializes it.
+   *
    * @param workbench to be used for calling {@link WorkbenchFx#hideAllOverlays()} on, when the
-   *                  {@link GlassPane} is being clicked on by the user.
+   *     {@link GlassPane} is being clicked on by the user.
+   * @param overlay which this glass pane belongs to and is shown with
    */
   public GlassPane(WorkbenchFx workbench) {
     getStyleClass().add("glass-pane");
 
     setMouseTransparent(false);
-    setOnMouseClicked(evt -> workbench.hideAllOverlays());
+    setOnMouseClicked(evt -> workbench.hideOverlay());
     setVisible(false);
 
     hideProperty().addListener((observable, oldHide, newHide) -> {
