@@ -29,7 +29,7 @@ public class ToolbarPresenter implements Presenter {
   private final ObservableList<Module> openModules;
   private final ObservableList<MenuItem> navigationDrawerItems;
   private final ObservableList<Node> toolbarControlsLeft;
-  private final ObservableList<Node> toolbarControls;
+  private final ObservableList<Node> toolbarControlsRight;
 
   /**
    * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
@@ -40,7 +40,7 @@ public class ToolbarPresenter implements Presenter {
     openModules = model.getOpenModules();
     navigationDrawerItems = model.getNavigationDrawerItems();
     toolbarControlsLeft = model.getToolbarControlsLeft();
-    toolbarControls = model.getToolbarControls();
+    toolbarControlsRight = model.getToolbarControlsRight();
     init();
   }
 
@@ -49,7 +49,7 @@ public class ToolbarPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    model.getToolbarControls().forEach(view::addToolbarControl);
+    model.getToolbarControlsRight().forEach(view::addToolbarControlRight);
     model.getToolbarControlsLeft().forEach(view::addToolbarControlLeft);
 
     // only add the menu button, if there is at least one navigation drawer item
@@ -94,19 +94,19 @@ public class ToolbarPresenter implements Presenter {
       }
     });
 
-    // When the List of the currently open toolbarControls is changed, the view is updated.
-    toolbarControls.addListener((ListChangeListener<? super Node>) c -> {
+    // When the List of the currently open toolbarControlsRight is changed, the view is updated.
+    toolbarControlsRight.addListener((ListChangeListener<? super Node>) c -> {
       while (c.next()) {
         if (c.wasRemoved()) {
           for (Node node : c.getRemoved()) {
             LOGGER.debug("Dropdown " + node + " removed");
-            view.removeToolbarControl(c.getFrom());
+            view.removeToolbarControlRight(c.getFrom());
           }
         }
         if (c.wasAdded()) {
           for (Node node : c.getAddedSubList()) {
             LOGGER.debug("Dropdown " + node + " added");
-            view.addToolbarControl(node);
+            view.addToolbarControlRight(node);
           }
         }
       }

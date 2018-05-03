@@ -23,7 +23,6 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -171,7 +170,7 @@ public class CustomDemo extends Application {
                 new CustomMenuItem(new Label("Menu 1"))
             )
         )
-        .toolbarControls(
+        .toolbarRight(
             Dropdown.of(
                 new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                 new CustomMenuItem(new Label("Content 1")),

@@ -7,8 +7,6 @@ import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.function.BiFunction;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
@@ -87,7 +85,7 @@ public final class WorkbenchFxBuilder {
     return gridPane;
   };
 
-  Node[] toolbarControls;
+  Node[] toolbarControlsRight;
   Node[] toolbarControlsLeft;
 
   Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
@@ -204,7 +202,7 @@ public final class WorkbenchFxBuilder {
   /**
    * Creates the Controls which are placed on top-left of the Toolbar.
    *
-   * @param toolbarControlsLeft the {@code toolbarControls} which will be added to the Toolbar
+   * @param toolbarControlsLeft the {@code toolbarRight} which will be added to the Toolbar
    * @return the updated {@link WorkbenchFxBuilder}
    */
   public WorkbenchFxBuilder toolbarLeft(Node... toolbarControlsLeft) {
@@ -215,11 +213,11 @@ public final class WorkbenchFxBuilder {
   /**
    * Creates the Controls which are placed on top-right of the Toolbar.
    *
-   * @param toolbarControls the {@code toolbarControls} which will be added to the Toolbar
+   * @param toolbarControlsRight the {@code toolbarRight} which will be added to the Toolbar
    * @return the updated {@link WorkbenchFxBuilder}
    */
-  public WorkbenchFxBuilder toolbarControls(Node... toolbarControls) {
-    this.toolbarControls = toolbarControls;
+  public WorkbenchFxBuilder toolbarRight(Node... toolbarControlsRight) {
+    this.toolbarControlsRight = toolbarControlsRight;
     return this;
   }
 
