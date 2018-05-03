@@ -2,7 +2,7 @@
   //-fx-background-color: derive(-prim-color, -30%) !important;
   //-fx-border-width: 0 0 $border 0 !important;
   //-fx-border-color: derive(-prim-color, -30%) !important;
-  -fx-border-color: -text-color;
+  -fx-border-color: -text-color !important;
 
   & .tab-icon {
     -icons-color: -text-color;
@@ -15,8 +15,4 @@
   & .close-btn {
     -icons-color: -text-color;
   }
-}
-
-.active-home {
-  -fx-border-color: -prim-color !important;
 }

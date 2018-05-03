@@ -14,6 +14,7 @@
   -fx-alignment: CENTER;
   -fx-content-display: LEFT;
 }
+
 .button:hover,
 .toggle-button:hover,
 .radio-button:hover > .radio,
@@ -35,6 +36,7 @@
 .tab-pane > .tab-header-area > .control-buttons-tab > .container > .tab-down-button:hover {
   -fx-color: -fx-hover-base;
 }
+
 .button:armed,
 .toggle-button:armed,
 .radio-button:armed > .radio,

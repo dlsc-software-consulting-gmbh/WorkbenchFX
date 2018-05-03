@@ -3,12 +3,12 @@
   -fx-background-radius: 0;
   -fx-padding: 0;
 
-  -fx-background-color: white;
-  -fx-border-color: transparent derive(-text-color, 150%) transparent transparent;
+  -fx-background-color: -text-color;
+  //-fx-border-color: transparent derive(-text-color, 150%) transparent transparent;
   -fx-effect: null;
 
   .separator:horizontal .line {
-    -fx-border-color: derive(-text-color, 20%) transparent transparent transparent;
+    -fx-border-color: derive(-text-color, -20%) transparent transparent transparent;
     -fx-border-insets: 1 0 0 0;
   }
 
@@ -29,12 +29,12 @@
   @extend %menu-item;
   @extend %context-menu;
 
-  & .menu-item {
-    & > .graphic-container {
-      -fx-padding: 0 0.5em 0 0.5em;
-    }
-    -fx-padding: 1em 2em 1em 2em;
-  }
+  //& .menu-item {
+  //  & > .graphic-container {
+  //    -fx-padding: 0 0.5em 0 0.5em;
+  //  }
+  //  -fx-padding: 1em 2em 1em 2em;
+  //}
 
   .menu-button > .label {
     -fx-graphic-text-gap: 1em;
@@ -44,83 +44,105 @@
     -fx-graphic-text-gap: 1em;
   }
 
-  .icon {
-    -fx-fill: -text-color;
-  }
+  //.icon {
+  //  -fx-fill: -text-color;
+  //}
+  //
+  //.menu-container {
+  //  -fx-background-color: derive(-prim-color, -15%);
+  //  .label {
+  //    -fx-text-fill: -text-color;
+  //  }
+  //  & .menu-button {
+  //    & >.label {
+  //      -fx-text-fill: -text-color;
+  //    }
+  //  }
+  //  & .context-menu {
+  //    & .menu-item {
+  //      & >.label {
+  //        -fx-text-fill: -text-color;
+  //      }
+  //    }
+  //  }
+  //  & .menu-item {
+  //    // menu button
+  //    -fx-text-fill: -text-color;
+  //    &:hover {
+  //      -fx-text-fill: -text-color;
+  //      & .label {
+  //        -fx-text-fill: -text-color;
+  //      }
+  //    }
+  //    &:focused {
+  //      -fx-text-fill: -text-color;
+  //      & .label, > .label {
+  //        -fx-text-fill: -text-color;
+  //      }
+  //    }
+  //  }
+  //}
+  //}
 
   .menu-container {
-    -fx-background-color: derive(-prim-color, -15%);
-    .label {
-      -fx-text-fill: -text-color;
-    }
-    & .menu-button {
-      & >.label {
-        -fx-text-fill: -text-color;
-      }
-    }
-    & .context-menu {
-      & .menu-item {
-        & >.label {
-          -fx-text-fill: -text-color;
-        }
-      }
-    }
-    & .menu-item {
-      // menu button
-      -fx-text-fill: -text-color;
-      &:hover {
-        -fx-text-fill: -text-color;
-        & .label {
-          -fx-text-fill: -text-color;
-        }
-      }
-      &:focused {
-        -fx-text-fill: -text-color;
-        & .label, > .label {
-          -fx-text-fill: -text-color;
-        }
-      }
-    }
-  }
-}
 
-.header {
-  -fx-spacing: 25;
-  -fx-alignment: center;
-  .separator .line {
-    -fx-border-color: white;
-    -fx-border-width: 1;
-  }
-}
-
-.menu-container {
-
-}
-
-#back-icon-view {
-
-}
-
-#back-button {
-  @extend %toolbar-setup;
-  -fx-background-color: transparent;
-  &:hover {
-    -fx-background-color: transparent;
-    & #back-icon-view {
-      -fx-fill: derive(-inverted-text-color, -15%);
-    }
   }
 
   #back-icon-view {
-    -fx-fill: derive(-inverted-text-color, -55%);
+
   }
-}
 
-.logo {
-  @include margin(20, 0, 0, 0);
-  -fx-alignment: center-left;
-}
+  #back-button {
+    @extend %toolbar-setup;
+    -fx-border-width: 0 0 $border 0;
+    -fx-min-width: $pref-size;
+    -fx-background-color: -text-color;
+    -fx-border-color: -text-color;
 
-.drawer-box {
+    & #back-icon-view {
+      -fx-fill: -prim-color;
+    }
+
+    &:focused {
+      -fx-background-color: -text-color;
+    }
+  }
+
+  //#back-button {
+  //  @extend %toolbar-setup;
+  //  -fx-background-color: transparent;
+  //  &:hover {
+  //    -fx-background-color: transparent;
+  //    & #back-icon-view {
+  //      -fx-fill: derive(-inverted-text-color, -15%);
+  //    }
+  //  }
+  //
+  //  #back-icon-view {
+  //    -fx-fill: derive(-inverted-text-color, -55%);
+  //  }
+  //}
+
+  .logo {
+    @include margin(20, 0, 0, 0);
+    -fx-alignment: center-left;
+  }
+
+  .drawer-box {
+
+  }
+
+  .header {
+    -fx-spacing: 25;
+    -fx-alignment: center;
+    -fx-background-color: -prim-color;
+    //-fx-effect: dropshadow(gaussian, rgba(255, 0, 0, .4), 8, 0.0, 0, 6);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0.0, 0, 3);
+
+    .separator .line {
+      -fx-border-color: -text-color;
+      -fx-border-width: 1;
+    }
+  }
 
 }

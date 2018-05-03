@@ -1,11 +1,15 @@
 .root {
     -prim-color: #3f51b5;
+    /*-prim-color: #f3eb70;*/
     -prim-color-hover: #5566c3;
+    /*-prim-color-hover: #ffffaa;*/
     -danger-color: #f17a7a;
     -success-color: #47aa71;
     -accent-color: #aa8a70;
     -text-color: white;
+    /*-text-color: #474423;*/
     -text-color-transparent: rgba(255, 255, 255, .7);
+    /*-text-color-transparent: rgba(71, 68, 35, 0.8);*/
     /*-module-background-color: derive(-primary-color, 140%);*/
 
     -icons-color: -text-color;
@@ -16,7 +20,7 @@
 }
 
 .custom-overlay {
-    -fx-background-color: #fff9e6;
+    -fx-background-color: #e7eeff;
     -fx-min-width: 300px;
     -fx-max-width: 300px;
     -fx-min-height: 300px;

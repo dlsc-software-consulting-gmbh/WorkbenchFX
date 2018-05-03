@@ -9,16 +9,16 @@
     @extend %toolbar-setup;
     -fx-border-width: 0 0 $border 0;
     -fx-min-width: $pref-size;
-    -fx-background-color: -text-color;
-    -fx-border-color: -text-color;
+    //-fx-background-color: -text-color;
+    //-fx-border-color: -prim-color;
 
     & #home-icon-view {
       // The actual home-icon
-      -fx-fill: -prim-color;
+      //-fx-fill: -prim-color;
     }
 
     &:focused {
-      -fx-background-color: -text-color;
+      //-fx-background-color: -text-color;
     }
   }
 

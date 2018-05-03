@@ -57,25 +57,50 @@
 }
 
 %menu-item {
-  & .menu-item {
-    -fx-alignment: center-left;
-    -fx-padding: .5em;
 
+  & .menu-item {
+    //-fx-padding: 1em 2em 1em 2em;
+    -fx-padding: 1em 1.5em 1em 1.5em;
+
+    -fx-alignment: center-left;
+    //-fx-padding: .5em;
+    -fx-background-radius: 0;
+    -fx-background-color: -text-color;
+    -fx-text-fill: -prim-color;
+    -icons-color: -prim-color;
+
+    & > .graphic-container {
+      -fx-padding: 0 0.5em 0 0.5em;
+    }
+
+    & > .label {
+      -icons-color: -prim-color;
+      -fx-text-fill: -prim-color;
+    }
+
+    & > .arrow-button {
+      & > .arrow {
+        -fx-background-color: -prim-color;
+      }
+    }
+
+    // Hovering in the global menu
     &:hover {
       -fx-cursor: hand;
-      -fx-background-color: derive(-prim-color, 30%);
-      -fx-text-fill: -text-color;
+      -fx-background-color: derive(-text-color, -5%);
+      //-fx-text-fill: -prim-color;
 
       & .label {
-        -fx-text-fill: -text-color;
+        -fx-text-fill: -prim-color;
       }
     }
 
     &:focused {
-      -fx-background-color: derive(-prim-color, 30%);
-      -fx-text-fill: -text-color;
+      // Also active when hovering through the submenus
+      -fx-background-color: derive(-text-color, -5%);
+      -fx-text-fill: -prim-color;
       & .label, > .label {
-        -fx-text-fill: -text-color;
+        -fx-text-fill: -prim-color;
       }
     }
   }
@@ -83,35 +108,54 @@
 }
 
 %context-menu {
+  // When any Submenu opens
   & .context-menu {
-    -fx-background-color: derive(-prim-color, 15%);
+    -fx-background-color: -text-color;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 3, 0.0, 0, 2);
 
-    & .scroll-arrow {
-      -fx-background-color: derive(-prim-color, 45%);
+    & > .scroll-arrow { // ArrowMenuItem
+      -fx-padding: .75em;
+      -fx-background-color: -prim-color;
+
+      & .menu-up-arrow {
+        -fx-background-color: -text-color;
+        -fx-effect: 0;
+      }
+
+      & .menu-down-arrow {
+        -fx-background-color: -text-color;
+        -fx-effect: 0;
+      }
+
       &:hover {
-        -fx-cursor: hand;
-        -fx-background-color: derive(-prim-color, 60%);
+        -fx-background-color: derive(-prim-color, -30%);
       }
     }
 
     .menu {
       &:hover > .right-container > .arrow {
-        -fx-background-color: -text-color;
+        -fx-background-color: -prim-color;
       }
       &:focused > .right-container > .arrow {
-        -fx-background-color: -text-color;
+        -fx-background-color: -prim-color;
       }
+
       & > .right-container > .arrow {
-        -fx-background-color: -text-color;
+        // Default color of the arrow
+        -fx-background-color: -prim-color;
       }
     }
 
     & .menu-item {
-      & >.label {
-        -fx-text-fill: -text-color;
+      -icons-color: -prim-color;
+
+      & > .label {
+        -fx-text-fill: -prim-color;
       }
     }
 
+    &:hover {
+      -fx-cursor: hand;
+    }
   }
 }

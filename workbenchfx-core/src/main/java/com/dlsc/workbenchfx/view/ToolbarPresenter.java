@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
 import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
-import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_HOME_ACTIVE;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
@@ -115,11 +114,11 @@ public class ToolbarPresenter implements Presenter {
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       if (Objects.isNull(oldModule)) {
         // Home is the old value
-        view.homeBtn.getStyleClass().remove(STYLE_CLASS_HOME_ACTIVE);
+        view.homeBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
       }
       if (Objects.isNull(newModule)) {
         // Home is the new value
-        view.homeBtn.getStyleClass().add(STYLE_CLASS_HOME_ACTIVE);
+        view.homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
       }
     });
 

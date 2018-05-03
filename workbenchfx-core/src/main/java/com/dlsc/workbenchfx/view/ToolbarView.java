@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
 import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
-import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_HOME_ACTIVE;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -49,7 +48,7 @@ public class ToolbarView extends HBox implements View {
     homeIconView.setId("home-icon-view");
     homeBtn = new Button("", homeIconView);
     homeBtn.setId("home-button");
-    homeBtn.getStyleClass().add(STYLE_CLASS_HOME_ACTIVE);
+    homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
 
     menuIconView = new FontAwesomeIconView(FontAwesomeIcon.BARS);
     menuIconView.setId("menu-icon-view");
