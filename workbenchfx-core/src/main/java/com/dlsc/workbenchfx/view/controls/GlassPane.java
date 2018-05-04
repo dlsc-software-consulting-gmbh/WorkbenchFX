@@ -25,8 +25,6 @@ public class GlassPane extends StackPane {
 
   /**
    * Creates a {@link GlassPane} object and fully initializes it.
-   *
-   * @param overlay which this glass pane belongs to and is shown with
    */
   public GlassPane() {
     getStyleClass().add("glass-pane");
