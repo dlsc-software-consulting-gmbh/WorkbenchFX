@@ -147,7 +147,7 @@ public class CustomDemo extends Application {
     MenuItem itemC = new MenuItem("Settings", createIcon(FontAwesomeIcon.COGS));
 
     MenuItem showOverlay = new MenuItem("Show overlay");
-    MenuItem showModalOverlay = new MenuItem("Show modal overlay");
+    MenuItem showModalOverlay = new MenuItem("Show blocking overlay");
 
     item21.getItems().addAll(item211, item212, item213, item214, item215);
 
