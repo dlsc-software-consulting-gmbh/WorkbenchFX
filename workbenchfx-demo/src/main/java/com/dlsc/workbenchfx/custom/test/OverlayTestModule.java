@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.custom.test;
 
+import com.dlsc.workbenchfx.custom.overlay.AnotherCustomOverlay;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.module.AbstractModule;
 import com.dlsc.workbenchfx.overlay.Overlay;
@@ -28,8 +29,8 @@ public class OverlayTestModule extends AbstractModule {
   private final Button removeBlockingOverlayBtn = new Button("Remove new blocking Overlay");
   private final Button hideBlockingOverlayBtn = new Button("Hide new blocking Overlay");
   
-  private final Overlay overlay = new CustomOverlay(false);
-  private final Overlay blockingOverlay = new CustomOverlay(true);
+  private final Overlay overlay = new AnotherCustomOverlay(false);
+  private final Overlay blockingOverlay = new AnotherCustomOverlay(true);
 
   private final GridPane customPane = new GridPane();
 
