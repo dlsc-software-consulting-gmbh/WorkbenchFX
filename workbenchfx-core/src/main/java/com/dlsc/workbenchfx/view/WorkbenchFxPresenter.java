@@ -43,7 +43,9 @@ public class WorkbenchFxPresenter implements Presenter {
 
   private void initializeOverlays() {
     // initially load all overlays and hide them
-    model.getOverlays().forEach(this::addOverlay);
+    model.getOverlays().entrySet().stream().forEachOrdered(entry -> {
+      addOverlay(entry.getKey(), entry.getValue());
+    });
   }
 
   /**
