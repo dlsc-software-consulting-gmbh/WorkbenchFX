@@ -151,6 +151,10 @@ public class DropdownSkin extends SkinBase<Dropdown> {
     });
   }
 
+  /**
+   * Changes the styleClass either from dropdown to dropdown-inverted.
+   * In the css, the style is applied.
+   */
   public void invertStyle() {
     if (menuButton.getStyleClass().contains("dropdown")) {
       menuButton.getStyleClass().remove("dropdown");
