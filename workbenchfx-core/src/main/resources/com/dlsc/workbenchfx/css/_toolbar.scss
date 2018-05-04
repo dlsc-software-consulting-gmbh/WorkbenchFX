@@ -1,6 +1,6 @@
 #toolbar {
   -fx-background-color: -prim-color;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0.0, 0, 3);
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0, 0, 3);
 
   #menu-button {
     @extend %button-inverted;
