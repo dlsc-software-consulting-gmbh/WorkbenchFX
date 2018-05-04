@@ -2,27 +2,28 @@
   .tile-page {
     -fx-vgap: 40;
     -fx-hgap: 40;
-    -fx-alignment: center;
     -fx-padding: 20;
+    -fx-alignment: center center;
   }
 
   .pagination {
-
     -fx-arrows-visible: false;
     -fx-page-information-visible: false;
     -fx-tooltip-visible: false;
     & > .pagination-control > .control-box > .bullet-button {
       -fx-background-radius: 4em;
       -fx-padding: 0.333em;
-      -fx-background-color: derive(-primary-color, -50%);
+      -fx-background-color: derive(-text-color, -30%);
       -fx-background-insets: 5.25;
       &:hover {
-        -fx-background-color: derive(-primary-color, -30%);
+        -fx-cursor: hand;
+        -fx-background-color: derive(-text-color, $darken-percentage);
       }
       &:selected {
-        -fx-background-color: -accent-color;
+        -fx-background-color: -prim-color;
         &:hover {
-          -fx-background-color: derive(-accent-color, 20%);
+          -fx-cursor: hand;
+          -fx-background-color: -prim-color-hover;
         }
       }
     }
