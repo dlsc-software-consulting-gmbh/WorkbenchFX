@@ -83,7 +83,7 @@ public class WorkbenchFxPresenter implements Presenter {
                 addOverlay(c.getKey(), c.getValueAdded());
               } else if (c.wasRemoved()) {
                 LOGGER.trace("Overlay removed");
-                removeOverlay(c.getKey(), c.getValueAdded());
+                removeOverlay(c.getKey(), c.getValueRemoved());
               }
             });
   }
