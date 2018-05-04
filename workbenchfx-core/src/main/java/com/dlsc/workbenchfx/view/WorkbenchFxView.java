@@ -20,7 +20,6 @@ public class WorkbenchFxView extends StackPane implements View {
   final ToolbarView toolbarView;
   final HomeView homeView;
   final ContentView contentView;
-  final GlassPane glassPane;
   VBox viewBox;
 
   /**
@@ -29,12 +28,10 @@ public class WorkbenchFxView extends StackPane implements View {
   public WorkbenchFxView(
       ToolbarView toolbarView,
       HomeView homeView,
-      ContentView contentView,
-      GlassPane glassPane) {
+      ContentView contentView) {
     this.toolbarView = toolbarView;
     this.homeView = homeView;
     this.contentView = contentView;
-    this.glassPane = glassPane;
     init();
   }
 
@@ -60,7 +57,7 @@ public class WorkbenchFxView extends StackPane implements View {
   @Override
   public void layoutParts() {
     viewBox.getChildren().addAll(toolbarView, contentView);
-    getChildren().addAll(viewBox, glassPane);
+    getChildren().addAll(viewBox);
     VBox.setVgrow(contentView, Priority.ALWAYS);
   }
 }

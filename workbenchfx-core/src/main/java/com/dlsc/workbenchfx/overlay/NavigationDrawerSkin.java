@@ -53,7 +53,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     backIconView.setId("back-icon-view");
     Button backBtn = new Button("", backIconView);
     backBtn.setId("back-button");
-    backBtn.setOnAction(evt -> navigationDrawer.getWorkbench().hideOverlay(navigationDrawer, true));
+    backBtn.setOnAction(evt -> navigationDrawer.getWorkbench().hideNavigationDrawer());
     BorderPane.setAlignment(backBtn, Pos.CENTER_LEFT);
 
     ImageView companyLogo = new ImageView();

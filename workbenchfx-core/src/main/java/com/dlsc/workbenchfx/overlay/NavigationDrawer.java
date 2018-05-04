@@ -51,10 +51,9 @@ public class NavigationDrawer extends Control implements Overlay {
    * {@inheritDoc}
    */
   @Override
-  public Node init(WorkbenchFx workbench) {
+  public void init(WorkbenchFx workbench) {
     this.workbench = workbench;
     items = workbench.getNavigationDrawerItems();
-    return this;
   }
 
   /**
@@ -63,5 +62,10 @@ public class NavigationDrawer extends Control implements Overlay {
   @Override
   public boolean isBlocking() {
     return false;
+  }
+
+  @Override
+  public Node getNode() {
+    return this;
   }
 }
