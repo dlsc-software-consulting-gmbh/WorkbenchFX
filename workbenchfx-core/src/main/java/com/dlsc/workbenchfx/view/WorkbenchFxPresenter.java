@@ -75,26 +75,13 @@ public class WorkbenchFxPresenter implements Presenter {
     overlays.addListener(
         (MapChangeListener<Overlay, GlassPane>)
             c -> {
-              LOGGER.trace("Listener getOverlays fired");
+              LOGGER.trace("Listener overlays fired");
               if (c.wasAdded()) {
-
-              }
-              while (c.next()) {
-                LOGGER.trace(
-                    String.format(
-                        "Changed - Added: %s, Removed: %s", c.getAddedSize(), c.getRemovedSize()));
-                if (c.wasRemoved()) {
-                  for (Node node : c.getRemoved()) {
-                    LOGGER.trace("Overlay removed");
-                    view.getChildren().remove(node);
-                  }
-                }
-                if (c.wasAdded()) {
-                  for (Node node : c.getAddedSubList()) {
-                    LOGGER.trace("Overlay added");
-                    addOverlay(node);
-                  }
-                }
+                LOGGER.trace("Overlay added");
+                addOverlay(c.getKey(), c.getValueAdded());
+              } else if (c.wasRemoved()) {
+                LOGGER.trace("Overlay removed");
+                removeOverlay(c.getKey(), c.getValueAdded());
               }
             });
   }
