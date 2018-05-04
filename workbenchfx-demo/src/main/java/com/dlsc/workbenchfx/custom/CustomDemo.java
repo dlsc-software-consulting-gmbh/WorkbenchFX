@@ -10,6 +10,7 @@ import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.overlay.Overlay;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.overlay.NavigationDrawer;
 import com.dlsc.workbenchfx.view.module.TabControl;
@@ -93,8 +94,8 @@ public class CustomDemo extends Application {
     }
     return gridPane;
   };
-  private Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
-    NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
+  private Callback<WorkbenchFx, Overlay> navigationDrawerFactory = workbench -> {
+    NavigationDrawer navigationDrawer = new NavigationDrawer();
     StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
     navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(.5));
     return navigationDrawer;
@@ -155,6 +156,8 @@ public class CustomDemo extends Application {
     menu3.getItems().addAll(item31, item32, item33);
 
     // WorkbenchFX
+    CustomOverlay customOverlay1 = new CustomOverlay(false);
+    CustomOverlay customOverlay2 = new CustomOverlay(true);
     workbenchFx = WorkbenchFx.builder(
         new DropdownTestModule(),
         new CalendarModule(),
@@ -189,14 +192,12 @@ public class CustomDemo extends Application {
     .navigationDrawerFactory(navigationDrawerFactory)
     .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showModalOverlay)
     .overlays(
-        workbench -> new CustomOverlay(workbench, false),
-        workbench -> new CustomOverlay(workbench, true)
+            customOverlay1, customOverlay2
     )
     .build();
 
-    ObservableList<Node> overlays = workbenchFx.getOverlays();
-    showOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(1), false));
-    showModalOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(2), true));
+    showOverlay.setOnAction(event -> customOverlay1.setVisible(true));
+    showModalOverlay.setOnAction(event -> customOverlay2.setVisible(true));
 
     workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 

@@ -93,7 +93,7 @@ public final class WorkbenchFxBuilder {
     // The value represents the percentage of the window which will be covered.
     final double widthPercentage = .333;
 
-    NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
+    NavigationDrawer navigationDrawer = new NavigationDrawer();
     StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
     navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(widthPercentage));
     return navigationDrawer;

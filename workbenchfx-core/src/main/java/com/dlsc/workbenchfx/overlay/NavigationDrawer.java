@@ -27,10 +27,8 @@ public class NavigationDrawer extends Control implements Overlay {
 
   /**
    * Creates a navigation drawer control.
-   *
-   * @param workbench to get the items for the menu from
    */
-  public NavigationDrawer(WorkbenchFx workbench) {
+  public NavigationDrawer() {
     getStyleClass().add("navigation-drawer");
   }
 
