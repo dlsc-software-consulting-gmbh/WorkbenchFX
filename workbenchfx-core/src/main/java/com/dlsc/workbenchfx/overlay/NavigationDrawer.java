@@ -62,6 +62,9 @@ public class NavigationDrawer extends Control implements Overlay {
     return false;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Node getNode() {
     return this;
