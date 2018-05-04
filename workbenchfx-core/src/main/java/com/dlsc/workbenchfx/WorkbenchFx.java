@@ -379,7 +379,7 @@ public final class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Returns the list of all overlays.
+   * Returns the list of all overlays. TODO
    */
   public ObservableMap<Overlay, GlassPane> getOverlays() {
     return FXCollections.unmodifiableObservableMap(overlays);
