@@ -91,10 +91,8 @@ public class WorkbenchFxPresenter implements Presenter {
   private void addOverlay(Overlay overlay, GlassPane glassPane) {
     LOGGER.trace("addOverlay");
     Node overlayNode = overlay.getNode();
-    overlayNode.setVisible(false);
-    view.getChildren().addAll(model.getOverlays().get(overlay), overlayNode);
-    // make glass pane hide if overlay is not showing
-    glassPane.hideProperty().bind(overlayNode.visibleProperty().not());
+    view.addOverlay(overlayNode, glassPane);
+
     // if overlay is not blocking, make the overlay hide when the glass pane is clicked
     if (!overlay.isBlocking()) {
       glassPane.setOnMouseClicked(event -> overlayNode.setVisible(false));
@@ -104,9 +102,9 @@ public class WorkbenchFxPresenter implements Presenter {
   private void removeOverlay(Overlay overlay, GlassPane glassPane) {
     LOGGER.trace("removeOverlay");
     Node overlayNode = overlay.getNode();
-    glassPane.hideProperty().unbind();
-    glassPane.setOnMouseClicked(null); // invalidate previous event handler, if existent
-    view.getChildren().remove(overlayNode);
+    view.removeOverlay(overlayNode, glassPane);
+    // invalidate previous event handler, if existent
+    glassPane.setOnMouseClicked(null);
   }
 
   /**

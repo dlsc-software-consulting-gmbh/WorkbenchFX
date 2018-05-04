@@ -1,7 +1,9 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.overlay.Overlay;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import javafx.scene.Node;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -59,5 +61,19 @@ public class WorkbenchFxView extends StackPane implements View {
     viewBox.getChildren().addAll(toolbarView, contentView);
     getChildren().addAll(viewBox);
     VBox.setVgrow(contentView, Priority.ALWAYS);
+  }
+
+  public void addOverlay(Node overlayNode, GlassPane glassPane) {
+    LOGGER.trace("addOverlay");
+    overlayNode.setVisible(false);
+    getChildren().addAll(glassPane, overlayNode);
+    // make glass pane hide if overlay is not showing
+    glassPane.hideProperty().bind(overlayNode.visibleProperty().not());
+  }
+
+  public void removeOverlay(Node overlayNode, GlassPane glassPane) {
+    LOGGER.trace("removeOverlay");
+    glassPane.hideProperty().unbind();
+    getChildren().remove(overlayNode);
   }
 }
