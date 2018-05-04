@@ -16,7 +16,7 @@
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
-#toolbar #menu-button, #toolbar #toolbar-control-left-box .button-inverted, .navigation-drawer #back-button, #toolbar #toolbar-control-left-box .button, #toolbar #home-button, #toolbar #toolbar-control-right-box .button, .tile-control, .tab-control, .dropdown, .dropdown-inverted {
+#toolbar #menu-button, #toolbar #toolbar-control-left-box .button-inverted, #toolbar #toolbar-control-left-box .button, #toolbar #home-button, #toolbar #toolbar-control-right-box .button, .navigation-drawer #back-button, .tile-control, .tab-control, .dropdown, .dropdown-inverted {
   -fx-pref-height: 3.5em;
   -fx-background-color: -prim-color;
   -fx-padding: .5em;
@@ -28,12 +28,12 @@
   -fx-text-fill: -text-color;
   -fx-border-width: 0;
   -fx-border-color: -prim-color; }
-  #toolbar #menu-button:focused, #toolbar #toolbar-control-left-box .button-inverted:focused, .navigation-drawer #back-button:focused, #toolbar #toolbar-control-left-box .button:focused, #toolbar #home-button:focused, #toolbar #toolbar-control-right-box .button:focused, .tile-control:focused, .tab-control:focused, .dropdown:focused, .dropdown-inverted:focused {
+  #toolbar #menu-button:focused, #toolbar #toolbar-control-left-box .button-inverted:focused, #toolbar #toolbar-control-left-box .button:focused, #toolbar #home-button:focused, #toolbar #toolbar-control-right-box .button:focused, .navigation-drawer #back-button:focused, .tile-control:focused, .tab-control:focused, .dropdown:focused, .dropdown-inverted:focused {
     -fx-background-insets: 0;
     -fx-background-radius: 0; }
-  #toolbar #menu-button:hover, #toolbar #toolbar-control-left-box .button-inverted:hover, .navigation-drawer #back-button:hover, #toolbar #toolbar-control-left-box .button:hover, #toolbar #home-button:hover, #toolbar #toolbar-control-right-box .button:hover, .tile-control:hover, .tab-control:hover, .dropdown:hover, .dropdown-inverted:hover {
+  #toolbar #menu-button:hover, #toolbar #toolbar-control-left-box .button-inverted:hover, #toolbar #toolbar-control-left-box .button:hover, #toolbar #home-button:hover, #toolbar #toolbar-control-right-box .button:hover, .navigation-drawer #back-button:hover, .tile-control:hover, .tab-control:hover, .dropdown:hover, .dropdown-inverted:hover {
     -fx-cursor: hand; }
-  #toolbar #menu-button .label, #toolbar #toolbar-control-left-box .button-inverted .label, .navigation-drawer #back-button .label, #toolbar #toolbar-control-left-box .button .label, #toolbar #home-button .label, #toolbar #toolbar-control-right-box .button .label, .tile-control .label, .tab-control .label, .dropdown .label, .dropdown-inverted .label {
+  #toolbar #menu-button .label, #toolbar #toolbar-control-left-box .button-inverted .label, #toolbar #toolbar-control-left-box .button .label, #toolbar #home-button .label, #toolbar #toolbar-control-right-box .button .label, .navigation-drawer #back-button .label, .tile-control .label, .tab-control .label, .dropdown .label, .dropdown-inverted .label {
     -fx-text-fill: -text-color; }
 
 .dropdown .menu-item, .dropdown-inverted .menu-item, .navigation-drawer .menu-item {
@@ -88,32 +88,32 @@
   .dropdown .context-menu:hover, .dropdown-inverted .context-menu:hover, .navigation-drawer .context-menu:hover {
     -fx-cursor: hand; }
 
-#toolbar #menu-button, #toolbar #toolbar-control-left-box .button-inverted, .navigation-drawer #back-button, #toolbar #toolbar-control-left-box .button, #toolbar #home-button, #toolbar #toolbar-control-right-box .button {
+#toolbar #menu-button, #toolbar #toolbar-control-left-box .button-inverted, #toolbar #toolbar-control-left-box .button, #toolbar #home-button, #toolbar #toolbar-control-right-box .button, .navigation-drawer #back-button {
   -fx-min-width: 3.5em;
   -fx-text-fill: -text-color; }
-  #toolbar #menu-button > .label, #toolbar #toolbar-control-left-box .button-inverted > .label, .navigation-drawer #back-button > .label, #toolbar #toolbar-control-left-box .button > .label, #toolbar #home-button > .label, #toolbar #toolbar-control-right-box .button > .label {
+  #toolbar #menu-button > .label, #toolbar #toolbar-control-left-box .button-inverted > .label, #toolbar #toolbar-control-left-box .button > .label, #toolbar #home-button > .label, #toolbar #toolbar-control-right-box .button > .label, .navigation-drawer #back-button > .label {
     -fx-min-width: null;
     -fx-text-fill: -text-color; }
-  #toolbar #menu-button:hover, #toolbar #toolbar-control-left-box .button-inverted:hover, .navigation-drawer #back-button:hover, #toolbar #toolbar-control-left-box .button:hover, #toolbar #home-button:hover, #toolbar #toolbar-control-right-box .button:hover {
+  #toolbar #menu-button:hover, #toolbar #toolbar-control-left-box .button-inverted:hover, #toolbar #toolbar-control-left-box .button:hover, #toolbar #home-button:hover, #toolbar #toolbar-control-right-box .button:hover, .navigation-drawer #back-button:hover {
     -fx-background-color: derive(-prim-color, -15%); }
-  #toolbar #menu-button:pressed, #toolbar #toolbar-control-left-box .button-inverted:pressed, .navigation-drawer #back-button:pressed, #toolbar #toolbar-control-left-box .button:pressed, #toolbar #home-button:pressed, #toolbar #toolbar-control-right-box .button:pressed {
+  #toolbar #menu-button:pressed, #toolbar #toolbar-control-left-box .button-inverted:pressed, #toolbar #toolbar-control-left-box .button:pressed, #toolbar #home-button:pressed, #toolbar #toolbar-control-right-box .button:pressed, .navigation-drawer #back-button:pressed {
     -fx-background-color: derive(-prim-color, -15%); }
 
-#toolbar #menu-button, #toolbar #toolbar-control-left-box .button-inverted, .navigation-drawer #back-button {
+#toolbar #menu-button, #toolbar #toolbar-control-left-box .button-inverted {
   -fx-background-color: -text-color;
   -fx-text-fill: -prim-color; }
-  #toolbar #menu-button .glyph-icon, #toolbar #toolbar-control-left-box .button-inverted .glyph-icon, .navigation-drawer #back-button .glyph-icon {
+  #toolbar #menu-button .glyph-icon, #toolbar #toolbar-control-left-box .button-inverted .glyph-icon {
     -fx-fill: -prim-color; }
-  #toolbar #menu-button > .label, #toolbar #toolbar-control-left-box .button-inverted > .label, .navigation-drawer #back-button > .label {
+  #toolbar #menu-button > .label, #toolbar #toolbar-control-left-box .button-inverted > .label {
     -fx-text-fill: -prim-color; }
-  #toolbar #menu-button:hover, #toolbar #toolbar-control-left-box .button-inverted:hover, .navigation-drawer #back-button:hover {
+  #toolbar #menu-button:hover, #toolbar #toolbar-control-left-box .button-inverted:hover {
     -fx-background-color: -prim-color;
     -fx-text-fill: -text-color; }
-    #toolbar #menu-button:hover .glyph-icon, #toolbar #toolbar-control-left-box .button-inverted:hover .glyph-icon, .navigation-drawer #back-button:hover .glyph-icon {
+    #toolbar #menu-button:hover .glyph-icon, #toolbar #toolbar-control-left-box .button-inverted:hover .glyph-icon {
       -fx-fill: -text-color; }
-    #toolbar #menu-button:hover > .label, #toolbar #toolbar-control-left-box .button-inverted:hover > .label, .navigation-drawer #back-button:hover > .label {
+    #toolbar #menu-button:hover > .label, #toolbar #toolbar-control-left-box .button-inverted:hover > .label {
       -fx-text-fill: -text-color; }
-  #toolbar #menu-button:pressed, #toolbar #toolbar-control-left-box .button-inverted:pressed, .navigation-drawer #back-button:pressed {
+  #toolbar #menu-button:pressed, #toolbar #toolbar-control-left-box .button-inverted:pressed {
     -fx-background-color: derive(-prim-color, -15%); }
 
 #home .tile-page {
@@ -213,7 +213,8 @@
   .pretty-scroll-pane .scroll-bar {
     -fx-pref-width: 12;
     -fx-pref-height: 12;
-    -fx-padding: 2; }
+    -fx-padding: 2;
+    -fx-background-color: transparent; }
     .pretty-scroll-pane .scroll-bar .thumb {
       -fx-background-color: rgba(0, 0, 0, 0.2);
       -fx-background-radius: 1000;
@@ -254,8 +255,7 @@
   .navigation-drawer .header {
     -fx-spacing: 25;
     -fx-alignment: center;
-    -fx-background-color: -prim-color;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 3); }
+    -fx-background-color: -prim-color; }
     .navigation-drawer .header .separator .line {
       -fx-border-color: -text-color;
       -fx-border-width: 1; }

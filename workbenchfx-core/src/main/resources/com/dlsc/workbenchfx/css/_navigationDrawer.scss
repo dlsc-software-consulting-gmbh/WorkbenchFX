@@ -41,9 +41,7 @@
   }
 
   #back-button {
-    // Comment in the button style you like to use.
-    //@extend %button;
-    @extend %button-inverted;
+    @extend %button;
 
     & #menu-icon-view {
 
@@ -67,7 +65,6 @@
     -fx-spacing: 25;
     -fx-alignment: center;
     -fx-background-color: -prim-color;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0.0, 0, 3);
 
     .separator .line {
       -fx-border-color: -text-color;

@@ -7,7 +7,6 @@ $scroll-pane-padding: 2;
 }
 
 .pretty-scroll-pane {
-  // To enable drop shadow in the header
   @include margin(.5em, 0, 0, 0);
 
   -fx-background-insets: 0; // no focus border
@@ -17,6 +16,7 @@ $scroll-pane-padding: 2;
     -fx-pref-width: $size;
     -fx-pref-height: $size;
     -fx-padding: $scroll-pane-padding;
+    -fx-background-color: transparent;
     .thumb {
       -fx-background-color: rgba(0, 0, 0, .2);
       -fx-background-radius: 1000;

@@ -15,7 +15,5 @@
 }
 
 .active-home {
-  // Comment in the button style you like to use (when using the inverted button).
   -fx-background-color: derive(-prim-color, $darken-percentage) !important;
-  //-fx-background-color: derive(-text-color, $darken-percentage) !important;
 }

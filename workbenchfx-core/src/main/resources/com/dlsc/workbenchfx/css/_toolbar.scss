@@ -3,21 +3,18 @@
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0.0, 0, 3);
 
   #menu-button {
-    // Comment in the button style you like to use.
-    //@extend %button;
     @extend %button-inverted;
 
     & #menu-icon-view {
-      //-fx-fill: -prim-color;
+
     }
 
     &:focused {
-      //-fx-background-color: -text-color;
+
     }
   }
 
   & #toolbar-control-left-box {
-    // Comment in the button style you like to use.
     & .button {
       @extend %button;
     }
@@ -27,9 +24,7 @@
   }
 
   & #home-button {
-    // Comment in the button style you like to use.
     @extend %button;
-    //@extend %button-inverted;
 
     & #home-icon-view {
 
