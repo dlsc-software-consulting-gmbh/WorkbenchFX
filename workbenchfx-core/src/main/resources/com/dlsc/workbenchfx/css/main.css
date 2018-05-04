@@ -205,11 +205,11 @@
   -fx-pref-height: 0 !important; }
 
 .pretty-scroll-pane {
-  -fx-padding: 0.25em 0 0 0;
-  -fx-border-insets: 0.25em 0 0 0;
-  -fx-background-insets: 0.25em 0 0 0;
+  -fx-padding: 0.5em 0 0 0;
+  -fx-border-insets: 0.5em 0 0 0;
+  -fx-background-insets: 0.5em 0 0 0;
   -fx-background-insets: 0;
-  -fx-background-color: 0; }
+  -fx-background-color: transparent; }
   .pretty-scroll-pane .scroll-bar {
     -fx-pref-width: 12;
     -fx-pref-height: 12;

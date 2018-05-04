@@ -8,10 +8,10 @@ $scroll-pane-padding: 2;
 
 .pretty-scroll-pane {
   // To enable drop shadow in the header
-  @include margin(.25em, 0, 0, 0);
+  @include margin(.5em, 0, 0, 0);
 
   -fx-background-insets: 0; // no focus border
-  -fx-background-color: 0;
+  -fx-background-color: transparent;
 
   .scroll-bar {
     -fx-pref-width: $size;
