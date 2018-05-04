@@ -36,7 +36,7 @@ public class CustomOverlay extends BorderPane implements Overlay {
   @Override
   public void init(WorkbenchFx workbench) {
     this.workbench = workbench;
-    // TODO: change to blocking
+
     if (blocking) {
       // only show x button if it's a blocking overlay, so it can still be closed
       Button closeBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.CLOSE));
