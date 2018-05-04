@@ -201,7 +201,7 @@ public final class WorkbenchFx extends StackPane {
     contentView = new ContentView();
     contentPresenter = new ContentPresenter(this, contentView);
 
-    workbenchFxView = new WorkbenchFxView(toolbarView, homeView, contentView, glassPane);
+    workbenchFxView = new WorkbenchFxView(toolbarView, homeView, contentView);
     workbenchFxPresenter = new WorkbenchFxPresenter(this, workbenchFxView);
   }
 
