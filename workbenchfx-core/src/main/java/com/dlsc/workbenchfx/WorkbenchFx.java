@@ -440,6 +440,7 @@ public final class WorkbenchFx extends StackPane {
    */
   public void addOverlay(Overlay overlay) {
     LOGGER.trace("addOverlay");
+    overlay.init(this);
     overlays.put(overlay, new GlassPane());
   }
 
