@@ -92,7 +92,7 @@ public class WorkbenchFxPresenter implements Presenter {
     LOGGER.trace("addOverlay");
     Node overlayNode = overlay.getNode();
     overlayNode.setVisible(false);
-    view.getChildren().addAll(overlayNode, model.getOverlays().get(overlay));
+    view.getChildren().addAll(model.getOverlays().get(overlay), overlayNode);
     // make glass pane hide if overlay is not showing
     glassPane.hideProperty().bind(overlayNode.visibleProperty().not());
     // if overlay is not blocking, make the overlay hide when the glass pane is clicked
