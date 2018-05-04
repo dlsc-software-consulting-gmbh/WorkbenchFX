@@ -175,7 +175,9 @@ public class CustomDemo extends Application {
                 new CustomMenuItem(new Label("Content 2"))
             ),
             Dropdown.of(
-                new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
+                new ImageView(
+                    CustomDemo.class.getResource("user_light.png").toExternalForm()
+                ),
                 new Menu(
                     "Submenus", new FontAwesomeIconView(FontAwesomeIcon.PLUS),
                     new MenuItem("Submenu 1"),
@@ -184,7 +186,9 @@ public class CustomDemo extends Application {
             ),
             Dropdown.of(
                 "Text",
-                new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
+                new ImageView(
+                    CustomDemo.class.getResource("user_light.png").toExternalForm()
+                ),
                 new CustomMenuItem(new Label("Content 1")),
                 new CustomMenuItem(new Label("Content 2"))
             )
@@ -205,7 +209,10 @@ public class CustomDemo extends Application {
     showOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(1), false));
     showModalOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(2), true));
 
-//    workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+    // This sets the custom style. Comment this out to have a look at the default styles.
+    workbenchFx.getStylesheets().add(
+        CustomDemo.class.getResource("customTheme.css").toExternalForm()
+    );
 
     return workbenchFx;
   }
