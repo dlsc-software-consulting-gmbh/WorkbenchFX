@@ -20,7 +20,6 @@ import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -32,7 +31,6 @@ import javafx.collections.ObservableMap;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
-import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -108,6 +106,7 @@ public final class WorkbenchFx extends StackPane {
 
   // Properties
   public final int modulesPerPage;
+  private final BooleanProperty navigationDrawerShown = new SimpleBooleanProperty(false);
 
   WorkbenchFx(WorkbenchFxBuilder builder) {
     modulesPerPage = builder.modulesPerPage;
@@ -414,12 +413,16 @@ public final class WorkbenchFx extends StackPane {
     overlays.remove(overlay);
   }
 
-  public void showNavigationDrawer() {
-    navigationDrawer.getNode().setVisible(true);
+  public boolean getNavigationDrawerShown() {
+    return navigationDrawerShown.get();
   }
 
-  public void hideNavigationDrawer() {
-    navigationDrawer.getNode().setVisible(false);
+  public BooleanProperty navigationDrawerShownProperty() {
+    return navigationDrawerShown;
+  }
+
+  public void setNavigationDrawerShown(boolean navigationDrawerShown) {
+    this.navigationDrawerShown.set(navigationDrawerShown);
   }
 
   public ObservableList<MenuItem> getNavigationDrawerItems() {

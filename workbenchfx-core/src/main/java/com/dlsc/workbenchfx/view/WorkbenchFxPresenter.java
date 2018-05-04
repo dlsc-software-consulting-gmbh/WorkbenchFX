@@ -4,7 +4,7 @@ import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.overlay.Overlay;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Objects;
-import javafx.beans.binding.Bindings;
+
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.scene.Node;
@@ -114,5 +114,7 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   @Override
   public void setupBindings() {
+    // hide or show navigation drawer depending on property in model
+    model.getNavigationDrawer().getNode().visibleProperty().bindBidirectional(model.navigationDrawerShownProperty());
   }
 }
