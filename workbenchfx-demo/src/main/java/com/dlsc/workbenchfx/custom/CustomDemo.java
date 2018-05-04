@@ -147,7 +147,7 @@ public class CustomDemo extends Application {
     MenuItem itemC = new MenuItem("Settings", createIcon(FontAwesomeIcon.COGS));
 
     MenuItem showOverlay = new MenuItem("Show overlay");
-    MenuItem showModalOverlay = new MenuItem("Show blocking overlay");
+    MenuItem showBlockingOverlay = new MenuItem("Show blocking overlay");
 
     item21.getItems().addAll(item211, item212, item213, item214, item215);
 
@@ -156,8 +156,8 @@ public class CustomDemo extends Application {
     menu3.getItems().addAll(item31, item32, item33);
 
     // WorkbenchFX
-    CustomOverlay customOverlay1 = new CustomOverlay(false);
-    CustomOverlay customOverlay2 = new CustomOverlay(true);
+    CustomOverlay customOverlay = new CustomOverlay(false);
+    CustomOverlay customOverlayBlocking = new CustomOverlay(true);
     workbenchFx = WorkbenchFx.builder(
         new DropdownTestModule(),
         new CalendarModule(),
@@ -190,14 +190,14 @@ public class CustomDemo extends Application {
     .tileFactory(tileFactory)
     .pageFactory(pageFactory)
     .navigationDrawerFactory(navigationDrawerFactory)
-    .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showModalOverlay)
+    .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
     .overlays(
-            customOverlay1, customOverlay2
+            customOverlay, customOverlayBlocking
     )
     .build();
 
-    showOverlay.setOnAction(event -> customOverlay1.setVisible(true));
-    showModalOverlay.setOnAction(event -> customOverlay2.setVisible(true));
+    showOverlay.setOnAction(event -> customOverlay.setVisible(true));
+    showBlockingOverlay.setOnAction(event -> customOverlayBlocking.setVisible(true));
 
     workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 
