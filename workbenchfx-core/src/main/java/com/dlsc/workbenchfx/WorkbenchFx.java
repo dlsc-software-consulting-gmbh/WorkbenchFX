@@ -62,7 +62,6 @@ public final class WorkbenchFx extends StackPane {
 
   // Custom Controls
   private Overlay navigationDrawer;
-  private GlassPane glassPane;
 
   // Lists
   private final ObservableList<Node> toolbarControls = FXCollections.observableArrayList();
