@@ -3,7 +3,7 @@
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0.0, 0, 3);
 
   #menu-button {
-    // Comment in the button style you want to use
+    // Comment in the button style you like to use.
     //@extend %button;
     @extend %button-inverted;
 
@@ -17,7 +17,7 @@
   }
 
   & #toolbar-control-left-box {
-    // Comment in the button style you want to use
+    // Comment in the button style you like to use.
     & .button {
       @extend %button;
     }
@@ -27,7 +27,7 @@
   }
 
   & #home-button {
-    // Comment in the button style you want to use
+    // Comment in the button style you like to use.
     @extend %button;
     //@extend %button-inverted;
 
