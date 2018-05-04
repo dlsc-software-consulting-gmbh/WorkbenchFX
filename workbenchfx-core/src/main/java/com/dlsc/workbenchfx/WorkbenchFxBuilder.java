@@ -4,6 +4,7 @@ import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.overlay.NavigationDrawer;
+import com.dlsc.workbenchfx.overlay.Overlay;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.function.BiFunction;
@@ -87,7 +88,7 @@ public final class WorkbenchFxBuilder {
 
   Node[] toolbarControls;
 
-  Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
+  Callback<WorkbenchFx, Overlay> navigationDrawerFactory = workbench -> {
     // Defines the width of the navigationDrawer.
     // The value represents the percentage of the window which will be covered.
     final double widthPercentage = .333;
@@ -100,7 +101,7 @@ public final class WorkbenchFxBuilder {
 
   MenuItem[] navigationDrawerItems;
 
-  Callback<WorkbenchFx, Node>[] overlays;
+  Overlay[] overlays;
 
   WorkbenchFxBuilder(Module... modules) {
     this.modules = modules;
@@ -158,13 +159,13 @@ public final class WorkbenchFxBuilder {
 
   /**
    * Defines all of the overlays which should initially be loaded into the scene graph hidden, to be
-   * later shown using {@link WorkbenchFx#showOverlay(Node, boolean)}.
+   * later shown using TODO.
    *
    * @param overlays callback to construct the overlays to be initially loaded into the scene graph
    *                 using a {@link WorkbenchFx} object
    * @return builder for chaining
    */
-  public WorkbenchFxBuilder overlays(Callback<WorkbenchFx, Node>... overlays) {
+  public WorkbenchFxBuilder overlays(Overlay... overlays) {
     this.overlays = overlays;
     return this;
   }
@@ -179,7 +180,7 @@ public final class WorkbenchFxBuilder {
    *           {@link WorkbenchFx#getNavigationDrawerItems()}.
    */
   public WorkbenchFxBuilder navigationDrawerFactory(
-      Callback<WorkbenchFx, Node> navigationDrawerFactory) {
+      Callback<WorkbenchFx, Overlay> navigationDrawerFactory) {
     this.navigationDrawerFactory = navigationDrawerFactory;
     return this;
   }
