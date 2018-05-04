@@ -48,7 +48,7 @@ public class CustomOverlay extends BorderPane implements Overlay {
 
   @Override
   public boolean isBlocking() {
-    return modal;
+    return !modal;
   }
 
   @Override
