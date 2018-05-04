@@ -16,9 +16,8 @@ public interface Overlay {
    * Gets called when the overlay is being loaded upon initialization of {@link WorkbenchFx}.
    *
    * @param workbench the calling workbench object
-   * @return content to be displayed in this overlay
    */
-  Node init(WorkbenchFx workbench);
+  void init(WorkbenchFx workbench);
 
   /**
    * Returns whether this overlay is blocking or not.
@@ -32,5 +31,10 @@ public interface Overlay {
    *           by themself.
    */
   boolean isBlocking();
+
+  /**
+   * Returns the {@link Node} which should be displayed in this overlay.
+   */
+  Node getNode();
 
 }

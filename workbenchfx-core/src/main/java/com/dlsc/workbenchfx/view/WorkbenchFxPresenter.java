@@ -5,9 +5,7 @@ import com.dlsc.workbenchfx.overlay.Overlay;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Objects;
 import javafx.beans.binding.Bindings;
-import javafx.collections.ListChangeListener;
 import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
@@ -106,9 +104,12 @@ public class WorkbenchFxPresenter implements Presenter {
     Node overlayNode = overlay.init(model);
     overlayNode.setVisible(false);
     view.getChildren().add(overlayNode);
-    Bindings.bindBidirectional(glassPane.hideProperty(), overlayNode.visibleProperty().not());
-    Bindings.bind
-    glassPane.hideProperty().bindBidirectional(overlayNode.visibleProperty());
+    // make glass pane hide if overlay is not showing
+    glassPane.hideProperty().bind(overlayNode.visibleProperty().not());
+    // if overlay is not blocking, make the overlay hide when the glass pane is clicked
+    if (!overlay.isBlocking()) {
+      glassPane.setOnMouseClicked(event -> overlayNode.setVisible(false));
+    }
   }
 
   private void removeOverlay(Overlay overlay, GlassPane glassPane) {
@@ -116,7 +117,12 @@ public class WorkbenchFxPresenter implements Presenter {
     Node overlayNode = overlay.init(model);
     overlayNode.setVisible(false);
     view.getChildren().add(overlayNode);
-    glassPane.hideProperty().bind(overlayNode.visibleProperty());
+    // make glass pane hide if overlay is not showing
+    glassPane.hideProperty().bind(overlayNode.visibleProperty().not());
+    // if overlay is not blocking, make the overlay hide when the glass pane is clicked
+    if (!overlay.isBlocking()) {
+      glassPane.setOnMouseClicked(event -> overlayNode.setVisible(false));
+    }
   }
 
   /**
@@ -124,6 +130,6 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   @Override
   public void setupBindings() {
-    view.glassPane.hideProperty().bind(model.glassPaneShownProperty().not());
+    view.glassPane.showProperty().bind(model.glassPaneShownProperty().not());
   }
 }
