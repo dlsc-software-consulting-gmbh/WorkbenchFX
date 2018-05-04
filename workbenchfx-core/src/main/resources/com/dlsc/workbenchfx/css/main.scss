@@ -4,11 +4,11 @@ $darken-percentage: -10%;
 
 // Comment in the color schema you like to use.
 // Color schema with a dark -text-color and a light -prim-color
-//$primary-color: hsl(276, 34%, 99%);
+//$primary-color: hsl(202, 98%, 99%);
 //$text-color: darken($primary-color, 60%);
 
 // Color schema with a light -text-color and a dark -prim-color
-$text-color: hsl(276, 34%, 99%);
+$text-color: hsl(202, 98%, 99%);
 $primary-color: darken($text-color, 60%);
 
 $text-color-transparent: transparentize($text-color, .2);
@@ -21,7 +21,7 @@ $custom-color-5: pink;
 .root {
   -prim-color: $primary-color;
   -prim-color-hover: lighten($primary-color, 5%);
-  -danger-color: #db6f6b;
+  -danger-color: #ed5a5a;
   -success-color: #47aa71;
   -accent-color: #00aaff;
   -text-color: $text-color;
