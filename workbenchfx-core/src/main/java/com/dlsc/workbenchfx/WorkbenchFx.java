@@ -390,7 +390,7 @@ public final class WorkbenchFx extends StackPane {
    * Loads an overlay into the scene graph hidden, to be shown using TODO.
    *
    * @param overlay to be loaded into the scene graph
-   * @implNote Preferably, use the builder method {@link WorkbenchFxBuilder#overlays(Callback[])})}
+   * @implNote Preferably, use the builder method TODO
    *           and load all of the overlays initially. Only use this method if keeping the overlay
    *           loaded in the background is not possible due to performance reasons!
    */
@@ -402,7 +402,7 @@ public final class WorkbenchFx extends StackPane {
 
   /**
    * Removes an overlay from the scene graph, which has previously been loaded either using
-   * {@link WorkbenchFx#addOverlay(Overlay)} or {@link WorkbenchFxBuilder#overlays(Callback[])})}.
+   * {@link WorkbenchFx#addOverlay(Overlay)} or TODO.
    *
    * @param overlay to be removed from the scene graph
    * @implNote Preferably, don't use this method to remove the overlays from the scene graph, but
