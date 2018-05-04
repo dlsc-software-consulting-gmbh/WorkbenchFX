@@ -53,7 +53,7 @@ public class GlassPane extends StackPane {
     });
   }
 
-  private final BooleanProperty hide = new SimpleBooleanProperty(this, "hide");
+  private final BooleanProperty hide = new SimpleBooleanProperty(this, "hide", true);
 
   public final BooleanProperty hideProperty() {
     return hide;
