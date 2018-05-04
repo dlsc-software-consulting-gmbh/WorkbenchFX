@@ -103,6 +103,7 @@ public class WorkbenchFxPresenter implements Presenter {
     LOGGER.trace("removeOverlay");
     Node overlayNode = overlay.getNode();
     view.removeOverlay(overlayNode, glassPane);
+
     // invalidate previous event handler, if existent
     glassPane.setOnMouseClicked(null);
   }
