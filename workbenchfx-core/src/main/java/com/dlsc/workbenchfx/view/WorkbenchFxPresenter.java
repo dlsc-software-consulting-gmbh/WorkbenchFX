@@ -88,7 +88,12 @@ public class WorkbenchFxPresenter implements Presenter {
             });
   }
 
-  private void addOverlay(Overlay overlay, GlassPane glassPane) {
+  /**
+   * TODO
+   * @param overlay
+   * @param glassPane
+   */
+  public void addOverlay(Overlay overlay, GlassPane glassPane) {
     LOGGER.trace("addOverlay");
     Node overlayNode = overlay.getNode();
     view.addOverlay(overlayNode, glassPane);
@@ -99,7 +104,12 @@ public class WorkbenchFxPresenter implements Presenter {
     }
   }
 
-  private void removeOverlay(Overlay overlay, GlassPane glassPane) {
+  /**
+   * TODO
+   * @param overlay
+   * @param glassPane
+   */
+  public void removeOverlay(Overlay overlay, GlassPane glassPane) {
     LOGGER.trace("removeOverlay");
     Node overlayNode = overlay.getNode();
     view.removeOverlay(overlayNode, glassPane);

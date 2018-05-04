@@ -63,6 +63,11 @@ public class WorkbenchFxView extends StackPane implements View {
     VBox.setVgrow(contentView, Priority.ALWAYS);
   }
 
+  /**
+   * TODO
+   * @param overlayNode
+   * @param glassPane
+   */
   public void addOverlay(Node overlayNode, GlassPane glassPane) {
     LOGGER.trace("addOverlay");
     overlayNode.setVisible(false);
@@ -71,6 +76,11 @@ public class WorkbenchFxView extends StackPane implements View {
     glassPane.hideProperty().bind(overlayNode.visibleProperty().not());
   }
 
+  /**
+   * TODO
+   * @param overlayNode
+   * @param glassPane
+   */
   public void removeOverlay(Node overlayNode, GlassPane glassPane) {
     LOGGER.trace("removeOverlay");
     glassPane.hideProperty().unbind();
