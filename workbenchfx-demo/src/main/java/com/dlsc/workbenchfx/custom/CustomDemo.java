@@ -156,6 +156,8 @@ public class CustomDemo extends Application {
     menu2.getItems().addAll(item21, item22);
     menu3.getItems().addAll(item31, item32, item33);
 
+    Button buttonLeft = new Button("Settings", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+
     // WorkbenchFX
     workbenchFx = WorkbenchFx.builder(
         new WidgetsTestModule(),
@@ -165,9 +167,7 @@ public class CustomDemo extends Application {
         new PreferencesModule(),
         new NavigationDrawerTestModule()
     )
-        .toolbarLeft(
-            new Button("Settings", new FontAwesomeIconView(FontAwesomeIcon.GEARS))
-        )
+        .toolbarLeft(buttonLeft)
         .toolbarRight(
             Dropdown.of(
                 new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
@@ -208,6 +208,7 @@ public class CustomDemo extends Application {
     ObservableList<Node> overlays = workbenchFx.getOverlays();
     showOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(1), false));
     showModalOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(2), true));
+    buttonLeft.setOnAction(event -> workbenchFx.showOverlay(overlays.get(1), false));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
     workbenchFx.getStylesheets().add(
