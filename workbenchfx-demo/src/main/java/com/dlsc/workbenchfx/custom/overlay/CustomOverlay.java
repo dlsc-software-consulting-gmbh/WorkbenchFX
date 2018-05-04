@@ -13,10 +13,10 @@ import javafx.scene.layout.BorderPane;
 public class CustomOverlay extends BorderPane implements Overlay {
 
   private WorkbenchFx workbench;
-  private final boolean modal;
+  private final boolean blocking;
 
-  public CustomOverlay(boolean modal) {
-    this.modal = modal;
+  public CustomOverlay(boolean blocking) {
+    this.blocking = blocking;
     init();
   }
 
@@ -30,15 +30,15 @@ public class CustomOverlay extends BorderPane implements Overlay {
 
   @Override
   public String toString() {
-    return "Custom Overlay - Modal: " + modal;
+    return "Custom Overlay - Blocking: " + blocking;
   }
 
   @Override
   public void init(WorkbenchFx workbench) {
     this.workbench = workbench;
     // TODO: change to blocking
-    if (!modal) {
-      // only show x button if it's not a modal overlay
+    if (blocking) {
+      // only show x button if it's a blocking overlay, so it can still be closed
       Button closeBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.CLOSE));
       closeBtn.setOnAction(event -> setVisible(false));
       BorderPane.setAlignment(closeBtn, Pos.TOP_RIGHT);
@@ -48,7 +48,7 @@ public class CustomOverlay extends BorderPane implements Overlay {
 
   @Override
   public boolean isBlocking() {
-    return !modal;
+    return blocking;
   }
 
   @Override
