@@ -71,9 +71,9 @@ public final class WorkbenchFx extends StackPane {
    * TODO Map containing a linked list of all overlays which have been loaded onto the scene graph, with
    * their corresponding {@link GlassPane}.
    */
-  private final ObservableMap<Node, GlassPane> overlays = FXCollections.observableMap(new LinkedHashMap<>());
-  private final ObservableSet<Node> overlaysShown = FXCollections.observableSet(new LinkedHashSet<>());
-  private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet(new LinkedHashSet<>());
+  private final ObservableMap<Node, GlassPane> overlays = FXCollections.observableHashMap();
+  private final ObservableSet<Node> overlaysShown = FXCollections.observableSet();
+  private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet();
 
   // Modules
   /**
@@ -372,7 +372,8 @@ public final class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Returns the list of all overlays. TODO
+   * Returns a map of all overlays, which have previously been opened, with their corresponding
+   * {@link GlassPane}.
    */
   public ObservableMap<Node, GlassPane> getOverlays() {
     return FXCollections.unmodifiableObservableMap(overlays);
