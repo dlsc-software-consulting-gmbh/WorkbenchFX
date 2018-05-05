@@ -147,7 +147,6 @@ public final class WorkbenchFx extends StackPane {
       navigationDrawerItems.addAll(builder.navigationDrawerItems);
     }
     navigationDrawer = builder.navigationDrawerFactory.call(this);
-    addOverlay(navigationDrawer);
   }
 
   private void initModules(Module... modules) {
@@ -377,7 +376,7 @@ public final class WorkbenchFx extends StackPane {
   /**
    * Returns the list of all overlays. TODO
    */
-  public ObservableMap<Overlay, GlassPane> getOverlays() {
+  public ObservableMap<Node, GlassPane> getOverlays() {
     return FXCollections.unmodifiableObservableMap(overlays);
   }
 
