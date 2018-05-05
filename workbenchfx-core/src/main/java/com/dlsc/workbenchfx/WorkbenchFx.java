@@ -68,8 +68,8 @@ public final class WorkbenchFx extends StackPane {
       FXCollections.observableArrayList();
 
   /**
-   * TODO Map containing a linked list of all overlays which have been loaded onto the scene graph, with
-   * their corresponding {@link GlassPane}.
+   * Map containing all overlays which have been loaded into the scene graph, with their
+   * corresponding {@link GlassPane}.
    */
   private final ObservableMap<Node, GlassPane> overlays = FXCollections.observableHashMap();
   private final ObservableSet<Node> overlaysShown = FXCollections.observableSet();
@@ -380,12 +380,14 @@ public final class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Loads an overlay into the scene graph hidden, to be shown using TODO.
+   * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background.
    *
-   * @param overlay to be loaded into the scene graph
-   * @implNote Preferably, use the builder method TODO
-   *           and load all of the overlays initially. Only use this method if keeping the overlay
-   *           loaded in the background is not possible due to performance reasons!
+   * @param overlay to be shown
+   * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
+   *                 to get hidden, together with its {@link GlassPane}.
+   *                 If true (blocking), clicking outside of the {@code overlay} will not do
+   *                 anything. The {@code overlay} itself must call
+   *                 {@link WorkbenchFx#hideOverlay(Node, boolean)} to hide it.
    */
   public boolean showOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("showOverlay");
@@ -400,13 +402,16 @@ public final class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Removes an overlay from the scene graph, which has previously been loaded either using
-   * TODO or TODO.
+   * Hides the {@code overlay} together with its {@link GlassPane}, which has previously been shown
+   * using {@link WorkbenchFx#showOverlay(Node, boolean)}.
    *
-   * @param overlay to be removed from the scene graph
-   * @implNote Preferably, don't use this method to remove the overlays from the scene graph, but
-   *           rather use TODO. Only use this method if
-   *           keeping the overlay loaded in the background is not possible due to performance
+   * @param overlay to be hidden
+   * @param blocking same value which was used when previously calling
+   *                 {@link WorkbenchFx#showOverlay(Node, boolean)}
+   * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
+   *           remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden
+   *           in the scene graph is not possible due to performance reasons, call
+   *           {@link WorkbenchFx#clearOverlays()} after this method.
    */
   public boolean hideOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("hideOverlay");
@@ -418,7 +423,8 @@ public final class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Removes all references to previously shown overlays to free up memory.
+   * Removes all previously loaded overlays from the scene graph including all references to them,
+   * in order to free up memory.
    */
   public void clearOverlays() {
     LOGGER.trace("clearOverlays");
