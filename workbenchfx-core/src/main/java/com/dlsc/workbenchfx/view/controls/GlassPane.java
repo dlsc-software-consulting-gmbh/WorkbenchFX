@@ -1,15 +1,8 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
-import com.dlsc.workbenchfx.overlay.Overlay;
-import com.google.common.collect.HashBiMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 

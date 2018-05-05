@@ -4,7 +4,6 @@ import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Objects;
-import java.util.function.Consumer;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;

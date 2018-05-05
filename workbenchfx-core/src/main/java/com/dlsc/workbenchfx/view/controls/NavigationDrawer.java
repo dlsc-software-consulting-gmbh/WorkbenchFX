@@ -2,7 +2,6 @@ package com.dlsc.workbenchfx.view.controls;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;

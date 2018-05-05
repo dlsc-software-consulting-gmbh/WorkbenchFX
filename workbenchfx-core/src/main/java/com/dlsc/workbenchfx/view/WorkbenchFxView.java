@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import javafx.scene.Node;
 import javafx.scene.layout.Priority;
