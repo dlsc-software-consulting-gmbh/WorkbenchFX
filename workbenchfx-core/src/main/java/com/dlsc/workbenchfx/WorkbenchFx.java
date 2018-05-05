@@ -423,6 +423,7 @@ public final class WorkbenchFx extends StackPane {
    * Removes all references to previously shown overlays to free up memory.
    */
   public void clearOverlays() {
+    LOGGER.trace("clearOverlays");
     overlaysShown.clear();
     blockingOverlaysShown.clear();
     overlays.clear();
