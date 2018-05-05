@@ -23,6 +23,7 @@ import javafx.collections.ObservableSet;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -54,6 +55,9 @@ class WorkbenchFxTest {
   private Node overlay2;
   private Node overlay3;
 
+  private MenuItem menuItem;
+  private ObservableList<MenuItem> navigationDrawerItems;
+
   @BeforeEach
   void setUp() {
     // is needed to avoid "java.lang.IllegalStateException: Toolkit not initialized"
@@ -77,6 +81,7 @@ class WorkbenchFxTest {
             (workbench, module) -> new Label(module.getName() + module.getName(), module.getIcon()))
         .tileFactory((workbench, module) -> new Label(module.getName(), module.getIcon()))
         .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
+        .navigationDrawer(menuItem)
         .build();
 
     first = mockModules[FIRST_INDEX];
@@ -92,6 +97,8 @@ class WorkbenchFxTest {
     overlay2.setVisible(false);
     overlay3 = new Label();
     overlay3.setVisible(false);
+
+    navigationDrawerItems = workbench.getNavigationDrawerItems();
   }
 
   @Test
@@ -927,21 +934,26 @@ class WorkbenchFxTest {
 
   @Test
   void getNavigationDrawerItems() {
+    assertEquals(1, navigationDrawerItems.size());
+    assertEquals(menuItem, navigationDrawerItems.get(0));
   }
 
+  /**
+   * Precondition: getNavigationDrawerItems tests pass.
+   */
   @Test
   void addNavigationDrawerItems() {
+    workbench.addNavigationDrawerItems(menuItem);
+    assertEquals(2, navigationDrawerItems.size());
+    assertEquals(menuItem, navigationDrawerItems.get(1));
   }
 
+  /**
+   * Precondition: getNavigationDrawerItems tests pass.
+   */
   @Test
   void removeNavigationDrawerItems() {
-  }
-
-  @Test
-  void getOverlaysShown() {
-  }
-
-  @Test
-  void getBlockingOverlaysShown() {
+    workbench.removeNavigationDrawerItems(menuItem);
+    assertEquals(0, navigationDrawerItems.size());
   }
 }
