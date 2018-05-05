@@ -109,7 +109,6 @@ public final class WorkbenchFx extends StackPane {
 
   // Properties
   public final int modulesPerPage;
-  private final BooleanProperty navigationDrawerShown = new SimpleBooleanProperty(false);
 
   WorkbenchFx(WorkbenchFxBuilder builder) {
     modulesPerPage = builder.modulesPerPage;
@@ -427,16 +426,12 @@ public final class WorkbenchFx extends StackPane {
     overlays.clear();
   }
 
-  public boolean getNavigationDrawerShown() {
-    return navigationDrawerShown.get();
+  public void showNavigationDrawer() {
+    showOverlay(navigationDrawer, false);
   }
 
-  public BooleanProperty navigationDrawerShownProperty() {
-    return navigationDrawerShown;
-  }
-
-  public void setNavigationDrawerShown(boolean navigationDrawerShown) {
-    this.navigationDrawerShown.set(navigationDrawerShown);
+  public void hideNavigationDrawer() {
+    hideOverlay(navigationDrawer, false);
   }
 
   public ObservableList<MenuItem> getNavigationDrawerItems() {
