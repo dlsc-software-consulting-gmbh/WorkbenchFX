@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx.custom.overlay;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
-import com.dlsc.workbenchfx.overlay.Overlay;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.geometry.Pos;
