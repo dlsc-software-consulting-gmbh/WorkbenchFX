@@ -690,9 +690,74 @@ class WorkbenchFxTest {
   }
 
   @Test
-  void hideOverlay() {
+  void showOverlayMultiple() {
+    ObservableMap<Node, GlassPane> overlays = workbench.getOverlays();
+    ObservableSet<Node> blockingOverlaysShown = workbench.getBlockingOverlaysShown();
+    ObservableSet<Node> overlaysShown = workbench.getOverlaysShown();
+    assertEquals(0, overlays.size());
+    assertEquals(0, blockingOverlaysShown.size());
+    assertEquals(0, overlaysShown.size());
+    Label overlay1 = new Label();
+    Label overlay2 = new Label();
+    overlay1.setVisible(false);
+    overlay2.setVisible(false);
+
+    boolean result = workbench.showOverlay(overlay1, false);
+    assertTrue(result);
+
+    result = workbench.showOverlay(overlay2, true);
+    assertTrue(result);
+
+    assertEquals(2, overlays.size());
+    assertEquals(1, blockingOverlaysShown.size());
+    assertEquals(1, overlaysShown.size());
+    assertTrue(overlay1.isVisible()); // overlay has been made visible
+    assertTrue(overlay2.isVisible()); // overlay has been made visible
+    GlassPane glassPane1 = overlays.get(overlay1);
+    assertFalse(glassPane1.isHide());
+    assertNotNull(glassPane1.onMouseClickedProperty().get()); // closing handler has been attached
+    GlassPane glassPane2 = overlays.get(overlay2);
+    assertFalse(glassPane2.isHide());
+    assertNull(glassPane2.onMouseClickedProperty().get()); // no closing handler has been attached
+
+    // test visibility binding to GlassPane
+    overlay1.setVisible(false);
+    assertTrue(glassPane1.isHide());
+    overlay2.setVisible(false);
+    assertTrue(glassPane2.isHide());
+
+    // test if calling showOverlay again, even though it's already showing, does anything
+    result = workbench.showOverlay(overlay1, false);
+    assertFalse(result);
+    result = workbench.showOverlay(overlay2, true);
+    assertFalse(result);
+
+    assertEquals(2, overlays.size());
+    assertEquals(1, blockingOverlaysShown.size());
+    assertEquals(1, overlaysShown.size());
+    assertFalse(overlay1.isVisible()); // overlay is still invisible
+    assertFalse(overlay2.isVisible()); // overlay is still invisible
   }
 
+  /**
+   * Precondition: showOverlay tests pass.
+   */
+  @Test
+  void hideOverlayBlocking() {
+
+  }
+
+  /**
+   * Precondition: showOverlay tests pass.
+   */
+  @Test
+  void hideOverlayNonBlocking() {
+
+  }
+
+  /**
+   * Precondition: showOverlay tests pass.
+   */
   @Test
   void clearOverlays() {
   }
