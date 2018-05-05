@@ -47,9 +47,7 @@ public class WorkbenchFxUtilsTest {
     Thread mock = mock(Thread.class);
     WorkbenchFxUtils.addSetListener(
         observableSet,
-        c -> {
-          mock.run();
-        },
+        c -> mock.run(),
         c -> fail("was removed instead of added")
     );
     observableSet.add("Test");
@@ -64,9 +62,7 @@ public class WorkbenchFxUtilsTest {
     WorkbenchFxUtils.addSetListener(
         observableSet,
         c -> fail("was added instead of removed"),
-        c -> {
-          mock.run();
-        }
+        c -> mock.run()
     );
     observableSet.remove(test);
     verify(mock).run();
