@@ -9,6 +9,7 @@ import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
+import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
@@ -155,6 +156,7 @@ public class CustomDemo extends Application {
 
     // WorkbenchFX
     workbenchFx = WorkbenchFx.builder(
+        new WidgetsTestModule(),
         new DropdownTestModule(),
         new CalendarModule(),
         new NotesModule(),
@@ -193,7 +195,7 @@ public class CustomDemo extends Application {
     CustomOverlay blockingCustomOverlay = new CustomOverlay(workbenchFx, true);
     showOverlay.setOnAction(event -> workbenchFx.showOverlay(customOverlay, false));
     showBlockingOverlay.setOnAction(event -> workbenchFx.showOverlay(blockingCustomOverlay, true));
-    workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+//    workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 
     return workbenchFx;
   }

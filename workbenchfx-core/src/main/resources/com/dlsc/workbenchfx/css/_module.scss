@@ -2,26 +2,40 @@
   @extend %toolbar-setup;
   -fx-min-width: 16em;
   -fx-min-height: 9em;
+  -fx-background-radius: $border;
+  -fx-border-radius: $border;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .3), 4, 0.0, 0, 3);
   &:hover {
     -fx-text-fill: -text-color;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 3, 0.0, 0, 2);
+    -fx-background-color: -prim-color-hover;
+    -fx-border-color: -prim-color-hover;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 4, 0.0, 0, 3);
+  }
+
+  &:focused {
+    -fx-background-radius: $border;
+    -fx-background-color: derive(-prim-color, $darken-percentage);
   }
 }
 
 .tab-control {
   @extend %toolbar-setup;
-  -fx-padding: .5em .5em .5em 1em;
+  -fx-border-width: 0 0 $border 0;
+  -fx-padding: .5em 1.5em .5em 1.5em;
 
   & .tab-icon {
-
+    -icons-color: -text-color-transparent;
   }
 
   & .tab-name-lbl {
-
+    -fx-text-fill: -text-color-transparent;
   }
 
   & .close-btn {
+    -fx-padding: 0;
     -fx-background-color: transparent;
+    -icons-color: -text-color-transparent;
+
     & .close-icon-view {
       -fx-font-size: 1em !important;
     }
@@ -29,10 +43,20 @@
       -icons-color: -danger-color;
     }
   }
-}
 
-.active-tab {
-  -fx-background-color: -primary-color !important;
+  &:hover {
+    & .tab-icon {
+      -icons-color: -text-color;
+    }
+
+    & .tab-name-lbl {
+      -fx-text-fill: -text-color;
+    }
+
+    & .close-btn {
+      -icons-color: -text-color;
+    }
+  }
 }
 
 %button-styling {

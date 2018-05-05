@@ -1,6 +1,14 @@
 .dropdown {
   @extend %toolbar-setup;
 
+  &:hover {
+    -fx-background-color: derive(-prim-color, $darken-percentage);
+  }
+
+  &:focused {
+    -fx-background-color: derive(-prim-color, $darken-percentage);
+  }
+
   & .icon {
     // The graphic node of the dropdown
   }
@@ -14,4 +22,3 @@
   @extend %menu-item;
   @extend %context-menu;
 }
-

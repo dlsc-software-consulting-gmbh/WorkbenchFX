@@ -1,0 +1,15 @@
+.active-tab {
+  -fx-border-color: -text-color !important;
+
+  & .tab-icon {
+    -icons-color: -text-color;
+  }
+
+  & .tab-name-lbl {
+    -fx-text-fill: -text-color;
+  }
+
+  & .close-btn {
+    -icons-color: -text-color;
+  }
+}
