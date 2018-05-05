@@ -83,8 +83,8 @@ public class WorkbenchFxPresenter implements Presenter {
 
     WorkbenchFxUtils.addSetListener(
         overlaysShown,
-        (SetChangeListener.Change<? extends Node> c) -> showOverlay(c.getElementAdded(), false),
-        (SetChangeListener.Change<? extends Node> c) -> hideOverlay(c.getElementRemoved())
+        change -> showOverlay(change.getElementAdded(), false),
+        change -> hideOverlay(change.getElementRemoved())
     );
 
     WorkbenchFxUtils.addSetListener(
