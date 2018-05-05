@@ -1,8 +1,6 @@
-package com.dlsc.workbenchfx.overlay;
+package com.dlsc.workbenchfx.view.controls;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
-import com.dlsc.workbenchfx.view.controls.GlassPane;
-import java.util.Objects;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Control;

@@ -3,7 +3,7 @@ package com.dlsc.workbenchfx;
 import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
 
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.overlay.NavigationDrawer;
+import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.overlay.Overlay;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
