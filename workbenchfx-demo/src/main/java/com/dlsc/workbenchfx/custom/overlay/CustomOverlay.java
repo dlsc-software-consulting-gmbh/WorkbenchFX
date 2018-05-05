@@ -30,7 +30,7 @@ public class CustomOverlay extends BorderPane {
     if (blocking) {
       // only show x button if it's a blocking overlay, so it can still be closed
       Button closeBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.CLOSE));
-      closeBtn.setOnAction(event -> setVisible(false));
+      closeBtn.setOnAction(event -> workbench.hideOverlay(this, true));
       BorderPane.setAlignment(closeBtn, Pos.TOP_RIGHT);
       setTop(closeBtn);
     }
