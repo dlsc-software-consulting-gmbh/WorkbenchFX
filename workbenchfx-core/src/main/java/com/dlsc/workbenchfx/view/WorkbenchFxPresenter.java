@@ -85,21 +85,21 @@ public class WorkbenchFxPresenter implements Presenter {
     WorkbenchFxUtils.addSetListener(
         overlaysShown,
         (SetChangeListener.Change<? extends Node> c) -> showOverlay(c.getElementAdded(), false),
-        (SetChangeListener.Change<? extends Node> c) -> hideOverlay(c.getElementRemoved(), false)
+        (SetChangeListener.Change<? extends Node> c) -> hideOverlay(c.getElementRemoved())
     );
 
     WorkbenchFxUtils.addSetListener(
         blockingOverlaysShown,
         (SetChangeListener.Change<? extends Node> c) -> showOverlay(c.getElementAdded(), true),
-        (SetChangeListener.Change<? extends Node> c) -> hideOverlay(c.getElementRemoved(), true)
+        (SetChangeListener.Change<? extends Node> c) -> hideOverlay(c.getElementRemoved())
     );
   }
 
   /**
-   * TODO
+   * Adds an {@code overlay} together with the {@code glassPane} to the view.
    *
-   * @param overlay
-   * @param glassPane
+   * @param overlay to be added
+   * @param glassPane to be added
    */
   public void addOverlay(Node overlay, GlassPane glassPane) {
     LOGGER.trace("addOverlay");
@@ -107,10 +107,10 @@ public class WorkbenchFxPresenter implements Presenter {
   }
 
   /**
-   * TODO
+   * Removes an {@code overlay} together with the {@code glassPane} from the view.
    *
-   * @param overlay
-   * @param glassPane
+   * @param overlay to be removed
+   * @param glassPane to be removed
    */
   public void removeOverlay(Node overlay, GlassPane glassPane) {
     LOGGER.trace("removeOverlay");
@@ -121,18 +121,21 @@ public class WorkbenchFxPresenter implements Presenter {
   }
 
   /**
-   * TODO
-   * @param overlay
-   * @param blocking
+   * Makes the {@code overlay} visible, along with its {@code glassPane}.
+   *
+   * @param overlay to be shown
+   * @param blocking if false, will make {@code overlay} hide, if its {@code glassPane} was clicked
    */
   public void showOverlay(Node overlay, boolean blocking) {
     showOverlay(overlay, overlays.get(overlay), blocking);
   }
 
   /**
-   * TODO
-   * @param overlay
-   * @param glassPane
+   * Makes the {@code overlay} visible, along with its {@code glassPane}.
+   *
+   * @param overlay to be shown
+   * @param glassPane the {@code overlay}'s corresponding {@link GlassPane}
+   * @param blocking if false, will make {@code overlay} hide, if its {@code glassPane} was clicked
    */
   public void showOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
     LOGGER.trace("showOverlay - Blocking: " + blocking);
@@ -145,21 +148,11 @@ public class WorkbenchFxPresenter implements Presenter {
   }
 
   /**
-   * TODO
-   * @param overlay
-   * @param blocking
+   * Makes the {@code overlay} <b>in</b>visible, along with its {@code glassPane}.
+   *
+   * @param overlay to be hidden
    */
-  public void hideOverlay(Node overlay, boolean blocking) {
-    hideOverlay(overlay, overlays.get(overlay), blocking);
-  }
-
-  /**
-   * TODO
-   * @param overlay
-   * @param glassPane
-   */
-  public void hideOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
-    LOGGER.trace("hideOverlay - Blocking: " + blocking);
+  public void hideOverlay(Node overlay) {
     view.hideOverlay(overlay);
   }
 

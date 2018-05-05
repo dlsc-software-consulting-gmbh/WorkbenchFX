@@ -63,9 +63,11 @@ public class WorkbenchFxView extends StackPane implements View {
   }
 
   /**
-   * TODO
-   * @param overlay
-   * @param glassPane
+   * Stacks the {@code overlay} on top of the current view, together with its {@code glassPane} in
+   * the background and makes the {@code glassPane} hide, whenever the overlay is hidden.
+   *
+   * @param overlay to be stacked on top of the view
+   * @param glassPane to be added in the background of the {@code overlay}
    */
   public void addOverlay(Node overlay, GlassPane glassPane) {
     LOGGER.trace("addOverlay");
@@ -76,9 +78,10 @@ public class WorkbenchFxView extends StackPane implements View {
   }
 
   /**
-   * TODO
-   * @param overlay
-   * @param glassPane
+   * Removes the {@code overlay} from the scene graph and removes the bindings created with the call
+   * to {@link WorkbenchFxView#addOverlay(Node, GlassPane)}.
+   * @param overlay to be removed from the scene graph
+   * @param glassPane the {@code overlay}'s corresponding {@link GlassPane}
    */
   public void removeOverlay(Node overlay, GlassPane glassPane) {
     LOGGER.trace("removeOverlay");
@@ -87,9 +90,9 @@ public class WorkbenchFxView extends StackPane implements View {
   }
 
   /**
-   * TODO
+   * Makes the {@code overlay} visible.
    *
-   * @param overlay
+   * @param overlay to be made visible
    */
   public void showOverlay(Node overlay) {
     LOGGER.trace("showOverlay");
@@ -97,9 +100,9 @@ public class WorkbenchFxView extends StackPane implements View {
   }
 
   /**
-   * TODO
+   * Makes the {@code overlay} <b>in</b>visible.
    *
-   * @param overlay
+   * @param overlay to be made <b>in</b>visible
    */
   public void hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");
