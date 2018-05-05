@@ -1,11 +1,10 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
-import com.dlsc.workbenchfx.overlay.Overlay;
+import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Objects;
-
-import javafx.collections.MapChangeListener;
+import java.util.function.Consumer;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
@@ -71,29 +70,26 @@ public class WorkbenchFxPresenter implements Presenter {
         view.contentView.setContent(Objects.isNull(newModule) ? view.homeView : newModule)
     );
 
-    overlaysShown.addListener((SetChangeListener<? super Node>) c -> {
-      if (c.wasAdded()) {
-        LOGGER.trace("Overlay added");
-        Node overlayAdded = c.getElementAdded();
-        addOverlay(overlayAdded, overlays.get(overlayAdded), false);
-      } else if (c.wasRemoved()) {
-        LOGGER.trace("Overlay removed");
-        Node overlayRemoved = c.getElementRemoved();
-        removeOverlay(overlayRemoved, overlays.get(overlayRemoved), false);
-      }
-    });
+    WorkbenchFxUtils.addSetListener(
+        overlaysShown,
+        (SetChangeListener.Change<? extends Node> c) -> addOverlay(c.getElementAdded(), false),
+        (SetChangeListener.Change<? extends Node> c) -> removeOverlay(c.getElementAdded(), false)
+    );
 
-    blockingOverlaysShown.addListener((SetChangeListener<? super Node>) c -> {
-      if (c.wasAdded()) {
-        LOGGER.trace("Blocking Overlay added");
-        Node overlayAdded = c.getElementAdded();
-        addOverlay(overlayAdded, overlays.get(overlayAdded), true);
-      } else if (c.wasRemoved()) {
-        LOGGER.trace("Blocking Overlay removed");
-        Node overlayRemoved = c.getElementRemoved();
-        removeOverlay(overlayRemoved, overlays.get(overlayRemoved), true);
-      }
-    });
+    WorkbenchFxUtils.addSetListener(
+        blockingOverlaysShown,
+        (SetChangeListener.Change<? extends Node> c) -> addOverlay(c.getElementAdded(), true),
+        (SetChangeListener.Change<? extends Node> c) -> removeOverlay(c.getElementAdded(), true)
+    );
+  }
+
+  /**
+   * TODO
+   * @param overlay
+   * @param blocking
+   */
+  public void addOverlay(Node overlay, boolean blocking) {
+    addOverlay(overlay, overlays.get(overlay), blocking);
   }
 
   /**
@@ -115,10 +111,19 @@ public class WorkbenchFxPresenter implements Presenter {
   /**
    * TODO
    * @param overlay
+   * @param blocking
+   */
+  public void removeOverlay(Node overlay, boolean blocking) {
+    removeOverlay(overlay, overlays.get(overlay), blocking);
+  }
+
+  /**
+   * TODO
+   * @param overlay
    * @param glassPane
    */
   public void removeOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
-    LOGGER.trace("removeOverlay");
+    LOGGER.trace("removeOverlay - Blocking: " + blocking);
     Node overlayNode = overlay.getNode();
     view.removeOverlay(overlayNode, glassPane);
 
