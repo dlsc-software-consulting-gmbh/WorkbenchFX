@@ -154,8 +154,6 @@ public class CustomDemo extends Application {
     menu3.getItems().addAll(item31, item32, item33);
 
     // WorkbenchFX
-    CustomOverlay customOverlay = new CustomOverlay(workbenchFx, false);
-    CustomOverlay blockingCustomOverlay = new CustomOverlay(workbenchFx, true);
     workbenchFx = WorkbenchFx.builder(
         new DropdownTestModule(),
         new CalendarModule(),
@@ -191,6 +189,8 @@ public class CustomDemo extends Application {
     .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
     .build();
 
+    CustomOverlay customOverlay = new CustomOverlay(workbenchFx, false);
+    CustomOverlay blockingCustomOverlay = new CustomOverlay(workbenchFx, true);
     showOverlay.setOnAction(event -> workbenchFx.showOverlay(customOverlay, false));
     showBlockingOverlay.setOnAction(event -> workbenchFx.showOverlay(blockingCustomOverlay, true));
     workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());

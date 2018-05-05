@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.custom.overlay;
 import com.dlsc.workbenchfx.WorkbenchFx;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ public class CustomOverlay extends BorderPane {
   private final boolean blocking;
 
   public CustomOverlay(WorkbenchFx workbench, boolean blocking) {
+    Objects.requireNonNull(workbench);
     this.workbench = workbench;
     this.blocking = blocking;
     init();
