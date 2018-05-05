@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
+import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +25,8 @@ public class WorkbenchFxPresenter implements Presenter {
   private WorkbenchFx model;
   private WorkbenchFxView view;
 
-  private ObservableMap<Overlay, GlassPane> overlays;
+  private ObservableSet<Node> overlaysShown;
+  private ObservableSet<Node> blockingOverlaysShown;
 
   /**
    * Constructs a new {@link WorkbenchFxPresenter} for the {@link WorkbenchFxView}.
@@ -34,18 +36,10 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   public WorkbenchFxPresenter(WorkbenchFx model, WorkbenchFxView view) {
     this.model = model;
-    overlays = model.getOverlays();
     this.view = view;
+    overlaysShown = model.getOverlaysShown();
+    blockingOverlaysShown = model.getBlockingOverlaysShown();
     init();
-
-    initializeOverlays();
-  }
-
-  private void initializeOverlays() {
-    // initially load all overlays and hide them
-    model.getOverlays().entrySet().stream().forEachOrdered(entry -> {
-      addOverlay(entry.getKey(), entry.getValue());
-    });
   }
 
   /**
@@ -74,7 +68,10 @@ public class WorkbenchFxPresenter implements Presenter {
         view.contentView.setContent(Objects.isNull(newModule) ? view.homeView : newModule)
     );
 
-    overlays.addListener((MapChangeListener<Overlay, GlassPane>) c -> {
+    overlaysShown.addListener
+
+
+        (MapChangeListener<Overlay, GlassPane>) c -> {
       LOGGER.trace("Listener overlays fired");
       if (c.wasAdded()) {
         LOGGER.trace("Overlay added");
