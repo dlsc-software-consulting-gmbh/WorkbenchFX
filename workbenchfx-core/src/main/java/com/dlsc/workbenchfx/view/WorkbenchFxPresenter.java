@@ -82,6 +82,18 @@ public class WorkbenchFxPresenter implements Presenter {
         removeOverlay(overlayRemoved, overlays.get(overlayRemoved), false);
       }
     });
+
+    blockingOverlaysShown.addListener((SetChangeListener<? super Node>) c -> {
+      if (c.wasAdded()) {
+        LOGGER.trace("Blocking Overlay added");
+        Node overlayAdded = c.getElementAdded();
+        addOverlay(overlayAdded, overlays.get(overlayAdded), true);
+      } else if (c.wasRemoved()) {
+        LOGGER.trace("Blocking Overlay removed");
+        Node overlayRemoved = c.getElementRemoved();
+        removeOverlay(overlayRemoved, overlays.get(overlayRemoved), true);
+      }
+    });
   }
 
   /**
