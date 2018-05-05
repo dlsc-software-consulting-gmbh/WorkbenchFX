@@ -75,20 +75,12 @@ public class WorkbenchFxPresenter implements Presenter {
       if (c.wasAdded()) {
         LOGGER.trace("Overlay added");
         Node overlayAdded = c.getElementAdded();
-        addOverlay(overlayAdded, overlays.get(overlayAdded));
+        addOverlay(overlayAdded, overlays.get(overlayAdded), false);
       } else if (c.wasRemoved()) {
         LOGGER.trace("Overlay removed");
         Node overlayRemoved = c.getElementRemoved();
-        removeOverlay(overlayRemoved, overlays.get(overlayRemoved));
+        removeOverlay(overlayRemoved, overlays.get(overlayRemoved), false);
       }
-    });
-
-    overlaysShown.addListener
-
-
-        (MapChangeListener<Overlay, GlassPane>) c -> {
-      LOGGER.trace("Listener overlays fired");
-
     });
   }
 
@@ -97,7 +89,7 @@ public class WorkbenchFxPresenter implements Presenter {
    * @param overlay
    * @param glassPane
    */
-  public void addOverlay(Node overlay, GlassPane glassPane) {
+  public void addOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
     LOGGER.trace("addOverlay");
     Node overlayNode = overlay.getNode();
     view.addOverlay(overlayNode, glassPane);
@@ -113,7 +105,7 @@ public class WorkbenchFxPresenter implements Presenter {
    * @param overlay
    * @param glassPane
    */
-  public void removeOverlay(Node overlay, GlassPane glassPane) {
+  public void removeOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
     LOGGER.trace("removeOverlay");
     Node overlayNode = overlay.getNode();
     view.removeOverlay(overlayNode, glassPane);
