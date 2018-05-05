@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
-import com.dlsc.workbenchfx.overlay.Overlay;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import javafx.scene.Node;
 import javafx.scene.layout.Priority;
@@ -65,21 +64,46 @@ public class WorkbenchFxView extends StackPane implements View {
 
   /**
    * TODO
-   * @param overlayNode
+   * @param overlay
    * @param glassPane
    */
-  public void addOverlay(Node overlayNode, GlassPane glassPane) {
+  public void addOverlay(Node overlay, GlassPane glassPane) {
     LOGGER.trace("addOverlay");
-    getChildren().addAll(glassPane, overlayNode);
+    overlay.setVisible(false);
+    getChildren().addAll(glassPane, overlay);
+    // make glass pane hide if overlay is not showing
+    glassPane.hideProperty().bind(overlay.visibleProperty().not());
   }
 
   /**
    * TODO
-   * @param overlayNode
+   * @param overlay
    * @param glassPane
    */
-  public void removeOverlay(Node overlayNode, GlassPane glassPane) {
+  public void removeOverlay(Node overlay, GlassPane glassPane) {
     LOGGER.trace("removeOverlay");
-    getChildren().removeAll(glassPane, overlayNode);
+    glassPane.hideProperty().unbind();
+    getChildren().removeAll(glassPane, overlay);
   }
+
+  /**
+   * TODO
+   *
+   * @param overlay
+   */
+  public void showOverlay(Node overlay) {
+    LOGGER.trace("showOverlay");
+    overlay.setVisible(true);
+  }
+
+  /**
+   * TODO
+   *
+   * @param overlay
+   */
+  public void hideOverlay(Node overlay) {
+    LOGGER.trace("hideOverlay");
+    overlay.setVisible(false);
+  }
+
 }

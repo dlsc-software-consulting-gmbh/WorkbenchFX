@@ -5,6 +5,7 @@ import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Objects;
 import java.util.function.Consumer;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
@@ -70,16 +71,27 @@ public class WorkbenchFxPresenter implements Presenter {
         view.contentView.setContent(Objects.isNull(newModule) ? view.homeView : newModule)
     );
 
+    overlays.addListener((MapChangeListener<Node, GlassPane>) c -> {
+      LOGGER.trace("Listener overlays fired");
+      if (c.wasAdded()) {
+        LOGGER.trace("Overlay added");
+        addOverlay(c.getKey(), c.getValueAdded());
+      } else if (c.wasRemoved()) {
+        LOGGER.trace("Overlay removed");
+        removeOverlay(c.getKey(), c.getValueRemoved());
+      }
+    });
+
     WorkbenchFxUtils.addSetListener(
         overlaysShown,
-        (SetChangeListener.Change<? extends Node> c) -> addOverlay(c.getElementAdded(), false),
-        (SetChangeListener.Change<? extends Node> c) -> removeOverlay(c.getElementAdded(), false)
+        (SetChangeListener.Change<? extends Node> c) -> showOverlay(c.getElementAdded(), false),
+        (SetChangeListener.Change<? extends Node> c) -> hideOverlay(c.getElementAdded(), false)
     );
 
     WorkbenchFxUtils.addSetListener(
         blockingOverlaysShown,
-        (SetChangeListener.Change<? extends Node> c) -> addOverlay(c.getElementAdded(), true),
-        (SetChangeListener.Change<? extends Node> c) -> removeOverlay(c.getElementAdded(), true)
+        (SetChangeListener.Change<? extends Node> c) -> showOverlay(c.getElementAdded(), true),
+        (SetChangeListener.Change<? extends Node> c) -> hideOverlay(c.getElementAdded(), true)
     );
 
     // hide or show navigation drawer depending on property in model
@@ -93,9 +105,32 @@ public class WorkbenchFxPresenter implements Presenter {
       } else {
         model.hideOverlay(navigationDrawer, false);
       }
-
-
     });
+  }
+
+  /**
+   * TODO
+   *
+   * @param overlay
+   * @param glassPane
+   */
+  public void addOverlay(Node overlay, GlassPane glassPane) {
+    LOGGER.trace("addOverlay");
+    view.addOverlay(overlay, glassPane);
+  }
+
+  /**
+   * TODO
+   *
+   * @param overlay
+   * @param glassPane
+   */
+  public void removeOverlay(Node overlay, GlassPane glassPane) {
+    LOGGER.trace("removeOverlay");
+    view.removeOverlay(overlay, glassPane);
+
+    // invalidate previous event handler, if existent (when blocking)
+    glassPane.setOnMouseClicked(null);
   }
 
   /**
@@ -103,8 +138,8 @@ public class WorkbenchFxPresenter implements Presenter {
    * @param overlay
    * @param blocking
    */
-  public void addOverlay(Node overlay, boolean blocking) {
-    addOverlay(overlay, overlays.get(overlay), blocking);
+  public void showOverlay(Node overlay, boolean blocking) {
+    showOverlay(overlay, overlays.get(overlay), blocking);
   }
 
   /**
@@ -112,16 +147,13 @@ public class WorkbenchFxPresenter implements Presenter {
    * @param overlay
    * @param glassPane
    */
-  public void addOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
-    LOGGER.trace("addOverlay - Blocking: " + blocking);
-    view.addOverlay(overlay, glassPane);
+  public void showOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
+    LOGGER.trace("showOverlay - Blocking: " + blocking);
+    view.showOverlay(overlay);
 
     // if overlay is not blocking, make the overlay hide when the glass pane is clicked
     if (!blocking) {
-      glassPane.setOnMouseClicked(event -> {
-        // TODO: is animation still being displayed?
-        model.hideOverlay(overlay, false);
-      });
+      glassPane.setOnMouseClicked(event -> model.hideOverlay(overlay, false));
     }
   }
 
@@ -130,8 +162,8 @@ public class WorkbenchFxPresenter implements Presenter {
    * @param overlay
    * @param blocking
    */
-  public void removeOverlay(Node overlay, boolean blocking) {
-    removeOverlay(overlay, overlays.get(overlay), blocking);
+  public void hideOverlay(Node overlay, boolean blocking) {
+    hideOverlay(overlay, overlays.get(overlay), blocking);
   }
 
   /**
@@ -139,12 +171,9 @@ public class WorkbenchFxPresenter implements Presenter {
    * @param overlay
    * @param glassPane
    */
-  public void removeOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
-    LOGGER.trace("removeOverlay - Blocking: " + blocking);
-    view.removeOverlay(overlay, glassPane);
-
-    // invalidate previous event handler, if existent
-    glassPane.setOnMouseClicked(null);
+  public void hideOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
+    LOGGER.trace("hideOverlay - Blocking: " + blocking);
+    view.hideOverlay(overlay);
   }
 
   /**
