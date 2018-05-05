@@ -4,7 +4,6 @@ import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
-import com.dlsc.workbenchfx.overlay.Overlay;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.function.BiFunction;
@@ -88,12 +87,12 @@ public final class WorkbenchFxBuilder {
 
   Node[] toolbarControls;
 
-  Callback<WorkbenchFx, Overlay> navigationDrawerFactory = workbench -> {
+  Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
     // Defines the width of the navigationDrawer.
     // The value represents the percentage of the window which will be covered.
     final double widthPercentage = .333;
 
-    NavigationDrawer navigationDrawer = new NavigationDrawer();
+    NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
     StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
     navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(widthPercentage));
     return navigationDrawer;
@@ -165,7 +164,7 @@ public final class WorkbenchFxBuilder {
    *           {@link WorkbenchFx#getNavigationDrawerItems()}.
    */
   public WorkbenchFxBuilder navigationDrawerFactory(
-      Callback<WorkbenchFx, Overlay> navigationDrawerFactory) {
+      Callback<WorkbenchFx, Node> navigationDrawerFactory) {
     this.navigationDrawerFactory = navigationDrawerFactory;
     return this;
   }
