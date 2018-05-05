@@ -9,7 +9,6 @@ import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
-import com.dlsc.workbenchfx.custom.test.OverlayTestModule;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.overlay.Overlay;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
@@ -157,15 +156,14 @@ public class CustomDemo extends Application {
     menu3.getItems().addAll(item31, item32, item33);
 
     // WorkbenchFX
-    CustomOverlay customOverlay = new CustomOverlay(false);
-    CustomOverlay customOverlayBlocking = new CustomOverlay(true);
+    CustomOverlay customOverlay = new CustomOverlay(workbenchFx, false);
+    CustomOverlay blockingCustomOverlay = new CustomOverlay(workbenchFx, true);
     workbenchFx = WorkbenchFx.builder(
         new DropdownTestModule(),
         new CalendarModule(),
         new NotesModule(),
         new PreferencesModule(),
-        new NavigationDrawerTestModule(),
-            new OverlayTestModule()
+        new NavigationDrawerTestModule()
     ).toolbarControls(
         Dropdown.of(
             new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
@@ -193,14 +191,10 @@ public class CustomDemo extends Application {
     .pageFactory(pageFactory)
     .navigationDrawerFactory(navigationDrawerFactory)
     .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
-    .overlays(
-            customOverlay, customOverlayBlocking
-    )
     .build();
 
-    showOverlay.setOnAction(event -> customOverlay.setVisible(true));
-    showBlockingOverlay.setOnAction(event -> customOverlayBlocking.setVisible(true));
-
+    showOverlay.setOnAction(event -> workbenchFx.showOverlay(customOverlay, false));
+    showBlockingOverlay.setOnAction(event -> workbenchFx.showOverlay(blockingCustomOverlay, true));
     workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 
     return workbenchFx;

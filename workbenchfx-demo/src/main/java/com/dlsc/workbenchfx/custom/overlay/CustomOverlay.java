@@ -10,12 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
-public class CustomOverlay extends BorderPane implements Overlay {
+public class CustomOverlay extends BorderPane {
 
   private WorkbenchFx workbench;
   private final boolean blocking;
 
-  public CustomOverlay(boolean blocking) {
+  public CustomOverlay(WorkbenchFx workbench, boolean blocking) {
+    this.workbench = workbench;
     this.blocking = blocking;
     init();
   }
@@ -26,16 +27,6 @@ public class CustomOverlay extends BorderPane implements Overlay {
     Label centerLbl = new Label("This is an example of a custom overlay!");
     centerLbl.getStyleClass().add("centerLbl");
     setCenter(centerLbl);
-  }
-
-  @Override
-  public String toString() {
-    return "Custom Overlay - Blocking: " + blocking;
-  }
-
-  @Override
-  public void init(WorkbenchFx workbench) {
-    this.workbench = workbench;
 
     if (blocking) {
       // only show x button if it's a blocking overlay, so it can still be closed
@@ -47,12 +38,7 @@ public class CustomOverlay extends BorderPane implements Overlay {
   }
 
   @Override
-  public boolean isBlocking() {
-    return blocking;
-  }
-
-  @Override
-  public Node getNode() {
-    return this;
+  public String toString() {
+    return "Custom Overlay - Blocking: " + blocking;
   }
 }
