@@ -17,6 +17,7 @@ import com.google.common.collect.HashBiMap;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import javafx.application.Application;
@@ -28,6 +29,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
@@ -67,10 +69,12 @@ public final class WorkbenchFx extends StackPane {
       FXCollections.observableArrayList();
 
   /**
-   * Map containing a linked list of all overlays which have been loaded onto the scene graph, with
+   * TODO Map containing a linked list of all overlays which have been loaded onto the scene graph, with
    * their corresponding {@link GlassPane}.
    */
-  private final ObservableMap<Overlay, GlassPane> overlays = FXCollections.observableMap(HashBiMap.create(new LinkedHashMap<>()));
+  private final ObservableMap<Node, GlassPane> overlays = FXCollections.observableMap(new LinkedHashMap<>());
+  private final ObservableSet<Node> overlaysShown = FXCollections.observableSet(new LinkedHashSet<>());
+  private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet(new LinkedHashSet<>());
 
   // Modules
   /**
@@ -115,7 +119,6 @@ public final class WorkbenchFx extends StackPane {
     pageFactory.set(builder.pageFactory);
     initToolbarControls(builder);
     initNavigationDrawer(builder);
-    initOverlays(builder);
     initModules(builder.modules);
     initViews();
     getChildren().add(workbenchFxView);
@@ -145,13 +148,6 @@ public final class WorkbenchFx extends StackPane {
     }
     navigationDrawer = builder.navigationDrawerFactory.call(this);
     addOverlay(navigationDrawer);
-  }
-
-  private void initOverlays(WorkbenchFxBuilder builder) {
-    if (Objects.isNull(builder.overlays)) {
-      return;
-    }
-    Arrays.stream(builder.overlays).forEachOrdered(this::addOverlay);
   }
 
   private void initModules(Module... modules) {
@@ -393,24 +389,43 @@ public final class WorkbenchFx extends StackPane {
    *           and load all of the overlays initially. Only use this method if keeping the overlay
    *           loaded in the background is not possible due to performance reasons!
    */
-  public void addOverlay(Overlay overlay) {
-    LOGGER.trace("addOverlay");
-    overlay.init(this);
-    overlays.put(overlay, new GlassPane());
+  public boolean showOverlay(Node overlay, boolean blocking) {
+    LOGGER.trace("showOverlay");
+    if (!overlays.containsKey(overlay)) {
+      overlays.put(overlay, new GlassPane());
+    }
+    if (blocking) {
+      return blockingOverlaysShown.add(overlay);
+    } else {
+      return overlaysShown.add(overlay);
+    }
   }
 
   /**
    * Removes an overlay from the scene graph, which has previously been loaded either using
-   * {@link WorkbenchFx#addOverlay(Overlay)} or TODO.
+   * TODO or TODO.
    *
    * @param overlay to be removed from the scene graph
    * @implNote Preferably, don't use this method to remove the overlays from the scene graph, but
    *           rather use TODO. Only use this method if
    *           keeping the overlay loaded in the background is not possible due to performance
    */
-  public void removeOverlay(Overlay overlay) {
-    LOGGER.trace("removeOverlay");
-    overlays.remove(overlay);
+  public boolean hideOverlay(Node overlay, boolean blocking) {
+    LOGGER.trace("hideOverlay");
+    if (blocking) {
+      return blockingOverlaysShown.remove(overlay);
+    } else {
+      return overlaysShown.remove(overlay);
+    }
+  }
+
+  /**
+   * Removes all references to previously shown overlays to free up memory.
+   */
+  public void clearOverlays() {
+    overlaysShown.clear();
+    blockingOverlaysShown.clear();
+    overlays.clear();
   }
 
   public boolean getNavigationDrawerShown() {
