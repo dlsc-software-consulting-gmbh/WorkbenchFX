@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -15,8 +16,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.view.controls.GlassPane;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+import javafx.collections.ObservableSet;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -67,6 +71,7 @@ class WorkbenchFxTest {
         .tabFactory(
             (workbench, module) -> new Label(module.getName() + module.getName(), module.getIcon()))
         .tileFactory((workbench, module) -> new Label(module.getName(), module.getIcon()))
+        .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
         .build();
 
     first = mockModules[FIRST_INDEX];
@@ -598,50 +603,90 @@ class WorkbenchFxTest {
 
   @Test
   void getPage() {
-  }
-
-  @Test
-  void getOpenModules1() {
-  }
-
-  @Test
-  void getModules1() {
-  }
-
-  @Test
-  void getActiveModule() {
-  }
-
-  @Test
-  void activeModuleProperty1() {
-  }
-
-  @Test
-  void getActiveModuleView() {
-  }
-
-  @Test
-  void getNavigationDrawer() {
-  }
-
-  @Test
-  void removeToolbarControl() {
-  }
-
-  @Test
-  void addToolbarControl() {
-  }
-
-  @Test
-  void getToolbarControls() {
+    Node page = workbench.getPage(0);
+    assertTrue(page instanceof Label);
+    assertEquals("0", ((Label) page).getText());
+    assertEquals("5", ((Label) workbench.getPage(5)).getText());
   }
 
   @Test
   void getOverlays() {
+    ObservableMap<Node, GlassPane> overlays = workbench.getOverlays();
+    // Test if unmodifiable map is returned
+    assertThrows(UnsupportedOperationException.class,
+        () -> overlays.put(new Label(), new GlassPane()));
   }
 
   @Test
-  void showOverlay() {
+  void showOverlayBlocking() {
+    ObservableMap<Node, GlassPane> overlays = workbench.getOverlays();
+    ObservableSet<Node> blockingOverlaysShown = workbench.getBlockingOverlaysShown();
+    ObservableSet<Node> overlaysShown = workbench.getOverlaysShown();
+    assertEquals(0, overlays.size());
+    assertEquals(0, blockingOverlaysShown.size());
+    assertEquals(0, overlaysShown.size());
+    Label overlay = new Label();
+    overlay.setVisible(false);
+
+    boolean result = workbench.showOverlay(overlay, true);
+
+    assertTrue(result);
+    assertEquals(1, overlays.size());
+    assertEquals(1, blockingOverlaysShown.size());
+    assertEquals(0, overlaysShown.size());
+    assertTrue(overlay.isVisible()); // overlay has been made visible
+    GlassPane glassPane = overlays.get(overlay);
+    assertFalse(glassPane.isHide());
+    assertNull(glassPane.onMouseClickedProperty().get()); // no closing handler has been attached
+
+    // test visibility binding to GlassPane
+    overlay.setVisible(false);
+    assertTrue(glassPane.isHide());
+
+    // test if calling showOverlay again, even though it's already showing, does anything
+    result = workbench.showOverlay(overlay, true);
+
+    assertFalse(result);
+    assertEquals(1, overlays.size());
+    assertEquals(1, blockingOverlaysShown.size());
+    assertEquals(0, overlaysShown.size());
+    assertFalse(overlay.isVisible()); // overlay is still invisible
+  }
+
+  @Test
+  void showOverlayNonBlocking() {
+    ObservableMap<Node, GlassPane> overlays = workbench.getOverlays();
+    ObservableSet<Node> blockingOverlaysShown = workbench.getBlockingOverlaysShown();
+    ObservableSet<Node> overlaysShown = workbench.getOverlaysShown();
+    assertEquals(0, overlays.size());
+    assertEquals(0, blockingOverlaysShown.size());
+    assertEquals(0, overlaysShown.size());
+    Label overlay = new Label();
+    overlay.setVisible(false);
+
+    boolean result = workbench.showOverlay(overlay, false);
+
+    assertTrue(result);
+    assertEquals(1, overlays.size());
+    assertEquals(0, blockingOverlaysShown.size());
+    assertEquals(1, overlaysShown.size());
+    assertTrue(overlay.isVisible()); // overlay has been made visible
+    GlassPane glassPane = overlays.get(overlay);
+    assertFalse(glassPane.isHide());
+    assertNotNull(glassPane.onMouseClickedProperty().get()); // closing handler has been attached
+
+    // test visibility binding to GlassPane
+    overlay.setVisible(false);
+    assertTrue(glassPane.isHide());
+
+    // test if calling showOverlay again, even though it's already showing, does anything
+    result = workbench.showOverlay(overlay, false);
+
+    assertFalse(result);
+    assertEquals(1, overlays.size());
+    assertEquals(0, blockingOverlaysShown.size());
+    assertEquals(1, overlaysShown.size());
+    assertFalse(overlay.isVisible()); // overlay is still invisible
   }
 
   @Test
