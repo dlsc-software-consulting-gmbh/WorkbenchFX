@@ -101,8 +101,6 @@ public final class WorkbenchFxBuilder {
 
   MenuItem[] navigationDrawerItems;
 
-  Overlay[] overlays;
-
   WorkbenchFxBuilder(Module... modules) {
     this.modules = modules;
   }
@@ -154,19 +152,6 @@ public final class WorkbenchFxBuilder {
    */
   public WorkbenchFxBuilder pageFactory(BiFunction<WorkbenchFx, Integer, Node> pageFactory) {
     this.pageFactory = pageFactory;
-    return this;
-  }
-
-  /**
-   * Defines all of the overlays which should initially be loaded into the scene graph hidden, to be
-   * later shown using TODO.
-   *
-   * @param overlays callback to construct the overlays to be initially loaded into the scene graph
-   *                 using a {@link WorkbenchFx} object
-   * @return builder for chaining
-   */
-  public WorkbenchFxBuilder overlays(Overlay... overlays) {
-    this.overlays = overlays;
     return this;
   }
 
