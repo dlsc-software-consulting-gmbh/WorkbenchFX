@@ -836,9 +836,9 @@ class WorkbenchFxTest {
     assertTrue(overlay2.isVisible());
     assertTrue(overlay3.isVisible());
 
-    GlassPane glassPane1 = overlays.get(overlay1);
-    GlassPane glassPane2 = overlays.get(overlay2);
-    GlassPane glassPane3 = overlays.get(overlay3);
+    final GlassPane glassPane1 = overlays.get(overlay1);
+    final GlassPane glassPane2 = overlays.get(overlay2);
+    final GlassPane glassPane3 = overlays.get(overlay3);
 
     workbench.clearOverlays();
 
@@ -884,9 +884,9 @@ class WorkbenchFxTest {
     assertFalse(overlay2.isVisible());
     assertFalse(overlay3.isVisible());
 
-    GlassPane glassPane1 = overlays.get(overlay1);
-    GlassPane glassPane2 = overlays.get(overlay2);
-    GlassPane glassPane3 = overlays.get(overlay3);
+    final GlassPane glassPane1 = overlays.get(overlay1);
+    final GlassPane glassPane2 = overlays.get(overlay2);
+    final GlassPane glassPane3 = overlays.get(overlay3);
 
     workbench.clearOverlays();
 
