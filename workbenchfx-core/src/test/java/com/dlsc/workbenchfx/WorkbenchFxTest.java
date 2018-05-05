@@ -1,12 +1,14 @@
 package com.dlsc.workbenchfx;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockingDetails;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -61,8 +63,10 @@ class WorkbenchFxTest {
 
     workbench = WorkbenchFx.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX],
         mockModules[LAST_INDEX])
-        .tabFactory((workbench, module) -> new Label("Module Tab"))
-        .tileFactory((workbench, module) -> new Label("Module Tile"))
+        // use "module.getName()" twice, to differentiate between tab and tile factories
+        .tabFactory(
+            (workbench, module) -> new Label(module.getName() + module.getName(), module.getIcon()))
+        .tileFactory((workbench, module) -> new Label(module.getName(), module.getIcon()))
         .build();
 
     first = mockModules[FIRST_INDEX];
@@ -564,5 +568,115 @@ class WorkbenchFxTest {
       modules[i] = mock(Module.class);
     }
     return WorkbenchFx.builder(modules).modulesPerPage(modulesPerPage).build();
+  }
+
+  @Test
+  void builder() {
+    WorkbenchFxBuilder builder = WorkbenchFx.builder();
+    assertNotNull(builder);
+  }
+
+  @Test
+  void getTab() {
+    verify(first, never()).getName();
+    verify(first, never()).getIcon();
+    Node tab = workbench.getTab(first);
+    assertNotNull(tab);
+    verify(first, times(2)).getName();
+    verify(first).getIcon();
+  }
+
+  @Test
+  void getTile() {
+    verify(first, never()).getName();
+    verify(first, never()).getIcon();
+    Node tab = workbench.getTile(first);
+    assertNotNull(tab);
+    verify(first).getName();
+    verify(first).getIcon();
+  }
+
+  @Test
+  void getPage() {
+  }
+
+  @Test
+  void getOpenModules1() {
+  }
+
+  @Test
+  void getModules1() {
+  }
+
+  @Test
+  void getActiveModule() {
+  }
+
+  @Test
+  void activeModuleProperty1() {
+  }
+
+  @Test
+  void getActiveModuleView() {
+  }
+
+  @Test
+  void getNavigationDrawer() {
+  }
+
+  @Test
+  void removeToolbarControl() {
+  }
+
+  @Test
+  void addToolbarControl() {
+  }
+
+  @Test
+  void getToolbarControls() {
+  }
+
+  @Test
+  void getOverlays() {
+  }
+
+  @Test
+  void showOverlay() {
+  }
+
+  @Test
+  void hideOverlay() {
+  }
+
+  @Test
+  void clearOverlays() {
+  }
+
+  @Test
+  void showNavigationDrawer() {
+  }
+
+  @Test
+  void hideNavigationDrawer() {
+  }
+
+  @Test
+  void getNavigationDrawerItems() {
+  }
+
+  @Test
+  void addNavigationDrawerItems() {
+  }
+
+  @Test
+  void removeNavigationDrawerItems() {
+  }
+
+  @Test
+  void getOverlaysShown() {
+  }
+
+  @Test
+  void getBlockingOverlaysShown() {
   }
 }
