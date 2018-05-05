@@ -52,6 +52,7 @@ class WorkbenchFxTest {
   private ObservableSet<Node> overlaysShown;
   private Node overlay1;
   private Node overlay2;
+  private Node overlay3;
 
   @BeforeEach
   void setUp() {
@@ -89,6 +90,8 @@ class WorkbenchFxTest {
     overlay1.setVisible(false);
     overlay2 = new Label();
     overlay2.setVisible(false);
+    overlay3 = new Label();
+    overlay3.setVisible(false);
   }
 
   @Test
@@ -645,6 +648,7 @@ class WorkbenchFxTest {
     GlassPane glassPane = overlays.get(overlay1);
     assertFalse(glassPane.isHide());
     assertNull(glassPane.onMouseClickedProperty().get()); // no closing handler has been attached
+    assertTrue(glassPane.hideProperty().isBound());
 
     // test visibility binding to GlassPane
     overlay1.setVisible(false);
@@ -676,6 +680,7 @@ class WorkbenchFxTest {
     GlassPane glassPane = overlays.get(overlay1);
     assertFalse(glassPane.isHide());
     assertNotNull(glassPane.onMouseClickedProperty().get()); // closing handler has been attached
+    assertTrue(glassPane.hideProperty().isBound());
 
     // test visibility binding to GlassPane
     overlay1.setVisible(false);
@@ -711,9 +716,11 @@ class WorkbenchFxTest {
     GlassPane glassPane1 = overlays.get(overlay1);
     assertFalse(glassPane1.isHide());
     assertNotNull(glassPane1.onMouseClickedProperty().get()); // closing handler has been attached
+    assertTrue(glassPane1.hideProperty().isBound());
     GlassPane glassPane2 = overlays.get(overlay2);
     assertFalse(glassPane2.isHide());
     assertNull(glassPane2.onMouseClickedProperty().get()); // no closing handler has been attached
+    assertTrue(glassPane2.hideProperty().isBound());
 
     // test visibility binding to GlassPane
     overlay1.setVisible(false);
@@ -749,6 +756,7 @@ class WorkbenchFxTest {
     assertFalse(overlay1.isVisible()); // overlay1 is invisible
     GlassPane glassPane = overlays.get(overlay1);
     assertTrue(glassPane.isHide());
+    assertTrue(glassPane.hideProperty().isBound());
 
     // test if calling hideOverlay again, even though it's already hidden, does anything
     result = workbench.hideOverlay(overlay1, true);
@@ -784,6 +792,7 @@ class WorkbenchFxTest {
     assertFalse(overlay1.isVisible()); // overlay1 is invisible
     GlassPane glassPane = overlays.get(overlay1);
     assertTrue(glassPane.isHide());
+    assertTrue(glassPane.hideProperty().isBound());
 
     // test if calling hideOverlay again, even though it's already hidden, does anything
     result = workbench.hideOverlay(overlay1, false);
@@ -808,8 +817,85 @@ class WorkbenchFxTest {
    * Precondition: showOverlay tests pass.
    */
   @Test
-  void clearOverlays() {
+  void clearOverlaysShowing() {
+    workbench.showOverlay(overlay1, false);
+    workbench.showOverlay(overlay2, true);
+    workbench.showOverlay(overlay3, false);
 
+    assertEquals(3, overlays.size());
+    assertEquals(1, blockingOverlaysShown.size());
+    assertEquals(2, overlaysShown.size());
+    assertTrue(overlay1.isVisible());
+    assertTrue(overlay2.isVisible());
+    assertTrue(overlay3.isVisible());
+
+    GlassPane glassPane1 = overlays.get(overlay1);
+    GlassPane glassPane2 = overlays.get(overlay2);
+    GlassPane glassPane3 = overlays.get(overlay3);
+
+    workbench.clearOverlays();
+
+    assertEquals(0, overlays.size());
+    assertEquals(0, blockingOverlaysShown.size());
+    assertEquals(0, overlaysShown.size());
+    assertFalse(overlay1.isVisible());
+    assertFalse(overlay2.isVisible());
+    assertFalse(overlay3.isVisible());
+    // closing handler was removed for non-blocking
+    assertNull(glassPane1.onMouseClickedProperty().get());
+    assertNull(glassPane3.onMouseClickedProperty().get());
+    // glass panes were unbound
+    assertFalse(glassPane1.hideProperty().isBound());
+    assertFalse(glassPane2.hideProperty().isBound());
+    assertFalse(glassPane3.hideProperty().isBound());
+  }
+
+  /**
+   * Precondition: showOverlay tests pass.
+   */
+  @Test
+  void clearOverlaysHiding() {
+    workbench.showOverlay(overlay1, false);
+    workbench.showOverlay(overlay2, true);
+    workbench.showOverlay(overlay3, false);
+
+    assertEquals(3, overlays.size());
+    assertEquals(1, blockingOverlaysShown.size());
+    assertEquals(2, overlaysShown.size());
+    assertTrue(overlay1.isVisible());
+    assertTrue(overlay2.isVisible());
+    assertTrue(overlay3.isVisible());
+
+    workbench.hideOverlay(overlay1, false);
+    workbench.hideOverlay(overlay2, true);
+    workbench.hideOverlay(overlay3, false);
+
+    assertEquals(3, overlays.size());
+    assertEquals(0, blockingOverlaysShown.size());
+    assertEquals(0, overlaysShown.size());
+    assertFalse(overlay1.isVisible());
+    assertFalse(overlay2.isVisible());
+    assertFalse(overlay3.isVisible());
+
+    GlassPane glassPane1 = overlays.get(overlay1);
+    GlassPane glassPane2 = overlays.get(overlay2);
+    GlassPane glassPane3 = overlays.get(overlay3);
+
+    workbench.clearOverlays();
+
+    assertEquals(0, overlays.size());
+    assertEquals(0, blockingOverlaysShown.size());
+    assertEquals(0, overlaysShown.size());
+    assertFalse(overlay1.isVisible());
+    assertFalse(overlay2.isVisible());
+    assertFalse(overlay3.isVisible());
+    // closing handler was removed for non-blocking
+    assertNull(glassPane1.onMouseClickedProperty().get());
+    assertNull(glassPane3.onMouseClickedProperty().get());
+    // glass panes were unbound
+    assertFalse(glassPane1.hideProperty().isBound());
+    assertFalse(glassPane2.hideProperty().isBound());
+    assertFalse(glassPane3.hideProperty().isBound());
   }
 
   @Test
