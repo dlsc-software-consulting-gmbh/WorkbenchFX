@@ -900,10 +900,29 @@ class WorkbenchFxTest {
 
   @Test
   void showNavigationDrawer() {
+    Node navigationDrawer = workbench.getNavigationDrawer();
+    navigationDrawer.setVisible(false);
+
+    workbench.showNavigationDrawer();
+
+    assertEquals(1, overlays.size());
+    assertEquals(0, blockingOverlaysShown.size());
+    assertEquals(1, overlaysShown.size());
+    assertTrue(navigationDrawer.isVisible());
   }
 
   @Test
   void hideNavigationDrawer() {
+    Node navigationDrawer = workbench.getNavigationDrawer();
+    navigationDrawer.setVisible(false);
+
+    workbench.showNavigationDrawer();
+    workbench.hideNavigationDrawer();
+
+    assertEquals(1, overlays.size());
+    assertEquals(0, blockingOverlaysShown.size());
+    assertEquals(0, overlaysShown.size());
+    assertFalse(navigationDrawer.isVisible());
   }
 
   @Test
