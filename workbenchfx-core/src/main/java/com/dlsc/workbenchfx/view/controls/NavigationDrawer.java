@@ -18,7 +18,7 @@ import javafx.scene.control.Skin;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class NavigationDrawer extends Control implements Overlay {
+public class NavigationDrawer extends Control {
 
   private ObservableList<MenuItem> items;
   private WorkbenchFx workbench;
@@ -26,7 +26,9 @@ public class NavigationDrawer extends Control implements Overlay {
   /**
    * Creates a navigation drawer control.
    */
-  public NavigationDrawer() {
+  public NavigationDrawer(WorkbenchFx workbench) {
+    this.workbench = workbench;
+    items = workbench.getNavigationDrawerItems();
     getStyleClass().add("navigation-drawer");
   }
 
@@ -41,30 +43,5 @@ public class NavigationDrawer extends Control implements Overlay {
 
   public final ObservableList<MenuItem> getItems() {
     return items;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void init(WorkbenchFx workbench) {
-    this.workbench = workbench;
-    items = workbench.getNavigationDrawerItems();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public boolean isBlocking() {
-    return false;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Node getNode() {
-    return this;
   }
 }
