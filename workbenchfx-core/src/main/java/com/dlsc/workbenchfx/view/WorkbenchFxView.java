@@ -70,10 +70,7 @@ public class WorkbenchFxView extends StackPane implements View {
    */
   public void addOverlay(Node overlayNode, GlassPane glassPane) {
     LOGGER.trace("addOverlay");
-    overlayNode.setVisible(false);
     getChildren().addAll(glassPane, overlayNode);
-    // make glass pane hide if overlay is not showing
-    glassPane.hideProperty().bind(overlayNode.visibleProperty().not());
   }
 
   /**
@@ -83,7 +80,6 @@ public class WorkbenchFxView extends StackPane implements View {
    */
   public void removeOverlay(Node overlayNode, GlassPane glassPane) {
     LOGGER.trace("removeOverlay");
-    glassPane.hideProperty().unbind();
-    getChildren().remove(overlayNode);
+    getChildren().removeAll(glassPane, overlayNode);
   }
 }

@@ -98,13 +98,15 @@ public class WorkbenchFxPresenter implements Presenter {
    * @param glassPane
    */
   public void addOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
-    LOGGER.trace("addOverlay");
-    Node overlayNode = overlay.getNode();
-    view.addOverlay(overlayNode, glassPane);
+    LOGGER.trace("addOverlay - Blocking: " + blocking);
+    view.addOverlay(overlay, glassPane);
 
     // if overlay is not blocking, make the overlay hide when the glass pane is clicked
-    if (!overlay.isBlocking()) {
-      glassPane.setOnMouseClicked(event -> overlayNode.setVisible(false));
+    if (!blocking) {
+      glassPane.setOnMouseClicked(event -> {
+        // TODO: is animation still being displayed?
+        model.hideOverlay(overlay, false);
+      });
     }
   }
 
@@ -124,8 +126,7 @@ public class WorkbenchFxPresenter implements Presenter {
    */
   public void removeOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
     LOGGER.trace("removeOverlay - Blocking: " + blocking);
-    Node overlayNode = overlay.getNode();
-    view.removeOverlay(overlayNode, glassPane);
+    view.removeOverlay(overlay, glassPane);
 
     // invalidate previous event handler, if existent
     glassPane.setOnMouseClicked(null);
