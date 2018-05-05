@@ -85,13 +85,13 @@ public class WorkbenchFxPresenter implements Presenter {
     WorkbenchFxUtils.addSetListener(
         overlaysShown,
         (SetChangeListener.Change<? extends Node> c) -> showOverlay(c.getElementAdded(), false),
-        (SetChangeListener.Change<? extends Node> c) -> hideOverlay(c.getElementAdded(), false)
+        (SetChangeListener.Change<? extends Node> c) -> hideOverlay(c.getElementRemoved(), false)
     );
 
     WorkbenchFxUtils.addSetListener(
         blockingOverlaysShown,
         (SetChangeListener.Change<? extends Node> c) -> showOverlay(c.getElementAdded(), true),
-        (SetChangeListener.Change<? extends Node> c) -> hideOverlay(c.getElementAdded(), true)
+        (SetChangeListener.Change<? extends Node> c) -> hideOverlay(c.getElementRemoved(), true)
     );
 
     // hide or show navigation drawer depending on property in model
