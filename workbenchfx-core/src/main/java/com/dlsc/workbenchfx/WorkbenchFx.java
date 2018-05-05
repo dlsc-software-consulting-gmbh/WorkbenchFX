@@ -451,4 +451,12 @@ public final class WorkbenchFx extends StackPane {
   public void removeNavigationDrawerItems(MenuItem... menuItems) {
     navigationDrawerItems.removeAll(menuItems);
   }
+
+  public ObservableSet<Node> getOverlaysShown() {
+    return FXCollections.unmodifiableObservableSet(overlaysShown);
+  }
+
+  public ObservableSet<Node> getBlockingOverlaysShown() {
+    return FXCollections.unmodifiableObservableSet(blockingOverlaysShown);
+  }
 }
