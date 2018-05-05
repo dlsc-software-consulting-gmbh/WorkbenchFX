@@ -3,7 +3,6 @@ package com.dlsc.workbenchfx;
 import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
 
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.overlay.Overlay;
 import com.dlsc.workbenchfx.view.ContentPresenter;
 import com.dlsc.workbenchfx.view.ContentView;
 import com.dlsc.workbenchfx.view.HomePresenter;
@@ -61,7 +60,7 @@ public final class WorkbenchFx extends StackPane {
   private WorkbenchFxPresenter workbenchFxPresenter;
 
   // Custom Controls
-  private Overlay navigationDrawer;
+  private Node navigationDrawer;
 
   // Lists
   private final ObservableList<Node> toolbarControls = FXCollections.observableArrayList();
@@ -340,7 +339,7 @@ public final class WorkbenchFx extends StackPane {
     return activeModuleView;
   }
 
-  public Overlay getNavigationDrawer() {
+  public Node getNavigationDrawer() {
     return navigationDrawer;
   }
 
