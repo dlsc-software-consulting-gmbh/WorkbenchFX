@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.util;
 
+import java.util.Set;
 import java.util.function.Consumer;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
@@ -33,11 +34,12 @@ public class WorkbenchFxUtils {
   }
 
   /**
-   * TODO
-   * @param set
-   * @param added
-   * @param removed
-   * @param <T>
+   * Adds a {@link SetChangeListener} to an {@link ObservableSet}.
+   *
+   * @param set to add a listener to
+   * @param added action to be performed when an object was added to the {@link Set}
+   * @param removed action to be performed when an object was removed from the {@link Set}
+   * @param <T> type of the {@link ObservableSet}
    */
   public static <T> void addSetListener(ObservableSet<T> set,
                                         Consumer<SetChangeListener.Change<? extends T>> added,
