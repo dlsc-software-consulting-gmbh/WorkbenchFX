@@ -4,6 +4,7 @@ import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
+import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
@@ -156,11 +157,12 @@ public class CustomDemo extends Application {
 
     // WorkbenchFX
     workbenchFx = WorkbenchFx.builder(
-        new WidgetsTestModule(),
-        new DropdownTestModule(),
         new CalendarModule(),
         new NotesModule(),
+        new CustomerModule(),
         new PreferencesModule(),
+        new WidgetsTestModule(),
+        new DropdownTestModule(),
         new NavigationDrawerTestModule()
     ).toolbarControls(
         Dropdown.of(
@@ -183,7 +185,7 @@ public class CustomDemo extends Application {
             new CustomMenuItem(new Label("Content 2"))
         )
     )
-    .modulesPerPage(2)
+        .modulesPerPage(4)
     .tabFactory(tabFactory)
     .tileFactory(tileFactory)
     .pageFactory(pageFactory)
@@ -195,7 +197,8 @@ public class CustomDemo extends Application {
     CustomOverlay blockingCustomOverlay = new CustomOverlay(workbenchFx, true);
     showOverlay.setOnAction(event -> workbenchFx.showOverlay(customOverlay, false));
     showBlockingOverlay.setOnAction(event -> workbenchFx.showOverlay(blockingCustomOverlay, true));
-//    workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+
+    //workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 
     return workbenchFx;
   }
