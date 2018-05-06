@@ -212,9 +212,9 @@ public class CustomDemo extends Application {
     buttonLeft.setOnAction(event -> workbenchFx.showOverlay(overlays.get(1), false));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
-//    workbenchFx.getStylesheets().add(
-//        CustomDemo.class.getResource("customTheme.css").toExternalForm()
-//    );
+    workbenchFx.getStylesheets().add(
+        CustomDemo.class.getResource("customTheme.css").toExternalForm()
+    );
 
     return workbenchFx;
   }

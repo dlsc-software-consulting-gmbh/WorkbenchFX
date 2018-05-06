@@ -63,7 +63,7 @@
 
 .dropdown .context-menu, .dropdown-inverted .context-menu, .navigation-drawer .context-menu {
   -fx-background-color: -text-color;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 15, 0.3, 2, 4); }
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.3, 2, 4); }
   .dropdown .context-menu > .scroll-arrow, .dropdown-inverted .context-menu > .scroll-arrow, .navigation-drawer .context-menu > .scroll-arrow {
     -fx-padding: .75em;
     -fx-background-color: -prim-color; }
@@ -150,13 +150,13 @@
   -fx-border-radius: 3px; }
   .tile-control:hover {
     -fx-text-fill: -text-color;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.3, 1, 2); }
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 1, 2); }
   .tile-control:focused {
     -fx-background-radius: 3px;
     -fx-background-color: derive(-prim-color, -6.6666666667%); }
   .tile-control:pressed {
     -fx-background-color: derive(-prim-color, -10%);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 15, 0.3, 2, 4); }
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.3, 2, 4); }
 
 .tab-control {
   -fx-border-width: 0 0 3px 0;

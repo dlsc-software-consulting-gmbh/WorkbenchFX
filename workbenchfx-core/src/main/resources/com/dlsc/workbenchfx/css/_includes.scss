@@ -90,7 +90,7 @@
   // When any Submenu opens
   & .context-menu {
     -fx-background-color: -text-color;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .35), 15, .3, 2, 4);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 15, .3, 2, 4);
 
     // ArrowMenuItem
     & > .scroll-arrow {
