@@ -72,7 +72,7 @@ public class ToolbarPresenter implements Presenter {
     // When the home button is clicked, the view changes
     view.homeBtn.setOnAction(event -> model.openHomeScreen());
     // When the menu button is clicked, the navigation drawer gets shown
-    view.menuBtn.setOnAction(event -> model.showOverlay(model.getNavigationDrawer(), true));
+    view.menuBtn.setOnAction(event -> model.showNavigationDrawer());
   }
 
   /**

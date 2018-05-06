@@ -1,5 +1,9 @@
 package com.dlsc.workbenchfx.util;
 
+import java.util.Set;
+import java.util.function.Consumer;
+import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
 
 /**
@@ -27,5 +31,25 @@ public class WorkbenchFxUtils {
       throw new IllegalArgumentException(
           "Node can only have one parent. Please use two different Node object instances.");
     }
+  }
+
+  /**
+   * Adds a {@link SetChangeListener} to an {@link ObservableSet}.
+   *
+   * @param set to add a listener to
+   * @param added action to be performed when an object was added to the {@link Set}
+   * @param removed action to be performed when an object was removed from the {@link Set}
+   * @param <T> type of the {@link ObservableSet}
+   */
+  public static <T> void addSetListener(ObservableSet<T> set,
+                                        Consumer<SetChangeListener.Change<? extends T>> added,
+                                        Consumer<SetChangeListener.Change<? extends T>> removed) {
+    set.addListener((SetChangeListener<? super T>) c -> {
+      if (c.wasAdded()) {
+        added.accept(c);
+      } else if (c.wasRemoved()) {
+        removed.accept(c);
+      }
+    });
   }
 }

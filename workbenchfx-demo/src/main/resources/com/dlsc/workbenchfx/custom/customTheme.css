@@ -12,11 +12,3 @@
     -fx-font-size: 14px;
     -fx-font-family: Helvetica, sans-serif;
 }
-
-.custom-overlay {
-    -fx-background-color: #e7eeff;
-    -fx-min-width: 300px;
-    -fx-max-width: 300px;
-    -fx-min-height: 300px;
-    -fx-max-height: 300px;
-}
