@@ -18,19 +18,3 @@
     -fx-color: -primary-color;
     -fx-background-color: white;
 }
-
-.custom-overlay {
-    -fx-background-color: #e7eeff;
-    -fx-min-width: 300px;
-    -fx-max-width: 300px;
-    -fx-min-height: 300px;
-    -fx-max-height: 300px;
-}
-
-.another-custom-overlay {
-    -fx-background-color: #cefff5;
-    -fx-min-width: 300px;
-    -fx-max-width: 300px;
-    -fx-min-height: 300px;
-    -fx-max-height: 300px;
-}

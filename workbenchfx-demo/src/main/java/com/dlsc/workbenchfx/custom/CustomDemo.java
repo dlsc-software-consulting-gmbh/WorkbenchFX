@@ -199,6 +199,8 @@ public class CustomDemo extends Application {
     showBlockingOverlay.setOnAction(event -> workbenchFx.showOverlay(blockingCustomOverlay, true));
 
     //workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+    workbenchFx.getStylesheets().add(
+        CustomDemo.class.getResource("customOverlay.css").toExternalForm());
 
     return workbenchFx;
   }
