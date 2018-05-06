@@ -200,9 +200,9 @@ public final class WorkbenchFxBuilder {
   }
 
   /**
-   * Creates the Controls which are placed on top-left of the Toolbar.
+   * Defines the Controls which are placed on top-left of the Toolbar.
    *
-   * @param toolbarControlsLeft the {@code toolbarRight} which will be added to the Toolbar
+   * @param toolbarControlsLeft the {@link Node}s which will be added to the Toolbar
    * @return the updated {@link WorkbenchFxBuilder}
    */
   public WorkbenchFxBuilder toolbarLeft(Node... toolbarControlsLeft) {
@@ -211,9 +211,9 @@ public final class WorkbenchFxBuilder {
   }
 
   /**
-   * Creates the Controls which are placed on top-right of the Toolbar.
+   * Defines the Controls which are placed on top-right of the Toolbar.
    *
-   * @param toolbarControlsRight the {@code toolbarRight} which will be added to the Toolbar
+   * @param toolbarControlsRight the {@link Node}s which will be added to the Toolbar
    * @return the updated {@link WorkbenchFxBuilder}
    */
   public WorkbenchFxBuilder toolbarRight(Node... toolbarControlsRight) {

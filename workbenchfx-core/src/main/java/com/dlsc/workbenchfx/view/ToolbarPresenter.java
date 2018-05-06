@@ -31,6 +31,10 @@ public class ToolbarPresenter implements Presenter {
   private final ObservableList<Node> toolbarControlsLeft;
   private final ObservableList<Node> toolbarControlsRight;
 
+  // Strings for detection of listener-type in the toolbar
+  private final String leftToolbarSide = "LEFT_TOOLBAR_SIDE";
+  private final String rightToolbarSide = "RIGHT_TOOLBAR_SIDE";
+
   /**
    * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
    */
@@ -77,40 +81,13 @@ public class ToolbarPresenter implements Presenter {
   @Override
   public void setupValueChangedListeners() {
     // When the List of the currently open toolbarControlsLeft is changed, the view is updated.
-    toolbarControlsLeft.addListener((ListChangeListener<? super Node>) c -> {
-      while (c.next()) {
-        if (c.wasRemoved()) {
-          for (Node node : c.getRemoved()) {
-            LOGGER.debug("Dropdown " + node + " removed");
-            view.removeToolbarControlLeft(c.getFrom());
-          }
-        }
-        if (c.wasAdded()) {
-          for (Node node : c.getAddedSubList()) {
-            LOGGER.debug("Dropdown " + node + " added");
-            view.addToolbarControlLeft(node);
-          }
-        }
-      }
-    });
-
+    toolbarControlsLeft.addListener(
+        (ListChangeListener<? super Node>) c -> setupListener(c, leftToolbarSide)
+    );
     // When the List of the currently open toolbarControlsRight is changed, the view is updated.
-    toolbarControlsRight.addListener((ListChangeListener<? super Node>) c -> {
-      while (c.next()) {
-        if (c.wasRemoved()) {
-          for (Node node : c.getRemoved()) {
-            LOGGER.debug("Dropdown " + node + " removed");
-            view.removeToolbarControlRight(c.getFrom());
-          }
-        }
-        if (c.wasAdded()) {
-          for (Node node : c.getAddedSubList()) {
-            LOGGER.debug("Dropdown " + node + " added");
-            view.addToolbarControlRight(node);
-          }
-        }
-      }
-    });
+    toolbarControlsRight.addListener(
+        (ListChangeListener<? super Node>) c -> setupListener(c, rightToolbarSide)
+    );
 
     // When the List of the currently open modules is changed, the view is updated.
     openModules.addListener((ListChangeListener<? super Module>) c -> {
@@ -151,6 +128,38 @@ public class ToolbarPresenter implements Presenter {
         view.addMenuButton();
       }
     });
+  }
+
+  /**
+   * Adds or removes a {@link Node} from the {@link ToolbarView}.
+   * Depending on the given {@code listenerType} the GUI will be changed.
+   *
+   * @param c the changed {@link ObservableList}
+   * @param listenerType which decides the changes in the {@link ToolbarView}
+   */
+  private void setupListener(ListChangeListener.Change<? extends Node> c, String listenerType) {
+    while (c.next()) {
+      if (c.wasRemoved()) {
+        for (Node node : c.getRemoved()) {
+          LOGGER.debug("Dropdown " + node + " removed");
+          if (listenerType.equals(leftToolbarSide)) {
+            view.removeToolbarControlLeft(c.getFrom());
+          } else {
+            view.removeToolbarControlRight(c.getFrom());
+          }
+        }
+      }
+      if (c.wasAdded()) {
+        for (Node node : c.getAddedSubList()) {
+          LOGGER.debug("Dropdown " + node + " added");
+          if (listenerType.equals(leftToolbarSide)) {
+            view.addToolbarControlLeft(node);
+          } else {
+            view.addToolbarControlRight(node);
+          }
+        }
+      }
+    }
   }
 
   /**
