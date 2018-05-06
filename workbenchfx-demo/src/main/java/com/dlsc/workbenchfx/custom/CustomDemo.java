@@ -97,7 +97,7 @@ public class CustomDemo extends Application {
   private Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
     NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
     StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
-    navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(.5));
+    navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(.333));
     return navigationDrawer;
   };
 
