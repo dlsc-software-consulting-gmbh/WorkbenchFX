@@ -2,7 +2,6 @@ package com.dlsc.workbenchfx.view;
 
 import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.Node;

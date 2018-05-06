@@ -4,6 +4,7 @@ import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
+import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
@@ -19,7 +20,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.function.BiFunction;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -97,7 +97,7 @@ public class CustomDemo extends Application {
   private Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
     NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
     StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
-    navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(.5));
+    navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(.333));
     return navigationDrawer;
   };
 
@@ -147,7 +147,7 @@ public class CustomDemo extends Application {
     MenuItem itemC = new MenuItem("Settings", createIcon(FontAwesomeIcon.COGS));
 
     MenuItem showOverlay = new MenuItem("Show overlay");
-    MenuItem showModalOverlay = new MenuItem("Show modal overlay");
+    MenuItem showBlockingOverlay = new MenuItem("Show blocking overlay");
 
     item21.getItems().addAll(item211, item212, item213, item214, item215);
 
@@ -157,11 +157,12 @@ public class CustomDemo extends Application {
 
     // WorkbenchFX
     workbenchFx = WorkbenchFx.builder(
-        new WidgetsTestModule(),
-        new DropdownTestModule(),
         new CalendarModule(),
         new NotesModule(),
+        new CustomerModule(),
         new PreferencesModule(),
+        new WidgetsTestModule(),
+        new DropdownTestModule(),
         new NavigationDrawerTestModule()
     ).toolbarControls(
         Dropdown.of(
@@ -184,23 +185,22 @@ public class CustomDemo extends Application {
             new CustomMenuItem(new Label("Content 2"))
         )
     )
-    .modulesPerPage(2)
+        .modulesPerPage(4)
     .tabFactory(tabFactory)
     .tileFactory(tileFactory)
     .pageFactory(pageFactory)
     .navigationDrawerFactory(navigationDrawerFactory)
-    .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showModalOverlay)
-    .overlays(
-        workbench -> new CustomOverlay(workbench, false),
-        workbench -> new CustomOverlay(workbench, true)
-    )
+    .navigationDrawer(menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
     .build();
 
-    ObservableList<Node> overlays = workbenchFx.getOverlays();
-    showOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(1), false));
-    showModalOverlay.setOnAction(event -> workbenchFx.showOverlay(overlays.get(2), true));
+    CustomOverlay customOverlay = new CustomOverlay(workbenchFx, false);
+    CustomOverlay blockingCustomOverlay = new CustomOverlay(workbenchFx, true);
+    showOverlay.setOnAction(event -> workbenchFx.showOverlay(customOverlay, false));
+    showBlockingOverlay.setOnAction(event -> workbenchFx.showOverlay(blockingCustomOverlay, true));
 
-//    workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+    //workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+    workbenchFx.getStylesheets().add(
+        CustomDemo.class.getResource("customOverlay.css").toExternalForm());
 
     return workbenchFx;
   }

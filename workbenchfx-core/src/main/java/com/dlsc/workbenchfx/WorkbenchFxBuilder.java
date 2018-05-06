@@ -7,8 +7,6 @@ import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.module.TabControl;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.function.BiFunction;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
@@ -102,8 +100,6 @@ public final class WorkbenchFxBuilder {
 
   MenuItem[] navigationDrawerItems;
 
-  Callback<WorkbenchFx, Node>[] overlays;
-
   WorkbenchFxBuilder(Module... modules) {
     this.modules = modules;
   }
@@ -155,19 +151,6 @@ public final class WorkbenchFxBuilder {
    */
   public WorkbenchFxBuilder pageFactory(BiFunction<WorkbenchFx, Integer, Node> pageFactory) {
     this.pageFactory = pageFactory;
-    return this;
-  }
-
-  /**
-   * Defines all of the overlays which should initially be loaded into the scene graph hidden, to be
-   * later shown using {@link WorkbenchFx#showOverlay(Node, boolean)}.
-   *
-   * @param overlays callback to construct the overlays to be initially loaded into the scene graph
-   *                 using a {@link WorkbenchFx} object
-   * @return builder for chaining
-   */
-  public WorkbenchFxBuilder overlays(Callback<WorkbenchFx, Node>... overlays) {
-    this.overlays = overlays;
     return this;
   }
 
