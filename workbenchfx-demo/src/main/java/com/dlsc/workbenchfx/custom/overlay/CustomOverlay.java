@@ -3,21 +3,21 @@ package com.dlsc.workbenchfx.custom.overlay;
 import com.dlsc.workbenchfx.WorkbenchFx;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 
 public class CustomOverlay extends BorderPane {
 
-  private final WorkbenchFx workbench;
-  private final boolean modal;
+  private WorkbenchFx workbench;
+  private final boolean blocking;
 
-  public CustomOverlay(WorkbenchFx workbench, boolean modal) {
+  public CustomOverlay(WorkbenchFx workbench, boolean blocking) {
+    Objects.requireNonNull(workbench);
     this.workbench = workbench;
-    this.modal = modal;
+    this.blocking = blocking;
     init();
   }
 
@@ -28,18 +28,17 @@ public class CustomOverlay extends BorderPane {
     centerLbl.getStyleClass().add("centerLbl");
     setCenter(centerLbl);
 
-    if (!modal) {
-      // only show x button if it's not a modal overlay
+    if (blocking) {
+      // only show x button if it's a blocking overlay, so it can still be closed
       Button closeBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.CLOSE));
+      closeBtn.setOnAction(event -> workbench.hideOverlay(this, true));
       BorderPane.setAlignment(closeBtn, Pos.TOP_RIGHT);
-      closeBtn.setOnAction(event -> workbench.hideOverlay(this, false));
       setTop(closeBtn);
     }
   }
 
   @Override
   public String toString() {
-    return "Custom Overlay - Modal: " + modal;
+    return "Custom Overlay - Blocking: " + blocking;
   }
-
 }

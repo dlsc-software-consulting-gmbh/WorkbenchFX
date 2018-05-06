@@ -2,9 +2,8 @@ package com.dlsc.workbenchfx.custom.calendar;
 
 import com.dlsc.workbenchfx.module.AbstractModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import javafx.scene.Node;
-
 import java.util.Objects;
+import javafx.scene.Node;
 
 public class CalendarModule extends AbstractModule {
 

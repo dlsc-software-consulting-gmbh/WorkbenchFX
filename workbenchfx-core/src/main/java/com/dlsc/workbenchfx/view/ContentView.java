@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 
@@ -10,14 +9,11 @@ import javafx.scene.layout.StackPane;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class CenterView extends StackPane implements View {
-  private final WorkbenchFx model;
-
+public class ContentView extends StackPane implements View {
   /**
-   * Creates a new {@link CenterView}.
+   * Creates a new {@link ContentView}.
    */
-  public CenterView(WorkbenchFx model) {
-    this.model = model;
+  public ContentView() {
     init();
   }
 
@@ -26,7 +22,7 @@ public class CenterView extends StackPane implements View {
    */
   @Override
   public void initializeSelf() {
-    setId("center");
+    setId("content-view");
   }
 
   /**
@@ -42,14 +38,6 @@ public class CenterView extends StackPane implements View {
    */
   @Override
   public void layoutParts() {
-
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void bindFieldsToModel() {
 
   }
 

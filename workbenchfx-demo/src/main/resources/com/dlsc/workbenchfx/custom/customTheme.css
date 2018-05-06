@@ -1,0 +1,14 @@
+.root {
+    -prim-color: #3f51b5;
+    -prim-color-hover: #5566c3;
+    -text-color: #ffffff;
+    -text-color-transparent: rgba(255, 255, 255, .7);
+
+    -danger-color: #f1986a;
+    -success-color: #51aaa0;
+    -accent-color: #aa8a70;
+
+    -icons-color: -text-color;
+    -fx-font-size: 14px;
+    -fx-font-family: Helvetica, sans-serif;
+}

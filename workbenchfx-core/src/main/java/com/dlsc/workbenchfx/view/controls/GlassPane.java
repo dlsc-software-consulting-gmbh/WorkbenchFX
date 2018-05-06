@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -19,14 +18,11 @@ public class GlassPane extends StackPane {
 
   /**
    * Creates a {@link GlassPane} object and fully initializes it.
-   * @param workbench to be used for calling {@link WorkbenchFx#hideAllOverlays()} on, when the
-   *                  {@link GlassPane} is being clicked on by the user.
    */
-  public GlassPane(WorkbenchFx workbench) {
+  public GlassPane() {
     getStyleClass().add("glass-pane");
 
     setMouseTransparent(false);
-    setOnMouseClicked(evt -> workbench.hideAllOverlays());
     setVisible(false);
 
     hideProperty().addListener((observable, oldHide, newHide) -> {
@@ -50,7 +46,7 @@ public class GlassPane extends StackPane {
     });
   }
 
-  private final BooleanProperty hide = new SimpleBooleanProperty(this, "hide");
+  private final BooleanProperty hide = new SimpleBooleanProperty(this, "hide", true);
 
   public final BooleanProperty hideProperty() {
     return hide;

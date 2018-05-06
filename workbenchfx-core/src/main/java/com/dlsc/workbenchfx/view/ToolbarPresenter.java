@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
-import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
+import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_HOME;
 
 import com.dlsc.workbenchfx.WorkbenchFx;
 import com.dlsc.workbenchfx.module.Module;
@@ -14,31 +14,37 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the presenter of the corresponding {@link ToolBarView}.
+ * Represents the presenter of the corresponding {@link ToolbarView}.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ToolBarPresenter implements Presenter {
+public class ToolbarPresenter implements Presenter {
   private static final Logger LOGGER =
-      LogManager.getLogger(ToolBarPresenter.class.getName());
+      LogManager.getLogger(ToolbarPresenter.class.getName());
   private final WorkbenchFx model;
-  private final ToolBarView view;
+  private final ToolbarView view;
 
   // Strong reference to prevent garbage collection
   private final ObservableList<Module> openModules;
   private final ObservableList<MenuItem> navigationDrawerItems;
-  private final ObservableList<Node> toolBarControls;
+  private final ObservableList<Node> toolbarControlsLeft;
+  private final ObservableList<Node> toolbarControlsRight;
+
+  // Strings for detection of listener-type in the toolbar
+  private final String leftToolbarSide = "LEFT_TOOLBAR_SIDE";
+  private final String rightToolbarSide = "RIGHT_TOOLBAR_SIDE";
 
   /**
-   * Creates a new {@link ToolBarPresenter} object for a corresponding {@link ToolBarView}.
+   * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
    */
-  public ToolBarPresenter(WorkbenchFx model, ToolBarView view) {
+  public ToolbarPresenter(WorkbenchFx model, ToolbarView view) {
     this.model = model;
     this.view = view;
     openModules = model.getOpenModules();
     navigationDrawerItems = model.getNavigationDrawerItems();
-    toolBarControls = model.getToolBarControls();
+    toolbarControlsLeft = model.getToolbarControlsLeft();
+    toolbarControlsRight = model.getToolbarControlsRight();
     init();
   }
 
@@ -47,7 +53,8 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    model.getToolBarControls().forEach(view::addToolBarControl);
+    model.getToolbarControlsRight().forEach(view::addToolbarControlRight);
+    model.getToolbarControlsLeft().forEach(view::addToolbarControlLeft);
 
     // only add the menu button, if there is at least one navigation drawer item
     if (model.getNavigationDrawerItems().size() > 0) {
@@ -65,7 +72,7 @@ public class ToolBarPresenter implements Presenter {
     // When the home button is clicked, the view changes
     view.homeBtn.setOnAction(event -> model.openHomeScreen());
     // When the menu button is clicked, the navigation drawer gets shown
-    view.menuBtn.setOnAction(event -> model.showOverlay(model.getNavigationDrawer(), true));
+    view.menuBtn.setOnAction(event -> model.showNavigationDrawer());
   }
 
   /**
@@ -73,23 +80,14 @@ public class ToolBarPresenter implements Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-    // When the List of the currently open toolBarControls is changed, the view is updated.
-    toolBarControls.addListener((ListChangeListener<? super Node>) c -> {
-      while (c.next()) {
-        if (c.wasRemoved()) {
-          for (Node node : c.getRemoved()) {
-            LOGGER.debug("Dropdown " + node + " removed");
-            view.removeToolBarControl(c.getFrom());
-          }
-        }
-        if (c.wasAdded()) {
-          for (Node node : c.getAddedSubList()) {
-            LOGGER.debug("Dropdown " + node + " added");
-            view.addToolBarControl(node);
-          }
-        }
-      }
-    });
+    // When the List of the currently open toolbarControlsLeft is changed, the view is updated.
+    toolbarControlsLeft.addListener(
+        (ListChangeListener<? super Node>) c -> setupListener(c, leftToolbarSide)
+    );
+    // When the List of the currently open toolbarControlsRight is changed, the view is updated.
+    toolbarControlsRight.addListener(
+        (ListChangeListener<? super Node>) c -> setupListener(c, rightToolbarSide)
+    );
 
     // When the List of the currently open modules is changed, the view is updated.
     openModules.addListener((ListChangeListener<? super Module>) c -> {
@@ -114,11 +112,11 @@ public class ToolBarPresenter implements Presenter {
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       if (Objects.isNull(oldModule)) {
         // Home is the old value
-        view.homeBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
+        view.homeBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_HOME);
       }
       if (Objects.isNull(newModule)) {
         // Home is the new value
-        view.homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
+        view.homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_HOME);
       }
     });
 
@@ -130,6 +128,38 @@ public class ToolBarPresenter implements Presenter {
         view.addMenuButton();
       }
     });
+  }
+
+  /**
+   * Adds or removes a {@link Node} from the {@link ToolbarView}.
+   * Depending on the given {@code listenerType} the GUI will be changed.
+   *
+   * @param c the changed {@link ObservableList}
+   * @param listenerType which decides the changes in the {@link ToolbarView}
+   */
+  private void setupListener(ListChangeListener.Change<? extends Node> c, String listenerType) {
+    while (c.next()) {
+      if (c.wasRemoved()) {
+        for (Node node : c.getRemoved()) {
+          LOGGER.debug("Dropdown " + node + " removed");
+          if (listenerType.equals(leftToolbarSide)) {
+            view.removeToolbarControlLeft(c.getFrom());
+          } else {
+            view.removeToolbarControlRight(c.getFrom());
+          }
+        }
+      }
+      if (c.wasAdded()) {
+        for (Node node : c.getAddedSubList()) {
+          LOGGER.debug("Dropdown " + node + " added");
+          if (listenerType.equals(leftToolbarSide)) {
+            view.addToolbarControlLeft(node);
+          } else {
+            view.addToolbarControlRight(node);
+          }
+        }
+      }
+    }
   }
 
   /**

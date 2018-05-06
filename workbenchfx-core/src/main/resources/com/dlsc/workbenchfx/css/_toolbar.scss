@@ -1,31 +1,43 @@
-$tab-spacing: 0.75em;
-
 #toolbar {
-  -fx-spacing: $tab-spacing;
+  -fx-background-color: -prim-color;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0, 0, 3);
 
-  & #homeButton {
-    @extend %tool-bar-setup;
-    -fx-min-width: $pref-size;
+  #menu-button {
+    @extend %button-inverted;
 
-    & #homeIconView {
-      // The actual home-icon
+    & #menu-icon-view {
+
+    }
+
+    &:focused {
+
     }
   }
 
-  #menuIconView {
-    -fx-fill: white;
+  & #toolbar-control-left-box {
+    & .button {
+      @extend %button;
+    }
+    & .button-inverted {
+      @extend %button-inverted;
+    }
   }
 
-  #menuButton {
-    @extend %tool-bar-setup;
-    -fx-min-width: $pref-size;
+  & #home-button {
+    @extend %button;
+
+    & #home-icon-view {
+
+    }
   }
 
-  & #tabBox {
-    -fx-spacing: 0.6 * $tab-spacing;
+  & #tab-box {
+
   }
 
-  & #toolbar-control-box {
-    -fx-spacing: 0.6 * $tab-spacing;
+  & #toolbar-control-right-box {
+    & .button {
+      @extend %button;
+    }
   }
 }

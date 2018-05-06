@@ -1,7 +1,17 @@
-$border: 2px;
+$border: 3px;
 $pref-size: 3.5em;
-$primary-color: #f2f2f2;
-$text-color: darken($primary-color, 70%);
+$darken-percentage: -10%;
+
+// Comment in the color schema you like to use.
+// Color schema with a dark -text-color and a light -prim-color
+//$primary-color: hsl(202, 98%, 99%);
+//$text-color: darken($primary-color, 60%);
+
+// Color schema with a light -text-color and a dark -prim-color
+$text-color: hsl(202, 98%, 99%);
+$primary-color: darken($text-color, 60%);
+
+$text-color-transparent: transparentize($text-color, .2);
 $custom-color-1: blue;
 $custom-color-2: red;
 $custom-color-3: green;
@@ -9,20 +19,18 @@ $custom-color-4: purple;
 $custom-color-5: pink;
 
 .root {
-  -primary-color: $primary-color;
-  -danger-color: #DB4437;
+  -prim-color: $primary-color;
+  -prim-color-hover: lighten($primary-color, 5%);
+  -danger-color: #ed5a5a;
   -success-color: #47aa71;
   -accent-color: #00aaff;
   -text-color: $text-color;
+  -text-color-transparent: $text-color-transparent;
   -inverted-text-color: invert($text-color);
-  -module-background-color: derive(-primary-color, 140%);
 
   -icons-color: -text-color;
   -fx-font-size: 14px;
-  -fx-font-family: Helvetica, sans-serif;
-  -fx-color: -primary-color;
-  -fx-background-color: white;
-
+  -fx-font-family: Roboto, sans-serif;
 }
 
 // Default styling of icons. This enables changing the icons styles later on
@@ -32,18 +40,14 @@ $custom-color-5: pink;
   -fx-font-size: 1.5em !important;
 }
 
-.module-background {
-  -fx-background-color: -module-background-color;
-}
-
-@import "removeFocus";
 @import "includes";
-@import "center";
+@import "contentView";
 @import "home";
-@import "module";
 @import "toolbar";
+@import "module";
 @import "workbench";
 @import "dropdown";
 @import "prettyScrollPane";
 @import "navigationDrawer";
 @import "glassPane";
+@import "activeTools";

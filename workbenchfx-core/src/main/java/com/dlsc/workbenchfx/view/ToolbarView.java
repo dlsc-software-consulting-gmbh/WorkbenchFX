@@ -1,10 +1,10 @@
 package com.dlsc.workbenchfx.view;
 
-import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
+import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_HOME;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -16,22 +16,19 @@ import javafx.scene.layout.Priority;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ToolBarView extends HBox implements View {
-  private final WorkbenchFx model;
+public class ToolbarView extends HBox implements View {
   private FontAwesomeIconView homeIconView;
   private FontAwesomeIconView menuIconView;
   Button homeBtn;
   Button menuBtn;
   private HBox tabBox;
-  HBox toolBarControlBox;
+  HBox toolbarControlLeftBox;
+  HBox toolbarControlRightBox;
 
   /**
-   * Creates a new {@link ToolBarView} for the Workbench.
-   *
-   * @param model the {@link WorkbenchFx} as a model
+   * Creates a new {@link ToolbarView} for the Workbench.
    */
-  public ToolBarView(WorkbenchFx model) {
-    this.model = model;
+  public ToolbarView() {
     init();
   }
 
@@ -49,21 +46,26 @@ public class ToolBarView extends HBox implements View {
   @Override
   public void initializeParts() {
     homeIconView = new FontAwesomeIconView(FontAwesomeIcon.HOME);
-    homeIconView.setId("homeIconView");
+    homeIconView.setId("home-icon-view");
+    homeIconView.getStyleClass().add("icon-view");
     homeBtn = new Button("", homeIconView);
-    homeBtn.setId("homeButton");
-    homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
+    homeBtn.setId("home-button");
+    homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_HOME);
 
     menuIconView = new FontAwesomeIconView(FontAwesomeIcon.BARS);
-    menuIconView.setId("menuIconView");
+    menuIconView.setId("menu-icon-view");
+    menuIconView.getStyleClass().add("icon-view");
     menuBtn = new Button("", menuIconView);
-    menuBtn.setId("menuButton");
+    menuBtn.setId("menu-button");
 
     tabBox = new HBox();
-    tabBox.setId("tabBox");
+    tabBox.setId("tab-box");
 
-    toolBarControlBox = new HBox();
-    toolBarControlBox.setId("toolbar-control-box");
+    toolbarControlLeftBox = new HBox();
+    toolbarControlLeftBox.setId("toolbar-control-left-box");
+
+    toolbarControlRightBox = new HBox();
+    toolbarControlRightBox.setId("toolbar-control-right-box");
   }
 
   /**
@@ -71,16 +73,9 @@ public class ToolBarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().addAll(homeBtn, tabBox, toolBarControlBox);
+    getChildren().addAll(toolbarControlLeftBox, homeBtn, tabBox, toolbarControlRightBox);
     setHgrow(tabBox, Priority.ALWAYS);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void bindFieldsToModel() {
-
+    Platform.runLater(() -> homeBtn.requestFocus());
   }
 
   /**
@@ -119,6 +114,7 @@ public class ToolBarView extends HBox implements View {
    */
   /**
    * Removes a tab to the {@code tabBox}.
+   *
    * @param index of the tab to be removed
    */
   public void removeTab(int index) {
@@ -126,20 +122,38 @@ public class ToolBarView extends HBox implements View {
   }
 
   /**
-   * Adds a {@link Node} at the end of the {@code toolBarControlBox}.
+   * Adds a {@link Node} at the end of the {@code toolbarControlLeftBox}.
    *
-   * @param toolBarControl the {@link Node} to be added
+   * @param toolbarControlLeft the {@link Node} to be added
    */
-  public void addToolBarControl(Node toolBarControl) {
-    toolBarControlBox.getChildren().add(toolBarControl);
+  public void addToolbarControlLeft(Node toolbarControlLeft) {
+    toolbarControlLeftBox.getChildren().add(toolbarControlLeft);
   }
 
   /**
-   * Removes a {@link Node} at the specified index of the {@code toolBarControlBox}.
+   * Removes a {@link Node} at the specified index of the {@code toolbarControlLeftBox}.
    *
    * @param index the index where the specified {@link Node} should be removed
    */
-  public void removeToolBarControl(int index) {
-    toolBarControlBox.getChildren().remove(index);
+  public void removeToolbarControlLeft(int index) {
+    toolbarControlLeftBox.getChildren().remove(index);
+  }
+
+  /**
+   * Adds a {@link Node} at the end of the {@code toolbarControlRightBox}.
+   *
+   * @param toolbarControlRight the {@link Node} to be added
+   */
+  public void addToolbarControlRight(Node toolbarControlRight) {
+    toolbarControlRightBox.getChildren().add(toolbarControlRight);
+  }
+
+  /**
+   * Removes a {@link Node} at the specified index of the {@code toolbarControlRightBox}.
+   *
+   * @param index the index where the specified {@link Node} should be removed
+   */
+  public void removeToolbarControlRight(int index) {
+    toolbarControlRightBox.getChildren().remove(index);
   }
 }

@@ -1,34 +1,68 @@
-.tileControl {
-  @extend %tool-bar-setup;
+.tile-control {
+  @extend %toolbar-setup;
   -fx-min-width: 16em;
   -fx-min-height: 9em;
+  -fx-background-radius: $border;
+  -fx-border-radius: $border;
   &:hover {
     -fx-text-fill: -text-color;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 3, 0.0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 5, .3, 1, 2);
+  }
+
+  &:focused {
+    -fx-background-radius: $border;
+    -fx-background-color: derive(-prim-color, $darken-percentage/1.5);
+  }
+
+  &:pressed {
+    -fx-background-color: derive(-prim-color, $darken-percentage);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 15, .3, 2, 4);
   }
 }
 
-.tabControl {
-  @extend %tool-bar-setup;
-  -fx-padding: .5em .5em .5em 1em;
+.tab-control {
+  @extend %toolbar-setup;
+  -fx-border-width: 0 0 $border 0;
+  -fx-padding: .5em 1.5em .5em 1.5em;
 
-  & .closeBtn {
+  & .tab-icon {
+    -icons-color: -text-color-transparent;
+  }
+
+  & .tab-name-lbl {
+    -fx-text-fill: -text-color-transparent;
+  }
+
+  & .close-btn {
+    -fx-padding: 0;
     -fx-background-color: transparent;
-    & .closeIconView {
+    -icons-color: -text-color-transparent;
+
+    & .close-icon-view {
       -fx-font-size: 1em !important;
     }
-    &:hover .closeIconView {
+    &:hover .close-icon-view {
       -icons-color: -danger-color;
     }
   }
-}
 
-.active-tab {
-  -fx-background-color: -primary-color !important;
+  &:hover {
+    & .tab-icon {
+      -icons-color: -text-color;
+    }
+
+    & .tab-name-lbl {
+      -fx-text-fill: -text-color;
+    }
+
+    & .close-btn {
+      -icons-color: -text-color;
+    }
+  }
 }
 
 %button-styling {
-  @extend .tabControl;
+  @extend .tab-control;
   -fx-padding: .5em;
   -fx-pref-width: 3.5em;
 }

@@ -13,84 +13,179 @@
 }
 
 //Initiating the basic behaviour of any item in the toolbar
-%tool-bar-setup {
-  -fx-max-height: $pref-size;
-  -fx-min-height: $pref-size;
+%toolbar-setup {
   -fx-pref-height: $pref-size;
-  -fx-background-color: derive(-primary-color, -15%);
+  -fx-background-color: -prim-color;
   -fx-padding: .5em;
   -fx-spacing: .5em;
   -fx-alignment: center center;
   -fx-background-radius: 0;
   -fx-border-radius: 0;
-  -fx-border-width: 0;
+  -fx-background-insets: 0;
   -fx-text-fill: -text-color;
 
-  &:hover {
-    -fx-background-color: derive(-primary-color, -7.5%);
+  -fx-border-width: 0;
+  -fx-border-color: -prim-color;
+
+  &:focused {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
   }
+
+  &:hover {
+    -fx-cursor: hand;
+  }
+
   & .label {
     -fx-text-fill: -text-color;
   }
-
 }
 
 %menu-item {
   & .menu-item {
+    -fx-padding: 1em 1.5em 1em 1.5em;
     -fx-alignment: center-left;
-    -fx-padding: .5em;
+    -fx-background-radius: 0;
+    -fx-background-color: -text-color;
+    -fx-text-fill: -prim-color;
+    -icons-color: -prim-color;
 
+    // Hovering in the global menu
     &:hover {
-      -fx-background-color: derive(-primary-color, 30%);
-      -fx-text-fill: -text-color;
+      -fx-cursor: hand;
+      -fx-background-color: derive(-text-color, $darken-percentage);
 
       & .label {
-        -fx-text-fill: -text-color;
+        -fx-text-fill: -prim-color;
       }
     }
 
     &:focused {
-      -fx-background-color: derive(-primary-color, 30%);
-      -fx-text-fill: -text-color;
+      // Also active when hovering through the submenus
+      -fx-background-color: derive(-text-color, $darken-percentage);
+      -fx-text-fill: -prim-color;
       & .label, > .label {
-        -fx-text-fill: -text-color;
+        -fx-text-fill: -prim-color;
+      }
+    }
+
+    & > .graphic-container {
+      -fx-padding: 0 0.5em 0 0.5em;
+    }
+
+    & > .label {
+      -icons-color: -prim-color;
+      -fx-text-fill: -prim-color;
+    }
+
+    & > .arrow-button {
+      & > .arrow {
+        -fx-background-color: -prim-color;
       }
     }
   }
-
 }
 
 %context-menu {
+  // When any Submenu opens
   & .context-menu {
-    -fx-background-color: derive(-primary-color, 15%);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 3, 0.0, 0, 2);
+    -fx-background-color: -text-color;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 15, .3, 2, 4);
 
-    & .scroll-arrow {
-      -fx-background-color: derive(-primary-color, 45%);
+    // ArrowMenuItem
+    & > .scroll-arrow {
+      -fx-padding: .75em;
+      -fx-background-color: -prim-color;
+
       &:hover {
-        -fx-background-color: derive(-primary-color, 60%);
+        -fx-background-color: derive(-prim-color, $darken-percentage);
+      }
+
+      & .menu-up-arrow {
+        -fx-background-color: -text-color;
+        -fx-effect: 0;
+      }
+
+      & .menu-down-arrow {
+        -fx-background-color: -text-color;
+        -fx-effect: 0;
       }
     }
 
     .menu {
       &:hover > .right-container > .arrow {
-        -fx-background-color: -text-color;
+        -fx-background-color: -prim-color;
       }
       &:focused > .right-container > .arrow {
-        -fx-background-color: -text-color;
+        -fx-background-color: -prim-color;
       }
+
       & > .right-container > .arrow {
-        -fx-background-color: -text-color;
+        // Default color of the arrow
+        -fx-background-color: -prim-color;
       }
     }
 
     & .menu-item {
-      & >.label {
-        -fx-text-fill: -text-color;
+      -icons-color: -prim-color;
+
+      & > .label {
+        -fx-text-fill: -prim-color;
       }
     }
 
+    &:hover {
+      -fx-cursor: hand;
+    }
   }
 }
 
+%button {
+  @extend %toolbar-setup;
+  -fx-min-width: $pref-size;
+  -fx-text-fill: -text-color;
 
+  & > .label {
+    -fx-min-width: null;
+    -fx-text-fill: -text-color;
+  }
+
+  &:hover {
+    -fx-background-color: derive(-prim-color, $darken-percentage);
+  }
+
+  &:pressed {
+    -fx-background-color: derive(-prim-color, $darken-percentage);
+  }
+}
+
+%button-inverted {
+  @extend %button;
+  -fx-background-color: -text-color;
+  -fx-text-fill: -prim-color;
+
+  & .glyph-icon {
+    -fx-fill: -prim-color;
+  }
+
+  & > .label {
+    -fx-text-fill: -prim-color;
+  }
+
+  &:hover {
+    -fx-background-color: -prim-color;
+    -fx-text-fill: -text-color;
+
+    & .glyph-icon {
+      -fx-fill: -text-color;
+    }
+
+    & > .label {
+      -fx-text-fill: -text-color;
+    }
+  }
+
+  &:pressed {
+    -fx-background-color: derive(-prim-color, $darken-percentage);
+  }
+}

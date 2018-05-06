@@ -62,3 +62,9 @@ Initially, we had the return type of destroy() be void.
 Then, we noticed, if for example the module is a text editor and the API user would want to display a popup, asking if the window should be closed with unsaved changes, the API user should have the ability to have the destroy() operation stopped. // TODO: better formulation
 This is why we add "boolean" as a return type of destroy().
 This way, the API user can return false, then the module won't be removed from the tabs yet.
+
+== Overlays
+// TODO: how and why did we design them that way, blocking vs non-blocking, modal vs non-modal
+// TODO: decided with customer that only possible to add overlays at runtime
+// TODO: document tradeoff with performance by not preloading all overlays
+// TODO: add challenge in terms of architecture, lots of redesigns

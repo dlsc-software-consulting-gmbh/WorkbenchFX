@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the Dropdown control wich is used in the ToolBar of WorkbenchFX.
+ * Represents the Dropdown control wich is used in the Toolbar of WorkbenchFX.
  * Its functionality is like that of a {@link MenuButton}.
  *
  * @author François Martin
@@ -24,6 +24,7 @@ public class Dropdown extends Control {
   private final String text;
   private final Node icon;
   private final ObservableList<MenuItem> menuItems = FXCollections.observableArrayList();
+  private DropdownSkin dropdownSkin;
 
   private Dropdown(String text, Node icon, MenuItem... menuItems) {
     this.text = text;
@@ -47,7 +48,12 @@ public class Dropdown extends Control {
 
   @Override
   protected Skin<?> createDefaultSkin() {
-    return new DropdownSkin(this);
+    dropdownSkin = new DropdownSkin(this);
+    return dropdownSkin;
+  }
+
+  public void invertStyle() {
+    dropdownSkin.invertStyle();
   }
 
   public Node getIcon() {
