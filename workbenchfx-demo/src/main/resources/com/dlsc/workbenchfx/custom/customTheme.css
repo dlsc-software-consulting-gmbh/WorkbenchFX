@@ -1,20 +1,14 @@
 .root {
     -prim-color: #3f51b5;
-    /*-prim-color: #f3eb70;*/
     -prim-color-hover: #5566c3;
-    /*-prim-color-hover: #ffffaa;*/
-    -danger-color: #f17a7a;
-    -success-color: #47aa71;
-    -accent-color: #aa8a70;
-    -text-color: white;
-    /*-text-color: #474423;*/
+    -text-color: #ffffff;
     -text-color-transparent: rgba(255, 255, 255, .7);
-    /*-text-color-transparent: rgba(71, 68, 35, 0.8);*/
-    /*-module-background-color: derive(-primary-color, 140%);*/
+
+    -danger-color: #f1986a;
+    -success-color: #51aaa0;
+    -accent-color: #aa8a70;
 
     -icons-color: -text-color;
     -fx-font-size: 14px;
     -fx-font-family: Helvetica, sans-serif;
-    -fx-color: -primary-color;
-    -fx-background-color: white;
 }

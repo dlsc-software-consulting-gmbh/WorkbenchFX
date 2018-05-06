@@ -4,17 +4,19 @@
   -fx-min-height: 9em;
   -fx-background-radius: $border;
   -fx-border-radius: $border;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .3), 4, 0.0, 0, 3);
   &:hover {
     -fx-text-fill: -text-color;
-    -fx-background-color: -prim-color-hover;
-    -fx-border-color: -prim-color-hover;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 4, 0.0, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 5, .3, 1, 2);
   }
 
   &:focused {
     -fx-background-radius: $border;
+    -fx-background-color: derive(-prim-color, $darken-percentage/1.5);
+  }
+
+  &:pressed {
     -fx-background-color: derive(-prim-color, $darken-percentage);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 15, .3, 2, 4);
   }
 }
 

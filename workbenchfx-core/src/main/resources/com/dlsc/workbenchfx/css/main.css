@@ -1,12 +1,12 @@
 .root {
-  -prim-color: #6a4285;
-  -prim-color-hover: #784a96;
-  -danger-color: #DB4437;
+  -prim-color: #027dc5;
+  -prim-color-hover: #028ede;
+  -danger-color: #ed5a5a;
   -success-color: #47aa71;
   -accent-color: #00aaff;
-  -text-color: #fdfcfd;
-  -text-color-transparent: rgba(253, 252, 253, 0.8);
-  -inverted-text-color: #020302;
+  -text-color: #fafdff;
+  -text-color-transparent: rgba(250, 253, 255, 0.8);
+  -inverted-text-color: #050200;
   -icons-color: -text-color;
   -fx-font-size: 14px;
   -fx-font-family: Roboto, sans-serif; }
@@ -16,7 +16,7 @@
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
-.tile-control, .tab-control, #toolbar #home-button, #toolbar #menu-button, .dropdown, .navigation-drawer #back-button {
+#toolbar #menu-button, #toolbar #toolbar-control-left-box .button-inverted, #toolbar #toolbar-control-left-box .button, #toolbar #home-button, #toolbar #toolbar-control-right-box .button, .navigation-drawer #back-button, .tile-control, .tab-control, .dropdown, .dropdown-inverted {
   -fx-pref-height: 3.5em;
   -fx-background-color: -prim-color;
   -fx-padding: .5em;
@@ -28,65 +28,93 @@
   -fx-text-fill: -text-color;
   -fx-border-width: 0;
   -fx-border-color: -prim-color; }
-  .tile-control:focused, .tab-control:focused, #toolbar #home-button:focused, #toolbar #menu-button:focused, .dropdown:focused, .navigation-drawer #back-button:focused {
+  #toolbar #menu-button:focused, #toolbar #toolbar-control-left-box .button-inverted:focused, #toolbar #toolbar-control-left-box .button:focused, #toolbar #home-button:focused, #toolbar #toolbar-control-right-box .button:focused, .navigation-drawer #back-button:focused, .tile-control:focused, .tab-control:focused, .dropdown:focused, .dropdown-inverted:focused {
     -fx-background-insets: 0;
     -fx-background-radius: 0; }
-  .tile-control:hover, .tab-control:hover, #toolbar #home-button:hover, #toolbar #menu-button:hover, .dropdown:hover, .navigation-drawer #back-button:hover {
+  #toolbar #menu-button:hover, #toolbar #toolbar-control-left-box .button-inverted:hover, #toolbar #toolbar-control-left-box .button:hover, #toolbar #home-button:hover, #toolbar #toolbar-control-right-box .button:hover, .navigation-drawer #back-button:hover, .tile-control:hover, .tab-control:hover, .dropdown:hover, .dropdown-inverted:hover {
     -fx-cursor: hand; }
-  .tile-control .label, .tab-control .label, #toolbar #home-button .label, #toolbar #menu-button .label, .dropdown .label, .navigation-drawer #back-button .label {
+  #toolbar #menu-button .label, #toolbar #toolbar-control-left-box .button-inverted .label, #toolbar #toolbar-control-left-box .button .label, #toolbar #home-button .label, #toolbar #toolbar-control-right-box .button .label, .navigation-drawer #back-button .label, .tile-control .label, .tab-control .label, .dropdown .label, .dropdown-inverted .label {
     -fx-text-fill: -text-color; }
 
-.dropdown .menu-item, .navigation-drawer .menu-item {
+.dropdown .menu-item, .dropdown-inverted .menu-item, .navigation-drawer .menu-item {
   -fx-padding: 1em 1.5em 1em 1.5em;
   -fx-alignment: center-left;
   -fx-background-radius: 0;
   -fx-background-color: -text-color;
   -fx-text-fill: -prim-color;
   -icons-color: -prim-color; }
-  .dropdown .menu-item:hover, .navigation-drawer .menu-item:hover {
+  .dropdown .menu-item:hover, .dropdown-inverted .menu-item:hover, .navigation-drawer .menu-item:hover {
     -fx-cursor: hand;
-    -fx-background-color: derive(-text-color, -15%); }
-    .dropdown .menu-item:hover .label, .navigation-drawer .menu-item:hover .label {
+    -fx-background-color: derive(-text-color, -10%); }
+    .dropdown .menu-item:hover .label, .dropdown-inverted .menu-item:hover .label, .navigation-drawer .menu-item:hover .label {
       -fx-text-fill: -prim-color; }
-  .dropdown .menu-item:focused, .navigation-drawer .menu-item:focused {
-    -fx-background-color: derive(-text-color, -15%);
+  .dropdown .menu-item:focused, .dropdown-inverted .menu-item:focused, .navigation-drawer .menu-item:focused {
+    -fx-background-color: derive(-text-color, -10%);
     -fx-text-fill: -prim-color; }
-    .dropdown .menu-item:focused .label, .navigation-drawer .menu-item:focused .label, .dropdown .menu-item:focused > .label, .navigation-drawer .menu-item:focused > .label {
+    .dropdown .menu-item:focused .label, .dropdown-inverted .menu-item:focused .label, .navigation-drawer .menu-item:focused .label, .dropdown .menu-item:focused > .label, .dropdown-inverted .menu-item:focused > .label, .navigation-drawer .menu-item:focused > .label {
       -fx-text-fill: -prim-color; }
-  .dropdown .menu-item > .graphic-container, .navigation-drawer .menu-item > .graphic-container {
+  .dropdown .menu-item > .graphic-container, .dropdown-inverted .menu-item > .graphic-container, .navigation-drawer .menu-item > .graphic-container {
     -fx-padding: 0 0.5em 0 0.5em; }
-  .dropdown .menu-item > .label, .navigation-drawer .menu-item > .label {
+  .dropdown .menu-item > .label, .dropdown-inverted .menu-item > .label, .navigation-drawer .menu-item > .label {
     -icons-color: -prim-color;
     -fx-text-fill: -prim-color; }
-  .dropdown .menu-item > .arrow-button > .arrow, .navigation-drawer .menu-item > .arrow-button > .arrow {
+  .dropdown .menu-item > .arrow-button > .arrow, .dropdown-inverted .menu-item > .arrow-button > .arrow, .navigation-drawer .menu-item > .arrow-button > .arrow {
     -fx-background-color: -prim-color; }
 
-.dropdown .context-menu, .navigation-drawer .context-menu {
+.dropdown .context-menu, .dropdown-inverted .context-menu, .navigation-drawer .context-menu {
   -fx-background-color: -text-color;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2); }
-  .dropdown .context-menu > .scroll-arrow, .navigation-drawer .context-menu > .scroll-arrow {
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.3, 2, 4); }
+  .dropdown .context-menu > .scroll-arrow, .dropdown-inverted .context-menu > .scroll-arrow, .navigation-drawer .context-menu > .scroll-arrow {
     -fx-padding: .75em;
     -fx-background-color: -prim-color; }
-    .dropdown .context-menu > .scroll-arrow:hover, .navigation-drawer .context-menu > .scroll-arrow:hover {
-      -fx-background-color: derive(-prim-color, -15%); }
-    .dropdown .context-menu > .scroll-arrow .menu-up-arrow, .navigation-drawer .context-menu > .scroll-arrow .menu-up-arrow {
+    .dropdown .context-menu > .scroll-arrow:hover, .dropdown-inverted .context-menu > .scroll-arrow:hover, .navigation-drawer .context-menu > .scroll-arrow:hover {
+      -fx-background-color: derive(-prim-color, -10%); }
+    .dropdown .context-menu > .scroll-arrow .menu-up-arrow, .dropdown-inverted .context-menu > .scroll-arrow .menu-up-arrow, .navigation-drawer .context-menu > .scroll-arrow .menu-up-arrow {
       -fx-background-color: -text-color;
       -fx-effect: 0; }
-    .dropdown .context-menu > .scroll-arrow .menu-down-arrow, .navigation-drawer .context-menu > .scroll-arrow .menu-down-arrow {
+    .dropdown .context-menu > .scroll-arrow .menu-down-arrow, .dropdown-inverted .context-menu > .scroll-arrow .menu-down-arrow, .navigation-drawer .context-menu > .scroll-arrow .menu-down-arrow {
       -fx-background-color: -text-color;
       -fx-effect: 0; }
-  .dropdown .context-menu .menu:hover > .right-container > .arrow, .navigation-drawer .context-menu .menu:hover > .right-container > .arrow {
+  .dropdown .context-menu .menu:hover > .right-container > .arrow, .dropdown-inverted .context-menu .menu:hover > .right-container > .arrow, .navigation-drawer .context-menu .menu:hover > .right-container > .arrow {
     -fx-background-color: -prim-color; }
-  .dropdown .context-menu .menu:focused > .right-container > .arrow, .navigation-drawer .context-menu .menu:focused > .right-container > .arrow {
+  .dropdown .context-menu .menu:focused > .right-container > .arrow, .dropdown-inverted .context-menu .menu:focused > .right-container > .arrow, .navigation-drawer .context-menu .menu:focused > .right-container > .arrow {
     -fx-background-color: -prim-color; }
-  .dropdown .context-menu .menu > .right-container > .arrow, .navigation-drawer .context-menu .menu > .right-container > .arrow {
+  .dropdown .context-menu .menu > .right-container > .arrow, .dropdown-inverted .context-menu .menu > .right-container > .arrow, .navigation-drawer .context-menu .menu > .right-container > .arrow {
     -fx-background-color: -prim-color; }
-  .dropdown .context-menu .menu-item, .navigation-drawer .context-menu .menu-item {
+  .dropdown .context-menu .menu-item, .dropdown-inverted .context-menu .menu-item, .navigation-drawer .context-menu .menu-item {
     -icons-color: -prim-color; }
-    .dropdown .context-menu .menu-item > .label, .navigation-drawer .context-menu .menu-item > .label {
+    .dropdown .context-menu .menu-item > .label, .dropdown-inverted .context-menu .menu-item > .label, .navigation-drawer .context-menu .menu-item > .label {
       -fx-text-fill: -prim-color; }
-  .dropdown .context-menu:hover, .navigation-drawer .context-menu:hover {
+  .dropdown .context-menu:hover, .dropdown-inverted .context-menu:hover, .navigation-drawer .context-menu:hover {
     -fx-cursor: hand; }
+
+#toolbar #menu-button, #toolbar #toolbar-control-left-box .button-inverted, #toolbar #toolbar-control-left-box .button, #toolbar #home-button, #toolbar #toolbar-control-right-box .button, .navigation-drawer #back-button {
+  -fx-min-width: 3.5em;
+  -fx-text-fill: -text-color; }
+  #toolbar #menu-button > .label, #toolbar #toolbar-control-left-box .button-inverted > .label, #toolbar #toolbar-control-left-box .button > .label, #toolbar #home-button > .label, #toolbar #toolbar-control-right-box .button > .label, .navigation-drawer #back-button > .label {
+    -fx-min-width: null;
+    -fx-text-fill: -text-color; }
+  #toolbar #menu-button:hover, #toolbar #toolbar-control-left-box .button-inverted:hover, #toolbar #toolbar-control-left-box .button:hover, #toolbar #home-button:hover, #toolbar #toolbar-control-right-box .button:hover, .navigation-drawer #back-button:hover {
+    -fx-background-color: derive(-prim-color, -10%); }
+  #toolbar #menu-button:pressed, #toolbar #toolbar-control-left-box .button-inverted:pressed, #toolbar #toolbar-control-left-box .button:pressed, #toolbar #home-button:pressed, #toolbar #toolbar-control-right-box .button:pressed, .navigation-drawer #back-button:pressed {
+    -fx-background-color: derive(-prim-color, -10%); }
+
+#toolbar #menu-button, #toolbar #toolbar-control-left-box .button-inverted {
+  -fx-background-color: -text-color;
+  -fx-text-fill: -prim-color; }
+  #toolbar #menu-button .glyph-icon, #toolbar #toolbar-control-left-box .button-inverted .glyph-icon {
+    -fx-fill: -prim-color; }
+  #toolbar #menu-button > .label, #toolbar #toolbar-control-left-box .button-inverted > .label {
+    -fx-text-fill: -prim-color; }
+  #toolbar #menu-button:hover, #toolbar #toolbar-control-left-box .button-inverted:hover {
+    -fx-background-color: -prim-color;
+    -fx-text-fill: -text-color; }
+    #toolbar #menu-button:hover .glyph-icon, #toolbar #toolbar-control-left-box .button-inverted:hover .glyph-icon {
+      -fx-fill: -text-color; }
+    #toolbar #menu-button:hover > .label, #toolbar #toolbar-control-left-box .button-inverted:hover > .label {
+      -fx-text-fill: -text-color; }
+  #toolbar #menu-button:pressed, #toolbar #toolbar-control-left-box .button-inverted:pressed {
+    -fx-background-color: derive(-prim-color, -10%); }
 
 #home .tile-page {
   -fx-vgap: 40;
@@ -104,27 +132,31 @@
     -fx-background-insets: 5.25; }
     #home .pagination > .pagination-control > .control-box > .bullet-button:hover {
       -fx-cursor: hand;
-      -fx-background-color: derive(-text-color, -15%); }
+      -fx-background-color: derive(-text-color, -10%); }
     #home .pagination > .pagination-control > .control-box > .bullet-button:selected {
       -fx-background-color: -prim-color; }
       #home .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
         -fx-cursor: hand;
         -fx-background-color: -prim-color-hover; }
 
+#toolbar {
+  -fx-background-color: -prim-color;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 3); }
+
 .tile-control {
   -fx-min-width: 16em;
   -fx-min-height: 9em;
   -fx-background-radius: 3px;
-  -fx-border-radius: 3px;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0, 0, 3); }
+  -fx-border-radius: 3px; }
   .tile-control:hover {
     -fx-text-fill: -text-color;
-    -fx-background-color: -prim-color-hover;
-    -fx-border-color: -prim-color-hover;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 4, 0, 0, 3); }
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 1, 2); }
   .tile-control:focused {
     -fx-background-radius: 3px;
-    -fx-background-color: derive(-prim-color, -15%); }
+    -fx-background-color: derive(-prim-color, -6.6666666667%); }
+  .tile-control:pressed {
+    -fx-background-color: derive(-prim-color, -10%);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.3, 2, 4); }
 
 .tab-control {
   -fx-border-width: 0 0 3px 0;
@@ -148,41 +180,41 @@
   .tab-control:hover .close-btn {
     -icons-color: -text-color; }
 
-#toolbar {
-  -fx-background-color: -prim-color;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 3); }
-  #toolbar #home-button {
-    -fx-border-width: 0 0 3px 0;
-    -fx-min-width: 3.5em; }
-  #toolbar #menu-button {
-    -fx-border-width: 0 0 3px 0;
-    -fx-min-width: 3.5em;
-    -fx-background-color: -text-color;
-    -fx-border-color: -text-color; }
-    #toolbar #menu-button #menu-icon-view {
-      -fx-fill: -prim-color; }
-    #toolbar #menu-button:focused {
-      -fx-background-color: -text-color; }
-
 .dropdown:hover {
-  -fx-background-color: derive(-prim-color, -15%); }
+  -fx-background-color: derive(-prim-color, -10%); }
 .dropdown:focused {
-  -fx-background-color: derive(-prim-color, -15%); }
+  -fx-background-color: derive(-prim-color, -10%); }
+
+.dropdown-inverted {
+  -fx-background-color: -text-color;
+  -fx-text-fill: -prim-color;
+  -fx-border-color: -text-color; }
+  .dropdown-inverted .label {
+    -fx-text-fill: -prim-color; }
+  .dropdown-inverted:hover {
+    -fx-background-color: derive(-text-color, -10%); }
+  .dropdown-inverted:focused {
+    -fx-background-color: derive(-text-color, -10%); }
+  .dropdown-inverted .icon {
+    -icons-color: -prim-color; }
+  .dropdown-inverted .angle-down {
+    -icons-color: -prim-color; }
 
 .pretty-scroll-pane .scroll-bar .increment-button, .pretty-scroll-pane .scroll-bar .increment-arrow, .pretty-scroll-pane .scroll-bar .decrement-button, .pretty-scroll-pane .scroll-bar .decrement-arrow {
   -fx-pref-width: 0 !important;
   -fx-pref-height: 0 !important; }
 
 .pretty-scroll-pane {
-  -fx-padding: 0.25em 0 0 0;
-  -fx-border-insets: 0.25em 0 0 0;
-  -fx-background-insets: 0.25em 0 0 0;
+  -fx-padding: 0.5em 0 0 0;
+  -fx-border-insets: 0.5em 0 0 0;
+  -fx-background-insets: 0.5em 0 0 0;
   -fx-background-insets: 0;
-  -fx-background-color: 0; }
+  -fx-background-color: transparent; }
   .pretty-scroll-pane .scroll-bar {
     -fx-pref-width: 12;
     -fx-pref-height: 12;
-    -fx-padding: 2; }
+    -fx-padding: 2;
+    -fx-background-color: transparent; }
     .pretty-scroll-pane .scroll-bar .thumb {
       -fx-background-color: rgba(0, 0, 0, 0.2);
       -fx-background-radius: 1000;
@@ -215,15 +247,6 @@
     -fx-graphic-text-gap: 1em; }
   .navigation-drawer .button {
     -fx-graphic-text-gap: 1em; }
-  .navigation-drawer #back-button {
-    -fx-border-width: 0 0 3px 0;
-    -fx-min-width: 3.5em;
-    -fx-background-color: -text-color;
-    -fx-border-color: -text-color; }
-    .navigation-drawer #back-button #back-icon-view {
-      -fx-fill: -prim-color; }
-    .navigation-drawer #back-button:focused {
-      -fx-background-color: -text-color; }
   .navigation-drawer .logo {
     -fx-padding: 20 0 0 0;
     -fx-border-insets: 20 0 0 0;
@@ -232,8 +255,7 @@
   .navigation-drawer .header {
     -fx-spacing: 25;
     -fx-alignment: center;
-    -fx-background-color: -prim-color;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 3); }
+    -fx-background-color: -prim-color; }
     .navigation-drawer .header .separator .line {
       -fx-border-color: -text-color;
       -fx-border-width: 1; }
@@ -250,5 +272,8 @@
     -fx-text-fill: -text-color; }
   .active-tab .close-btn {
     -icons-color: -text-color; }
+
+.active-home {
+  -fx-background-color: derive(-prim-color, -10%) !important; }
 
 /*# sourceMappingURL=main.css.map */

@@ -85,7 +85,8 @@ public final class WorkbenchFxBuilder {
     return gridPane;
   };
 
-  Node[] toolbarControls;
+  Node[] toolbarControlsRight;
+  Node[] toolbarControlsLeft;
 
   Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
     // Defines the width of the navigationDrawer.
@@ -184,13 +185,24 @@ public final class WorkbenchFxBuilder {
   }
 
   /**
-   * Creates the Controls which are placed on top-right of the Toolbar.
+   * Defines the Controls which are placed on top-left of the Toolbar.
    *
-   * @param toolbarControls the {@code toolbarControls} which will be added to the Toolbar
+   * @param toolbarControlsLeft the {@link Node}s which will be added to the Toolbar
    * @return the updated {@link WorkbenchFxBuilder}
    */
-  public WorkbenchFxBuilder toolbarControls(Node... toolbarControls) {
-    this.toolbarControls = toolbarControls;
+  public WorkbenchFxBuilder toolbarLeft(Node... toolbarControlsLeft) {
+    this.toolbarControlsLeft = toolbarControlsLeft;
+    return this;
+  }
+
+  /**
+   * Defines the Controls which are placed on top-right of the Toolbar.
+   *
+   * @param toolbarControlsRight the {@link Node}s which will be added to the Toolbar
+   * @return the updated {@link WorkbenchFxBuilder}
+   */
+  public WorkbenchFxBuilder toolbarRight(Node... toolbarControlsRight) {
+    this.toolbarControlsRight = toolbarControlsRight;
     return this;
   }
 

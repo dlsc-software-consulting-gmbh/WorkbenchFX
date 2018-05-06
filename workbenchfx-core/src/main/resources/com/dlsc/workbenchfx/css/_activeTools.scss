@@ -13,3 +13,7 @@
     -icons-color: -text-color;
   }
 }
+
+.active-home {
+  -fx-background-color: derive(-prim-color, $darken-percentage) !important;
+}
