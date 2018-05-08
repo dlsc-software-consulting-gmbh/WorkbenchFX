@@ -8,6 +8,7 @@ import java.util.Objects;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import org.apache.logging.log4j.LogManager;
@@ -28,8 +29,8 @@ public class ToolbarPresenter implements Presenter {
   // Strong reference to prevent garbage collection
   private final ObservableList<Module> openModules;
   private final ObservableList<MenuItem> navigationDrawerItems;
-  private final ObservableList<Node> toolbarControlsLeft;
-  private final ObservableList<Node> toolbarControlsRight;
+  private final ObservableSet<Node> toolbarControlsLeft;
+  private final ObservableSet<Node> toolbarControlsRight;
 
   // Strings for detection of listener-type in the toolbar
   private final String leftToolbarSide = "LEFT_TOOLBAR_SIDE";
