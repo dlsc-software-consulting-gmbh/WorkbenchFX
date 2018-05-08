@@ -53,8 +53,8 @@ public class ToolbarPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    model.getToolbarControlsRight().forEach(view::addToolbarControlRight);
-    model.getToolbarControlsLeft().forEach(view::addToolbarControlLeft);
+    toolbarControlsLeft.forEach(view::addToolbarControlRight);
+    toolbarControlsRight.forEach(view::addToolbarControlLeft);
 
     // only add the menu button, if there is at least one navigation drawer item
     if (model.getNavigationDrawerItems().size() > 0) {
