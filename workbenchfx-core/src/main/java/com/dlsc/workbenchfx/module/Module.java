@@ -1,7 +1,12 @@
 package com.dlsc.workbenchfx.module;
 
 import com.dlsc.workbenchfx.Workbench;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.Objects;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * Represents the base for a module, to be displayed in WorkbenchFX.
@@ -9,26 +14,47 @@ import javafx.scene.Node;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public interface Module {
+public abstract class Module {
+
+  protected Workbench workbench;
+  private String name;
+  private FontAwesomeIcon faIcon;
+  private Image imgIcon;
+
+  /**
+   * Super constructor to be called by the implementing class.
+   *
+   * @param name of this module
+   * @param icon of this module
+   */
+  protected Module(String name, Image icon) {
+    this.name = name;
+    this.imgIcon = icon;
+  }
 
   /**
    * Returns the name of this module.
    */
-  String getName();
+  public String getName() {
+    return Objects.isNull(name) ? "" : name;
+  }
 
   /**
    * Returns the icon of this module as a {@link Node}.
    */
-  Node getIcon();
+  public Node getIcon() {
+    return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
+  }
 
   // Lifecycle
-
   /**
    * Gets called when the module is being opened from the overview for the first time.
    *
    * @param workbench the calling workbench object
    */
-  void init(Workbench workbench);
+  public void init(Workbench workbench) {
+    this.workbench = workbench;
+  }
 
   /**
    * Gets called whenever the currently displayed content is being switched to this module.
@@ -37,7 +63,7 @@ public interface Module {
    * @implNote if a module is being opened from the overview for the first time, it will get
    *           initialized first by calling init(), afterwards activate() will be called.
    */
-  Node activate();
+  abstract Node activate();
 
   /**
    * Gets called whenever this module is the currently displayed content and the content is being
@@ -48,7 +74,8 @@ public interface Module {
    *           When switching the content to Module 2, deactivate() gets called on Module 1,
    *           followed by a call of activate() on Module 2.
    */
-  void deactivate();
+  public void deactivate() {
+  }
 
   /**
    * Gets called when this module is explicitly being closed by the user in the toolbar.
@@ -63,5 +90,15 @@ public interface Module {
    *           module is being closed in its deactivated state, by calling:
    *           {@code workbenchModel.openModule(this)} before opening the dialog.
    */
-  boolean destroy();
+  public boolean destroy() {
+    return true;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String toString() {
+    return name;
+  }
 }
