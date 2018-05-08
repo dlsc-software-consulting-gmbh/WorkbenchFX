@@ -599,7 +599,7 @@ class WorkbenchFxTest {
 
   @Test
   void builder() {
-    WorkbenchFxBuilder builder = Workbench.builder();
+    WorkbenchBuilder builder = Workbench.builder();
     assertNotNull(builder);
   }
 

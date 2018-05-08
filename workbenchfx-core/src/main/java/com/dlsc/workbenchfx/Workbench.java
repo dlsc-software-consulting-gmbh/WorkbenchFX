@@ -105,7 +105,7 @@ public final class Workbench extends StackPane {
   // Properties
   public final int modulesPerPage;
 
-  Workbench(WorkbenchFxBuilder builder) {
+  Workbench(WorkbenchBuilder builder) {
     modulesPerPage = builder.modulesPerPage;
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
@@ -125,11 +125,11 @@ public final class Workbench extends StackPane {
    * @param modules which should be loaded for the application
    * @return builder object
    */
-  public static WorkbenchFxBuilder builder(Module... modules) {
-    return new WorkbenchFxBuilder(modules);
+  public static WorkbenchBuilder builder(Module... modules) {
+    return new WorkbenchBuilder(modules);
   }
 
-  private void initToolbarControls(WorkbenchFxBuilder builder) {
+  private void initToolbarControls(WorkbenchBuilder builder) {
     if (builder.toolbarControlsLeft != null) {
       toolbarControlsLeft.addAll(builder.toolbarControlsLeft);
     }
@@ -139,7 +139,7 @@ public final class Workbench extends StackPane {
     }
   }
 
-  private void initNavigationDrawer(WorkbenchFxBuilder builder) {
+  private void initNavigationDrawer(WorkbenchBuilder builder) {
     if (builder.navigationDrawerItems != null) {
       navigationDrawerItems.addAll(builder.navigationDrawerItems);
     }
