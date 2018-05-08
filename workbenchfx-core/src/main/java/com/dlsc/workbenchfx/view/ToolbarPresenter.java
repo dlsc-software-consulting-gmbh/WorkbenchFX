@@ -4,10 +4,12 @@ import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import org.apache.logging.log4j.LogManager;
@@ -28,8 +30,8 @@ public class ToolbarPresenter implements Presenter {
   // Strong reference to prevent garbage collection
   private final ObservableList<Module> openModules;
   private final ObservableList<MenuItem> navigationDrawerItems;
-  private final ObservableList<Node> toolbarControlsLeft;
-  private final ObservableList<Node> toolbarControlsRight;
+  private final ObservableSet<Node> toolbarControlsLeft;
+  private final ObservableSet<Node> toolbarControlsRight;
 
   // Strings for detection of listener-type in the toolbar
   private final String leftToolbarSide = "LEFT_TOOLBAR_SIDE";
@@ -53,8 +55,8 @@ public class ToolbarPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    model.getToolbarControlsRight().forEach(view::addToolbarControlRight);
-    model.getToolbarControlsLeft().forEach(view::addToolbarControlLeft);
+    toolbarControlsLeft.stream().forEachOrdered(view::addToolbarControlLeft);
+    toolbarControlsRight.stream().forEachOrdered(view::addToolbarControlRight);
 
     // only add the menu button, if there is at least one navigation drawer item
     if (model.getNavigationDrawerItems().size() > 0) {
@@ -81,12 +83,16 @@ public class ToolbarPresenter implements Presenter {
   @Override
   public void setupValueChangedListeners() {
     // When the List of the currently open toolbarControlsLeft is changed, the view is updated.
-    toolbarControlsLeft.addListener(
-        (ListChangeListener<? super Node>) c -> setupListener(c, leftToolbarSide)
+    WorkbenchFxUtils.addSetListener(
+        toolbarControlsLeft,
+        change -> view.addToolbarControlLeft(change.getElementAdded()),
+        change -> view.removeToolbarControlLeft(change.getElementRemoved())
     );
     // When the List of the currently open toolbarControlsRight is changed, the view is updated.
-    toolbarControlsRight.addListener(
-        (ListChangeListener<? super Node>) c -> setupListener(c, rightToolbarSide)
+    WorkbenchFxUtils.addSetListener(
+        toolbarControlsRight,
+        change -> view.addToolbarControlRight(change.getElementAdded()),
+        change -> view.removeToolbarControlRight(change.getElementRemoved())
     );
 
     // When the List of the currently open modules is changed, the view is updated.
@@ -128,38 +134,6 @@ public class ToolbarPresenter implements Presenter {
         view.addMenuButton();
       }
     });
-  }
-
-  /**
-   * Adds or removes a {@link Node} from the {@link ToolbarView}.
-   * Depending on the given {@code listenerType} the GUI will be changed.
-   *
-   * @param c the changed {@link ObservableList}
-   * @param listenerType which decides the changes in the {@link ToolbarView}
-   */
-  private void setupListener(ListChangeListener.Change<? extends Node> c, String listenerType) {
-    while (c.next()) {
-      if (c.wasRemoved()) {
-        for (Node node : c.getRemoved()) {
-          LOGGER.debug("WorkbenchFx " + node + " removed");
-          if (listenerType.equals(leftToolbarSide)) {
-            view.removeToolbarControlLeft(c.getFrom());
-          } else {
-            view.removeToolbarControlRight(c.getFrom());
-          }
-        }
-      }
-      if (c.wasAdded()) {
-        for (Node node : c.getAddedSubList()) {
-          LOGGER.debug("WorkbenchFx " + node + " added");
-          if (listenerType.equals(leftToolbarSide)) {
-            view.addToolbarControlLeft(node);
-          } else {
-            view.addToolbarControlRight(node);
-          }
-        }
-      }
-    }
   }
 
   /**

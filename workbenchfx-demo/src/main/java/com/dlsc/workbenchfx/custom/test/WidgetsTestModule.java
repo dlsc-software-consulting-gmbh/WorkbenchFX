@@ -28,14 +28,16 @@ public class WidgetsTestModule extends AbstractModule {
     customPane.add(new CheckBox("CheckBox"), 0, 3);
     customPane.add(new ComboBox<String>(), 0, 4);
 
-    invert.setOnAction(event -> {
-      Button b = ((Button)workbench.getToolbarControlsLeft().get(0));
-      if (b.getStyleClass().contains("button-inverted")) {
-        b.getStyleClass().remove("button-inverted");
-      } else {
-        b.getStyleClass().add("button-inverted");
-      }
-    });
+    invert.setOnAction(event -> workbench.getToolbarControlsLeft().stream()
+        .limit(1) // take first
+        .findAny()
+        .ifPresent(control -> {
+          if (control.getStyleClass().contains("button-inverted")) {
+            control.getStyleClass().remove("button-inverted");
+          } else {
+            control.getStyleClass().add("button-inverted");
+          }
+        }));
 
     customPane.setAlignment(Pos.CENTER);
   }

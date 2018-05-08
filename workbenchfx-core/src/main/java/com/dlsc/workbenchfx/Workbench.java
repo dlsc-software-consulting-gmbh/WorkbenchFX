@@ -12,6 +12,8 @@ import com.dlsc.workbenchfx.view.ToolbarView;
 import com.dlsc.workbenchfx.view.WorkbenchPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchView;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import javafx.application.Application;
@@ -57,8 +59,10 @@ public final class Workbench extends StackPane {
   private Node navigationDrawer;
 
   // Lists
-  private final ObservableList<Node> toolbarControlsRight = FXCollections.observableArrayList();
-  private final ObservableList<Node> toolbarControlsLeft = FXCollections.observableArrayList();
+  private final ObservableSet<Node> toolbarControlsRight =
+      FXCollections.observableSet(new LinkedHashSet<>());
+  private final ObservableSet<Node> toolbarControlsLeft =
+      FXCollections.observableSet(new LinkedHashSet<>());
   private final ObservableList<MenuItem> navigationDrawerItems =
       FXCollections.observableArrayList();
 
@@ -131,11 +135,11 @@ public final class Workbench extends StackPane {
 
   private void initToolbarControls(WorkbenchBuilder builder) {
     if (builder.toolbarControlsLeft != null) {
-      toolbarControlsLeft.addAll(builder.toolbarControlsLeft);
+      toolbarControlsLeft.addAll(List.of(builder.toolbarControlsLeft));
     }
 
     if (builder.toolbarControlsRight != null) {
-      toolbarControlsRight.addAll(builder.toolbarControlsRight);
+      toolbarControlsRight.addAll(List.of(builder.toolbarControlsRight));
     }
   }
 
@@ -353,51 +357,43 @@ public final class Workbench extends StackPane {
   }
 
   /**
-   * Inserts a given {@link Node} at the end of the {@code toolbarControlsLeft}. If the {@code
-   * toolbarControlsLeft} already contains the {@link Node} it will not be added.
+   * Inserts the given {@code node} at the end of the left toolbar. If the left toolbar already
+   * contains {@code node}, it will not be added.
    *
-   * @param node the {@link Node} to be added to the {@code toolbarControlsLeft}
-   * @return true if {@code toolbarControlsLeft} was changed, false if not
+   * @param node to be added to the left toolbar
+   * @return true if {@code node} was added to the left toolbar, false if not
    */
   public boolean addToolbarControlLeft(Node node) {
-    if (!toolbarControlsLeft.contains(node)) {
-      toolbarControlsLeft.add(node);
-      return true;
-    }
-    return false;
+    return toolbarControlsLeft.add(node);
   }
 
-  public ObservableList<Node> getToolbarControlsLeft() {
-    return FXCollections.unmodifiableObservableList(toolbarControlsLeft);
+  public ObservableSet<Node> getToolbarControlsLeft() {
+    return FXCollections.unmodifiableObservableSet(toolbarControlsLeft);
   }
 
   /**
    * Removes a {@link Node} if one is in the {@code toolbarControlsRight}.
    *
-   * @param node the {@link Node} which should be removed
+   * @param node which should be removed
    * @return true if sucessful, false if not
    */
-  public boolean removeToolbarControl(Node node) {
+  public boolean removeToolbarControlRight(Node node) {
     return toolbarControlsRight.remove(node);
   }
 
   /**
-   * Inserts a given {@link Node} at the end of the {@code toolbarControlsRight}. If the {@code
-   * toolbarControlsRight} already contains the {@link Node} it will not be added.
+   * Inserts a given {@code node} at the end of the right toolbar. If the right toolbar already
+   * contains the {@code node}, it will not be added.
    *
-   * @param node the {@link Node} to be added to the {@code toolbarControlsRight}
-   * @return true if {@code toolbarControlsRight} was changed, false if not
+   * @param node to be added to the right toolbar
+   * @return true if {@code node} was added to the right toolbar, false if not
    */
-  public boolean addToolbarControl(Node node) {
-    if (!toolbarControlsRight.contains(node)) {
-      toolbarControlsRight.add(node);
-      return true;
-    }
-    return false;
+  public boolean addToolbarControlRight(Node node) {
+    return toolbarControlsRight.add(node);
   }
 
-  public ObservableList<Node> getToolbarControlsRight() {
-    return FXCollections.unmodifiableObservableList(toolbarControlsRight);
+  public ObservableSet<Node> getToolbarControlsRight() {
+    return FXCollections.unmodifiableObservableSet(toolbarControlsRight);
   }
 
   /**
