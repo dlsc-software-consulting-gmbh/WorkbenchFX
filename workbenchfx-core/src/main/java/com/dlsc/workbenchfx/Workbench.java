@@ -377,7 +377,7 @@ public final class Workbench extends StackPane {
    * @param node the {@link Node} which should be removed
    * @return true if sucessful, false if not
    */
-  public boolean removeToolbarControl(Node node) {
+  public boolean removeToolbarControlRight(Node node) {
     return toolbarControlsRight.remove(node);
   }
 
@@ -388,7 +388,7 @@ public final class Workbench extends StackPane {
    * @param node the {@link Node} to be added to the {@code toolbarControlsRight}
    * @return true if {@code toolbarControlsRight} was changed, false if not
    */
-  public boolean addToolbarControl(Node node) {
+  public boolean addToolbarControlRight(Node node) {
     return toolbarControlsRight.add(node);
   }
 
