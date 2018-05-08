@@ -50,8 +50,8 @@ public class DropdownTestModule extends AbstractModule {
   }
 
   private void setupEventHandlers() {
-    addMenuBtn.setOnAction(event -> workbench.addToolbarControl(customDropdown));
-    removeMenuBtn.setOnAction(event -> workbench.removeToolbarControl(customDropdown));
+    addMenuBtn.setOnAction(event -> workbench.addToolbarControlRight(customDropdown));
+    removeMenuBtn.setOnAction(event -> workbench.removeToolbarControlRight(customDropdown));
 
     addItemBtn.setOnAction(event -> addItems(1));
     addLotItemBtn.setOnAction(event -> addItems(100));
