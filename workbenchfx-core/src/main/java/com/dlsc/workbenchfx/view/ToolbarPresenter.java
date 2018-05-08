@@ -141,7 +141,7 @@ public class ToolbarPresenter implements Presenter {
     while (c.next()) {
       if (c.wasRemoved()) {
         for (Node node : c.getRemoved()) {
-          LOGGER.debug("Dropdown " + node + " removed");
+          LOGGER.debug("WorkbenchFx " + node + " removed");
           if (listenerType.equals(leftToolbarSide)) {
             view.removeToolbarControlLeft(c.getFrom());
           } else {
@@ -151,7 +151,7 @@ public class ToolbarPresenter implements Presenter {
       }
       if (c.wasAdded()) {
         for (Node node : c.getAddedSubList()) {
-          LOGGER.debug("Dropdown " + node + " added");
+          LOGGER.debug("WorkbenchFx " + node + " added");
           if (listenerType.equals(leftToolbarSide)) {
             view.addToolbarControlLeft(node);
           } else {

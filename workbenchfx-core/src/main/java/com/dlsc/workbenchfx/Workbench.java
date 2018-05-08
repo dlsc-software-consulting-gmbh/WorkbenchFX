@@ -9,8 +9,8 @@ import com.dlsc.workbenchfx.view.HomePresenter;
 import com.dlsc.workbenchfx.view.HomeView;
 import com.dlsc.workbenchfx.view.ToolbarPresenter;
 import com.dlsc.workbenchfx.view.ToolbarView;
-import com.dlsc.workbenchfx.view.WorkbenchFxPresenter;
-import com.dlsc.workbenchfx.view.WorkbenchFxView;
+import com.dlsc.workbenchfx.view.WorkbenchPresenter;
+import com.dlsc.workbenchfx.view.WorkbenchView;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Objects;
 import java.util.function.BiFunction;
@@ -50,8 +50,8 @@ public final class Workbench extends StackPane {
   private ContentView contentView;
   private ContentPresenter contentPresenter;
 
-  private WorkbenchFxView workbenchFxView;
-  private WorkbenchFxPresenter workbenchFxPresenter;
+  private WorkbenchView workbenchView;
+  private WorkbenchPresenter workbenchPresenter;
 
   // Custom Controls
   private Node navigationDrawer;
@@ -114,7 +114,7 @@ public final class Workbench extends StackPane {
     initNavigationDrawer(builder);
     initModules(builder.modules);
     initViews();
-    getChildren().add(workbenchFxView);
+    getChildren().add(workbenchView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
     addUserAgentStylesheet(Workbench.class.getResource("css/main.css").toExternalForm());
   }
@@ -192,8 +192,8 @@ public final class Workbench extends StackPane {
     contentView = new ContentView();
     contentPresenter = new ContentPresenter(this, contentView);
 
-    workbenchFxView = new WorkbenchFxView(toolbarView, homeView, contentView);
-    workbenchFxPresenter = new WorkbenchFxPresenter(this, workbenchFxView);
+    workbenchView = new WorkbenchView(toolbarView, homeView, contentView);
+    workbenchPresenter = new WorkbenchPresenter(this, workbenchView);
   }
 
   /**
