@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx;
 
-import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
+import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
@@ -17,13 +17,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Builder class to create a {@link WorkbenchFx} object.
+ * Builder class to create a {@link Workbench} object.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public final class WorkbenchFxBuilder {
-  private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
+public final class WorkbenchBuilder {
+  private static final Logger LOGGER = LogManager.getLogger(Workbench.class.getName());
 
   // Required parameters
   final Module[] modules;
@@ -31,7 +31,7 @@ public final class WorkbenchFxBuilder {
   // Optional parameters - initialized to default values
   int modulesPerPage = 9;
 
-  BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
+  BiFunction<Workbench, Module, Node> tabFactory = (workbench, module) -> {
     TabControl tabControl = new TabControl(module);
     workbench.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       LOGGER.trace("Tab Factory - Old Module: " + oldModule);
@@ -51,13 +51,13 @@ public final class WorkbenchFxBuilder {
     return tabControl;
   };
 
-  BiFunction<WorkbenchFx, Module, Node> tileFactory = (workbench, module) -> {
+  BiFunction<Workbench, Module, Node> tileFactory = (workbench, module) -> {
     TileControl tileControl = new TileControl(module);
     tileControl.setOnActive(e -> workbench.openModule(module));
     return tileControl;
   };
 
-  BiFunction<WorkbenchFx, Integer, Node> pageFactory = (workbench, pageIndex) -> {
+  BiFunction<Workbench, Integer, Node> pageFactory = (workbench, pageIndex) -> {
     final int columnsPerRow = 3;
 
     GridPane gridPane = new GridPane();
@@ -88,7 +88,7 @@ public final class WorkbenchFxBuilder {
   Node[] toolbarControlsRight;
   Node[] toolbarControlsLeft;
 
-  Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
+  Callback<Workbench, Node> navigationDrawerFactory = workbench -> {
     // Defines the width of the navigationDrawer.
     // The value represents the percentage of the window which will be covered.
     final double widthPercentage = .333;
@@ -101,7 +101,7 @@ public final class WorkbenchFxBuilder {
 
   MenuItem[] navigationDrawerItems;
 
-  WorkbenchFxBuilder(Module... modules) {
+  WorkbenchBuilder(Module... modules) {
     this.modules = modules;
   }
 
@@ -111,7 +111,7 @@ public final class WorkbenchFxBuilder {
    * @param modulesPerPage amount of modules to be shown per page
    * @return builder for chaining
    */
-  public WorkbenchFxBuilder modulesPerPage(int modulesPerPage) {
+  public WorkbenchBuilder modulesPerPage(int modulesPerPage) {
     this.modulesPerPage = modulesPerPage;
     return this;
   }
@@ -122,9 +122,9 @@ public final class WorkbenchFxBuilder {
    * @param tabFactory to be used to create the {@link Node} for the tabs
    * @return builder for chaining
    * @implNote Use this to replace the control which is used for the tab with your own
-   *           implementation.
+   * implementation.
    */
-  public WorkbenchFxBuilder tabFactory(BiFunction<WorkbenchFx, Module, Node> tabFactory) {
+  public WorkbenchBuilder tabFactory(BiFunction<Workbench, Module, Node> tabFactory) {
     this.tabFactory = tabFactory;
     return this;
   }
@@ -135,9 +135,9 @@ public final class WorkbenchFxBuilder {
    * @param tileFactory to be used to create the {@link Node} for the tiles
    * @return builder for chaining
    * @implNote Use this to replace the control which is used for the tile with your own
-   *           implementation.
+   * implementation.
    */
-  public WorkbenchFxBuilder tileFactory(BiFunction<WorkbenchFx, Module, Node> tileFactory) {
+  public WorkbenchBuilder tileFactory(BiFunction<Workbench, Module, Node> tileFactory) {
     this.tileFactory = tileFactory;
     return this;
   }
@@ -148,9 +148,9 @@ public final class WorkbenchFxBuilder {
    * @param pageFactory to be used to create the page for the tiles
    * @return builder for chaining
    * @implNote Use this to replace the page which is used in the home screen to display tiles of the
-   *           modules with your own implementation.
+   * modules with your own implementation.
    */
-  public WorkbenchFxBuilder pageFactory(BiFunction<WorkbenchFx, Integer, Node> pageFactory) {
+  public WorkbenchBuilder pageFactory(BiFunction<Workbench, Integer, Node> pageFactory) {
     this.pageFactory = pageFactory;
     return this;
   }
@@ -161,11 +161,11 @@ public final class WorkbenchFxBuilder {
    * @param navigationDrawerFactory to be used to create the navigation drawer
    * @return builder for chaining
    * @implNote Use this to replace the navigation drawer, which is displayed when pressing the menu
-   *           icon, with your own implementation. To access the {@link MenuItem}s, use
-   *           {@link WorkbenchFx#getNavigationDrawerItems()}.
+   * icon, with your own implementation. To access the {@link MenuItem}s, use {@link
+   * Workbench#getNavigationDrawerItems()}.
    */
-  public WorkbenchFxBuilder navigationDrawerFactory(
-      Callback<WorkbenchFx, Node> navigationDrawerFactory) {
+  public WorkbenchBuilder navigationDrawerFactory(
+      Callback<Workbench, Node> navigationDrawerFactory) {
     this.navigationDrawerFactory = navigationDrawerFactory;
     return this;
   }
@@ -179,7 +179,7 @@ public final class WorkbenchFxBuilder {
    * @return builder for chaining
    * @implNote the menu button will be hidden, if null is passed to {@code navigationDrawerItems}
    */
-  public WorkbenchFxBuilder navigationDrawer(MenuItem... navigationDrawerItems) {
+  public WorkbenchBuilder navigationDrawer(MenuItem... navigationDrawerItems) {
     this.navigationDrawerItems = navigationDrawerItems;
     return this;
   }
@@ -188,9 +188,9 @@ public final class WorkbenchFxBuilder {
    * Defines the Controls which are placed on top-left of the Toolbar.
    *
    * @param toolbarControlsLeft the {@link Node}s which will be added to the Toolbar
-   * @return the updated {@link WorkbenchFxBuilder}
+   * @return the updated {@link WorkbenchBuilder}
    */
-  public WorkbenchFxBuilder toolbarLeft(Node... toolbarControlsLeft) {
+  public WorkbenchBuilder toolbarLeft(Node... toolbarControlsLeft) {
     this.toolbarControlsLeft = toolbarControlsLeft;
     return this;
   }
@@ -199,19 +199,19 @@ public final class WorkbenchFxBuilder {
    * Defines the Controls which are placed on top-right of the Toolbar.
    *
    * @param toolbarControlsRight the {@link Node}s which will be added to the Toolbar
-   * @return the updated {@link WorkbenchFxBuilder}
+   * @return the updated {@link WorkbenchBuilder}
    */
-  public WorkbenchFxBuilder toolbarRight(Node... toolbarControlsRight) {
+  public WorkbenchBuilder toolbarRight(Node... toolbarControlsRight) {
     this.toolbarControlsRight = toolbarControlsRight;
     return this;
   }
 
   /**
-   * Builds and fully initializes a {@link WorkbenchFx} object.
+   * Builds and fully initializes a {@link Workbench} object.
    *
-   * @return the {@link WorkbenchFx} object
+   * @return the {@link Workbench} object
    */
-  public WorkbenchFx build() {
-    return new WorkbenchFx(this);
+  public Workbench build() {
+    return new Workbench(this);
   }
 }

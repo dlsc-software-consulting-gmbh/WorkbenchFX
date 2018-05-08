@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.Workbench;
 
 /**
  * Represents the presenter of the corresponding {@link HomeView}.
@@ -9,13 +9,13 @@ import com.dlsc.workbenchfx.WorkbenchFx;
  * @author Marco Sanfratello
  */
 public class HomePresenter implements Presenter {
-  private final WorkbenchFx model;
+  private final Workbench model;
   private final HomeView view;
 
   /**
    * Creates a new {@link HomePresenter} object for a corresponding {@link HomeView}.
    */
-  public HomePresenter(WorkbenchFx model, HomeView view) {
+  public HomePresenter(Workbench model, HomeView view) {
     this.model = model;
     this.view = view;
     init();

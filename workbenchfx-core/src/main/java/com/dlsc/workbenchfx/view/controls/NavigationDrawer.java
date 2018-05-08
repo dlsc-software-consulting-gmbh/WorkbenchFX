@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.Workbench;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
@@ -20,12 +20,12 @@ import javafx.scene.control.Skin;
 public class NavigationDrawer extends Control {
 
   private ObservableList<MenuItem> items;
-  private WorkbenchFx workbench;
+  private Workbench workbench;
 
   /**
    * Creates a navigation drawer control.
    */
-  public NavigationDrawer(WorkbenchFx workbench) {
+  public NavigationDrawer(Workbench workbench) {
     this.workbench = workbench;
     items = workbench.getNavigationDrawerItems();
     getStyleClass().add("navigation-drawer");
@@ -36,7 +36,7 @@ public class NavigationDrawer extends Control {
     return new NavigationDrawerSkin(this);
   }
 
-  public WorkbenchFx getWorkbench() {
+  public Workbench getWorkbench() {
     return workbench;
   }
 
