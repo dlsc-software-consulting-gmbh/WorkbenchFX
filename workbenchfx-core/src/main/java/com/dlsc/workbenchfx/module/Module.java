@@ -27,6 +27,17 @@ public abstract class Module {
    * @param name of this module
    * @param icon of this module
    */
+  protected Module(String name, FontAwesomeIcon icon) {
+    this.name = name;
+    faIcon = icon;
+  }
+
+  /**
+   * Super constructor to be called by the implementing class.
+   *
+   * @param name of this module
+   * @param icon of this module
+   */
   protected Module(String name, Image icon) {
     this.name = name;
     this.imgIcon = icon;
