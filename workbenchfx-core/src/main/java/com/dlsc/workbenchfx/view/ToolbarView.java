@@ -131,12 +131,12 @@ public class ToolbarView extends HBox implements View {
   }
 
   /**
-   * Removes a {@link Node} at the specified index of the {@code toolbarControlLeftBox}.
+   * Removes the {@code control} from the left toolbar.
    *
-   * @param index the index where the specified {@link Node} should be removed
+   * @param control the control to be removed
    */
-  public void removeToolbarControlLeft(int index) {
-    toolbarControlLeftBox.getChildren().remove(index);
+  public void removeToolbarControlLeft(Node control) {
+    toolbarControlLeftBox.getChildren().remove(control);
   }
 
   /**
@@ -149,11 +149,11 @@ public class ToolbarView extends HBox implements View {
   }
 
   /**
-   * Removes a {@link Node} at the specified index of the {@code toolbarControlRightBox}.
+   * Removes the {@code control} from the right toolbar.
    *
-   * @param index the index where the specified {@link Node} should be removed
+   * @param control the control to be removed
    */
-  public void removeToolbarControlRight(int index) {
-    toolbarControlRightBox.getChildren().remove(index);
+  public void removeToolbarControlRight(Node control) {
+    toolbarControlRightBox.getChildren().remove(control);
   }
 }
