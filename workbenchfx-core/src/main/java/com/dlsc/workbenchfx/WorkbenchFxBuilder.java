@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx;
 
-import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
+import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
@@ -17,13 +17,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Builder class to create a {@link WorkbenchFx} object.
+ * Builder class to create a {@link Workbench} object.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
 public final class WorkbenchFxBuilder {
-  private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
+  private static final Logger LOGGER = LogManager.getLogger(Workbench.class.getName());
 
   // Required parameters
   final Module[] modules;
@@ -31,7 +31,7 @@ public final class WorkbenchFxBuilder {
   // Optional parameters - initialized to default values
   int modulesPerPage = 9;
 
-  BiFunction<WorkbenchFx, Module, Node> tabFactory = (workbench, module) -> {
+  BiFunction<Workbench, Module, Node> tabFactory = (workbench, module) -> {
     TabControl tabControl = new TabControl(module);
     workbench.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       LOGGER.trace("Tab Factory - Old Module: " + oldModule);
@@ -51,13 +51,13 @@ public final class WorkbenchFxBuilder {
     return tabControl;
   };
 
-  BiFunction<WorkbenchFx, Module, Node> tileFactory = (workbench, module) -> {
+  BiFunction<Workbench, Module, Node> tileFactory = (workbench, module) -> {
     TileControl tileControl = new TileControl(module);
     tileControl.setOnActive(e -> workbench.openModule(module));
     return tileControl;
   };
 
-  BiFunction<WorkbenchFx, Integer, Node> pageFactory = (workbench, pageIndex) -> {
+  BiFunction<Workbench, Integer, Node> pageFactory = (workbench, pageIndex) -> {
     final int columnsPerRow = 3;
 
     GridPane gridPane = new GridPane();
@@ -88,7 +88,7 @@ public final class WorkbenchFxBuilder {
   Node[] toolbarControlsRight;
   Node[] toolbarControlsLeft;
 
-  Callback<WorkbenchFx, Node> navigationDrawerFactory = workbench -> {
+  Callback<Workbench, Node> navigationDrawerFactory = workbench -> {
     // Defines the width of the navigationDrawer.
     // The value represents the percentage of the window which will be covered.
     final double widthPercentage = .333;
@@ -124,7 +124,7 @@ public final class WorkbenchFxBuilder {
    * @implNote Use this to replace the control which is used for the tab with your own
    *           implementation.
    */
-  public WorkbenchFxBuilder tabFactory(BiFunction<WorkbenchFx, Module, Node> tabFactory) {
+  public WorkbenchFxBuilder tabFactory(BiFunction<Workbench, Module, Node> tabFactory) {
     this.tabFactory = tabFactory;
     return this;
   }
@@ -137,7 +137,7 @@ public final class WorkbenchFxBuilder {
    * @implNote Use this to replace the control which is used for the tile with your own
    *           implementation.
    */
-  public WorkbenchFxBuilder tileFactory(BiFunction<WorkbenchFx, Module, Node> tileFactory) {
+  public WorkbenchFxBuilder tileFactory(BiFunction<Workbench, Module, Node> tileFactory) {
     this.tileFactory = tileFactory;
     return this;
   }
@@ -150,7 +150,7 @@ public final class WorkbenchFxBuilder {
    * @implNote Use this to replace the page which is used in the home screen to display tiles of the
    *           modules with your own implementation.
    */
-  public WorkbenchFxBuilder pageFactory(BiFunction<WorkbenchFx, Integer, Node> pageFactory) {
+  public WorkbenchFxBuilder pageFactory(BiFunction<Workbench, Integer, Node> pageFactory) {
     this.pageFactory = pageFactory;
     return this;
   }
@@ -162,10 +162,10 @@ public final class WorkbenchFxBuilder {
    * @return builder for chaining
    * @implNote Use this to replace the navigation drawer, which is displayed when pressing the menu
    *           icon, with your own implementation. To access the {@link MenuItem}s, use
-   *           {@link WorkbenchFx#getNavigationDrawerItems()}.
+   *           {@link Workbench#getNavigationDrawerItems()}.
    */
   public WorkbenchFxBuilder navigationDrawerFactory(
-      Callback<WorkbenchFx, Node> navigationDrawerFactory) {
+      Callback<Workbench, Node> navigationDrawerFactory) {
     this.navigationDrawerFactory = navigationDrawerFactory;
     return this;
   }
@@ -207,11 +207,11 @@ public final class WorkbenchFxBuilder {
   }
 
   /**
-   * Builds and fully initializes a {@link WorkbenchFx} object.
+   * Builds and fully initializes a {@link Workbench} object.
    *
-   * @return the {@link WorkbenchFx} object
+   * @return the {@link Workbench} object
    */
-  public WorkbenchFx build() {
-    return new WorkbenchFx(this);
+  public Workbench build() {
+    return new Workbench(this);
   }
 }

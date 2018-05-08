@@ -40,7 +40,7 @@ class WorkbenchFxTest {
   private static final int FIRST_INDEX = 0;
   private static final int SECOND_INDEX = 1;
   private static final int LAST_INDEX = SIZE - 1;
-  WorkbenchFx workbench;
+  Workbench workbench;
 
   Module[] mockModules = new Module[SIZE];
   Node[] moduleNodes = new Node[SIZE];
@@ -74,7 +74,7 @@ class WorkbenchFxTest {
       when(mockModules[i].toString()).thenReturn("Module " + i);
     }
 
-    workbench = WorkbenchFx.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX],
+    workbench = Workbench.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX],
         mockModules[LAST_INDEX])
         // use "module.getName()" twice, to differentiate between tab and tile factories
         .tabFactory(
@@ -589,17 +589,17 @@ class WorkbenchFxTest {
     assertEquals(3, prepareWorkbench(7, modulesPerPage).amountOfPages());
   }
 
-  private WorkbenchFx prepareWorkbench(int moduleAmount, int modulesPerPage) {
+  private Workbench prepareWorkbench(int moduleAmount, int modulesPerPage) {
     Module[] modules = new Module[moduleAmount];
     for (int i = 0; i < moduleAmount; i++) {
       modules[i] = mock(Module.class);
     }
-    return WorkbenchFx.builder(modules).modulesPerPage(modulesPerPage).build();
+    return Workbench.builder(modules).modulesPerPage(modulesPerPage).build();
   }
 
   @Test
   void builder() {
-    WorkbenchFxBuilder builder = WorkbenchFx.builder();
+    WorkbenchFxBuilder builder = Workbench.builder();
     assertNotNull(builder);
   }
 

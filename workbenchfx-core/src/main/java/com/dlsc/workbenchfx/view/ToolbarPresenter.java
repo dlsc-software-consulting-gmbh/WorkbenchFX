@@ -1,8 +1,8 @@
 package com.dlsc.workbenchfx.view;
 
-import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_HOME;
+import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
@@ -22,7 +22,7 @@ import org.apache.logging.log4j.Logger;
 public class ToolbarPresenter implements Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(ToolbarPresenter.class.getName());
-  private final WorkbenchFx model;
+  private final Workbench model;
   private final ToolbarView view;
 
   // Strong reference to prevent garbage collection
@@ -38,7 +38,7 @@ public class ToolbarPresenter implements Presenter {
   /**
    * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
    */
-  public ToolbarPresenter(WorkbenchFx model, ToolbarView view) {
+  public ToolbarPresenter(Workbench model, ToolbarView view) {
     this.model = model;
     this.view = view;
     openModules = model.getOpenModules();

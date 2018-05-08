@@ -34,8 +34,8 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public final class WorkbenchFx extends StackPane {
-  private static final Logger LOGGER = LogManager.getLogger(WorkbenchFx.class.getName());
+public final class Workbench extends StackPane {
+  private static final Logger LOGGER = LogManager.getLogger(Workbench.class.getName());
 
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
   public static final String STYLE_CLASS_ACTIVE_HOME = "active-home";
@@ -92,20 +92,20 @@ public final class WorkbenchFx extends StackPane {
 
   // Factories
   /**
-   * The factories which are called when creating Tabs, Tiles and Pages of Tiles for the Views.
-   * They require a module whose attributes are used to create the Nodes.
+   * The factories which are called when creating Tabs, Tiles and Pages of Tiles for the Views. They
+   * require a module whose attributes are used to create the Nodes.
    */
-  private final ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tabFactory =
+  private final ObjectProperty<BiFunction<Workbench, Module, Node>> tabFactory =
       new SimpleObjectProperty<>(this, "tabFactory");
-  private final ObjectProperty<BiFunction<WorkbenchFx, Module, Node>> tileFactory =
+  private final ObjectProperty<BiFunction<Workbench, Module, Node>> tileFactory =
       new SimpleObjectProperty<>(this, "tileFactory");
-  private final ObjectProperty<BiFunction<WorkbenchFx, Integer, Node>> pageFactory =
+  private final ObjectProperty<BiFunction<Workbench, Integer, Node>> pageFactory =
       new SimpleObjectProperty<>(this, "pageFactory");
 
   // Properties
   public final int modulesPerPage;
 
-  WorkbenchFx(WorkbenchFxBuilder builder) {
+  Workbench(WorkbenchFxBuilder builder) {
     modulesPerPage = builder.modulesPerPage;
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
@@ -116,11 +116,11 @@ public final class WorkbenchFx extends StackPane {
     initViews();
     getChildren().add(workbenchFxView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
-    addUserAgentStylesheet(WorkbenchFx.class.getResource("css/main.css").toExternalForm());
+    addUserAgentStylesheet(Workbench.class.getResource("css/main.css").toExternalForm());
   }
 
   /**
-   * Creates a builder for {@link WorkbenchFx}.
+   * Creates a builder for {@link Workbench}.
    *
    * @param modules which should be loaded for the application
    * @return builder object
@@ -197,7 +197,8 @@ public final class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Opens the {@code module} in a new tab, if it isn't initialized yet or else opens the tab of it.
+   * Opens the {@code module} in a new tab, if it isn't initialized yet or else opens the tab of
+   * it.
    *
    * @param module the module to be opened or null to go to the home view
    */
@@ -266,8 +267,8 @@ public final class WorkbenchFx extends StackPane {
    * Calculates the amount of pages of modules (rendered as tiles).
    *
    * @return amount of pages
-   * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}.
-   *           This is repeated until all modules are rendered as tiles.
+   * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}. This
+   * is repeated until all modules are rendered as tiles.
    */
   public int amountOfPages() {
     int amountOfModules = getModules().size();
@@ -281,8 +282,8 @@ public final class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Generates a new Node which is then used as a Tab.
-   * Using the given {@link Module}, it calls the {@code tabFactory} which generates the Tab.
+   * Generates a new Node which is then used as a Tab. Using the given {@link Module}, it calls the
+   * {@code tabFactory} which generates the Tab.
    *
    * @param module the module for which the Tab should be created
    * @return a corresponding Tab which is created from the {@code tabFactory}
@@ -292,8 +293,8 @@ public final class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Generates a new Node which is then used as a Tile.
-   * Using the given {@link Module}, it calls the {@code tileFactory} which generates the Tile.
+   * Generates a new Node which is then used as a Tile. Using the given {@link Module}, it calls the
+   * {@code tileFactory} which generates the Tile.
    *
    * @param module the module for which the Tile should be created
    * @return a corresponding Tile which contains the values of the module
@@ -303,8 +304,8 @@ public final class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Generates a new Node which is then used as a page for the tiles on the home screen.
-   * Using the given {@code pageIndex}, it calls the {@code pageFactory} which generates the page.
+   * Generates a new Node which is then used as a page for the tiles on the home screen. Using the
+   * given {@code pageIndex}, it calls the {@code pageFactory} which generates the page.
    *
    * @param pageIndex the page index for which the page should be created
    * @return a corresponding page
@@ -352,8 +353,8 @@ public final class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Inserts a given {@link Node} at the end of the {@code toolbarControlsLeft}.
-   * If the {@code toolbarControlsLeft} already contains the {@link Node} it will not be added.
+   * Inserts a given {@link Node} at the end of the {@code toolbarControlsLeft}. If the {@code
+   * toolbarControlsLeft} already contains the {@link Node} it will not be added.
    *
    * @param node the {@link Node} to be added to the {@code toolbarControlsLeft}
    * @return true if {@code toolbarControlsLeft} was changed, false if not
@@ -381,8 +382,8 @@ public final class WorkbenchFx extends StackPane {
   }
 
   /**
-   * Inserts a given {@link Node} at the end of the {@code toolbarControlsRight}.
-   * If the {@code toolbarControlsRight} already contains the {@link Node} it will not be added.
+   * Inserts a given {@link Node} at the end of the {@code toolbarControlsRight}. If the {@code
+   * toolbarControlsRight} already contains the {@link Node} it will not be added.
    *
    * @param node the {@link Node} to be added to the {@code toolbarControlsRight}
    * @return true if {@code toolbarControlsRight} was changed, false if not
@@ -410,12 +411,12 @@ public final class WorkbenchFx extends StackPane {
   /**
    * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background.
    *
-   * @param overlay to be shown
+   * @param overlay  to be shown
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
-   *                 to get hidden, together with its {@link GlassPane}.
-   *                 If true (blocking), clicking outside of the {@code overlay} will not do
-   *                 anything. The {@code overlay} itself must call
-   *                 {@link WorkbenchFx#hideOverlay(Node, boolean)} to hide it.
+   *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
+   *                 clicking outside of the {@code overlay} will not do anything. The {@code
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Node, boolean)} to hide
+   *                 it.
    */
   public boolean showOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("showOverlay");
@@ -431,15 +432,15 @@ public final class WorkbenchFx extends StackPane {
 
   /**
    * Hides the {@code overlay} together with its {@link GlassPane}, which has previously been shown
-   * using {@link WorkbenchFx#showOverlay(Node, boolean)}.
+   * using {@link Workbench#showOverlay(Node, boolean)}.
    *
-   * @param overlay to be hidden
-   * @param blocking same value which was used when previously calling
-   *                 {@link WorkbenchFx#showOverlay(Node, boolean)}
+   * @param overlay  to be hidden
+   * @param blocking same value which was used when previously calling {@link
+   *                 Workbench#showOverlay(Node, boolean)}
    * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
-   *           remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden
-   *           in the scene graph is not possible due to performance reasons, call
-   *           {@link WorkbenchFx#clearOverlays()} after this method.
+   * remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden in the
+   * scene graph is not possible due to performance reasons, call {@link Workbench#clearOverlays()}
+   * after this method.
    */
   public boolean hideOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("hideOverlay");

@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.module;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.Workbench;
 import javafx.scene.Node;
 
 /**
@@ -28,7 +28,7 @@ public interface Module {
    *
    * @param workbench the calling workbench object
    */
-  void init(WorkbenchFx workbench);
+  void init(Workbench workbench);
 
   /**
    * Gets called whenever the currently displayed content is being switched to this module.
