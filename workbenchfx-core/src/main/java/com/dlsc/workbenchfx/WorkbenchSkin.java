@@ -11,8 +11,6 @@ import com.dlsc.workbenchfx.view.ToolbarView;
 import com.dlsc.workbenchfx.view.WorkbenchPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchView;
 import javafx.application.Application;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +21,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchSkin extends SkinBase<WorkbenchFx> {
+public class WorkbenchSkin extends SkinBase<Workbench> {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchSkin.class.getName());
 
@@ -43,10 +41,10 @@ public class WorkbenchSkin extends SkinBase<WorkbenchFx> {
   /**
    * TODO: javadoc
    *
-   * @param workbenchFx the {@link WorkbenchFx} for which this Skin is created
+   * @param workbench the {@link Workbench} for which this Skin is created
    */
-  public WorkbenchSkin(WorkbenchFx workbenchFx) {
-    super(workbenchFx);
+  public WorkbenchSkin(Workbench workbench) {
+    super(workbench);
 
     initViews();
 

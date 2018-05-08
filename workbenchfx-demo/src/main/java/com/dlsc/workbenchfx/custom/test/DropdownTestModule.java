@@ -17,12 +17,12 @@ import javafx.scene.layout.GridPane;
 public class DropdownTestModule extends AbstractModule {
   private int itemsCount = 1;
 
-  private final Button addMenuBtn = new Button("Add new WorkbenchFx");
-  private final Button addItemBtn = new Button("Add MenuItem to WorkbenchFx");
-  private final Button addLotItemBtn = new Button("Add 100 MenuItems to WorkbenchFx");
-  private final Button removeMenuBtn = new Button("Remove new WorkbenchFx");
-  private final Button removeItemBtn = new Button("Remove MenuItem from WorkbenchFx");
-  private final Button removeLotItemBtn = new Button("Remove 100 MenuItems from WorkbenchFx");
+  private final Button addMenuBtn = new Button("Add new Workbench");
+  private final Button addItemBtn = new Button("Add MenuItem to Workbench");
+  private final Button addLotItemBtn = new Button("Add 100 MenuItems to Workbench");
+  private final Button removeMenuBtn = new Button("Remove new Workbench");
+  private final Button removeItemBtn = new Button("Remove MenuItem from Workbench");
+  private final Button removeLotItemBtn = new Button("Remove 100 MenuItems from Workbench");
   private final Dropdown customDropdown = Dropdown.of(
       "New MenuButton",
       new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION)
@@ -32,7 +32,7 @@ public class DropdownTestModule extends AbstractModule {
   private final GridPane customPane = new GridPane();
 
   public DropdownTestModule() {
-    super("WorkbenchFx Test", FontAwesomeIcon.QUESTION);
+    super("Workbench Test", FontAwesomeIcon.QUESTION);
     layoutParts();
     setupEventHandlers();
   }

@@ -45,7 +45,7 @@ Each `Group` contains one to multiple `Settings`
 
 For better illustration, the basic concept of writing a preferences dialog is shown below:
 ```Java
-PreferencesFx workbenchFx = 
+PreferencesFx workbench = 
     PreferencesFx.of(SaveClass.class,
         Category.of("Category Title",
             Group.of("Group Title",
@@ -82,7 +82,7 @@ BooleanProperty booleanProperty = new SimpleBooleanProperty(true);
 IntegerProperty integerProperty = new SimpleIntegerProperty(12);
 DoubleProperty doubleProperty = new SimpleDoubleProperty(6.5);
 
-PreferencesFx workbenchFx = 
+PreferencesFx workbench = 
     PreferencesFx.of(AppStarter.class, // Save class (will be used to reference saved values of Settings to)
         Category.of("Category title 1",
             Setting.of("Setting title 1", stringProperty), // creates a group automatically

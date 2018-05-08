@@ -1,22 +1,11 @@
 package com.dlsc.workbenchfx;
 
-import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
-
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.view.ContentPresenter;
-import com.dlsc.workbenchfx.view.ContentView;
-import com.dlsc.workbenchfx.view.HomePresenter;
-import com.dlsc.workbenchfx.view.HomeView;
-import com.dlsc.workbenchfx.view.ToolbarPresenter;
-import com.dlsc.workbenchfx.view.ToolbarView;
-import com.dlsc.workbenchfx.view.WorkbenchPresenter;
-import com.dlsc.workbenchfx.view.WorkbenchView;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
-import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -25,35 +14,24 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
+import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Skin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the main WorkbenchFX class.
+ * TODO: javadoc
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public final class Workbench extends StackPane {
-  private static final Logger LOGGER = LogManager.getLogger(Workbench.class.getName());
+public class Workbench extends Control {
+  private static final Logger LOGGER =
+      LogManager.getLogger(Workbench.class.getName());
 
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
   public static final String STYLE_CLASS_ACTIVE_HOME = "active-home";
-
-  // Views
-  private ToolbarView toolbarView;
-  private ToolbarPresenter toolbarPresenter;
-
-  private HomeView homeView;
-  private HomePresenter homePresenter;
-
-  private ContentView contentView;
-  private ContentPresenter contentPresenter;
-
-  private WorkbenchView workbenchView;
-  private WorkbenchPresenter workbenchPresenter;
 
   // Custom Controls
   private Node navigationDrawer;
@@ -117,10 +95,11 @@ public final class Workbench extends StackPane {
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initModules(builder.modules);
-    initViews();
-    getChildren().add(workbenchView);
-    Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
-    addUserAgentStylesheet(Workbench.class.getResource("css/main.css").toExternalForm());
+  }
+
+  @Override
+  protected Skin<?> createDefaultSkin() {
+    return new WorkbenchSkin(this);
   }
 
   /**
@@ -184,20 +163,6 @@ public final class Workbench extends StackPane {
         activeModuleView.setValue(newModule.activate());
       }
     });
-  }
-
-  private void initViews() {
-    toolbarView = new ToolbarView();
-    toolbarPresenter = new ToolbarPresenter(this, toolbarView);
-
-    homeView = new HomeView();
-    homePresenter = new HomePresenter(this, homeView);
-
-    contentView = new ContentView();
-    contentPresenter = new ContentPresenter(this, contentView);
-
-    workbenchView = new WorkbenchView(toolbarView, homeView, contentView);
-    workbenchPresenter = new WorkbenchPresenter(this, workbenchView);
   }
 
   /**

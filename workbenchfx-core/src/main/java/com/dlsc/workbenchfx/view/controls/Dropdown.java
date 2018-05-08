@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the WorkbenchFx control wich is used in the Toolbar of WorkbenchFX.
+ * Represents the Workbench control wich is used in the Toolbar of WorkbenchFX.
  * Its functionality is like that of a {@link MenuButton}.
  *
  * @author François Martin
