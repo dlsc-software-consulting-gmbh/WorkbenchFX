@@ -12,6 +12,8 @@ import com.dlsc.workbenchfx.view.ToolbarView;
 import com.dlsc.workbenchfx.view.WorkbenchFxPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchFxView;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import javafx.application.Application;
@@ -57,8 +59,10 @@ public final class Workbench extends StackPane {
   private Node navigationDrawer;
 
   // Lists
-  private final ObservableList<Node> toolbarControlsRight = FXCollections.observableArrayList();
-  private final ObservableList<Node> toolbarControlsLeft = FXCollections.observableArrayList();
+  private final ObservableSet<Node> toolbarControlsRight =
+      FXCollections.observableSet(new LinkedHashSet<>());
+  private final ObservableSet<Node> toolbarControlsLeft =
+      FXCollections.observableSet(new LinkedHashSet<>());
   private final ObservableList<MenuItem> navigationDrawerItems =
       FXCollections.observableArrayList();
 
@@ -131,11 +135,11 @@ public final class Workbench extends StackPane {
 
   private void initToolbarControls(WorkbenchBuilder builder) {
     if (builder.toolbarControlsLeft != null) {
-      toolbarControlsLeft.addAll(builder.toolbarControlsLeft);
+      toolbarControlsLeft.addAll(List.of(builder.toolbarControlsLeft));
     }
 
     if (builder.toolbarControlsRight != null) {
-      toolbarControlsRight.addAll(builder.toolbarControlsRight);
+      toolbarControlsRight.addAll(List.of(builder.toolbarControlsRight));
     }
   }
 
@@ -367,8 +371,8 @@ public final class Workbench extends StackPane {
     return false;
   }
 
-  public ObservableList<Node> getToolbarControlsLeft() {
-    return FXCollections.unmodifiableObservableList(toolbarControlsLeft);
+  public ObservableSet<Node> getToolbarControlsLeft() {
+    return FXCollections.unmodifiableObservableSet(toolbarControlsLeft);
   }
 
   /**
@@ -396,8 +400,8 @@ public final class Workbench extends StackPane {
     return false;
   }
 
-  public ObservableList<Node> getToolbarControlsRight() {
-    return FXCollections.unmodifiableObservableList(toolbarControlsRight);
+  public ObservableSet<Node> getToolbarControlsRight() {
+    return FXCollections.unmodifiableObservableSet(toolbarControlsRight);
   }
 
   /**
