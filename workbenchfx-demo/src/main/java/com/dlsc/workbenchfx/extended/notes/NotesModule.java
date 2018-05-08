@@ -1,10 +1,10 @@
 package com.dlsc.workbenchfx.extended.notes;
 
-import com.dlsc.workbenchfx.module.AbstractModule;
+import com.dlsc.workbenchfx.module.Module;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.scene.Node;
 
-public class NotesModule extends AbstractModule {
+public class NotesModule extends Module {
 
   public NotesModule() {
     super("Notes", FontAwesomeIcon.PENCIL_SQUARE);

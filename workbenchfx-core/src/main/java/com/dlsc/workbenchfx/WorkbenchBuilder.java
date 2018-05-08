@@ -161,8 +161,8 @@ public final class WorkbenchBuilder {
    * @param navigationDrawerFactory to be used to create the navigation drawer
    * @return builder for chaining
    * @implNote Use this to replace the navigation drawer, which is displayed when pressing the menu
-   *           icon, with your own implementation.
-   *           To access the {@link MenuItem}s, use {@link Workbench#getNavigationDrawerItems()}.
+   *           icon, with your own implementation. To access the {@link MenuItem}s, use
+   *           {@link Workbench#getNavigationDrawerItems()}.
    */
   public WorkbenchBuilder navigationDrawerFactory(
       Callback<Workbench, Node> navigationDrawerFactory) {
