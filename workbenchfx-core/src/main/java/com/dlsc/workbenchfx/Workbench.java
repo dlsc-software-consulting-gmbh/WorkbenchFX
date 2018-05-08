@@ -357,11 +357,11 @@ public final class Workbench extends StackPane {
   }
 
   /**
-   * Inserts a given {@link Node} at the end of the {@code toolbarControlsLeft}. If the {@code
-   * toolbarControlsLeft} already contains the {@link Node} it will not be added.
+   * Inserts a given {@link Node} at the end of the left toolbar. If the left toolbar already
+   * contains the {@link Node}, it will not be added.
    *
-   * @param node the {@link Node} to be added to the {@code toolbarControlsLeft}
-   * @return true if {@code toolbarControlsLeft} was changed, false if not
+   * @param node the {@link Node} to be added to the left toolbar
+   * @return true if {@code node} was added to the left toolbar, false if not
    */
   public boolean addToolbarControlLeft(Node node) {
     return toolbarControlsLeft.add(node);
@@ -382,11 +382,11 @@ public final class Workbench extends StackPane {
   }
 
   /**
-   * Inserts a given {@link Node} at the end of the {@code toolbarControlsRight}. If the {@code
-   * toolbarControlsRight} already contains the {@link Node} it will not be added.
+   * Inserts a given {@link Node} at the end of the right toolbar. If the right toolbar already
+   * contains the {@link Node}, it will not be added.
    *
-   * @param node the {@link Node} to be added to the {@code toolbarControlsRight}
-   * @return true if {@code toolbarControlsRight} was changed, false if not
+   * @param node the {@link Node} to be added to the right toolbar
+   * @return true if {@code node} was added to the right toolbar, false if not
    */
   public boolean addToolbarControlRight(Node node) {
     return toolbarControlsRight.add(node);
