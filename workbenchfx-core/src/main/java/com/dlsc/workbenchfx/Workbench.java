@@ -364,11 +364,7 @@ public final class Workbench extends StackPane {
    * @return true if {@code toolbarControlsLeft} was changed, false if not
    */
   public boolean addToolbarControlLeft(Node node) {
-    if (!toolbarControlsLeft.contains(node)) {
-      toolbarControlsLeft.add(node);
-      return true;
-    }
-    return false;
+    return toolbarControlsLeft.add(node);
   }
 
   public ObservableSet<Node> getToolbarControlsLeft() {
@@ -393,11 +389,7 @@ public final class Workbench extends StackPane {
    * @return true if {@code toolbarControlsRight} was changed, false if not
    */
   public boolean addToolbarControl(Node node) {
-    if (!toolbarControlsRight.contains(node)) {
-      toolbarControlsRight.add(node);
-      return true;
-    }
-    return false;
+    return toolbarControlsRight.add(node);
   }
 
   public ObservableSet<Node> getToolbarControlsRight() {
