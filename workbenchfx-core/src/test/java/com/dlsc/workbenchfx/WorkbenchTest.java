@@ -33,7 +33,7 @@ import org.mockito.InOrder;
  * Created by François Martin on 20.03.18.
  */
 @Tag("fast")
-class WorkbenchFxTest {
+class WorkbenchTest {
 
   private static final int SIZE = 3;
 

@@ -1,22 +1,11 @@
 package com.dlsc.workbenchfx;
 
-import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
-
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.view.ContentPresenter;
-import com.dlsc.workbenchfx.view.ContentView;
-import com.dlsc.workbenchfx.view.HomePresenter;
-import com.dlsc.workbenchfx.view.HomeView;
-import com.dlsc.workbenchfx.view.ToolbarPresenter;
-import com.dlsc.workbenchfx.view.ToolbarView;
-import com.dlsc.workbenchfx.view.WorkbenchFxPresenter;
-import com.dlsc.workbenchfx.view.WorkbenchFxView;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
-import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -25,35 +14,24 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
+import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Skin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the main WorkbenchFX class.
+ * Contains all the model logic for the workbench.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public final class Workbench extends StackPane {
-  private static final Logger LOGGER = LogManager.getLogger(Workbench.class.getName());
+public class Workbench extends Control {
+  private static final Logger LOGGER =
+      LogManager.getLogger(Workbench.class.getName());
 
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
   public static final String STYLE_CLASS_ACTIVE_HOME = "active-home";
-
-  // Views
-  private ToolbarView toolbarView;
-  private ToolbarPresenter toolbarPresenter;
-
-  private HomeView homeView;
-  private HomePresenter homePresenter;
-
-  private ContentView contentView;
-  private ContentPresenter contentPresenter;
-
-  private WorkbenchFxView workbenchFxView;
-  private WorkbenchFxPresenter workbenchFxPresenter;
 
   // Custom Controls
   private Node navigationDrawer;
@@ -117,10 +95,11 @@ public final class Workbench extends StackPane {
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initModules(builder.modules);
-    initViews();
-    getChildren().add(workbenchFxView);
-    Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
-    addUserAgentStylesheet(Workbench.class.getResource("css/main.css").toExternalForm());
+  }
+
+  @Override
+  protected Skin<?> createDefaultSkin() {
+    return new WorkbenchSkin(this);
   }
 
   /**
@@ -184,20 +163,6 @@ public final class Workbench extends StackPane {
         activeModuleView.setValue(newModule.activate());
       }
     });
-  }
-
-  private void initViews() {
-    toolbarView = new ToolbarView();
-    toolbarPresenter = new ToolbarPresenter(this, toolbarView);
-
-    homeView = new HomeView();
-    homePresenter = new HomePresenter(this, homeView);
-
-    contentView = new ContentView();
-    contentPresenter = new ContentPresenter(this, contentView);
-
-    workbenchFxView = new WorkbenchFxView(toolbarView, homeView, contentView);
-    workbenchFxPresenter = new WorkbenchFxPresenter(this, workbenchFxView);
   }
 
   /**
@@ -272,7 +237,7 @@ public final class Workbench extends StackPane {
    *
    * @return amount of pages
    * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}. This
-   * is repeated until all modules are rendered as tiles.
+   *           is repeated until all modules are rendered as tiles.
    */
   public int amountOfPages() {
     int amountOfModules = getModules().size();
@@ -434,9 +399,9 @@ public final class Workbench extends StackPane {
    * @param blocking same value which was used when previously calling {@link
    *                 Workbench#showOverlay(Node, boolean)}
    * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
-   * remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden in the
-   * scene graph is not possible due to performance reasons, call {@link Workbench#clearOverlays()}
-   * after this method.
+   *           remove it from the scene graph entirely.
+   *           If keeping the {@code overlay} loaded hidden in the scene graph is not possible due
+   *           to performance reasons, call {@link Workbench#clearOverlays()} after this method.
    */
   public boolean hideOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("hideOverlay");

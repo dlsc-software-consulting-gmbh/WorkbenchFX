@@ -32,7 +32,7 @@ public class DropdownTestModule extends Module {
   private final GridPane customPane = new GridPane();
 
   public DropdownTestModule() {
-    super("Dropdown Test", FontAwesomeIcon.QUESTION);
+    super("Workbench Test", FontAwesomeIcon.QUESTION);
     layoutParts();
     setupEventHandlers();
   }

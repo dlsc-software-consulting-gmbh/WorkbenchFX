@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchFxUtilsTest {
+public class WorkbenchUtilsTest {
 
   ObservableSet<String> observableSet;
 
