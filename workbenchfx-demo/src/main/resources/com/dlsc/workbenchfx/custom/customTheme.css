@@ -12,3 +12,7 @@
     -fx-font-size: 14px;
     -fx-font-family: Helvetica, sans-serif;
 }
+
+.logo {
+    -fx-image: url("workbenchfx-logo.png");
+}
