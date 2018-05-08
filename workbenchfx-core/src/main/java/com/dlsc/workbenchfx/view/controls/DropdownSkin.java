@@ -93,7 +93,7 @@ public class DropdownSkin extends SkinBase<Dropdown> {
       double ratio = getImage(imageView).getWidth() / getImage(imageView).getHeight();
 
       // Binds the dimensions of the ImageView to the dropdown's height.
-      // Resizes the image with a HALF_DROPDOWN_SIZE in order to fit in the Workbench.
+      // Resizes the image with a HALF_DROPDOWN_SIZE in order to fit in the Dropdown.
       imageView.fitHeightProperty().bind(
           menuButton.prefHeightProperty().multiply(HALF_DROPDOWN_SIZE)
       );
