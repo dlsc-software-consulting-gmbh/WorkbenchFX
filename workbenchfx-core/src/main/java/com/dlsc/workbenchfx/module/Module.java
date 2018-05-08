@@ -74,7 +74,7 @@ public abstract class Module {
    * @implNote if a module is being opened from the overview for the first time, it will get
    *           initialized first by calling init(), afterwards activate() will be called.
    */
-  abstract public Node activate();
+  public abstract Node activate();
 
   /**
    * Gets called whenever this module is the currently displayed content and the content is being
