@@ -16,7 +16,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO: javadoc
+ * Represents the Skin which is made for the {@link Workbench}.
+ * It creates all the Views and Presenters which are needed and sets the stylesheets.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -39,9 +40,10 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   private WorkbenchPresenter workbenchPresenter;
 
   /**
-   * TODO: javadoc
+   * Creates a skin for a given {@link Workbench}. It contains all views and presenters.
+   * It sets also the default stylesheet.
    *
-   * @param workbench the {@link Workbench} for which this Skin is created
+   * @param workbench for which this skin is created
    */
   public WorkbenchSkin(Workbench workbench) {
     super(workbench);

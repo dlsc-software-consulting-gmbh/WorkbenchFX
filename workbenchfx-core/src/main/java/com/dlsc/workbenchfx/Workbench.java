@@ -21,7 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO: javadoc
+ * Contains all the model logic for the workbench.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -237,7 +237,7 @@ public class Workbench extends Control {
    *
    * @return amount of pages
    * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}. This
-   * is repeated until all modules are rendered as tiles.
+   *           is repeated until all modules are rendered as tiles.
    */
   public int amountOfPages() {
     int amountOfModules = getModules().size();
@@ -399,9 +399,9 @@ public class Workbench extends Control {
    * @param blocking same value which was used when previously calling {@link
    *                 Workbench#showOverlay(Node, boolean)}
    * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
-   * remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden in the
-   * scene graph is not possible due to performance reasons, call {@link Workbench#clearOverlays()}
-   * after this method.
+   *           remove it from the scene graph entirely.
+   *           If keeping the {@code overlay} loaded hidden in the scene graph is not possible due
+   *           to performance reasons, call {@link Workbench#clearOverlays()} after this method.
    */
   public boolean hideOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("hideOverlay");
