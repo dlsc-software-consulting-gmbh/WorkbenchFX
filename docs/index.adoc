@@ -325,9 +325,12 @@ It's expandable to a large amount of parameters.
 It allows for maximum flexibility, i. e. any combination of the parameters in any order can be specified.
 We decided against keeping the original `WorkbenchFx.of(module1, module2)` notation, since using the builder doesn't require a lot more code and doesn't introduce more complexity.
 
+
+
 === Architecture
 WorkbenchFX seems like a gigantic pane.
 Maybe the panes are giving us some inspiration?
+//TODO: describe change from AbstractModule to Module, skip interface in favor of less API pollution, less maintenance, maybe challenge as well?
 
 === Testing
 
