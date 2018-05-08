@@ -46,25 +46,24 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   public WorkbenchSkin(Workbench workbench) {
     super(workbench);
 
-    initViews();
+    initViews(workbench);
 
     getChildren().add(workbenchView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
     addUserAgentStylesheet(Workbench.class.getResource("css/main.css").toExternalForm());
-
   }
 
-  private void initViews() {
+  private void initViews(Workbench model) {
     toolbarView = new ToolbarView();
-    toolbarPresenter = new ToolbarPresenter(this, toolbarView);
+    toolbarPresenter = new ToolbarPresenter(model, toolbarView);
 
     homeView = new HomeView();
-    homePresenter = new HomePresenter(this, homeView);
+    homePresenter = new HomePresenter(model, homeView);
 
     contentView = new ContentView();
-    contentPresenter = new ContentPresenter(this, contentView);
+    contentPresenter = new ContentPresenter(model, contentView);
 
     workbenchView = new WorkbenchView(toolbarView, homeView, contentView);
-    workbenchPresenter = new WorkbenchPresenter(this, workbenchView);
+    workbenchPresenter = new WorkbenchPresenter(model, workbenchView);
   }
 }
