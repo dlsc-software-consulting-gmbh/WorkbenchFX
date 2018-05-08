@@ -1,10 +1,10 @@
 package com.dlsc.workbenchfx.standard.preferences;
 
-import com.dlsc.workbenchfx.module.AbstractModule;
+import com.dlsc.workbenchfx.module.Module;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.scene.Node;
 
-public class PreferencesModule extends AbstractModule {
+public class PreferencesModule extends Module {
 
   public PreferencesModule() {
     super("Preferences", FontAwesomeIcon.GEAR);
