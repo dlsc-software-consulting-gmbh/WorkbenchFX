@@ -38,7 +38,7 @@ public class WorkbenchPresenter implements Presenter {
     this.model = model;
     this.view = view;
     overlays = model.getOverlays();
-    overlaysShown = model.getOverlaysShown();
+    overlaysShown = model.getNonBlockingOverlaysShown();
     blockingOverlaysShown = model.getBlockingOverlaysShown();
     init();
   }

@@ -22,13 +22,11 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
-import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
@@ -102,7 +100,7 @@ class WorkbenchTest extends ApplicationTest {
 
     overlays = workbench.getOverlays();
     blockingOverlaysShown = workbench.getBlockingOverlaysShown();
-    overlaysShown = workbench.getOverlaysShown();
+    overlaysShown = workbench.getNonBlockingOverlaysShown();
     overlay1 = new Label();
     overlay1.setVisible(false);
     overlay2 = new Label();
