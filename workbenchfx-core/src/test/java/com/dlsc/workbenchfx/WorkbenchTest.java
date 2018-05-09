@@ -88,8 +88,9 @@ class WorkbenchTest extends ApplicationTest {
     workbench = Workbench.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX],
             mockModules[LAST_INDEX])
             // use "module.getName()" twice, to differentiate between tab and tile factories
-            .tabFactory(
-                    (workbench, module) -> new Label(module.getName() + module.getName(), module.getIcon()))
+            .tabFactory((workbench, module) -> {
+              return new Label(module.getName() + module.getName(), module.getIcon());
+            })
             .tileFactory((workbench, module) -> new Label(module.getName(), module.getIcon()))
             .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
             .navigationDrawer(menuItem)
