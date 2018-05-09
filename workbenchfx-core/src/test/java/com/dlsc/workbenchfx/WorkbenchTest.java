@@ -116,14 +116,6 @@ class WorkbenchTest extends ApplicationTest {
     stage.show();
   }
 
-  @BeforeEach
-  void setUp() {
-    // is needed to avoid "java.lang.IllegalStateException: Toolkit not initialized"
-    //JFXPanel jfxPanel = new JFXPanel();
-
-
-  }
-
   @Test
   void testCtor() {
     robot.interact(() -> {
@@ -140,60 +132,61 @@ class WorkbenchTest extends ApplicationTest {
 
   @Test
   void openModule() {
-    // Open first
-    robot.interact(() -> workbench.openModule(first));
-
-    assertSame(first, workbench.getActiveModule());
-    assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
-    assertEquals(1, workbench.getOpenModules().size());
-    InOrder inOrder = inOrder(first);
-    inOrder.verify(first).init(workbench);
-    inOrder.verify(first).activate();
-    // Open last
-    robot.interact(() -> workbench.openModule(last));
-    assertSame(last, workbench.getActiveModule());
-    assertSame(moduleNodes[LAST_INDEX], workbench.getActiveModuleView());
-    assertEquals(2, workbench.getOpenModules().size());
-    inOrder = inOrder(first, last);
-    inOrder.verify(first).deactivate();
-    inOrder.verify(last).init(workbench);
-    inOrder.verify(last).activate();
-    // Open last again
-    robot.interact(() -> workbench.openModule(last));
-    assertSame(last, workbench.getActiveModule());
-    assertSame(moduleNodes[LAST_INDEX], workbench.getActiveModuleView());
-    assertEquals(2, workbench.getOpenModules().size());
-    verify(last, times(1)).init(workbench);
-    verify(last, times(1)).activate();
-    verify(last, never()).deactivate();
-    // Open first (already initialized)
-    robot.interact(() -> workbench.openModule(first));
-    assertSame(first, workbench.getActiveModule());
-    assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
-    assertEquals(2, workbench.getOpenModules().size());
-    verify(first, times(1)).init(workbench); // no additional init on first
-    verify(last, times(1)).init(workbench); // no additional init on last
-    inOrder = inOrder(first, last);
-    inOrder.verify(last).deactivate();
-    inOrder.verify(first).activate();
-    verify(first, times(2)).activate();
-    // Switch to home screen
-    robot.interact(() -> workbench.openHomeScreen());
-    assertSame(null, workbench.getActiveModule());
-    assertSame(null, workbench.getActiveModuleView());
-    assertEquals(2, workbench.getOpenModules().size());
-    verify(first, times(1)).init(workbench); // no additional init on first
-    verify(last, times(1)).init(workbench); // no additional init on last
-    verify(first, times(2)).deactivate();
-    // Open second
-    robot.interact(() -> workbench.openModule(second));
-    assertSame(second, workbench.getActiveModule());
-    assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
-    assertEquals(3, workbench.getOpenModules().size());
-    inOrder = inOrder(second);
-    inOrder.verify(second).init(workbench);
-    inOrder.verify(second).activate();
-    inOrder.verifyNoMoreInteractions();
+    robot.interact(() -> {
+      // Open first
+      workbench.openModule(first);
+      assertSame(first, workbench.getActiveModule());
+      assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
+      assertEquals(1, workbench.getOpenModules().size());
+      InOrder inOrder = inOrder(first);
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Open last
+      workbench.openModule(last);
+      assertSame(last, workbench.getActiveModule());
+      assertSame(moduleNodes[LAST_INDEX], workbench.getActiveModuleView());
+      assertEquals(2, workbench.getOpenModules().size());
+      inOrder = inOrder(first, last);
+      inOrder.verify(first).deactivate();
+      inOrder.verify(last).init(workbench);
+      inOrder.verify(last).activate();
+      // Open last again
+      workbench.openModule(last);
+      assertSame(last, workbench.getActiveModule());
+      assertSame(moduleNodes[LAST_INDEX], workbench.getActiveModuleView());
+      assertEquals(2, workbench.getOpenModules().size());
+      verify(last, times(1)).init(workbench);
+      verify(last, times(1)).activate();
+      verify(last, never()).deactivate();
+      // Open first (already initialized)
+      workbench.openModule(first);
+      assertSame(first, workbench.getActiveModule());
+      assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
+      assertEquals(2, workbench.getOpenModules().size());
+      verify(first, times(1)).init(workbench); // no additional init on first
+      verify(last, times(1)).init(workbench); // no additional init on last
+      inOrder = inOrder(first, last);
+      inOrder.verify(last).deactivate();
+      inOrder.verify(first).activate();
+      verify(first, times(2)).activate();
+      // Switch to home screen
+      workbench.openHomeScreen();
+      assertSame(null, workbench.getActiveModule());
+      assertSame(null, workbench.getActiveModuleView());
+      assertEquals(2, workbench.getOpenModules().size());
+      verify(first, times(1)).init(workbench); // no additional init on first
+      verify(last, times(1)).init(workbench); // no additional init on last
+      verify(first, times(2)).deactivate();
+      // Open second
+      workbench.openModule(second);
+      assertSame(second, workbench.getActiveModule());
+      assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
+      assertEquals(3, workbench.getOpenModules().size());
+      inOrder = inOrder(second);
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+      inOrder.verifyNoMoreInteractions();
+    });
   }
 
   @Test
@@ -214,19 +207,19 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       workbench.openModule(first);
       workbench.closeModule(first);
+
+      assertSame(null, workbench.getActiveModule());
+      assertSame(null, workbench.getActiveModuleView());
+      assertEquals(0, workbench.getOpenModules().size());
+
+      InOrder inOrder = inOrder(first);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.closeModule(first)
+      inOrder.verify(first).destroy();
+      inOrder.verifyNoMoreInteractions();
     });
-
-    assertSame(null, workbench.getActiveModule());
-    assertSame(null, workbench.getActiveModuleView());
-    assertEquals(0, workbench.getOpenModules().size());
-
-    InOrder inOrder = inOrder(first);
-    // Call: workbench.openModule(first)
-    inOrder.verify(first).init(workbench);
-    inOrder.verify(first).activate();
-    // Call: workbench.closeModule(first)
-    inOrder.verify(first).destroy();
-    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -306,24 +299,24 @@ class WorkbenchTest extends ApplicationTest {
       workbench.openModule(first);
       workbench.openModule(second);
       workbench.closeModule(second);
+
+      assertSame(first, workbench.getActiveModule());
+      assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
+      assertEquals(1, workbench.getOpenModules().size());
+
+      InOrder inOrder = inOrder(first, second);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(first).deactivate();
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+      // Call: workbench.closeModule(second)
+      inOrder.verify(second).destroy();
+      inOrder.verify(first).activate();
+      inOrder.verifyNoMoreInteractions();
     });
-
-    assertSame(first, workbench.getActiveModule());
-    assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
-    assertEquals(1, workbench.getOpenModules().size());
-
-    InOrder inOrder = inOrder(first, second);
-    // Call: workbench.openModule(first)
-    inOrder.verify(first).init(workbench);
-    inOrder.verify(first).activate();
-    // Call: workbench.openModule(second)
-    inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(workbench);
-    inOrder.verify(second).activate();
-    // Call: workbench.closeModule(second)
-    inOrder.verify(second).destroy();
-    inOrder.verify(first).activate();
-    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -338,26 +331,26 @@ class WorkbenchTest extends ApplicationTest {
       workbench.openModule(second);
       workbench.openModule(first);
       workbench.closeModule(second);
+
+      assertSame(first, workbench.getActiveModule());
+      assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
+      assertEquals(1, workbench.getOpenModules().size());
+
+      InOrder inOrder = inOrder(first, second);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(first).deactivate();
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+      // Call: workbench.openModule(first)
+      inOrder.verify(second).deactivate();
+      inOrder.verify(first).activate();
+      // Call: workbench.closeModule(second)
+      inOrder.verify(second).destroy();
+      inOrder.verifyNoMoreInteractions();
     });
-
-    assertSame(first, workbench.getActiveModule());
-    assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
-    assertEquals(1, workbench.getOpenModules().size());
-
-    InOrder inOrder = inOrder(first, second);
-    // Call: workbench.openModule(first)
-    inOrder.verify(first).init(workbench);
-    inOrder.verify(first).activate();
-    // Call: workbench.openModule(second)
-    inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(workbench);
-    inOrder.verify(second).activate();
-    // Call: workbench.openModule(first)
-    inOrder.verify(second).deactivate();
-    inOrder.verify(first).activate();
-    // Call: workbench.closeModule(second)
-    inOrder.verify(second).destroy();
-    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -373,31 +366,31 @@ class WorkbenchTest extends ApplicationTest {
       workbench.openModule(last);
       workbench.openModule(second);
       workbench.closeModule(second);
+
+      assertSame(first, workbench.getActiveModule());
+      assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
+      assertEquals(2, workbench.getOpenModules().size());
+
+      InOrder inOrder = inOrder(first, second, last);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(first).deactivate();
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+      // Call: workbench.openModule(last)
+      inOrder.verify(second).deactivate();
+      inOrder.verify(last).init(workbench);
+      inOrder.verify(last).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(last).deactivate();
+      inOrder.verify(second).activate();
+      // Call: workbench.closeModule(second)
+      inOrder.verify(second).destroy();
+      inOrder.verify(first).activate();
+      inOrder.verifyNoMoreInteractions();
     });
-
-    assertSame(first, workbench.getActiveModule());
-    assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
-    assertEquals(2, workbench.getOpenModules().size());
-
-    InOrder inOrder = inOrder(first, second, last);
-    // Call: workbench.openModule(first)
-    inOrder.verify(first).init(workbench);
-    inOrder.verify(first).activate();
-    // Call: workbench.openModule(second)
-    inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(workbench);
-    inOrder.verify(second).activate();
-    // Call: workbench.openModule(last)
-    inOrder.verify(second).deactivate();
-    inOrder.verify(last).init(workbench);
-    inOrder.verify(last).activate();
-    // Call: workbench.openModule(second)
-    inOrder.verify(last).deactivate();
-    inOrder.verify(second).activate();
-    // Call: workbench.closeModule(second)
-    inOrder.verify(second).destroy();
-    inOrder.verify(first).activate();
-    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -412,25 +405,25 @@ class WorkbenchTest extends ApplicationTest {
       workbench.openModule(first);
       workbench.openModule(second);
       workbench.closeModule(second);
+
+      assertSame(second, workbench.getActiveModule());
+      assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
+      assertEquals(2, workbench.getOpenModules().size());
+
+      InOrder inOrder = inOrder(first, second);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(first).deactivate();
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+      // Call: workbench.closeModule(second)
+      // destroy second
+      inOrder.verify(second).destroy();
+      // notice destroy() was unsuccessful, keep focus on second
+      inOrder.verifyNoMoreInteractions();
     });
-
-    assertSame(second, workbench.getActiveModule());
-    assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
-    assertEquals(2, workbench.getOpenModules().size());
-
-    InOrder inOrder = inOrder(first, second);
-    // Call: workbench.openModule(first)
-    inOrder.verify(first).init(workbench);
-    inOrder.verify(first).activate();
-    // Call: workbench.openModule(second)
-    inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(workbench);
-    inOrder.verify(second).activate();
-    // Call: workbench.closeModule(second)
-    // destroy second
-    inOrder.verify(second).destroy();
-    // notice destroy() was unsuccessful, keep focus on second
-    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -445,25 +438,25 @@ class WorkbenchTest extends ApplicationTest {
       workbench.openModule(first);
       workbench.openModule(second);
       workbench.closeModule(first);
+
+      assertSame(second, workbench.getActiveModule());
+      assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
+      assertEquals(2, workbench.getOpenModules().size());
+
+      InOrder inOrder = inOrder(first, second);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(first).deactivate();
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+      // Call: workbench.closeModule(second)
+      // destroy second
+      inOrder.verify(first).destroy();
+      // notice destroy() was unsuccessful, keep focus on second
+      inOrder.verifyNoMoreInteractions();
     });
-
-    assertSame(second, workbench.getActiveModule());
-    assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
-    assertEquals(2, workbench.getOpenModules().size());
-
-    InOrder inOrder = inOrder(first, second);
-    // Call: workbench.openModule(first)
-    inOrder.verify(first).init(workbench);
-    inOrder.verify(first).activate();
-    // Call: workbench.openModule(second)
-    inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(workbench);
-    inOrder.verify(second).activate();
-    // Call: workbench.closeModule(second)
-    // destroy second
-    inOrder.verify(first).destroy();
-    // notice destroy() was unsuccessful, keep focus on second
-    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -486,29 +479,29 @@ class WorkbenchTest extends ApplicationTest {
       workbench.openModule(first);
       workbench.openModule(second);
       workbench.closeModule(first);
+
+      assertSame(second, workbench.getActiveModule());
+      assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
+      assertEquals(1, workbench.getOpenModules().size());
+
+      InOrder inOrder = inOrder(first, second);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(first).deactivate();
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+      // Call: workbench.closeModule(first)
+      // attempt to destroy first
+      inOrder.verify(first).destroy();
+      // destroy() opens itself: workbench.openModule(first)
+      inOrder.verify(second).deactivate();
+      inOrder.verify(first).activate();
+      // destroy() returns true, switch to second
+      inOrder.verify(second).activate();
+      inOrder.verifyNoMoreInteractions();
     });
-
-    assertSame(second, workbench.getActiveModule());
-    assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
-    assertEquals(1, workbench.getOpenModules().size());
-
-    InOrder inOrder = inOrder(first, second);
-    // Call: workbench.openModule(first)
-    inOrder.verify(first).init(workbench);
-    inOrder.verify(first).activate();
-    // Call: workbench.openModule(second)
-    inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(workbench);
-    inOrder.verify(second).activate();
-    // Call: workbench.closeModule(first)
-    // attempt to destroy first
-    inOrder.verify(first).destroy();
-    // destroy() opens itself: workbench.openModule(first)
-    inOrder.verify(second).deactivate();
-    inOrder.verify(first).activate();
-    // destroy() returns true, switch to second
-    inOrder.verify(second).activate();
-    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -527,42 +520,45 @@ class WorkbenchTest extends ApplicationTest {
       // dialog opens, user confirms NOT closing module
       return false;
     });
+
     robot.interact(() -> {
       workbench.openModule(first);
       workbench.openModule(second);
       workbench.closeModule(first);
+
+      assertSame(first, workbench.getActiveModule());
+      assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
+      assertEquals(2, workbench.getOpenModules().size());
+
+      InOrder inOrder = inOrder(first, second);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(first).deactivate();
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+      // Call: workbench.closeModule(first)
+      // attempt to destroy first
+      inOrder.verify(first).destroy();
+      // destroy() opens itself: workbench.openModule(first)
+      inOrder.verify(second).deactivate();
+      inOrder.verify(first).activate();
+      // destroy() returns false, first stays the active module
+      inOrder.verifyNoMoreInteractions();
     });
-
-    assertSame(first, workbench.getActiveModule());
-    assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
-    assertEquals(2, workbench.getOpenModules().size());
-
-    InOrder inOrder = inOrder(first, second);
-    // Call: workbench.openModule(first)
-    inOrder.verify(first).init(workbench);
-    inOrder.verify(first).activate();
-    // Call: workbench.openModule(second)
-    inOrder.verify(first).deactivate();
-    inOrder.verify(second).init(workbench);
-    inOrder.verify(second).activate();
-    // Call: workbench.closeModule(first)
-    // attempt to destroy first
-    inOrder.verify(first).destroy();
-    // destroy() opens itself: workbench.openModule(first)
-    inOrder.verify(second).deactivate();
-    inOrder.verify(first).activate();
-    // destroy() returns false, first stays the active module
-    inOrder.verifyNoMoreInteractions();
   }
 
   @Test
   void closeModuleInvalid() {
-    // Test for null
-    assertThrows(NullPointerException.class, () -> workbench.closeModule(null));
-    // Test if closing a module not included in the modules at all throws an exception
-    assertThrows(IllegalArgumentException.class, () -> workbench.closeModule(mock(Module.class)));
-    // Test if closing a module not opened throws an exception
-    assertThrows(IllegalArgumentException.class, () -> workbench.closeModule(mockModules[0]));
+    robot.interact(() -> {
+      // Test for null
+      assertThrows(NullPointerException.class, () -> workbench.closeModule(null));
+      // Test if closing a module not included in the modules at all throws an exception
+      assertThrows(IllegalArgumentException.class, () -> workbench.closeModule(mock(Module.class)));
+      // Test if closing a module not opened throws an exception
+      assertThrows(IllegalArgumentException.class, () -> workbench.closeModule(mockModules[0]));
+    });
   }
 
   @Test
@@ -598,18 +594,18 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void getOpenModules() {
     // Test if unmodifiable list is returned
-    robot.interact(
-            () -> {
-              assertThrows(UnsupportedOperationException.class, () -> workbench.getOpenModules().remove(0));
-            }
-    );
+    robot.interact(() -> {
+      assertThrows(UnsupportedOperationException.class, () -> workbench.getOpenModules().remove(0));
+    });
   }
 
   @Test
   void getModules() {
-    ObservableList<Module> modules = workbench.getModules();
-    // Test if unmodifiable list is returned
-    assertThrows(UnsupportedOperationException.class, () -> modules.remove(0));
+    robot.interact(() -> {
+      ObservableList<Module> modules = workbench.getModules();
+      // Test if unmodifiable list is returned
+      assertThrows(UnsupportedOperationException.class, () -> modules.remove(0));
+    });
   }
 
   @Test
@@ -624,26 +620,28 @@ class WorkbenchTest extends ApplicationTest {
 
   @Test
   void amountOfPages() {
-    int modulesPerPage = 1;
-    assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
-    assertEquals(2, prepareWorkbench(2, modulesPerPage).amountOfPages());
-    assertEquals(3, prepareWorkbench(3, modulesPerPage).amountOfPages());
+    robot.interact(() -> {
+      int modulesPerPage = 1;
+      assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
+      assertEquals(2, prepareWorkbench(2, modulesPerPage).amountOfPages());
+      assertEquals(3, prepareWorkbench(3, modulesPerPage).amountOfPages());
 
-    modulesPerPage = 2;
-    assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
-    assertEquals(1, prepareWorkbench(2, modulesPerPage).amountOfPages());
-    assertEquals(2, prepareWorkbench(3, modulesPerPage).amountOfPages());
-    assertEquals(2, prepareWorkbench(4, modulesPerPage).amountOfPages());
-    assertEquals(3, prepareWorkbench(5, modulesPerPage).amountOfPages());
+      modulesPerPage = 2;
+      assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
+      assertEquals(1, prepareWorkbench(2, modulesPerPage).amountOfPages());
+      assertEquals(2, prepareWorkbench(3, modulesPerPage).amountOfPages());
+      assertEquals(2, prepareWorkbench(4, modulesPerPage).amountOfPages());
+      assertEquals(3, prepareWorkbench(5, modulesPerPage).amountOfPages());
 
-    modulesPerPage = 3;
-    assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
-    assertEquals(1, prepareWorkbench(2, modulesPerPage).amountOfPages());
-    assertEquals(1, prepareWorkbench(3, modulesPerPage).amountOfPages());
-    assertEquals(2, prepareWorkbench(4, modulesPerPage).amountOfPages());
-    assertEquals(2, prepareWorkbench(5, modulesPerPage).amountOfPages());
-    assertEquals(2, prepareWorkbench(6, modulesPerPage).amountOfPages());
-    assertEquals(3, prepareWorkbench(7, modulesPerPage).amountOfPages());
+      modulesPerPage = 3;
+      assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
+      assertEquals(1, prepareWorkbench(2, modulesPerPage).amountOfPages());
+      assertEquals(1, prepareWorkbench(3, modulesPerPage).amountOfPages());
+      assertEquals(2, prepareWorkbench(4, modulesPerPage).amountOfPages());
+      assertEquals(2, prepareWorkbench(5, modulesPerPage).amountOfPages());
+      assertEquals(2, prepareWorkbench(6, modulesPerPage).amountOfPages());
+      assertEquals(3, prepareWorkbench(7, modulesPerPage).amountOfPages());
+    });
   }
 
   private Workbench prepareWorkbench(int moduleAmount, int modulesPerPage) {
@@ -674,136 +672,140 @@ class WorkbenchTest extends ApplicationTest {
 
   @Test
   void getTile() {
-    verify(first, never()).getName();
-    verify(first, never()).getIcon();
-    Node tab = workbench.getTile(first);
-    assertNotNull(tab);
-    verify(first).getName();
-    verify(first).getIcon();
+    robot.interact(() -> {
+      verify(first, never()).getName();
+      verify(first, never()).getIcon();
+      Node tab = workbench.getTile(first);
+      assertNotNull(tab);
+      verify(first).getName();
+      verify(first).getIcon();
+    });
   }
 
   @Test
   void getPage() {
-    Node page = workbench.getPage(0);
-    assertTrue(page instanceof Label);
-    assertEquals("0", ((Label) page).getText());
-    assertEquals("5", ((Label) workbench.getPage(5)).getText());
+    robot.interact(() -> {
+      Node page = workbench.getPage(0);
+      assertTrue(page instanceof Label);
+      assertEquals("0", ((Label) page).getText());
+      assertEquals("5", ((Label) workbench.getPage(5)).getText());
+    });
   }
 
   @Test
   void getOverlays() {
-    ObservableMap<Node, GlassPane> overlays = workbench.getOverlays();
-    // Test if unmodifiable map is returned
-    assertThrows(UnsupportedOperationException.class,
-        () -> overlays.put(new Label(), new GlassPane()));
+    robot.interact(() -> {
+      ObservableMap<Node, GlassPane> overlays = workbench.getOverlays();
+      // Test if unmodifiable map is returned
+      assertThrows(UnsupportedOperationException.class,
+          () -> overlays.put(new Label(), new GlassPane()));
+    });
   }
 
   @Test
   void showOverlayBlocking() {
-    assertEquals(0, overlays.size());
-    assertEquals(0, blockingOverlaysShown.size());
-    assertEquals(0, overlaysShown.size());
-
     robot.interact(() -> {
+      assertEquals(0, overlays.size());
+      assertEquals(0, blockingOverlaysShown.size());
+      assertEquals(0, overlaysShown.size());
+
       workbench.showOverlay(overlay1, true);
-    });
 
-    assertEquals(1, overlays.size());
-    assertEquals(1, blockingOverlaysShown.size());
-    assertEquals(0, overlaysShown.size());
-    assertTrue(overlay1.isVisible()); // overlay1 has been made visible
-    GlassPane glassPane = overlays.get(overlay1);
-    assertFalse(glassPane.isHide());
-    assertNull(glassPane.onMouseClickedProperty().get()); // no closing handler has been attached
-    assertTrue(glassPane.hideProperty().isBound());
+      assertEquals(1, overlays.size());
+      assertEquals(1, blockingOverlaysShown.size());
+      assertEquals(0, overlaysShown.size());
+      assertTrue(overlay1.isVisible()); // overlay1 has been made visible
+      GlassPane glassPane = overlays.get(overlay1);
+      assertFalse(glassPane.isHide());
+      assertNull(glassPane.onMouseClickedProperty().get()); // no closing handler has been attached
+      assertTrue(glassPane.hideProperty().isBound());
 
-    // test visibility binding to GlassPane
-    overlay1.setVisible(false);
-    assertTrue(glassPane.isHide());
+      // test visibility binding to GlassPane
+      overlay1.setVisible(false);
+      assertTrue(glassPane.isHide());
 
-    // test if calling showOverlay again, even though it's already showing, does anything
-    robot.interact(() -> {
+      // test if calling showOverlay again, even though it's already showing, does anything
       workbench.showOverlay(overlay1, true);
-    });
 
-    assertEquals(1, overlays.size());
-    assertEquals(1, blockingOverlaysShown.size());
-    assertEquals(0, overlaysShown.size());
-    assertFalse(overlay1.isVisible()); // overlay1 is still invisible
+      assertEquals(1, overlays.size());
+      assertEquals(1, blockingOverlaysShown.size());
+      assertEquals(0, overlaysShown.size());
+      assertFalse(overlay1.isVisible()); // overlay1 is still invisible
+    });
   }
 
   @Test
   void showOverlayNonBlocking() {
-    assertEquals(0, overlays.size());
-    assertEquals(0, blockingOverlaysShown.size());
-    assertEquals(0, overlaysShown.size());
-
     robot.interact(() -> {
+      assertEquals(0, overlays.size());
+      assertEquals(0, blockingOverlaysShown.size());
+      assertEquals(0, overlaysShown.size());
+
       workbench.showOverlay(overlay1, false);
-    });
 
-    assertEquals(1, overlays.size());
-    assertEquals(0, blockingOverlaysShown.size());
-    assertEquals(1, overlaysShown.size());
-    assertTrue(overlay1.isVisible()); // overlay1 has been made visible
-    GlassPane glassPane = overlays.get(overlay1);
-    assertFalse(glassPane.isHide());
-    assertNotNull(glassPane.onMouseClickedProperty().get()); // closing handler has been attached
-    assertTrue(glassPane.hideProperty().isBound());
+      assertEquals(1, overlays.size());
+      assertEquals(0, blockingOverlaysShown.size());
+      assertEquals(1, overlaysShown.size());
+      assertTrue(overlay1.isVisible()); // overlay1 has been made visible
+      GlassPane glassPane = overlays.get(overlay1);
+      assertFalse(glassPane.isHide());
+      assertNotNull(glassPane.onMouseClickedProperty().get()); // closing handler has been attached
+      assertTrue(glassPane.hideProperty().isBound());
 
-    // test visibility binding to GlassPane
-    overlay1.setVisible(false);
-    assertTrue(glassPane.isHide());
+      // test visibility binding to GlassPane
+      overlay1.setVisible(false);
+      assertTrue(glassPane.isHide());
 
-    // test if calling showOverlay again, even though it's already showing, does anything
-    robot.interact(() -> {
+      // test if calling showOverlay again, even though it's already showing, does anything
       workbench.showOverlay(overlay1, false);
-    });
 
-    assertEquals(1, overlays.size());
-    assertEquals(0, blockingOverlaysShown.size());
-    assertEquals(1, overlaysShown.size());
-    assertFalse(overlay1.isVisible()); // overlay1 is still invisible
+      assertEquals(1, overlays.size());
+      assertEquals(0, blockingOverlaysShown.size());
+      assertEquals(1, overlaysShown.size());
+      assertFalse(overlay1.isVisible()); // overlay1 is still invisible
+    });
   }
 
   @Test
   void showOverlayMultiple() {
-    assertEquals(0, overlays.size());
-    assertEquals(0, blockingOverlaysShown.size());
-    assertEquals(0, overlaysShown.size());
+    robot.interact(() -> {
+      assertEquals(0, overlays.size());
+      assertEquals(0, blockingOverlaysShown.size());
+      assertEquals(0, overlaysShown.size());
 
-    robot.interact(() -> workbench.showOverlay(overlay1, false));
-    robot.interact(() -> workbench.showOverlay(overlay2, true));
+      workbench.showOverlay(overlay1, false);
+      workbench.showOverlay(overlay2, true);
 
-    assertEquals(2, overlays.size());
-    assertEquals(1, blockingOverlaysShown.size());
-    assertEquals(1, overlaysShown.size());
-    assertTrue(overlay1.isVisible()); // overlay1 has been made visible
-    assertTrue(overlay2.isVisible()); // overlay1 has been made visible
-    GlassPane glassPane1 = overlays.get(overlay1);
-    assertFalse(glassPane1.isHide());
-    assertNotNull(glassPane1.onMouseClickedProperty().get()); // closing handler has been attached
-    assertTrue(glassPane1.hideProperty().isBound());
-    GlassPane glassPane2 = overlays.get(overlay2);
-    assertFalse(glassPane2.isHide());
-    assertNull(glassPane2.onMouseClickedProperty().get()); // no closing handler has been attached
-    assertTrue(glassPane2.hideProperty().isBound());
+      assertEquals(2, overlays.size());
+      assertEquals(1, blockingOverlaysShown.size());
+      assertEquals(1, overlaysShown.size());
+      assertTrue(overlay1.isVisible()); // overlay1 has been made visible
+      assertTrue(overlay2.isVisible()); // overlay1 has been made visible
+      GlassPane glassPane1 = overlays.get(overlay1);
+      assertFalse(glassPane1.isHide());
+      assertNotNull(glassPane1.onMouseClickedProperty().get()); // closing handler has been attached
+      assertTrue(glassPane1.hideProperty().isBound());
+      GlassPane glassPane2 = overlays.get(overlay2);
+      assertFalse(glassPane2.isHide());
+      assertNull(glassPane2.onMouseClickedProperty().get()); // no closing handler has been attached
+      assertTrue(glassPane2.hideProperty().isBound());
 
-    // test visibility binding to GlassPane
-    overlay1.setVisible(false);
-    assertTrue(glassPane1.isHide());
-    overlay2.setVisible(false);
-    assertTrue(glassPane2.isHide());
+      // test visibility binding to GlassPane
+      overlay1.setVisible(false);
+      assertTrue(glassPane1.isHide());
+      overlay2.setVisible(false);
+      assertTrue(glassPane2.isHide());
 
-    // test if calling showOverlay again, even though it's already showing, does anything
-    workbench.showOverlay(overlay1, false);
-    workbench.showOverlay(overlay2, true);
+      // test if calling showOverlay again, even though it's already showing, does anything
+      workbench.showOverlay(overlay1, false);
+      workbench.showOverlay(overlay2, true);
 
-    assertEquals(2, overlays.size());
-    assertEquals(1, blockingOverlaysShown.size());
-    assertEquals(1, overlaysShown.size());
-    assertFalse(overlay1.isVisible()); // overlay1 is still invisible
-    assertFalse(overlay2.isVisible()); // overlay1 is still invisible
+      assertEquals(2, overlays.size());
+      assertEquals(1, blockingOverlaysShown.size());
+      assertEquals(1, overlaysShown.size());
+      assertFalse(overlay1.isVisible()); // overlay1 is still invisible
+      assertFalse(overlay2.isVisible()); // overlay1 is still invisible
+    });
   }
 
   /**
@@ -1004,8 +1006,10 @@ class WorkbenchTest extends ApplicationTest {
 
   @Test
   void getNavigationDrawerItems() {
-    assertEquals(1, navigationDrawerItems.size());
-    assertEquals(menuItem, navigationDrawerItems.get(0));
+    robot.interact(() -> {
+      assertEquals(1, navigationDrawerItems.size());
+      assertEquals(menuItem, navigationDrawerItems.get(0));
+    });
   }
 
   /**
@@ -1013,9 +1017,11 @@ class WorkbenchTest extends ApplicationTest {
    */
   @Test
   void addNavigationDrawerItems() {
-    workbench.addNavigationDrawerItems(menuItem);
-    assertEquals(2, navigationDrawerItems.size());
-    assertEquals(menuItem, navigationDrawerItems.get(1));
+    robot.interact(() -> {
+      workbench.addNavigationDrawerItems(menuItem);
+      assertEquals(2, navigationDrawerItems.size());
+      assertEquals(menuItem, navigationDrawerItems.get(1));
+    });
   }
 
   /**
@@ -1025,7 +1031,7 @@ class WorkbenchTest extends ApplicationTest {
   void removeNavigationDrawerItems() {
     robot.interact(() -> {
       workbench.removeNavigationDrawerItems(menuItem);
+      assertEquals(0, navigationDrawerItems.size());
     });
-    assertEquals(0, navigationDrawerItems.size());
   }
 }
