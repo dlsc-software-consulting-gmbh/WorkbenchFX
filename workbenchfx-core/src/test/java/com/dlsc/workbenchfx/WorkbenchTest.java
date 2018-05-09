@@ -1023,7 +1023,6 @@ class WorkbenchTest extends ApplicationTest {
    */
   @Test
   void removeNavigationDrawerItems() {
-    FxRobot robot = new FxRobot();
     robot.interact(() -> {
       workbench.removeNavigationDrawerItems(menuItem);
     });
