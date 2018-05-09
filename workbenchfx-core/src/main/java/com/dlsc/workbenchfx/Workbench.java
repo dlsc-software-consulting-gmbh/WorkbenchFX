@@ -49,7 +49,7 @@ public class Workbench extends Control {
    * corresponding {@link GlassPane}.
    */
   private final ObservableMap<Node, GlassPane> overlays = FXCollections.observableHashMap();
-  private final ObservableSet<Node> overlaysShown = FXCollections.observableSet();
+  private final ObservableSet<Node> nonBlockingOverlaysShown = FXCollections.observableSet();
   private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet();
 
   // Modules
@@ -387,7 +387,7 @@ public class Workbench extends Control {
     if (blocking) {
       return blockingOverlaysShown.add(overlay);
     } else {
-      return overlaysShown.add(overlay);
+      return nonBlockingOverlaysShown.add(overlay);
     }
   }
 
@@ -408,7 +408,7 @@ public class Workbench extends Control {
     if (blocking) {
       return blockingOverlaysShown.remove(overlay);
     } else {
-      return overlaysShown.remove(overlay);
+      return nonBlockingOverlaysShown.remove(overlay);
     }
   }
 
@@ -418,7 +418,7 @@ public class Workbench extends Control {
    */
   public void clearOverlays() {
     LOGGER.trace("clearOverlays");
-    overlaysShown.clear();
+    nonBlockingOverlaysShown.clear();
     blockingOverlaysShown.clear();
     overlays.clear();
   }
@@ -443,8 +443,8 @@ public class Workbench extends Control {
     navigationDrawerItems.removeAll(menuItems);
   }
 
-  public ObservableSet<Node> getOverlaysShown() {
-    return FXCollections.unmodifiableObservableSet(overlaysShown);
+  public ObservableSet<Node> getNonBlockingOverlaysShown() {
+    return FXCollections.unmodifiableObservableSet(nonBlockingOverlaysShown);
   }
 
   public ObservableSet<Node> getBlockingOverlaysShown() {
