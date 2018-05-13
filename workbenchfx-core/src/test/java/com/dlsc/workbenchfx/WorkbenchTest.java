@@ -29,6 +29,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -70,6 +72,7 @@ class WorkbenchTest extends ApplicationTest {
   // Dropdown items
   private String dropdownText;
   private FontAwesomeIconView dropdownIconView;
+  private ImageView dropdownImageView;
   private MenuItem dropdownMenuItem;
 
   @Override
@@ -94,6 +97,7 @@ class WorkbenchTest extends ApplicationTest {
     // Initialization of items for Dropdown testing
     dropdownText = "Dropdown Text";
     dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
+    dropdownImageView = new ImageView(new Image("http://www.cherriz.de/training/content/images/oberflaechen_in_java/Javafx_logo_color.png"));
     dropdownMenuItem = new MenuItem("Menu Item");
 
     workbench = Workbench.builder(
@@ -108,7 +112,7 @@ class WorkbenchTest extends ApplicationTest {
         .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
         .navigationDrawer(menuItem)
         .toolbarLeft(Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem))
-        .toolbarRight(Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem))
+        .toolbarRight(Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem))
         .build();
 
     first = mockModules[FIRST_INDEX];
@@ -1056,34 +1060,37 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       Dropdown d;
       d = Dropdown.of(dropdownText);
-      assertEquals(d.getText(), dropdownText);
+      assertEquals(dropdownText, d.getText());
       assertNull(d.getIcon());
-      assertEquals(d.getItems().size(), 0);
+      assertEquals(0, d.getItems().size());
 
       d = Dropdown.of(dropdownText, dropdownMenuItem);
-      assertEquals(d.getText(), dropdownText);
+      assertEquals(dropdownText, d.getText());
       assertNull(d.getIcon());
-      assertEquals(d.getItems().size(), 1);
+      assertEquals(1, d.getItems().size());
 
       d = Dropdown.of(dropdownIconView);
-      assertEquals(d.getIcon(), dropdownIconView);
+      assertEquals(dropdownIconView, d.getIcon());
       assertNull(d.getText());
-      assertEquals(d.getItems().size(), 0);
+      assertEquals(0, d.getItems().size());
 
       d = Dropdown.of(dropdownIconView, dropdownMenuItem);
-      assertEquals(d.getIcon(), dropdownIconView);
+      assertEquals(dropdownIconView, d.getIcon());
       assertNull(d.getText());
-      assertEquals(d.getItems().size(), 1);
+      assertEquals(1, d.getItems().size());
 
       d = Dropdown.of(dropdownText, dropdownIconView);
-      assertEquals(d.getText(), dropdownText);
-      assertEquals(d.getIcon(), dropdownIconView);
-      assertEquals(d.getItems().size(), 0);
+      assertEquals(dropdownText, d.getText());
+      assertEquals(dropdownIconView, d.getIcon());
+      assertEquals(0, d.getItems().size());
 
       d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
-      assertEquals(d.getText(), dropdownText);
-      assertEquals(d.getIcon(), dropdownIconView);
-      assertEquals(d.getItems().size(), 1);
+      assertEquals(dropdownText, d.getText());
+      assertEquals(dropdownIconView, d.getIcon());
+      assertEquals(1, d.getItems().size());
+
+      d = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
+      assertEquals(dropdownImageView, d.getIcon());
     });
   }
 
