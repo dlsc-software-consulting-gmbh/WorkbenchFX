@@ -27,6 +27,7 @@ import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Tag;
@@ -1079,6 +1080,16 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(d.getText(), dropdownText);
       assertEquals(d.getIcon(), dropdownIconView);
       assertEquals(d.getItems().size(), 1);
+    });
+  }
+
+  @Test
+  void invertStyle() {
+    robot.interact(() -> {
+      Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
+      assertFalse(d.getInverted());
+      d.invertStyle();
+      assertTrue(d.getInverted());
     });
   }
 }
