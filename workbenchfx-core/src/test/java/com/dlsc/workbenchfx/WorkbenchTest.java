@@ -16,6 +16,7 @@ import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
+import com.dlsc.workbenchfx.view.controls.DropdownSkin;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;

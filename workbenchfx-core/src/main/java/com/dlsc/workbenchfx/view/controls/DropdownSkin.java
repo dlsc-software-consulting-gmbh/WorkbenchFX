@@ -28,8 +28,13 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   private static final Logger LOGGER =
       LogManager.getLogger(DropdownSkin.class.getName());
 
+  private final Dropdown dropdown;
+
   private static final int ARROW_NODE_INDEX = 1;
   private static final double HALF_DROPDOWN_SIZE = 0.5d;
+  private final String standardStyle = "dropdown";
+  private final String invertedStyle = "dropdown-inverted";
+
   private final MenuButton menuButton;
   private final Node icon;
   private final ObservableList<MenuItem> menuItems;
@@ -42,6 +47,7 @@ public class DropdownSkin extends SkinBase<Dropdown> {
    */
   public DropdownSkin(Dropdown dropdown) {
     super(dropdown);
+    this.dropdown = dropdown;
 
     menuButton = new MenuButton();
     menuButton.getStyleClass().add("dropdown");
@@ -76,8 +82,8 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   private void replaceArrowIcon() {
     Platform.runLater(() -> {
       arrowButtonPane =
-              (StackPane) ((MenuButtonSkin) menuButton.getSkin()).getChildren().get(
-                  ARROW_NODE_INDEX);
+          (StackPane) ((MenuButtonSkin) menuButton.getSkin()).getChildren().get(
+              ARROW_NODE_INDEX);
       // Removes the old arrow
       arrowButtonPane.getChildren().clear();
       FontAwesomeIconView angleDown = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_DOWN);
@@ -149,19 +155,17 @@ public class DropdownSkin extends SkinBase<Dropdown> {
             .setIcon(FontAwesomeIcon.ANGLE_DOWN);
       }
     });
-  }
 
-  /**
-   * Changes the styleClass either from dropdown to dropdown-inverted.
-   * In the css, the style is applied.
-   */
-  public void invertStyle() {
-    if (menuButton.getStyleClass().contains("dropdown")) {
-      menuButton.getStyleClass().remove("dropdown");
-      menuButton.getStyleClass().add("dropdown-inverted");
-    } else {
-      menuButton.getStyleClass().remove("dropdown-inverted");
-      menuButton.getStyleClass().add("dropdown");
-    }
+    // Changes the styleClass either from dropdown to dropdown-inverted.
+    // In the css, the style is applied.
+    dropdown.invertedProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue) {
+        menuButton.getStyleClass().remove(standardStyle);
+        menuButton.getStyleClass().add(invertedStyle);
+      } else {
+        menuButton.getStyleClass().remove(invertedStyle);
+        menuButton.getStyleClass().add(standardStyle);
+      }
+    });
   }
 }
