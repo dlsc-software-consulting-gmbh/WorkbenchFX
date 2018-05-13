@@ -1090,6 +1090,7 @@ class WorkbenchTest extends ApplicationTest {
       assertFalse(d.getInverted());
       d.invertStyle();
       assertTrue(d.getInverted());
+      assertTrue(d.invertedProperty().get());
     });
   }
 }
