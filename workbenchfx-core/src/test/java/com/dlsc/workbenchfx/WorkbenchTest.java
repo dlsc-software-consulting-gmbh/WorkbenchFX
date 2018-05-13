@@ -16,11 +16,10 @@ import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
-import com.dlsc.workbenchfx.view.controls.DropdownSkin;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.PrettyScrollPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.util.Optional;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -28,7 +27,6 @@ import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Tag;
@@ -97,12 +95,14 @@ class WorkbenchTest extends ApplicationTest {
     dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
     dropdownMenuItem = new MenuItem("Menu Item");
 
-    workbench = Workbench.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX],
+    workbench = Workbench.builder(
+        mockModules[FIRST_INDEX],
+        mockModules[SECOND_INDEX],
         mockModules[LAST_INDEX])
         // use "module.getName()" twice, to differentiate between tab and tile factories
-        .tabFactory((workbench, module) -> {
-          return new Label(module.getName() + module.getName(), module.getIcon());
-        })
+        .tabFactory((workbench, module) ->
+            new Label(module.getName() + module.getName(), module.getIcon())
+        )
         .tileFactory((workbench, module) -> new Label(module.getName(), module.getIcon()))
         .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
         .navigationDrawer(menuItem)
@@ -1118,6 +1118,13 @@ class WorkbenchTest extends ApplicationTest {
       Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
       assertTrue(workbench.addToolbarControlLeft(d));
       assertTrue(workbench.addToolbarControlRight(d));
+    });
+  }
+
+  @Test
+  void createDefaultPrettyScrollPane() {
+    robot.interact(() -> {
+      PrettyScrollPane prettyScrollPane = new PrettyScrollPane();
     });
   }
 }
