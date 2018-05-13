@@ -1112,8 +1112,9 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void addToolbarControlsLeftAndRight() {
     robot.interact(() -> {
-      Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
+      Dropdown d = Dropdown.of(dropdownIconView, dropdownMenuItem);
       assertTrue(workbench.addToolbarControlLeft(d));
+      d = Dropdown.of(dropdownText, dropdownMenuItem);
       assertTrue(workbench.addToolbarControlRight(d));
     });
   }
