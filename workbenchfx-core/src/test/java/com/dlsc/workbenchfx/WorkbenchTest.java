@@ -91,6 +91,11 @@ class WorkbenchTest extends ApplicationTest {
     fontAwesomeIconView.getStyleClass().add("icon");
     menuItem = new MenuItem("Item 1.1", fontAwesomeIconView);
 
+    // Initialization of items for Dropdown testing
+    dropdownText = "Dropdown Text";
+    dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
+    dropdownMenuItem = new MenuItem("Menu Item");
+
     workbench = Workbench.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX],
         mockModules[LAST_INDEX])
         // use "module.getName()" twice, to differentiate between tab and tile factories
@@ -100,6 +105,8 @@ class WorkbenchTest extends ApplicationTest {
         .tileFactory((workbench, module) -> new Label(module.getName(), module.getIcon()))
         .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
         .navigationDrawer(menuItem)
+        .toolbarLeft(Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem))
+        .toolbarRight(Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem))
         .build();
 
     first = mockModules[FIRST_INDEX];
@@ -117,11 +124,6 @@ class WorkbenchTest extends ApplicationTest {
     overlay3.setVisible(false);
 
     navigationDrawerItems = workbench.getNavigationDrawerItems();
-
-    // Initialization of items for Dropdown testing
-    dropdownText = "Dropdown Text";
-    dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
-    dropdownMenuItem = new MenuItem("Menu Item");
 
     Scene scene = new Scene(workbench, 100, 100);
     stage.setScene(scene);
@@ -1091,6 +1093,16 @@ class WorkbenchTest extends ApplicationTest {
       d.invertStyle();
       assertTrue(d.getInverted());
       assertTrue(d.invertedProperty().get());
+    });
+  }
+
+  @Test
+  void createDropdownSkin() {
+    robot.interact(() -> {
+      Dropdown d = Dropdown.of(dropdownText, dropdownIconView);
+      d.getItems().add(dropdownMenuItem);
+      d.getItems().add(dropdownMenuItem);
+      d.getItems().add(dropdownMenuItem);
     });
   }
 }
