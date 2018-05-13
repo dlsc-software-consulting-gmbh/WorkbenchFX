@@ -1087,17 +1087,6 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  void invertStyle() {
-    robot.interact(() -> {
-      Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
-      assertFalse(d.getInverted());
-      d.invertStyle();
-      assertTrue(d.getInverted());
-      assertTrue(d.invertedProperty().get());
-    });
-  }
-
-  @Test
   void removeToolbarControlsLeftAndRight() {
     robot.interact(() -> {
       Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
@@ -1118,6 +1107,18 @@ class WorkbenchTest extends ApplicationTest {
       Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
       assertTrue(workbench.addToolbarControlLeft(d));
       assertTrue(workbench.addToolbarControlRight(d));
+    });
+  }
+
+  @Test
+  void invertDropdownInToolbar() {
+    robot.interact(() -> {
+      Dropdown d = (Dropdown) workbench.getToolbarControlsLeft().stream().findFirst().get();
+      assertFalse(d.getInverted());
+      d.invertStyle();
+      assertTrue(d.getInverted());
+      d.invertStyle();
+      assertFalse(d.invertedProperty().get());
     });
   }
 

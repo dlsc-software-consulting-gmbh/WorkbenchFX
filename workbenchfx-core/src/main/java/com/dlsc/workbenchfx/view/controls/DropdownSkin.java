@@ -139,7 +139,8 @@ public class DropdownSkin extends SkinBase<Dropdown> {
         if (c.wasAdded()) {
           for (MenuItem menuItem : c.getAddedSubList()) {
             LOGGER.debug("MenuItem " + menuItem + " added");
-            menuButton.getItems().add(menuItem);
+            ObservableList<MenuItem> items = menuButton.getItems();
+            items.addAll(menuItem);
           }
         }
       }
