@@ -20,6 +20,7 @@ import com.dlsc.workbenchfx.view.controls.DropdownSkin;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.Optional;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -1097,12 +1098,17 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  void createDropdownSkin() {
+  void removeToolbarControlsLeftAndRight() {
     robot.interact(() -> {
-      Dropdown d = Dropdown.of(dropdownText, dropdownIconView);
-      d.getItems().add(dropdownMenuItem);
-      d.getItems().add(dropdownMenuItem);
-      d.getItems().add(dropdownMenuItem);
+      Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
+      assertFalse(workbench.removeToolbarControlLeft(d));
+      assertFalse(workbench.removeToolbarControlRight(d));
+
+      Node controlLeft = workbench.getToolbarControlsLeft().stream().findFirst().get();
+      assertTrue(workbench.removeToolbarControlLeft(controlLeft));
+
+      Node controlRight = workbench.getToolbarControlsRight().stream().findFirst().get();
+      assertTrue(workbench.removeToolbarControlRight(controlRight));
     });
   }
 }
