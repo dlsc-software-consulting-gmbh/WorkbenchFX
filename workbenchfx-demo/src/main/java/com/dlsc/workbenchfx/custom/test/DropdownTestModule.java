@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 public class DropdownTestModule extends Module {
   private int itemsCount = 1;
 
+  private final Button invertBtn = new Button("Invert Style");
   private final Button addMenuBtn = new Button("Add new Dropdown");
   private final Button addItemBtn = new Button("Add MenuItem to Dropdown");
   private final Button addLotItemBtn = new Button("Add 100 MenuItems to Dropdown");
@@ -32,7 +33,7 @@ public class DropdownTestModule extends Module {
   private final GridPane customPane = new GridPane();
 
   public DropdownTestModule() {
-    super("Workbench Test", FontAwesomeIcon.QUESTION);
+    super("Dropdown Test", FontAwesomeIcon.QUESTION);
     layoutParts();
     setupEventHandlers();
   }
@@ -41,15 +42,19 @@ public class DropdownTestModule extends Module {
     customPane.add(addMenuBtn, 0, 0);
     customPane.add(addItemBtn, 0, 1);
     customPane.add(addLotItemBtn, 0, 2);
+    customPane.add(invertBtn, 0, 3);
 
     customPane.add(removeMenuBtn, 1, 0);
     customPane.add(removeItemBtn, 1, 1);
     customPane.add(removeLotItemBtn, 1, 2);
 
+
     customPane.setAlignment(Pos.CENTER);
   }
 
   private void setupEventHandlers() {
+    invertBtn.setOnAction(event -> customDropdown.invertStyle());
+
     addMenuBtn.setOnAction(event -> workbench.addToolbarControlRight(customDropdown));
     removeMenuBtn.setOnAction(event -> workbench.removeToolbarControlRight(customDropdown));
 
