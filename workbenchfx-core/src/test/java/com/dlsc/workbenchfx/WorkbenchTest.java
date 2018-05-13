@@ -26,6 +26,7 @@ import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
@@ -1119,6 +1120,18 @@ class WorkbenchTest extends ApplicationTest {
       assertTrue(d.getInverted());
       d.invertStyle();
       assertFalse(d.invertedProperty().get());
+    });
+  }
+
+  @Test
+  void removeAndAddItemFromDropdownInToolbar() {
+    robot.interact(() -> {
+      Dropdown d = (Dropdown) workbench.getToolbarControlsLeft().stream().findFirst().get();
+      assertEquals(1, d.getItems().size());
+      d.getItems().remove(0);
+      assertEquals(0, d.getItems().size());
+      d.getItems().add(new CustomMenuItem(new Label("New Item")));
+      assertEquals(1, d.getItems().size());
     });
   }
 
