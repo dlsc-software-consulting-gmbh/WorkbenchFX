@@ -50,7 +50,7 @@ public class DropdownSkin extends SkinBase<Dropdown> {
     this.dropdown = dropdown;
 
     menuButton = new MenuButton();
-    menuButton.getStyleClass().add("dropdown");
+    menuButton.getStyleClass().add(standardStyle);
 
     String text = dropdown.getText();
     if (!Objects.isNull(text)) {
