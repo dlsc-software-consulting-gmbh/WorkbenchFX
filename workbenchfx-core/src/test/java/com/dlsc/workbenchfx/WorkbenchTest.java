@@ -15,6 +15,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -84,15 +85,15 @@ class WorkbenchTest extends ApplicationTest {
     menuItem = new MenuItem("Item 1.1", fontAwesomeIconView);
 
     workbench = Workbench.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX],
-            mockModules[LAST_INDEX])
-            // use "module.getName()" twice, to differentiate between tab and tile factories
-            .tabFactory((workbench, module) -> {
-              return new Label(module.getName() + module.getName(), module.getIcon());
-            })
-            .tileFactory((workbench, module) -> new Label(module.getName(), module.getIcon()))
-            .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
-            .navigationDrawer(menuItem)
-            .build();
+        mockModules[LAST_INDEX])
+        // use "module.getName()" twice, to differentiate between tab and tile factories
+        .tabFactory((workbench, module) -> {
+          return new Label(module.getName() + module.getName(), module.getIcon());
+        })
+        .tileFactory((workbench, module) -> new Label(module.getName(), module.getIcon()))
+        .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
+        .navigationDrawer(menuItem)
+        .build();
 
     first = mockModules[FIRST_INDEX];
     second = mockModules[SECOND_INDEX];
@@ -1031,6 +1032,46 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       workbench.removeNavigationDrawerItems(menuItem);
       assertEquals(0, navigationDrawerItems.size());
+    });
+  }
+
+  @Test
+  void createDropdown() {
+    robot.interact(() -> {
+      String text = "Text";
+      FontAwesomeIconView iconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
+      MenuItem menuItem = new MenuItem("Menu Item");
+
+      Dropdown d;
+      d = Dropdown.of(text);
+      assertEquals(d.getText(), text);
+      assertNull(d.getIcon());
+      assertEquals(d.getItems().size(), 0);
+
+      d = Dropdown.of(text, menuItem);
+      assertEquals(d.getText(), text);
+      assertNull(d.getIcon());
+      assertEquals(d.getItems().size(), 1);
+
+      d = Dropdown.of(iconView);
+      assertEquals(d.getIcon(), iconView);
+      assertNull(d.getText());
+      assertEquals(d.getItems().size(), 0);
+
+      d = Dropdown.of(iconView, menuItem);
+      assertEquals(d.getIcon(), iconView);
+      assertNull(d.getText());
+      assertEquals(d.getItems().size(), 1);
+
+      d = Dropdown.of(text, iconView);
+      assertEquals(d.getText(), text);
+      assertEquals(d.getIcon(), iconView);
+      assertEquals(d.getItems().size(), 0);
+
+      d = Dropdown.of(text, iconView, menuItem);
+      assertEquals(d.getText(), text);
+      assertEquals(d.getIcon(), iconView);
+      assertEquals(d.getItems().size(), 1);
     });
   }
 }
