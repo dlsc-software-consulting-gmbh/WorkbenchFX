@@ -663,24 +663,30 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void getTab() {
     robot.interact(() -> {
-      verify(first, never()).getName();
-      verify(first, never()).getIcon();
-      Node tab = workbench.getTab(first);
+      // verify factory gets applied correctly
+      assertTrue(workbench.getTab(first) instanceof MockTab);
+
+      // verify correct creation of tab
+      MockTab tab = (MockTab) workbench.getTab(first);
+
       assertNotNull(tab);
-      verify(first, times(2)).getName();
-      verify(first).getIcon();
+      // verify module has been updated correctly
+      assertSame(first, tab.getModule());
     });
   }
 
   @Test
   void getTile() {
     robot.interact(() -> {
-      verify(first, never()).getName();
-      verify(first, never()).getIcon();
-      Node tab = workbench.getTile(first);
-      assertNotNull(tab);
-      verify(first).getName();
-      verify(first).getIcon();
+      // verify factory gets applied correctly
+      assertTrue(workbench.getTile(first) instanceof MockTile);
+
+      // verify correct creation of tile
+      MockTile tile = (MockTile) workbench.getTile(first);
+
+      assertNotNull(tile);
+      // verify module has been updated correctly
+      assertSame(first, tile.getModule());
     });
   }
 
