@@ -31,25 +31,7 @@ public final class WorkbenchBuilder {
   // Optional parameters - initialized to default values
   int modulesPerPage = 9;
 
-  Callback<Workbench, Tab> tabFactory = workbench -> {
-    Tab tab = new Tab(workbench);
-    workbench.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
-      LOGGER.trace("Tab Factory - Old Module: " + oldModule);
-      LOGGER.trace("Tab Factory - New Module: " + oldModule);
-      if (module == newModule) {
-        tab.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-        LOGGER.trace("STYLE SET");
-      }
-      if (module == oldModule) {
-        // switch from this to other tab
-        tab.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
-      }
-    });
-    tab.setOnClose(e -> workbench.closeModule(module));
-    tab.setOnActive(e -> workbench.openModule(module));
-    tab.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-    return tab;
-  };
+  Callback<Workbench, Tab> tabFactory = Tab::new;
 
   Callback<Workbench, Tile> tileFactory = Tile::new;
 
@@ -113,19 +95,21 @@ public final class WorkbenchBuilder {
   }
 
   /**
+   * TODO
    * Defines how {@link Node} should be created to be used as the tab in the view.
    *
-   * @param tabFactory to be used to create the {@link Node} for the tabs
+   * @param tabFactory to be used to create the {@link Tab}
    * @return builder for chaining
    * @implNote Use this to replace the control which is used for the tab with your own
    *           implementation.
    */
-  public WorkbenchBuilder tabFactory(BiFunction<Workbench, Module, Node> tabFactory) {
+  public WorkbenchBuilder tabFactory(Callback<Workbench, Tab> tabFactory) {
     this.tabFactory = tabFactory;
     return this;
   }
 
   /**
+   * TODO
    * Defines how {@link Node} should be created to be used as the tile in the home screen.
    *
    * @param tileFactory to be used to create the {@link Tile}

@@ -2,6 +2,8 @@ package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.module.Tile;
+import com.dlsc.workbenchfx.view.module.Tab;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
+import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,7 +30,6 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class Workbench extends Control {
-  // TODO: call update() on tile and tab
   private static final Logger LOGGER =
       LogManager.getLogger(Workbench.class.getName());
 
@@ -78,9 +80,9 @@ public class Workbench extends Control {
    * The factories which are called when creating Tabs, Tiles and Pages of Tiles for the Views. They
    * require a module whose attributes are used to create the Nodes.
    */
-  private final ObjectProperty<BiFunction<Workbench, Module, Node>> tabFactory =
+  private final ObjectProperty<Callback<Workbench, Tab>> tabFactory =
       new SimpleObjectProperty<>(this, "tabFactory");
-  private final ObjectProperty<BiFunction<Workbench, Module, Node>> tileFactory =
+  private final ObjectProperty<Callback<Workbench, Tile>> tileFactory =
       new SimpleObjectProperty<>(this, "tileFactory");
   private final ObjectProperty<BiFunction<Workbench, Integer, Node>> pageFactory =
       new SimpleObjectProperty<>(this, "pageFactory");
@@ -252,17 +254,21 @@ public class Workbench extends Control {
   }
 
   /**
+   * TODO
    * Generates a new Node which is then used as a Tab. Using the given {@link Module}, it calls the
    * {@code tabFactory} which generates the Tab.
    *
    * @param module the module for which the Tab should be created
    * @return a corresponding Tab which is created from the {@code tabFactory}
    */
-  public Node getTab(Module module) {
-    return tabFactory.get().apply(this, module);
+  public Tab getTab(Module module) {
+    Tab tab = tabFactory.get().call(this);
+    tab.update(module);
+    return tab;
   }
 
   /**
+   * TODO
    * Generates a new Node which is then used as a Tile. Using the given {@link Module}, it calls the
    * {@code tileFactory} which generates the Tile.
    *
@@ -270,7 +276,9 @@ public class Workbench extends Control {
    * @return a corresponding Tile which contains the values of the module
    */
   public Node getTile(Module module) {
-    return tileFactory.get().apply(this, module);
+    Tile tile = tileFactory.get().call(this);
+    tile.update(module);
+    return tile;
   }
 
   /**
