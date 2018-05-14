@@ -2,8 +2,8 @@ package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
-import com.dlsc.workbenchfx.view.module.Tile;
 import com.dlsc.workbenchfx.view.module.Tab;
+import com.dlsc.workbenchfx.view.module.Tile;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;

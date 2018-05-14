@@ -18,7 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO
+ * TODO.
  */
 public class TabSkin extends SkinBase<Tab> {
   private static final Logger LOGGER = LogManager.getLogger(TabSkin.class.getName());
