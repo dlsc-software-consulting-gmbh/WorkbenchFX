@@ -20,7 +20,6 @@ import javafx.scene.input.MouseEvent;
 public class Tile extends Control {
   private final Workbench workbench;
   private final ObjectProperty<Module> module;
-  private final Button button;
 
   /**
    * Constructs a new {@link Tile}.
@@ -30,19 +29,6 @@ public class Tile extends Control {
   public Tile(Workbench workbench) {
     this.workbench = workbench;
     module = new SimpleObjectProperty<>();
-    button = new Button();
-    button.setText(module.getName());
-    button.setGraphic(module.getIcon());
-    getStyleClass().add("tile-control");
-  }
-
-  /**
-   * Defines the {@link EventHandler} which should be called when this tile is being clicked on.
-   *
-   * @param event to be called
-   */
-  public void setOnActive(EventHandler<MouseEvent> event) {
-    button.setOnMouseClicked(event);
   }
 
   /**
@@ -60,6 +46,10 @@ public class Tile extends Control {
 
   public ReadOnlyObjectProperty<Module> moduleProperty() {
     return module;
+  }
+
+  public Workbench getWorkbench() {
+    return workbench;
   }
 
   @Override

@@ -51,11 +51,7 @@ public final class WorkbenchBuilder {
     return tab;
   };
 
-  Callback<Workbench, Tile> tileFactory = (workbench, module) -> {
-    Tile tile = new Tile(module);
-    tile.setOnActive(e -> workbench.openModule(module));
-    return tile;
-  };
+  Callback<Workbench, Tile> tileFactory = Tile::new;
 
   BiFunction<Workbench, Integer, Node> pageFactory = (workbench, pageIndex) -> {
     final int columnsPerRow = 3;
@@ -132,12 +128,12 @@ public final class WorkbenchBuilder {
   /**
    * Defines how {@link Node} should be created to be used as the tile in the home screen.
    *
-   * @param tileFactory to be used to create the {@link Node} for the tiles
+   * @param tileFactory to be used to create the {@link Tile}
    * @return builder for chaining
    * @implNote Use this to replace the control which is used for the tile with your own
    *           implementation.
    */
-  public WorkbenchBuilder tileFactory(BiFunction<Workbench, Module, Node> tileFactory) {
+  public WorkbenchBuilder tileFactory(Callback<Workbench, Tile> tileFactory) {
     this.tileFactory = tileFactory;
     return this;
   }
