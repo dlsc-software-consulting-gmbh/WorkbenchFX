@@ -5,11 +5,15 @@ import com.dlsc.workbenchfx.module.Module;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.SkinBase;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * TODO
  */
 public class TileSkin extends SkinBase<Tile> {
+  private static final Logger LOGGER =
+      LogManager.getLogger(TileSkin.class.getName());
 
   private final Button button;
   private final ReadOnlyObjectProperty<Module> module;
@@ -27,16 +31,22 @@ public class TileSkin extends SkinBase<Tile> {
     button.getStyleClass().add("tile-control");
 
     setupModuleListener(tile.getWorkbench());
+
+    getChildren().add(button);
   }
 
   private void setupModuleListener(Workbench workbench) {
     module.addListener((observable, oldModule, newModule) -> {
       if (oldModule != newModule) {
-        button.setText(newModule.getName());
-        button.setGraphic(newModule.getIcon());
-        button.setOnAction(e -> workbench.openModule(newModule));
+        setupSkin(workbench, newModule);
       }
     });
+  }
+
+  private void setupSkin(Workbench workbench, Module module) {
+    button.setText(module.getName());
+    button.setGraphic(module.getIcon());
+    button.setOnAction(e -> workbench.openModule(module));
   }
 
 }

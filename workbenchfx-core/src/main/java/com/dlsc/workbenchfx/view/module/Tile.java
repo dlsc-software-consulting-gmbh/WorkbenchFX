@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.input.MouseEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the standard control used to display {@link Module}s as tiles in the home screen.
@@ -18,6 +20,9 @@ import javafx.scene.input.MouseEvent;
  * @author Marco Sanfratello
  */
 public class Tile extends Control {
+  private static final Logger LOGGER =
+      LogManager.getLogger(Tile.class.getName());
+
   private final Workbench workbench;
   private final ObjectProperty<Module> module;
 
