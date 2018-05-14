@@ -28,13 +28,6 @@ public class Tab extends Control {
   private final Workbench workbench;
   private final ObjectProperty<Module> module;
 
-  private final HBox controlBox;
-  private final Button closeBtn;
-
-  private final Node icon;
-  private final Label nameLbl;
-  private final FontAwesomeIconView closeIconView;
-
   /**
    * Constructs a new {@link Tab}.
    *
@@ -43,52 +36,6 @@ public class Tab extends Control {
   public Tab(Workbench workbench) {
     this.workbench = workbench;
     module = new SimpleObjectProperty<>();
-
-    this.icon = module.getIcon();
-    this.nameLbl = new Label(module.getName());
-
-    closeIconView = new FontAwesomeIconView(FontAwesomeIcon.CLOSE);
-    this.closeBtn = new Button("", closeIconView);
-
-    controlBox = new HBox();
-
-    layoutParts();
-  }
-
-  private void layoutParts() {
-    controlBox.getChildren().addAll(
-        icon,
-        nameLbl,
-        closeBtn
-    );
-
-    icon.getStyleClass().add("tab-icon");
-    nameLbl.getStyleClass().add("tab-name-lbl");
-
-    closeBtn.getStyleClass().add("close-btn");
-    closeIconView.setStyleClass("close-icon-view");
-
-    controlBox.getStyleClass().add("tab-control");
-  }
-
-  /**
-   * Defines the {@link EventHandler} which should be called when the close button on this tab is
-   * being pressed.
-   *
-   * @param event to be called
-   */
-  public void setOnClose(EventHandler<ActionEvent> event) {
-    closeBtn.setOnAction(event);
-  }
-
-  /**
-   * Defines the {@link EventHandler} which should be called when this control is being clicked on,
-   * setting the tab active.
-   *
-   * @param event to be called
-   */
-  public void setOnActive(EventHandler<MouseEvent> event) {
-    controlBox.setOnMouseClicked(event);
   }
 
   /**
