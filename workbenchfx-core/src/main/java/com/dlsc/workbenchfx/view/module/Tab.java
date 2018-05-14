@@ -5,6 +5,9 @@ import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawerSkin;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -23,10 +26,11 @@ import javafx.scene.layout.HBox;
  */
 public class Tab extends Control {
   private final Workbench workbench;
+  private final ObjectProperty<Module> module;
 
   private final HBox controlBox;
   private final Button closeBtn;
-  private Module module;
+
   private final Node icon;
   private final Label nameLbl;
   private final FontAwesomeIconView closeIconView;
@@ -38,6 +42,7 @@ public class Tab extends Control {
    */
   public Tab(Workbench workbench) {
     this.workbench = workbench;
+    module = new SimpleObjectProperty<>();
 
     this.icon = module.getIcon();
     this.nameLbl = new Label(module.getName());
@@ -84,6 +89,23 @@ public class Tab extends Control {
    */
   public void setOnActive(EventHandler<MouseEvent> event) {
     controlBox.setOnMouseClicked(event);
+  }
+
+  /**
+   * Defines the {@code module} which is being represented by this {@link Tile}.
+   *
+   * @param module to be represented by this {@link Tile}
+   */
+  public void update(Module module) {
+    this.module.set(module);
+  }
+
+  public Module getModule() {
+    return module.get();
+  }
+
+  public ReadOnlyObjectProperty<Module> moduleProperty() {
+    return module;
   }
 
   @Override

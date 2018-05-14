@@ -2,7 +2,9 @@ package com.dlsc.workbenchfx.view.module;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.view.controls.NavigationDrawerSkin;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -17,7 +19,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class Tile extends Control {
   private final Workbench workbench;
-  private Module module;
+  private final ObjectProperty<Module> module;
   private final Button button;
 
   /**
@@ -27,6 +29,7 @@ public class Tile extends Control {
    */
   public Tile(Workbench workbench) {
     this.workbench = workbench;
+    module = new SimpleObjectProperty<>();
     button = new Button();
     button.setText(module.getName());
     button.setGraphic(module.getIcon());
@@ -40,6 +43,23 @@ public class Tile extends Control {
    */
   public void setOnActive(EventHandler<MouseEvent> event) {
     button.setOnMouseClicked(event);
+  }
+
+  /**
+   * Defines the {@code module} which is being represented by this {@link Tile}.
+   *
+   * @param module to be represented by this {@link Tile}
+   */
+  public void update(Module module) {
+    this.module.set(module);
+  }
+
+  public Module getModule() {
+    return module.get();
+  }
+
+  public ReadOnlyObjectProperty<Module> moduleProperty() {
+    return module;
   }
 
   @Override
