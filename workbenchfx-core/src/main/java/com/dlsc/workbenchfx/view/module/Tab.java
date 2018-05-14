@@ -17,6 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Skin;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the standard control used to display {@link Module}s as tabs in the toolbar.
@@ -25,6 +27,9 @@ import javafx.scene.layout.HBox;
  * @author Marco Sanfratello
  */
 public class Tab extends Control {
+  private static final Logger LOGGER =
+      LogManager.getLogger(Tab.class.getName());
+
   private final Workbench workbench;
   private final ObjectProperty<Module> module;
 
