@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view.module;
 
+import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawerSkin;
 import javafx.event.EventHandler;
@@ -15,15 +16,15 @@ import javafx.scene.input.MouseEvent;
  * @author Marco Sanfratello
  */
 public class Tile extends Control {
-  private final Module module;
+  private Module module;
   private final Button button;
 
   /**
    * Constructs a new {@link Tile}.
    *
-   * @param module which is used to create the {@link Tile}
+   * @param workbench which created this {@link Tab}
    */
-  public Tile(Module module) {
+  public Tile(Workbench workbench) {
     this.module = module;
     button = new Button();
     button.setText(module.getName());

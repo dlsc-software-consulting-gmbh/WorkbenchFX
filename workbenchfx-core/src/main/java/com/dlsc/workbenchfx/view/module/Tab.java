@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view.module;
 
+import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawerSkin;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -21,9 +22,11 @@ import javafx.scene.layout.HBox;
  * @author Marco Sanfratello
  */
 public class Tab extends Control {
+  private final Workbench workbench;
+
   private final HBox controlBox;
   private final Button closeBtn;
-  private final Module module;
+  private Module module;
   private final Node icon;
   private final Label nameLbl;
   private final FontAwesomeIconView closeIconView;
@@ -31,10 +34,10 @@ public class Tab extends Control {
   /**
    * Constructs a new {@link Tab}.
    *
-   * @param module which is used to create the {@link Tab}
+   * @param workbench which created this {@link Tab}
    */
-  public Tab(Module module) {
-    this.module = module;
+  public Tab(Workbench workbench) {
+    this.workbench = workbench;
 
     this.icon = module.getIcon();
     this.nameLbl = new Label(module.getName());
