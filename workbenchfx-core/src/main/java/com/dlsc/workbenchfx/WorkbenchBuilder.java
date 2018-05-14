@@ -4,7 +4,7 @@ import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
-import com.dlsc.workbenchfx.view.module.TabControl;
+import com.dlsc.workbenchfx.view.module.Tab;
 import com.dlsc.workbenchfx.view.module.TileControl;
 import java.util.function.BiFunction;
 import javafx.geometry.Pos;
@@ -32,23 +32,23 @@ public final class WorkbenchBuilder {
   int modulesPerPage = 9;
 
   BiFunction<Workbench, Module, Node> tabFactory = (workbench, module) -> {
-    TabControl tabControl = new TabControl(module);
+    Tab tab = new Tab(module);
     workbench.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       LOGGER.trace("Tab Factory - Old Module: " + oldModule);
       LOGGER.trace("Tab Factory - New Module: " + oldModule);
       if (module == newModule) {
-        tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
+        tab.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
         LOGGER.trace("STYLE SET");
       }
       if (module == oldModule) {
         // switch from this to other tab
-        tabControl.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
+        tab.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
       }
     });
-    tabControl.setOnClose(e -> workbench.closeModule(module));
-    tabControl.setOnActive(e -> workbench.openModule(module));
-    tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-    return tabControl;
+    tab.setOnClose(e -> workbench.closeModule(module));
+    tab.setOnActive(e -> workbench.openModule(module));
+    tab.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
+    return tab;
   };
 
   BiFunction<Workbench, Module, Node> tileFactory = (workbench, module) -> {

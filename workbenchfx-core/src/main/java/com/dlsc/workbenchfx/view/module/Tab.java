@@ -17,7 +17,7 @@ import javafx.scene.layout.HBox;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class TabControl extends HBox {
+public class Tab extends HBox {
   private final Button closeBtn;
   private final Module module;
   private final Node icon;
@@ -25,11 +25,11 @@ public class TabControl extends HBox {
   private final FontAwesomeIconView closeIconView;
 
   /**
-   * Constructs a new {@link TabControl}.
+   * Constructs a new {@link Tab}.
    *
-   * @param module which is used to create the {@link TabControl}
+   * @param module which is used to create the {@link Tab}
    */
-  public TabControl(Module module) {
+  public Tab(Module module) {
     this.module = module;
 
     this.icon = module.getIcon();
