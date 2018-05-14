@@ -15,7 +15,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.testing.MockTab;
+import com.dlsc.workbenchfx.testing.MockTile;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.module.Tab;
+import com.dlsc.workbenchfx.view.module.Tile;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -83,9 +87,12 @@ class WorkbenchTest extends ApplicationTest {
     fontAwesomeIconView.getStyleClass().add("icon");
     menuItem = new MenuItem("Item 1.1", fontAwesomeIconView);
 
-    workbench = Workbench.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX],
-            mockModules[LAST_INDEX])
+    workbench =
+        Workbench.builder(
+                mockModules[FIRST_INDEX], mockModules[SECOND_INDEX], mockModules[LAST_INDEX])
             // use "module.getName()" twice, to differentiate between tab and tile factories
+            .tabFactory(MockTab::new)
+            .tileFactory(MockTile::new)
             .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
             .navigationDrawer(menuItem)
             .build();
