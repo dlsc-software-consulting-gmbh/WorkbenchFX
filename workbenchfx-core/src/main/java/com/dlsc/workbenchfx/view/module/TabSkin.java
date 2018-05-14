@@ -8,13 +8,10 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,8 +20,7 @@ import org.apache.logging.log4j.Logger;
  * TODO
  */
 public class TabSkin extends SkinBase<Tab> {
-  private static final Logger LOGGER =
-      LogManager.getLogger(TabSkin.class.getName());
+  private static final Logger LOGGER = LogManager.getLogger(TabSkin.class.getName());
 
   private final ReadOnlyObjectProperty<Module> module;
 
@@ -62,11 +58,7 @@ public class TabSkin extends SkinBase<Tab> {
   }
 
   private void layoutParts() {
-    controlBox.getChildren().addAll(
-        icon,
-        nameLbl,
-        closeBtn
-    );
+    controlBox.getChildren().addAll(icon, nameLbl, closeBtn);
 
     icon.getStyleClass().add("tab-icon");
     nameLbl.getStyleClass().add("tab-name-lbl");
@@ -114,5 +106,4 @@ public class TabSkin extends SkinBase<Tab> {
 
     workbench.activeModuleProperty().addListener(activeTabListener);
   }
-
 }

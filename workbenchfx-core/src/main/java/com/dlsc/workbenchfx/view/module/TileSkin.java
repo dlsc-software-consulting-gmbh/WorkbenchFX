@@ -12,8 +12,7 @@ import org.apache.logging.log4j.Logger;
  * TODO
  */
 public class TileSkin extends SkinBase<Tile> {
-  private static final Logger LOGGER =
-      LogManager.getLogger(TileSkin.class.getName());
+  private static final Logger LOGGER = LogManager.getLogger(TileSkin.class.getName());
 
   private final Button button;
   private final ReadOnlyObjectProperty<Module> module;
@@ -48,5 +47,4 @@ public class TileSkin extends SkinBase<Tile> {
     button.setGraphic(module.getIcon());
     button.setOnAction(e -> workbench.openModule(module));
   }
-
 }

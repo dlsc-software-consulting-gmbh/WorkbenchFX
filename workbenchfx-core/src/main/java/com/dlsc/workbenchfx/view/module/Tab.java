@@ -2,21 +2,11 @@ package com.dlsc.workbenchfx.view.module;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.view.controls.NavigationDrawerSkin;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Control;
-import javafx.scene.control.Label;
 import javafx.scene.control.Skin;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,8 +17,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class Tab extends Control {
-  private static final Logger LOGGER =
-      LogManager.getLogger(Tab.class.getName());
+  private static final Logger LOGGER = LogManager.getLogger(Tab.class.getName());
 
   private final Workbench workbench;
   private final ObjectProperty<Module> module;
@@ -68,5 +57,4 @@ public class Tab extends Control {
   protected Skin<?> createDefaultSkin() {
     return new TabSkin(this);
   }
-
 }
