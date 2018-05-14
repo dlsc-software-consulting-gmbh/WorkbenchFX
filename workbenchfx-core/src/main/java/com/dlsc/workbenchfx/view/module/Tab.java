@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.view.module;
 
 import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.view.controls.NavigationDrawerSkin;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.control.Skin;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
@@ -79,6 +81,11 @@ public class Tab extends Control {
    */
   public void setOnActive(EventHandler<MouseEvent> event) {
     controlBox.setOnMouseClicked(event);
+  }
+
+  @Override
+  protected Skin<?> createDefaultSkin() {
+    return new TabSkin(this);
   }
 
 }

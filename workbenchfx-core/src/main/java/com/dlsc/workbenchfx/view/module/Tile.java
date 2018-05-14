@@ -1,9 +1,11 @@
 package com.dlsc.workbenchfx.view.module;
 
 import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.view.controls.NavigationDrawerSkin;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.Skin;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -36,5 +38,10 @@ public class Tile extends Control {
    */
   public void setOnActive(EventHandler<MouseEvent> event) {
     button.setOnMouseClicked(event);
+  }
+
+  @Override
+  protected Skin<?> createDefaultSkin() {
+    return new TileSkin(this);
   }
 }
