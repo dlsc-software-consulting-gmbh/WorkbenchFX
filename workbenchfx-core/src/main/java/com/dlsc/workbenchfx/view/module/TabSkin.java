@@ -2,6 +2,9 @@ package com.dlsc.workbenchfx.view.module;
 
 import javafx.scene.control.SkinBase;
 
+/**
+ * TODO
+ */
 public class TabSkin extends SkinBase<Tab> {
 
   /**

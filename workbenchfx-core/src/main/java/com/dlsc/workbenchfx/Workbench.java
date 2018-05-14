@@ -27,6 +27,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class Workbench extends Control {
+  // TODO: call update() on tile and tab
   private static final Logger LOGGER =
       LogManager.getLogger(Workbench.class.getName());
 

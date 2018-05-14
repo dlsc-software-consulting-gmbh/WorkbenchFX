@@ -6,6 +6,9 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.SkinBase;
 
+/**
+ * TODO
+ */
 public class TileSkin extends SkinBase<Tile> {
 
   private final Button button;
