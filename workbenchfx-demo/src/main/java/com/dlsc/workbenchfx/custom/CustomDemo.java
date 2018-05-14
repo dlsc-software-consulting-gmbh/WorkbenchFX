@@ -15,7 +15,7 @@ import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.module.Tab;
-import com.dlsc.workbenchfx.view.module.TileControl;
+import com.dlsc.workbenchfx.view.module.Tile;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.function.BiFunction;
@@ -68,10 +68,10 @@ public class CustomDemo extends Application {
 
   BiFunction<Workbench, Module, Node> tileFactory =
       (workbench, module) -> {
-        TileControl tileControl = new TileControl(module);
-        tileControl.setOnActive(e -> workbench.openModule(module));
+        Tile tile = new Tile(module);
+        tile.setOnActive(e -> workbench.openModule(module));
         System.out.println("This tile was proudly created by SteffiFX");
-        return tileControl;
+        return tile;
       };
   BiFunction<Workbench, Integer, Node> pageFactory =
       (workbench, pageIndex) -> {

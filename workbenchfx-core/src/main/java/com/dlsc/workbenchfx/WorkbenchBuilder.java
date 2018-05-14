@@ -5,7 +5,7 @@ import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.module.Tab;
-import com.dlsc.workbenchfx.view.module.TileControl;
+import com.dlsc.workbenchfx.view.module.Tile;
 import java.util.function.BiFunction;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -31,8 +31,8 @@ public final class WorkbenchBuilder {
   // Optional parameters - initialized to default values
   int modulesPerPage = 9;
 
-  BiFunction<Workbench, Module, Node> tabFactory = (workbench, module) -> {
-    Tab tab = new Tab(module);
+  Callback<Workbench, Tab> tabFactory = workbench -> {
+    Tab tab = new Tab(workbench);
     workbench.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       LOGGER.trace("Tab Factory - Old Module: " + oldModule);
       LOGGER.trace("Tab Factory - New Module: " + oldModule);
@@ -51,10 +51,10 @@ public final class WorkbenchBuilder {
     return tab;
   };
 
-  BiFunction<Workbench, Module, Node> tileFactory = (workbench, module) -> {
-    TileControl tileControl = new TileControl(module);
-    tileControl.setOnActive(e -> workbench.openModule(module));
-    return tileControl;
+  Callback<Workbench, Tile> tileFactory = (workbench, module) -> {
+    Tile tile = new Tile(module);
+    tile.setOnActive(e -> workbench.openModule(module));
+    return tile;
   };
 
   BiFunction<Workbench, Integer, Node> pageFactory = (workbench, pageIndex) -> {

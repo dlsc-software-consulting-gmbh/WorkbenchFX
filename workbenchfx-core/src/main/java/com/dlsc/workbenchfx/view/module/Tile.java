@@ -11,15 +11,15 @@ import javafx.scene.input.MouseEvent;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class TileControl extends Button {
+public class Tile extends Button {
   private final Module module;
 
   /**
-   * Constructs a new {@link TileControl}.
+   * Constructs a new {@link Tile}.
    *
-   * @param module which is used to create the {@link TileControl}
+   * @param module which is used to create the {@link Tile}
    */
-  public TileControl(Module module) {
+  public Tile(Module module) {
     this.module = module;
     setText(module.getName());
     setGraphic(module.getIcon());
