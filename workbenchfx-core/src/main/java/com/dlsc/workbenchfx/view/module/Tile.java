@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
  * @author Marco Sanfratello
  */
 public class Tile extends Control {
+  private final Workbench workbench;
   private Module module;
   private final Button button;
 
@@ -25,7 +26,7 @@ public class Tile extends Control {
    * @param workbench which created this {@link Tab}
    */
   public Tile(Workbench workbench) {
-    this.module = module;
+    this.workbench = workbench;
     button = new Button();
     button.setText(module.getName());
     button.setGraphic(module.getIcon());
