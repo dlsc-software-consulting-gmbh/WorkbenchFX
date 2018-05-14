@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.view.module;
 import com.dlsc.workbenchfx.module.Module;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -11,8 +12,9 @@ import javafx.scene.input.MouseEvent;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class Tile extends Button {
+public class Tile extends Control {
   private final Module module;
+  private final Button button;
 
   /**
    * Constructs a new {@link Tile}.
@@ -21,8 +23,9 @@ public class Tile extends Button {
    */
   public Tile(Module module) {
     this.module = module;
-    setText(module.getName());
-    setGraphic(module.getIcon());
+    button = new Button();
+    button.setText(module.getName());
+    button.setGraphic(module.getIcon());
     getStyleClass().add("tile-control");
   }
 
@@ -32,6 +35,6 @@ public class Tile extends Button {
    * @param event to be called
    */
   public void setOnActive(EventHandler<MouseEvent> event) {
-    setOnMouseClicked(event);
+    button.setOnMouseClicked(event);
   }
 }
