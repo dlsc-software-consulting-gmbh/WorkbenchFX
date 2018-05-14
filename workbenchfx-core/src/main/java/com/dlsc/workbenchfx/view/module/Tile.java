@@ -25,7 +25,7 @@ public class Tile extends Control {
   /**
    * Constructs a new {@link Tile}.
    *
-   * @param workbench which created this {@link Tab}
+   * @param workbench which created this {@link Tile}
    */
   public Tile(Workbench workbench) {
     this.workbench = workbench;

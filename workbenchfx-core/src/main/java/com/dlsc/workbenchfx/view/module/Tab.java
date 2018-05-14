@@ -92,9 +92,9 @@ public class Tab extends Control {
   }
 
   /**
-   * Defines the {@code module} which is being represented by this {@link Tile}.
+   * Defines the {@code module} which is being represented by this {@link Tab}.
    *
-   * @param module to be represented by this {@link Tile}
+   * @param module to be represented by this {@link Tab}
    */
   public void update(Module module) {
     this.module.set(module);
