@@ -108,6 +108,10 @@ public class Tab extends Control {
     return module;
   }
 
+  public Workbench getWorkbench() {
+    return workbench;
+  }
+
   @Override
   protected Skin<?> createDefaultSkin() {
     return new TabSkin(this);
