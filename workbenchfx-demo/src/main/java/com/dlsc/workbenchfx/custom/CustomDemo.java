@@ -41,38 +41,6 @@ public class CustomDemo extends Application {
   private static final Logger LOGGER = LogManager.getLogger(CustomDemo.class.getName());
   public Workbench workbench;
 
-  BiFunction<Workbench, Module, Node> tabFactory =
-      (workbench, module) -> {
-        Tab tab = new Tab(module);
-        workbench
-            .activeModuleProperty()
-            .addListener(
-                (observable, oldValue, newValue) -> {
-                  LOGGER.trace("Tab Factory - Old Module: " + oldValue);
-                  LOGGER.trace("Tab Factory - New Module: " + oldValue);
-                  if (module == newValue) {
-                    tab.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-                    LOGGER.error("STYLE SET");
-                  }
-                  if (module == oldValue) {
-                    // switch from this to other tab
-                    tab.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
-                  }
-                });
-        tab.setOnClose(e -> workbench.closeModule(module));
-        tab.setOnActive(e -> workbench.openModule(module));
-        tab.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-        System.out.println("This tab was proudly created by SteffiFX");
-        return tab;
-      };
-
-  BiFunction<Workbench, Module, Node> tileFactory =
-      (workbench, module) -> {
-        Tile tile = new Tile(module);
-        tile.setOnActive(e -> workbench.openModule(module));
-        System.out.println("This tile was proudly created by SteffiFX");
-        return tile;
-      };
   BiFunction<Workbench, Integer, Node> pageFactory =
       (workbench, pageIndex) -> {
         final int COLUMNS_PER_ROW = 2;
@@ -195,8 +163,6 @@ public class CustomDemo extends Application {
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
             .modulesPerPage(4)
-            .tabFactory(tabFactory)
-            .tileFactory(tileFactory)
             .pageFactory(pageFactory)
             .navigationDrawerFactory(navigationDrawerFactory)
             .navigationDrawer(

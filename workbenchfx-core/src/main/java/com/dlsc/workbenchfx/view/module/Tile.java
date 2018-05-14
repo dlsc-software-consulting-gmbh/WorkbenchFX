@@ -38,6 +38,7 @@ public class Tile extends Control {
    * @param module to be represented by this {@link Tile}
    */
   public void update(Module module) {
+    LOGGER.trace("Setting reference to module");
     this.module.set(module);
   }
 

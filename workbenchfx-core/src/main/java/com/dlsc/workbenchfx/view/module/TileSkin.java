@@ -29,14 +29,20 @@ public class TileSkin extends SkinBase<Tile> {
     button = new Button();
     button.getStyleClass().add("tile-control");
 
-    setupModuleListener(tile.getWorkbench());
+    Workbench workbench = tile.getWorkbench();
+    setupSkin(workbench, module.get()); // initial setup
+    setupModuleListener(workbench); // setup for changing modules
 
     getChildren().add(button);
   }
 
   private void setupModuleListener(Workbench workbench) {
+    LOGGER.trace("Add module listener");
     module.addListener((observable, oldModule, newModule) -> {
+      LOGGER.trace("moduleListener called");
+      LOGGER.trace("old: " + oldModule + " new: " + newModule);
       if (oldModule != newModule) {
+        LOGGER.trace("Setting up skin");
         setupSkin(workbench, newModule);
       }
     });

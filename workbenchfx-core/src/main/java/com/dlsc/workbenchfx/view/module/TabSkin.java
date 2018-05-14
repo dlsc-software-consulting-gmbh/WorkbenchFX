@@ -6,6 +6,7 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.Objects;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
@@ -44,7 +45,9 @@ public class TabSkin extends SkinBase<Tab> {
     initializeParts();
     layoutParts();
 
-    setupModuleListener(tab.getWorkbench());
+    Workbench workbench = tab.getWorkbench();
+    setupSkin(workbench, module.get()); // initial setup
+    setupModuleListener(workbench); // setup for changing modules
 
     getChildren().add(controlBox);
   }
@@ -58,9 +61,9 @@ public class TabSkin extends SkinBase<Tab> {
   }
 
   private void layoutParts() {
-    controlBox.getChildren().addAll(icon, nameLbl, closeBtn);
+    Label iconPlaceholder = new Label();
+    controlBox.getChildren().addAll(iconPlaceholder, nameLbl, closeBtn);
 
-    icon.getStyleClass().add("tab-icon");
     nameLbl.getStyleClass().add("tab-name-lbl");
 
     closeBtn.getStyleClass().add("close-btn");
@@ -71,24 +74,38 @@ public class TabSkin extends SkinBase<Tab> {
   }
 
   private void setupModuleListener(Workbench workbench) {
+    LOGGER.trace("Add module listener");
     module.addListener((observable, oldModule, newModule) -> {
+      LOGGER.trace("moduleListener called");
+      LOGGER.trace("old: " + oldModule + " new: " + newModule);
       if (oldModule != newModule) {
+        LOGGER.trace("Setting up skin");
         setupSkin(workbench, newModule);
       }
     });
   }
 
   private void setupSkin(Workbench workbench, Module module) {
-    this.icon = module.getIcon();
+    setupIcon(module);
     nameLbl.setText(module.getName());
     closeBtn.setOnAction(e -> workbench.closeModule(module));
     controlBox.setOnMouseClicked(e -> workbench.openModule(module));
     setupActiveTabListener(workbench, module);
   }
 
+  private void setupIcon(Module module) {
+    // remove old and add new icon
+    controlBox.getChildren().remove(0);
+    this.icon = module.getIcon();
+    controlBox.getChildren().add(0, icon);
+    icon.getStyleClass().add("tab-icon");
+  }
+
   private void setupActiveTabListener(Workbench workbench, Module module) {
     // remove previously set listener
-    workbench.activeModuleProperty().removeListener(activeTabListener);
+    if (!Objects.isNull(activeTabListener)) {
+      workbench.activeModuleProperty().removeListener(activeTabListener);
+    }
 
     // (re-)initialize active tab listener
     activeTabListener = (observable, oldModule, newModule) -> {
