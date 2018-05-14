@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -17,7 +18,8 @@ import javafx.scene.layout.HBox;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class Tab extends HBox {
+public class Tab extends Control {
+  private final HBox controlBox;
   private final Button closeBtn;
   private final Module module;
   private final Node icon;
@@ -38,11 +40,13 @@ public class Tab extends HBox {
     closeIconView = new FontAwesomeIconView(FontAwesomeIcon.CLOSE);
     this.closeBtn = new Button("", closeIconView);
 
+    controlBox = new HBox();
+
     layoutParts();
   }
 
   private void layoutParts() {
-    getChildren().addAll(
+    controlBox.getChildren().addAll(
         icon,
         nameLbl,
         closeBtn
@@ -54,7 +58,7 @@ public class Tab extends HBox {
     closeBtn.getStyleClass().add("close-btn");
     closeIconView.setStyleClass("close-icon-view");
 
-    getStyleClass().add("tab-control");
+    controlBox.getStyleClass().add("tab-control");
   }
 
   /**
@@ -74,7 +78,7 @@ public class Tab extends HBox {
    * @param event to be called
    */
   public void setOnActive(EventHandler<MouseEvent> event) {
-    setOnMouseClicked(event);
+    controlBox.setOnMouseClicked(event);
   }
 
 }
