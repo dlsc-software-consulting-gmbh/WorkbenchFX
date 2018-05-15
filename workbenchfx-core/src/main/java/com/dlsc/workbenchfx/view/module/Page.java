@@ -4,7 +4,6 @@ import com.dlsc.workbenchfx.Workbench;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import org.apache.logging.log4j.LogManager;
