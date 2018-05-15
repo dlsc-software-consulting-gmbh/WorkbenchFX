@@ -1,8 +1,8 @@
 package com.dlsc.workbenchfx.custom.controls;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.view.module.Page;
-import com.dlsc.workbenchfx.view.module.Tab;
+import com.dlsc.workbenchfx.view.controls.module.Page;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
 import javafx.scene.control.Skin;
 
 public class CustomPage extends Page {

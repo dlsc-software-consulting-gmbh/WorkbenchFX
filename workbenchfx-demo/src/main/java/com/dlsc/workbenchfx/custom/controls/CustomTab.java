@@ -2,7 +2,7 @@ package com.dlsc.workbenchfx.custom.controls;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.view.module.Tab;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
 import javafx.scene.control.Skin;
 
 /**

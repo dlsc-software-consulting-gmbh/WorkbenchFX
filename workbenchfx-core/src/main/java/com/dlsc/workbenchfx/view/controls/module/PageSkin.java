@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.view.module;
+package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;

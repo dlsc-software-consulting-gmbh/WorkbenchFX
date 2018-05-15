@@ -2,13 +2,12 @@ package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
-import com.dlsc.workbenchfx.view.module.Page;
-import com.dlsc.workbenchfx.view.module.Tab;
-import com.dlsc.workbenchfx.view.module.Tile;
+import com.dlsc.workbenchfx.view.controls.module.Page;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
+import com.dlsc.workbenchfx.view.controls.module.Tile;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.BiFunction;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

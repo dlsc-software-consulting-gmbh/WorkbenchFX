@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.view.module;
+package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
@@ -11,31 +11,31 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the standard control used to display {@link Module}s as tabs in the toolbar.
+ * Represents the standard control used to display {@link Module}s as tiles in the home screen.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class Tab extends Control {
-  private static final Logger LOGGER = LogManager.getLogger(Tab.class.getName());
+public class Tile extends Control {
+  private static final Logger LOGGER = LogManager.getLogger(Tile.class.getName());
 
   private final Workbench workbench;
   private final ObjectProperty<Module> module;
 
   /**
-   * Constructs a new {@link Tab}.
+   * Constructs a new {@link Tile}.
    *
-   * @param workbench which created this {@link Tab}
+   * @param workbench which created this {@link Tile}
    */
-  public Tab(Workbench workbench) {
+  public Tile(Workbench workbench) {
     this.workbench = workbench;
     module = new SimpleObjectProperty<>();
   }
 
   /**
-   * Defines the {@code module} which is being represented by this {@link Tab}.
+   * Defines the {@code module} which is being represented by this {@link Tile}.
    *
-   * @param module to be represented by this {@link Tab}
+   * @param module to be represented by this {@link Tile}
    */
   public void update(Module module) {
     LOGGER.trace("Setting reference to module");
@@ -56,6 +56,6 @@ public class Tab extends Control {
 
   @Override
   protected Skin<?> createDefaultSkin() {
-    return new TabSkin(this);
+    return new TileSkin(this);
   }
 }

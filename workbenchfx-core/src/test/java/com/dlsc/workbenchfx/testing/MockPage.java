@@ -1,15 +1,9 @@
 package com.dlsc.workbenchfx.testing;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.view.module.Page;
-import com.dlsc.workbenchfx.view.module.Tab;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ReadOnlyIntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.control.Control;
+import com.dlsc.workbenchfx.view.controls.module.Page;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
 import javafx.scene.control.Skin;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class MockPage extends Page {
   /**

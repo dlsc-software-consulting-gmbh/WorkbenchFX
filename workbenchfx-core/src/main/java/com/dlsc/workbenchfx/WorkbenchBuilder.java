@@ -1,17 +1,13 @@
 package com.dlsc.workbenchfx;
 
-import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
-
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
-import com.dlsc.workbenchfx.view.module.Page;
-import com.dlsc.workbenchfx.view.module.Tab;
-import com.dlsc.workbenchfx.view.module.Tile;
-import java.util.function.BiFunction;
+import com.dlsc.workbenchfx.view.controls.module.Page;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
+import com.dlsc.workbenchfx.view.controls.module.Tile;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;

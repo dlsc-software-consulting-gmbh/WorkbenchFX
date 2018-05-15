@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.view.module;
+package com.dlsc.workbenchfx.view.controls.module;
 
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
 
