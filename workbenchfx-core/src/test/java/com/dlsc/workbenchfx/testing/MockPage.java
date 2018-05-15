@@ -7,9 +7,9 @@ import javafx.scene.control.Skin;
 
 public class MockPage extends Page {
   /**
-   * Constructs a new {@link Tab}.
+   * Constructs a new {@link Page}.
    *
-   * @param workbench which created this {@link Tab}
+   * @param workbench which created this {@link Page}
    */
   public MockPage(Workbench workbench) {
     super(workbench);
