@@ -28,7 +28,7 @@ public class Page extends Control {
   /**
    * TODO Defines the {@code module} which is being represented by this {@link Tab}.
    *
-   * @param module to be represented by this {@link Tab}
+   * @param pageIndex to be represented by this {@link Tab}
    */
   public void update(int pageIndex) {
     this.pageIndex.set(pageIndex);
@@ -40,6 +40,10 @@ public class Page extends Control {
 
   public ReadOnlyIntegerProperty pageIndexProperty() {
     return pageIndex;
+  }
+
+  public Workbench getWorkbench() {
+    return workbench;
   }
 
   @Override
