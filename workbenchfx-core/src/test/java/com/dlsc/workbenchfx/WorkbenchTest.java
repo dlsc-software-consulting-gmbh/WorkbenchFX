@@ -93,7 +93,7 @@ class WorkbenchTest extends ApplicationTest {
             // use "module.getName()" twice, to differentiate between tab and tile factories
             .tabFactory(MockTab::new)
             .tileFactory(MockTile::new)
-            .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
+            // TODO .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
             .navigationDrawer(menuItem)
             .build();
 
