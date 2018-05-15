@@ -96,9 +96,9 @@ public final class WorkbenchBuilder {
   }
 
   /**
-   * TODO Defines how a page with tiles of {@link Module}s should be created.
+   * Defines how a {@link Page} with tiles of {@link Module}s should be created.
    *
-   * @param pageFactory to be used to create the page for the tiles
+   * @param pageFactory to be used to create the {@link Page} for the tiles
    * @return builder for chaining
    * @implNote Use this to replace the page which is used in the home screen to display tiles of the
    *           modules with your own implementation.
