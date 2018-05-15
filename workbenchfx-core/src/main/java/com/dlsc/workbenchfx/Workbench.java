@@ -254,12 +254,10 @@ public class Workbench extends Control {
   }
 
   /**
-   * TODO
-   * Generates a new Node which is then used as a Tab. Using the given {@link Module}, it calls the
-   * {@code tabFactory} which generates the Tab.
+   * Generates a new {@link Tab} control used for the representation of tabs.
    *
-   * @param module the module for which the Tab should be created
-   * @return a corresponding Tab which is created from the {@code tabFactory}
+   * @param module the module for which the {@link Tab} should be created
+   * @return a corresponding {@link Tab} which is created by using the {@code tabFactory}
    */
   public Tab getTab(Module module) {
     Tab tab = tabFactory.get().call(this);
@@ -268,12 +266,10 @@ public class Workbench extends Control {
   }
 
   /**
-   * TODO
-   * Generates a new Node which is then used as a Tile. Using the given {@link Module}, it calls the
-   * {@code tileFactory} which generates the Tile.
+   * Generates a new {@link Tile} control used for the representation of tiles on the home screen.
    *
-   * @param module the module for which the Tile should be created
-   * @return a corresponding Tile which contains the values of the module
+   * @param module the module for which the {@link Tile} should be created
+   * @return a corresponding {@link Tile} which is created by using the {@code tileFactory}
    */
   public Node getTile(Module module) {
     Tile tile = tileFactory.get().call(this);
