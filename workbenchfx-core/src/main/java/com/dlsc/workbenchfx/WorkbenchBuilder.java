@@ -95,8 +95,7 @@ public final class WorkbenchBuilder {
   }
 
   /**
-   * TODO
-   * Defines how {@link Node} should be created to be used as the tab in the view.
+   * Defines how {@link Tab} should be created to be used as tabs in the view.
    *
    * @param tabFactory to be used to create the {@link Tab}
    * @return builder for chaining
@@ -109,12 +108,11 @@ public final class WorkbenchBuilder {
   }
 
   /**
-   * TODO
-   * Defines how {@link Node} should be created to be used as the tile in the home screen.
+   * Defines how {@link Tab} should be created to be used as tiles in the home screen.
    *
    * @param tileFactory to be used to create the {@link Tile}
    * @return builder for chaining
-   * @implNote Use this to replace the control which is used for the tile with your own
+   * @implNote Use this to replace the control which is used for the tiles with your own
    *           implementation.
    */
   public WorkbenchBuilder tileFactory(Callback<Workbench, Tile> tileFactory) {
