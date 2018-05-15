@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.module.Page;
 import com.dlsc.workbenchfx.view.module.Tab;
 import com.dlsc.workbenchfx.view.module.Tile;
 import java.util.LinkedHashSet;
@@ -84,7 +85,7 @@ public class Workbench extends Control {
       new SimpleObjectProperty<>(this, "tabFactory");
   private final ObjectProperty<Callback<Workbench, Tile>> tileFactory =
       new SimpleObjectProperty<>(this, "tileFactory");
-  private final ObjectProperty<BiFunction<Workbench, Integer, Node>> pageFactory =
+  private final ObjectProperty<Callback<Workbench, Page>> pageFactory =
       new SimpleObjectProperty<>(this, "pageFactory");
 
   // Properties
@@ -278,14 +279,16 @@ public class Workbench extends Control {
   }
 
   /**
-   * Generates a new Node which is then used as a page for the tiles on the home screen. Using the
+   * TODO Generates a new Node which is then used as a page for the tiles on the home screen. Using the
    * given {@code pageIndex}, it calls the {@code pageFactory} which generates the page.
    *
    * @param pageIndex the page index for which the page should be created
    * @return a corresponding page
    */
   public Node getPage(int pageIndex) {
-    return pageFactory.get().apply(this, pageIndex);
+    Page page = pageFactory.get().call(this);
+    page.update(pageIndex);
+    return page;
   }
 
   public ObservableList<Module> getOpenModules() {
