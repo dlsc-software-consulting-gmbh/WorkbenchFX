@@ -30,10 +30,6 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class Workbench extends Control {
-  // TODO: change steffi demo back to include custom tile and tabs
-  // TODO: get rid of factory for navigation drawer
-  // TODO: get rid of factory for page
-
   private static final Logger LOGGER =
       LogManager.getLogger(Workbench.class.getName());
 
