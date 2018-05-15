@@ -43,35 +43,6 @@ public class CustomDemo extends Application {
   private static final Logger LOGGER = LogManager.getLogger(CustomDemo.class.getName());
   public Workbench workbench;
 
-  BiFunction<Workbench, Integer, Node> pageFactory =
-      (workbench, pageIndex) -> {
-        final int COLUMNS_PER_ROW = 2;
-
-        GridPane gridPane = new GridPane();
-        gridPane.getStyleClass().add("tile-page");
-
-        int position = pageIndex * workbench.modulesPerPage;
-        int count = 0;
-        int column = 0;
-        int row = 0;
-
-        while (count < workbench.modulesPerPage && position < workbench.getModules().size()) {
-          Module module = workbench.getModules().get(position);
-          Node tile = workbench.getTile(module);
-          gridPane.add(tile, column, row);
-
-          position++;
-          count++;
-          column++;
-
-          if (column == COLUMNS_PER_ROW) {
-            column = 0;
-            row++;
-          }
-        }
-        return gridPane;
-      };
-
   private Callback<Workbench, Node> navigationDrawerFactory =
       workbench -> {
         NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
@@ -166,7 +137,7 @@ public class CustomDemo extends Application {
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
             .modulesPerPage(4)
-            .pageFactory(pageFactory)
+            // TODO .pageFactory(pageFactory)
             .tabFactory(CustomTab::new)
             .tileFactory(CustomTile::new)
             .navigationDrawerFactory(navigationDrawerFactory)
