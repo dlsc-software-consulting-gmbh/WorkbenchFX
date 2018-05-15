@@ -279,13 +279,12 @@ public class Workbench extends Control {
   }
 
   /**
-   * TODO Generates a new Node which is then used as a page for the tiles on the home screen. Using the
-   * given {@code pageIndex}, it calls the {@code pageFactory} which generates the page.
+   * Generates a new {@link Page} for the tiles on the home screen.
    *
    * @param pageIndex the page index for which the page should be created
    * @return a corresponding page
    */
-  public Node getPage(int pageIndex) {
+  public Page getPage(int pageIndex) {
     Page page = pageFactory.get().call(this);
     page.update(pageIndex);
     return page;
