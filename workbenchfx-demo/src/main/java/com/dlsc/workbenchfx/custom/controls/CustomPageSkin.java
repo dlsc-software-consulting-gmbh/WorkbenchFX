@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
 public class CustomPageSkin extends SkinBase<CustomPage> {
   private static final Logger LOGGER = LogManager.getLogger(
       CustomPageSkin.class.getName());
-  private static final int COLUMNS_PER_ROW = 3;
+  private static final int COLUMNS_PER_ROW = 2;
 
   private final ObservableList<Module> modules;
   private final ReadOnlyIntegerProperty pageIndex;
