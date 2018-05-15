@@ -49,12 +49,8 @@ public class PageSkin extends SkinBase<Page> {
 
   private void setupListeners(Workbench workbench) {
     LOGGER.trace("Add module listener");
-    modules.addListener((InvalidationListener) observable -> {
-      setupSkin(workbench, pageIndex.get());
-    });
-    pageIndex.addListener(observable -> {
-      setupSkin(workbench, pageIndex.get());
-    });
+    modules.addListener((InvalidationListener) observable -> setupSkin(workbench, pageIndex.get()));
+    pageIndex.addListener(observable -> setupSkin(workbench, pageIndex.get()));
   }
 
   private void setupSkin(Workbench workbench, int pageIndex) {

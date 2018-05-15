@@ -4,6 +4,7 @@ import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
+import com.dlsc.workbenchfx.view.module.Page;
 import com.dlsc.workbenchfx.view.module.Tab;
 import com.dlsc.workbenchfx.view.module.Tile;
 import java.util.function.BiFunction;
@@ -35,33 +36,7 @@ public final class WorkbenchBuilder {
 
   Callback<Workbench, Tile> tileFactory = Tile::new;
 
-  BiFunction<Workbench, Integer, Node> pageFactory = (workbench, pageIndex) -> {
-    final int columnsPerRow = 3;
-
-    GridPane gridPane = new GridPane();
-    gridPane.getStyleClass().add("tile-page");
-
-    int position = pageIndex * workbench.modulesPerPage;
-    int count = 0;
-    int column = 0;
-    int row = 0;
-
-    while (count < workbench.modulesPerPage && position < workbench.getModules().size()) {
-      Module module = workbench.getModules().get(position);
-      Node tile = workbench.getTile(module);
-      gridPane.add(tile, column, row);
-
-      position++;
-      count++;
-      column++;
-
-      if (column == columnsPerRow) {
-        column = 0;
-        row++;
-      }
-    }
-    return gridPane;
-  };
+  Callback<Workbench, Page> pageFactory = Page::new;
 
   Node[] toolbarControlsRight;
   Node[] toolbarControlsLeft;
@@ -121,14 +96,14 @@ public final class WorkbenchBuilder {
   }
 
   /**
-   * Defines how a page with tiles of {@link Module}s should be created.
+   * TODO Defines how a page with tiles of {@link Module}s should be created.
    *
    * @param pageFactory to be used to create the page for the tiles
    * @return builder for chaining
    * @implNote Use this to replace the page which is used in the home screen to display tiles of the
    *           modules with your own implementation.
    */
-  public WorkbenchBuilder pageFactory(BiFunction<Workbench, Integer, Node> pageFactory) {
+  public WorkbenchBuilder pageFactory(Callback<Workbench, Page> pageFactory) {
     this.pageFactory = pageFactory;
     return this;
   }
