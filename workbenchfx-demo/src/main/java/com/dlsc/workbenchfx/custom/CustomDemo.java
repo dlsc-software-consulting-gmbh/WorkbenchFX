@@ -71,6 +71,7 @@ public class CustomDemo extends Application {
         }
         return gridPane;
       };
+
   private Callback<Workbench, Node> navigationDrawerFactory =
       workbench -> {
         NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
