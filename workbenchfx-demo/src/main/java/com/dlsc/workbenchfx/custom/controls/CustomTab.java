@@ -3,13 +3,7 @@ package com.dlsc.workbenchfx.custom.controls;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.module.Tab;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the standard control used to display {@link Module}s as Tabs in the toolbar.
