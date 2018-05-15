@@ -10,7 +10,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO
+ * Represents the standard control used to display {@link Page}s with {@link Module}s in the home
+ * screen.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class Page extends Control {
   private static final Logger LOGGER = LogManager.getLogger(Page.class.getName());
@@ -28,9 +32,9 @@ public class Page extends Control {
   }
 
   /**
-   * TODO Defines the {@code module} which is being represented by this {@link Tab}.
+   * Defines the {@code pageIndex} of this {@link Page}.
    *
-   * @param pageIndex to be represented by this {@link Tab}
+   * @param pageIndex to be represented by this {@link Page}
    */
   public void update(int pageIndex) {
     this.pageIndex.set(pageIndex);

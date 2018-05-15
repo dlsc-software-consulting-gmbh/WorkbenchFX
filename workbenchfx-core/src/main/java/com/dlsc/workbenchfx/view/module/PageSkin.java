@@ -12,7 +12,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO
+ * Represents the skin of the corresponding {@link Page}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class PageSkin extends SkinBase<Page> {
   private static final Logger LOGGER = LogManager.getLogger(PageSkin.class.getName());
@@ -24,14 +27,14 @@ public class PageSkin extends SkinBase<Page> {
   private GridPane tilePane;
 
   /**
-   * TODO Constructor for all SkinBase instances.
+   * Creates a new {@link PageSkin} object for a corresponding {@link Page}.
    *
-   * @param control The control for which this Skin should attach to.
+   * @param page the {@link Page} for which this Skin is created
    */
-  public PageSkin(Page control) {
-    super(control);
-    pageIndex = control.pageIndexProperty();
-    Workbench workbench = control.getWorkbench();
+  public PageSkin(Page page) {
+    super(page);
+    pageIndex = page.pageIndexProperty();
+    Workbench workbench = page.getWorkbench();
     modules = workbench.getModules();
 
     initializeParts();
