@@ -7,11 +7,14 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
- * Created by François Martin on 15.05.18.
+ * TODO
  */
 public class Page extends Control {
+  private static final Logger LOGGER = LogManager.getLogger(Page.class.getName());
   private final Workbench workbench;
   private final IntegerProperty pageIndex;
 
