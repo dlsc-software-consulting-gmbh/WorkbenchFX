@@ -15,9 +15,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.testing.MockPage;
 import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.module.Page;
 import com.dlsc.workbenchfx.view.module.Tab;
 import com.dlsc.workbenchfx.view.module.Tile;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -34,11 +36,12 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
+import org.mockito.Mock;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
 /**
- * TODO Created by François Martin on 20.03.18.
+ * Tests for {@link Workbench}.
  */
 @Tag("fast")
 class WorkbenchTest extends ApplicationTest {
@@ -93,7 +96,7 @@ class WorkbenchTest extends ApplicationTest {
             // use "module.getName()" twice, to differentiate between tab and tile factories
             .tabFactory(MockTab::new)
             .tileFactory(MockTile::new)
-            // TODO .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
+            .pageFactory(MockPage::new)
             .navigationDrawer(menuItem)
             .build();
 
@@ -693,10 +696,24 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void getPage() {
     robot.interact(() -> {
-      Node page = workbench.getPage(0);
-      assertTrue(page instanceof Label);
-      assertEquals("0", ((Label) page).getText());
-      assertEquals("5", ((Label) workbench.getPage(5)).getText());
+      int pageIndex = 0;
+      // verify factory gets applied correctly
+      assertTrue(workbench.getPage(pageIndex) instanceof MockPage);
+
+      // verify correct creation of page - index 0
+      MockPage page = (MockPage) workbench.getPage(pageIndex);
+
+      assertNotNull(page);
+      // verify module has been updated correctly
+      assertSame(pageIndex, page.getPageIndex());
+
+      // verify correct creation of page - index 5
+      pageIndex = 5;
+      page = (MockPage) workbench.getPage(pageIndex);
+
+      assertNotNull(page);
+      // verify module has been updated correctly
+      assertSame(pageIndex, page.getPageIndex());
     });
   }
 
