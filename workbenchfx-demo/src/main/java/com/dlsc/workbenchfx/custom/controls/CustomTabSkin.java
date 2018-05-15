@@ -18,7 +18,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO.
+ * Represents the skin of the corresponding {@link CustomTab}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class CustomTabSkin extends SkinBase<CustomTab> {
   private static final Logger LOGGER = LogManager.getLogger(
