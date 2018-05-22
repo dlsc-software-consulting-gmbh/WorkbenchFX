@@ -17,7 +17,6 @@ import static org.mockito.Mockito.when;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
-import com.dlsc.workbenchfx.view.controls.PrettyScrollPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -1076,13 +1075,6 @@ class WorkbenchTest extends ApplicationTest {
       assertTrue(workbench.addToolbarControlLeft(d));
       d = Dropdown.of(dropdownText, dropdownMenuItem);
       assertTrue(workbench.addToolbarControlRight(d));
-    });
-  }
-
-  @Test
-  void createDefaultPrettyScrollPane() {
-    robot.interact(() -> {
-      PrettyScrollPane prettyScrollPane = new PrettyScrollPane();
     });
   }
 }
