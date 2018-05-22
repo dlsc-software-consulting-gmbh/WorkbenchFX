@@ -297,6 +297,12 @@ public class Workbench extends Control {
     return FXCollections.unmodifiableObservableList(modules);
   }
 
+  /**
+   * Adds the {@code module} to the home screen at runtime.
+   *
+   * @param module to be added
+   * @return true if successful, false if already added
+   */
   public boolean addModule(Module module) {
     if (modules.contains(module)) {
       return false;
@@ -304,6 +310,11 @@ public class Workbench extends Control {
     return modules.add(module);
   }
 
+  /**
+   * Removes the {@code module} at runtime.
+   * @param module to be removed
+   * @return true if successful, false if not present
+   */
   public boolean removeModule(Module module) {
     return modules.remove(module);
   }
