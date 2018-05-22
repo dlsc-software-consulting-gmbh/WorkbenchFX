@@ -27,7 +27,7 @@ public class GlassPane extends StackPane {
 
     hideProperty().addListener((observable, oldHide, newHide) -> {
       // don't do anything if the state hasn't changed
-      if (oldHide == newHide) {
+      if (oldHide.equals(newHide)) {
         return;
       }
       setVisible(true);
