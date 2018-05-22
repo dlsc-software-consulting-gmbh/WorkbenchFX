@@ -75,6 +75,8 @@ class WorkbenchTest extends ApplicationTest {
   private FontAwesomeIconView dropdownIconView;
   private ImageView dropdownImageView;
   private MenuItem dropdownMenuItem;
+  private Dropdown dropdownLeft;
+  private Dropdown dropdownRight;
 
   @Override
   public void start(Stage stage) {
@@ -101,6 +103,9 @@ class WorkbenchTest extends ApplicationTest {
     dropdownImageView = new ImageView(new Image("http://www.cherriz.de/training/content/images/oberflaechen_in_java/Javafx_logo_color.png"));
     dropdownMenuItem = new MenuItem("Menu Item");
 
+    dropdownLeft = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
+    dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
+
     workbench = Workbench.builder(
         mockModules[FIRST_INDEX],
         mockModules[SECOND_INDEX],
@@ -110,8 +115,8 @@ class WorkbenchTest extends ApplicationTest {
         .tileFactory(MockTile::new)
         .pageFactory(MockPage::new)
         .navigationDrawer(menuItem)
-        .toolbarLeft(Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem))
-        .toolbarRight(Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem))
+        .toolbarLeft(dropdownLeft)
+        .toolbarRight(dropdownRight)
         .build();
 
     first = mockModules[FIRST_INDEX];
