@@ -87,10 +87,7 @@ class WorkbenchTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = mock(Module.class);
-      when(mockModules[i].activate()).thenReturn(moduleNodes[i]);
-      when(mockModules[i].destroy()).thenReturn(true);
-      when(mockModules[i].toString()).thenReturn("Module " + i);
+      mockModules[i] = createMockModule(moduleNodes[i], true, "Module " + i);
     }
 
     FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
@@ -139,6 +136,22 @@ class WorkbenchTest extends ApplicationTest {
     Scene scene = new Scene(workbench, 100, 100);
     stage.setScene(scene);
     stage.show();
+  }
+
+  /**
+   * Internal method to create mocks for {@link Module}.
+   *
+   * @param displayNode node to be displayed in the mock
+   * @param destroy     what the call for {@link Module#destroy()} should return
+   * @param toString    what {@link Module#toString()} should return
+   * @return the mock
+   */
+  Module createMockModule(Node displayNode, boolean destroy, String toString) {
+    Module mockModule = mock(Module.class);
+    when(mockModule.activate()).thenReturn(displayNode);
+    when(mockModule.destroy()).thenReturn(true);
+    when(mockModule.toString()).thenReturn(toString);
+    return mockModule;
   }
 
   @Test
@@ -1116,6 +1129,44 @@ class WorkbenchTest extends ApplicationTest {
       assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
       assertFalse(workbench.addToolbarControlRight(d));
       assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
+    });
+  }
+
+  @Test
+  void addModule() {
+    // TODO: after refactoring Page etc., check if listeners call methods on mock
+    robot.interact(() -> {
+      ObservableList<Module> modules = workbench.getModules();
+      int currentSize = modules.size();
+      String mockModuleName = "Mock Module";
+      Module mockModule = createMockModule(new Label(), true, mockModuleName);
+
+      assertTrue(workbench.addModule(mockModule));
+
+      assertSame(currentSize + 1, modules.size());
+
+      // adding same module again should not add it
+      assertFalse(workbench.addModule(mockModule));
+
+      assertSame(currentSize + 1, modules.size());
+    });
+  }
+
+  @Test
+  void removeModule() {
+    // TODO: after refactoring Page etc., check if listeners call methods on mock
+    robot.interact(() -> {
+      ObservableList<Module> modules = workbench.getModules();
+      int currentSize = modules.size();
+
+      assertTrue(workbench.removeModule(mockModules[0]));
+
+      assertSame(currentSize - 1, modules.size());
+
+      // removing same module again should not remove it
+      assertFalse(workbench.removeModule(mockModules[0]));
+
+      assertSame(currentSize - 1, modules.size());
     });
   }
 }
