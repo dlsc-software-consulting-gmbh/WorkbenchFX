@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.controls;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.dlsc.workbenchfx.view.controls.Dropdown;
@@ -46,32 +47,32 @@ class DropdownTest extends ApplicationTest {
     dropdown = Dropdown.of(dropdownText);
     assertEquals(dropdownText, dropdown.getText());
     assertNull(dropdown.getIcon());
-    assertEquals(0, dropdown.getItems().size());
+    assertSame(0, dropdown.getItems().size());
 
     dropdown = Dropdown.of(dropdownText, dropdownMenuItem);
     assertEquals(dropdownText, dropdown.getText());
     assertNull(dropdown.getIcon());
-    assertEquals(1, dropdown.getItems().size());
+    assertSame(1, dropdown.getItems().size());
 
     dropdown = Dropdown.of(dropdownIconView);
     assertEquals(dropdownIconView, dropdown.getIcon());
     assertNull(dropdown.getText());
-    assertEquals(0, dropdown.getItems().size());
+    assertSame(0, dropdown.getItems().size());
 
     dropdown = Dropdown.of(dropdownIconView, dropdownMenuItem);
     assertEquals(dropdownIconView, dropdown.getIcon());
     assertNull(dropdown.getText());
-    assertEquals(1, dropdown.getItems().size());
+    assertSame(1, dropdown.getItems().size());
 
     dropdown = Dropdown.of(dropdownText, dropdownIconView);
     assertEquals(dropdownText, dropdown.getText());
     assertEquals(dropdownIconView, dropdown.getIcon());
-    assertEquals(0, dropdown.getItems().size());
+    assertSame(0, dropdown.getItems().size());
 
     dropdown = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
     assertEquals(dropdownText, dropdown.getText());
     assertEquals(dropdownIconView, dropdown.getIcon());
-    assertEquals(1, dropdown.getItems().size());
+    assertSame(1, dropdown.getItems().size());
 
     dropdown = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
     assertEquals(dropdownImageView, dropdown.getIcon());
@@ -88,15 +89,15 @@ class DropdownTest extends ApplicationTest {
 
   @Test
   void removeItemFromDropdown() {
-    assertEquals(1, dropdown.getItems().size());
+    assertSame(1, dropdown.getItems().size());
     dropdown.getItems().remove(0);
-    assertEquals(0, dropdown.getItems().size());
+    assertSame(0, dropdown.getItems().size());
   }
 
   @Test
   void addItemFromDropdown() {
-    assertEquals(1, dropdown.getItems().size());
+    assertSame(1, dropdown.getItems().size());
     dropdown.getItems().add(new CustomMenuItem(new Label("New Item")));
-    assertEquals(2, dropdown.getItems().size());
+    assertSame(2, dropdown.getItems().size());
   }
 }

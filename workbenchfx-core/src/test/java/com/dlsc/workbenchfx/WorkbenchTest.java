@@ -1082,14 +1082,14 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
       assertFalse(workbench.removeToolbarControlLeft(d));
-      assertEquals(1, workbench.getToolbarControlsLeft().size());
+      assertSame(1, workbench.getToolbarControlsLeft().size());
       assertFalse(workbench.removeToolbarControlRight(d));
-      assertEquals(1, workbench.getToolbarControlsRight().size());
+      assertSame(1, workbench.getToolbarControlsRight().size());
 
       assertTrue(workbench.removeToolbarControlLeft(dropdownLeft));
-      assertEquals(0, workbench.getToolbarControlsLeft().size());
+      assertSame(0, workbench.getToolbarControlsLeft().size());
       assertTrue(workbench.removeToolbarControlRight(dropdownRight));
-      assertEquals(0, workbench.getToolbarControlsRight().size());
+      assertSame(0, workbench.getToolbarControlsRight().size());
     });
   }
 
@@ -1098,10 +1098,10 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       Dropdown d = Dropdown.of(dropdownIconView, dropdownMenuItem);
       assertTrue(workbench.addToolbarControlLeft(d));
-      assertEquals(2, workbench.getToolbarControlsLeft().size());
+      assertSame(2, workbench.getToolbarControlsLeft().size());
       d = Dropdown.of(dropdownText, dropdownMenuItem);
       assertTrue(workbench.addToolbarControlRight(d));
-      assertEquals(2, workbench.getToolbarControlsRight().size());
+      assertSame(2, workbench.getToolbarControlsRight().size());
     });
   }
 }
