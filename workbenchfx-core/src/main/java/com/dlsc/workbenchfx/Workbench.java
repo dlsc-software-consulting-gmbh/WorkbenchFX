@@ -297,6 +297,17 @@ public class Workbench extends Control {
     return FXCollections.unmodifiableObservableList(modules);
   }
 
+  public boolean addModule(Module module) {
+    if (modules.contains(module)) {
+      return false;
+    }
+    return modules.add(module);
+  }
+
+  public boolean removeModule(Module module) {
+    return modules.remove(module);
+  }
+
   public Module getActiveModule() {
     return activeModule.get();
   }
@@ -455,16 +466,5 @@ public class Workbench extends Control {
 
   public ObservableSet<Node> getBlockingOverlaysShown() {
     return FXCollections.unmodifiableObservableSet(blockingOverlaysShown);
-  }
-
-  public boolean addModule(Module module) {
-    if (modules.contains(module)) {
-      return false;
-    }
-    return modules.add(module);
-  }
-
-  public boolean removeModule(Module module) {
-    return modules.remove(module);
   }
 }
