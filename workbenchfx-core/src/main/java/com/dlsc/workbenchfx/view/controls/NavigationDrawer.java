@@ -1,6 +1,8 @@
 package com.dlsc.workbenchfx.view.controls;
 
 import com.dlsc.workbenchfx.Workbench;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
@@ -21,6 +23,7 @@ public class NavigationDrawer extends Control {
 
   private ObservableList<MenuItem> items;
   private Workbench workbench;
+  private final DoubleProperty drawerWidth = new SimpleDoubleProperty();
 
   /**
    * Creates a navigation drawer control.
@@ -28,6 +31,7 @@ public class NavigationDrawer extends Control {
   public NavigationDrawer(Workbench workbench) {
     this.workbench = workbench;
     items = workbench.getNavigationDrawerItems();
+    drawerWidth.bind(workbench.widthProperty().multiply(.333));
     getStyleClass().add("navigation-drawer");
   }
 
@@ -42,5 +46,13 @@ public class NavigationDrawer extends Control {
 
   public final ObservableList<MenuItem> getItems() {
     return items;
+  }
+
+  public double getDrawerWidth() {
+    return drawerWidth.get();
+  }
+
+  public DoubleProperty drawerWidthProperty() {
+    return drawerWidth;
   }
 }

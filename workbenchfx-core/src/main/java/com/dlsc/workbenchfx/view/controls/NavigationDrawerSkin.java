@@ -60,15 +60,13 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     ImageView companyLogo = new ImageView();
     companyLogo.getStyleClass().add("logo");
     companyLogo.setPreserveRatio(true);
-    companyLogo.fitWidthProperty().bind(drawerBox.widthProperty().divide(2));
+    companyLogo.fitWidthProperty().bind(navigationDrawer.drawerWidthProperty().divide(2));
 
     header.setTop(backBtn);
     header.setCenter(companyLogo);
 
     StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
-    navigationDrawer.maxWidthProperty().bind(
-        getSkinnable().getWorkbench().widthProperty().multiply(.333)
-    );
+    navigationDrawer.maxWidthProperty().bind(navigationDrawer.drawerWidthProperty());
 
     getChildren().add(drawerBox);
 
