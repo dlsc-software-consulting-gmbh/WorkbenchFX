@@ -1,16 +1,13 @@
 package com.dlsc.workbenchfx;
 
-import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
-
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
-import com.dlsc.workbenchfx.view.module.TabControl;
-import com.dlsc.workbenchfx.view.module.TileControl;
-import java.util.function.BiFunction;
+import com.dlsc.workbenchfx.view.controls.module.Page;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
+import com.dlsc.workbenchfx.view.controls.module.Tile;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
@@ -31,59 +28,11 @@ public final class WorkbenchBuilder {
   // Optional parameters - initialized to default values
   int modulesPerPage = 9;
 
-  BiFunction<Workbench, Module, Node> tabFactory = (workbench, module) -> {
-    TabControl tabControl = new TabControl(module);
-    workbench.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
-      LOGGER.trace("Tab Factory - Old Module: " + oldModule);
-      LOGGER.trace("Tab Factory - New Module: " + oldModule);
-      if (module == newModule) {
-        tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-        LOGGER.trace("STYLE SET");
-      }
-      if (module == oldModule) {
-        // switch from this to other tab
-        tabControl.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
-      }
-    });
-    tabControl.setOnClose(e -> workbench.closeModule(module));
-    tabControl.setOnActive(e -> workbench.openModule(module));
-    tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-    return tabControl;
-  };
+  Callback<Workbench, Tab> tabFactory = Tab::new;
 
-  BiFunction<Workbench, Module, Node> tileFactory = (workbench, module) -> {
-    TileControl tileControl = new TileControl(module);
-    tileControl.setOnActive(e -> workbench.openModule(module));
-    return tileControl;
-  };
+  Callback<Workbench, Tile> tileFactory = Tile::new;
 
-  BiFunction<Workbench, Integer, Node> pageFactory = (workbench, pageIndex) -> {
-    final int columnsPerRow = 3;
-
-    GridPane gridPane = new GridPane();
-    gridPane.getStyleClass().add("tile-page");
-
-    int position = pageIndex * workbench.modulesPerPage;
-    int count = 0;
-    int column = 0;
-    int row = 0;
-
-    while (count < workbench.modulesPerPage && position < workbench.getModules().size()) {
-      Module module = workbench.getModules().get(position);
-      Node tile = workbench.getTile(module);
-      gridPane.add(tile, column, row);
-
-      position++;
-      count++;
-      column++;
-
-      if (column == columnsPerRow) {
-        column = 0;
-        row++;
-      }
-    }
-    return gridPane;
-  };
+  Callback<Workbench, Page> pageFactory = Page::new;
 
   Node[] toolbarControlsRight;
   Node[] toolbarControlsLeft;
@@ -117,40 +66,40 @@ public final class WorkbenchBuilder {
   }
 
   /**
-   * Defines how {@link Node} should be created to be used as the tab in the view.
+   * Defines how {@link Tab} should be created to be used as tabs in the view.
    *
-   * @param tabFactory to be used to create the {@link Node} for the tabs
+   * @param tabFactory to be used to create the {@link Tab}
    * @return builder for chaining
    * @implNote Use this to replace the control which is used for the tab with your own
    *           implementation.
    */
-  public WorkbenchBuilder tabFactory(BiFunction<Workbench, Module, Node> tabFactory) {
+  public WorkbenchBuilder tabFactory(Callback<Workbench, Tab> tabFactory) {
     this.tabFactory = tabFactory;
     return this;
   }
 
   /**
-   * Defines how {@link Node} should be created to be used as the tile in the home screen.
+   * Defines how {@link Tab} should be created to be used as tiles in the home screen.
    *
-   * @param tileFactory to be used to create the {@link Node} for the tiles
+   * @param tileFactory to be used to create the {@link Tile}
    * @return builder for chaining
-   * @implNote Use this to replace the control which is used for the tile with your own
+   * @implNote Use this to replace the control which is used for the tiles with your own
    *           implementation.
    */
-  public WorkbenchBuilder tileFactory(BiFunction<Workbench, Module, Node> tileFactory) {
+  public WorkbenchBuilder tileFactory(Callback<Workbench, Tile> tileFactory) {
     this.tileFactory = tileFactory;
     return this;
   }
 
   /**
-   * Defines how a page with tiles of {@link Module}s should be created.
+   * Defines how a {@link Page} with tiles of {@link Module}s should be created.
    *
-   * @param pageFactory to be used to create the page for the tiles
+   * @param pageFactory to be used to create the {@link Page} for the tiles
    * @return builder for chaining
    * @implNote Use this to replace the page which is used in the home screen to display tiles of the
    *           modules with your own implementation.
    */
-  public WorkbenchBuilder pageFactory(BiFunction<Workbench, Integer, Node> pageFactory) {
+  public WorkbenchBuilder pageFactory(Callback<Workbench, Page> pageFactory) {
     this.pageFactory = pageFactory;
     return this;
   }

@@ -1,9 +1,10 @@
 package com.dlsc.workbenchfx.custom;
 
-import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
-
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
+import com.dlsc.workbenchfx.custom.controls.CustomPage;
+import com.dlsc.workbenchfx.custom.controls.CustomTab;
+import com.dlsc.workbenchfx.custom.controls.CustomTile;
 import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
@@ -11,14 +12,10 @@ import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
-import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
-import com.dlsc.workbenchfx.view.module.TabControl;
-import com.dlsc.workbenchfx.view.module.TileControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.util.function.BiFunction;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -29,7 +26,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -41,66 +37,6 @@ public class CustomDemo extends Application {
   private static final Logger LOGGER = LogManager.getLogger(CustomDemo.class.getName());
   public Workbench workbench;
 
-  BiFunction<Workbench, Module, Node> tabFactory =
-      (workbench, module) -> {
-        TabControl tabControl = new TabControl(module);
-        workbench
-            .activeModuleProperty()
-            .addListener(
-                (observable, oldValue, newValue) -> {
-                  LOGGER.trace("Tab Factory - Old Module: " + oldValue);
-                  LOGGER.trace("Tab Factory - New Module: " + oldValue);
-                  if (module == newValue) {
-                    tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-                    LOGGER.error("STYLE SET");
-                  }
-                  if (module == oldValue) {
-                    // switch from this to other tab
-                    tabControl.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
-                  }
-                });
-        tabControl.setOnClose(e -> workbench.closeModule(module));
-        tabControl.setOnActive(e -> workbench.openModule(module));
-        tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-        System.out.println("This tab was proudly created by SteffiFX");
-        return tabControl;
-      };
-
-  BiFunction<Workbench, Module, Node> tileFactory =
-      (workbench, module) -> {
-        TileControl tileControl = new TileControl(module);
-        tileControl.setOnActive(e -> workbench.openModule(module));
-        System.out.println("This tile was proudly created by SteffiFX");
-        return tileControl;
-      };
-  BiFunction<Workbench, Integer, Node> pageFactory =
-      (workbench, pageIndex) -> {
-        final int COLUMNS_PER_ROW = 2;
-
-        GridPane gridPane = new GridPane();
-        gridPane.getStyleClass().add("tile-page");
-
-        int position = pageIndex * workbench.modulesPerPage;
-        int count = 0;
-        int column = 0;
-        int row = 0;
-
-        while (count < workbench.modulesPerPage && position < workbench.getModules().size()) {
-          Module module = workbench.getModules().get(position);
-          Node tile = workbench.getTile(module);
-          gridPane.add(tile, column, row);
-
-          position++;
-          count++;
-          column++;
-
-          if (column == COLUMNS_PER_ROW) {
-            column = 0;
-            row++;
-          }
-        }
-        return gridPane;
-      };
   private Callback<Workbench, Node> navigationDrawerFactory =
       workbench -> {
         NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
@@ -195,9 +131,9 @@ public class CustomDemo extends Application {
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
             .modulesPerPage(4)
-            .tabFactory(tabFactory)
-            .tileFactory(tileFactory)
-            .pageFactory(pageFactory)
+            .pageFactory(CustomPage::new)
+            .tabFactory(CustomTab::new)
+            .tileFactory(CustomTile::new)
             .navigationDrawerFactory(navigationDrawerFactory)
             .navigationDrawer(
                 menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)

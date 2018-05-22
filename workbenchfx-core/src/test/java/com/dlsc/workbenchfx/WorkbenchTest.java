@@ -15,7 +15,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.testing.MockPage;
+import com.dlsc.workbenchfx.testing.MockTab;
+import com.dlsc.workbenchfx.testing.MockTile;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.module.Page;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
+import com.dlsc.workbenchfx.view.controls.module.Tile;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -34,7 +40,7 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
 /**
- * Created by François Martin on 20.03.18.
+ * Tests for {@link Workbench}.
  */
 @Tag("fast")
 class WorkbenchTest extends ApplicationTest {
@@ -83,14 +89,13 @@ class WorkbenchTest extends ApplicationTest {
     fontAwesomeIconView.getStyleClass().add("icon");
     menuItem = new MenuItem("Item 1.1", fontAwesomeIconView);
 
-    workbench = Workbench.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX],
-            mockModules[LAST_INDEX])
+    workbench =
+        Workbench.builder(
+                mockModules[FIRST_INDEX], mockModules[SECOND_INDEX], mockModules[LAST_INDEX])
             // use "module.getName()" twice, to differentiate between tab and tile factories
-            .tabFactory((workbench, module) -> {
-              return new Label(module.getName() + module.getName(), module.getIcon());
-            })
-            .tileFactory((workbench, module) -> new Label(module.getName(), module.getIcon()))
-            .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
+            .tabFactory(MockTab::new)
+            .tileFactory(MockTile::new)
+            .pageFactory(MockPage::new)
             .navigationDrawer(menuItem)
             .build();
 
@@ -660,34 +665,54 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void getTab() {
     robot.interact(() -> {
-      verify(first, never()).getName();
-      verify(first, never()).getIcon();
-      Node tab = workbench.getTab(first);
+      // verify factory gets applied correctly
+      assertTrue(workbench.getTab(first) instanceof MockTab);
+
+      // verify correct creation of tab
+      MockTab tab = (MockTab) workbench.getTab(first);
+
       assertNotNull(tab);
-      verify(first, times(2)).getName();
-      verify(first).getIcon();
+      // verify module has been updated correctly
+      assertSame(first, tab.getModule());
     });
   }
 
   @Test
   void getTile() {
     robot.interact(() -> {
-      verify(first, never()).getName();
-      verify(first, never()).getIcon();
-      Node tab = workbench.getTile(first);
-      assertNotNull(tab);
-      verify(first).getName();
-      verify(first).getIcon();
+      // verify factory gets applied correctly
+      assertTrue(workbench.getTile(first) instanceof MockTile);
+
+      // verify correct creation of tile
+      MockTile tile = (MockTile) workbench.getTile(first);
+
+      assertNotNull(tile);
+      // verify module has been updated correctly
+      assertSame(first, tile.getModule());
     });
   }
 
   @Test
   void getPage() {
     robot.interact(() -> {
-      Node page = workbench.getPage(0);
-      assertTrue(page instanceof Label);
-      assertEquals("0", ((Label) page).getText());
-      assertEquals("5", ((Label) workbench.getPage(5)).getText());
+      int pageIndex = 0;
+      // verify factory gets applied correctly
+      assertTrue(workbench.getPage(pageIndex) instanceof MockPage);
+
+      // verify correct creation of page - index 0
+      MockPage page = (MockPage) workbench.getPage(pageIndex);
+
+      assertNotNull(page);
+      // verify module has been updated correctly
+      assertSame(pageIndex, page.getPageIndex());
+
+      // verify correct creation of page - index 5
+      pageIndex = 5;
+      page = (MockPage) workbench.getPage(pageIndex);
+
+      assertNotNull(page);
+      // verify module has been updated correctly
+      assertSame(pageIndex, page.getPageIndex());
     });
   }
 
