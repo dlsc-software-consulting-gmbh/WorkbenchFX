@@ -70,11 +70,9 @@
     .dropdown .context-menu > .scroll-arrow:hover, .dropdown-inverted .context-menu > .scroll-arrow:hover, .navigation-drawer .context-menu > .scroll-arrow:hover {
       -fx-background-color: derive(-prim-color, -10%); }
     .dropdown .context-menu > .scroll-arrow .menu-up-arrow, .dropdown-inverted .context-menu > .scroll-arrow .menu-up-arrow, .navigation-drawer .context-menu > .scroll-arrow .menu-up-arrow {
-      -fx-background-color: -text-color;
-      -fx-effect: 0; }
+      -fx-background-color: -text-color; }
     .dropdown .context-menu > .scroll-arrow .menu-down-arrow, .dropdown-inverted .context-menu > .scroll-arrow .menu-down-arrow, .navigation-drawer .context-menu > .scroll-arrow .menu-down-arrow {
-      -fx-background-color: -text-color;
-      -fx-effect: 0; }
+      -fx-background-color: -text-color; }
   .dropdown .context-menu .menu:hover > .right-container > .arrow, .dropdown-inverted .context-menu .menu:hover > .right-container > .arrow, .navigation-drawer .context-menu .menu:hover > .right-container > .arrow {
     -fx-background-color: -prim-color; }
   .dropdown .context-menu .menu:focused > .right-container > .arrow, .dropdown-inverted .context-menu .menu:focused > .right-container > .arrow, .navigation-drawer .context-menu .menu:focused > .right-container > .arrow {
