@@ -1107,10 +1107,14 @@ class WorkbenchTest extends ApplicationTest {
       Dropdown d = Dropdown.of(dropdownIconView, dropdownMenuItem);
       assertTrue(workbench.addToolbarControlLeft(d));
       assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
+      assertFalse(workbench.addToolbarControlLeft(d));
+      assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
 
       int initialSizeRight = workbench.getToolbarControlsRight().size();
       d = Dropdown.of(dropdownText, dropdownMenuItem);
       assertTrue(workbench.addToolbarControlRight(d));
+      assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
+      assertFalse(workbench.addToolbarControlRight(d));
       assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
     });
   }
