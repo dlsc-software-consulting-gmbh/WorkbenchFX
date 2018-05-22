@@ -37,6 +37,8 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
 /**
+ * Tests basic workbench functionality and its controls.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */

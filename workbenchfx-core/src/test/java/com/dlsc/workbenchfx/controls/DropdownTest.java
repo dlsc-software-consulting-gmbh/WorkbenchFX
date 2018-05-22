@@ -19,6 +19,8 @@ import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
 /**
+ * Tests dropdown functionality without relation to the actual workbench.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
