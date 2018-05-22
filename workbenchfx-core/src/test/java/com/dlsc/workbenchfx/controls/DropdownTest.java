@@ -19,7 +19,8 @@ import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
 /**
- * Created by François Martin on 20.03.18.
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 @Tag("fast")
 class DropdownTest extends ApplicationTest {
