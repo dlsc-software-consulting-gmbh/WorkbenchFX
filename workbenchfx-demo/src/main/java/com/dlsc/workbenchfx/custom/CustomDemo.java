@@ -36,6 +36,7 @@ public class CustomDemo extends Application {
 
   private static final Logger LOGGER = LogManager.getLogger(CustomDemo.class.getName());
   public Workbench workbench;
+  PreferencesModule preferencesModule = new PreferencesModule();
 
   private Callback<Workbench, Node> navigationDrawerFactory =
       workbench -> {
@@ -99,8 +100,9 @@ public class CustomDemo extends Application {
     menu2.getItems().addAll(item21, item22);
     menu3.getItems().addAll(item31, item32, item33);
 
-    Button buttonLeft = new Button("Settings", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
-    buttonLeft.getStyleClass().add("button-inverted");
+    Button addPreferences = new Button("Add", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    Button removePreferences = new Button("Remove", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    addPreferences.getStyleClass().add("button-inverted");
 
     // WorkbenchFX
     workbench =
@@ -112,7 +114,7 @@ public class CustomDemo extends Application {
                 new WidgetsTestModule(),
                 new DropdownTestModule(),
                 new NavigationDrawerTestModule())
-            .toolbarLeft(buttonLeft)
+            .toolbarLeft(addPreferences, removePreferences)
             .toolbarRight(
                 Dropdown.of(
                     new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
@@ -143,7 +145,8 @@ public class CustomDemo extends Application {
     CustomOverlay blockingCustomOverlay = new CustomOverlay(workbench, true);
     showOverlay.setOnAction(event -> workbench.showOverlay(customOverlay, false));
     showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
-    buttonLeft.setOnAction(event -> workbench.showOverlay(customOverlay, false));
+    addPreferences.setOnAction(event -> workbench.addModule(preferencesModule));
+    removePreferences.setOnAction(event -> workbench.removeModule(preferencesModule));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
     // workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
