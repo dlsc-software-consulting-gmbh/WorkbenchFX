@@ -1071,4 +1071,40 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(0, navigationDrawerItems.size());
     });
   }
+
+  @Test
+  void addModule() {
+    robot.interact(() -> {
+      ObservableList<Module> modules = workbench.getModules();
+      int currentSize = modules.size();
+      String mockModuleName = "Mock Module";
+      Module mockModule = createMockModule(new Label(), true, mockModuleName);
+
+      assertTrue(workbench.addModule(mockModule));
+
+      assertSame(currentSize + 1, modules.size());
+
+      // adding same module again should not add it
+      assertFalse(workbench.addModule(mockModule));
+
+      assertSame(currentSize + 1, modules.size());
+    });
+  }
+
+  @Test
+  void removeModule() {
+    robot.interact(() -> {
+      ObservableList<Module> modules = workbench.getModules();
+      int currentSize = modules.size();
+
+      assertTrue(workbench.removeModule(mockModules[0]));
+
+      assertSame(currentSize - 1, modules.size());
+
+      // removing same module again should not remove it
+      assertFalse(workbench.removeModule(mockModules[0]));
+
+      assertSame(currentSize - 1, modules.size());
+    });
+  }
 }
