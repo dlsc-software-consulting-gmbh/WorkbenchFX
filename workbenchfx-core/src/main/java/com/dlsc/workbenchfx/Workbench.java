@@ -458,6 +458,9 @@ public class Workbench extends Control {
   }
 
   public boolean addModule(Module module) {
+    if (modules.contains(module)) {
+      return false;
+    }
     return modules.add(module);
   }
 
