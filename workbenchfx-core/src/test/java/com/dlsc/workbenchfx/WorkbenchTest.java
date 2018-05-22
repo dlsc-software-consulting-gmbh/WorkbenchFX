@@ -1084,10 +1084,14 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
       assertFalse(workbench.removeToolbarControlLeft(d));
+      assertEquals(1, workbench.getToolbarControlsLeft().size());
       assertFalse(workbench.removeToolbarControlRight(d));
+      assertEquals(1, workbench.getToolbarControlsRight().size());
 
       assertTrue(workbench.removeToolbarControlLeft(dropdownLeft));
+      assertEquals(0, workbench.getToolbarControlsLeft().size());
       assertTrue(workbench.removeToolbarControlRight(dropdownRight));
+      assertEquals(0, workbench.getToolbarControlsRight().size());
     });
   }
 
