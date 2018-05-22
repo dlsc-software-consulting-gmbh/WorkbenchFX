@@ -102,12 +102,7 @@ public class CustomDemo extends Application {
         return gridPane;
       };
   private Callback<Workbench, Node> navigationDrawerFactory =
-      workbench -> {
-        NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
-        StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
-        navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(.333));
-        return navigationDrawer;
-      };
+      NavigationDrawer::new;
 
   public static void main(String[] args) {
     launch(args);

@@ -13,6 +13,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -58,8 +59,16 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
     ImageView companyLogo = new ImageView();
     companyLogo.getStyleClass().add("logo");
+    companyLogo.setPreserveRatio(true);
+    companyLogo.fitWidthProperty().bind(drawerBox.widthProperty().divide(2));
+
     header.setTop(backBtn);
     header.setCenter(companyLogo);
+
+    StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
+    navigationDrawer.maxWidthProperty().bind(
+        getSkinnable().getWorkbench().widthProperty().multiply(.333)
+    );
 
     getChildren().add(drawerBox);
 
