@@ -26,7 +26,6 @@ import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
@@ -1056,45 +1055,6 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  void createDropdown() {
-    robot.interact(() -> {
-      Dropdown d;
-      d = Dropdown.of(dropdownText);
-      assertEquals(dropdownText, d.getText());
-      assertNull(d.getIcon());
-      assertEquals(0, d.getItems().size());
-
-      d = Dropdown.of(dropdownText, dropdownMenuItem);
-      assertEquals(dropdownText, d.getText());
-      assertNull(d.getIcon());
-      assertEquals(1, d.getItems().size());
-
-      d = Dropdown.of(dropdownIconView);
-      assertEquals(dropdownIconView, d.getIcon());
-      assertNull(d.getText());
-      assertEquals(0, d.getItems().size());
-
-      d = Dropdown.of(dropdownIconView, dropdownMenuItem);
-      assertEquals(dropdownIconView, d.getIcon());
-      assertNull(d.getText());
-      assertEquals(1, d.getItems().size());
-
-      d = Dropdown.of(dropdownText, dropdownIconView);
-      assertEquals(dropdownText, d.getText());
-      assertEquals(dropdownIconView, d.getIcon());
-      assertEquals(0, d.getItems().size());
-
-      d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
-      assertEquals(dropdownText, d.getText());
-      assertEquals(dropdownIconView, d.getIcon());
-      assertEquals(1, d.getItems().size());
-
-      d = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
-      assertEquals(dropdownImageView, d.getIcon());
-    });
-  }
-
-  @Test
   void removeToolbarControlsLeftAndRight() {
     robot.interact(() -> {
       Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
@@ -1116,30 +1076,6 @@ class WorkbenchTest extends ApplicationTest {
       assertTrue(workbench.addToolbarControlLeft(d));
       d = Dropdown.of(dropdownText, dropdownMenuItem);
       assertTrue(workbench.addToolbarControlRight(d));
-    });
-  }
-
-  @Test
-  void invertDropdownInToolbar() {
-    robot.interact(() -> {
-      Dropdown d = (Dropdown) workbench.getToolbarControlsLeft().stream().findFirst().get();
-      assertFalse(d.getInverted());
-      d.invertStyle();
-      assertTrue(d.getInverted());
-      d.invertStyle();
-      assertFalse(d.invertedProperty().get());
-    });
-  }
-
-  @Test
-  void removeAndAddItemFromDropdownInToolbar() {
-    robot.interact(() -> {
-      Dropdown d = (Dropdown) workbench.getToolbarControlsLeft().stream().findFirst().get();
-      assertEquals(1, d.getItems().size());
-      d.getItems().remove(0);
-      assertEquals(0, d.getItems().size());
-      d.getItems().add(new CustomMenuItem(new Label("New Item")));
-      assertEquals(1, d.getItems().size());
     });
   }
 
