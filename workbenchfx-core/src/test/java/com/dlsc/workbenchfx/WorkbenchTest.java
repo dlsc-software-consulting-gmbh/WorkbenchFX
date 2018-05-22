@@ -30,7 +30,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Tag;
@@ -100,7 +99,7 @@ class WorkbenchTest extends ApplicationTest {
     // Initialization of items for Dropdown testing
     dropdownText = "Dropdown Text";
     dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
-    dropdownImageView = new ImageView(new Image("http://www.cherriz.de/training/content/images/oberflaechen_in_java/Javafx_logo_color.png"));
+    dropdownImageView = new ImageView();
     dropdownMenuItem = new MenuItem("Menu Item");
 
     dropdownLeft = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
@@ -110,7 +109,6 @@ class WorkbenchTest extends ApplicationTest {
         mockModules[FIRST_INDEX],
         mockModules[SECOND_INDEX],
         mockModules[LAST_INDEX])
-        // use "module.getName()" twice, to differentiate between tab and tile factories
         .tabFactory(MockTab::new)
         .tileFactory(MockTile::new)
         .pageFactory(MockPage::new)

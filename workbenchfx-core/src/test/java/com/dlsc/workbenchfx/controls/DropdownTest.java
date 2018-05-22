@@ -11,7 +11,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -36,7 +35,7 @@ class DropdownTest extends ApplicationTest {
     // Initialization of items for Dropdown testing
     dropdownText = "Dropdown Text";
     dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
-    dropdownImageView = new ImageView(new Image("http://www.cherriz.de/training/content/images/oberflaechen_in_java/Javafx_logo_color.png"));
+    dropdownImageView = new ImageView();
     dropdownMenuItem = new MenuItem("Menu Item");
 
     dropdown = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
@@ -84,7 +83,7 @@ class DropdownTest extends ApplicationTest {
     dropdown.invertStyle();
     assertTrue(dropdown.getInverted());
     dropdown.invertStyle();
-    assertFalse(dropdown.invertedProperty().get());
+    assertFalse(dropdown.getInverted());
   }
 
   @Test

@@ -139,8 +139,7 @@ public class DropdownSkin extends SkinBase<Dropdown> {
         if (c.wasAdded()) {
           for (MenuItem menuItem : c.getAddedSubList()) {
             LOGGER.debug("MenuItem " + menuItem + " added");
-            ObservableList<MenuItem> items = menuButton.getItems();
-            items.addAll(menuItem);
+            menuButton.getItems().addAll(menuItem);
           }
         }
       }
@@ -159,8 +158,8 @@ public class DropdownSkin extends SkinBase<Dropdown> {
 
     // Changes the styleClass either from dropdown to dropdown-inverted.
     // In the css, the style is applied.
-    dropdown.invertedProperty().addListener((observable, oldValue, newValue) -> {
-      if (newValue) {
+    dropdown.invertedProperty().addListener((observable, oldIsInverted, newIsInverted) -> {
+      if (newIsInverted) {
         menuButton.getStyleClass().remove(standardStyle);
         menuButton.getStyleClass().add(invertedStyle);
       } else {
