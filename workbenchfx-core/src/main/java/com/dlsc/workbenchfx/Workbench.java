@@ -456,4 +456,12 @@ public class Workbench extends Control {
   public ObservableSet<Node> getBlockingOverlaysShown() {
     return FXCollections.unmodifiableObservableSet(blockingOverlaysShown);
   }
+
+  public boolean addModule(Module module) {
+    return modules.add(module);
+  }
+
+  public boolean removeModule(Module module) {
+    return modules.remove(module);
+  }
 }
