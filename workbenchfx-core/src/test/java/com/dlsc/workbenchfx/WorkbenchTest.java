@@ -30,6 +30,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Tag;
@@ -99,7 +100,9 @@ class WorkbenchTest extends ApplicationTest {
     // Initialization of items for Dropdown testing
     dropdownText = "Dropdown Text";
     dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
-    dropdownImageView = new ImageView();
+    dropdownImageView = new ImageView(
+        new Image(WorkbenchTest.class.getResource("date-picker.png").toExternalForm())
+    );
     dropdownMenuItem = new MenuItem("Menu Item");
 
     dropdownLeft = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
@@ -1081,27 +1084,34 @@ class WorkbenchTest extends ApplicationTest {
   void removeToolbarControlsLeftAndRight() {
     robot.interact(() -> {
       Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
+
+      int initialSizeLeft = workbench.getToolbarControlsLeft().size();
       assertFalse(workbench.removeToolbarControlLeft(d));
-      assertSame(1, workbench.getToolbarControlsLeft().size());
+      assertSame(initialSizeLeft, workbench.getToolbarControlsLeft().size());
+
+      int initialSizeRight = workbench.getToolbarControlsRight().size();
       assertFalse(workbench.removeToolbarControlRight(d));
-      assertSame(1, workbench.getToolbarControlsRight().size());
+      assertSame(initialSizeRight, workbench.getToolbarControlsRight().size());
 
       assertTrue(workbench.removeToolbarControlLeft(dropdownLeft));
-      assertSame(0, workbench.getToolbarControlsLeft().size());
+      assertSame(initialSizeLeft - 1, workbench.getToolbarControlsLeft().size());
       assertTrue(workbench.removeToolbarControlRight(dropdownRight));
-      assertSame(0, workbench.getToolbarControlsRight().size());
+      assertSame(initialSizeRight - 1, workbench.getToolbarControlsRight().size());
     });
   }
 
   @Test
   void addToolbarControlsLeftAndRight() {
     robot.interact(() -> {
+      int initialSizeLeft = workbench.getToolbarControlsLeft().size();
       Dropdown d = Dropdown.of(dropdownIconView, dropdownMenuItem);
       assertTrue(workbench.addToolbarControlLeft(d));
-      assertSame(2, workbench.getToolbarControlsLeft().size());
+      assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
+
+      int initialSizeRight = workbench.getToolbarControlsRight().size();
       d = Dropdown.of(dropdownText, dropdownMenuItem);
       assertTrue(workbench.addToolbarControlRight(d));
-      assertSame(2, workbench.getToolbarControlsRight().size());
+      assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
     });
   }
 }

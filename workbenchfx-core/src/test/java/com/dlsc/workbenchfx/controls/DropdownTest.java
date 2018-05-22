@@ -12,6 +12,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -36,7 +37,9 @@ class DropdownTest extends ApplicationTest {
     // Initialization of items for Dropdown testing
     dropdownText = "Dropdown Text";
     dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
-    dropdownImageView = new ImageView();
+    dropdownImageView = new ImageView(
+        new Image(DropdownTest.class.getResource("../date-picker.png").toExternalForm())
+    );
     dropdownMenuItem = new MenuItem("Menu Item");
 
     dropdown = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
@@ -89,15 +92,15 @@ class DropdownTest extends ApplicationTest {
 
   @Test
   void removeItemFromDropdown() {
-    assertSame(1, dropdown.getItems().size());
+    int initialSize = dropdown.getItems().size();
     dropdown.getItems().remove(0);
-    assertSame(0, dropdown.getItems().size());
+    assertSame(initialSize - 1, dropdown.getItems().size());
   }
 
   @Test
   void addItemFromDropdown() {
-    assertSame(1, dropdown.getItems().size());
+    int initialSize = dropdown.getItems().size();
     dropdown.getItems().add(new CustomMenuItem(new Label("New Item")));
-    assertSame(2, dropdown.getItems().size());
+    assertSame(initialSize + 1, dropdown.getItems().size());
   }
 }
