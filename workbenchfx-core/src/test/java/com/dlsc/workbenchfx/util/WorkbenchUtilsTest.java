@@ -11,7 +11,6 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**

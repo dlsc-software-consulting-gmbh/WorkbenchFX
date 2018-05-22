@@ -15,14 +15,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.testing.MockPage;
 import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
+import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
-import com.dlsc.workbenchfx.view.controls.module.Page;
-import com.dlsc.workbenchfx.view.controls.module.Tab;
-import com.dlsc.workbenchfx.view.controls.module.Tile;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.ReadOnlyObjectProperty;
