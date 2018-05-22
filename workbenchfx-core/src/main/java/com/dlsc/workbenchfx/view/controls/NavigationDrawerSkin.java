@@ -60,7 +60,8 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     ImageView companyLogo = new ImageView();
     companyLogo.getStyleClass().add("logo");
     companyLogo.setPreserveRatio(true);
-    companyLogo.fitWidthProperty().bind(navigationDrawer.drawerWidthProperty().divide(2));
+    // TODO: why does downscaling an image in javafx make it pixelated?
+    companyLogo.fitWidthProperty().bind(navigationDrawer.drawerWidthProperty().divide(1.5));
 
     header.setTop(backBtn);
     header.setCenter(companyLogo);
