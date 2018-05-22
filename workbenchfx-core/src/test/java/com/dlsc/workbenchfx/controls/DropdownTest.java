@@ -16,7 +16,6 @@ import javafx.scene.image.ImageView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
 /**
@@ -24,9 +23,6 @@ import org.testfx.framework.junit5.ApplicationTest;
  */
 @Tag("fast")
 class DropdownTest extends ApplicationTest {
-
-  private FxRobot robot;
-
   // Dropdown items
   private String dropdownText;
   private FontAwesomeIconView dropdownIconView;
@@ -48,72 +44,60 @@ class DropdownTest extends ApplicationTest {
 
   @Test
   void createDropdown() {
-    robot.interact(() -> {
-      d = Dropdown.of(dropdownText);
-      assertEquals(dropdownText, d.getText());
-      assertNull(d.getIcon());
-      assertEquals(0, d.getItems().size());
+    d = Dropdown.of(dropdownText);
+    assertEquals(dropdownText, d.getText());
+    assertNull(d.getIcon());
+    assertEquals(0, d.getItems().size());
 
-      d = Dropdown.of(dropdownText, dropdownMenuItem);
-      assertEquals(dropdownText, d.getText());
-      assertNull(d.getIcon());
-      assertEquals(1, d.getItems().size());
+    d = Dropdown.of(dropdownText, dropdownMenuItem);
+    assertEquals(dropdownText, d.getText());
+    assertNull(d.getIcon());
+    assertEquals(1, d.getItems().size());
 
-      d = Dropdown.of(dropdownIconView);
-      assertEquals(dropdownIconView, d.getIcon());
-      assertNull(d.getText());
-      assertEquals(0, d.getItems().size());
+    d = Dropdown.of(dropdownIconView);
+    assertEquals(dropdownIconView, d.getIcon());
+    assertNull(d.getText());
+    assertEquals(0, d.getItems().size());
 
-      d = Dropdown.of(dropdownIconView, dropdownMenuItem);
-      assertEquals(dropdownIconView, d.getIcon());
-      assertNull(d.getText());
-      assertEquals(1, d.getItems().size());
+    d = Dropdown.of(dropdownIconView, dropdownMenuItem);
+    assertEquals(dropdownIconView, d.getIcon());
+    assertNull(d.getText());
+    assertEquals(1, d.getItems().size());
 
-      d = Dropdown.of(dropdownText, dropdownIconView);
-      assertEquals(dropdownText, d.getText());
-      assertEquals(dropdownIconView, d.getIcon());
-      assertEquals(0, d.getItems().size());
+    d = Dropdown.of(dropdownText, dropdownIconView);
+    assertEquals(dropdownText, d.getText());
+    assertEquals(dropdownIconView, d.getIcon());
+    assertEquals(0, d.getItems().size());
 
-      d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
-      assertEquals(dropdownText, d.getText());
-      assertEquals(dropdownIconView, d.getIcon());
-      assertEquals(1, d.getItems().size());
+    d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
+    assertEquals(dropdownText, d.getText());
+    assertEquals(dropdownIconView, d.getIcon());
+    assertEquals(1, d.getItems().size());
 
-      d = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
-      assertEquals(dropdownImageView, d.getIcon());
-    });
+    d = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
+    assertEquals(dropdownImageView, d.getIcon());
   }
 
   @Test
   void invertDropdown() {
-    robot.interact(() -> {
-      assertFalse(d.getInverted());
-      d.invertStyle();
-      assertTrue(d.getInverted());
-      d.invertStyle();
-      assertFalse(d.invertedProperty().get());
-    });
+    assertFalse(d.getInverted());
+    d.invertStyle();
+    assertTrue(d.getInverted());
+    d.invertStyle();
+    assertFalse(d.invertedProperty().get());
   }
 
   @Test
   void removeItemFromDropdown() {
-    robot.interact(() -> {
-      assertEquals(1, d.getItems().size());
-      d.getItems().remove(0);
-      assertEquals(0, d.getItems().size());
-      d.getItems().add(new CustomMenuItem(new Label("New Item")));
-      assertEquals(1, d.getItems().size());
-    });
+    assertEquals(1, d.getItems().size());
+    d.getItems().remove(0);
+    assertEquals(0, d.getItems().size());
   }
 
   @Test
   void addItemFromDropdown() {
-    robot.interact(() -> {
-      assertEquals(1, d.getItems().size());
-      d.getItems().remove(0);
-      assertEquals(0, d.getItems().size());
-      d.getItems().add(new CustomMenuItem(new Label("New Item")));
-      assertEquals(1, d.getItems().size());
-    });
+    assertEquals(1, d.getItems().size());
+    d.getItems().add(new CustomMenuItem(new Label("New Item")));
+    assertEquals(2, d.getItems().size());
   }
 }
