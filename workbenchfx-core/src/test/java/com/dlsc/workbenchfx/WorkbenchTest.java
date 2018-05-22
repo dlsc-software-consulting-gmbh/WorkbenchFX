@@ -1086,11 +1086,8 @@ class WorkbenchTest extends ApplicationTest {
       assertFalse(workbench.removeToolbarControlLeft(d));
       assertFalse(workbench.removeToolbarControlRight(d));
 
-      Node controlLeft = workbench.getToolbarControlsLeft().stream().findFirst().get();
-      assertTrue(workbench.removeToolbarControlLeft(controlLeft));
-
-      Node controlRight = workbench.getToolbarControlsRight().stream().findFirst().get();
-      assertTrue(workbench.removeToolbarControlRight(controlRight));
+      assertTrue(workbench.removeToolbarControlLeft(dropdownLeft));
+      assertTrue(workbench.removeToolbarControlRight(dropdownRight));
     });
   }
 
