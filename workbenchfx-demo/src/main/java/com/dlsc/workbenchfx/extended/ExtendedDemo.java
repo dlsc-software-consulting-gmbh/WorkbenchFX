@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.extended;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.CustomDemo;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.extended.calendar.CalendarModule;
@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 
 public class ExtendedDemo extends Application {
 
-  public WorkbenchFx workbenchFx;
+  public Workbench workbench;
 
   public static void main(String[] args) {
     launch(args);
@@ -40,7 +40,7 @@ public class ExtendedDemo extends Application {
     primaryStage.centerOnScreen();
   }
 
-  private WorkbenchFx initWorkbench() {
+  private Workbench initWorkbench() {
     // Navigation Drawer
     Menu menu1 = new Menu("Customer", createIcon(FontAwesomeIcon.USER));
     Menu menu2 = new Menu("Tariff Management", createIcon(FontAwesomeIcon.BUILDING));
@@ -81,8 +81,8 @@ public class ExtendedDemo extends Application {
     Button buttonLeft = new Button("Settings", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
     buttonLeft.getStyleClass().add("button-inverted");
 
-    workbenchFx =
-        WorkbenchFx.builder(
+    workbench =
+        Workbench.builder(
                 new PreferencesModule(),
                 new PreferencesModule(),
                 new PreferencesModule(),
@@ -120,20 +120,20 @@ public class ExtendedDemo extends Application {
                 menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
             .build();
 
-    CustomOverlay customOverlay = new CustomOverlay(workbenchFx, false);
-    CustomOverlay blockingCustomOverlay = new CustomOverlay(workbenchFx, true);
-    showOverlay.setOnAction(event -> workbenchFx.showOverlay(customOverlay, false));
-    showBlockingOverlay.setOnAction(event -> workbenchFx.showOverlay(blockingCustomOverlay, true));
-    buttonLeft.setOnAction(event -> workbenchFx.showOverlay(customOverlay, false));
+    CustomOverlay customOverlay = new CustomOverlay(workbench, false);
+    CustomOverlay blockingCustomOverlay = new CustomOverlay(workbench, true);
+    showOverlay.setOnAction(event -> workbench.showOverlay(customOverlay, false));
+    showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
+    buttonLeft.setOnAction(event -> workbench.showOverlay(customOverlay, false));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
     // workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 
-    workbenchFx
+    workbench
         .getStylesheets()
         .add(CustomDemo.class.getResource("customOverlay.css").toExternalForm());
 
-    return workbenchFx;
+    return workbench;
   }
 
   private Node createIcon(FontAwesomeIcon icon) {

@@ -1,11 +1,11 @@
 package com.dlsc.workbenchfx.extended.calendar;
 
-import com.dlsc.workbenchfx.module.AbstractModule;
+import com.dlsc.workbenchfx.module.Module;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.Objects;
 import javafx.scene.Node;
 
-public class CalendarModule extends AbstractModule {
+public class CalendarModule extends Module {
 
   private CalendarView calendarView;
 

@@ -10,7 +10,7 @@
             <PatternLayout pattern="${appenderPatternLayout}"/>
         </Console>
 
-        <File name="File" fileName="${path}/workbenchFx.log">
+        <File name="File" fileName="${path}/workbench.log">
             <PatternLayout pattern="${appenderPatternLayout}"/>
         </File>
     </Appenders>

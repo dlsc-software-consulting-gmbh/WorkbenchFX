@@ -211,21 +211,21 @@ According to this code style we wrote first pseudo code snippets to try using th
 
 [source,java]
 ----
-PreferencesFx workbenchFx = new PreferencesFx();
+PreferencesFx workbench = new PreferencesFx();
 Category category = new Category("Category");
 Group group = new Group("Group");
 Setting setting = new Setting("Setting", new SimpleBooleanProperty(true));
 
 group.getSettings().add(setting);
 category.getGroups().add(group);
-workbenchFx.getCategories().add(category);
+workbench.getCategories().add(category);
 ----
 
 The second try was with the fluent API approach, like our customer suggested:
 
 [source,java]
 ----
-PreferencesFx workbenchFx = PreferencesFx.of(
+PreferencesFx workbench = PreferencesFx.of(
     Category.of("Category",
         Group.of("Group",
             Setting.of("Setting", new SimpleBooleanProperty(true))

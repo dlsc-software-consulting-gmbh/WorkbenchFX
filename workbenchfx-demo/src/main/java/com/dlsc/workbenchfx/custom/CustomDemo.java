@@ -1,9 +1,10 @@
 package com.dlsc.workbenchfx.custom;
 
-import static com.dlsc.workbenchfx.WorkbenchFx.STYLE_CLASS_ACTIVE_TAB;
-
-import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
+import com.dlsc.workbenchfx.custom.controls.CustomPage;
+import com.dlsc.workbenchfx.custom.controls.CustomTab;
+import com.dlsc.workbenchfx.custom.controls.CustomTile;
 import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
@@ -11,14 +12,10 @@ import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
-import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
-import com.dlsc.workbenchfx.view.module.TabControl;
-import com.dlsc.workbenchfx.view.module.TileControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.util.function.BiFunction;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -29,7 +26,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -39,69 +35,10 @@ import org.apache.logging.log4j.Logger;
 public class CustomDemo extends Application {
 
   private static final Logger LOGGER = LogManager.getLogger(CustomDemo.class.getName());
-  public WorkbenchFx workbenchFx;
+  public Workbench workbench;
+  PreferencesModule preferencesModule = new PreferencesModule();
 
-  BiFunction<WorkbenchFx, Module, Node> tabFactory =
-      (workbench, module) -> {
-        TabControl tabControl = new TabControl(module);
-        workbench
-            .activeModuleProperty()
-            .addListener(
-                (observable, oldValue, newValue) -> {
-                  LOGGER.trace("Tab Factory - Old Module: " + oldValue);
-                  LOGGER.trace("Tab Factory - New Module: " + oldValue);
-                  if (module == newValue) {
-                    tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-                    LOGGER.error("STYLE SET");
-                  }
-                  if (module == oldValue) {
-                    // switch from this to other tab
-                    tabControl.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
-                  }
-                });
-        tabControl.setOnClose(e -> workbench.closeModule(module));
-        tabControl.setOnActive(e -> workbench.openModule(module));
-        tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-        System.out.println("This tab was proudly created by SteffiFX");
-        return tabControl;
-      };
-
-  BiFunction<WorkbenchFx, Module, Node> tileFactory =
-      (workbench, module) -> {
-        TileControl tileControl = new TileControl(module);
-        tileControl.setOnActive(e -> workbench.openModule(module));
-        System.out.println("This tile was proudly created by SteffiFX");
-        return tileControl;
-      };
-  BiFunction<WorkbenchFx, Integer, Node> pageFactory =
-      (workbench, pageIndex) -> {
-        final int COLUMNS_PER_ROW = 2;
-
-        GridPane gridPane = new GridPane();
-        gridPane.getStyleClass().add("tile-page");
-
-        int position = pageIndex * workbench.modulesPerPage;
-        int count = 0;
-        int column = 0;
-        int row = 0;
-
-        while (count < workbench.modulesPerPage && position < workbench.getModules().size()) {
-          Module module = workbench.getModules().get(position);
-          Node tile = workbench.getTile(module);
-          gridPane.add(tile, column, row);
-
-          position++;
-          count++;
-          column++;
-
-          if (column == COLUMNS_PER_ROW) {
-            column = 0;
-            row++;
-          }
-        }
-        return gridPane;
-      };
-  private Callback<WorkbenchFx, Node> navigationDrawerFactory =
+  private Callback<Workbench, Node> navigationDrawerFactory =
       workbench -> {
         NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
         StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
@@ -125,7 +62,7 @@ public class CustomDemo extends Application {
     primaryStage.centerOnScreen();
   }
 
-  private WorkbenchFx initWorkbench() {
+  private Workbench initWorkbench() {
     // Navigation Drawer
     Menu menu1 = new Menu("Customer", createIcon(FontAwesomeIcon.USER));
     Menu menu2 = new Menu("Tariff Management", createIcon(FontAwesomeIcon.BUILDING));
@@ -163,12 +100,13 @@ public class CustomDemo extends Application {
     menu2.getItems().addAll(item21, item22);
     menu3.getItems().addAll(item31, item32, item33);
 
-    Button buttonLeft = new Button("Settings", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
-    buttonLeft.getStyleClass().add("button-inverted");
+    Button addPreferences = new Button("Add", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    Button removePreferences = new Button("Remove", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    addPreferences.getStyleClass().add("button-inverted");
 
     // WorkbenchFX
-    workbenchFx =
-        WorkbenchFx.builder(
+    workbench =
+        Workbench.builder(
                 new CalendarModule(),
                 new NotesModule(),
                 new CustomerModule(),
@@ -176,7 +114,7 @@ public class CustomDemo extends Application {
                 new WidgetsTestModule(),
                 new DropdownTestModule(),
                 new NavigationDrawerTestModule())
-            .toolbarLeft(buttonLeft)
+            .toolbarLeft(addPreferences, removePreferences)
             .toolbarRight(
                 Dropdown.of(
                     new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
@@ -195,28 +133,29 @@ public class CustomDemo extends Application {
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
             .modulesPerPage(4)
-            .tabFactory(tabFactory)
-            .tileFactory(tileFactory)
-            .pageFactory(pageFactory)
+            .pageFactory(CustomPage::new)
+            .tabFactory(CustomTab::new)
+            .tileFactory(CustomTile::new)
             .navigationDrawerFactory(navigationDrawerFactory)
             .navigationDrawer(
                 menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
             .build();
 
-    CustomOverlay customOverlay = new CustomOverlay(workbenchFx, false);
-    CustomOverlay blockingCustomOverlay = new CustomOverlay(workbenchFx, true);
-    showOverlay.setOnAction(event -> workbenchFx.showOverlay(customOverlay, false));
-    showBlockingOverlay.setOnAction(event -> workbenchFx.showOverlay(blockingCustomOverlay, true));
-    buttonLeft.setOnAction(event -> workbenchFx.showOverlay(customOverlay, false));
+    CustomOverlay customOverlay = new CustomOverlay(workbench, false);
+    CustomOverlay blockingCustomOverlay = new CustomOverlay(workbench, true);
+    showOverlay.setOnAction(event -> workbench.showOverlay(customOverlay, false));
+    showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
+    addPreferences.setOnAction(event -> workbench.addModule(preferencesModule));
+    removePreferences.setOnAction(event -> workbench.removeModule(preferencesModule));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
     // workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 
-    workbenchFx
+    workbench
         .getStylesheets()
         .add(CustomDemo.class.getResource("customOverlay.css").toExternalForm());
 
-    return workbenchFx;
+    return workbench;
   }
 
   private Node createIcon(FontAwesomeIcon icon) {

@@ -1,5 +1,7 @@
 package com.dlsc.workbenchfx.view.controls;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -11,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the Dropdown control wich is used in the Toolbar of WorkbenchFX.
+ * Represents the Dropdown control which is used in the Toolbar of WorkbenchFX.
  * Its functionality is like that of a {@link MenuButton}.
  *
  * @author François Martin
@@ -24,7 +26,7 @@ public class Dropdown extends Control {
   private final String text;
   private final Node icon;
   private final ObservableList<MenuItem> menuItems = FXCollections.observableArrayList();
-  private DropdownSkin dropdownSkin;
+  private final BooleanProperty inverted = new SimpleBooleanProperty();
 
   private Dropdown(String text, Node icon, MenuItem... menuItems) {
     this.text = text;
@@ -48,12 +50,11 @@ public class Dropdown extends Control {
 
   @Override
   protected Skin<?> createDefaultSkin() {
-    dropdownSkin = new DropdownSkin(this);
-    return dropdownSkin;
+    return new DropdownSkin(this);
   }
 
   public void invertStyle() {
-    dropdownSkin.invertStyle();
+    setInverted(!getInverted());
   }
 
   public Node getIcon() {
@@ -66,5 +67,17 @@ public class Dropdown extends Control {
 
   public ObservableList<MenuItem> getItems() {
     return menuItems;
+  }
+
+  public boolean getInverted() {
+    return inverted.get();
+  }
+
+  public BooleanProperty invertedProperty() {
+    return inverted;
+  }
+
+  public void setInverted(boolean inverted) {
+    this.inverted.set(inverted);
   }
 }

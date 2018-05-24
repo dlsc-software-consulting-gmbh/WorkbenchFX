@@ -14,9 +14,9 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchFxView extends StackPane implements View {
+public class WorkbenchView extends StackPane implements View {
   private static final Logger LOGGER =
-      LogManager.getLogger(WorkbenchFxView.class.getName());
+      LogManager.getLogger(WorkbenchView.class.getName());
   final ToolbarView toolbarView;
   final HomeView homeView;
   final ContentView contentView;
@@ -25,7 +25,7 @@ public class WorkbenchFxView extends StackPane implements View {
   /**
    * Displays all of the view parts, representing the master view.
    */
-  public WorkbenchFxView(
+  public WorkbenchView(
       ToolbarView toolbarView,
       HomeView homeView,
       ContentView contentView) {
@@ -78,7 +78,7 @@ public class WorkbenchFxView extends StackPane implements View {
 
   /**
    * Removes the {@code overlay} from the scene graph and removes the bindings created with the call
-   * to {@link WorkbenchFxView#addOverlay(Node, GlassPane)}.
+   * to {@link WorkbenchView#addOverlay(Node, GlassPane)}.
    * @param overlay to be removed from the scene graph
    * @param glassPane the {@code overlay}'s corresponding {@link GlassPane}
    */

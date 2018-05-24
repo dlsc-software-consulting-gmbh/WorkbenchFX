@@ -1,45 +1,44 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Objects;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
-import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the presenter of the corresponding {@link WorkbenchFxView}.
+ * Represents the presenter of the corresponding {@link WorkbenchView}.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchFxPresenter implements Presenter {
+public class WorkbenchPresenter implements Presenter {
   private static final Logger LOGGER =
-      LogManager.getLogger(WorkbenchFxPresenter.class.getName());
+      LogManager.getLogger(WorkbenchPresenter.class.getName());
 
-  private WorkbenchFx model;
-  private WorkbenchFxView view;
+  private Workbench model;
+  private WorkbenchView view;
 
   private final ObservableMap<Node, GlassPane> overlays;
   private final ObservableSet<Node> overlaysShown;
   private final ObservableSet<Node> blockingOverlaysShown;
 
   /**
-   * Constructs a new {@link WorkbenchFxPresenter} for the {@link WorkbenchFxView}.
+   * Constructs a new {@link WorkbenchPresenter} for the {@link WorkbenchView}.
    *
    * @param model the model of WorkbenchFX
    * @param view  corresponding view to this presenter
    */
-  public WorkbenchFxPresenter(WorkbenchFx model, WorkbenchFxView view) {
+  public WorkbenchPresenter(Workbench model, WorkbenchView view) {
     this.model = model;
     this.view = view;
     overlays = model.getOverlays();
-    overlaysShown = model.getOverlaysShown();
+    overlaysShown = model.getNonBlockingOverlaysShown();
     blockingOverlaysShown = model.getBlockingOverlaysShown();
     init();
   }

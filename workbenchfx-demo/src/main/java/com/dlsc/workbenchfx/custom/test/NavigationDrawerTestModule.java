@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.custom.test;
 
-import com.dlsc.workbenchfx.module.AbstractModule;
+import com.dlsc.workbenchfx.module.Module;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 
-public class NavigationDrawerTestModule extends AbstractModule {
+public class NavigationDrawerTestModule extends Module {
   private int itemsCount = 1;
 
   private final Button addMenuBtn = new Button("Add 1 MenuItem");

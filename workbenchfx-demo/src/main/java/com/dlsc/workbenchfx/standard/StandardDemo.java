@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.standard;
 
-import com.dlsc.workbenchfx.WorkbenchFx;
+import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.extended.calendar.CalendarModule;
 import com.dlsc.workbenchfx.extended.notes.NotesModule;
 import com.dlsc.workbenchfx.extended.preferences.PreferencesModule;
@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class StandardDemo extends Application {
 
-  public WorkbenchFx workbenchFx;
+  public Workbench workbench;
 
   public static void main(String[] args) {
     launch(args);
@@ -28,8 +28,8 @@ public class StandardDemo extends Application {
     primaryStage.centerOnScreen();
   }
 
-  private WorkbenchFx initWorkbench() {
-    return workbenchFx = WorkbenchFx.builder(
+  private Workbench initWorkbench() {
+    return workbench = Workbench.builder(
         new PreferencesModule(),
         new CalendarModule(),
         new NotesModule()
