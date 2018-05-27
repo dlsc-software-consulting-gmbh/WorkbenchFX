@@ -8,7 +8,7 @@ jdk: oraclejdk9
 
 env:
   global:
-    - CODECOV_TOKEN=:127975b3-f83a-48d5-8594-69981bfbab1a
+    - CODECOV_TOKEN=127975b3-f83a-48d5-8594-69981bfbab1a
 
 addons:
   apt:
