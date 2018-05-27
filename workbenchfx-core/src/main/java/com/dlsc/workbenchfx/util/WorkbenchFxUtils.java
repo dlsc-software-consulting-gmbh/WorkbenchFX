@@ -13,14 +13,20 @@ import javafx.scene.Node;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchFxUtils {
+public final class WorkbenchFxUtils {
 
   /**
-   * Makes sure the addresses of two nodes aren't the same.
-   * Is used to check {@link Node}s passed in by an API user. Since every {@link Node} can only be
-   * associated with one parent, if two {@link Node}s are being passed in, there is a certain risk
-   * the API user may pass in the same node twice, which will result in the node only being rendered
-   * in the GUI once.
+   * Utility class should not be possible to be instantiated.
+   */
+  private WorkbenchFxUtils() {
+
+  }
+
+  /**
+   * Makes sure the addresses of two nodes aren't the same. Is used to check {@link Node}s passed in
+   * by an API user. Since every {@link Node} can only be associated with one parent, if two {@link
+   * Node}s are being passed in, there is a certain risk the API user may pass in the same node
+   * twice, which will result in the node only being rendered in the GUI once.
    *
    * @param node1 first node to check
    * @param node2 second node to check
@@ -36,10 +42,10 @@ public class WorkbenchFxUtils {
   /**
    * Adds a {@link SetChangeListener} to an {@link ObservableSet}.
    *
-   * @param set to add a listener to
-   * @param added action to be performed when an object was added to the {@link Set}
+   * @param set     to add a listener to
+   * @param added   action to be performed when an object was added to the {@link Set}
    * @param removed action to be performed when an object was removed from the {@link Set}
-   * @param <T> type of the {@link ObservableSet}
+   * @param <T>     type of the {@link ObservableSet}
    */
   public static <T> void addSetListener(ObservableSet<T> set,
                                         Consumer<SetChangeListener.Change<? extends T>> added,

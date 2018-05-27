@@ -2,10 +2,12 @@ package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.module.Page;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
+import com.dlsc.workbenchfx.view.controls.module.Tile;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.BiFunction;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -17,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
+import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -77,11 +80,11 @@ public class Workbench extends Control {
    * The factories which are called when creating Tabs, Tiles and Pages of Tiles for the Views. They
    * require a module whose attributes are used to create the Nodes.
    */
-  private final ObjectProperty<BiFunction<Workbench, Module, Node>> tabFactory =
+  private final ObjectProperty<Callback<Workbench, Tab>> tabFactory =
       new SimpleObjectProperty<>(this, "tabFactory");
-  private final ObjectProperty<BiFunction<Workbench, Module, Node>> tileFactory =
+  private final ObjectProperty<Callback<Workbench, Tile>> tileFactory =
       new SimpleObjectProperty<>(this, "tileFactory");
-  private final ObjectProperty<BiFunction<Workbench, Integer, Node>> pageFactory =
+  private final ObjectProperty<Callback<Workbench, Page>> pageFactory =
       new SimpleObjectProperty<>(this, "pageFactory");
 
   // Properties
@@ -251,36 +254,39 @@ public class Workbench extends Control {
   }
 
   /**
-   * Generates a new Node which is then used as a Tab. Using the given {@link Module}, it calls the
-   * {@code tabFactory} which generates the Tab.
+   * Generates a new {@link Tab} control used for the representation of tabs.
    *
-   * @param module the module for which the Tab should be created
-   * @return a corresponding Tab which is created from the {@code tabFactory}
+   * @param module the module for which the {@link Tab} should be created
+   * @return a corresponding {@link Tab} which is created by using the {@code tabFactory}
    */
-  public Node getTab(Module module) {
-    return tabFactory.get().apply(this, module);
+  public Tab getTab(Module module) {
+    Tab tab = tabFactory.get().call(this);
+    tab.update(module);
+    return tab;
   }
 
   /**
-   * Generates a new Node which is then used as a Tile. Using the given {@link Module}, it calls the
-   * {@code tileFactory} which generates the Tile.
+   * Generates a new {@link Tile} control used for the representation of tiles on the home screen.
    *
-   * @param module the module for which the Tile should be created
-   * @return a corresponding Tile which contains the values of the module
+   * @param module the module for which the {@link Tile} should be created
+   * @return a corresponding {@link Tile} which is created by using the {@code tileFactory}
    */
   public Node getTile(Module module) {
-    return tileFactory.get().apply(this, module);
+    Tile tile = tileFactory.get().call(this);
+    tile.update(module);
+    return tile;
   }
 
   /**
-   * Generates a new Node which is then used as a page for the tiles on the home screen. Using the
-   * given {@code pageIndex}, it calls the {@code pageFactory} which generates the page.
+   * Generates a new {@link Page} for the tiles on the home screen.
    *
    * @param pageIndex the page index for which the page should be created
    * @return a corresponding page
    */
-  public Node getPage(int pageIndex) {
-    return pageFactory.get().apply(this, pageIndex);
+  public Page getPage(int pageIndex) {
+    Page page = pageFactory.get().call(this);
+    page.update(pageIndex);
+    return page;
   }
 
   public ObservableList<Module> getOpenModules() {
@@ -289,6 +295,28 @@ public class Workbench extends Control {
 
   public ObservableList<Module> getModules() {
     return FXCollections.unmodifiableObservableList(modules);
+  }
+
+  /**
+   * Adds the {@code module} to the home screen at runtime.
+   *
+   * @param module to be added
+   * @return true if successful, false if already added
+   */
+  public boolean addModule(Module module) {
+    if (modules.contains(module)) {
+      return false;
+    }
+    return modules.add(module);
+  }
+
+  /**
+   * Removes the {@code module} at runtime.
+   * @param module to be removed
+   * @return true if successful, false if not present
+   */
+  public boolean removeModule(Module module) {
+    return modules.remove(module);
   }
 
   public Module getActiveModule() {

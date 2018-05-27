@@ -15,6 +15,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.testing.MockPage;
+import com.dlsc.workbenchfx.testing.MockTab;
+import com.dlsc.workbenchfx.testing.MockTile;
+import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -26,6 +30,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -34,7 +40,7 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
 /**
- * Created by François Martin on 20.03.18.
+ * Tests for {@link Workbench}.
  */
 @Tag("fast")
 class WorkbenchTest extends ApplicationTest {
@@ -64,6 +70,14 @@ class WorkbenchTest extends ApplicationTest {
 
   private FxRobot robot;
 
+  // Dropdown items
+  private String dropdownText;
+  private FontAwesomeIconView dropdownIconView;
+  private ImageView dropdownImageView;
+  private MenuItem dropdownMenuItem;
+  private Dropdown dropdownLeft;
+  private Dropdown dropdownRight;
+
   @Override
   public void start(Stage stage) {
     robot = new FxRobot();
@@ -73,26 +87,35 @@ class WorkbenchTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = mock(Module.class);
-      when(mockModules[i].activate()).thenReturn(moduleNodes[i]);
-      when(mockModules[i].destroy()).thenReturn(true);
-      when(mockModules[i].toString()).thenReturn("Module " + i);
+      mockModules[i] = createMockModule(moduleNodes[i], true, "Module " + i);
     }
 
     FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
     fontAwesomeIconView.getStyleClass().add("icon");
     menuItem = new MenuItem("Item 1.1", fontAwesomeIconView);
 
-    workbench = Workbench.builder(mockModules[FIRST_INDEX], mockModules[SECOND_INDEX],
-            mockModules[LAST_INDEX])
-            // use "module.getName()" twice, to differentiate between tab and tile factories
-            .tabFactory((workbench, module) -> {
-              return new Label(module.getName() + module.getName(), module.getIcon());
-            })
-            .tileFactory((workbench, module) -> new Label(module.getName(), module.getIcon()))
-            .pageFactory((workbench, pageIndex) -> new Label(pageIndex.toString()))
-            .navigationDrawer(menuItem)
-            .build();
+    // Initialization of items for Dropdown testing
+    dropdownText = "Dropdown Text";
+    dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
+    dropdownImageView = new ImageView(
+        new Image(WorkbenchTest.class.getResource("date-picker.png").toExternalForm())
+    );
+    dropdownMenuItem = new MenuItem("Menu Item");
+
+    dropdownLeft = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
+    dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
+
+    workbench = Workbench.builder(
+        mockModules[FIRST_INDEX],
+        mockModules[SECOND_INDEX],
+        mockModules[LAST_INDEX])
+        .tabFactory(MockTab::new)
+        .tileFactory(MockTile::new)
+        .pageFactory(MockPage::new)
+        .navigationDrawer(menuItem)
+        .toolbarLeft(dropdownLeft)
+        .toolbarRight(dropdownRight)
+        .build();
 
     first = mockModules[FIRST_INDEX];
     second = mockModules[SECOND_INDEX];
@@ -113,6 +136,22 @@ class WorkbenchTest extends ApplicationTest {
     Scene scene = new Scene(workbench, 100, 100);
     stage.setScene(scene);
     stage.show();
+  }
+
+  /**
+   * Internal method to create mocks for {@link Module}.
+   *
+   * @param displayNode node to be displayed in the mock
+   * @param destroy     what the call for {@link Module#destroy()} should return
+   * @param toString    what {@link Module#toString()} should return
+   * @return the mock
+   */
+  Module createMockModule(Node displayNode, boolean destroy, String toString) {
+    Module mockModule = mock(Module.class);
+    when(mockModule.activate()).thenReturn(displayNode);
+    when(mockModule.destroy()).thenReturn(true);
+    when(mockModule.toString()).thenReturn(toString);
+    return mockModule;
   }
 
   @Test
@@ -660,34 +699,54 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void getTab() {
     robot.interact(() -> {
-      verify(first, never()).getName();
-      verify(first, never()).getIcon();
-      Node tab = workbench.getTab(first);
+      // verify factory gets applied correctly
+      assertTrue(workbench.getTab(first) instanceof MockTab);
+
+      // verify correct creation of tab
+      MockTab tab = (MockTab) workbench.getTab(first);
+
       assertNotNull(tab);
-      verify(first, times(2)).getName();
-      verify(first).getIcon();
+      // verify module has been updated correctly
+      assertSame(first, tab.getModule());
     });
   }
 
   @Test
   void getTile() {
     robot.interact(() -> {
-      verify(first, never()).getName();
-      verify(first, never()).getIcon();
-      Node tab = workbench.getTile(first);
-      assertNotNull(tab);
-      verify(first).getName();
-      verify(first).getIcon();
+      // verify factory gets applied correctly
+      assertTrue(workbench.getTile(first) instanceof MockTile);
+
+      // verify correct creation of tile
+      MockTile tile = (MockTile) workbench.getTile(first);
+
+      assertNotNull(tile);
+      // verify module has been updated correctly
+      assertSame(first, tile.getModule());
     });
   }
 
   @Test
   void getPage() {
     robot.interact(() -> {
-      Node page = workbench.getPage(0);
-      assertTrue(page instanceof Label);
-      assertEquals("0", ((Label) page).getText());
-      assertEquals("5", ((Label) workbench.getPage(5)).getText());
+      int pageIndex = 0;
+      // verify factory gets applied correctly
+      assertTrue(workbench.getPage(pageIndex) instanceof MockPage);
+
+      // verify correct creation of page - index 0
+      MockPage page = (MockPage) workbench.getPage(pageIndex);
+
+      assertNotNull(page);
+      // verify module has been updated correctly
+      assertSame(pageIndex, page.getPageIndex());
+
+      // verify correct creation of page - index 5
+      pageIndex = 5;
+      page = (MockPage) workbench.getPage(pageIndex);
+
+      assertNotNull(page);
+      // verify module has been updated correctly
+      assertSame(pageIndex, page.getPageIndex());
     });
   }
 
@@ -1031,6 +1090,83 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       workbench.removeNavigationDrawerItems(menuItem);
       assertEquals(0, navigationDrawerItems.size());
+    });
+  }
+
+  @Test
+  void removeToolbarControlsLeftAndRight() {
+    robot.interact(() -> {
+      Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
+
+      int initialSizeLeft = workbench.getToolbarControlsLeft().size();
+      assertFalse(workbench.removeToolbarControlLeft(d));
+      assertSame(initialSizeLeft, workbench.getToolbarControlsLeft().size());
+
+      int initialSizeRight = workbench.getToolbarControlsRight().size();
+      assertFalse(workbench.removeToolbarControlRight(d));
+      assertSame(initialSizeRight, workbench.getToolbarControlsRight().size());
+
+      assertTrue(workbench.removeToolbarControlLeft(dropdownLeft));
+      assertSame(initialSizeLeft - 1, workbench.getToolbarControlsLeft().size());
+      assertTrue(workbench.removeToolbarControlRight(dropdownRight));
+      assertSame(initialSizeRight - 1, workbench.getToolbarControlsRight().size());
+    });
+  }
+
+  @Test
+  void addToolbarControlsLeftAndRight() {
+    robot.interact(() -> {
+      int initialSizeLeft = workbench.getToolbarControlsLeft().size();
+      Dropdown d = Dropdown.of(dropdownIconView, dropdownMenuItem);
+      assertTrue(workbench.addToolbarControlLeft(d));
+      assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
+      assertFalse(workbench.addToolbarControlLeft(d));
+      assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
+
+      int initialSizeRight = workbench.getToolbarControlsRight().size();
+      d = Dropdown.of(dropdownText, dropdownMenuItem);
+      assertTrue(workbench.addToolbarControlRight(d));
+      assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
+      assertFalse(workbench.addToolbarControlRight(d));
+      assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
+    });
+  }
+
+  @Test
+  void addModule() {
+    // TODO: after refactoring Page etc., check if listeners call methods on mock
+    robot.interact(() -> {
+      ObservableList<Module> modules = workbench.getModules();
+      int currentSize = modules.size();
+      String mockModuleName = "Mock Module";
+      Module mockModule = createMockModule(new Label(), true, mockModuleName);
+
+      assertTrue(workbench.addModule(mockModule));
+
+      assertSame(currentSize + 1, modules.size());
+
+      // adding same module again should not add it
+      assertFalse(workbench.addModule(mockModule));
+
+      assertSame(currentSize + 1, modules.size());
+    });
+  }
+
+  @Test
+  void removeModule() {
+    // TODO: after refactoring Page etc., check if listeners call methods on mock
+    robot.interact(() -> {
+      ObservableList<Module> modules = workbench.getModules();
+      int currentSize = modules.size();
+
+      assertTrue(workbench.removeModule(mockModules[0]));
+
+      assertSame(currentSize - 1, modules.size());
+
+      // removing same module again should not remove it
+      assertFalse(workbench.removeModule(mockModules[0]));
+
+      assertSame(currentSize - 1, modules.size());
     });
   }
 }
