@@ -97,6 +97,9 @@
                             <arguments>
                                 <argument>versions:set</argument>
                                 <argument>-DnewVersion=${workbenchfx.version}</argument>
+                                <argument>-DoldVersion=*</argument>
+                                <argument>-DgroupId=*</argument>
+                                <argument>-DartifactId=*</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -110,21 +113,6 @@
                             <executable>mvn</executable>
                             <arguments>
                                 <argument>versions:update-child-modules</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>set-core-version</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>mvn</executable>
-                            <arguments>
-                                <argument>-f${workbenchfx.core.pom}</argument>
-                                <argument>versions:set</argument>
-                                <argument>-DnewVersion=${workbenchfx.version}</argument>
                             </arguments>
                         </configuration>
                     </execution>
