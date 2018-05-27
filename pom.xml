@@ -12,7 +12,6 @@
     <properties>
         <workbenchfx.version>1.2.0</workbenchfx.version>
 
-        <workbenchfx.core.pom>workbenchfx-core/pom.xml</workbenchfx.core.pom>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <asciidoctor.maven.plugin.version>1.5.6</asciidoctor.maven.plugin.version>
         <asciidoctorj.version>1.5.6</asciidoctorj.version>
