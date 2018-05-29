@@ -37,7 +37,7 @@ public class Tab extends Control {
    *
    * @param module to be represented by this {@link Tab}
    */
-  public void setModule(Module module) {
+  public final void setModule(Module module) {
     LOGGER.trace("Setting reference to module");
     this.module.set(module);
   }
