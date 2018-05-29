@@ -40,7 +40,7 @@ public class PageSkin extends SkinBase<Page> {
     initializeParts();
 
     setupSkin(); // initial setup
-    setupListeners(workbench); // setup for changing modules
+    setupListeners(); // setup for changing modules
 
     getChildren().add(tilePane);
   }
@@ -50,7 +50,7 @@ public class PageSkin extends SkinBase<Page> {
     tilePane.getStyleClass().add("tile-page");
   }
 
-  private void setupListeners(Workbench workbench) {
+  private void setupListeners() {
     LOGGER.trace("Add listener");
     tiles.addListener((InvalidationListener) observable -> setupSkin());
   }
