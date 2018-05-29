@@ -273,7 +273,7 @@ public class Workbench extends Control {
    */
   public Node getTile(Module module) {
     Tile tile = tileFactory.get().call(this);
-    tile.update(module);
+    tile.setModule(module);
     return tile;
   }
 
