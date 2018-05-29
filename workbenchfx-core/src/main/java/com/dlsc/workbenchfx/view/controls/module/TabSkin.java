@@ -98,10 +98,10 @@ public class TabSkin extends SkinBase<Tab> {
     closeBtn.setOnAction(e -> workbench.closeModule(module));
     controlBox.setOnMouseClicked(e -> workbench.openModule(module));
 
-    activeTab.addListener((observable, oldModule, newModule) -> {
-      LOGGER.trace("Tab Factory - Old Module: " + oldModule);
-      LOGGER.trace("Tab Factory - New Module: " + oldModule);
-      if (newModule) {
+    activeTab.addListener((observable, wasActive, isActive) -> {
+      LOGGER.trace("Tab Factory - Was active: " + wasActive);
+      LOGGER.trace("Tab Factory - Is active: " + isActive);
+      if (isActive) {
         controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
         LOGGER.trace("STYLE SET");
       } else {
