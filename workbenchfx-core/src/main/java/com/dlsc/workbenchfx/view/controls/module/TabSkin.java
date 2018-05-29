@@ -10,7 +10,9 @@ import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,10 +36,11 @@ public class TabSkin extends SkinBase<Tab> {
   private Button closeBtn;
   private FontAwesomeIconView closeIconView;
 
-  private Node icon;
   private Label nameLbl;
 
   private final ReadOnlyBooleanProperty activeTab;
+  private final ReadOnlyStringProperty name;
+  private final ReadOnlyObjectProperty<Node> icon;
 
   /**
    * Creates a new {@link TabSkin} object for a corresponding {@link Tab}.
@@ -48,9 +51,12 @@ public class TabSkin extends SkinBase<Tab> {
     super(tab);
     module = tab.moduleProperty();
     activeTab = tab.activeTabProperty();
+    name = tab.nameProperty();
+    icon = tab.iconProperty();
 
     initializeParts();
     layoutParts();
+    setupBindings();
 
     Workbench workbench = tab.getWorkbench();
     setupSkin(workbench, module.get()); // initial setup
@@ -80,6 +86,10 @@ public class TabSkin extends SkinBase<Tab> {
     controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
   }
 
+  private void setupBindings() {
+    nameLbl.textProperty().bind(name);
+  }
+
   private void setupModuleListener(Workbench workbench) {
     LOGGER.trace("Add module listener");
     module.addListener((observable, oldModule, newModule) -> {
@@ -93,8 +103,8 @@ public class TabSkin extends SkinBase<Tab> {
   }
 
   private void setupSkin(Workbench workbench, Module module) {
-    setupIcon(module);
-    nameLbl.setText(module.getName());
+    updateIcon(icon.get());
+
     closeBtn.setOnAction(e -> workbench.closeModule(module));
     controlBox.setOnMouseClicked(e -> workbench.openModule(module));
 
@@ -111,14 +121,10 @@ public class TabSkin extends SkinBase<Tab> {
     });
   }
 
-  private void setupIcon(Module module) {
-    // remove old and add new icon
-    controlBox.getChildren().remove(0);
-    this.icon = module.getIcon();
-    controlBox.getChildren().add(0, icon);
+  private void updateIcon(Node icon) {
+    ObservableList<Node> children = controlBox.getChildren();
+    children.remove(0);
+    children.add(0, icon);
     icon.getStyleClass().add("tab-icon");
   }
-
-
-
 }
