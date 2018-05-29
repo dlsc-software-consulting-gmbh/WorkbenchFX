@@ -1,9 +1,12 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.module.Module;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import org.apache.logging.log4j.LogManager;
@@ -19,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 public class Page extends Control {
   private static final Logger LOGGER = LogManager.getLogger(Page.class.getName());
   private final Workbench workbench;
+  private final ObservableList<Module> modules;
   private final IntegerProperty pageIndex;
 
   /**
@@ -29,6 +33,12 @@ public class Page extends Control {
   public Page(Workbench workbench) {
     this.workbench = workbench;
     pageIndex = new SimpleIntegerProperty();
+    modules = workbench.getModules();
+  }
+
+  public void setOnChanged(InvalidationListener listener){
+    modules.addListener(listener);
+    pageIndex.addListener(listener);
   }
 
   /**

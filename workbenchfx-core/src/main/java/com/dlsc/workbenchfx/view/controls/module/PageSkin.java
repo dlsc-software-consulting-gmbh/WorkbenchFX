@@ -21,7 +21,6 @@ public class PageSkin extends SkinBase<Page> {
   private static final Logger LOGGER = LogManager.getLogger(PageSkin.class.getName());
   private static final int COLUMNS_PER_ROW = 3;
 
-  private final ObservableList<Module> modules;
   private final ReadOnlyIntegerProperty pageIndex;
 
   private GridPane tilePane;
@@ -35,7 +34,6 @@ public class PageSkin extends SkinBase<Page> {
     super(page);
     pageIndex = page.pageIndexProperty();
     Workbench workbench = page.getWorkbench();
-    modules = workbench.getModules();
 
     initializeParts();
 
@@ -51,9 +49,8 @@ public class PageSkin extends SkinBase<Page> {
   }
 
   private void setupListeners(Workbench workbench) {
-    LOGGER.trace("Add module listener");
-    modules.addListener((InvalidationListener) observable -> setupSkin(workbench, pageIndex.get()));
-    pageIndex.addListener(observable -> setupSkin(workbench, pageIndex.get()));
+    LOGGER.trace("Add listener");
+    getSkinnable().setOnChanged(observable -> setupSkin(workbench, pageIndex.get()));
   }
 
   private void setupSkin(Workbench workbench, int pageIndex) {
@@ -65,6 +62,7 @@ public class PageSkin extends SkinBase<Page> {
     int column = 0;
     int row = 0;
 
+    ObservableList<Module> modules = workbench.getModules();
     while (count < workbench.modulesPerPage && position < modules.size()) {
       Module module = modules.get(position);
       Node tile = workbench.getTile(module);
