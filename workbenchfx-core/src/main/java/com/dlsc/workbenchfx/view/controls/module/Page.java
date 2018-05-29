@@ -36,6 +36,12 @@ public class Page extends Control {
     modules = workbench.getModules();
   }
 
+  /**
+   * Defines which call should be made when the {@link Page} needs to be rebuilt because of changes
+   * in the {@link Workbench}.
+   *
+   * @param listener to be fired in the event of a change in the {@link Workbench}
+   */
   public void setOnChanged(InvalidationListener listener){
     modules.addListener(listener);
     pageIndex.addListener(listener);
