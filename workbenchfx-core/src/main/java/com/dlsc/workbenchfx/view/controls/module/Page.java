@@ -77,6 +77,10 @@ public class Page extends Control {
     return pageIndex;
   }
 
+  public ObservableList<Tile> getTiles() {
+    return FXCollections.unmodifiableObservableList(tiles);
+  }
+
   public Workbench getWorkbench() {
     return workbench;
   }
