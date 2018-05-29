@@ -50,6 +50,7 @@ public class Tab extends Control {
     icon = new SimpleObjectProperty<>();
     activeTab = new SimpleBooleanProperty();
     initModuleListeners();
+    setupActiveTabListener();
   }
 
   private void initModuleListeners() {
