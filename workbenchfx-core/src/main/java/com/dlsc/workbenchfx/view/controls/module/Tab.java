@@ -12,7 +12,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
@@ -49,15 +48,24 @@ public class Tab extends Control {
     name = new SimpleStringProperty();
     icon = new SimpleObjectProperty<>();
     activeTab = new SimpleBooleanProperty();
-    initModuleListeners();
+    setupModuleListeners();
     setupActiveTabListener();
   }
 
-  private void initModuleListeners() {
+  private void setupModuleListeners() {
     module.addListener(observable -> {
       Module current = getModule();
       name.setValue(current.getName());
       icon.setValue(current.getIcon());
+    });
+  }
+
+  private void setupActiveTabListener() {
+    // whenever the module of this tab changes, re-initialize the binding which determines whether
+    // this tab is the currently active tab or not
+    moduleProperty().addListener(observable -> {
+      activeTab.unbind();
+      activeTab.bind(Bindings.equal(getModule(), workbench.activeModuleProperty()));
     });
   }
 
@@ -97,15 +105,6 @@ public class Tab extends Control {
 
   public Workbench getWorkbench() {
     return workbench;
-  }
-
-  private void setupActiveTabListener() {
-    // whenever the module of this tab changes, re-initialize the binding which determines whether
-    // this tab is the currently active tab or not
-    moduleProperty().addListener(observable -> {
-      activeTab.unbind();
-      activeTab.bind(Bindings.equal(getModule(), workbench.activeModuleProperty()));
-    });
   }
 
   public boolean isActiveTab() {
