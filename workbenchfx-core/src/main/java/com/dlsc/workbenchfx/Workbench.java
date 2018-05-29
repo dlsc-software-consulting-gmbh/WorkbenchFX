@@ -285,7 +285,7 @@ public class Workbench extends Control {
    */
   public Page getPage(int pageIndex) {
     Page page = pageFactory.get().call(this);
-    page.update(pageIndex);
+    page.setPageIndex(pageIndex);
     return page;
   }
 

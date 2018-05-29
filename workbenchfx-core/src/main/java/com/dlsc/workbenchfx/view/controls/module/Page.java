@@ -52,7 +52,7 @@ public class Page extends Control {
    *
    * @param pageIndex to be represented by this {@link Page}
    */
-  public void update(int pageIndex) {
+  public void setPageIndex(int pageIndex) {
     this.pageIndex.set(pageIndex);
   }
 
