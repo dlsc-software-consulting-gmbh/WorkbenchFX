@@ -482,7 +482,7 @@ public class Workbench extends Control {
   }
 
   @Override
-  public String getUserAgentStylesheet(){
+  public String getUserAgentStylesheet() {
     return Workbench.class.getResource("css/main.css").toExternalForm();
   }
 }
