@@ -261,7 +261,7 @@ public class Workbench extends Control {
    */
   public Tab getTab(Module module) {
     Tab tab = tabFactory.get().call(this);
-    tab.update(module);
+    tab.setModule(module);
     return tab;
   }
 
