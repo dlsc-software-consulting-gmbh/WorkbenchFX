@@ -478,4 +478,9 @@ public class Workbench extends Control {
   public ObservableSet<Node> getBlockingOverlaysShown() {
     return FXCollections.unmodifiableObservableSet(blockingOverlaysShown);
   }
+
+  @Override
+  public String getUserAgentStylesheet() {
+    return Workbench.class.getResource("css/main.css").toExternalForm();
+  }
 }
