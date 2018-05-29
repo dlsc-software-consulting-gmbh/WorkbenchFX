@@ -2,12 +2,17 @@ package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
@@ -30,6 +35,7 @@ public class Tab extends Control {
   private final ObjectProperty<Module> module;
   private final StringProperty name;
   private final ObjectProperty<Node> icon;
+  private final BooleanProperty activeTab;
 
   /**
    * Constructs a new {@link Tab}.
@@ -42,6 +48,7 @@ public class Tab extends Control {
     module = new SimpleObjectProperty<>();
     name = new SimpleStringProperty();
     icon = new SimpleObjectProperty<>();
+    activeTab = new SimpleBooleanProperty();
     initModuleListeners();
   }
 
@@ -89,6 +96,23 @@ public class Tab extends Control {
 
   public Workbench getWorkbench() {
     return workbench;
+  }
+
+  private void setupActiveTabListener() {
+    // whenever the module of this tab changes, re-initialize the binding which determines whether
+    // this tab is the currently active tab or not
+    moduleProperty().addListener(observable -> {
+      activeTab.unbind();
+      activeTab.bind(Bindings.equal(getModule(), workbench.activeModuleProperty()));
+    });
+  }
+
+  public boolean isActiveTab() {
+    return activeTab.get();
+  }
+
+  public ReadOnlyBooleanProperty activeTabProperty() {
+    return activeTab;
   }
 
   @Override

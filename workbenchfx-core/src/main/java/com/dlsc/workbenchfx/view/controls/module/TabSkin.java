@@ -7,6 +7,8 @@ import com.dlsc.workbenchfx.module.Module;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.Objects;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
@@ -34,7 +36,8 @@ public class TabSkin extends SkinBase<Tab> {
 
   private Node icon;
   private Label nameLbl;
-  private ChangeListener<Module> activeTabListener;
+
+  private final ReadOnlyBooleanProperty activeTab;
 
   /**
    * Creates a new {@link TabSkin} object for a corresponding {@link Tab}.
@@ -44,6 +47,7 @@ public class TabSkin extends SkinBase<Tab> {
   public TabSkin(Tab tab) {
     super(tab);
     module = tab.moduleProperty();
+    activeTab = tab.activeTabProperty();
 
     initializeParts();
     layoutParts();
@@ -93,7 +97,18 @@ public class TabSkin extends SkinBase<Tab> {
     nameLbl.setText(module.getName());
     closeBtn.setOnAction(e -> workbench.closeModule(module));
     controlBox.setOnMouseClicked(e -> workbench.openModule(module));
-    setupActiveTabListener(workbench, module);
+
+    activeTab.addListener((observable, oldModule, newModule) -> {
+      LOGGER.trace("Tab Factory - Old Module: " + oldModule);
+      LOGGER.trace("Tab Factory - New Module: " + oldModule);
+      if (newModule) {
+        controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
+        LOGGER.trace("STYLE SET");
+      } else {
+        // switch from this to other tab
+        controlBox.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
+      }
+    });
   }
 
   private void setupIcon(Module module) {
@@ -104,26 +119,6 @@ public class TabSkin extends SkinBase<Tab> {
     icon.getStyleClass().add("tab-icon");
   }
 
-  private void setupActiveTabListener(Workbench workbench, Module module) {
-    // remove previously set listener
-    if (!Objects.isNull(activeTabListener)) {
-      workbench.activeModuleProperty().removeListener(activeTabListener);
-    }
 
-    // (re-)initialize active tab listener
-    activeTabListener = (observable, oldModule, newModule) -> {
-      LOGGER.trace("Tab Factory - Old Module: " + oldModule);
-      LOGGER.trace("Tab Factory - New Module: " + oldModule);
-      if (module == newModule) {
-        controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-        LOGGER.trace("STYLE SET");
-      }
-      if (module == oldModule) {
-        // switch from this to other tab
-        controlBox.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
-      }
-    };
 
-    workbench.activeModuleProperty().addListener(activeTabListener);
-  }
 }
