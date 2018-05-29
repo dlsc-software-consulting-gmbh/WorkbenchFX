@@ -1,5 +1,7 @@
 package com.dlsc.workbenchfx;
 
+import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
+
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.module.Page;
@@ -477,5 +479,10 @@ public class Workbench extends Control {
 
   public ObservableSet<Node> getBlockingOverlaysShown() {
     return FXCollections.unmodifiableObservableSet(blockingOverlaysShown);
+  }
+
+  @Override
+  public String getUserAgentStylesheet(){
+    return Workbench.class.getResource("css/main.css").toExternalForm();
   }
 }
