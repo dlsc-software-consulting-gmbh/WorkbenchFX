@@ -58,10 +58,9 @@ public class TabSkin extends SkinBase<Tab> {
     layoutParts();
     setupBindings();
     setupEventHandlers();
+    setupValueChangedListeners();
 
-    Workbench workbench = tab.getWorkbench();
-    setupSkin(); // initial setup
-    setupModuleListener(); // setup for changing modules
+    updateIcon();
 
     getChildren().add(controlBox);
   }
@@ -96,21 +95,8 @@ public class TabSkin extends SkinBase<Tab> {
     controlBox.setOnMouseClicked(e -> getSkinnable().open());
   }
 
-  private void setupModuleListener() {
-    LOGGER.trace("Add module listener");
-    module.addListener((observable, oldModule, newModule) -> {
-      LOGGER.trace("moduleListener called");
-      LOGGER.trace("old: " + oldModule + " new: " + newModule);
-      if (oldModule != newModule) {
-        LOGGER.trace("Setting up skin");
-        setupSkin();
-      }
-    });
-  }
-
-  private void setupSkin() {
-    updateIcon(icon.get());
-
+  private void setupValueChangedListeners() {
+    // add or remove "active tab" style class, depending on state
     activeTab.addListener((observable, wasActive, isActive) -> {
       LOGGER.trace("Tab Factory - Was active: " + wasActive);
       LOGGER.trace("Tab Factory - Is active: " + isActive);
@@ -122,12 +108,20 @@ public class TabSkin extends SkinBase<Tab> {
         controlBox.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
       }
     });
+
+    // handle icon changes
+    icon.addListener((observable, oldIcon, newIcon) -> {
+      if (oldIcon != newIcon) {
+        updateIcon();
+      }
+    });
   }
 
-  private void updateIcon(Node icon) {
+  private void updateIcon() {
+    Node iconNode = icon.get();
     ObservableList<Node> children = controlBox.getChildren();
     children.remove(0);
-    children.add(0, icon);
-    icon.getStyleClass().add("tab-icon");
+    children.add(0, iconNode);
+    iconNode.getStyleClass().add("tab-icon");
   }
 }
