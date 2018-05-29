@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class Tab extends Control {
+  // TODO: test if name and icon are correctly applied
   private static final Logger LOGGER = LogManager.getLogger(Tab.class.getName());
 
   private final Workbench workbench;
