@@ -57,10 +57,11 @@ public class TabSkin extends SkinBase<Tab> {
     initializeParts();
     layoutParts();
     setupBindings();
+    setupEventHandlers();
 
     Workbench workbench = tab.getWorkbench();
-    setupSkin(workbench, module.get()); // initial setup
-    setupModuleListener(workbench); // setup for changing modules
+    setupSkin(); // initial setup
+    setupModuleListener(); // setup for changing modules
 
     getChildren().add(controlBox);
   }
@@ -90,23 +91,25 @@ public class TabSkin extends SkinBase<Tab> {
     nameLbl.textProperty().bind(name);
   }
 
-  private void setupModuleListener(Workbench workbench) {
+  private void setupEventHandlers(){
+    closeBtn.setOnAction(e -> getSkinnable().close());
+    controlBox.setOnMouseClicked(e -> getSkinnable().open());
+  }
+
+  private void setupModuleListener() {
     LOGGER.trace("Add module listener");
     module.addListener((observable, oldModule, newModule) -> {
       LOGGER.trace("moduleListener called");
       LOGGER.trace("old: " + oldModule + " new: " + newModule);
       if (oldModule != newModule) {
         LOGGER.trace("Setting up skin");
-        setupSkin(workbench, newModule);
+        setupSkin();
       }
     });
   }
 
-  private void setupSkin(Workbench workbench, Module module) {
+  private void setupSkin() {
     updateIcon(icon.get());
-
-    closeBtn.setOnAction(e -> workbench.closeModule(module));
-    controlBox.setOnMouseClicked(e -> workbench.openModule(module));
 
     activeTab.addListener((observable, wasActive, isActive) -> {
       LOGGER.trace("Tab Factory - Was active: " + wasActive);

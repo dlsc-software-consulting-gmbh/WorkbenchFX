@@ -79,6 +79,14 @@ public class Tab extends Control {
     this.module.set(module);
   }
 
+  public void close() {
+    workbench.closeModule(getModule());
+  }
+
+  public void open() {
+    workbench.openModule(getModule());
+  }
+
   public Module getModule() {
     return module.get();
   }
