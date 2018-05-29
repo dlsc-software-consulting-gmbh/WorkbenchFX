@@ -35,7 +35,6 @@ public class PageSkin extends SkinBase<Page> {
     super(page);
     pageIndex = page.pageIndexProperty();
     tiles = page.getTiles();
-    Workbench workbench = page.getWorkbench();
 
     initializeParts();
 

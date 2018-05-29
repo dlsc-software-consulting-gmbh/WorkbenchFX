@@ -83,10 +83,6 @@ public class Page extends Control {
     return FXCollections.unmodifiableObservableList(tiles);
   }
 
-  public Workbench getWorkbench() {
-    return workbench;
-  }
-
   @Override
   protected Skin<?> createDefaultSkin() {
     return new PageSkin(this);
