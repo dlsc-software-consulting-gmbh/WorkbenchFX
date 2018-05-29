@@ -6,6 +6,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
@@ -24,6 +25,7 @@ public class Page extends Control {
   private final Workbench workbench;
   private final ObservableList<Module> modules;
   private final IntegerProperty pageIndex;
+  private final ObservableList<Tile> tiles;
 
   /**
    * Constructs a new {@link Tab}.
@@ -34,17 +36,28 @@ public class Page extends Control {
     this.workbench = workbench;
     pageIndex = new SimpleIntegerProperty();
     modules = workbench.getModules();
+    tiles = FXCollections.observableArrayList();
+    setupChangeListeners();
+    updateTiles();
   }
 
-  /**
-   * Defines which call should be made when the {@link Page} needs to be rebuilt because of changes
-   * in the {@link Workbench}.
-   *
-   * @param listener to be fired in the event of a change in the {@link Workbench}
-   */
-  public void setOnChanged(InvalidationListener listener){
-    modules.addListener(listener);
-    pageIndex.addListener(listener);
+  private void setupChangeListeners() {
+    // update tiles list whenever modules or the pageIndex of this page have changed
+    InvalidationListener modulesChangedListener = observable -> updateTiles();
+    modules.addListener(modulesChangedListener);
+    pageIndex.addListener(modulesChangedListener);
+  }
+
+  private void updateTiles() {
+    // remove any preexisting tiles in the list
+    tiles.clear();
+    int position = getPageIndex() * workbench.modulesPerPage;
+    modules.stream()
+        .skip(position) // skip all tiles from previous pages
+        .limit(workbench.modulesPerPage) // only take as many tiles as there are per page
+        .map(workbench::getTile)
+        .map(Tile.class::cast)
+        .forEachOrdered(tiles::add);
   }
 
   /**
