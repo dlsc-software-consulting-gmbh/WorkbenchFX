@@ -111,10 +111,6 @@ public class Tab extends Control {
     return icon;
   }
 
-  public Workbench getWorkbench() {
-    return workbench;
-  }
-
   public boolean isActiveTab() {
     return activeTab.get();
   }
