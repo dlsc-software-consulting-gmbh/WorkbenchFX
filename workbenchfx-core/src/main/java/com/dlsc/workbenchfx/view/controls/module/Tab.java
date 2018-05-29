@@ -4,7 +4,12 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import org.apache.logging.log4j.LogManager;
@@ -20,7 +25,11 @@ public class Tab extends Control {
   private static final Logger LOGGER = LogManager.getLogger(Tab.class.getName());
 
   private final Workbench workbench;
+  private final ObservableList<Module> modules;
+
   private final ObjectProperty<Module> module;
+  private final StringProperty name;
+  private final ObjectProperty<Node> icon;
 
   /**
    * Constructs a new {@link Tab}.
@@ -29,7 +38,19 @@ public class Tab extends Control {
    */
   public Tab(Workbench workbench) {
     this.workbench = workbench;
+    this.modules = workbench.getModules();
     module = new SimpleObjectProperty<>();
+    name = new SimpleStringProperty();
+    icon = new SimpleObjectProperty<>();
+    initModuleListeners();
+  }
+
+  private void initModuleListeners() {
+    module.addListener(observable -> {
+      Module current = getModule();
+      name.setValue(current.getName());
+      icon.setValue(current.getIcon());
+    });
   }
 
   /**
@@ -48,6 +69,22 @@ public class Tab extends Control {
 
   public ReadOnlyObjectProperty<Module> moduleProperty() {
     return module;
+  }
+
+  public String getName() {
+    return name.get();
+  }
+
+  public ReadOnlyStringProperty nameProperty() {
+    return name;
+  }
+
+  public Node getIcon() {
+    return icon.get();
+  }
+
+  public ReadOnlyObjectProperty<Node> iconProperty() {
+    return icon;
   }
 
   public Workbench getWorkbench() {
