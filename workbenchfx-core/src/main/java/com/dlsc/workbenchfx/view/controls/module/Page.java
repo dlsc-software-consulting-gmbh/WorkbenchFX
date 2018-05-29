@@ -48,6 +48,7 @@ public class Page extends Control {
     pageIndex.addListener(modulesChangedListener);
   }
 
+  // TODO: test this method
   private void updateTiles() {
     // remove any preexisting tiles in the list
     tiles.clear();
