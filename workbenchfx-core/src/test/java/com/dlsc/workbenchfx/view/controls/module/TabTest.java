@@ -1,7 +1,13 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
 import static com.dlsc.workbenchfx.testing.MockFactory.createMockModule;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.Workbench;
@@ -10,7 +16,9 @@ import com.dlsc.workbenchfx.testing.MockPage;
 import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -34,6 +42,7 @@ class TabTest extends ApplicationTest {
   private Node[] moduleNodes = new Node[SIZE];
   private Node[] moduleIcons = new Node[SIZE];
   private ObservableList<Module> modulesList;
+  private ObjectProperty<Module> activeModule;
 
   private MockTab tab;
 
@@ -54,6 +63,8 @@ class TabTest extends ApplicationTest {
 
     modulesList = FXCollections.observableArrayList(mockModules);
     when(mockBench.getModules()).thenReturn(modulesList);
+    activeModule = new SimpleObjectProperty<>();
+    when(mockBench.activeModuleProperty()).thenReturn(activeModule);
 
     tab = new MockTab(mockBench);
     tab.setModule(mockModules[0]);
@@ -64,46 +75,58 @@ class TabTest extends ApplicationTest {
   }
 
   @Test
-  void setModule() {
+  void testActiveTabListener() {
+    assertFalse(tab.isActiveTab());
+
+    // change it to be the active module tab
+    activeModule.set(mockModules[0]);
+    assertTrue(tab.isActiveTab());
+
+    // change the module displayed by this tab, should not be the active tab now
+    tab.setModule(mockModules[1]);
+    assertFalse(tab.isActiveTab());
+
+    // changing the active module tab now should make it active again
+    activeModule.set(mockModules[1]);
+    assertTrue(tab.isActiveTab());
+
+    verify(mockBench, atLeastOnce()).activeModuleProperty();
+  }
+
+  @Test
+  void testModuleListener() {
+    assertEquals("Module 0", tab.getName());
+    assertEquals("Module Icon 0", ((Label)tab.getIcon()).getText());
+
+    // change to module 1
+    tab.setModule(mockModules[1]);
+    assertEquals("Module 1", tab.getName());
+    assertEquals("Module Icon 1", ((Label)tab.getIcon()).getText());
+
+    verify(mockBench, atLeastOnce()).getModules();
   }
 
   @Test
   void close() {
+    // initial module
+    tab.close();
+    verify(mockBench).closeModule(mockModules[0]);
+
+    // newly set module
+    tab.setModule(mockModules[1]);
+    tab.close();
+    verify(mockBench).closeModule(mockModules[1]);
   }
 
   @Test
   void open() {
-  }
+    // initial module
+    tab.open();
+    verify(mockBench).openModule(mockModules[0]);
 
-  @Test
-  void getModule() {
-  }
-
-  @Test
-  void moduleProperty() {
-  }
-
-  @Test
-  void getName() {
-  }
-
-  @Test
-  void nameProperty() {
-  }
-
-  @Test
-  void getIcon() {
-  }
-
-  @Test
-  void iconProperty() {
-  }
-
-  @Test
-  void isActiveTab() {
-  }
-
-  @Test
-  void activeTabProperty() {
+    // newly set module
+    tab.setModule(mockModules[1]);
+    tab.open();
+    verify(mockBench).openModule(mockModules[1]);
   }
 }
