@@ -21,7 +21,6 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class Page extends Control {
-  // TODO: change demo as well
   private static final Logger LOGGER = LogManager.getLogger(Page.class.getName());
   private final Workbench workbench;
   private final ObservableList<Module> modules;
