@@ -2,26 +2,19 @@ package com.dlsc.workbenchfx.view.controls.module;
 
 import static com.dlsc.workbenchfx.testing.MockFactory.createMockModule;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.testing.MockPage;
-import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
