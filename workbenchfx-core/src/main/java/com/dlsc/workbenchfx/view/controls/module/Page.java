@@ -27,7 +27,8 @@ public class Page extends Control {
   private final Workbench workbench;
   private final ObservableList<Module> modules;
   private final IntegerProperty pageIndex;
-  private final ObservableSet<Tile> tiles; // TODO: Set
+  private final ObservableSet<Tile> tiles;
+  private final IntegerProperty modulesPerPage;
 
   /**
    * Constructs a new {@link Tab}.
@@ -37,6 +38,7 @@ public class Page extends Control {
   public Page(Workbench workbench) {
     this.workbench = workbench;
     pageIndex = new SimpleIntegerProperty();
+    modulesPerPage = workbench.modulesPerPageProperty();
     modules = workbench.getModules();
     tiles = FXCollections.observableSet(new LinkedHashSet<>());
     setupChangeListeners();
@@ -48,6 +50,7 @@ public class Page extends Control {
     InvalidationListener modulesChangedListener = observable -> updateTiles();
     modules.addListener(modulesChangedListener);
     pageIndex.addListener(modulesChangedListener);
+    modulesPerPage.addListener(modulesChangedListener);
   }
 
   // TODO: test this method
