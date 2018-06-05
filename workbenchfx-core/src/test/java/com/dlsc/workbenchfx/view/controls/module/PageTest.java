@@ -139,9 +139,24 @@ class PageTest extends ApplicationTest {
     robot.interact(() -> {
       // tiles get updated when list of modules gets changed
 
+      // remove first module
+      modulesList.remove(0);
 
       assertEquals(modulesPerPage.get(), tiles0.size());
-      assertEquals(SIZE - modulesPerPage.get(), tiles1.size());
+      assertEquals(0, tiles1.size());
+      assertEquals(mockModules[1],tiles0.get(0).getModule());
+
+      // add module again
+      modulesList.add(0, mockModules[0]);
+      assertEquals(modulesPerPage.get(), tiles0.size());
+      assertEquals(mockModules[0],tiles0.get(0).getModule());
+
+      // remove module range
+      modulesList.remove(0,5);
+
+      assertEquals(5, tiles0.size());
+      assertEquals(0, tiles1.size());
+      assertEquals(mockModules[5],tiles0.get(0).getModule());
     });
   }
 }
