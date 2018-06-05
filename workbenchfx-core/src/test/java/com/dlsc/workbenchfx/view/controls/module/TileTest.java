@@ -1,7 +1,10 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
 import static com.dlsc.workbenchfx.testing.MockFactory.createMockModule;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.Workbench;
@@ -65,34 +68,25 @@ class TileTest extends ApplicationTest {
   }
 
   @Test
+  void testModuleListener() {
+    assertEquals("Module 0", tile.getName());
+    assertEquals("Module Icon 0", ((Label)tile.getIcon()).getText());
+
+    // change to module 1
+    tile.setModule(mockModules[1]);
+    assertEquals("Module 1", tile.getName());
+    assertEquals("Module Icon 1", ((Label)tile.getIcon()).getText());
+  }
+
+  @Test
   void open() {
-  }
+    // initial module
+    tile.open();
+    verify(mockBench).openModule(mockModules[0]);
 
-  @Test
-  void setModule() {
-  }
-
-  @Test
-  void getModule() {
-  }
-
-  @Test
-  void moduleProperty() {
-  }
-
-  @Test
-  void getName() {
-  }
-
-  @Test
-  void nameProperty() {
-  }
-
-  @Test
-  void getIcon() {
-  }
-
-  @Test
-  void iconProperty() {
+    // newly set module
+    tile.setModule(mockModules[1]);
+    tile.open();
+    verify(mockBench).openModule(mockModules[1]);
   }
 }

@@ -102,8 +102,6 @@ class TabTest extends ApplicationTest {
     tab.setModule(mockModules[1]);
     assertEquals("Module 1", tab.getName());
     assertEquals("Module Icon 1", ((Label)tab.getIcon()).getText());
-
-    verify(mockBench, atLeastOnce()).getModules();
   }
 
   @Test
