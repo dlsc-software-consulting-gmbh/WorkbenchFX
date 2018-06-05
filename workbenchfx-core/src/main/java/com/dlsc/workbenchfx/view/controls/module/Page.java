@@ -54,10 +54,10 @@ public class Page extends Control {
   private void updateTiles() {
     // remove any preexisting tiles in the list
     tiles.clear();
-    int position = getPageIndex() * workbench.modulesPerPage;
+    int position = getPageIndex() * workbench.getModulesPerPage();
     modules.stream()
         .skip(position) // skip all tiles from previous pages
-        .limit(workbench.modulesPerPage) // only take as many tiles as there are per page
+        .limit(workbench.getModulesPerPage()) // only take as many tiles as there are per page
         .map(workbench::getTile)
         .map(Tile.class::cast)
         .forEachOrdered(tiles::add);

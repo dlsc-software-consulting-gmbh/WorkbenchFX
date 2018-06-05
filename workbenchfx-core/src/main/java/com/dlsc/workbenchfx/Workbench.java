@@ -8,8 +8,10 @@ import com.dlsc.workbenchfx.view.controls.module.Tile;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -88,10 +90,10 @@ public class Workbench extends Control {
       new SimpleObjectProperty<>(this, "pageFactory");
 
   // Properties
-  public final int modulesPerPage;
+  private final IntegerProperty modulesPerPage;
 
   Workbench(WorkbenchBuilder builder) {
-    modulesPerPage = builder.modulesPerPage;
+    modulesPerPage = new SimpleIntegerProperty(builder.modulesPerPage);
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
@@ -244,6 +246,7 @@ public class Workbench extends Control {
    */
   public int amountOfPages() {
     int amountOfModules = getModules().size();
+    int modulesPerPage = getModulesPerPage();
     // if all pages are completely full
     if (amountOfModules % modulesPerPage == 0) {
       return amountOfModules / modulesPerPage;
@@ -477,5 +480,17 @@ public class Workbench extends Control {
 
   public ObservableSet<Node> getBlockingOverlaysShown() {
     return FXCollections.unmodifiableObservableSet(blockingOverlaysShown);
+  }
+
+  public int getModulesPerPage() {
+    return modulesPerPage.get();
+  }
+
+  public IntegerProperty modulesPerPageProperty() {
+    return modulesPerPage;
+  }
+
+  public void setModulesPerPage(int modulesPerPage) {
+    this.modulesPerPage.set(modulesPerPage);
   }
 }
