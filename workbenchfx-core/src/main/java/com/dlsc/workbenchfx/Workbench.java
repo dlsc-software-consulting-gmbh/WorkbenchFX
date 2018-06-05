@@ -493,4 +493,9 @@ public class Workbench extends Control {
   public void setModulesPerPage(int modulesPerPage) {
     this.modulesPerPage.set(modulesPerPage);
   }
+
+  @Override
+  public String getUserAgentStylesheet() {
+    return Workbench.class.getResource("css/main.css").toExternalForm();
+  }
 }
