@@ -8,21 +8,16 @@ import static org.mockito.Mockito.when;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.testing.MockPage;
-import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
-import java.util.LinkedHashSet;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
-import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -96,8 +91,8 @@ class PageTest extends ApplicationTest {
       // verify initial amount of tiles is correct
       assertEquals(modulesPerPage.get(), tiles0.size());
       assertEquals(SIZE - modulesPerPage.get(), tiles1.size());
-      assertEquals(mockModules[0],tiles0.get(0).getModule());
-      assertEquals(mockModules[SIZE-1],tiles1.get(0).getModule());
+      assertEquals(mockModules[0], tiles0.get(0).getModule());
+      assertEquals(mockModules[SIZE - 1], tiles1.get(0).getModule());
     });
   }
 
@@ -110,8 +105,8 @@ class PageTest extends ApplicationTest {
 
       assertEquals(SIZE - modulesPerPage.get(), tiles0.size());
       assertEquals(modulesPerPage.get(), tiles1.size());
-      assertEquals(mockModules[0],tiles1.get(0).getModule());
-      assertEquals(mockModules[SIZE-1],tiles0.get(0).getModule());
+      assertEquals(mockModules[0], tiles1.get(0).getModule());
+      assertEquals(mockModules[SIZE - 1], tiles0.get(0).getModule());
     });
   }
 
@@ -119,7 +114,7 @@ class PageTest extends ApplicationTest {
   void updateTilesModulesPerPageChanged() {
     robot.interact(() -> {
       // tiles get updated when modules per page get changed
-      int halfSize = SIZE/2;
+      int halfSize = SIZE / 2;
       setModulesPerPage(halfSize);
 
       assertEquals(halfSize, tiles0.size());
@@ -144,19 +139,19 @@ class PageTest extends ApplicationTest {
 
       assertEquals(modulesPerPage.get(), tiles0.size());
       assertEquals(0, tiles1.size());
-      assertEquals(mockModules[1],tiles0.get(0).getModule());
+      assertEquals(mockModules[1], tiles0.get(0).getModule());
 
       // add module again
       modulesList.add(0, mockModules[0]);
       assertEquals(modulesPerPage.get(), tiles0.size());
-      assertEquals(mockModules[0],tiles0.get(0).getModule());
+      assertEquals(mockModules[0], tiles0.get(0).getModule());
 
       // remove module range
-      modulesList.remove(0,5);
+      modulesList.remove(0, 5);
 
       assertEquals(5, tiles0.size());
       assertEquals(0, tiles1.size());
-      assertEquals(mockModules[5],tiles0.get(0).getModule());
+      assertEquals(mockModules[5], tiles0.get(0).getModule());
     });
   }
 }
