@@ -1,8 +1,5 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
-import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.Module;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.SkinBase;
 import org.apache.logging.log4j.LogManager;
@@ -48,7 +45,7 @@ public class TileSkin extends SkinBase<Tile> {
     button.graphicProperty().bind(getSkinnable().iconProperty());
   }
 
-  private void setupEventHandlers(){
+  private void setupEventHandlers() {
     button.setOnAction(e -> getSkinnable().open());
   }
 

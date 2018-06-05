@@ -71,16 +71,6 @@ public class Tab extends Control {
   }
 
   /**
-   * Defines the {@code module} which is being represented by this {@link Tab}.
-   *
-   * @param module to be represented by this {@link Tab}
-   */
-  public final void setModule(Module module) {
-    LOGGER.trace("Setting reference to module");
-    this.module.set(module);
-  }
-
-  /**
    * Closes the {@link Module} along with this {@link Tab}.
    */
   public void close() {
@@ -96,6 +86,16 @@ public class Tab extends Control {
 
   public Module getModule() {
     return module.get();
+  }
+
+  /**
+   * Defines the {@code module} which is being represented by this {@link Tab}.
+   *
+   * @param module to be represented by this {@link Tab}
+   */
+  public final void setModule(Module module) {
+    LOGGER.trace("Setting reference to module");
+    this.module.set(module);
   }
 
   public ReadOnlyObjectProperty<Module> moduleProperty() {

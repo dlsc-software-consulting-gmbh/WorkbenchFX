@@ -2,16 +2,12 @@ package com.dlsc.workbenchfx.view.controls.module;
 
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
 
-import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.util.Objects;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -90,7 +86,7 @@ public class TabSkin extends SkinBase<Tab> {
     nameLbl.textProperty().bind(name);
   }
 
-  private void setupEventHandlers(){
+  private void setupEventHandlers() {
     closeBtn.setOnAction(e -> getSkinnable().close());
     controlBox.setOnMouseClicked(e -> getSkinnable().open());
   }

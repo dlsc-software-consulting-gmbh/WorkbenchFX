@@ -63,6 +63,10 @@ public class Page extends Control {
         .forEachOrdered(tiles::add);
   }
 
+  public int getPageIndex() {
+    return pageIndex.get();
+  }
+
   /**
    * Defines the {@code pageIndex} of this {@link Page}.
    *
@@ -70,10 +74,6 @@ public class Page extends Control {
    */
   public final void setPageIndex(int pageIndex) {
     this.pageIndex.set(pageIndex);
-  }
-
-  public int getPageIndex() {
-    return pageIndex.get();
   }
 
   public ReadOnlyIntegerProperty pageIndexProperty() {

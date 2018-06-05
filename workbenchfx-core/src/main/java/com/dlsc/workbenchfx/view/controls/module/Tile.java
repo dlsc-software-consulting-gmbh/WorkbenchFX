@@ -57,6 +57,10 @@ public class Tile extends Control {
     workbench.openModule(getModule());
   }
 
+  public Module getModule() {
+    return module.get();
+  }
+
   /**
    * Defines the {@code module} which is being represented by this {@link Tile}.
    *
@@ -65,10 +69,6 @@ public class Tile extends Control {
   public final void setModule(Module module) {
     LOGGER.trace("Setting reference to module");
     this.module.set(module);
-  }
-
-  public Module getModule() {
-    return module.get();
   }
 
   public ReadOnlyObjectProperty<Module> moduleProperty() {
