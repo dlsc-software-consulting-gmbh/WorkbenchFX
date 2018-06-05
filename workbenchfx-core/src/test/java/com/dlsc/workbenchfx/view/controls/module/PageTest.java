@@ -35,8 +35,9 @@ class PageTest extends ApplicationTest {
   private FxRobot robot;
   private Workbench mockBench;
   private static final int SIZE = 10;
-  Module[] mockModules = new Module[SIZE];
-  Node[] moduleNodes = new Node[SIZE];
+  private Module[] mockModules = new Module[SIZE];
+  private Node[] moduleNodes = new Node[SIZE];
+  private ObservableList<Module> modulesList;
 
   IntegerProperty modulesPerPage;
 
@@ -62,7 +63,8 @@ class PageTest extends ApplicationTest {
       when(mockBench.getTile(mockModules[i])).thenReturn(mockTile);
     }
 
-    when(mockBench.getModules()).thenReturn(FXCollections.observableArrayList(mockModules));
+    modulesList = FXCollections.observableArrayList(mockModules);
+    when(mockBench.getModules()).thenReturn(modulesList);
 
     modulesPerPage = new SimpleIntegerProperty();
     when(mockBench.modulesPerPageProperty()).thenReturn(modulesPerPage);
