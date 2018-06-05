@@ -81,14 +81,14 @@ public class Tab extends Control {
   }
 
   /**
-   * TODO
+   * Closes the {@link Module} along with this {@link Tab}.
    */
   public void close() {
     workbench.closeModule(getModule());
   }
 
   /**
-   * TODO
+   * Opens the {@link Module} belonging to this {@link Tab}.
    */
   public void open() {
     workbench.openModule(getModule());

@@ -51,7 +51,7 @@ public class Tile extends Control {
   }
 
   /**
-   * TODO
+   * Opens the {@link Module} belonging to this {@link Tile}.
    */
   public void open() {
     workbench.openModule(getModule());
