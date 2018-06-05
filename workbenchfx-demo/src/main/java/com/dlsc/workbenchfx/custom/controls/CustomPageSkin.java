@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.custom.controls;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.GridPane;
@@ -20,7 +21,7 @@ public class CustomPageSkin extends SkinBase<CustomPage> {
   private static final int COLUMNS_PER_ROW = 3;
 
   private final ReadOnlyIntegerProperty pageIndex;
-  private final ObservableSet<Tile> tiles;
+  private final ObservableList<Tile> tiles;
 
   private GridPane tilePane;
 

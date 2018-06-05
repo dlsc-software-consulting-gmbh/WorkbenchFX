@@ -27,8 +27,9 @@ public class Page extends Control {
   private final Workbench workbench;
   private final ObservableList<Module> modules;
   private final IntegerProperty pageIndex;
-  private final ObservableSet<Tile> tiles;
+  private final ObservableList<Tile> tiles;
   private final IntegerProperty modulesPerPage;
+  private InvalidationListener modulesChangedListener;
 
   /**
    * Constructs a new {@link Tab}.
@@ -40,14 +41,14 @@ public class Page extends Control {
     pageIndex = new SimpleIntegerProperty();
     modulesPerPage = workbench.modulesPerPageProperty();
     modules = workbench.getModules();
-    tiles = FXCollections.observableSet(new LinkedHashSet<>());
+    tiles = FXCollections.observableArrayList();
     setupChangeListeners();
     updateTiles();
   }
 
   private void setupChangeListeners() {
     // update tiles list whenever modules or the pageIndex of this page have changed
-    InvalidationListener modulesChangedListener = observable -> updateTiles();
+    modulesChangedListener = observable -> updateTiles();
     modules.addListener(modulesChangedListener);
     pageIndex.addListener(modulesChangedListener);
     modulesPerPage.addListener(modulesChangedListener);
@@ -56,7 +57,10 @@ public class Page extends Control {
   // TODO: test this method
   private void updateTiles() {
     // remove any preexisting tiles in the list
+    LOGGER.debug(String.format("Tiles in page %s are being updated", getPageIndex()));
     tiles.clear();
+    LOGGER.trace(String.format("Page Index: %s, Modules Per Page: %s", getPageIndex(),
+        workbench.getModulesPerPage()));
     int position = getPageIndex() * workbench.getModulesPerPage();
     modules.stream()
         .skip(position) // skip all tiles from previous pages
@@ -83,8 +87,8 @@ public class Page extends Control {
     return pageIndex;
   }
 
-  public ObservableSet<Tile> getTiles() {
-    return FXCollections.unmodifiableObservableSet(tiles);
+  public ObservableList<Tile> getTiles() {
+    return FXCollections.unmodifiableObservableList(tiles);
   }
 
   @Override
