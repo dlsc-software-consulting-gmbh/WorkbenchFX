@@ -10,7 +10,11 @@ import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.testing.MockPage;
 import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
+import java.util.LinkedHashSet;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
@@ -34,12 +38,12 @@ class PageTest extends ApplicationTest {
   Module[] mockModules = new Module[SIZE];
   Node[] moduleNodes = new Node[SIZE];
 
-  int modulesPerPage;
+  IntegerProperty modulesPerPage;
 
   private MockPage page0;
   private MockPage page1;
-  private ObservableSet<Tile> tiles0;
-  private ObservableSet<Tile> tiles1;
+  private ObservableList<Tile> tiles0;
+  private ObservableList<Tile> tiles1;
 
   @Override
   public void start(Stage stage) {
@@ -53,11 +57,15 @@ class PageTest extends ApplicationTest {
 
     for (int i = 0; i < mockModules.length; i++) {
       mockModules[i] = createMockModule(moduleNodes[i], true, "Module " + i);
-      when(mockBench.getTile(mockModules[i])).thenReturn(new MockTile(mockBench));
+      MockTile mockTile = new MockTile(mockBench);
+      mockTile.setModule(mockModules[i]);
+      when(mockBench.getTile(mockModules[i])).thenReturn(mockTile);
     }
 
     when(mockBench.getModules()).thenReturn(FXCollections.observableArrayList(mockModules));
 
+    modulesPerPage = new SimpleIntegerProperty();
+    when(mockBench.modulesPerPageProperty()).thenReturn(modulesPerPage);
     setModulesPerPage(9);
 
     page0 = new MockPage(mockBench);
@@ -73,17 +81,65 @@ class PageTest extends ApplicationTest {
     stage.show();
   }
 
-  void setModulesPerPage(int amount){
-    modulesPerPage = amount;
-    when(mockBench.getModulesPerPage()).thenReturn(modulesPerPage);
+  void setModulesPerPage(int amount) {
+    robot.interact(() -> {
+      when(mockBench.getModulesPerPage()).thenReturn(amount);
+      modulesPerPage.set(amount);
+    });
   }
 
   @Test
-  void updateTiles() {
+  void updateTilesInitial() {
     robot.interact(() -> {
       // verify initial amount of tiles is correct
-      assertEquals(modulesPerPage, tiles0.size());
-      assertEquals(SIZE - modulesPerPage, tiles1.size());
+      assertEquals(modulesPerPage.get(), tiles0.size());
+      assertEquals(SIZE - modulesPerPage.get(), tiles1.size());
+      assertEquals(mockModules[0],tiles0.get(0).getModule());
+      assertEquals(mockModules[SIZE-1],tiles1.get(0).getModule());
+    });
+  }
+
+  @Test
+  void updateTilesPageIndexChanged() {
+    robot.interact(() -> {
+      // tiles get updated when page index gets changed
+      page0.setPageIndex(1);
+      page1.setPageIndex(0);
+
+      assertEquals(SIZE - modulesPerPage.get(), tiles0.size());
+      assertEquals(modulesPerPage.get(), tiles1.size());
+      assertEquals(mockModules[0],tiles1.get(0).getModule());
+      assertEquals(mockModules[SIZE-1],tiles0.get(0).getModule());
+    });
+  }
+
+  @Test
+  void updateTilesModulesPerPageChanged() {
+    robot.interact(() -> {
+      // tiles get updated when modules per page get changed
+      int halfSize = SIZE/2;
+      setModulesPerPage(halfSize);
+
+      assertEquals(halfSize, tiles0.size());
+      assertEquals(halfSize, tiles1.size());
+
+      // stays same, even if page indexes get changed
+      page0.setPageIndex(1);
+      page1.setPageIndex(0);
+
+      assertEquals(halfSize, tiles0.size());
+      assertEquals(halfSize, tiles1.size());
+    });
+  }
+
+  @Test
+  void updateTilesModulesListChanged() {
+    robot.interact(() -> {
+      // tiles get updated when list of modules gets changed
+
+
+      assertEquals(modulesPerPage.get(), tiles0.size());
+      assertEquals(SIZE - modulesPerPage.get(), tiles1.size());
     });
   }
 }
