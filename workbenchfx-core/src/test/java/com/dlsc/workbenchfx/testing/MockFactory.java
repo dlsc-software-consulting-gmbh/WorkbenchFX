@@ -19,8 +19,10 @@ public class MockFactory {
    * @param toString    what {@link Module#toString()} should return
    * @return the mock
    */
-  public static Module createMockModule(Node displayNode, boolean destroy, String toString) {
+  public static Module createMockModule(Node displayNode, Node icon, boolean destroy, String toString) {
     Module mockModule = mock(Module.class);
+    when(mockModule.getName()).thenReturn(toString);
+    when(mockModule.getIcon()).thenReturn(icon);
     when(mockModule.activate()).thenReturn(displayNode);
     when(mockModule.destroy()).thenReturn(true);
     when(mockModule.toString()).thenReturn(toString);

@@ -52,7 +52,7 @@ class PageTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = createMockModule(moduleNodes[i], true, "Module " + i);
+      mockModules[i] = createMockModule(moduleNodes[i], null,true, "Module " + i);
       MockTile mockTile = new MockTile(mockBench);
       mockTile.setModule(mockModules[i]);
       when(mockBench.getTile(mockModules[i])).thenReturn(mockTile);
