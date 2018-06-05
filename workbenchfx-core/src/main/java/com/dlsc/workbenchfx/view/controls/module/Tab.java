@@ -80,10 +80,16 @@ public class Tab extends Control {
     this.module.set(module);
   }
 
+  /**
+   * TODO
+   */
   public void close() {
     workbench.closeModule(getModule());
   }
 
+  /**
+   * TODO
+   */
   public void open() {
     workbench.openModule(getModule());
   }

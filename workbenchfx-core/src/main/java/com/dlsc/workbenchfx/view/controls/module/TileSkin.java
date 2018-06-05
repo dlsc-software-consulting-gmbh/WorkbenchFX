@@ -17,8 +17,7 @@ import org.apache.logging.log4j.Logger;
 public class TileSkin extends SkinBase<Tile> {
   private static final Logger LOGGER = LogManager.getLogger(TileSkin.class.getName());
 
-  private final Button button;
-  private final ReadOnlyObjectProperty<Module> module;
+  private Button button;
 
   /**
    * Creates a new {@link TileSkin} object for a corresponding {@link Tile}.
@@ -27,33 +26,33 @@ public class TileSkin extends SkinBase<Tile> {
    */
   public TileSkin(Tile tile) {
     super(tile);
-    module = tile.moduleProperty();
 
+    initializeParts();
+    layoutParts();
+    setupBindings();
+    setupEventHandlers();
+    setupValueChangedListeners();
+  }
+
+  private void initializeParts() {
     button = new Button();
     button.getStyleClass().add("tile-control");
+  }
 
-    Workbench workbench = tile.getWorkbench();
-    setupSkin(workbench, module.get()); // initial setup
-    setupModuleListener(workbench); // setup for changing modules
-
+  private void layoutParts() {
     getChildren().add(button);
   }
 
-  private void setupModuleListener(Workbench workbench) {
-    LOGGER.trace("Add module listener");
-    module.addListener((observable, oldModule, newModule) -> {
-      LOGGER.trace("moduleListener called");
-      LOGGER.trace("old: " + oldModule + " new: " + newModule);
-      if (oldModule != newModule) {
-        LOGGER.trace("Setting up skin");
-        setupSkin(workbench, newModule);
-      }
-    });
+  private void setupBindings() {
+    button.textProperty().bind(getSkinnable().nameProperty());
+    button.graphicProperty().bind(getSkinnable().iconProperty());
   }
 
-  private void setupSkin(Workbench workbench, Module module) {
-    button.setText(module.getName());
-    button.setGraphic(module.getIcon());
-    button.setOnAction(e -> workbench.openModule(module));
+  private void setupEventHandlers(){
+    button.setOnAction(e -> getSkinnable().open());
+  }
+
+  private void setupValueChangedListeners() {
+
   }
 }
