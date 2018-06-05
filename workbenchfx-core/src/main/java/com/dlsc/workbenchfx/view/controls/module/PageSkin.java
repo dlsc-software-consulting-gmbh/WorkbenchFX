@@ -5,6 +5,7 @@ import com.dlsc.workbenchfx.module.Module;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.GridPane;
@@ -22,7 +23,7 @@ public class PageSkin extends SkinBase<Page> {
   private static final int COLUMNS_PER_ROW = 3;
 
   private final ReadOnlyIntegerProperty pageIndex;
-  private final ObservableList<Tile> tiles;
+  private final ObservableSet<Tile> tiles;
 
   private GridPane tilePane;
 

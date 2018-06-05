@@ -2,12 +2,14 @@ package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
+import java.util.LinkedHashSet;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import org.apache.logging.log4j.LogManager;
@@ -25,7 +27,7 @@ public class Page extends Control {
   private final Workbench workbench;
   private final ObservableList<Module> modules;
   private final IntegerProperty pageIndex;
-  private final ObservableList<Tile> tiles;
+  private final ObservableSet<Tile> tiles; // TODO: Set
 
   /**
    * Constructs a new {@link Tab}.
@@ -36,7 +38,7 @@ public class Page extends Control {
     this.workbench = workbench;
     pageIndex = new SimpleIntegerProperty();
     modules = workbench.getModules();
-    tiles = FXCollections.observableArrayList();
+    tiles = FXCollections.observableSet(new LinkedHashSet<>());
     setupChangeListeners();
     updateTiles();
   }
@@ -78,8 +80,8 @@ public class Page extends Control {
     return pageIndex;
   }
 
-  public ObservableList<Tile> getTiles() {
-    return FXCollections.unmodifiableObservableList(tiles);
+  public ObservableSet<Tile> getTiles() {
+    return FXCollections.unmodifiableObservableSet(tiles);
   }
 
   @Override
