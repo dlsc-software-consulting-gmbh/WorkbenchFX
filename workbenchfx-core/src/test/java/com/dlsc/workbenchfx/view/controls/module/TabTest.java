@@ -1,7 +1,5 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 /**
