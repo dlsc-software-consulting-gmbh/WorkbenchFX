@@ -7,7 +7,7 @@ import com.dlsc.workbenchfx.module.Module;
 import javafx.scene.Node;
 
 /**
- * Created by François Martin on 05.06.18.
+ * Internal utility methods for producing mocks.
  */
 public class MockFactory {
 

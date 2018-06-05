@@ -1119,7 +1119,6 @@ class WorkbenchTest extends ApplicationTest {
 
   @Test
   void addModule() {
-    // TODO: after refactoring Page etc., check if listeners call methods on mock
     robot.interact(() -> {
       ObservableList<Module> modules = workbench.getModules();
       int currentSize = modules.size();
@@ -1139,7 +1138,6 @@ class WorkbenchTest extends ApplicationTest {
 
   @Test
   void removeModule() {
-    // TODO: after refactoring Page etc., check if listeners call methods on mock
     robot.interact(() -> {
       ObservableList<Module> modules = workbench.getModules();
       int currentSize = modules.size();

@@ -23,7 +23,7 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
 /**
- * Created by François Martin on 05.06.18.
+ * Test for {@link Page}.
  */
 class PageTest extends ApplicationTest {
 
