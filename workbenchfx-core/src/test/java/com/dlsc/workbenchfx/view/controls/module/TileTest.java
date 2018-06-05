@@ -64,10 +64,6 @@ class TileTest extends ApplicationTest {
     stage.show();
   }
 
-  @BeforeEach
-  void setUp() {
-  }
-
   @Test
   void open() {
   }

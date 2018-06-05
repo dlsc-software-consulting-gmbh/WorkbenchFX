@@ -54,7 +54,6 @@ public class Page extends Control {
     modulesPerPage.addListener(modulesChangedListener);
   }
 
-  // TODO: test this method
   private void updateTiles() {
     // remove any preexisting tiles in the list
     LOGGER.debug(String.format("Tiles in page %s are being updated", getPageIndex()));
