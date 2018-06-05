@@ -1,13 +1,9 @@
 package com.dlsc.workbenchfx.custom.controls;
 
-import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.custom.controls.CustomPage;
-import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyIntegerProperty;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
+import javafx.collections.ObservableSet;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.GridPane;
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +20,7 @@ public class CustomPageSkin extends SkinBase<CustomPage> {
   private static final int COLUMNS_PER_ROW = 3;
 
   private final ReadOnlyIntegerProperty pageIndex;
-  private final ObservableList<Tile> tiles;
+  private final ObservableSet<Tile> tiles;
 
   private GridPane tilePane;
 
