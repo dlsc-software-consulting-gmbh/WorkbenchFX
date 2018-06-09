@@ -1,0 +1,33 @@
+.numberRangeControl {
+    -fx-padding: 0;
+    -fx-background-color: white;
+    -base-color: rgb(21, 59, 148);
+    -out-of-range-color : green;
+}
+
+.numberRangeControl .value {
+    -fx-font-family: 'Lato Light';
+    -fx-font-size: 8;
+    -fx-fill: white;
+}
+
+.numberRangeControl .thumb {
+    -fx-fill: -base-color;
+    -fx-stroke: derive(-base-color, 70%);
+    -fx-stroke-width: 1;
+    -fx-stroke-type: inside;
+    -fx-cursor: hand;
+}
+
+.numberRangeControl .valueBar {
+    -fx-stroke: -base-color;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-width: 2;
+}
+
+.numberRangeControl .scale {
+    -fx-stroke: rgb(200, 200, 200);
+    -fx-stroke-line-cap: round;
+    -fx-stroke-width: 2;
+}
+

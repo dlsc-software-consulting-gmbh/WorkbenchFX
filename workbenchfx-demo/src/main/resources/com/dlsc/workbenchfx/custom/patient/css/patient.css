@@ -1,0 +1,91 @@
+.root {
+  -prim-color: #027dc5;
+  -prim-color-hover: #028ede;
+  -danger-color: #ed5a5a;
+  -success-color: #47aa71;
+  -accent-color: #00aaff;
+  -text-color: #fafdff;
+  -text-color-transparent: rgba(250, 253, 255, 0.8);
+  -inverted-text-color: #050200;
+  -icons-color: -text-color;
+  -fx-font-size: 14px;
+  -fx-font-family: Roboto, sans-serif; }
+
+.glyph-icon {
+  -fx-text-fill: -text-color;
+  -fx-fill: -icons-color;
+  -fx-font-size: 1.5em !important; }
+
+.fontawesome .text {
+  -fx-font-family: "FontAwesome"; }
+
+.patient-toolbar {
+  -fx-background-color: #424242;
+  -fx-padding: 4px; }
+  .patient-toolbar .button {
+    -fx-border-color: null;
+    -fx-background-color: null;
+    -fx-background-radius: 4;
+    -fx-font-size: 14px; }
+    .patient-toolbar .button:hover {
+      -fx-background-color: #212121; }
+    .patient-toolbar .button .text {
+      -fx-font-size: 22px;
+      -fx-fill: white;
+      -fx-scale-x: 1;
+      -fx-scale-y: 1;
+      -fx-cursor: hand; }
+      .patient-toolbar .button .text:hover {
+        -fx-scale-x: 1.1;
+        -fx-scale-y: 1.1; }
+
+.detail-view {
+  -fx-background-color: #212121; }
+  .detail-view .heading {
+    -fx-font-size: 36; }
+  .detail-view .subheading {
+    -fx-font-size: 18; }
+  .detail-view .tiny {
+    -fx-font-size: 10; }
+  .detail-view .text-field {
+    -fx-font-family: "Lato Light";
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-width: 0 0 1.5 0;
+    -fx-text-fill: white; }
+
+.patient-pagination {
+  -fx-padding: 0 5 0 5;
+  -fx-background-color: #424242;
+  -fx-arrows-visible: false;
+  -fx-page-information-visible: true;
+  -fx-tooltip-visible: false; }
+  .patient-pagination .page {
+    -fx-background-color: #636363; }
+  .patient-pagination .pagination-control {
+    -fx-region-background: #424242;
+    -fx-padding: 10; }
+    .patient-pagination .pagination-control .page-information {
+      -fx-text-fill: white;
+      -fx-padding: 0.416em 0 0 0; }
+  .patient-pagination .pagination-control > .control-box > .bullet-button {
+    -fx-background-radius: 4em;
+    -fx-padding: 0.333em;
+    -fx-background-insets: 5.25; }
+    .patient-pagination .pagination-control > .control-box > .bullet-button:hover {
+      -fx-cursor: hand;
+      -fx-background-color: derive(-text-color, -10%); }
+    .patient-pagination .pagination-control > .control-box > .bullet-button:selected {
+      -fx-background-color: -prim-color; }
+      .patient-pagination .pagination-control > .control-box > .bullet-button:selected:hover {
+        -fx-cursor: hand;
+        -fx-background-color: -prim-color-hover; }
+
+.patient-list-overlay {
+  -fx-background-color: #e7eeff;
+  -fx-min-width: 300px;
+  -fx-max-width: 300px;
+  -fx-min-height: 300px;
+  -fx-max-height: 300px; }
+
+/*# sourceMappingURL=patient.css.map */

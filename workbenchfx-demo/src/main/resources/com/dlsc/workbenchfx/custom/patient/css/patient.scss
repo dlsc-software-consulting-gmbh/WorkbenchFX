@@ -1,0 +1,50 @@
+$border: 3px;
+$pref-size: 3.5em;
+$darken-percentage: -10%;
+
+// Comment in the color schema you like to use.
+// Color schema with a dark -text-color and a light -prim-color
+//$primary-color: hsl(202, 98%, 99%);
+//$text-color: darken($primary-color, 60%);
+
+// Color schema with a light -text-color and a dark -prim-color
+$text-color: hsl(202, 98%, 99%);
+$primary-color: darken($text-color, 60%);
+
+$text-color-transparent: transparentize($text-color, .2);
+$custom-color-1: blue;
+$custom-color-2: red;
+$custom-color-3: green;
+$custom-color-4: purple;
+$custom-color-5: pink;
+
+.root {
+  -prim-color: $primary-color;
+  -prim-color-hover: lighten($primary-color, 5%);
+  -danger-color: #ed5a5a;
+  -success-color: #47aa71;
+  -accent-color: #00aaff;
+  -text-color: $text-color;
+  -text-color-transparent: $text-color-transparent;
+  -inverted-text-color: invert($text-color);
+
+  -icons-color: -text-color;
+  -fx-font-size: 14px;
+  -fx-font-family: Roboto, sans-serif;
+}
+
+// Default styling of icons. This enables changing the icons styles later on
+.glyph-icon {
+  -fx-text-fill: -text-color;
+  -fx-fill: -icons-color;
+  -fx-font-size: 1.5em !important;
+}
+
+.fontawesome .text {
+    -fx-font-family: "FontAwesome";
+}
+
+@import "toolbar";
+@import "detailview";
+@import "patient-pagination";
+@import "patient-list";

@@ -1,0 +1,22 @@
+.detail-view {
+  -fx-background-color: rgb(33,33,33);
+
+  & .heading {
+    -fx-font-size: 36;
+  }
+  & .subheading {
+    -fx-font-size: 18;
+  }
+  & .tiny {
+    -fx-font-size: 10;
+  }
+
+  & .text-field {
+    -fx-font-family: "Lato Light";
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-width: 0 0 1.5 0;
+    -fx-text-fill: white;
+  }
+}
+

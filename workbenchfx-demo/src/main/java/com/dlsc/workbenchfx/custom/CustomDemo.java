@@ -8,6 +8,7 @@ import com.dlsc.workbenchfx.custom.controls.CustomTile;
 import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
+import com.dlsc.workbenchfx.custom.patient.PatientModule;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
@@ -100,13 +101,14 @@ public class CustomDemo extends Application {
     menu2.getItems().addAll(item21, item22);
     menu3.getItems().addAll(item31, item32, item33);
 
-    Button addPreferences = new Button("Add", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
-    Button removePreferences = new Button("Remove", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    Button addPreferences = new Button("", new FontAwesomeIconView(FontAwesomeIcon.PLUS));
+    Button removePreferences = new Button("", new FontAwesomeIconView(FontAwesomeIcon.MINUS));
     addPreferences.getStyleClass().add("button-inverted");
 
     // WorkbenchFX
     workbench =
         Workbench.builder(
+                new PatientModule(),
                 new CalendarModule(),
                 new NotesModule(),
                 new CustomerModule(),

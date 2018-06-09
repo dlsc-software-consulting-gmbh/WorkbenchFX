@@ -1,0 +1,38 @@
+.patient-pagination {
+    -fx-padding: 0 5 0 5;
+    -fx-background-color: rgb(66, 66, 66);
+    -fx-arrows-visible: false;
+    -fx-page-information-visible: true;
+    -fx-tooltip-visible: false;
+
+    & .page {
+      -fx-background-color: rgb(99,99,99);
+    }
+
+    &  .pagination-control {
+      -fx-region-background: rgb(66,66,66);
+      -fx-padding: 10;
+
+      & .page-information {
+        -fx-text-fill: white;
+        -fx-padding: 0.416em 0 0 0;
+      }
+    }
+
+    & .pagination-control > .control-box > .bullet-button {
+      -fx-background-radius: 4em;
+      -fx-padding: 0.333em;
+      -fx-background-insets: 5.25;
+      &:hover {
+        -fx-cursor: hand;
+        -fx-background-color: derive(-text-color, -10%);
+      }
+      &:selected {
+        -fx-background-color: -prim-color;
+        &:hover {
+          -fx-cursor: hand;
+          -fx-background-color: -prim-color-hover;
+        }
+      }
+    }
+  }
