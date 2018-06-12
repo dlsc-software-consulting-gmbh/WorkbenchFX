@@ -1,0 +1,980 @@
+@import url("theme.css");
+
+.missing-module-ui {
+    -fx-background-color: -white-two;
+    -fx-font-size: 24;
+    -fx-alignment: center;
+    -fx-graphic: url("sad-smiley.png");
+    -fx-content-display: top;
+    -fx-graphic-text-gap: 40;
+}
+
+.missing-module-ui .text {
+    -fx-font-size: 24;
+}
+
+/* ----------------------------------------------------------------------------
+ * Toolbar.
+ */
+
+.shell-toolbar {
+    -fx-background-color: -toolbar-background-color;
+}
+
+.shell-toolbar .element {
+    -fx-padding: 15 20 15 20;
+}
+
+.shell-toolbar .button {
+    -fx-font-size: 15;
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+}
+
+.shell-toolbar .button:hover {
+    -fx-background-color: -greyish-brown-two;
+}
+
+.shell-toolbar .button:pressed {
+    -fx-background-color: -toolbar-button-pressed-color;
+}
+
+.shell-toolbar .separator:vertical .line {
+    -fx-border-color: black;
+    -fx-border-width: 1;
+}
+
+.shell-toolbar .label {
+    -fx-font-size: 15;
+    -fx-text-fill: -toolbar-text-fill;
+}
+
+.shell-toolbar .toggle-button {
+    -fx-font-size: 15;
+    -fx-text-fill: -toolbar-text-fill;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.shell-toolbar .toggle-button:selected,
+.shell-toolbar .toggle-button:armed {
+    -fx-background-color: -toolbar-button-selected-color;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.shell-toolbar .toggle-button:pressed {
+    -fx-background-color: -toolbar-button-pressed-color;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.shell-toolbar .toggle-button:hover {
+    -fx-background-color: -greyish-brown-two;
+}
+
+.shell-toolbar .toggle-button .text {
+}
+
+.shell-toolbar .toggle-button .image-view {
+}
+
+/* ----------------------------------------------------------------------------
+ * Calendar inside toolbar.
+ */
+
+/* ----------------------------------------------------------------------------
+ * Tray Placeholder.
+ */
+
+.shell .tray-placeholder {
+    -fx-pref-width: 400;
+    -fx-background-color: -white-four;
+    -fx-alignment: center;
+}
+
+/* ----------------------------------------------------------------------------
+ * Search field pane.
+ */
+
+.search-field-pane {
+    -fx-padding: 16 6 16 6;
+    -fx-background-color: -toolbar-background-color, -toolbar-button-selected-color;
+}
+
+.search-field-pane > .text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+}
+
+.search-field-pane > .text-field .text {
+}
+
+/* ----------------------------------------------------------------------------
+ * Month Calendar.
+ */
+
+.month-calendar {
+    -fx-background-color: -toolbar-background-color, -toolbar-button-selected-color;
+}
+
+.month-calendar .time-label {
+    -fx-padding: 20 10 0 10;
+    -fx-text-fill: rgba(255, 255, 255, .36);
+    -fx-font-size: 16px;
+}
+
+.month-calendar .date-label {
+    -fx-padding: 10 10 30 10;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+}
+
+.month-calendar .day-of-week-label {
+    -fx-border-color: transparent;
+    -fx-font-size: 15px;
+    -fx-text-fill: gray;
+}
+
+.month-calendar .month-day {
+    -fx-text-fill: white;
+    -fx-padding: 15;
+    -fx-font-size: 14px;
+}
+
+.month-calendar .day-not-of-month-label {
+    -fx-text-fill: transparent;
+}
+
+.month-calendar .today {
+    -fx-background-color: white;
+    -fx-background-radius: 100000;
+}
+
+.month-calendar .today .text {
+    -fx-fill: -toolbar-background-color, -toolbar-button-selected-color;
+    -fx-font-weight: bold;
+}
+
+.goto-button {
+    -fx-background-color: -toolbar-button-selected-color;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-padding: 20;
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+}
+
+/* ----------------------------------------------------------------------------
+ * Modules switcher / horizontal and scrollable list view.
+ * Modules menu / dropdown menu to chooose modules from.
+ */
+.module-switcher {
+    -fx-padding: 0;
+    -fx-spacing: 0;
+}
+
+.module-switcher .left-fader {
+    -fx-background-color: linear-gradient(from 0 0 to 80 0, -toolbar-background-color, transparent) !important;
+}
+
+.module-switcher .right-fader {
+    -fx-background-color: linear-gradient(from 80 0 to 0 0, -toolbar-background-color, transparent) !important;
+}
+
+.module-switcher .pretty-list-view .module-list-cell:filled:hover {
+    -fx-background-color: -greyish-brown-two;
+}
+
+.module-switcher .pretty-list-view .module-list-cell:selected {
+    -fx-background-color: -slate-green;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+}
+
+.module-switcher .main-list {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+}
+
+.module-switcher .main-list {
+    -fx-effect: null;
+}
+
+.module-switcher .main-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 0 20 0 20;
+}
+
+.module-switcher .popup-list {
+    -fx-pref-width: 300;
+    -fx-background-color: -toolbar-background-color !important;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.module-switcher .popup-list .list-cell {
+    -fx-background-color: -toolbar-button-selected-color;
+    -fx-background-insets: 0 1 0 0;
+    -fx-padding: 20;
+}
+
+/* ---------------------------------------------------------------------------
+ * ModuleListCell
+ */
+.module-list-cell .primary-color-field {
+    -fx-min-width: 14;
+    -fx-min-height: 14;
+    -fx-max-width: 14;
+    -fx-max-height: 14;
+    -fx-background-radius: 1000;
+    -fx-border-color: black;
+    -fx-border-radius: 1000;
+}
+
+.module-list-cell .container {
+    -fx-spacing: 20;
+    -fx-alignment: center-left;
+    -fx-fill-height: true;
+}
+
+.module-list-cell .label {
+    -fx-text-fill: white;
+    -fx-graphic-text-gap: 10;
+    -fx-font-size: 15;
+}
+
+/* ----------------------------------------------------------------------------
+ * Horizontal Menu
+ */
+
+.horizontal-menu {
+}
+
+.horizontal-menu .left-fader {
+    -fx-background-color: linear-gradient(from 0 0 to 80 0, red, transparent);
+    -fx-pref-width: 80;
+}
+
+.horizontal-menu .right-fader {
+    -fx-background-color: linear-gradient(from 80 0 to 0 0, red, transparent);
+    -fx-pref-width: 80;
+}
+
+.horizontal-menu .left-scroll {
+    -fx-padding: 0 10 0 10;
+    -fx-graphic: url("icons/controls/horizontalmenu/taskbar-cycle-right-icon.png");
+    -fx-rotate: 180;
+}
+
+.horizontal-menu .right-scroll {
+    -fx-padding: 0 10 0 10;
+    -fx-graphic: url("icons/controls/horizontalmenu/taskbar-cycle-right-icon.png");
+}
+
+.horizontal-menu .left-scroll:hover,
+.horizontal-menu .right-scroll:hover {
+    -fx-opacity: .8;
+}
+
+.horizontal-menu .left-scroll:pressed,
+.horizontal-menu .right-scroll:pressed {
+    -fx-opacity: .6;
+}
+
+.horizontal-menu .menu-button {
+    -fx-padding: 0 24 0 24;
+}
+
+.horizontal-menu .main-list .pretty-scroll-bar,
+.horizontal-menu .main-list .pretty-scroll-bar .decrement-arrow,
+.horizontal-menu .main-list .pretty-scroll-bar .increment-arrow {
+    -fx-pref-height: 0.0 !important;
+    -fx-pref-width: 0.0 !important;
+}
+
+.horizontal-menu .popup-list .scroll-bar-replacement {
+    -fx-background-color: transparent;
+    -fx-padding: 2;
+}
+
+.horizontal-menu .popup-list .pretty-scroll-bar .thumb {
+    -fx-background-color: rgba(255, 255, 255, .2) !important;
+    -fx-background-radius: 12;
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+    -fx-padding: 0;
+    -fx-pref-width: 8;
+}
+
+/* ----------------------------------------------------------------------------
+ * User Menu
+ */
+
+.user-menu {
+    -fx-background-color: -toolbar-background-color, -toolbar-button-selected-color;
+}
+
+.user-menu .user-menu-item {
+    -fx-padding: 20;
+    -fx-alignment: center-left;
+}
+
+.user-menu .user-menu-item .label {
+    -fx-font-size: 15;
+    -fx-text-fill: -toolbar-text-fill;
+}
+
+.user-menu .user-menu-item:focused {
+    -fx-background-color: -toolbar-button-selected-color;
+}
+
+.user-menu .user-menu-item:hover {
+    -fx-background-color: -toolbar-button-selected-color;
+}
+
+.user-menu .user-menu-item:pressed {
+    -fx-background-color: -slate-green;
+}
+
+.user-menu .user-menu-item .accelerator-text {
+    -fx-min-width: 40;
+    -fx-background-color: -white;
+    -fx-background-radius: 3;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+}
+
+/* ----------------------------------------------------------------------------
+ * User button (avatar, name, title)
+ */
+.user-button {
+    -fx-content-display: right;
+    -fx-spacing: 20;
+}
+
+.user-button:hover {
+    -fx-background-color: -greyish-brown-two;
+}
+
+.user-button:pressed {
+    -fx-background-color: -toolbar-button-selected-color;
+}
+
+.user-button:selected {
+    -fx-background-color: -toolbar-button-selected-color;
+}
+
+.user-button .label {
+    -fx-text-fill: white;
+}
+
+.user-button .full-name-label {
+}
+
+.user-button .title-label {
+    -fx-font-size: 13;
+    -fx-opacity: .8;
+}
+
+.user-button .expand-label {
+}
+
+.user-avatar .avatar-view {
+    -fx-fit-to-height: 20;
+    -fx-fit-to-width: 20;
+}
+
+.user-avatar {
+    -fx-min-width: 30;
+    -fx-min-height: 30;
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+}
+
+/* ----------------------------------------------------------------------------
+ * Menu drawer
+ */
+
+.menu-drawer {
+    -fx-background-color: white;
+    -fx-pref-width: 300;
+    -fx-opacity: .2;
+    -fx-effect: -drop-shadow-1;
+}
+
+.menu-drawer .header {
+    -fx-background-color: linear-gradient(to bottom, -white-four, -white-two);
+    -fx-pref-height: 140;
+    -fx-padding: 20 20 20 30;
+}
+
+.menu-drawer .logo {
+    -fx-image: url("icons/menudrawer/menu-drawer-logo.png");
+    -fx-fit-to-width: 140;
+}
+
+.menu-drawer .menu-container {
+}
+
+.menu-drawer .scroll-pane {
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+
+.menu-drawer .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.menu-drawer .menu .label {
+    -fx-font-size: 16px;
+    -fx-text-fill: -charcoal-grey;
+}
+
+.menu-drawer .menu:hover .label {
+    -fx-text-fill: white;
+}
+
+.menu-drawer .menu:focused .label {
+    -fx-text-fill: white;
+}
+
+.menu-drawer .menu .arrow {
+    -fx-background-color: -charcoal-grey;
+    -fx-background-insets: 0;
+    -fx-padding: 0.25em;
+    -fx-shape: "M 0 -3.5 v 7 l 4 -3.5 z";
+}
+
+.menu-drawer .menu:hover .arrow {
+    -fx-background-color: -white-four;
+}
+
+.menu-drawer .menu:showing .arrow {
+    -fx-background-color: -white-four;
+}
+
+.menu-drawer .menu:hover,
+.menu-drawer .menu:showing,
+.menu-drawer .menu:focused {
+    -fx-text-fill: -white-four;
+    -fx-background-color: -slate-green;
+}
+
+.menu-drawer .menu-item {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-alignment: center-left;
+    -fx-font-size: 16px;
+    -fx-padding: 20 20 20 30;
+    -fx-text-fill: -charcoal-grey;
+    -fx-graphic-text-gap: 20;
+}
+
+.menu-drawer .menu-item:hover {
+    -fx-text-fill: -white-four;
+    -fx-background-color: -slate-green;
+}
+
+.menu-drawer .menu-item:pressed {
+    -fx-background-color: -slate-green;
+    -fx-text-fill: white;
+}
+
+/* ----------------------------------------------------------------------------
+ * Pretty List View
+ */
+
+.pretty-list-view > .virtual-flow > .scroll-bar,
+.pretty-list-view > .virtual-flow > .scroll-bar .decrement-arrow,
+.pretty-list-view > .virtual-flow > .scroll-bar .increment-arrow,
+.pretty-list-view > .virtual-flow > .scroll-bar .decrement-button,
+.pretty-list-view > .virtual-flow > .scroll-bar .increment-button {
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+}
+
+.pretty-list-view .pretty-scroll-bar:vertical .thumb {
+    -fx-background-insets: 0 2 0 0;
+}
+
+.pretty-list-view .pretty-scroll-bar:horizontal .thumb {
+    -fx-background-insets: 0 0 2 0;
+}
+
+.pretty-list-view .pretty-scroll-bar .decrement-arrow,
+.pretty-list-view .pretty-scroll-bar .increment-arrow {
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+}
+
+.pretty-list-view .pretty-scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12;
+    -fx-pref-height: 12;
+    -fx-padding: 2;
+}
+
+.pretty-list-view .pretty-scroll-bar .thumb {
+    -fx-background-color: rgba(0, 0, 0, .2);
+    -fx-background-radius: 1000;
+    -fx-pref-width: 12;
+    -fx-pref-height: 12;
+}
+
+/* ----------------------------------------------------------------------------
+ * Menu drawer context menu
+ */
+.menu-drawer .context-menu {
+    -fx-background-color: -slate-green;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-effect: null;
+}
+
+.menu-drawer .context-menu .label {
+    -fx-text-fill: white;
+}
+
+.menu-drawer .context-menu .menu .arrow {
+    -fx-background-color: -white-four;
+    -fx-background-insets: 0;
+    -fx-padding: 0.25em;
+    -fx-shape: "M 0 -3.5 v 7 l 4 -3.5 z";
+}
+
+.menu-drawer .context-menu .menu:hover .arrow,
+.menu-drawer .context-menu .menu:showing .arrow {
+    -fx-background-color: -white-four;
+}
+
+.menu-drawer .context-menu .menu-item:focused,
+.menu-drawer .context-menu .menu-item:hover {
+    -fx-background-color: derive(-slate-green, -10%);
+}
+
+.menu-drawer .context-menu .menu-item:pressed {
+    -fx-background-color: white;
+}
+
+.menu-drawer .context-menu .menu-item:pressed .label {
+    -fx-text-fill: -slate-green;
+}
+
+.menu-drawer .context-menu .separator:horizontal .line {
+    -fx-border-color: -fx-box-border transparent transparent transparent;
+    -fx-border-insets: 1 0 0 0;
+}
+
+.menu-drawer .context-menu > .scroll-arrow {
+    -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em; /* 5 */
+    -fx-background-color: transparent;
+}
+
+.menu-drawer .context-menu > .scroll-arrow:hover {
+    -fx-background: -fx-selection-bar;
+    -fx-background-color: -fx-background;
+    -fx-text-fill: -fx-text-background-color;
+}
+
+.menu-drawer .context-menu:show-mnemonics > .mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+}
+
+/* ----------------------------------------------------------------------------
+ * HomeScreen
+ */
+.home-screen {
+    -fx-background-color: -white-two;
+    -fx-padding: 20px;
+}
+
+.home-screen .modules-page {
+    -fx-vgap: 40;
+    -fx-hgap: 40;
+    -fx-alignment: center;
+    -fx-padding: 20;
+}
+
+.home-screen .modules-page .module-button {
+    -fx-background-color: lightgray, -white-three;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 6;
+    -fx-text-fill: -charcoal-grey;
+    -fx-text-alignment: center;
+    -fx-font-size: 16px;
+    -fx-alignment: center;
+    -fx-graphic-text-gap: 40;
+    -fx-pref-width: 240;
+    -fx-pref-height: 180;
+    -fx-min-width: 240;
+    -fx-min-height: 180;
+    -fx-spacing: 20;
+    -fx-padding: 20;
+    -fx-opacity: .2;
+    -fx-effect: -shadow;
+}
+
+.home-screen .modules-page .module-button.implemented {
+    -fx-opacity: 1;
+}
+
+.home-screen .modules-page .module-button:pressed {
+    -fx-background-color: derive(-slate-green, -20%) !important;
+    -fx-text-fill: -white-four;
+}
+
+.home-screen .modules-page .module-button:hover {
+    -fx-background-color: -slate-green;
+    -fx-text-fill: -white-four;
+}
+
+.home-screen .pagination {
+    -fx-arrows-visible: false;
+    -fx-page-information-visible: false;
+    -fx-tooltip-visible: false;
+}
+
+.home-screen .pagination > .pagination-control > .control-box > .bullet-button {
+    -fx-background-radius: 4em;
+    -fx-padding: 0.333em;
+    -fx-background-color: -slate-green;
+    -fx-background-insets: 7;
+}
+
+.home-screen .pagination > .pagination-control > .control-box > .bullet-button:selected {
+    -fx-base: -fx-accent;
+}
+
+/* ----------------------------------------------------------------------------
+ * Glass Pane
+ */
+.glass-pane {
+    -fx-background-color: black;
+    -fx-opacity: .6;
+}
+
+/* ----------------------------------------------------------------------------
+ * Module Pane
+ */
+.module-spacer {
+    -fx-min-height: 6;
+    -fx-max-height: 6;
+}
+
+/* ----------------------------------------------------------------------------
+ * Module toolbar.
+ */
+.module-toolbar {
+    -fx-spacing: 0;
+    -fx-padding: 0;
+    -fx-fill-height: true;
+    -fx-alignment: center-left;
+    -fx-pref-height: 60;
+}
+
+.module-toolbar .buttons {
+    -fx-spacing: 10;
+    -fx-fill-height: true;
+    -fx-alignment: center;
+    -fx-padding: 0 15 0 0;
+}
+
+.module-toolbar .separator:vertical .line {
+    -fx-border-color: rgba(255, 255, 255, .2);
+    -fx-border-width: 1;
+}
+
+.module-toolbar .text-field {
+    -fx-background-color: rgba(0, 0, 0, .2);
+    -fx-background-radius: 1000;
+    -fx-text-fill: white;
+    -fx-padding: 8 8 8 16;
+}
+
+.module-toolbar .text-field .clear-search {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-graphic: url("icons/controls/moduletoolbar/clear-search-icon.png");
+}
+
+.module-toolbar .controls {
+    -fx-alignment: center-left;
+    -fx-padding: 5 10 0 10;
+}
+
+.module-toolbar .close-button,
+.module-toolbar .minimize-button {
+    -fx-background-color: transparent;
+    -fx-padding: 6;
+}
+
+.module-toolbar .search-button {
+    -fx-background-color: transparent;
+    -fx-padding: 20;
+}
+
+/* ----------------------------------------------------------------------------
+ * Recent activity view.
+ */
+.recent-activity-view {
+    -fx-pref-width: 600;
+    -fx-background-color: -white-four;
+}
+
+/* ----------------------------------------------------------------------------
+ * Favorites Button.
+ */
+.favorites-button {
+    -fx-spacing: 20;
+}
+
+/* ----------------------------------------------------------------------------
+ * Floating Action Button
+ */
+.floating-action-button-container {
+    -fx-spacing: 20;
+    -fx-alignment: center;
+}
+
+.floating-action-button,
+.floating-action-button-child {
+    -fx-background-color: white;
+    -fx-background-radius: 50px;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .26), 10, 0.12, -1, 2);
+}
+
+.floating-action-button {
+    -fx-pref-width: 64;
+    -fx-pref-height: 64;
+    -fx-padding: 0;
+}
+
+.floating-action-button:hover,
+.floating-action-button-active,
+.floating-action-button-child:hover {
+    -fx-background-color: -slate-green;
+}
+
+.floating-action-button:pressed,
+.floating-action-button-child:pressed {
+    -fx-background-color: derive(-slate-green, -10%);
+}
+
+.floating-action-button-child {
+    -fx-pref-width: 50;
+    -fx-pref-height: 50;
+}
+
+.floating-action-button .label .glyph-icon,
+.floating-action-button-child .label .glyph-icon {
+    -fx-fill: -slate-green;
+}
+
+.floating-action-button:hover .label .glyph-icon,
+.floating-action-button-active .label .glyph-icon,
+.floating-action-button-child:hover .label .glyph-icon {
+    -fx-fill: white;
+}
+
+.floating-action-button:pressed .label .glyph-icon,
+.floating-action-button-child:pressed .label .glyph-icon {
+    -fx-fill: white;
+}
+
+/* ---------------------------------------------------------------------------
+ * Shell Dialogs
+ */
+
+.dialog-pane {
+    -fx-background-color: white;
+    -fx-effect: -drop-shadow-3;
+}
+
+.dialog-pane .button-bar .button {
+    -fx-background-color: -charcoal-grey;
+    -fx-text-fill: -white-four;
+    -fx-padding: 10 15;
+}
+
+.dialog-pane.error .container {
+    -fx-spacing: 20;
+}
+
+.dialog-header {
+    -fx-padding: 30;
+    -fx-background-color: -white-two;
+    -fx-border-width: .5;
+    -fx-border-color: transparent transparent -greyish-brown-two transparent;
+}
+
+.dialog-title {
+    -fx-padding: 0;
+    -fx-font-size: 25;
+    -fx-text-fill: -greyish-brown-two;
+}
+
+.dialog-close-button {
+    -fx-background-color: transparent;
+}
+
+.dialog-close-button:hover {
+    -fx-background-color: rgba(0, 0, 0, .1);
+}
+
+.dialog-close-button:pressed {
+    -fx-background-color: rgba(0, 0, 0, .2);
+}
+
+.dialog-content-pane {
+    -fx-padding: 30;
+}
+
+.dialog-content-pane .label {
+    -fx-font-size: 18;
+}
+
+.dialog-content-pane .input-container {
+    -fx-spacing: 10;
+}
+
+.dialog-content-pane .textfield-container {
+    -fx-spacing: 10;
+}
+
+/* --------------------------------------------------------------------------
+ * PropertySearchItemView.java
+ */
+.property-search-item {
+    -fx-pref-height: 50;
+    -fx-hgap: 20;
+}
+
+.property-search-item .empty-box {
+    -fx-border-width: 2;
+    -fx-border-color: #e4e4e3;
+    -fx-border-style: segments(20, 10);
+}
+
+.property-search-item .combo-box {
+    -fx-background-color: -white-four;
+    -fx-background-radius: 0;
+}
+
+.property-search-item .combo-box .cell {
+    -fx-font-size: 16;
+}
+
+.property-search-item .text-field {
+    -fx-background-color: -white-four;
+    -fx-border-color: transparent;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-font-size: 16;
+}
+
+.property-search-item .combo-box,
+.property-search-item .text-field,
+.property-search-item .date-picker,
+.property-search-item .date-range-picker {
+    -fx-effect: -shadow;
+}
+
+.property-search-item .combo-box,
+.property-search-item .combo-box .cell,
+.property-search-item .empty-box,
+.property-search-item .text-field,
+.property-search-item .date-range-picker {
+    -fx-pref-height: 50;
+}
+
+/* --------------------------------------------------------------------------
+ * PropertySearchView.java
+ */
+.property-search-view {
+    -fx-padding: 0px;
+}
+
+.property-search-view .property-search-group {
+    -fx-fill-width: true;
+    -fx-spacing: 25px;
+}
+
+.property-search-view .property-search-row {
+    -fx-fill-height: true;
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+}
+
+.property-search-view .property-search-icon {
+    -fx-padding: 10px;
+    -fx-cursor: hand;
+}
+
+.property-search-view .tab-pane {
+    -fx-min-height: 130px;
+}
+
+.property-search-view .tab-pane .tab-header {
+    -fx-background-color: null;
+}
+
+.property-search-view .tab-pane .tab-content {
+    -fx-padding: 20px 0 0 0;
+}
+
+.property-search-view .tab-pane .tab {
+    -fx-text-fill: #a0a7b2;
+    -fx-background-color: null;
+}
+
+.property-search-view .tab-pane .tab:selected {
+    -fx-background-color: null;
+    -fx-text-fill: -slate-green;
+}
+
+.property-search-view .tab-pane .tab:hover {
+    -fx-background-color: null;
+}
+
+/* --------------------------------------------------------------------*
+ * DateRangePicker.java
+ */
+.date-range-picker {
+    -fx-padding: 0;
+}
+
+.date-range-picker .arrow-button {
+    -fx-pref-width: 30;
+    -fx-background-image: url("icons/dropdown-icon-gray.png");
+}
+
+.date-range-content {
+    -fx-padding: 0;
+    -fx-spacing: 10;
+}
+
+
