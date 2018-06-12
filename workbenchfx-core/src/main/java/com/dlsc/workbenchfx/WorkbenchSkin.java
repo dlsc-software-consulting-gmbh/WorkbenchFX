@@ -127,6 +127,7 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   }
 
   private void showDialog() {
+    dialogPane.setVisible(true);
     WorkbenchDialog workbenchDialog = getSkinnable().getDialog();
     dialogTitle.textProperty().bind(workbenchDialog.titleProperty());
     dialogContentPane.getChildren().setAll(workbenchDialog.getContent());
@@ -141,6 +142,7 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   }
 
   private void hideDialog() {
+    dialogPane.setVisible(false);
   }
 
   private void updateButtons(WorkbenchDialog<?> dialog) {
@@ -182,6 +184,31 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
     });
 
     return button;
+  }
+
+  @Override
+  protected void layoutChildren(double contentX, double contentY, double contentWidth, double contentHeight) {
+    super.layoutChildren(contentX, contentY, contentWidth, contentHeight);
+    if (dialogPane.isVisible() && getChildren().contains(dialogPane)) {
+
+      double dialogPrefWidth = dialogPane.prefWidth(-1);
+      double dialogPrefHeight = dialogPane.prefHeight(-1);
+
+      final WorkbenchDialog dialog = getSkinnable().getDialog();
+
+      if (dialog == null) {
+        dialogPrefWidth = dialogPane.getWidth();
+        dialogPrefHeight = dialogPane.getHeight();
+      } else if (dialog.isMaximize()) {
+        dialogPrefWidth = contentWidth * .9;
+        dialogPrefHeight = contentHeight * .9;
+      }
+
+      final double dialogTargetY = contentY + (contentHeight - dialogPrefHeight) / 2;
+      dialogPane.resizeRelocate(contentX + (contentWidth - dialogPrefWidth) / 2, dialogTargetY, dialogPrefWidth, dialogPrefHeight);
+    }
+
+    final double gap = 30;
   }
 
   private void initViews(Workbench model) {
