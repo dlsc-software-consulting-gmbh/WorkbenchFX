@@ -152,7 +152,7 @@ public class CustomDemo extends Application {
     showDialogButton.setOnAction(event -> workbench.showError("Test Title", "Test Message"));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
-    // workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+    workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 
     workbench
         .getStylesheets()

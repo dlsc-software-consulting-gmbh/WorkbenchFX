@@ -5,23 +5,40 @@ import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
+import static com.dlsc.workbenchfx.view.dialog.WorkbenchDialog.*;
+
+import com.dlsc.workbenchfx.view.dialog.WorkbenchDialog;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.platform.commons.util.StringUtils;
 
 /**
  * Contains all the model logic for the workbench.
@@ -98,6 +115,8 @@ public class Workbench extends Control {
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initModules(builder.modules);
+
+    showDialog.bind(dialogProperty().isNotNull());
   }
 
   @Override
@@ -387,6 +406,102 @@ public class Workbench extends Control {
 
   public ObservableSet<Node> getToolbarControlsRight() {
     return FXCollections.unmodifiableObservableSet(toolbarControlsRight);
+  }
+
+  public void showDialog(WorkbenchDialog dialog) {
+    this.dialog.set(dialog);
+  }
+
+  public void hideDialog() {
+    this.dialog.set(null);
+  }
+
+  private final CompletableFuture<ButtonType> showStandardDialog(Type type, String title, String message) {
+    return showNode(type, title, new Label(message));
+  }
+
+  public final void showError(String title, String message) {
+    showError(title, message, null, null);
+  }
+
+  public final void showError(String title, String message, Exception exception) {
+    StringWriter stringWriter = new StringWriter();
+    exception.printStackTrace(new PrintWriter(stringWriter));
+    showError(title, message, stringWriter.toString(), exception);
+  }
+
+  public final void showError(String title, String message, String details) {
+    showError(title, message, details, null);
+  }
+
+  private final void showError(String title, String message, String details, Exception exception) {
+    WorkbenchDialog<String> dialog = new WorkbenchDialog<>(Type.ERROR);
+    dialog.setTitle(title);
+
+    final Label messageLabel = new Label(message);
+
+    if (StringUtils.isBlank(details)) {
+      dialog.setContent(messageLabel);
+    } else {
+      TextArea textArea = new TextArea();
+      textArea.setText(details);
+      textArea.setWrapText(true);
+
+      TitledPane titledPane = new TitledPane();
+      titledPane.getStyleClass().add("error-details-titled-pane");
+      titledPane.setText("Details");
+      titledPane.setContent(textArea);
+      titledPane.setPrefHeight(300);
+
+      VBox content = new VBox(messageLabel, titledPane);
+      content.getStyleClass().add("container");
+      dialog.setContent(content);
+    }
+
+    dialog.setException(exception);
+    showDialog(dialog);
+  }
+
+  public final CompletableFuture<ButtonType> showWarning(String title, String message) {
+    return showStandardDialog(Type.WARNING, title, message);
+  }
+
+  public final CompletableFuture<ButtonType> showConfirmation(String title, String message) {
+    return showStandardDialog(Type.CONFIRMATION, title, message);
+  }
+
+  public final CompletableFuture<ButtonType> showInformation(String title, String message) {
+    return showStandardDialog(Type.INFORMATION, title, message);
+  }
+
+  public final CompletableFuture<ButtonType> showNode(Type type, String title, Node node) {
+    WorkbenchDialog<ButtonType> dialog = new WorkbenchDialog<>(type);
+    dialog.setTitle(title);
+    dialog.setContent(node);
+    showDialog(dialog);
+    return dialog.getResult();
+  }
+
+  private final ReadOnlyObjectWrapper<WorkbenchDialog>
+      dialog = new ReadOnlyObjectWrapper<>(this, "dialog");
+
+  public final ReadOnlyObjectProperty<WorkbenchDialog> dialogProperty() {
+    return dialog;
+  }
+
+  public final ReadOnlyBooleanWrapper
+      showDialog = new ReadOnlyBooleanWrapper(this, "showDialog", false);
+
+  public ReadOnlyBooleanProperty showDialogProperty() {
+    return showDialog.getReadOnlyProperty();
+  }
+
+  public boolean isShowDialog() {
+    return showDialog.get();
+  }
+
+  public final WorkbenchDialog getDialog() {
+    return dialog.get();
   }
 
   /**
