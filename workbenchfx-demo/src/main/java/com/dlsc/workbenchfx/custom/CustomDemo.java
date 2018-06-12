@@ -104,6 +104,8 @@ public class CustomDemo extends Application {
     Button removePreferences = new Button("Remove", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
     addPreferences.getStyleClass().add("button-inverted");
 
+    Button showDialogButton = new Button("Show", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+
     // WorkbenchFX
     workbench =
         Workbench.builder(
@@ -114,7 +116,7 @@ public class CustomDemo extends Application {
                 new WidgetsTestModule(),
                 new DropdownTestModule(),
                 new NavigationDrawerTestModule())
-            .toolbarLeft(addPreferences, removePreferences)
+            .toolbarLeft(addPreferences, removePreferences, showDialogButton)
             .toolbarRight(
                 Dropdown.of(
                     new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
@@ -147,6 +149,7 @@ public class CustomDemo extends Application {
     showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
     addPreferences.setOnAction(event -> workbench.addModule(preferencesModule));
     removePreferences.setOnAction(event -> workbench.removeModule(preferencesModule));
+    showDialogButton.setOnAction(event -> workbench.showError("Test Title", "Test Message"));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
     // workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
