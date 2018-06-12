@@ -1,93 +1,4 @@
-@font-face {
-    src: url('fonts/Rubik-Regular.ttf');
-}
-
-@font-face {
-    src: url('fonts/Rubik-Light.ttf');
-}
-
-@font-face {
-    src: url('fonts/Rubik-Medium.ttf');
-}
-
-@font-face {
-    src: url('fonts/Rubik-Bold.ttf');
-}
-
-.root {
-    -fx-font-family: "Rubik Medium";
-    -fx-font-size: 13;
-    -toolbar-text-fill: white;
-    -toolbar-background-color: rgb(43, 43, 43);
-    -toolbar-button-pressed-color: rgba(255, 255, 255, .4);
-    -toolbar-button-selected-color: rgba(255, 255, 255, .1);
-
-    -drop-shadow-1: dropshadow(gaussian, rgba(0, 0, 0, .26), 10, 0.12, -1, 2);
-    -drop-shadow-2: dropshadow(gaussian, rgba(0, 0, 0, .26), 15, 0.16, -1, 4);
-    -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, .26), 20, 0.19, -1, 6);
-
-    -shadow: dropshadow(gaussian, rgba(0, 0, 0, .1), 6, 0.2, 0, 0);
-
-    -slate-green: #63946a;
-    -greyish-brown: #4a4a4a;
-    -yellowish-orange: #ffa208;
-    -greyish-brown-two: #595959;
-    -vivid-purple: #9012fe;
-    -tomato: #e94b35;
-    -charcoal-grey: #3b424c;
-    -steel: #7a8390;
-    -white: #ebebeb;
-    -greyish: #a3a3a3;
-    -white-two: #f6f6f4;
-    -white-three: #fbfbfb;
-    -white-four: #ffffff;
-}
-
-.menu-button > .arrow-button > .arrow {
-    -fx-background-color: transparent !important;
-}
-
-.menu-button > .arrow-button {
-    -fx-background-image: url("icons/menu-button-arrow.png");
-    -fx-background-position: center;
-    -fx-background-repeat: no-repeat;
-}
-
-.menu-button-black-arrow > .arrow-button {
-    -fx-background-image: url("icons/dropdown-icon.png");
-    -fx-background-position: center;
-    -fx-background-repeat: no-repeat;
-}
-
-.scroll-bar {
-    -fx-background-color: transparent;
-    -fx-padding: 2;
-}
-
-.scroll-bar:vertical .decrement-button,
-.scroll-bar:vertical .increment-button,
-.scroll-bar:vertical .decrement-arrow,
-.scroll-bar:vertical .increment-arrow {
-    -fx-pref-height: 0;
-    -fx-pref-width: 8;
-}
-
-.scroll-bar:horizontal .decrement-button,
-.scroll-bar:horizontal .increment-button,
-.scroll-bar:horizontal .decrement-arrow,
-.scroll-bar:horizontal .increment-arrow {
-    -fx-pref-height: 8;
-    -fx-pref-width: 0;
-}
-
-.scroll-bar .thumb {
-    -fx-background-color: rgba(0, 0, 0, .2);
-    -fx-background-insets: 0 0 0 2;
-    -fx-background-radius: 12;
-    -fx-border-width: 0;
-    -fx-border-insets: 0;
-    -fx-padding: 0;
-}
+@import url("theme.css");
 
 .missing-module-ui {
     -fx-background-color: -white-two;
@@ -100,81 +11,6 @@
 
 .missing-module-ui .text {
     -fx-font-size: 24;
-}
-
-.label {
-    -fx-font-size: 13px;
-}
-
-.hyperlink-label {
-    -fx-underline: true;
-}
-
-.button-label,
-.hyperlink-label{
-    -fx-font-size: 15px;
-    -fx-text-fill: #a0a8b2;
-    -fx-padding: 10;
-    -fx-cursor: hand;
-}
-
-.button,
-.toggle-button {
-    -fx-font-size: 13px;
-    -fx-padding: 10 30 10 30;
-    -fx-background-color: -charcoal-grey;
-    -fx-background-insets: 0;
-    -fx-border-radius: 5px;
-    -fx-font-size: 14;
-    -fx-text-fill: white;
-}
-
-.button:hover,
-.toggle-button:hover {
-    -fx-background-color: derive(-charcoal-grey, -10%);
-}
-
-.button:pressed {
-    -fx-background-color: derive(-charcoal-grey, -10%);
-}
-
-.toggle-button:pressed {
-    -fx-background-color: derive(-slate-green, -30%);
-}
-
-.toggle-button:selected {
-    -fx-background-color: -slate-green;
-}
-
-.white-button {
-    -fx-background-color: -white-three;
-    -fx-text-fill: #3b424c;
-    -fx-border-color: #e0e0e0;
-    -fx-border-width: 2px;
-    -fx-padding: 20px 0px;
-}
-
-.white-button:hover,
-.white-button:pressed {
-    -fx-background-color: derive(-white-three, -10%);
-}
-
-.header {
-    -fx-spacing: 25;
-    -fx-alignment: center;
-}
-
-.header .logo {
-    -fx-image: url("icons/menudrawer/menu-drawer-logo@2x.png");
-}
-
-.header .customer-logo {
-    -fx-image: url("customer.png");
-}
-
-.header .separator .line {
-    -fx-border-color: -white;
-    -fx-border-width: 1;
 }
 
 /* ----------------------------------------------------------------------------
@@ -375,6 +211,10 @@
     -fx-border-insets: 0;
 }
 
+.module-switcher .main-list {
+    -fx-effect: null;
+}
+
 .module-switcher .main-list .list-cell {
     -fx-background-color: transparent;
     -fx-padding: 0 20 0 20;
@@ -492,24 +332,35 @@
     -fx-background-color: -toolbar-background-color, -toolbar-button-selected-color;
 }
 
-.user-menu .button {
+.user-menu .user-menu-item {
     -fx-padding: 20;
-    -fx-font-size: 15;
-    -fx-background-color: transparent;
-    -fx-text-fill: -toolbar-text-fill;
     -fx-alignment: center-left;
 }
 
-.user-menu .button:focused {
+.user-menu .user-menu-item .label {
+    -fx-font-size: 15;
+    -fx-text-fill: -toolbar-text-fill;
+}
+
+.user-menu .user-menu-item:focused {
     -fx-background-color: -toolbar-button-selected-color;
 }
 
-.user-menu .button:hover {
+.user-menu .user-menu-item:hover {
     -fx-background-color: -toolbar-button-selected-color;
 }
 
-.user-menu .button:pressed {
+.user-menu .user-menu-item:pressed {
     -fx-background-color: -slate-green;
+}
+
+.user-menu .user-menu-item .accelerator-text {
+    -fx-min-width: 40;
+    -fx-background-color: -white;
+    -fx-background-radius: 3;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-alignment: center;
 }
 
 /* ----------------------------------------------------------------------------
@@ -693,111 +544,6 @@
 }
 
 /* ----------------------------------------------------------------------------
- * Pretty ScrollPane
- */
-
-.pretty-scroll-pane {
-    -fx-background-insets: 0; // no focus border
-}
-
-.pretty-scroll-pane .scroll-bar {
-    -fx-background-color: transparent;
-    -fx-pref-width: 12;
-    -fx-pref-height: 12;
-    -fx-padding: 2;
-}
-
-.pretty-scroll-pane .scroll-bar .thumb {
-    -fx-background-color: rgba(0, 0, 0, .2);
-    -fx-background-radius: 1000;
-    -fx-pref-width: 12;
-    -fx-pref-height: 12;
-}
-
-.pretty-scroll-pane .scroll-bar:vertical .thumb {
-    -fx-background-insets: 0 2 0 0;
-}
-
-.pretty-scroll-pane .scroll-bar:horizontal .thumb {
-    -fx-background-insets: 0 0 2 0;
-}
-
-.pretty-scroll-pane .scroll-bar .increment-button,
-.pretty-scroll-pane .scroll-bar .increment-arrow,
-.pretty-scroll-pane .scroll-bar .decrement-button,
-.pretty-scroll-pane .scroll-bar .decrement-arrow {
-    -fx-pref-width: 0 !important;
-    -fx-pref-height: 0 !important;
-}
-
-/* ----------------------------------------------------------------------------
- * Menu drawer context menu
- */
-.context-menu {
-    -fx-background-color: -slate-green;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-padding: 0;
-}
-
-.context-menu .label {
-    -fx-text-fill: white;
-}
-
-.context-menu .menu .arrow {
-    -fx-background-color: -white-four;
-    -fx-background-insets: 0;
-    -fx-padding: 0.25em;
-    -fx-shape: "M 0 -3.5 v 7 l 4 -3.5 z";
-}
-
-.context-menu .menu:hover .arrow,
-.context-menu .menu:showing .arrow {
-    -fx-background-color: -white-four;
-}
-
-.context-menu .menu-item {
-    -fx-padding: 20;
-}
-
-.context-menu .menu-item .label {
-    -fx-font-size: 15;
-}
-
-.context-menu .menu-item:focused,
-.context-menu .menu-item:hover {
-    -fx-background-color: derive(-slate-green, -10%);
-}
-
-.context-menu .menu-item:pressed {
-    -fx-background-color: white;
-}
-
-.context-menu .menu-item:pressed .label {
-    -fx-text-fill: -slate-green;
-}
-
-.context-menu .separator:horizontal .line {
-    -fx-border-color: -fx-box-border transparent transparent transparent;
-    -fx-border-insets: 1 0 0 0;
-}
-
-.context-menu > .scroll-arrow {
-    -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em; /* 5 */
-    -fx-background-color: transparent;
-}
-
-.context-menu > .scroll-arrow:hover {
-    -fx-background: -fx-selection-bar;
-    -fx-background-color: -fx-background;
-    -fx-text-fill: -fx-text-background-color;
-}
-
-.context-menu:show-mnemonics > .mnemonic-underline {
-    -fx-stroke: -fx-text-fill;
-}
-
-/* ----------------------------------------------------------------------------
  * Menu drawer context menu
  */
 .menu-drawer .context-menu {
@@ -888,6 +634,7 @@
     -fx-spacing: 20;
     -fx-padding: 20;
     -fx-opacity: .2;
+    -fx-effect: -shadow;
 }
 
 .home-screen .modules-page .module-button.implemented {
@@ -1058,35 +805,6 @@
     -fx-fill: white;
 }
 
-/* ----------------------------------------------------------------------------
- * List View
- */
-.list-view {
-    -fx-background-insets: 0;
-    -fx-padding: 0;
-}
-
-.list-view .list-cell:odd,
-.list-view .list-cell:even {
-    -fx-background-radius: 0;
-    -fx-background-color: transparent;
-}
-
-.list-view .list-cell:focused {
-    -fx-background-insets: 0;
-}
-
-.list-view .list-cell:hover,
-.list-view .list-cell:selected {
-    -fx-background-color: -slate-green;
-    -fx-background-insets: 0;
-}
-
-.list-view .list-cell:hover .label,
-.list-view .list-cell:selected .label {
-    -fx-text-fill: white;
-}
-
 /* ---------------------------------------------------------------------------
  * Shell Dialogs
  */
@@ -1100,6 +818,10 @@
     -fx-background-color: -charcoal-grey;
     -fx-text-fill: -white-four;
     -fx-padding: 10 15;
+}
+
+.dialog-pane.error .container {
+    -fx-spacing: 20;
 }
 
 .dialog-header {
@@ -1143,47 +865,116 @@
     -fx-spacing: 10;
 }
 
-.date-picker {
-    -fx-background-color: -white-four;
-    -fx-background-insets: 0;
-    -fx-background-radius: 2;
+/* --------------------------------------------------------------------------
+ * PropertySearchItemView.java
+ */
+.property-search-item {
+    -fx-pref-height: 50;
+    -fx-hgap: 20;
 }
 
-.date-picker > .arrow-button {
-    -fx-background-color: transparent;
-    -fx-background-image: url("icons/date-picker.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-insets: 0;
+.property-search-item .empty-box {
+    -fx-border-width: 2;
+    -fx-border-color: #e4e4e3;
+    -fx-border-style: segments(20, 10);
+}
+
+.property-search-item .combo-box {
+    -fx-background-color: -white-four;
     -fx-background-radius: 0;
 }
 
-.date-picker > .arrow-button > .arrow {
-    -fx-shape: null;
-    -fx-background-color: transparent;
+.property-search-item .combo-box .cell {
+    -fx-font-size: 16;
 }
 
-.date-picker .text-field {
-    -fx-effect: null !important;
+.property-search-item .text-field {
+    -fx-background-color: -white-four;
+    -fx-border-color: transparent;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-font-size: 16;
 }
 
-.combo-box-base > .arrow-button {
-    -fx-padding: 0 10 0 10;
+.property-search-item .combo-box,
+.property-search-item .text-field,
+.property-search-item .date-picker,
+.property-search-item .date-range-picker {
+    -fx-effect: -shadow;
+}
+
+.property-search-item .combo-box,
+.property-search-item .combo-box .cell,
+.property-search-item .empty-box,
+.property-search-item .text-field,
+.property-search-item .date-range-picker {
+    -fx-pref-height: 50;
+}
+
+/* --------------------------------------------------------------------------
+ * PropertySearchView.java
+ */
+.property-search-view {
+    -fx-padding: 0px;
+}
+
+.property-search-view .property-search-group {
+    -fx-fill-width: true;
+    -fx-spacing: 25px;
+}
+
+.property-search-view .property-search-row {
+    -fx-fill-height: true;
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+}
+
+.property-search-view .property-search-icon {
+    -fx-padding: 10px;
+    -fx-cursor: hand;
+}
+
+.property-search-view .tab-pane {
+    -fx-min-height: 130px;
+}
+
+.property-search-view .tab-pane .tab-header {
+    -fx-background-color: null;
+}
+
+.property-search-view .tab-pane .tab-content {
+    -fx-padding: 20px 0 0 0;
+}
+
+.property-search-view .tab-pane .tab {
+    -fx-text-fill: #a0a7b2;
+    -fx-background-color: null;
+}
+
+.property-search-view .tab-pane .tab:selected {
+    -fx-background-color: null;
+    -fx-text-fill: -slate-green;
+}
+
+.property-search-view .tab-pane .tab:hover {
+    -fx-background-color: null;
+}
+
+/* --------------------------------------------------------------------*
+ * DateRangePicker.java
+ */
+.date-range-picker {
+    -fx-padding: 0;
+}
+
+.date-range-picker .arrow-button {
+    -fx-pref-width: 30;
     -fx-background-image: url("icons/dropdown-icon-gray.png");
-    -fx-background-color: transparent;
-    -fx-background-insets: 0;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
 }
 
-.combo-box-base > .arrow-button > .arrow {
-    -fx-shape: null;
-    -fx-background-color: transparent;
+.date-range-content {
+    -fx-padding: 0;
+    -fx-spacing: 10;
 }
 
-.combo-box-popup > .list-view {
-    -fx-background-color: white;
-    -fx-background-insets: 0;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .1), 6, 0.2, 0, 0);
-}
 
