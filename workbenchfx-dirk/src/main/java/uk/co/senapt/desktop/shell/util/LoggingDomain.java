@@ -51,4 +51,9 @@ public final class LoggingDomain {
      * Logger used for anything related to service invocations.
      */
     public static final Logger SERVICE = LoggerFactory.getLogger(PREFIX + ".service"); //$NON-NLS-1$
+
+    /**
+     * Logger used for anything related to service invocations.
+     */
+    public static final Logger SECURITY = LoggerFactory.getLogger(PREFIX + ".security"); //$NON-NLS-1$
 }

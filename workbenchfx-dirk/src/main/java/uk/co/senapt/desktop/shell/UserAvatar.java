@@ -4,8 +4,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
-import uk.co.senapt.desktop.shell.skins.UserAvatarSkin;
 import uk.co.senapt.desktop.shell.model.User;
+import uk.co.senapt.desktop.shell.skins.UserAvatarSkin;
 
 /**
  * Created by lemmi on 21.08.17.

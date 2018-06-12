@@ -8,8 +8,8 @@ import javafx.scene.control.Pagination;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import uk.co.senapt.desktop.shell.ShellModule;
 import uk.co.senapt.desktop.shell.HomeScreen;
+import uk.co.senapt.desktop.shell.ShellModule;
 
 /**
  * Created by lemmi on 22.08.17.

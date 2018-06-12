@@ -27,12 +27,12 @@ public class PrettyListView<T> extends ListView<T> {
         vBar.setManaged(false);
         vBar.setOrientation(Orientation.VERTICAL);
         vBar.getStyleClass().add("pretty-scroll-bar");
-        vBar.visibleProperty().bind(vBar.visibleAmountProperty().lessThan(1));
+        vBar.visibleProperty().bind(vBar.visibleAmountProperty().isEqualTo(0).not());
 
         hBar.setManaged(false);
         hBar.setOrientation(Orientation.HORIZONTAL);
         hBar.getStyleClass().add("pretty-scroll-bar");
-        hBar.visibleProperty().bind(hBar.visibleAmountProperty().lessThan(1));
+        hBar.visibleProperty().bind(hBar.visibleAmountProperty().isEqualTo(0).not());
     }
 
     private void bindScrollBars() {

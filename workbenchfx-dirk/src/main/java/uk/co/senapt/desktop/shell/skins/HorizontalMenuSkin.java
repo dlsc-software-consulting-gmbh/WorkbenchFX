@@ -58,7 +58,9 @@ public class HorizontalMenuSkin<T> extends SkinBase<HorizontalMenu> {
         this.mainList.cellFactoryProperty().bind(control.cellFactoryProperty());
         this.mainList.setOrientation(Orientation.HORIZONTAL);
         this.mainList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        this.mainList.getSelectionModel().select(control.getSelectedItem());
         this.mainList.getSelectionModel().selectedItemProperty().addListener(obs -> control.setSelectedItem(mainList.getSelectionModel().getSelectedItem()));
+
         control.selectedItemProperty().addListener(obs -> mainList.getSelectionModel().select(control.getSelectedItem()));
 
         this.mainList.getStyleClass().add("main-list");
@@ -75,6 +77,7 @@ public class HorizontalMenuSkin<T> extends SkinBase<HorizontalMenu> {
 
         this.popupList = new PrettyListView<>();
         this.popupList.setItems(control.getItems());
+        this.popupList.getSelectionModel().select(control.getSelectedItem());
         this.popupList.selectionModelProperty().bind(mainList.selectionModelProperty());
         this.popupList.cellFactoryProperty().bind(control.popupCellFactoryProperty());
         this.popupList.getStyleClass().add("popup-list");
@@ -110,8 +113,8 @@ public class HorizontalMenuSkin<T> extends SkinBase<HorizontalMenu> {
         getChildren().addAll(mainList, popupList, leftFader, rightFader, leftScroll, rightScroll, menuButton);
     }
 
-
     private double lastValue;
+
     private Timeline timeline;
 
     private void scroll(double delta) {

@@ -14,8 +14,8 @@ import javafx.scene.control.SkinBase;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import uk.co.senapt.desktop.shell.PrettyScrollPane;
 import uk.co.senapt.desktop.shell.MenuDrawer;
+import uk.co.senapt.desktop.shell.PrettyScrollPane;
 
 /**
  * Created by lemmi on 22.08.17.
@@ -42,7 +42,7 @@ public class MenuDrawerSkin extends SkinBase<MenuDrawer> {
 
         Label backIcon = new Label();
         backIcon.getStyleClass().add("shape");
-        backIcon.setOnMouseClicked(evt -> menuDrawer.getShell().setShowMenuDrawer(false));
+        backIcon.setOnMouseClicked(evt -> menuDrawer.getShell().setShowMenuTray(false));
         BorderPane.setAlignment(backIcon, Pos.CENTER_LEFT);
 
         ImageView companyLogo = new ImageView();
