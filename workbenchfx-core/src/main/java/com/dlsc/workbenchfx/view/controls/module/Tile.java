@@ -4,7 +4,11 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import org.apache.logging.log4j.LogManager;
@@ -22,6 +26,9 @@ public class Tile extends Control {
   private final Workbench workbench;
   private final ObjectProperty<Module> module;
 
+  private final StringProperty name;
+  private final ObjectProperty<Node> icon;
+
   /**
    * Constructs a new {@link Tile}.
    *
@@ -30,6 +37,28 @@ public class Tile extends Control {
   public Tile(Workbench workbench) {
     this.workbench = workbench;
     module = new SimpleObjectProperty<>();
+    name = new SimpleStringProperty();
+    icon = new SimpleObjectProperty<>();
+    setupModuleListeners();
+  }
+
+  private void setupModuleListeners() {
+    module.addListener(observable -> {
+      Module current = getModule();
+      name.setValue(current.getName());
+      icon.setValue(current.getIcon());
+    });
+  }
+
+  /**
+   * Opens the {@link Module} belonging to this {@link Tile}.
+   */
+  public void open() {
+    workbench.openModule(getModule());
+  }
+
+  public Module getModule() {
+    return module.get();
   }
 
   /**
@@ -37,21 +66,29 @@ public class Tile extends Control {
    *
    * @param module to be represented by this {@link Tile}
    */
-  public void update(Module module) {
+  public final void setModule(Module module) {
     LOGGER.trace("Setting reference to module");
     this.module.set(module);
-  }
-
-  public Module getModule() {
-    return module.get();
   }
 
   public ReadOnlyObjectProperty<Module> moduleProperty() {
     return module;
   }
 
-  public Workbench getWorkbench() {
-    return workbench;
+  public String getName() {
+    return name.get();
+  }
+
+  public ReadOnlyStringProperty nameProperty() {
+    return name;
+  }
+
+  public Node getIcon() {
+    return icon.get();
+  }
+
+  public ReadOnlyObjectProperty<Node> iconProperty() {
+    return icon;
   }
 
   @Override

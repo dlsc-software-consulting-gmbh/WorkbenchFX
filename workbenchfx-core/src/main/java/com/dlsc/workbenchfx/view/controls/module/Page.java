@@ -1,9 +1,13 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.module.Module;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import org.apache.logging.log4j.LogManager;
@@ -19,7 +23,11 @@ import org.apache.logging.log4j.Logger;
 public class Page extends Control {
   private static final Logger LOGGER = LogManager.getLogger(Page.class.getName());
   private final Workbench workbench;
+  private final ObservableList<Module> modules;
   private final IntegerProperty pageIndex;
+  private final ObservableList<Tile> tiles;
+  private final IntegerProperty modulesPerPage;
+  private InvalidationListener modulesChangedListener;
 
   /**
    * Constructs a new {@link Tab}.
@@ -29,6 +37,38 @@ public class Page extends Control {
   public Page(Workbench workbench) {
     this.workbench = workbench;
     pageIndex = new SimpleIntegerProperty();
+    modulesPerPage = workbench.modulesPerPageProperty();
+    modules = workbench.getModules();
+    tiles = FXCollections.observableArrayList();
+    setupChangeListeners();
+    updateTiles();
+  }
+
+  private void setupChangeListeners() {
+    // update tiles list whenever modules or the pageIndex of this page have changed
+    modulesChangedListener = observable -> updateTiles();
+    modules.addListener(modulesChangedListener);
+    pageIndex.addListener(modulesChangedListener);
+    modulesPerPage.addListener(modulesChangedListener);
+  }
+
+  private void updateTiles() {
+    // remove any preexisting tiles in the list
+    LOGGER.debug(String.format("Tiles in page %s are being updated", getPageIndex()));
+    tiles.clear();
+    LOGGER.trace(String.format("Page Index: %s, Modules Per Page: %s", getPageIndex(),
+        workbench.getModulesPerPage()));
+    int position = getPageIndex() * workbench.getModulesPerPage();
+    modules.stream()
+        .skip(position) // skip all tiles from previous pages
+        .limit(workbench.getModulesPerPage()) // only take as many tiles as there are per page
+        .map(workbench::getTile)
+        .map(Tile.class::cast)
+        .forEachOrdered(tiles::add);
+  }
+
+  public int getPageIndex() {
+    return pageIndex.get();
   }
 
   /**
@@ -36,20 +76,16 @@ public class Page extends Control {
    *
    * @param pageIndex to be represented by this {@link Page}
    */
-  public void update(int pageIndex) {
+  public final void setPageIndex(int pageIndex) {
     this.pageIndex.set(pageIndex);
-  }
-
-  public int getPageIndex() {
-    return pageIndex.get();
   }
 
   public ReadOnlyIntegerProperty pageIndexProperty() {
     return pageIndex;
   }
 
-  public Workbench getWorkbench() {
-    return workbench;
+  public ObservableList<Tile> getTiles() {
+    return FXCollections.unmodifiableObservableList(tiles);
   }
 
   @Override

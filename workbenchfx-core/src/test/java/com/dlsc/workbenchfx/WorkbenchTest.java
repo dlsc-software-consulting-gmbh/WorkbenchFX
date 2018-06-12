@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx;
 
+import static com.dlsc.workbenchfx.testing.MockFactory.createMockModule;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -87,7 +88,7 @@ class WorkbenchTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = createMockModule(moduleNodes[i], true, "Module " + i);
+      mockModules[i] = createMockModule(moduleNodes[i], null,true, "Module " + i);
     }
 
     FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
@@ -136,22 +137,6 @@ class WorkbenchTest extends ApplicationTest {
     Scene scene = new Scene(workbench, 100, 100);
     stage.setScene(scene);
     stage.show();
-  }
-
-  /**
-   * Internal method to create mocks for {@link Module}.
-   *
-   * @param displayNode node to be displayed in the mock
-   * @param destroy     what the call for {@link Module#destroy()} should return
-   * @param toString    what {@link Module#toString()} should return
-   * @return the mock
-   */
-  Module createMockModule(Node displayNode, boolean destroy, String toString) {
-    Module mockModule = mock(Module.class);
-    when(mockModule.activate()).thenReturn(displayNode);
-    when(mockModule.destroy()).thenReturn(true);
-    when(mockModule.toString()).thenReturn(toString);
-    return mockModule;
   }
 
   @Test
@@ -1134,12 +1119,11 @@ class WorkbenchTest extends ApplicationTest {
 
   @Test
   void addModule() {
-    // TODO: after refactoring Page etc., check if listeners call methods on mock
     robot.interact(() -> {
       ObservableList<Module> modules = workbench.getModules();
       int currentSize = modules.size();
       String mockModuleName = "Mock Module";
-      Module mockModule = createMockModule(new Label(), true, mockModuleName);
+      Module mockModule = createMockModule(new Label(), null,true, mockModuleName);
 
       assertTrue(workbench.addModule(mockModule));
 
@@ -1154,7 +1138,6 @@ class WorkbenchTest extends ApplicationTest {
 
   @Test
   void removeModule() {
-    // TODO: after refactoring Page etc., check if listeners call methods on mock
     robot.interact(() -> {
       ObservableList<Module> modules = workbench.getModules();
       int currentSize = modules.size();

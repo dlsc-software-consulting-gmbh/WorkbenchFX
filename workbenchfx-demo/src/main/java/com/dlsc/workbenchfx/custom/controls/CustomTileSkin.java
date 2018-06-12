@@ -15,46 +15,44 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class CustomTileSkin extends SkinBase<CustomTile> {
-  private static final Logger LOGGER = LogManager.getLogger(
-      CustomTileSkin.class.getName());
+  private static final Logger LOGGER = LogManager.getLogger(CustomTileSkin.class.getName());
 
-  private final Button button;
-  private final ReadOnlyObjectProperty<Module> module;
+  private Button button;
 
   /**
    * Creates a new {@link CustomTileSkin} object for a corresponding {@link CustomTile}.
    *
-   * @param customTile the {@link CustomTile} for which this Skin is created
+   * @param tile the {@link CustomTile} for which this Skin is created
    */
-  public CustomTileSkin(CustomTile customTile) {
-    super(customTile);
-    module = customTile.moduleProperty();
+  public CustomTileSkin(CustomTile tile) {
+    super(tile);
 
+    initializeParts();
+    layoutParts();
+    setupBindings();
+    setupEventHandlers();
+    setupValueChangedListeners();
+  }
+
+  private void initializeParts() {
     button = new Button();
     button.getStyleClass().add("tile-control");
+  }
 
-    Workbench workbench = customTile.getWorkbench();
-    setupSkin(workbench, module.get()); // initial setup
-    setupModuleListener(workbench); // setup for changing modules
-
+  private void layoutParts() {
     getChildren().add(button);
   }
 
-  private void setupModuleListener(Workbench workbench) {
-    LOGGER.trace("Add module listener");
-    module.addListener((observable, oldModule, newModule) -> {
-      LOGGER.trace("moduleListener called");
-      LOGGER.trace("old: " + oldModule + " new: " + newModule);
-      if (oldModule != newModule) {
-        LOGGER.trace("Setting up skin");
-        setupSkin(workbench, newModule);
-      }
-    });
+  private void setupBindings() {
+    button.textProperty().bind(getSkinnable().nameProperty());
+    button.graphicProperty().bind(getSkinnable().iconProperty());
   }
 
-  private void setupSkin(Workbench workbench, Module module) {
-    button.setText(module.getName());
-    button.setGraphic(module.getIcon());
-    button.setOnAction(e -> workbench.openModule(module));
+  private void setupEventHandlers(){
+    button.setOnAction(e -> getSkinnable().open());
+  }
+
+  private void setupValueChangedListeners() {
+
   }
 }
