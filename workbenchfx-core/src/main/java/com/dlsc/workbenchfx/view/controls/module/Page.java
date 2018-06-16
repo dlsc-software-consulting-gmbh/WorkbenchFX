@@ -22,6 +22,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class Page extends Control {
   private static final Logger LOGGER = LogManager.getLogger(Page.class.getName());
+  public static final int INITIAL_PAGE_INDEX = -1;
   private final Workbench workbench;
   private final ObservableList<Module> modules;
   private final IntegerProperty pageIndex;
@@ -36,7 +37,7 @@ public class Page extends Control {
    */
   public Page(Workbench workbench) {
     this.workbench = workbench;
-    pageIndex = new SimpleIntegerProperty();
+    pageIndex = new SimpleIntegerProperty(INITIAL_PAGE_INDEX);
     modulesPerPage = workbench.modulesPerPageProperty();
     modules = workbench.getModules();
     tiles = FXCollections.observableArrayList();
@@ -53,6 +54,10 @@ public class Page extends Control {
   }
 
   private void updateTiles() {
+    if (getPageIndex() == INITIAL_PAGE_INDEX) {
+      LOGGER.debug("Page has not been initialized yet - skipping updates of tiles");
+      return;
+    }
     // remove any preexisting tiles in the list
     LOGGER.debug(String.format("Tiles in page %s are being updated", getPageIndex()));
     tiles.clear();
