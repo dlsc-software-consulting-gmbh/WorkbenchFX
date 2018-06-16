@@ -672,61 +672,6 @@ class WorkbenchTest extends ApplicationTest {
     assertNotNull(builder);
   }
 
-  // TODO: Move tests to Page, Tab and Tile classes respectively
-  /*@Test
-  void getTab() {
-    robot.interact(() -> {
-      // verify factory gets applied correctly
-      assertTrue(workbench.getTab(first) instanceof MockTab);
-
-      // verify correct creation of tab
-      MockTab tab = (MockTab) workbench.getTab(first);
-
-      assertNotNull(tab);
-      // verify module has been updated correctly
-      assertSame(first, tab.getModule());
-    });
-  }
-
-  @Test
-  void getTile() {
-    robot.interact(() -> {
-      // verify factory gets applied correctly
-      assertTrue(workbench.getTile(first) instanceof MockTile);
-
-      // verify correct creation of tile
-      MockTile tile = (MockTile) workbench.getTile(first);
-
-      assertNotNull(tile);
-      // verify module has been updated correctly
-      assertSame(first, tile.getModule());
-    });
-  }
-
-  @Test
-  void getPage() {
-    robot.interact(() -> {
-      int pageIndex = 0;
-      // verify factory gets applied correctly
-      assertTrue(workbench.getPage(pageIndex) instanceof MockPage);
-
-      // verify correct creation of page - index 0
-      MockPage page = (MockPage) workbench.getPage(pageIndex);
-
-      assertNotNull(page);
-      // verify module has been updated correctly
-      assertSame(pageIndex, page.getPageIndex());
-
-      // verify correct creation of page - index 5
-      pageIndex = 5;
-      page = (MockPage) workbench.getPage(pageIndex);
-
-      assertNotNull(page);
-      // verify module has been updated correctly
-      assertSame(pageIndex, page.getPageIndex());
-    });
-  }*/
-
   @Test
   void getOverlays() {
     robot.interact(() -> {
