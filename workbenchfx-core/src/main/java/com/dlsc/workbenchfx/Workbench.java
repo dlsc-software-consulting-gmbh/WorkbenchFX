@@ -257,18 +257,6 @@ public class Workbench extends Control {
   }
 
   /**
-   * Generates a new {@link Tile} control used for the representation of tiles on the home screen.
-   *
-   * @param module the module for which the {@link Tile} should be created
-   * @return a corresponding {@link Tile} which is created by using the {@code tileFactory}
-   */
-  public Node getTile(Module module) {
-    Tile tile = tileFactory.get().call(this);
-    tile.setModule(module);
-    return tile;
-  }
-
-  /**
    * Generates a new {@link Page} for the tiles on the home screen.
    *
    * @param pageIndex the page index for which the page should be created

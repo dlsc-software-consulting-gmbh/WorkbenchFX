@@ -62,7 +62,12 @@ public class Page extends Control {
     modules.stream()
         .skip(position) // skip all tiles from previous pages
         .limit(workbench.getModulesPerPage()) // only take as many tiles as there are per page
-        .map(workbench::getTile)
+        .map(module -> {
+          // create tile
+          Tile tile = workbench.getTileFactory().call(workbench);
+          tile.setModule(module);
+          return tile;
+        })
         .map(Tile.class::cast)
         .forEachOrdered(tiles::add);
   }
