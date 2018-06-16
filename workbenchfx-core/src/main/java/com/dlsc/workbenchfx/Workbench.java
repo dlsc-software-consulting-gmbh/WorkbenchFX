@@ -391,16 +391,14 @@ public class Workbench extends Control {
    * using {@link Workbench#showOverlay(Node, boolean)}.
    *
    * @param overlay  to be hidden
-   * @param blocking same value which was used when previously calling {@link
-   *                 Workbench#showOverlay(Node, boolean)}
    * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
    *           remove it from the scene graph entirely.
    *           If keeping the {@code overlay} loaded hidden in the scene graph is not possible due
    *           to performance reasons, call {@link Workbench#clearOverlays()} after this method.
    */
-  public boolean hideOverlay(Node overlay, boolean blocking) {
+  public boolean hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");
-    if (blocking) {
+    if (blockingOverlaysShown.contains(overlay)) {
       return blockingOverlaysShown.remove(overlay);
     } else {
       return nonBlockingOverlaysShown.remove(overlay);
