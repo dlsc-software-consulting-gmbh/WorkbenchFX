@@ -257,18 +257,6 @@ public class Workbench extends Control {
   }
 
   /**
-   * Generates a new {@link Tab} control used for the representation of tabs.
-   *
-   * @param module the module for which the {@link Tab} should be created
-   * @return a corresponding {@link Tab} which is created by using the {@code tabFactory}
-   */
-  public Tab getTab(Module module) {
-    Tab tab = tabFactory.get().call(this);
-
-    return tab;
-  }
-
-  /**
    * Generates a new {@link Tile} control used for the representation of tiles on the home screen.
    *
    * @param module the module for which the {@link Tile} should be created

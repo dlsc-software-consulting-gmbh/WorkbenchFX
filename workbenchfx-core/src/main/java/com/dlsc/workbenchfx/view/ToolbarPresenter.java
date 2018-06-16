@@ -5,6 +5,7 @@ import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
@@ -107,7 +108,9 @@ public class ToolbarPresenter implements Presenter {
         if (c.wasAdded()) {
           for (Module module : c.getAddedSubList()) {
             LOGGER.debug("Module " + module + " opened");
-            Node tabControl = model.getTab(module);
+            // create tab control
+            Tab tabControl = model.getTabFactory().call(model);
+            tabControl.setModule(module);
             view.addTab(tabControl);
             tabControl.requestFocus();
           }
