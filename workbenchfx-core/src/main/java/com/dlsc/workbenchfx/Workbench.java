@@ -371,7 +371,7 @@ public class Workbench extends Control {
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
-   *                 overlay} itself must call {@link Workbench#hideOverlay(Node, boolean)} to hide
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide
    *                 it.
    */
   public boolean showOverlay(Node overlay, boolean blocking) {
@@ -421,7 +421,7 @@ public class Workbench extends Control {
   }
 
   public void hideNavigationDrawer() {
-    hideOverlay(navigationDrawer, false);
+    hideOverlay(navigationDrawer);
   }
 
   public ObservableList<MenuItem> getNavigationDrawerItems() {
