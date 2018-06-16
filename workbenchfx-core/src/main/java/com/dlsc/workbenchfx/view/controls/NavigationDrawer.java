@@ -19,18 +19,17 @@ import javafx.scene.control.Skin;
  */
 public class NavigationDrawer extends Control {
 
-  private ObservableList<MenuItem> items;
   private Workbench workbench;
 
   /**
    * Creates a navigation drawer control.
    */
-  public NavigationDrawer(Workbench workbench) {
-    items = workbench.getNavigationDrawerItems();
+  public NavigationDrawer() {
+
   }
 
   public void hide() {
-    workbench.hideOverlay(this, false);
+    workbench.hideNavigationDrawer();
   }
 
   @Override
@@ -39,6 +38,10 @@ public class NavigationDrawer extends Control {
   }
 
   public final ObservableList<MenuItem> getItems() {
-    return items;
+    return workbench.getNavigationDrawerItems();
+  }
+
+  public void setWorkbench(Workbench workbench) {
+    this.workbench = workbench;
   }
 }

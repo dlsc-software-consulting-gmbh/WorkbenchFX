@@ -37,7 +37,7 @@ public final class WorkbenchBuilder {
   Node[] toolbarControlsRight;
   Node[] toolbarControlsLeft;
 
-  Node navigationDrawer = new NavigationDrawer();
+  NavigationDrawer navigationDrawer = new NavigationDrawer();
 
   MenuItem[] navigationDrawerItems;
 
@@ -104,7 +104,7 @@ public final class WorkbenchBuilder {
    *           icon, with your own implementation. To access the {@link MenuItem}s, use
    *           {@link Workbench#getNavigationDrawerItems()}.
    */
-  public WorkbenchBuilder navigationDrawer(Node navigationDrawer) {
+  public WorkbenchBuilder navigationDrawer(NavigationDrawer navigationDrawer) {
     this.navigationDrawer = navigationDrawer;
     return this;
   }

@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
@@ -39,7 +40,7 @@ public class Workbench extends Control {
   public static final String STYLE_CLASS_ACTIVE_HOME = "active-home";
 
   // Custom Controls
-  private Node navigationDrawer;
+  private ObjectProperty<NavigationDrawer> navigationDrawer = new SimpleObjectProperty<>();
 
   // Lists
   private final ObservableSet<Node> toolbarControlsRight =
@@ -131,7 +132,13 @@ public class Workbench extends Control {
     if (builder.navigationDrawerItems != null) {
       navigationDrawerItems.addAll(builder.navigationDrawerItems);
     }
-    navigationDrawer = builder.navigationDrawerFactory.call(this);
+    // when control of navigation drawer changes, pass in the workbench object
+    navigationDrawerProperty().addListener((observable, oldControl, newControl) -> {
+      if (oldControl != newControl) {
+        newControl.setWorkbench(this);
+      }
+    });
+    setNavigationDrawer(builder.navigationDrawer);
   }
 
   private void initModules(Module... modules) {
@@ -338,10 +345,6 @@ public class Workbench extends Control {
     return activeModuleView;
   }
 
-  public Node getNavigationDrawer() {
-    return navigationDrawer;
-  }
-
   /**
    * Removes a {@link Node} if one is in the {@code toolbarControlsLeft}.
    *
@@ -455,11 +458,23 @@ public class Workbench extends Control {
   }
 
   public void showNavigationDrawer() {
-    showOverlay(navigationDrawer, false);
+    showOverlay(navigationDrawer.get(), false);
   }
 
   public void hideNavigationDrawer() {
-    hideOverlay(navigationDrawer, false);
+    hideOverlay(navigationDrawer.get(), false);
+  }
+
+  public ObjectProperty<NavigationDrawer> navigationDrawerProperty() {
+    return navigationDrawer;
+  }
+
+  public void setNavigationDrawer(NavigationDrawer navigationDrawer) {
+    this.navigationDrawer.set(navigationDrawer);
+  }
+
+  public NavigationDrawer getNavigationDrawer() {
+    return navigationDrawer.get();
   }
 
   public ObservableList<MenuItem> getNavigationDrawerItems() {
