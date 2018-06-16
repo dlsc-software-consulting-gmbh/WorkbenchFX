@@ -103,11 +103,6 @@ public class Workbench extends Control {
     initModules(builder.modules);
   }
 
-  @Override
-  protected Skin<?> createDefaultSkin() {
-    return new WorkbenchSkin(this);
-  }
-
   /**
    * Creates a builder for {@link Workbench}.
    *
@@ -116,6 +111,11 @@ public class Workbench extends Control {
    */
   public static WorkbenchBuilder builder(Module... modules) {
     return new WorkbenchBuilder(modules);
+  }
+
+  @Override
+  protected Skin<?> createDefaultSkin() {
+    return new WorkbenchSkin(this);
   }
 
   private void initToolbarControls(WorkbenchBuilder builder) {
@@ -322,6 +322,7 @@ public class Workbench extends Control {
 
   /**
    * Removes the {@code module} at runtime.
+   *
    * @param module to be removed
    * @return true if successful, false if not present
    */
@@ -469,12 +470,12 @@ public class Workbench extends Control {
     return navigationDrawer;
   }
 
-  public void setNavigationDrawer(NavigationDrawer navigationDrawer) {
-    this.navigationDrawer.set(navigationDrawer);
-  }
-
   public NavigationDrawer getNavigationDrawer() {
     return navigationDrawer.get();
+  }
+
+  public void setNavigationDrawer(NavigationDrawer navigationDrawer) {
+    this.navigationDrawer.set(navigationDrawer);
   }
 
   public ObservableList<MenuItem> getNavigationDrawerItems() {
@@ -493,12 +494,12 @@ public class Workbench extends Control {
     return modulesPerPage.get();
   }
 
-  public IntegerProperty modulesPerPageProperty() {
-    return modulesPerPage;
-  }
-
   public void setModulesPerPage(int modulesPerPage) {
     this.modulesPerPage.set(modulesPerPage);
+  }
+
+  public IntegerProperty modulesPerPageProperty() {
+    return modulesPerPage;
   }
 
   @Override

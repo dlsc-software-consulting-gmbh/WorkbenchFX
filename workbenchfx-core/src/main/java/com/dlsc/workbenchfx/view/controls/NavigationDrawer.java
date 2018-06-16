@@ -13,12 +13,11 @@ import javafx.scene.control.Skin;
  * Represents the standard control to be used for the navigation drawer in WorkbenchFX. Is shown in
  * a modal way when the menu button has been pressed, with a {@link GlassPane} in the background.
  *
- * @see <a href="https://material.io/guidelines/patterns/navigation-drawer.html">Navigation
- *     Drawer</a>
- *
  * @author Dirk Lemmermann
  * @author François Martin
  * @author Marco Sanfratello
+ * @see <a href="https://material.io/guidelines/patterns/navigation-drawer.html">Navigation
+ * Drawer</a>
  */
 public class NavigationDrawer extends Control {
 
@@ -49,18 +48,18 @@ public class NavigationDrawer extends Control {
   }
 
   public ReadOnlyDoubleProperty workbenchWidthProperty() {
-    return  workbench.get().widthProperty();
+    return workbench.get().widthProperty();
   }
 
   private Workbench getWorkbench() {
     return workbench.get();
   }
 
-  public ObjectProperty<Workbench> workbenchProperty() {
-    return workbench;
-  }
-
   public final void setWorkbench(Workbench workbench) {
     this.workbench.set(workbench);
+  }
+
+  public ObjectProperty<Workbench> workbenchProperty() {
+    return workbench;
   }
 }
