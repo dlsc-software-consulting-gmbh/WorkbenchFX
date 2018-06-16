@@ -260,30 +260,12 @@ public class Workbench extends Control {
     return FXCollections.unmodifiableObservableList(openModules);
   }
 
+  /**
+   * Returns a list of the currently loaded modules.
+   * @implNote Use this method to add or remove modules at runtime.
+   */
   public ObservableList<Module> getModules() {
-    return FXCollections.unmodifiableObservableList(modules);
-  }
-
-  /**
-   * Adds the {@code module} to the home screen at runtime.
-   *
-   * @param module to be added
-   * @return true if successful, false if already added
-   */
-  public boolean addModule(Module module) {
-    if (modules.contains(module)) {
-      return false;
-    }
-    return modules.add(module);
-  }
-
-  /**
-   * Removes the {@code module} at runtime.
-   * @param module to be removed
-   * @return true if successful, false if not present
-   */
-  public boolean removeModule(Module module) {
-    return modules.remove(module);
+    return modules;
   }
 
   public Module getActiveModule() {
@@ -307,53 +289,19 @@ public class Workbench extends Control {
   }
 
   /**
-   * Removes a {@link Node} if one is in the {@code toolbarControlsLeft}.
-   *
-   * @param node the {@link Node} which should be removed
-   * @return true if sucessful, false if not
+   * Returns a list of the currently loaded toolbar controls on the left.
+   * @implNote Use this method to add or remove toolbar controls on the left at runtime.
    */
-  public boolean removeToolbarControlLeft(Node node) {
-    return toolbarControlsLeft.remove(node);
-  }
-
-  /**
-   * Inserts the given {@code node} at the end of the left toolbar. If the left toolbar already
-   * contains {@code node}, it will not be added.
-   *
-   * @param node to be added to the left toolbar
-   * @return true if {@code node} was added to the left toolbar, false if not
-   */
-  public boolean addToolbarControlLeft(Node node) {
-    return toolbarControlsLeft.add(node);
-  }
-
   public ObservableSet<Node> getToolbarControlsLeft() {
-    return FXCollections.unmodifiableObservableSet(toolbarControlsLeft);
+    return toolbarControlsLeft;
   }
 
   /**
-   * Removes a {@link Node} if one is in the {@code toolbarControlsRight}.
-   *
-   * @param node which should be removed
-   * @return true if sucessful, false if not
+   * Returns a list of the currently loaded toolbar controls on the right.
+   * @implNote Use this method to add or remove toolbar controls on the right at runtime.
    */
-  public boolean removeToolbarControlRight(Node node) {
-    return toolbarControlsRight.remove(node);
-  }
-
-  /**
-   * Inserts a given {@code node} at the end of the right toolbar. If the right toolbar already
-   * contains the {@code node}, it will not be added.
-   *
-   * @param node to be added to the right toolbar
-   * @return true if {@code node} was added to the right toolbar, false if not
-   */
-  public boolean addToolbarControlRight(Node node) {
-    return toolbarControlsRight.add(node);
-  }
-
   public ObservableSet<Node> getToolbarControlsRight() {
-    return FXCollections.unmodifiableObservableSet(toolbarControlsRight);
+    return toolbarControlsRight;
   }
 
   /**
