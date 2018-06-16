@@ -8,7 +8,7 @@ import com.dlsc.workbenchfx.Workbench;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class HomePresenter implements Presenter {
+public class HomePresenter extends Presenter {
   private final Workbench model;
   private final HomeView view;
 
