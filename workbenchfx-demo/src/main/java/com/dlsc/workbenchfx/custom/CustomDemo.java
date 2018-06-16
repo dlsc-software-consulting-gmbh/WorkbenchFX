@@ -38,12 +38,6 @@ public class CustomDemo extends Application {
   public Workbench workbench;
   PreferencesModule preferencesModule = new PreferencesModule();
 
-  private Callback<Workbench, Node> navigationDrawerFactory =
-      workbench -> {
-        NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
-
-      };
-
   public static void main(String[] args) {
     launch(args);
   }
@@ -134,7 +128,7 @@ public class CustomDemo extends Application {
             .pageFactory(CustomPage::new)
             .tabFactory(CustomTab::new)
             .tileFactory(CustomTile::new)
-            .navigationDrawerFactory(navigationDrawerFactory)
+            .navigationDrawer(new NavigationDrawer())
             .navigationDrawerItems(
                 menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
             .build();
