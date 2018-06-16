@@ -28,7 +28,7 @@ public class NavigationDrawer extends Control {
 
   }
 
-  public void hide() {
+  public final void hide() {
     workbench.hideNavigationDrawer();
   }
 
@@ -41,7 +41,7 @@ public class NavigationDrawer extends Control {
     return workbench.getNavigationDrawerItems();
   }
 
-  public void setWorkbench(Workbench workbench) {
+  public final void setWorkbench(Workbench workbench) {
     this.workbench = workbench;
   }
 }
