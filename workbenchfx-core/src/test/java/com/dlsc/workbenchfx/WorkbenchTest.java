@@ -1061,7 +1061,7 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void addNavigationDrawerItems() {
     robot.interact(() -> {
-      workbench.addNavigationDrawerItems(menuItem);
+      workbench.getNavigationDrawerItems().add(menuItem);
       assertEquals(2, navigationDrawerItems.size());
       assertEquals(menuItem, navigationDrawerItems.get(1));
     });
@@ -1073,7 +1073,7 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void removeNavigationDrawerItems() {
     robot.interact(() -> {
-      workbench.removeNavigationDrawerItems(menuItem);
+      workbench.getNavigationDrawerItems().remove(menuItem);
       assertEquals(0, navigationDrawerItems.size());
     });
   }
