@@ -25,13 +25,12 @@ import javafx.scene.control.Skin;
 public class NavigationDrawer extends Control {
 
   private ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>();
-  private DoubleProperty workbenchWidth;
 
   /**
    * Creates a navigation drawer control.
    */
   public NavigationDrawer() {
-    workbenchWidth.bind(Bindings.select(workbench, "width"));
+
   }
 
   public final void hide() {
@@ -48,11 +47,11 @@ public class NavigationDrawer extends Control {
   }
 
   public double getWorkbenchWidth() {
-    return workbenchWidth.get();
+    return workbench.get().getWidth();
   }
 
   public ReadOnlyDoubleProperty workbenchWidthProperty() {
-    return workbenchWidth;
+    return  workbench.get().widthProperty();
   }
 
   private Workbench getWorkbench() {
