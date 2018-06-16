@@ -33,8 +33,8 @@ class PageTest extends ApplicationTest {
   private static final int SIZE = 10;
   private Module[] mockModules = new Module[SIZE];
   private Node[] moduleNodes = new Node[SIZE];
-  private Callback<Workbench, Tile> firstMockTileFactory;
-  private Callback[] mockTileFactories = new Callback[SIZE - 1];
+  private int mockTileFactoryCalls = 0;
+  private Tile[] mockTiles = new Tile[SIZE];
   private ObservableList<Module> modulesList;
 
   IntegerProperty modulesPerPage;
@@ -58,13 +58,13 @@ class PageTest extends ApplicationTest {
       mockModules[i] = createMockModule(moduleNodes[i], null, true, "Module " + i);
       MockTile mockTile = new MockTile(mockBench);
       mockTile.setModule(mockModules[i]);
-      if (i == 0) {
-        firstMockTileFactory = mockBench -> mockTile;
-      } else {
-        mockTileFactories[i - 1] = mockBench -> mockTile;
-      }
+      mockTiles[i] = mockTile;
     }
-    when(mockBench.getTileFactory()).thenReturn(firstMockTileFactory, mockTileFactories);
+    when(mockBench.getTileFactory()).thenReturn(mockBench -> {
+      Tile mockTile = mockTiles[mockTileFactoryCalls % SIZE];
+      mockTileFactoryCalls++;
+      return mockTile;
+    });
 
     modulesList = FXCollections.observableArrayList(mockModules);
     when(mockBench.getModules()).thenReturn(modulesList);
