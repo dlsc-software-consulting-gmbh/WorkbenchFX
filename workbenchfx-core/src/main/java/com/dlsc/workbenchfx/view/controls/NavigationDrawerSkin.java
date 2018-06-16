@@ -25,6 +25,12 @@ import javafx.scene.layout.VBox;
 public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
   private VBox menuContainer;
+  private NavigationDrawer navigationDrawer;
+  private VBox drawerBox;
+  private BorderPane header;
+  private PrettyScrollPane scrollPane;
+  private Button backBtn;
+  private ImageView companyLogo;
 
   /**
    * Creates the skin for the {@link NavigationDrawer} control.
@@ -33,40 +39,71 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
    */
   public NavigationDrawerSkin(NavigationDrawer navigationDrawer) {
     super(navigationDrawer);
+    this.navigationDrawer = navigationDrawer;
 
+    initializeSelf();
+    initializeParts();
+    layoutParts();
+    setupEventHandlers();
+    setupValueChangedListeners();
+
+    buildMenu();
+  }
+
+  /**
+   * Initializes the skin.
+   */
+  private void initializeSelf() {
     navigationDrawer.getStyleClass().add("navigation-drawer");
+  }
 
-    VBox drawerBox = new VBox();
+  /**
+   * Initializes all parts of the skin.
+   */
+  private void initializeParts() {
+    drawerBox = new VBox();
     drawerBox.getStyleClass().add("drawer-box");
 
-    BorderPane header = new BorderPane();
+    header = new BorderPane();
     header.getStyleClass().add("header");
-    drawerBox.getChildren().add(header);
 
     menuContainer = new VBox();
-    menuContainer.setFillWidth(true);
     menuContainer.getStyleClass().add("menu-container");
 
-    PrettyScrollPane scrollPane = new PrettyScrollPane(menuContainer);
-    drawerBox.getChildren().add(scrollPane);
+    scrollPane = new PrettyScrollPane(menuContainer);
 
     FontAwesomeIconView backIconView = new FontAwesomeIconView(FontAwesomeIcon.ARROW_LEFT);
     backIconView.setId("back-icon-view");
     backIconView.getStyleClass().add("icon-view");
-    Button backBtn = new Button("", backIconView);
+    backBtn = new Button("", backIconView);
     backBtn.setId("back-button");
-    backBtn.setOnAction(evt -> navigationDrawer.hide());
+
+    companyLogo = new ImageView();
+    companyLogo.getStyleClass().add("logo");
+  }
+
+  /**
+   * Defines the layout of all parts in the skin.
+   */
+  private void layoutParts() {
+    drawerBox.getChildren().addAll(header, scrollPane);
+
+    menuContainer.setFillWidth(true);
+
     BorderPane.setAlignment(backBtn, Pos.CENTER_LEFT);
 
-    ImageView companyLogo = new ImageView();
-    companyLogo.getStyleClass().add("logo");
     header.setTop(backBtn);
     header.setCenter(companyLogo);
 
     getChildren().add(drawerBox);
+  }
 
+  private void setupEventHandlers() {
+    backBtn.setOnAction(evt -> navigationDrawer.hide());
+  }
+
+  private void setupValueChangedListeners() {
     navigationDrawer.getItems().addListener((Observable it) -> buildMenu());
-    buildMenu();
   }
 
   private void buildMenu() {
