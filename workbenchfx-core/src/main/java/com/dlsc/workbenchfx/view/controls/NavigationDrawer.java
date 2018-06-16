@@ -1,6 +1,11 @@
 package com.dlsc.workbenchfx.view.controls;
 
 import com.dlsc.workbenchfx.Workbench;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
@@ -19,17 +24,18 @@ import javafx.scene.control.Skin;
  */
 public class NavigationDrawer extends Control {
 
-  private Workbench workbench;
+  private ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>();
+  private DoubleProperty workbenchWidth;
 
   /**
    * Creates a navigation drawer control.
    */
   public NavigationDrawer() {
-
+    workbenchWidth.bind(Bindings.select(workbench, "width"));
   }
 
   public final void hide() {
-    workbench.hideNavigationDrawer();
+    getWorkbench().hideNavigationDrawer();
   }
 
   @Override
@@ -38,10 +44,26 @@ public class NavigationDrawer extends Control {
   }
 
   public final ObservableList<MenuItem> getItems() {
-    return workbench.getNavigationDrawerItems();
+    return getWorkbench().getNavigationDrawerItems();
+  }
+
+  public double getWorkbenchWidth() {
+    return workbenchWidth.get();
+  }
+
+  public ReadOnlyDoubleProperty workbenchWidthProperty() {
+    return workbenchWidth;
+  }
+
+  private Workbench getWorkbench() {
+    return workbench.get();
+  }
+
+  public ObjectProperty<Workbench> workbenchProperty() {
+    return workbench;
   }
 
   public final void setWorkbench(Workbench workbench) {
-    this.workbench = workbench;
+    this.workbench.set(workbench);
   }
 }

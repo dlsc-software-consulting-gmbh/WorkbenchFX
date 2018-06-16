@@ -13,6 +13,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -44,10 +45,15 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     initializeSelf();
     initializeParts();
     layoutParts();
+    setupBindings();
     setupEventHandlers();
     setupValueChangedListeners();
 
     buildMenu();
+  }
+
+  private void setupBindings() {
+    navigationDrawer.maxWidthProperty().bind(navigationDrawer.workbenchWidthProperty().multiply(.333));
   }
 
   /**
@@ -96,6 +102,8 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     header.setCenter(companyLogo);
 
     getChildren().add(drawerBox);
+
+    StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
   }
 
   private void setupEventHandlers() {
