@@ -4,6 +4,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
@@ -32,6 +33,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
   private PrettyScrollPane scrollPane;
   private Button backBtn;
   private ImageView companyLogo;
+  private ReadOnlyDoubleProperty workbenchWidth;
 
   /**
    * Creates the skin for the {@link NavigationDrawer} control.
@@ -53,7 +55,8 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
   }
 
   private void setupBindings() {
-    navigationDrawer.maxWidthProperty().bind(navigationDrawer.workbenchWidthProperty().multiply(.333));
+    workbenchWidth = navigationDrawer.workbenchWidthProperty(); // strong reference to avoid GC
+    navigationDrawer.maxWidthProperty().bind(workbenchWidth.multiply(.333));
   }
 
   /**
