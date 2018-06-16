@@ -128,7 +128,7 @@ public final class WorkbenchBuilder {
    * @return builder for chaining
    * @implNote the menu button will be hidden, if null is passed to {@code navigationDrawerItems}
    */
-  public WorkbenchBuilder navigationDrawer(MenuItem... navigationDrawerItems) {
+  public WorkbenchBuilder navigationDrawerItems(MenuItem... navigationDrawerItems) {
     this.navigationDrawerItems = navigationDrawerItems;
     return this;
   }

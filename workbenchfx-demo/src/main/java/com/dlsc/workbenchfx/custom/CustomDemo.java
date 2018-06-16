@@ -137,7 +137,7 @@ public class CustomDemo extends Application {
             .tabFactory(CustomTab::new)
             .tileFactory(CustomTile::new)
             .navigationDrawerFactory(navigationDrawerFactory)
-            .navigationDrawer(
+            .navigationDrawerItems(
                 menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
             .build();
 
