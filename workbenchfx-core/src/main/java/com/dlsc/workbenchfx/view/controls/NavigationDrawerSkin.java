@@ -34,6 +34,8 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
   public NavigationDrawerSkin(NavigationDrawer navigationDrawer) {
     super(navigationDrawer);
 
+    navigationDrawer.getStyleClass().add("navigation-drawer");
+
     VBox drawerBox = new VBox();
     drawerBox.getStyleClass().add("drawer-box");
 
@@ -53,7 +55,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     backIconView.getStyleClass().add("icon-view");
     Button backBtn = new Button("", backIconView);
     backBtn.setId("back-button");
-    backBtn.setOnAction(evt -> navigationDrawer.getWorkbench().hideNavigationDrawer());
+    backBtn.setOnAction(evt -> navigationDrawer.hide());
     BorderPane.setAlignment(backBtn, Pos.CENTER_LEFT);
 
     ImageView companyLogo = new ImageView();

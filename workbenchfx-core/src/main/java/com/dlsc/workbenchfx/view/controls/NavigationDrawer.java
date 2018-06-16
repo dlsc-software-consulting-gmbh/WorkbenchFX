@@ -26,18 +26,16 @@ public class NavigationDrawer extends Control {
    * Creates a navigation drawer control.
    */
   public NavigationDrawer(Workbench workbench) {
-    this.workbench = workbench;
     items = workbench.getNavigationDrawerItems();
-    getStyleClass().add("navigation-drawer");
+  }
+
+  public void hide() {
+    workbench.hideOverlay(this, false);
   }
 
   @Override
   protected Skin<?> createDefaultSkin() {
     return new NavigationDrawerSkin(this);
-  }
-
-  public Workbench getWorkbench() {
-    return workbench;
   }
 
   public final ObservableList<MenuItem> getItems() {
