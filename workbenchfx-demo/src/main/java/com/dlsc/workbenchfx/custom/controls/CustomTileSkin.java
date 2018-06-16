@@ -1,8 +1,5 @@
 package com.dlsc.workbenchfx.custom.controls;
 
-import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.Module;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.SkinBase;
 import org.apache.logging.log4j.LogManager;

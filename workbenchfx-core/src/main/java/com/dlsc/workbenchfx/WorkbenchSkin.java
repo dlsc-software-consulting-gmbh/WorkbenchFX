@@ -1,7 +1,5 @@
 package com.dlsc.workbenchfx;
 
-import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
-
 import com.dlsc.workbenchfx.view.ContentPresenter;
 import com.dlsc.workbenchfx.view.ContentView;
 import com.dlsc.workbenchfx.view.HomePresenter;

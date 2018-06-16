@@ -1,8 +1,6 @@
 package com.dlsc.workbenchfx.view.controls;
 
 import com.dlsc.workbenchfx.Workbench;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
