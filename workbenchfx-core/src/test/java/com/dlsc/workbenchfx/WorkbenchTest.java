@@ -623,15 +623,6 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  void getModules() {
-    robot.interact(() -> {
-      ObservableList<Module> modules = workbench.getModules();
-      // Test if unmodifiable list is returned
-      assertThrows(UnsupportedOperationException.class, () -> modules.remove(0));
-    });
-  }
-
-  @Test
   void activeModuleViewProperty() {
     assertTrue(workbench.activeModuleViewProperty() instanceof ReadOnlyObjectProperty);
   }
@@ -1127,11 +1118,6 @@ class WorkbenchTest extends ApplicationTest {
       Module mockModule = createMockModule(new Label(), null,true, mockModuleName);
 
       assertTrue(workbench.getModules().add(mockModule));
-
-      assertSame(currentSize + 1, modules.size());
-
-      // adding same module again should not add it
-      assertFalse(workbench.getModules().add(mockModule));
 
       assertSame(currentSize + 1, modules.size());
     });
