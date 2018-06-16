@@ -264,7 +264,7 @@ public class Workbench extends Control {
    */
   public Tab getTab(Module module) {
     Tab tab = tabFactory.get().call(this);
-    tab.setModule(module);
+
     return tab;
   }
 
@@ -492,6 +492,42 @@ public class Workbench extends Control {
 
   public void setModulesPerPage(int modulesPerPage) {
     this.modulesPerPage.set(modulesPerPage);
+  }
+
+  public Callback<Workbench, Tab> getTabFactory() {
+    return tabFactory.get();
+  }
+
+  public ObjectProperty<Callback<Workbench, Tab>> tabFactoryProperty() {
+    return tabFactory;
+  }
+
+  public void setTabFactory(Callback<Workbench, Tab> tabFactory) {
+    this.tabFactory.set(tabFactory);
+  }
+
+  public Callback<Workbench, Tile> getTileFactory() {
+    return tileFactory.get();
+  }
+
+  public ObjectProperty<Callback<Workbench, Tile>> tileFactoryProperty() {
+    return tileFactory;
+  }
+
+  public void setTileFactory(Callback<Workbench, Tile> tileFactory) {
+    this.tileFactory.set(tileFactory);
+  }
+
+  public Callback<Workbench, Page> getPageFactory() {
+    return pageFactory.get();
+  }
+
+  public ObjectProperty<Callback<Workbench, Page>> pageFactoryProperty() {
+    return pageFactory;
+  }
+
+  public void setPageFactory(Callback<Workbench, Page> pageFactory) {
+    this.pageFactory.set(pageFactory);
   }
 
   @Override
