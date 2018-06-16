@@ -256,18 +256,6 @@ public class Workbench extends Control {
     }
   }
 
-  /**
-   * Generates a new {@link Page} for the tiles on the home screen.
-   *
-   * @param pageIndex the page index for which the page should be created
-   * @return a corresponding page
-   */
-  public Page getPage(int pageIndex) {
-    Page page = pageFactory.get().call(this);
-    page.setPageIndex(pageIndex);
-    return page;
-  }
-
   public ObservableList<Module> getOpenModules() {
     return FXCollections.unmodifiableObservableList(openModules);
   }

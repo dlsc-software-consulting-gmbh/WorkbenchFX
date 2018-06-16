@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.view.controls.module.Page;
 
 /**
  * Represents the presenter of the corresponding {@link HomeView}.
@@ -27,7 +28,11 @@ public class HomePresenter implements Presenter {
   @Override
   public void initializeViewParts() {
     view.pagination.setPageCount(model.amountOfPages());
-    view.pagination.setPageFactory(model::getPage);
+    view.pagination.setPageFactory(pageIndex -> {
+      Page page = model.getPageFactory().call(model);
+      page.setPageIndex(pageIndex);
+      return page;
+    });
     view.pagination.setMaxPageIndicatorCount(Integer.MAX_VALUE);
   }
 
