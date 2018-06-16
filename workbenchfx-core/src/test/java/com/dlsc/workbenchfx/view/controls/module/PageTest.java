@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -32,6 +33,8 @@ class PageTest extends ApplicationTest {
   private static final int SIZE = 10;
   private Module[] mockModules = new Module[SIZE];
   private Node[] moduleNodes = new Node[SIZE];
+  private Callback<Workbench, Tile> firstMockTileFactory;
+  private Callback[] mockTileFactories = new Callback[SIZE-1];
   private ObservableList<Module> modulesList;
 
   IntegerProperty modulesPerPage;
@@ -55,8 +58,13 @@ class PageTest extends ApplicationTest {
       mockModules[i] = createMockModule(moduleNodes[i], null,true, "Module " + i);
       MockTile mockTile = new MockTile(mockBench);
       mockTile.setModule(mockModules[i]);
-      when(mockBench.getTile(mockModules[i])).thenReturn(mockTile);
+      if (i == 0) {
+        firstMockTileFactory = mockBench -> mockTile;
+      } else {
+        mockTileFactories[i-1] = mockBench -> mockTile;
+      }
     }
+    when(mockBench.getTileFactory()).thenReturn(firstMockTileFactory,mockTileFactories);
 
     modulesList = FXCollections.observableArrayList(mockModules);
     when(mockBench.getModules()).thenReturn(modulesList);
