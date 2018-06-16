@@ -425,15 +425,7 @@ public class Workbench extends Control {
   }
 
   public ObservableList<MenuItem> getNavigationDrawerItems() {
-    return FXCollections.unmodifiableObservableList(navigationDrawerItems);
-  }
-
-  public void addNavigationDrawerItems(MenuItem... menuItems) {
-    navigationDrawerItems.addAll(menuItems);
-  }
-
-  public void removeNavigationDrawerItems(MenuItem... menuItems) {
-    navigationDrawerItems.removeAll(menuItems);
+    return navigationDrawerItems;
   }
 
   public ObservableSet<Node> getNonBlockingOverlaysShown() {
