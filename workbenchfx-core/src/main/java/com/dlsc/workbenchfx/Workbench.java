@@ -179,6 +179,9 @@ public class Workbench extends Control {
       // when application is closed, destroy all modules
       stage.setOnCloseRequest(event -> {
         LOGGER.trace("Stage was requested to be closed - Close all open modules first");
+
+        // must be implemented by using "while" since the list of getOpenModules changes when
+        // modules are closed!
         while (getOpenModules().size() > 0) {
           Module moduleToClose = getOpenModules().get(0);
           LOGGER.trace("Cleanup - Close module: " + moduleToClose);
