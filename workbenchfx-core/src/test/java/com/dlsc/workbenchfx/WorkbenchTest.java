@@ -1246,7 +1246,7 @@ class WorkbenchTest extends ApplicationTest {
       // Implicit Call: workbench.closeModule(first)
       inOrder.verify(first).destroy(); // returns true
       // Implicit Call: workbench.closeModule(second)
-      inOrder.verify(first).destroy(); // returns false
+      inOrder.verify(second).destroy(); // returns false
       // closing should be interrupted
       inOrder.verifyNoMoreInteractions();
 
