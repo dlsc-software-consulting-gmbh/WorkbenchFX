@@ -1,0 +1,3 @@
+ignore:
+  - "**/*View.java"         # Views
+  - "**/*Skin.java"         # Skins
