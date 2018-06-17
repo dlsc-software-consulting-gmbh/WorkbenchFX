@@ -23,6 +23,7 @@ import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -79,7 +80,6 @@ class WorkbenchTest extends ApplicationTest {
   private MenuItem dropdownMenuItem;
   private Dropdown dropdownLeft;
   private Dropdown dropdownRight;
-  private Stage stage;
 
   @Override
   public void start(Stage stage) {
@@ -138,8 +138,7 @@ class WorkbenchTest extends ApplicationTest {
 
     Scene scene = new Scene(workbench, 100, 100);
     stage.setScene(scene);
-    this.stage = stage;
-    this.stage.show();
+    stage.show();
   }
 
   @Test
@@ -1161,7 +1160,9 @@ class WorkbenchTest extends ApplicationTest {
       workbench.openModule(second);
 
       // simulate closing of the stage by pressing the X of the application
-      push(KeyCode.CONTROL, KeyCode.Q).sleep(100);
+      push(KeyCode.CONTROL, KeyCode.W).sleep(100);
+
+      assertEquals(0, workbench.getOpenModules().size());
 
       // all open modules should get closed before the application ends
       InOrder inOrder = inOrder(first, second);
@@ -1181,7 +1182,7 @@ class WorkbenchTest extends ApplicationTest {
 
       inOrder.verifyNoMoreInteractions();
 
-      assertEquals(0, workbench.getOpenModules().size());
+
     });
   }
 
