@@ -178,10 +178,12 @@ public class Workbench extends Control {
       Stage stage = (Stage) getScene().getWindow();
       // when application is closed, destroy all modules
       stage.setOnCloseRequest(event -> {
-        LOGGER.trace("Stage was requested to be closed - Close all modules first");
-        for (Module module : getModules()) {
-          if (!module.destroy()) {
-            LOGGER.debug(String.format("Module %s prevented closing of the application",module));
+        LOGGER.trace("Stage was requested to be closed - Close all open modules first");
+        while (getOpenModules().size() > 0) {
+          Module moduleToClose = getOpenModules().get(0);
+          LOGGER.trace("Cleanup - Close module: " + moduleToClose);
+          if (!closeModule(moduleToClose)) {
+            LOGGER.debug(String.format("Module %s prevented closing of the application",moduleToClose));
             // module can't be destroyed yet - prevent closing of the application
             event.consume();
             // stop the closing of modules to proceed
@@ -221,6 +223,8 @@ public class Workbench extends Control {
    * @return true if closing was successful
    */
   public boolean closeModule(Module module) {
+    LOGGER.trace("closeModule - " + module);
+    LOGGER.trace("closeModule - List of open modules: " + openModules);
     Objects.requireNonNull(module);
     int i = openModules.indexOf(module);
     if (i == -1) {
