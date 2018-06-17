@@ -1158,10 +1158,12 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       workbench.openModule(first);
       workbench.openModule(second);
+    });
 
-      // simulate closing of the stage by pressing the X of the application
-      robot.closeCurrentWindow();
+    // simulate closing of the stage by pressing the X of the application
+    robot.closeCurrentWindow();
 
+    robot.interact(() -> {
       // all open modules should get closed before the application ends
       InOrder inOrder = inOrder(first, second);
       // Call: workbench.openModule(first)
