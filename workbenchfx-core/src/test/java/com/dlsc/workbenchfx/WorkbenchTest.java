@@ -1161,7 +1161,7 @@ class WorkbenchTest extends ApplicationTest {
     });
 
     // simulate closing of the stage by pressing the X of the application
-    robot.closeCurrentWindow();
+    robot.closeCurrentWindow(); // must be called outside of interact!
 
     robot.interact(() -> {
       // all open modules should get closed before the application ends
