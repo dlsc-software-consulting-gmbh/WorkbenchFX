@@ -222,7 +222,7 @@ public class Workbench extends Control {
     Objects.requireNonNull(module);
     int i = openModules.indexOf(module);
     if (i == -1) {
-      throw new IllegalArgumentException("Module has not been loaded yet.");
+      throw new IllegalArgumentException("Module has not been opened yet.");
     }
     // set new active module
     Module oldActive = getActiveModule();
