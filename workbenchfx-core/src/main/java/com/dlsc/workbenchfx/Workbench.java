@@ -199,7 +199,7 @@ public class Workbench extends Control {
   public void openModule(Module module) {
     if (!modules.contains(module)) {
       throw new IllegalArgumentException(
-          "Module was not passed in with the constructor of WorkbenchFxModel");
+          "Module has not been loaded yet");
     }
     LOGGER.trace("openModule - set active module to " + module);
     activeModule.setValue(module);
