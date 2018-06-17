@@ -257,7 +257,10 @@ public class Workbench extends Control {
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
       LOGGER.trace("closeModule - Destroy, Removal successful: " + removal + " - " + module);
-      LOGGER.trace("closeModule - Set active module to: " + newActive);
+      if (oldActive != newActive) {
+        // only log if the active module has been changed
+        LOGGER.trace("closeModule - Set active module to: " + newActive);
+      }
       activeModule.setValue(newActive);
       return removal;
     }
