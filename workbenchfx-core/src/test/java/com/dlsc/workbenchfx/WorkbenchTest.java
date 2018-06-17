@@ -1181,6 +1181,77 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).destroy();
 
       inOrder.verifyNoMoreInteractions();
+
+      assertEquals(0, workbench.getOpenModules().size());
+    });
+  }
+
+  @Test
+  void closeStageFailFirstModule() {
+    robot.interact(() -> {
+      workbench.openModule(first);
+      workbench.openModule(second);
+    });
+    // make sure closing of the stage gets interrupted, if destroy returns false on a module
+    when(first.destroy()).thenReturn(false);
+
+    // simulate closing of the stage by pressing the X of the application
+    robot.closeCurrentWindow(); // must be called outside of interact!
+
+    robot.interact(() -> {
+      // all open modules should get closed before the application ends
+      InOrder inOrder = inOrder(first, second);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(first).deactivate();
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+
+      // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
+      // Implicit Call: workbench.closeModule(first)
+      inOrder.verify(first).destroy(); // returns false
+      // closing should be interrupted
+      inOrder.verifyNoMoreInteractions();
+
+      assertEquals(2, workbench.getOpenModules().size());
+    });
+  }
+
+  @Test
+  void closeStageFailSecondModule() {
+    robot.interact(() -> {
+      workbench.openModule(first);
+      workbench.openModule(second);
+    });
+    // make sure closing of the stage gets interrupted, if destroy returns false on a module
+    when(second.destroy()).thenReturn(false);
+
+    // simulate closing of the stage by pressing the X of the application
+    robot.closeCurrentWindow(); // must be called outside of interact!
+
+    robot.interact(() -> {
+      // all open modules should get closed before the application ends
+      InOrder inOrder = inOrder(first, second);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(first).deactivate();
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+
+      // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
+      // Implicit Call: workbench.closeModule(first)
+      inOrder.verify(first).destroy(); // returns true
+      // Implicit Call: workbench.closeModule(second)
+      inOrder.verify(first).destroy(); // returns false
+      // closing should be interrupted
+      inOrder.verifyNoMoreInteractions();
+
+      assertEquals(1, workbench.getOpenModules().size());
+      assertEquals(second, workbench.getOpenModules().get(0));
     });
   }
 }
