@@ -16,7 +16,7 @@ import javafx.scene.image.ImageView;
  */
 public abstract class Module {
 
-  protected Workbench workbench;
+  private Workbench workbench;
   private String name;
   private FontAwesomeIcon faIcon;
   private Image imgIcon;
@@ -103,6 +103,10 @@ public abstract class Module {
    */
   public boolean destroy() {
     return true;
+  }
+
+  public final Workbench getWorkbench() {
+    return workbench;
   }
 
   /**
