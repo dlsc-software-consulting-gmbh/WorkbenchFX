@@ -23,8 +23,6 @@ import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -37,15 +35,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
-import org.mockito.MockitoAnnotations;
 import org.testfx.api.FxRobot;
-import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
-import org.testfx.util.WaitForAsyncUtils;
 
 /**
  * Tests for {@link Workbench}.
@@ -96,7 +90,7 @@ class WorkbenchTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = createMockModule(moduleNodes[i], null,true, "Module " + i);
+      mockModules[i] = createMockModule(moduleNodes[i], null, true, "Module " + i);
     }
 
     FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
@@ -492,9 +486,8 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   /**
-   * Example of what happens in case of a closing dialog in the destroy() method of a module
-   * with the user confirming the module should get closed.
-   * Precondition: openModule tests pass.
+   * Example of what happens in case of a closing dialog in the destroy() method of a module with
+   * the user confirming the module should get closed. Precondition: openModule tests pass.
    */
   @Test
   void closeModuleDestroyInactiveDialogClose() {
@@ -537,9 +530,8 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   /**
-   * Example of what happens in case of a closing dialog in the destroy() method of a module
-   * with the user confirming the module should NOT get closed.
-   * Precondition: openModule tests pass.
+   * Example of what happens in case of a closing dialog in the destroy() method of a module with
+   * the user confirming the module should NOT get closed. Precondition: openModule tests pass.
    */
   @Test
   void closeModulePreventDestroyInactiveDialogClose() {
@@ -1132,7 +1124,7 @@ class WorkbenchTest extends ApplicationTest {
       ObservableList<Module> modules = workbench.getModules();
       int currentSize = modules.size();
       String mockModuleName = "Mock Module";
-      Module mockModule = createMockModule(new Label(), null,true, mockModuleName);
+      Module mockModule = createMockModule(new Label(), null, true, mockModuleName);
 
       assertTrue(workbench.addModule(mockModule));
 
@@ -1168,7 +1160,7 @@ class WorkbenchTest extends ApplicationTest {
       workbench.openModule(first);
       workbench.openModule(second);
 
-    // simulate closing of the stage by pressing the X of the application
+      // simulate closing of the stage by pressing the X of the application
       push(KeyCode.CONTROL, KeyCode.Q).sleep(100);
 
       // all open modules should get closed before the application ends
@@ -1196,15 +1188,15 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void closeStageFailFirstModule() {
     robot.interact(() -> {
-          workbench.openModule(first);
-          workbench.openModule(second);
+      workbench.openModule(first);
+      workbench.openModule(second);
 
-          // make sure closing of the stage gets interrupted, if destroy returns false on a module
-          when(first.destroy()).thenReturn(false);
-        });
+      // make sure closing of the stage gets interrupted, if destroy returns false on a module
+      when(first.destroy()).thenReturn(false);
+    });
     // simulate closing of the stage like when pressing the X of the application
     robot.interact(() -> {
-    ((Stage) workbench.getScene().getWindow()).close();
+      ((Stage) workbench.getScene().getWindow()).close();
     });
     robot.interact(() -> {
       // all open modules should get closed before the application ends
