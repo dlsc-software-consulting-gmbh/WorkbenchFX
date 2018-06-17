@@ -1255,6 +1255,10 @@ class WorkbenchTest extends ApplicationTest {
    * Internal utility method for testing.
    * Simulates closing the stage, which fires a close request to test logic
    * inside of {@link Stage#setOnCloseRequest(EventHandler)}.
+   *
+   * Using {@link FxRobot#closeCurrentWindow()} would be better, but it only works on Windows
+   * because of its implementation, so this approach was chosen as a workaround.
+   * @see <a href="https://github.com/TestFX/TestFX/issues/447</a>
    */
   private void closeStage() {
     Stage stage = ((Stage) workbench.getScene().getWindow());
