@@ -23,19 +23,19 @@ import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
@@ -1160,9 +1160,7 @@ class WorkbenchTest extends ApplicationTest {
       workbench.openModule(second);
 
       // simulate closing of the stage by pressing the X of the application
-      push(KeyCode.CONTROL, KeyCode.W).sleep(100);
-
-      assertEquals(0, workbench.getOpenModules().size());
+      closeStage();
 
       // all open modules should get closed before the application ends
       InOrder inOrder = inOrder(first, second);
@@ -1182,7 +1180,7 @@ class WorkbenchTest extends ApplicationTest {
 
       inOrder.verifyNoMoreInteractions();
 
-
+      assertEquals(0, workbench.getOpenModules().size());
     });
   }
 
@@ -1194,12 +1192,10 @@ class WorkbenchTest extends ApplicationTest {
 
       // make sure closing of the stage gets interrupted, if destroy returns false on a module
       when(first.destroy()).thenReturn(false);
-    });
-    // simulate closing of the stage like when pressing the X of the application
-    robot.interact(() -> {
-      ((Stage) workbench.getScene().getWindow()).close();
-    });
-    robot.interact(() -> {
+
+      // simulate closing of the stage like when pressing the X of the application
+      closeStage();
+
       // all open modules should get closed before the application ends
       InOrder inOrder = inOrder(first, second);
       // Call: workbench.openModule(first)
@@ -1225,14 +1221,13 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       workbench.openModule(first);
       workbench.openModule(second);
-    });
-    // make sure closing of the stage gets interrupted, if destroy returns false on a module
-    when(second.destroy()).thenReturn(false);
 
-    // simulate closing of the stage by pressing the X of the application
-    robot.closeCurrentWindow(); // must be called outside of interact!
+      // make sure closing of the stage gets interrupted, if destroy returns false on a module
+      when(second.destroy()).thenReturn(false);
 
-    robot.interact(() -> {
+      // simulate closing of the stage by pressing the X of the application
+      closeStage();
+
       // all open modules should get closed before the application ends
       InOrder inOrder = inOrder(first, second);
       // Call: workbench.openModule(first)
@@ -1254,5 +1249,20 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(1, workbench.getOpenModules().size());
       assertEquals(second, workbench.getOpenModules().get(0));
     });
+  }
+
+  /**
+   * Internal utility method for testing.
+   * Simulates closing the stage, which fires a close request to test logic
+   * inside of {@link Stage#setOnCloseRequest(EventHandler)}.
+   */
+  private void closeStage() {
+    Stage stage = ((Stage) workbench.getScene().getWindow());
+    stage.fireEvent(
+        new WindowEvent(
+            stage,
+            WindowEvent.WINDOW_CLOSE_REQUEST
+        )
+    );
   }
 }
