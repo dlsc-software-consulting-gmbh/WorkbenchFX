@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
@@ -175,6 +176,14 @@ public class Workbench extends Control {
 
   private void setupCleanup() {
     Platform.runLater(() -> {
+      Scene scene = getScene();
+      // if there is no scene, don't cause NPE by calling "getWindow()" on null
+      if (Objects.isNull(scene)) {
+        // should only be thrown in tests with mocked views
+        LOGGER.error("setupCleanup - Scene could not be found! setOnCloseRequest was not set");
+        return;
+      }
+
       Stage stage = (Stage) getScene().getWindow();
       // when application is closed, destroy all modules
       stage.setOnCloseRequest(event -> {
