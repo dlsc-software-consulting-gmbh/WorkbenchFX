@@ -1153,6 +1153,11 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
+  /**
+   * Test for {@link Workbench#setupCleanup()}.
+   * Simulates all modules returning {@code true} when {@link Module#destroy()} is being called on
+   * them during the cleanup.
+   */
   @Test
   void closeStageSuccess() {
     robot.interact(() -> {
@@ -1184,6 +1189,11 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
+  /**
+   * Test for {@link Workbench#setupCleanup()}.
+   * Simulates the first (inactive) module returning {@code false} and the second (active) module
+   * returning {@code true}, when {@link Module#destroy()} is being called on them during cleanup.
+   */
   @Test
   void closeStageFailFirstModule() {
     robot.interact(() -> {
@@ -1216,6 +1226,11 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
+  /**
+   * Test for {@link Workbench#setupCleanup()}.
+   * Simulates the first (inactive) module returning {@code true} and the second (active) module
+   * returning {@code false}, when {@link Module#destroy()} is being called on them during cleanup.
+   */
   @Test
   void closeStageFailSecondModule() {
     robot.interact(() -> {
