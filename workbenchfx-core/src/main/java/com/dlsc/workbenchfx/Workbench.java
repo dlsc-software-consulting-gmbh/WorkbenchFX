@@ -8,6 +8,7 @@ import com.dlsc.workbenchfx.view.controls.module.Tile;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -21,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -100,6 +102,7 @@ public class Workbench extends Control {
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initModules(builder.modules);
+    setupCleanup();
   }
 
   @Override
@@ -167,6 +170,23 @@ public class Workbench extends Control {
         LOGGER.trace("Active Module Listener - Activating module - " + newModule);
         activeModuleView.setValue(newModule.activate());
       }
+    });
+  }
+
+  private void setupCleanup() {
+    Platform.runLater(() -> {
+      Stage stage = (Stage) getScene().getWindow();
+      // when application is closed, destroy all modules
+      stage.setOnCloseRequest(event -> {
+        for (Module module : getModules()) {
+          if (!module.destroy()) {
+            // module can't be destroyed yet - prevent closing of the application
+            event.consume();
+            // stop the closing of modules to proceed
+            break;
+          }
+        }
+      });
     });
   }
 
