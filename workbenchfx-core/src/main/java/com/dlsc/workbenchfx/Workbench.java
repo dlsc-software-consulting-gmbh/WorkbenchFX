@@ -183,7 +183,9 @@ public class Workbench extends Control {
           Module moduleToClose = getOpenModules().get(0);
           LOGGER.trace("Cleanup - Close module: " + moduleToClose);
           if (!closeModule(moduleToClose)) {
-            LOGGER.debug(String.format("Module %s prevented closing of the application",moduleToClose));
+            LOGGER.debug(
+                String.format("Module %s prevented closing of the application", moduleToClose)
+            );
             // module can't be destroyed yet - prevent closing of the application
             event.consume();
             // stop the closing of modules to proceed
