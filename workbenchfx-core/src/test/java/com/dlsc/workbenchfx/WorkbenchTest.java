@@ -1152,4 +1152,33 @@ class WorkbenchTest extends ApplicationTest {
       assertSame(currentSize - 1, modules.size());
     });
   }
+
+  @Test
+  void closeStageSuccess() {
+    robot.interact(() -> {
+      workbench.openModule(first);
+      workbench.openModule(second);
+
+      // simulate closing of the stage by pressing the X of the application
+      robot.closeCurrentWindow();
+
+      // all open modules should get closed before the application ends
+      InOrder inOrder = inOrder(first, second);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(first).deactivate();
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+
+      // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
+      // Implicit Call: workbench.closeModule(first)
+      inOrder.verify(first).destroy();
+      // Implicit Call: workbench.closeModule(second)
+      inOrder.verify(second).destroy();
+
+      inOrder.verifyNoMoreInteractions();
+    });
+  }
 }
