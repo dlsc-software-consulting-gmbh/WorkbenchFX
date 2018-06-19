@@ -642,28 +642,28 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  void amountOfPages() {
+  void getAmountOfPages() {
     robot.interact(() -> {
       int modulesPerPage = 1;
-      assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
-      assertEquals(2, prepareWorkbench(2, modulesPerPage).amountOfPages());
-      assertEquals(3, prepareWorkbench(3, modulesPerPage).amountOfPages());
+      assertEquals(1, prepareWorkbench(1, modulesPerPage).getAmountOfPages());
+      assertEquals(2, prepareWorkbench(2, modulesPerPage).getAmountOfPages());
+      assertEquals(3, prepareWorkbench(3, modulesPerPage).getAmountOfPages());
 
       modulesPerPage = 2;
-      assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
-      assertEquals(1, prepareWorkbench(2, modulesPerPage).amountOfPages());
-      assertEquals(2, prepareWorkbench(3, modulesPerPage).amountOfPages());
-      assertEquals(2, prepareWorkbench(4, modulesPerPage).amountOfPages());
-      assertEquals(3, prepareWorkbench(5, modulesPerPage).amountOfPages());
+      assertEquals(1, prepareWorkbench(1, modulesPerPage).getAmountOfPages());
+      assertEquals(1, prepareWorkbench(2, modulesPerPage).getAmountOfPages());
+      assertEquals(2, prepareWorkbench(3, modulesPerPage).getAmountOfPages());
+      assertEquals(2, prepareWorkbench(4, modulesPerPage).getAmountOfPages());
+      assertEquals(3, prepareWorkbench(5, modulesPerPage).getAmountOfPages());
 
       modulesPerPage = 3;
-      assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
-      assertEquals(1, prepareWorkbench(2, modulesPerPage).amountOfPages());
-      assertEquals(1, prepareWorkbench(3, modulesPerPage).amountOfPages());
-      assertEquals(2, prepareWorkbench(4, modulesPerPage).amountOfPages());
-      assertEquals(2, prepareWorkbench(5, modulesPerPage).amountOfPages());
-      assertEquals(2, prepareWorkbench(6, modulesPerPage).amountOfPages());
-      assertEquals(3, prepareWorkbench(7, modulesPerPage).amountOfPages());
+      assertEquals(1, prepareWorkbench(1, modulesPerPage).getAmountOfPages());
+      assertEquals(1, prepareWorkbench(2, modulesPerPage).getAmountOfPages());
+      assertEquals(1, prepareWorkbench(3, modulesPerPage).getAmountOfPages());
+      assertEquals(2, prepareWorkbench(4, modulesPerPage).getAmountOfPages());
+      assertEquals(2, prepareWorkbench(5, modulesPerPage).getAmountOfPages());
+      assertEquals(2, prepareWorkbench(6, modulesPerPage).getAmountOfPages());
+      assertEquals(3, prepareWorkbench(7, modulesPerPage).getAmountOfPages());
     });
   }
 
