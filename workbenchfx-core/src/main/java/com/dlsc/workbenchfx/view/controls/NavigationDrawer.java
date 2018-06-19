@@ -16,7 +16,7 @@ import javafx.scene.control.Skin;
  * @author Dirk Lemmermann
  * @author François Martin
  * @author Marco Sanfratello
- * @see <a href="https://material.io/guidelines/patterns/navigation-drawer.html">Navigation
+ * @see <a href="https://material.io/design/components/navigation-drawer.html">Navigation
  * Drawer</a>
  */
 public class NavigationDrawer extends Control {
