@@ -110,6 +110,14 @@ public abstract class Module {
   }
 
   /**
+   * Closes this module.
+   * @return true if closing was successful
+   */
+  public final boolean close() {
+    return getWorkbench().closeModule(this);
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override

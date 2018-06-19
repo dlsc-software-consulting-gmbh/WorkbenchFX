@@ -27,6 +27,7 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -34,6 +35,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
@@ -88,7 +90,7 @@ class WorkbenchTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = createMockModule(moduleNodes[i], null,true, "Module " + i);
+      mockModules[i] = createMockModule(moduleNodes[i], null, true, "Module " + i);
     }
 
     FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
@@ -483,9 +485,8 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   /**
-   * Example of what happens in case of a closing dialog in the destroy() method of a module
-   * with the user confirming the module should get closed.
-   * Precondition: openModule tests pass.
+   * Example of what happens in case of a closing dialog in the destroy() method of a module with
+   * the user confirming the module should get closed. Precondition: openModule tests pass.
    */
   @Test
   void closeModuleDestroyInactiveDialogClose() {
@@ -528,9 +529,8 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   /**
-   * Example of what happens in case of a closing dialog in the destroy() method of a module
-   * with the user confirming the module should NOT get closed.
-   * Precondition: openModule tests pass.
+   * Example of what happens in case of a closing dialog in the destroy() method of a module with
+   * the user confirming the module should NOT get closed. Precondition: openModule tests pass.
    */
   @Test
   void closeModulePreventDestroyInactiveDialogClose() {
@@ -1060,7 +1060,7 @@ class WorkbenchTest extends ApplicationTest {
       ObservableList<Module> modules = workbench.getModules();
       int currentSize = modules.size();
       String mockModuleName = "Mock Module";
-      Module mockModule = createMockModule(new Label(), null,true, mockModuleName);
+      Module mockModule = createMockModule(new Label(), null, true, mockModuleName);
 
       assertTrue(workbench.getModules().add(mockModule));
 
@@ -1083,5 +1083,137 @@ class WorkbenchTest extends ApplicationTest {
 
       assertSame(currentSize - 1, modules.size());
     });
+  }
+
+  /**
+   * Test for {@link Workbench#setupCleanup()}.
+   * Simulates all modules returning {@code true} when {@link Module#destroy()} is being called on
+   * them during the cleanup.
+   */
+  @Test
+  void closeStageSuccess() {
+    robot.interact(() -> {
+      workbench.openModule(first);
+      workbench.openModule(second);
+
+      // simulate closing of the stage by pressing the X of the application
+      closeStage();
+
+      // all open modules should get closed before the application ends
+      InOrder inOrder = inOrder(first, second);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(first).deactivate();
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+
+      // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
+      // Implicit Call: workbench.closeModule(first)
+      inOrder.verify(first).destroy();
+      // Implicit Call: workbench.closeModule(second)
+      inOrder.verify(second).destroy();
+
+      inOrder.verifyNoMoreInteractions();
+
+      assertEquals(0, workbench.getOpenModules().size());
+    });
+  }
+
+  /**
+   * Test for {@link Workbench#setupCleanup()}.
+   * Simulates the first (inactive) module returning {@code false} and the second (active) module
+   * returning {@code true}, when {@link Module#destroy()} is being called on them during cleanup.
+   */
+  @Test
+  void closeStageFailFirstModule() {
+    robot.interact(() -> {
+      workbench.openModule(first);
+      workbench.openModule(second);
+
+      // make sure closing of the stage gets interrupted, if destroy returns false on a module
+      when(first.destroy()).thenReturn(false);
+
+      // simulate closing of the stage like when pressing the X of the application
+      closeStage();
+
+      // all open modules should get closed before the application ends
+      InOrder inOrder = inOrder(first, second);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(first).deactivate();
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+
+      // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
+      // Implicit Call: workbench.closeModule(first)
+      inOrder.verify(first).destroy(); // returns false
+      // closing should be interrupted
+      inOrder.verifyNoMoreInteractions();
+
+      assertEquals(2, workbench.getOpenModules().size());
+    });
+  }
+
+  /**
+   * Test for {@link Workbench#setupCleanup()}.
+   * Simulates the first (inactive) module returning {@code true} and the second (active) module
+   * returning {@code false}, when {@link Module#destroy()} is being called on them during cleanup.
+   */
+  @Test
+  void closeStageFailSecondModule() {
+    robot.interact(() -> {
+      workbench.openModule(first);
+      workbench.openModule(second);
+
+      // make sure closing of the stage gets interrupted, if destroy returns false on a module
+      when(second.destroy()).thenReturn(false);
+
+      // simulate closing of the stage by pressing the X of the application
+      closeStage();
+
+      // all open modules should get closed before the application ends
+      InOrder inOrder = inOrder(first, second);
+      // Call: workbench.openModule(first)
+      inOrder.verify(first).init(workbench);
+      inOrder.verify(first).activate();
+      // Call: workbench.openModule(second)
+      inOrder.verify(first).deactivate();
+      inOrder.verify(second).init(workbench);
+      inOrder.verify(second).activate();
+
+      // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
+      // Implicit Call: workbench.closeModule(first)
+      inOrder.verify(first).destroy(); // returns true
+      // Implicit Call: workbench.closeModule(second)
+      inOrder.verify(second).destroy(); // returns false
+      // closing should be interrupted
+      inOrder.verifyNoMoreInteractions();
+
+      assertEquals(1, workbench.getOpenModules().size());
+      assertEquals(second, workbench.getOpenModules().get(0));
+    });
+  }
+
+  /**
+   * Internal utility method for testing.
+   * Simulates closing the stage, which fires a close request to test logic
+   * inside of {@link Stage#setOnCloseRequest(EventHandler)}.
+   * Using {@link FxRobot#closeCurrentWindow()} would be better, but it only works on Windows
+   * because of its implementation, so this approach was chosen as a workaround.
+   * @see <a href="https://github.com/TestFX/TestFX/issues/447>
+   *   closeCurrentWindow() doesn't work headless</a>
+   */
+  private void closeStage() {
+    Stage stage = ((Stage) workbench.getScene().getWindow());
+    stage.fireEvent(
+        new WindowEvent(
+            stage,
+            WindowEvent.WINDOW_CLOSE_REQUEST
+        )
+    );
   }
 }

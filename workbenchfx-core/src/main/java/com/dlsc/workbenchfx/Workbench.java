@@ -9,6 +9,7 @@ import com.dlsc.workbenchfx.view.controls.module.Tile;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -21,9 +22,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -106,6 +109,7 @@ public class Workbench extends Control {
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initModules(builder.modules);
+    setupCleanup();
   }
 
   private void initAmountOfPagesBinding() {
@@ -190,6 +194,40 @@ public class Workbench extends Control {
     });
   }
 
+  private void setupCleanup() {
+    Platform.runLater(() -> {
+      Scene scene = getScene();
+      // if there is no scene, don't cause NPE by calling "getWindow()" on null
+      if (Objects.isNull(scene)) {
+        // should only be thrown in tests with mocked views
+        LOGGER.error("setupCleanup - Scene could not be found! setOnCloseRequest was not set");
+        return;
+      }
+
+      Stage stage = (Stage) getScene().getWindow();
+      // when application is closed, destroy all modules
+      stage.setOnCloseRequest(event -> {
+        LOGGER.trace("Stage was requested to be closed - Close all open modules first");
+
+        // must be implemented by using "while" since the list of getOpenModules changes when
+        // modules are closed!
+        while (getOpenModules().size() > 0) {
+          Module moduleToClose = getOpenModules().get(0);
+          LOGGER.trace("Cleanup - Close module: " + moduleToClose);
+          if (!closeModule(moduleToClose)) {
+            LOGGER.debug(
+                String.format("Module %s prevented closing of the application", moduleToClose)
+            );
+            // module can't be destroyed yet - prevent closing of the application
+            event.consume();
+            // stop the closing of modules to proceed
+            break;
+          }
+        }
+      });
+    });
+  }
+
   /**
    * Opens the {@code module} in a new tab, if it isn't initialized yet or else opens the tab of
    * it.
@@ -199,7 +237,7 @@ public class Workbench extends Control {
   public void openModule(Module module) {
     if (!modules.contains(module)) {
       throw new IllegalArgumentException(
-          "Module was not passed in with the constructor of WorkbenchFxModel");
+          "Module has not been loaded yet");
     }
     LOGGER.trace("openModule - set active module to " + module);
     activeModule.setValue(module);
@@ -219,10 +257,12 @@ public class Workbench extends Control {
    * @return true if closing was successful
    */
   public boolean closeModule(Module module) {
+    LOGGER.trace("closeModule - " + module);
+    LOGGER.trace("closeModule - List of open modules: " + openModules);
     Objects.requireNonNull(module);
     int i = openModules.indexOf(module);
     if (i == -1) {
-      throw new IllegalArgumentException("Module has not been loaded yet.");
+      throw new IllegalArgumentException("Module has not been opened yet.");
     }
     // set new active module
     Module oldActive = getActiveModule();
@@ -251,7 +291,10 @@ public class Workbench extends Control {
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
       LOGGER.trace("closeModule - Destroy, Removal successful: " + removal + " - " + module);
-      LOGGER.trace("closeModule - Set active module to: " + newActive);
+      if (oldActive != newActive) {
+        // only log if the active module has been changed
+        LOGGER.trace("closeModule - Set active module to: " + newActive);
+      }
       activeModule.setValue(newActive);
       return removal;
     }

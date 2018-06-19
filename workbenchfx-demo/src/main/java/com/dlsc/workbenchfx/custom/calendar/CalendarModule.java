@@ -35,8 +35,10 @@ public class CalendarModule extends Module {
    */
   @Override
   public boolean destroy() {
-    calendarView.stopClock();
-    calendarView = null;
+    if (calendarView != null) {
+      calendarView.stopClock();
+      calendarView = null;
+    }
     return true;
   }
 }
