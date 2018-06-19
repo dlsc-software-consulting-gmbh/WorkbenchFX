@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchPresenter implements Presenter {
+public class WorkbenchPresenter extends Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchPresenter.class.getName());
 

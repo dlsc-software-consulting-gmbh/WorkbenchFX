@@ -9,7 +9,7 @@ import com.dlsc.workbenchfx.view.controls.module.Page;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class HomePresenter implements Presenter {
+public class HomePresenter extends Presenter {
   private final Workbench model;
   private final HomeView view;
 
