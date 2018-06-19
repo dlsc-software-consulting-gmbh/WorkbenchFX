@@ -16,6 +16,8 @@ import javafx.util.Duration;
  */
 public class GlassPane extends StackPane {
 
+  private final BooleanProperty hide = new SimpleBooleanProperty(this, "hide", true);
+
   /**
    * Creates a {@link GlassPane} object and fully initializes it.
    */
@@ -46,17 +48,15 @@ public class GlassPane extends StackPane {
     });
   }
 
-  private final BooleanProperty hide = new SimpleBooleanProperty(this, "hide", true);
-
   public final BooleanProperty hideProperty() {
     return hide;
   }
 
-  public final void setHide(boolean hide) {
-    this.hide.set(hide);
-  }
-
   public final boolean isHide() {
     return hide.get();
+  }
+
+  public final void setHide(boolean hide) {
+    this.hide.set(hide);
   }
 }

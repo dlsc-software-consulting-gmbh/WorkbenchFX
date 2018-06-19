@@ -5,10 +5,8 @@ import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,16 +35,7 @@ public final class WorkbenchBuilder {
   Node[] toolbarControlsRight;
   Node[] toolbarControlsLeft;
 
-  Callback<Workbench, Node> navigationDrawerFactory = workbench -> {
-    // Defines the width of the navigationDrawer.
-    // The value represents the percentage of the window which will be covered.
-    final double widthPercentage = .333;
-
-    NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
-    StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
-    navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(widthPercentage));
-    return navigationDrawer;
-  };
+  NavigationDrawer navigationDrawer = new NavigationDrawer();
 
   MenuItem[] navigationDrawerItems;
 
@@ -105,17 +94,16 @@ public final class WorkbenchBuilder {
   }
 
   /**
-   * Defines how the navigation drawer should be created.
+   * Defines which navigation drawer should be shown.
    *
-   * @param navigationDrawerFactory to be used to create the navigation drawer
+   * @param navigationDrawer to be shown as the navigation drawer
    * @return builder for chaining
    * @implNote Use this to replace the navigation drawer, which is displayed when pressing the menu
    *           icon, with your own implementation. To access the {@link MenuItem}s, use
    *           {@link Workbench#getNavigationDrawerItems()}.
    */
-  public WorkbenchBuilder navigationDrawerFactory(
-      Callback<Workbench, Node> navigationDrawerFactory) {
-    this.navigationDrawerFactory = navigationDrawerFactory;
+  public WorkbenchBuilder navigationDrawer(NavigationDrawer navigationDrawer) {
+    this.navigationDrawer = navigationDrawer;
     return this;
   }
 
@@ -128,7 +116,7 @@ public final class WorkbenchBuilder {
    * @return builder for chaining
    * @implNote the menu button will be hidden, if null is passed to {@code navigationDrawerItems}
    */
-  public WorkbenchBuilder navigationDrawer(MenuItem... navigationDrawerItems) {
+  public WorkbenchBuilder navigationDrawerItems(MenuItem... navigationDrawerItems) {
     this.navigationDrawerItems = navigationDrawerItems;
     return this;
   }

@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchPresenter implements Presenter {
+public class WorkbenchPresenter extends Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchPresenter.class.getName());
 
@@ -141,7 +141,7 @@ public class WorkbenchPresenter implements Presenter {
 
     // if overlay is not blocking, make the overlay hide when the glass pane is clicked
     if (!blocking) {
-      glassPane.setOnMouseClicked(event -> model.hideOverlay(overlay, false));
+      glassPane.setOnMouseClicked(event -> model.hideOverlay(overlay));
     }
   }
 

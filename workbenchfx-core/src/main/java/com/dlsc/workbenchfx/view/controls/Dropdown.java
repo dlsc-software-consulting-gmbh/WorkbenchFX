@@ -73,11 +73,11 @@ public class Dropdown extends Control {
     return inverted.get();
   }
 
-  public BooleanProperty invertedProperty() {
-    return inverted;
-  }
-
   public void setInverted(boolean inverted) {
     this.inverted.set(inverted);
+  }
+
+  public BooleanProperty invertedProperty() {
+    return inverted;
   }
 }

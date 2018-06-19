@@ -1,5 +1,6 @@
-package com.dlsc.workbenchfx.view.controls;
+package com.dlsc.workbenchfx.custom.controls;
 
+import com.dlsc.workbenchfx.view.controls.PrettyScrollPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.Observable;
@@ -18,16 +19,16 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Represents the skin of the corresponding {@link NavigationDrawer}.
+ * Represents the skin of the corresponding {@link CustomNavigationDrawer}.
  *
  * @author Dirk Lemmermann
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
+public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer> {
 
   private VBox menuContainer;
-  private NavigationDrawer navigationDrawer;
+  private CustomNavigationDrawer customNavigationDrawer;
   private VBox drawerBox;
   private BorderPane header;
   private PrettyScrollPane scrollPane;
@@ -36,13 +37,13 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
   private ReadOnlyDoubleProperty workbenchWidth;
 
   /**
-   * Creates the skin for the {@link NavigationDrawer} control.
+   * Creates the skin for the {@link CustomNavigationDrawer} control.
    *
-   * @param navigationDrawer to create this skin for
+   * @param customNavigationDrawer to create this skin for
    */
-  public NavigationDrawerSkin(NavigationDrawer navigationDrawer) {
-    super(navigationDrawer);
-    this.navigationDrawer = navigationDrawer;
+  public CustomNavigationDrawerSkin(CustomNavigationDrawer customNavigationDrawer) {
+    super(customNavigationDrawer);
+    this.customNavigationDrawer = customNavigationDrawer;
 
     initializeSelf();
     initializeParts();
@@ -55,15 +56,15 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
   }
 
   private void setupBindings() {
-    workbenchWidth = navigationDrawer.workbenchWidthProperty(); // strong reference to avoid GC
-    navigationDrawer.maxWidthProperty().bind(workbenchWidth.multiply(.333));
+    workbenchWidth = customNavigationDrawer.workbenchWidthProperty(); // strong reference to avoid GC
+    customNavigationDrawer.maxWidthProperty().bind(workbenchWidth.multiply(.5));
   }
 
   /**
    * Initializes the skin.
    */
   private void initializeSelf() {
-    navigationDrawer.getStyleClass().add("navigation-drawer");
+    customNavigationDrawer.getStyleClass().add("navigation-drawer");
   }
 
   /**
@@ -106,15 +107,15 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
     getChildren().add(drawerBox);
 
-    StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
+    StackPane.setAlignment(customNavigationDrawer, Pos.TOP_LEFT);
   }
 
   private void setupEventHandlers() {
-    backBtn.setOnAction(evt -> navigationDrawer.hide());
+    backBtn.setOnAction(evt -> customNavigationDrawer.hide());
   }
 
   private void setupValueChangedListeners() {
-    navigationDrawer.getItems().addListener((Observable it) -> buildMenu());
+    customNavigationDrawer.getItems().addListener((Observable it) -> buildMenu());
   }
 
   private void buildMenu() {

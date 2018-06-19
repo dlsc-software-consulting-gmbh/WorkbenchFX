@@ -115,7 +115,7 @@ class WorkbenchTest extends ApplicationTest {
         .tabFactory(MockTab::new)
         .tileFactory(MockTile::new)
         .pageFactory(MockPage::new)
-        .navigationDrawer(menuItem)
+        .navigationDrawerItems(menuItem)
         .toolbarLeft(dropdownLeft)
         .toolbarRight(dropdownRight)
         .build();
@@ -623,15 +623,6 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  void getModules() {
-    robot.interact(() -> {
-      ObservableList<Module> modules = workbench.getModules();
-      // Test if unmodifiable list is returned
-      assertThrows(UnsupportedOperationException.class, () -> modules.remove(0));
-    });
-  }
-
-  @Test
   void activeModuleViewProperty() {
     assertTrue(workbench.activeModuleViewProperty() instanceof ReadOnlyObjectProperty);
   }
@@ -642,28 +633,28 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  void amountOfPages() {
+  void getAmountOfPages() {
     robot.interact(() -> {
       int modulesPerPage = 1;
-      assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
-      assertEquals(2, prepareWorkbench(2, modulesPerPage).amountOfPages());
-      assertEquals(3, prepareWorkbench(3, modulesPerPage).amountOfPages());
+      assertEquals(1, prepareWorkbench(1, modulesPerPage).getAmountOfPages());
+      assertEquals(2, prepareWorkbench(2, modulesPerPage).getAmountOfPages());
+      assertEquals(3, prepareWorkbench(3, modulesPerPage).getAmountOfPages());
 
       modulesPerPage = 2;
-      assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
-      assertEquals(1, prepareWorkbench(2, modulesPerPage).amountOfPages());
-      assertEquals(2, prepareWorkbench(3, modulesPerPage).amountOfPages());
-      assertEquals(2, prepareWorkbench(4, modulesPerPage).amountOfPages());
-      assertEquals(3, prepareWorkbench(5, modulesPerPage).amountOfPages());
+      assertEquals(1, prepareWorkbench(1, modulesPerPage).getAmountOfPages());
+      assertEquals(1, prepareWorkbench(2, modulesPerPage).getAmountOfPages());
+      assertEquals(2, prepareWorkbench(3, modulesPerPage).getAmountOfPages());
+      assertEquals(2, prepareWorkbench(4, modulesPerPage).getAmountOfPages());
+      assertEquals(3, prepareWorkbench(5, modulesPerPage).getAmountOfPages());
 
       modulesPerPage = 3;
-      assertEquals(1, prepareWorkbench(1, modulesPerPage).amountOfPages());
-      assertEquals(1, prepareWorkbench(2, modulesPerPage).amountOfPages());
-      assertEquals(1, prepareWorkbench(3, modulesPerPage).amountOfPages());
-      assertEquals(2, prepareWorkbench(4, modulesPerPage).amountOfPages());
-      assertEquals(2, prepareWorkbench(5, modulesPerPage).amountOfPages());
-      assertEquals(2, prepareWorkbench(6, modulesPerPage).amountOfPages());
-      assertEquals(3, prepareWorkbench(7, modulesPerPage).amountOfPages());
+      assertEquals(1, prepareWorkbench(1, modulesPerPage).getAmountOfPages());
+      assertEquals(1, prepareWorkbench(2, modulesPerPage).getAmountOfPages());
+      assertEquals(1, prepareWorkbench(3, modulesPerPage).getAmountOfPages());
+      assertEquals(2, prepareWorkbench(4, modulesPerPage).getAmountOfPages());
+      assertEquals(2, prepareWorkbench(5, modulesPerPage).getAmountOfPages());
+      assertEquals(2, prepareWorkbench(6, modulesPerPage).getAmountOfPages());
+      assertEquals(3, prepareWorkbench(7, modulesPerPage).getAmountOfPages());
     });
   }
 
@@ -679,60 +670,6 @@ class WorkbenchTest extends ApplicationTest {
   void builder() {
     WorkbenchBuilder builder = Workbench.builder();
     assertNotNull(builder);
-  }
-
-  @Test
-  void getTab() {
-    robot.interact(() -> {
-      // verify factory gets applied correctly
-      assertTrue(workbench.getTab(first) instanceof MockTab);
-
-      // verify correct creation of tab
-      MockTab tab = (MockTab) workbench.getTab(first);
-
-      assertNotNull(tab);
-      // verify module has been updated correctly
-      assertSame(first, tab.getModule());
-    });
-  }
-
-  @Test
-  void getTile() {
-    robot.interact(() -> {
-      // verify factory gets applied correctly
-      assertTrue(workbench.getTile(first) instanceof MockTile);
-
-      // verify correct creation of tile
-      MockTile tile = (MockTile) workbench.getTile(first);
-
-      assertNotNull(tile);
-      // verify module has been updated correctly
-      assertSame(first, tile.getModule());
-    });
-  }
-
-  @Test
-  void getPage() {
-    robot.interact(() -> {
-      int pageIndex = 0;
-      // verify factory gets applied correctly
-      assertTrue(workbench.getPage(pageIndex) instanceof MockPage);
-
-      // verify correct creation of page - index 0
-      MockPage page = (MockPage) workbench.getPage(pageIndex);
-
-      assertNotNull(page);
-      // verify module has been updated correctly
-      assertSame(pageIndex, page.getPageIndex());
-
-      // verify correct creation of page - index 5
-      pageIndex = 5;
-      page = (MockPage) workbench.getPage(pageIndex);
-
-      assertNotNull(page);
-      // verify module has been updated correctly
-      assertSame(pageIndex, page.getPageIndex());
-    });
   }
 
   @Test
@@ -858,7 +795,7 @@ class WorkbenchTest extends ApplicationTest {
   void hideOverlayBlocking() {
     robot.interact(() -> {
       workbench.showOverlay(overlay1, true);
-      boolean result = workbench.hideOverlay(overlay1, true);
+      boolean result = workbench.hideOverlay(overlay1);
 
       assertTrue(result);
       assertEquals(1, overlays.size()); // still loaded
@@ -870,7 +807,7 @@ class WorkbenchTest extends ApplicationTest {
       assertTrue(glassPane.hideProperty().isBound());
 
       // test if calling hideOverlay again, even though it's already hidden, does anything
-      result = workbench.hideOverlay(overlay1, true);
+      result = workbench.hideOverlay(overlay1);
 
       assertFalse(result);
       assertEquals(1, overlays.size());
@@ -896,7 +833,7 @@ class WorkbenchTest extends ApplicationTest {
   void hideOverlayNonBlocking() {
     robot.interact(() -> {
       workbench.showOverlay(overlay1, false);
-      boolean result = workbench.hideOverlay(overlay1, false);
+      boolean result = workbench.hideOverlay(overlay1);
 
       assertTrue(result);
       assertEquals(1, overlays.size()); // still loaded
@@ -908,7 +845,7 @@ class WorkbenchTest extends ApplicationTest {
       assertTrue(glassPane.hideProperty().isBound());
 
       // test if calling hideOverlay again, even though it's already hidden, does anything
-      result = workbench.hideOverlay(overlay1, false);
+      result = workbench.hideOverlay(overlay1);
 
       assertFalse(result);
       assertEquals(1, overlays.size());
@@ -983,9 +920,9 @@ class WorkbenchTest extends ApplicationTest {
       assertTrue(overlay2.isVisible());
       assertTrue(overlay3.isVisible());
 
-      workbench.hideOverlay(overlay1, false);
-      workbench.hideOverlay(overlay2, true);
-      workbench.hideOverlay(overlay3, false);
+      workbench.hideOverlay(overlay1);
+      workbench.hideOverlay(overlay2);
+      workbench.hideOverlay(overlay3);
 
       assertEquals(3, overlays.size());
       assertEquals(0, blockingOverlaysShown.size());
@@ -1061,7 +998,7 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void addNavigationDrawerItems() {
     robot.interact(() -> {
-      workbench.addNavigationDrawerItems(menuItem);
+      workbench.getNavigationDrawerItems().add(menuItem);
       assertEquals(2, navigationDrawerItems.size());
       assertEquals(menuItem, navigationDrawerItems.get(1));
     });
@@ -1073,7 +1010,7 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void removeNavigationDrawerItems() {
     robot.interact(() -> {
-      workbench.removeNavigationDrawerItems(menuItem);
+      workbench.getNavigationDrawerItems().remove(menuItem);
       assertEquals(0, navigationDrawerItems.size());
     });
   }
@@ -1084,16 +1021,16 @@ class WorkbenchTest extends ApplicationTest {
       Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
 
       int initialSizeLeft = workbench.getToolbarControlsLeft().size();
-      assertFalse(workbench.removeToolbarControlLeft(d));
+      assertFalse(workbench.getToolbarControlsLeft().remove(d));
       assertSame(initialSizeLeft, workbench.getToolbarControlsLeft().size());
 
       int initialSizeRight = workbench.getToolbarControlsRight().size();
-      assertFalse(workbench.removeToolbarControlRight(d));
+      assertFalse(workbench.getToolbarControlsRight().remove(d));
       assertSame(initialSizeRight, workbench.getToolbarControlsRight().size());
 
-      assertTrue(workbench.removeToolbarControlLeft(dropdownLeft));
+      assertTrue(workbench.getToolbarControlsLeft().remove(dropdownLeft));
       assertSame(initialSizeLeft - 1, workbench.getToolbarControlsLeft().size());
-      assertTrue(workbench.removeToolbarControlRight(dropdownRight));
+      assertTrue(workbench.getToolbarControlsRight().remove(dropdownRight));
       assertSame(initialSizeRight - 1, workbench.getToolbarControlsRight().size());
     });
   }
@@ -1103,16 +1040,16 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       int initialSizeLeft = workbench.getToolbarControlsLeft().size();
       Dropdown d = Dropdown.of(dropdownIconView, dropdownMenuItem);
-      assertTrue(workbench.addToolbarControlLeft(d));
+      assertTrue(workbench.getToolbarControlsLeft().add(d));
       assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
-      assertFalse(workbench.addToolbarControlLeft(d));
+      assertFalse(workbench.getToolbarControlsLeft().add(d));
       assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
 
       int initialSizeRight = workbench.getToolbarControlsRight().size();
       d = Dropdown.of(dropdownText, dropdownMenuItem);
-      assertTrue(workbench.addToolbarControlRight(d));
+      assertTrue(workbench.getToolbarControlsRight().add(d));
       assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
-      assertFalse(workbench.addToolbarControlRight(d));
+      assertFalse(workbench.getToolbarControlsRight().add(d));
       assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
     });
   }
@@ -1125,12 +1062,7 @@ class WorkbenchTest extends ApplicationTest {
       String mockModuleName = "Mock Module";
       Module mockModule = createMockModule(new Label(), null, true, mockModuleName);
 
-      assertTrue(workbench.addModule(mockModule));
-
-      assertSame(currentSize + 1, modules.size());
-
-      // adding same module again should not add it
-      assertFalse(workbench.addModule(mockModule));
+      assertTrue(workbench.getModules().add(mockModule));
 
       assertSame(currentSize + 1, modules.size());
     });
@@ -1142,12 +1074,12 @@ class WorkbenchTest extends ApplicationTest {
       ObservableList<Module> modules = workbench.getModules();
       int currentSize = modules.size();
 
-      assertTrue(workbench.removeModule(mockModules[0]));
+      assertTrue(workbench.getModules().remove(mockModules[0]));
 
       assertSame(currentSize - 1, modules.size());
 
       // removing same module again should not remove it
-      assertFalse(workbench.removeModule(mockModules[0]));
+      assertFalse(workbench.getModules().remove(mockModules[0]));
 
       assertSame(currentSize - 1, modules.size());
     });

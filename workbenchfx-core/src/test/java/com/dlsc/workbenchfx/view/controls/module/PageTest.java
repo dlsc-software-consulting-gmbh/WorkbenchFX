@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -32,6 +33,8 @@ class PageTest extends ApplicationTest {
   private static final int SIZE = 10;
   private Module[] mockModules = new Module[SIZE];
   private Node[] moduleNodes = new Node[SIZE];
+  private int mockTileFactoryCalls = 0;
+  private Tile[] mockTiles = new Tile[SIZE];
   private ObservableList<Module> modulesList;
 
   IntegerProperty modulesPerPage;
@@ -52,11 +55,16 @@ class PageTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = createMockModule(moduleNodes[i], null,true, "Module " + i);
+      mockModules[i] = createMockModule(moduleNodes[i], null, true, "Module " + i);
       MockTile mockTile = new MockTile(mockBench);
       mockTile.setModule(mockModules[i]);
-      when(mockBench.getTile(mockModules[i])).thenReturn(mockTile);
+      mockTiles[i] = mockTile;
     }
+    when(mockBench.getTileFactory()).thenReturn(mockBench -> {
+      Tile mockTile = mockTiles[mockTileFactoryCalls % SIZE];
+      mockTileFactoryCalls++;
+      return mockTile;
+    });
 
     modulesList = FXCollections.observableArrayList(mockModules);
     when(mockBench.getModules()).thenReturn(modulesList);
