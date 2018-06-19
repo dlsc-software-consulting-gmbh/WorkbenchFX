@@ -40,10 +40,10 @@ public class CustomDialog extends BorderPane {
     yesBtn.setOnAction(event -> {
       module.setClosePossible(true);
       workbench.closeModule(module);
-      workbench.hideOverlay(this, true);
+      workbench.hideOverlay(this);
     });
     noBtn.setOnAction(event -> {
-      workbench.hideOverlay(this, true);
+      workbench.hideOverlay(this);
     });
     buttonBox = new HBox(yesBtn, noBtn);
     BorderPane.setAlignment(buttonBox, Pos.CENTER);

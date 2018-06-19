@@ -29,8 +29,8 @@ public class InterruptClosingTestModule extends Module {
   @Override
   public boolean destroy() {
     if (!closePossible) {
-      workbench.openModule(this);
-      workbench.showOverlay(new CustomDialog(workbench, this), true);
+      getWorkbench().openModule(this);
+      getWorkbench().showOverlay(new CustomDialog(getWorkbench(), this), true);
       return false;
     } else {
       return true;
