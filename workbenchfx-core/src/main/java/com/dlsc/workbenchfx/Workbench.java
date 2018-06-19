@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
@@ -41,7 +42,7 @@ public class Workbench extends Control {
   public static final String STYLE_CLASS_ACTIVE_HOME = "active-home";
 
   // Custom Controls
-  private Node navigationDrawer;
+  private ObjectProperty<NavigationDrawer> navigationDrawer = new SimpleObjectProperty<>();
 
   // Lists
   private final ObservableSet<Node> toolbarControlsRight =
@@ -144,7 +145,13 @@ public class Workbench extends Control {
     if (builder.navigationDrawerItems != null) {
       navigationDrawerItems.addAll(builder.navigationDrawerItems);
     }
-    navigationDrawer = builder.navigationDrawerFactory.call(this);
+    // when control of navigation drawer changes, pass in the workbench object
+    navigationDrawerProperty().addListener((observable, oldControl, newControl) -> {
+      if (oldControl != newControl) {
+        newControl.setWorkbench(this);
+      }
+    });
+    setNavigationDrawer(builder.navigationDrawer);
   }
 
   private void initModules(Module... modules) {
@@ -297,10 +304,6 @@ public class Workbench extends Control {
     return activeModuleView;
   }
 
-  public Node getNavigationDrawer() {
-    return navigationDrawer;
-  }
-
   /**
    * Returns a list of the currently loaded toolbar controls on the left.
    * @implNote Use this method to add or remove toolbar controls on the left at runtime.
@@ -378,11 +381,23 @@ public class Workbench extends Control {
   }
 
   public void showNavigationDrawer() {
-    showOverlay(navigationDrawer, false);
+    showOverlay(navigationDrawer.get(), false);
   }
 
   public void hideNavigationDrawer() {
-    hideOverlay(navigationDrawer);
+    hideOverlay(navigationDrawer.get());
+  }
+
+  public ObjectProperty<NavigationDrawer> navigationDrawerProperty() {
+    return navigationDrawer;
+  }
+
+  public NavigationDrawer getNavigationDrawer() {
+    return navigationDrawer.get();
+  }
+
+  public void setNavigationDrawer(NavigationDrawer navigationDrawer) {
+    this.navigationDrawer.set(navigationDrawer);
   }
 
   public ObservableList<MenuItem> getNavigationDrawerItems() {
@@ -399,10 +414,6 @@ public class Workbench extends Control {
 
   public int getModulesPerPage() {
     return modulesPerPage.get();
-  }
-
-  public IntegerProperty modulesPerPageProperty() {
-    return modulesPerPage;
   }
 
   public void setModulesPerPage(int modulesPerPage) {
@@ -443,6 +454,10 @@ public class Workbench extends Control {
 
   public void setPageFactory(Callback<Workbench, Page> pageFactory) {
     this.pageFactory.set(pageFactory);
+  }
+
+  public IntegerProperty modulesPerPageProperty() {
+    return modulesPerPage;
   }
 
   public int getAmountOfPages() {

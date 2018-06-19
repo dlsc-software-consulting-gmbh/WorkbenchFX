@@ -113,7 +113,7 @@ class WorkbenchTest extends ApplicationTest {
         .tabFactory(MockTab::new)
         .tileFactory(MockTile::new)
         .pageFactory(MockPage::new)
-        .navigationDrawer(menuItem)
+        .navigationDrawerItems(menuItem)
         .toolbarLeft(dropdownLeft)
         .toolbarRight(dropdownRight)
         .build();
