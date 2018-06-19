@@ -55,8 +55,8 @@ public class DropdownTestModule extends Module {
   private void setupEventHandlers() {
     invertBtn.setOnAction(event -> customDropdown.invertStyle());
 
-    addMenuBtn.setOnAction(event -> getWorkbench().addToolbarControlRight(customDropdown));
-    removeMenuBtn.setOnAction(event -> getWorkbench().removeToolbarControlRight(customDropdown));
+    addMenuBtn.setOnAction(event -> getWorkbench().getToolbarControlsRight().add(customDropdown));
+    removeMenuBtn.setOnAction(event -> getWorkbench().getToolbarControlsRight().remove(customDropdown));
 
     addItemBtn.setOnAction(event -> addItems(1));
     addLotItemBtn.setOnAction(event -> addItems(100));

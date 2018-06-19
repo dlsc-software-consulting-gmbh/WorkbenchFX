@@ -134,8 +134,8 @@ public class CustomDemo extends Application {
     CustomOverlay blockingCustomOverlay = new CustomOverlay(workbench, true);
     showOverlay.setOnAction(event -> workbench.showOverlay(customOverlay, false));
     showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
-    addPreferences.setOnAction(event -> workbench.addModule(preferencesModule));
-    removePreferences.setOnAction(event -> workbench.removeModule(preferencesModule));
+    addPreferences.setOnAction(event -> workbench.getModules().add(preferencesModule));
+    removePreferences.setOnAction(event -> workbench.getModules().remove(preferencesModule));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
     // workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
