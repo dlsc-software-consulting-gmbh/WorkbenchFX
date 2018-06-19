@@ -28,7 +28,7 @@ public class WidgetsTestModule extends Module {
     customPane.add(new CheckBox("CheckBox"), 0, 3);
     customPane.add(new ComboBox<String>(), 0, 4);
 
-    invert.setOnAction(event -> workbench.getToolbarControlsLeft().stream()
+    invert.setOnAction(event -> getWorkbench().getToolbarControlsLeft().stream()
         .limit(1) // take first
         .findAny()
         .ifPresent(control -> {
