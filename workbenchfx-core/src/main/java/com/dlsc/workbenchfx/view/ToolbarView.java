@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view;
 
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 
+import com.dlsc.workbenchfx.view.controls.selectionStrip.SelectionStrip;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
@@ -21,7 +22,7 @@ public class ToolbarView extends HBox implements View {
   private FontAwesomeIconView menuIconView;
   Button homeBtn;
   Button menuBtn;
-  private HBox tabBox;
+  private SelectionStrip<String> tabBox;
   HBox toolbarControlLeftBox;
   HBox toolbarControlRightBox;
 
@@ -58,7 +59,7 @@ public class ToolbarView extends HBox implements View {
     menuBtn = new Button("", menuIconView);
     menuBtn.setId("menu-button");
 
-    tabBox = new HBox();
+    tabBox = new SelectionStrip<>();
     tabBox.setId("tab-box");
 
     toolbarControlLeftBox = new HBox();
@@ -104,7 +105,8 @@ public class ToolbarView extends HBox implements View {
    * @param tab the {@link Node} to be added
    */
   public void addTab(Node tab) {
-    tabBox.getChildren().add(tab);
+//    tabBox.getChildren().add(tab);
+    tabBox.getItems().add(tab.toString());
   }
 
   /**
@@ -118,7 +120,8 @@ public class ToolbarView extends HBox implements View {
    * @param index of the tab to be removed
    */
   public void removeTab(int index) {
-    tabBox.getChildren().remove(index);
+//    tabBox.getChildren().remove(index);
+    tabBox.getItems().remove(index);
   }
 
   /**
