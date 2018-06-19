@@ -16,7 +16,7 @@ import javafx.scene.image.ImageView;
  */
 public abstract class Module {
 
-  protected Workbench workbench;
+  private Workbench workbench;
   private String name;
   private FontAwesomeIcon faIcon;
   private Image imgIcon;
@@ -99,10 +99,14 @@ public abstract class Module {
    *           not be removed and kept as the active module. When implementing a closing dialog,
    *           make sure to switch to this module first, so the user can see it, even if this
    *           module is being closed in its deactivated state, by calling:
-   *           {@code workbenchModel.openModule(this)} before opening the dialog.
+   *           {@code getWorkbench().openModule(this)} before opening the dialog.
    */
   public boolean destroy() {
     return true;
+  }
+
+  public final Workbench getWorkbench() {
+    return workbench;
   }
 
   /**

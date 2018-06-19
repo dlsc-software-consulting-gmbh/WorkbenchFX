@@ -27,7 +27,7 @@ public class HomePresenter extends Presenter {
    */
   @Override
   public void initializeViewParts() {
-    view.pagination.setPageCount(model.amountOfPages());
+    view.pagination.setPageCount(model.getAmountOfPages());
     view.pagination.setPageFactory(pageIndex -> {
       Page page = model.getPageFactory().call(model);
       page.setPageIndex(pageIndex);

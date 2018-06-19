@@ -8,8 +8,10 @@ import com.dlsc.workbenchfx.view.controls.module.Tile;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -91,15 +93,26 @@ public class Workbench extends Control {
 
   // Properties
   private final IntegerProperty modulesPerPage;
+  private final IntegerProperty amountOfPages;
 
   Workbench(WorkbenchBuilder builder) {
     modulesPerPage = new SimpleIntegerProperty(builder.modulesPerPage);
+    amountOfPages = new SimpleIntegerProperty(calculateAmountOfPages());
+    initAmountOfPagesBinding();
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initModules(builder.modules);
+  }
+
+  private void initAmountOfPagesBinding() {
+    amountOfPages.bind(
+        Bindings.createIntegerBinding(this::calculateAmountOfPages,
+            modulesPerPageProperty(), getModules()
+        )
+    );
   }
 
   @Override
@@ -244,7 +257,7 @@ public class Workbench extends Control {
    * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}. This
    *           is repeated until all modules are rendered as tiles.
    */
-  public int amountOfPages() {
+  private int calculateAmountOfPages() {
     int amountOfModules = getModules().size();
     int modulesPerPage = getModulesPerPage();
     // if all pages are completely full
@@ -430,6 +443,14 @@ public class Workbench extends Control {
 
   public void setPageFactory(Callback<Workbench, Page> pageFactory) {
     this.pageFactory.set(pageFactory);
+  }
+
+  public int getAmountOfPages() {
+    return amountOfPages.get();
+  }
+
+  public ReadOnlyIntegerProperty amountOfPagesProperty() {
+    return amountOfPages;
   }
 
   @Override
