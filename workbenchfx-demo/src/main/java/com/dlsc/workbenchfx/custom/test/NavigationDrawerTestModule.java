@@ -64,21 +64,21 @@ public class NavigationDrawerTestModule extends Module {
     for (int i = 0; i < navigationDrawerItems.size();  ++i) {
       menuItems[i] = navigationDrawerItems.get(i);
     }
-    getWorkbench().removeNavigationDrawerItems(menuItems);
+    getWorkbench().getNavigationDrawerItems().remove(menuItems);
   }
 
   private void addItems(int items) {
     for (int i = 0; i < items; i++) {
       MenuItem menuItem = new MenuItem("New Item " + itemsCount++);
       itemsLst.add(menuItem);
-      getWorkbench().addNavigationDrawerItems(menuItem);
+      getWorkbench().getNavigationDrawerItems().add(menuItem);
     }
   }
 
   private void removeItems(int items) {
     for (int i = 0; i < items; i++) {
       if (itemsCount > 1) {
-        getWorkbench().removeNavigationDrawerItems(itemsLst.remove(itemsCount - 2));
+        getWorkbench().getNavigationDrawerItems().remove(itemsLst.remove(itemsCount - 2));
         itemsCount--;
       }
     }
@@ -91,7 +91,7 @@ public class NavigationDrawerTestModule extends Module {
       for(int j = 0; j < subItems; j++) {
         subMenu.getItems().add(new MenuItem("New Sub MenuItem " + (j+1)));
       }
-      getWorkbench().addNavigationDrawerItems(subMenu);
+      getWorkbench().getNavigationDrawerItems().add(subMenu);
     }
   }
 

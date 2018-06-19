@@ -10,12 +10,11 @@ import javafx.scene.control.ScrollPane;
 /**
  * Represents a stylized version of a {@link ScrollPane}, with a more modern design.
  *
- * @see <a href="http://thisisnthappiness.com/post/32333764835/the-history-of-the-scroll-bar">Apple
- *     Scroll Bar</a>
- *
  * @author Dirk Lemmermann
  * @author François Martin
  * @author Marco Sanfratello
+ * @see <a href="http://thisisnthappiness.com/post/32333764835/the-history-of-the-scroll-bar">Apple
+ * Scroll Bar</a>
  */
 public class PrettyScrollPane extends ScrollPane {
 

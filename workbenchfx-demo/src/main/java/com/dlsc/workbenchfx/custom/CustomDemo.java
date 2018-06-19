@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.custom;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
+import com.dlsc.workbenchfx.custom.controls.CustomNavigationDrawer;
 import com.dlsc.workbenchfx.custom.controls.CustomPage;
 import com.dlsc.workbenchfx.custom.controls.CustomTab;
 import com.dlsc.workbenchfx.custom.controls.CustomTile;
@@ -13,11 +14,9 @@ import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
-import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,9 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,14 +34,6 @@ public class CustomDemo extends Application {
   private static final Logger LOGGER = LogManager.getLogger(CustomDemo.class.getName());
   public Workbench workbench;
   PreferencesModule preferencesModule = new PreferencesModule();
-
-  private Callback<Workbench, Node> navigationDrawerFactory =
-      workbench -> {
-        NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
-        StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
-        navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(.333));
-        return navigationDrawer;
-      };
 
   public static void main(String[] args) {
     launch(args);
@@ -136,8 +125,8 @@ public class CustomDemo extends Application {
             .pageFactory(CustomPage::new)
             .tabFactory(CustomTab::new)
             .tileFactory(CustomTile::new)
-            .navigationDrawerFactory(navigationDrawerFactory)
-            .navigationDrawer(
+            .navigationDrawer(new CustomNavigationDrawer())
+            .navigationDrawerItems(
                 menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
             .build();
 
