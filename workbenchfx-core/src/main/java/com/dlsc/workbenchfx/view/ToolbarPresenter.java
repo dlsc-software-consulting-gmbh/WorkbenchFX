@@ -3,7 +3,7 @@ package com.dlsc.workbenchfx.view;
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import java.util.Objects;
@@ -29,7 +29,7 @@ public class ToolbarPresenter extends Presenter {
   private final ToolbarView view;
 
   // Strong reference to prevent garbage collection
-  private final ObservableList<Module> openModules;
+  private final ObservableList<WorkbenchModule> openModules;
   private final ObservableList<MenuItem> navigationDrawerItems;
   private final ObservableSet<Node> toolbarControlsLeft;
   private final ObservableSet<Node> toolbarControlsRight;
@@ -97,16 +97,16 @@ public class ToolbarPresenter extends Presenter {
     );
 
     // When the List of the currently open modules is changed, the view is updated.
-    openModules.addListener((ListChangeListener<? super Module>) c -> {
+    openModules.addListener((ListChangeListener<? super WorkbenchModule>) c -> {
       while (c.next()) {
         if (c.wasRemoved()) {
-          for (Module module : c.getRemoved()) {
+          for (WorkbenchModule module : c.getRemoved()) {
             LOGGER.debug("Module " + module + " closed");
             view.removeTab(c.getFrom());
           }
         }
         if (c.wasAdded()) {
-          for (Module module : c.getAddedSubList()) {
+          for (WorkbenchModule module : c.getAddedSubList()) {
             LOGGER.debug("Module " + module + " opened");
             // create tab control
             Tab tabControl = model.getTabFactory().call(model);

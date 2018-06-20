@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.custom.test;
 
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-public class WidgetsTestModule extends Module {
+public class WidgetsTestModule extends WorkbenchModule {
   private final GridPane customPane = new GridPane();
   Button invert = new Button("invert");
 

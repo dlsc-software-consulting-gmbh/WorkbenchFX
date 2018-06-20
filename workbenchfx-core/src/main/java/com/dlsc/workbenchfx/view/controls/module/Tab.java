@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -20,7 +20,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the standard control used to display {@link Module}s as tabs in the toolbar.
+ * Represents the standard control used to display {@link WorkbenchModule}s as tabs in the toolbar.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -29,9 +29,9 @@ public class Tab extends Control {
   private static final Logger LOGGER = LogManager.getLogger(Tab.class.getName());
 
   private final Workbench workbench;
-  private final ObservableList<Module> modules;
+  private final ObservableList<WorkbenchModule> modules;
 
-  private final ObjectProperty<Module> module;
+  private final ObjectProperty<WorkbenchModule> module;
   private final StringProperty name;
   private final ObjectProperty<Node> icon;
   private final BooleanProperty activeTab;
@@ -54,7 +54,7 @@ public class Tab extends Control {
 
   private void setupModuleListeners() {
     module.addListener(observable -> {
-      Module current = getModule();
+      WorkbenchModule current = getModule();
       name.setValue(current.getName());
       icon.setValue(current.getIcon());
     });
@@ -70,20 +70,20 @@ public class Tab extends Control {
   }
 
   /**
-   * Closes the {@link Module} along with this {@link Tab}.
+   * Closes the {@link WorkbenchModule} along with this {@link Tab}.
    */
   public void close() {
     workbench.closeModule(getModule());
   }
 
   /**
-   * Opens the {@link Module} belonging to this {@link Tab}.
+   * Opens the {@link WorkbenchModule} belonging to this {@link Tab}.
    */
   public void open() {
     workbench.openModule(getModule());
   }
 
-  public Module getModule() {
+  public WorkbenchModule getModule() {
     return module.get();
   }
 
@@ -92,12 +92,12 @@ public class Tab extends Control {
    *
    * @param module to be represented by this {@link Tab}
    */
-  public final void setModule(Module module) {
+  public final void setModule(WorkbenchModule module) {
     LOGGER.trace("Setting reference to module");
     this.module.set(module);
   }
 
-  public ReadOnlyObjectProperty<Module> moduleProperty() {
+  public ReadOnlyObjectProperty<WorkbenchModule> moduleProperty() {
     return module;
   }
 

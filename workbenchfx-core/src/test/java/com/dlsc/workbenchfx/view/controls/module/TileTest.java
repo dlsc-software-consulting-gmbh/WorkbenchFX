@@ -7,7 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import com.dlsc.workbenchfx.testing.MockTile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,10 +27,10 @@ class TileTest extends ApplicationTest {
   private FxRobot robot;
   private Workbench mockBench;
   private static final int SIZE = 10;
-  private Module[] mockModules = new Module[SIZE];
+  private WorkbenchModule[] mockModules = new WorkbenchModule[SIZE];
   private Node[] moduleNodes = new Node[SIZE];
   private Node[] moduleIcons = new Node[SIZE];
-  private ObservableList<Module> modulesList;
+  private ObservableList<WorkbenchModule> modulesList;
 
   private MockTile tile;
 

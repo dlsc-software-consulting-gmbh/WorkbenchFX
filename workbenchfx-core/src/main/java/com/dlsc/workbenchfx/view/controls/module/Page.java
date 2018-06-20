@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
@@ -14,8 +14,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the standard control used to display {@link Page}s with {@link Module}s in the home
- * screen.
+ * Represents the standard control used to display {@link Page}s with {@link WorkbenchModule}s in
+ * the home screen.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -24,7 +24,7 @@ public class Page extends Control {
   private static final Logger LOGGER = LogManager.getLogger(Page.class.getName());
   public static final int INITIAL_PAGE_INDEX = -1;
   private final Workbench workbench;
-  private final ObservableList<Module> modules;
+  private final ObservableList<WorkbenchModule> modules;
   private final IntegerProperty pageIndex;
   private final ObservableList<Tile> tiles;
   private final IntegerProperty modulesPerPage;

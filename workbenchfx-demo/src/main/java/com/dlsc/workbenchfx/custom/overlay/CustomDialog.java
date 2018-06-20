@@ -2,14 +2,12 @@ package com.dlsc.workbenchfx.custom.overlay;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.test.InterruptClosingTestModule;
-import com.dlsc.workbenchfx.module.Module;
 import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 /**
  * TODO: Refactor once dialogs are merged.
