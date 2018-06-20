@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public abstract class Module {
+public abstract class WorkbenchModule {
 
   private Workbench workbench;
   private String name;
@@ -27,7 +27,7 @@ public abstract class Module {
    * @param name of this module
    * @param icon of this module
    */
-  protected Module(String name, FontAwesomeIcon icon) {
+  protected WorkbenchModule(String name, FontAwesomeIcon icon) {
     this.name = name;
     faIcon = icon;
   }
@@ -38,7 +38,7 @@ public abstract class Module {
    * @param name of this module
    * @param icon of this module
    */
-  protected Module(String name, Image icon) {
+  protected WorkbenchModule(String name, Image icon) {
     this.name = name;
     this.imgIcon = icon;
   }

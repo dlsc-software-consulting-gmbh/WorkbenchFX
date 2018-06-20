@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx;
 
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.module.Page;
@@ -67,20 +67,20 @@ public class Workbench extends Control {
   /**
    * List of all modules.
    */
-  private final ObservableList<Module> modules = FXCollections.observableArrayList();
+  private final ObservableList<WorkbenchModule> modules = FXCollections.observableArrayList();
 
   /**
    * List of all currently open modules. Open modules are being displayed as open tabs in the
    * application.
    */
-  private final ObservableList<Module> openModules = FXCollections.observableArrayList();
+  private final ObservableList<WorkbenchModule> openModules = FXCollections.observableArrayList();
 
   /**
    * Currently active module. Active module is the module, which is currently being displayed in the
    * view. When the home screen is being displayed, {@code activeModule} and {@code
    * activeModuleView} are null.
    */
-  private final ObjectProperty<Module> activeModule = new SimpleObjectProperty<>();
+  private final ObjectProperty<WorkbenchModule> activeModule = new SimpleObjectProperty<>();
   private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
   // Factories
@@ -131,7 +131,7 @@ public class Workbench extends Control {
    * @param modules which should be loaded for the application
    * @return builder object
    */
-  public static WorkbenchBuilder builder(Module... modules) {
+  public static WorkbenchBuilder builder(WorkbenchModule... modules) {
     return new WorkbenchBuilder(modules);
   }
 
@@ -158,7 +158,7 @@ public class Workbench extends Control {
     setNavigationDrawer(builder.navigationDrawer);
   }
 
-  private void initModules(Module... modules) {
+  private void initModules(WorkbenchModule... modules) {
     this.modules.addAll(modules);
 
     // handle changes of the active module
@@ -212,7 +212,7 @@ public class Workbench extends Control {
         // must be implemented by using "while" since the list of getOpenModules changes when
         // modules are closed!
         while (getOpenModules().size() > 0) {
-          Module moduleToClose = getOpenModules().get(0);
+          WorkbenchModule moduleToClose = getOpenModules().get(0);
           LOGGER.trace("Cleanup - Close module: " + moduleToClose);
           if (!closeModule(moduleToClose)) {
             LOGGER.debug(
@@ -234,7 +234,7 @@ public class Workbench extends Control {
    *
    * @param module the module to be opened or null to go to the home view
    */
-  public void openModule(Module module) {
+  public void openModule(WorkbenchModule module) {
     if (!modules.contains(module)) {
       throw new IllegalArgumentException(
           "Module has not been loaded yet");
@@ -256,7 +256,7 @@ public class Workbench extends Control {
    * @param module to be closed
    * @return true if closing was successful
    */
-  public boolean closeModule(Module module) {
+  public boolean closeModule(WorkbenchModule module) {
     LOGGER.trace("closeModule - " + module);
     LOGGER.trace("closeModule - List of open modules: " + openModules);
     Objects.requireNonNull(module);
@@ -265,8 +265,8 @@ public class Workbench extends Control {
       throw new IllegalArgumentException("Module has not been opened yet.");
     }
     // set new active module
-    Module oldActive = getActiveModule();
-    Module newActive;
+    WorkbenchModule oldActive = getActiveModule();
+    WorkbenchModule newActive;
     if (oldActive != module) {
       // if we are not closing the currently active module, stay at the current
       newActive = oldActive;
@@ -319,7 +319,7 @@ public class Workbench extends Control {
     }
   }
 
-  public ObservableList<Module> getOpenModules() {
+  public ObservableList<WorkbenchModule> getOpenModules() {
     return FXCollections.unmodifiableObservableList(openModules);
   }
 
@@ -327,15 +327,15 @@ public class Workbench extends Control {
    * Returns a list of the currently loaded modules.
    * @implNote Use this method to add or remove modules at runtime.
    */
-  public ObservableList<Module> getModules() {
+  public ObservableList<WorkbenchModule> getModules() {
     return modules;
   }
 
-  public Module getActiveModule() {
+  public WorkbenchModule getActiveModule() {
     return activeModule.get();
   }
 
-  public ReadOnlyObjectProperty<Module> activeModuleProperty() {
+  public ReadOnlyObjectProperty<WorkbenchModule> activeModuleProperty() {
     return activeModule;
   }
 

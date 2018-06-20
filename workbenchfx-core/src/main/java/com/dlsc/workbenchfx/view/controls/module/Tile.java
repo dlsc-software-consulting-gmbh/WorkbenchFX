@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -15,7 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the standard control used to display {@link Module}s as tiles in the home screen.
+ * Represents the standard control used to display {@link WorkbenchModule}s as tiles in the home screen.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -24,7 +24,7 @@ public class Tile extends Control {
   private static final Logger LOGGER = LogManager.getLogger(Tile.class.getName());
 
   private final Workbench workbench;
-  private final ObjectProperty<Module> module;
+  private final ObjectProperty<WorkbenchModule> module;
 
   private final StringProperty name;
   private final ObjectProperty<Node> icon;
@@ -44,20 +44,20 @@ public class Tile extends Control {
 
   private void setupModuleListeners() {
     module.addListener(observable -> {
-      Module current = getModule();
+      WorkbenchModule current = getModule();
       name.setValue(current.getName());
       icon.setValue(current.getIcon());
     });
   }
 
   /**
-   * Opens the {@link Module} belonging to this {@link Tile}.
+   * Opens the {@link WorkbenchModule} belonging to this {@link Tile}.
    */
   public void open() {
     workbench.openModule(getModule());
   }
 
-  public Module getModule() {
+  public WorkbenchModule getModule() {
     return module.get();
   }
 
@@ -66,12 +66,12 @@ public class Tile extends Control {
    *
    * @param module to be represented by this {@link Tile}
    */
-  public final void setModule(Module module) {
+  public final void setModule(WorkbenchModule module) {
     LOGGER.trace("Setting reference to module");
     this.module.set(module);
   }
 
-  public ReadOnlyObjectProperty<Module> moduleProperty() {
+  public ReadOnlyObjectProperty<WorkbenchModule> moduleProperty() {
     return module;
   }
 

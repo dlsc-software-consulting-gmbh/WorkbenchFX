@@ -6,7 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import com.dlsc.workbenchfx.testing.MockPage;
 import com.dlsc.workbenchfx.testing.MockTile;
 import javafx.beans.property.IntegerProperty;
@@ -18,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -31,11 +30,11 @@ class PageTest extends ApplicationTest {
   private FxRobot robot;
   private Workbench mockBench;
   private static final int SIZE = 10;
-  private Module[] mockModules = new Module[SIZE];
+  private WorkbenchModule[] mockModules = new WorkbenchModule[SIZE];
   private Node[] moduleNodes = new Node[SIZE];
   private int mockTileFactoryCalls = 0;
   private Tile[] mockTiles = new Tile[SIZE];
-  private ObservableList<Module> modulesList;
+  private ObservableList<WorkbenchModule> modulesList;
 
   IntegerProperty modulesPerPage;
 

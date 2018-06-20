@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx;
 
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
@@ -21,7 +21,7 @@ public final class WorkbenchBuilder {
   private static final Logger LOGGER = LogManager.getLogger(Workbench.class.getName());
 
   // Required parameters
-  final Module[] modules;
+  final WorkbenchModule[] modules;
 
   // Optional parameters - initialized to default values
   int modulesPerPage = 9;
@@ -39,7 +39,7 @@ public final class WorkbenchBuilder {
 
   MenuItem[] navigationDrawerItems;
 
-  WorkbenchBuilder(Module... modules) {
+  WorkbenchBuilder(WorkbenchModule... modules) {
     this.modules = modules;
   }
 
@@ -81,7 +81,7 @@ public final class WorkbenchBuilder {
   }
 
   /**
-   * Defines how a {@link Page} with tiles of {@link Module}s should be created.
+   * Defines how a {@link Page} with tiles of {@link WorkbenchModule}s should be created.
    *
    * @param pageFactory to be used to create the {@link Page} for the tiles
    * @return builder for chaining

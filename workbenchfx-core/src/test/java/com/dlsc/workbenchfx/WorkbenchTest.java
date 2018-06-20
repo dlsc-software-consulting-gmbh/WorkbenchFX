@@ -15,7 +15,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import com.dlsc.workbenchfx.testing.MockPage;
 import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
@@ -55,12 +55,12 @@ class WorkbenchTest extends ApplicationTest {
   private static final int LAST_INDEX = SIZE - 1;
   Workbench workbench;
 
-  Module[] mockModules = new Module[SIZE];
+  WorkbenchModule[] mockModules = new WorkbenchModule[SIZE];
   Node[] moduleNodes = new Node[SIZE];
 
-  Module first;
-  Module second;
-  Module last;
+  WorkbenchModule first;
+  WorkbenchModule second;
+  WorkbenchModule last;
   private ObservableMap<Node, GlassPane> overlays;
   private ObservableSet<Node> blockingOverlaysShown;
   private ObservableSet<Node> overlaysShown;
@@ -219,7 +219,7 @@ class WorkbenchTest extends ApplicationTest {
     /* Test if opening a module which has not been passed in the constructor of WorkbenchFxModel
     throws an exception */
     robot.interact(() -> {
-      assertThrows(IllegalArgumentException.class, () -> workbench.openModule(mock(Module.class)));
+      assertThrows(IllegalArgumentException.class, () -> workbench.openModule(mock(WorkbenchModule.class)));
     });
   }
 
@@ -578,7 +578,7 @@ class WorkbenchTest extends ApplicationTest {
       // Test for null
       assertThrows(NullPointerException.class, () -> workbench.closeModule(null));
       // Test if closing a module not included in the modules at all throws an exception
-      assertThrows(IllegalArgumentException.class, () -> workbench.closeModule(mock(Module.class)));
+      assertThrows(IllegalArgumentException.class, () -> workbench.closeModule(mock(WorkbenchModule.class)));
       // Test if closing a module not opened throws an exception
       assertThrows(IllegalArgumentException.class, () -> workbench.closeModule(mockModules[0]));
     });
@@ -659,9 +659,9 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   private Workbench prepareWorkbench(int moduleAmount, int modulesPerPage) {
-    Module[] modules = new Module[moduleAmount];
+    WorkbenchModule[] modules = new WorkbenchModule[moduleAmount];
     for (int i = 0; i < moduleAmount; i++) {
-      modules[i] = mock(Module.class);
+      modules[i] = mock(WorkbenchModule.class);
     }
     return Workbench.builder(modules).modulesPerPage(modulesPerPage).build();
   }
@@ -1057,10 +1057,10 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void addModule() {
     robot.interact(() -> {
-      ObservableList<Module> modules = workbench.getModules();
+      ObservableList<WorkbenchModule> modules = workbench.getModules();
       int currentSize = modules.size();
       String mockModuleName = "Mock Module";
-      Module mockModule = createMockModule(new Label(), null, true, mockModuleName);
+      WorkbenchModule mockModule = createMockModule(new Label(), null, true, mockModuleName);
 
       assertTrue(workbench.getModules().add(mockModule));
 
@@ -1071,7 +1071,7 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void removeModule() {
     robot.interact(() -> {
-      ObservableList<Module> modules = workbench.getModules();
+      ObservableList<WorkbenchModule> modules = workbench.getModules();
       int currentSize = modules.size();
 
       assertTrue(workbench.getModules().remove(mockModules[0]));
@@ -1087,7 +1087,7 @@ class WorkbenchTest extends ApplicationTest {
 
   /**
    * Test for {@link Workbench#setupCleanup()}.
-   * Simulates all modules returning {@code true} when {@link Module#destroy()} is being called on
+   * Simulates all modules returning {@code true} when {@link WorkbenchModule#destroy()} is being called on
    * them during the cleanup.
    */
   @Test
@@ -1124,7 +1124,7 @@ class WorkbenchTest extends ApplicationTest {
   /**
    * Test for {@link Workbench#setupCleanup()}.
    * Simulates the first (inactive) module returning {@code false} and the second (active) module
-   * returning {@code true}, when {@link Module#destroy()} is being called on them during cleanup.
+   * returning {@code true}, when {@link WorkbenchModule#destroy()} is being called on them during cleanup.
    */
   @Test
   void closeStageFailFirstModule() {
@@ -1161,7 +1161,7 @@ class WorkbenchTest extends ApplicationTest {
   /**
    * Test for {@link Workbench#setupCleanup()}.
    * Simulates the first (inactive) module returning {@code true} and the second (active) module
-   * returning {@code false}, when {@link Module#destroy()} is being called on them during cleanup.
+   * returning {@code false}, when {@link WorkbenchModule#destroy()} is being called on them during cleanup.
    */
   @Test
   void closeStageFailSecondModule() {

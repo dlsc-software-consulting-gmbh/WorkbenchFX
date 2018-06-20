@@ -2,12 +2,12 @@ package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.overlay.CustomDialog;
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
-public class InterruptClosingTestModule extends Module {
+public class InterruptClosingTestModule extends WorkbenchModule {
 
   boolean closePossible;
 
