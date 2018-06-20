@@ -4,7 +4,7 @@ import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.module.WorkbenchModule;
-import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
+import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
@@ -84,13 +84,13 @@ public class ToolbarPresenter extends Presenter {
   @Override
   public void setupValueChangedListeners() {
     // When the List of the currently open toolbarControlsLeft is changed, the view is updated.
-    WorkbenchFxUtils.addSetListener(
+    WorkbenchUtils.addSetListener(
         toolbarControlsLeft,
         change -> view.addToolbarControlLeft(change.getElementAdded()),
         change -> view.removeToolbarControlLeft(change.getElementRemoved())
     );
     // When the List of the currently open toolbarControlsRight is changed, the view is updated.
-    WorkbenchFxUtils.addSetListener(
+    WorkbenchUtils.addSetListener(
         toolbarControlsRight,
         change -> view.addToolbarControlRight(change.getElementAdded()),
         change -> view.removeToolbarControlRight(change.getElementRemoved())
