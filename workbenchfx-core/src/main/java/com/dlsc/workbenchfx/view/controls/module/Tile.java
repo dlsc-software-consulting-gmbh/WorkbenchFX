@@ -15,7 +15,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the standard control used to display {@link WorkbenchModule}s as tiles in the home screen.
+ * Represents the standard control used to display {@link WorkbenchModule}s as tiles in the
+ * home screen.
  *
  * @author François Martin
  * @author Marco Sanfratello

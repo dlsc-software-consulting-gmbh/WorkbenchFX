@@ -219,7 +219,8 @@ class WorkbenchTest extends ApplicationTest {
     /* Test if opening a module which has not been passed in the constructor of WorkbenchFxModel
     throws an exception */
     robot.interact(() -> {
-      assertThrows(IllegalArgumentException.class, () -> workbench.openModule(mock(WorkbenchModule.class)));
+      assertThrows(IllegalArgumentException.class,
+          () -> workbench.openModule(mock(WorkbenchModule.class)));
     });
   }
 
@@ -578,7 +579,8 @@ class WorkbenchTest extends ApplicationTest {
       // Test for null
       assertThrows(NullPointerException.class, () -> workbench.closeModule(null));
       // Test if closing a module not included in the modules at all throws an exception
-      assertThrows(IllegalArgumentException.class, () -> workbench.closeModule(mock(WorkbenchModule.class)));
+      assertThrows(IllegalArgumentException.class,
+          () -> workbench.closeModule(mock(WorkbenchModule.class)));
       // Test if closing a module not opened throws an exception
       assertThrows(IllegalArgumentException.class, () -> workbench.closeModule(mockModules[0]));
     });
@@ -1087,8 +1089,8 @@ class WorkbenchTest extends ApplicationTest {
 
   /**
    * Test for {@link Workbench#setupCleanup()}.
-   * Simulates all modules returning {@code true} when {@link WorkbenchModule#destroy()} is being called on
-   * them during the cleanup.
+   * Simulates all modules returning {@code true} when {@link WorkbenchModule#destroy()} is being
+   * called on them during the cleanup.
    */
   @Test
   void closeStageSuccess() {
@@ -1124,7 +1126,8 @@ class WorkbenchTest extends ApplicationTest {
   /**
    * Test for {@link Workbench#setupCleanup()}.
    * Simulates the first (inactive) module returning {@code false} and the second (active) module
-   * returning {@code true}, when {@link WorkbenchModule#destroy()} is being called on them during cleanup.
+   * returning {@code true}, when {@link WorkbenchModule#destroy()} is being called on them during
+   * cleanup.
    */
   @Test
   void closeStageFailFirstModule() {
@@ -1161,7 +1164,8 @@ class WorkbenchTest extends ApplicationTest {
   /**
    * Test for {@link Workbench#setupCleanup()}.
    * Simulates the first (inactive) module returning {@code true} and the second (active) module
-   * returning {@code false}, when {@link WorkbenchModule#destroy()} is being called on them during cleanup.
+   * returning {@code false}, when {@link WorkbenchModule#destroy()} is being called on them during
+   * cleanup.
    */
   @Test
   void closeStageFailSecondModule() {
