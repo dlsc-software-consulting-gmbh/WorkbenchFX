@@ -135,6 +135,16 @@ public class Workbench extends Control {
     setupCleanup();
   }
 
+  /**
+   * Creates a builder for {@link Workbench}.
+   *
+   * @param modules which should be loaded for the application
+   * @return builder object
+   */
+  public static WorkbenchBuilder builder(WorkbenchModule... modules) {
+    return new WorkbenchBuilder(modules);
+  }
+
   private void initBindings() {
     amountOfPages.bind(
         Bindings.createIntegerBinding(
@@ -148,16 +158,6 @@ public class Workbench extends Control {
   @Override
   protected Skin<?> createDefaultSkin() {
     return new WorkbenchSkin(this);
-  }
-
-  /**
-   * Creates a builder for {@link Workbench}.
-   *
-   * @param modules which should be loaded for the application
-   * @return builder object
-   */
-  public static WorkbenchBuilder builder(WorkbenchModule... modules) {
-    return new WorkbenchBuilder(modules);
   }
 
   private void initToolbarControls(WorkbenchBuilder builder) {
@@ -433,6 +433,7 @@ public class Workbench extends Control {
 
   /**
    * Internal method used to create the default content node of a dialog.
+   *
    * @param message to be used for the content of the dialog
    * @return content node to be displayed in the dialog
    */
@@ -560,9 +561,9 @@ public class Workbench extends Control {
   /**
    * Shows a dialog in the view with custom {@code content}.
    *
-   * @param title     of the dialog
-   * @param content   to be shown inside of the dialog
-   * @param type      of the dialog
+   * @param title   of the dialog
+   * @param content to be shown inside of the dialog
+   * @param type    of the dialog
    * @return result of the dialog
    */
   public final CompletableFuture<ButtonType> showDialog(
@@ -682,12 +683,12 @@ public class Workbench extends Control {
     return dialogControl.get();
   }
 
-  public ObjectProperty<DialogControl> dialogControlProperty() {
-    return dialogControl;
-  }
-
   public void setDialogControl(DialogControl dialogControl) {
     this.dialogControl.set(dialogControl);
+  }
+
+  public ObjectProperty<DialogControl> dialogControlProperty() {
+    return dialogControl;
   }
 
   public ObservableSet<Node> getNonBlockingOverlaysShown() {
@@ -710,36 +711,36 @@ public class Workbench extends Control {
     return tabFactory.get();
   }
 
-  public ObjectProperty<Callback<Workbench, Tab>> tabFactoryProperty() {
-    return tabFactory;
-  }
-
   public void setTabFactory(Callback<Workbench, Tab> tabFactory) {
     this.tabFactory.set(tabFactory);
+  }
+
+  public ObjectProperty<Callback<Workbench, Tab>> tabFactoryProperty() {
+    return tabFactory;
   }
 
   public Callback<Workbench, Tile> getTileFactory() {
     return tileFactory.get();
   }
 
-  public ObjectProperty<Callback<Workbench, Tile>> tileFactoryProperty() {
-    return tileFactory;
-  }
-
   public void setTileFactory(Callback<Workbench, Tile> tileFactory) {
     this.tileFactory.set(tileFactory);
+  }
+
+  public ObjectProperty<Callback<Workbench, Tile>> tileFactoryProperty() {
+    return tileFactory;
   }
 
   public Callback<Workbench, Page> getPageFactory() {
     return pageFactory.get();
   }
 
-  public ObjectProperty<Callback<Workbench, Page>> pageFactoryProperty() {
-    return pageFactory;
-  }
-
   public void setPageFactory(Callback<Workbench, Page> pageFactory) {
     this.pageFactory.set(pageFactory);
+  }
+
+  public ObjectProperty<Callback<Workbench, Page>> pageFactoryProperty() {
+    return pageFactory;
   }
 
   public IntegerProperty modulesPerPageProperty() {
