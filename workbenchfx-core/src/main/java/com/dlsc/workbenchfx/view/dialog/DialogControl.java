@@ -1,10 +1,7 @@
 package com.dlsc.workbenchfx.view.dialog;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.WorkbenchModule;
-import com.dlsc.workbenchfx.view.controls.Dropdown;
-import com.dlsc.workbenchfx.view.controls.DropdownSkin;
-import com.dlsc.workbenchfx.view.controls.module.Tab;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -18,12 +15,21 @@ public class DialogControl extends Control {
       LogManager.getLogger(DialogControl.class.getName());
 
   private ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>();
+  private ObjectProperty<WorkbenchDialog> dialog = new SimpleObjectProperty<>();
 
   /**
    * Creates a dialog control.
    */
   public DialogControl() {
+    bindDialog();
+  }
 
+  /**
+   * Binds {@link Workbench#dialogProperty()} of the workbench to this {@code dialog} property,
+   * so the skin doesn't have to account for a potentially changing workbench.
+   */
+  private void bindDialog() {
+    dialog.bind(Bindings.select(workbench, "dialog"));
   }
 
   public final void hide() {
@@ -31,11 +37,11 @@ public class DialogControl extends Control {
   }
 
   public WorkbenchDialog getDialog() {
-    return workbench.get().getDialog();
+    return dialog.get();
   }
 
   public ReadOnlyObjectProperty<WorkbenchDialog> dialogProperty() {
-    return workbench.get().dialogProperty();
+    return dialog;
   }
 
   private Workbench getWorkbench() {
@@ -46,7 +52,7 @@ public class DialogControl extends Control {
     this.workbench.set(workbench);
   }
 
-  public ObjectProperty<Workbench> workbenchProperty() {
+  private ObjectProperty<Workbench> workbenchProperty() {
     return workbench;
   }
 
