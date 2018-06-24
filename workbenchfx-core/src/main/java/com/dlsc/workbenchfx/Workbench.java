@@ -1,13 +1,13 @@
 package com.dlsc.workbenchfx;
 
+import static com.dlsc.workbenchfx.view.dialog.WorkbenchDialog.Type;
+
 import com.dlsc.workbenchfx.module.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
-import static com.dlsc.workbenchfx.view.dialog.WorkbenchDialog.*;
-
 import com.dlsc.workbenchfx.view.dialog.WorkbenchDialog;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -15,9 +15,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import javafx.beans.property.IntegerProperty;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanWrapper;
@@ -31,8 +31,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
-import javafx.scene.control.ButtonType;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -346,6 +346,7 @@ public class Workbench extends Control {
 
   /**
    * Returns a list of the currently loaded modules.
+   *
    * @implNote Use this method to add or remove modules at runtime.
    */
   public ObservableList<WorkbenchModule> getModules() {
@@ -370,6 +371,7 @@ public class Workbench extends Control {
 
   /**
    * Returns a list of the currently loaded toolbar controls on the left.
+   *
    * @implNote Use this method to add or remove toolbar controls on the left at runtime.
    */
   public ObservableSet<Node> getToolbarControlsLeft() {
@@ -378,6 +380,7 @@ public class Workbench extends Control {
 
   /**
    * Returns a list of the currently loaded toolbar controls on the right.
+   *
    * @implNote Use this method to add or remove toolbar controls on the right at runtime.
    */
   public ObservableSet<Node> getToolbarControlsRight() {
@@ -386,6 +389,7 @@ public class Workbench extends Control {
 
   /**
    * Shows a {@link WorkbenchDialog} in the view.
+   *
    * @param dialog
    */
   public void showDialog(WorkbenchDialog dialog) {
@@ -401,8 +405,9 @@ public class Workbench extends Control {
 
   /**
    * Internal method to create different dialog types based on the {@link Type}.
-   * @param type of the dialog
-   * @param title of the dialog
+   *
+   * @param type    of the dialog
+   * @param title   of the dialog
    * @param message of the dialog
    * @return result of the dialog
    */
@@ -412,7 +417,8 @@ public class Workbench extends Control {
 
   /**
    * Shows an error dialog in the view.
-   * @param title of the dialog
+   *
+   * @param title   of the dialog
    * @param message of the dialog
    */
   public final void showErrorDialog(String title, String message) {
@@ -421,8 +427,9 @@ public class Workbench extends Control {
 
   /**
    * Shows an error dialog in the view with a stacktrace of the {@code exception}.
-   * @param title of the dialog
-   * @param message of the dialog
+   *
+   * @param title     of the dialog
+   * @param message   of the dialog
    * @param exception of which the stacktrace should be shown
    */
   public final void showErrorDialog(String title, String message, Exception exception) {
@@ -433,7 +440,8 @@ public class Workbench extends Control {
 
   /**
    * Shows an error dialog in the view with {@code details} about the error.
-   * @param title of the dialog
+   *
+   * @param title   of the dialog
    * @param message of the dialog
    * @param details about the error
    */
@@ -443,9 +451,10 @@ public class Workbench extends Control {
 
   /**
    * Internal method to construct error dialogs.
-   * @param title of the dialog
-   * @param message of the dialog
-   * @param details about the error
+   *
+   * @param title     of the dialog
+   * @param message   of the dialog
+   * @param details   about the error
    * @param exception of which the stacktrace should be shown
    */
   private final void showErrorDialog(String title, String message, String details, Exception exception) {
@@ -478,7 +487,8 @@ public class Workbench extends Control {
 
   /**
    * Shows a warning dialog in the view.
-   * @param title of the dialog
+   *
+   * @param title   of the dialog
    * @param message of the dialog
    */
   public final CompletableFuture<ButtonType> showWarningDialog(String title, String message) {
@@ -487,7 +497,8 @@ public class Workbench extends Control {
 
   /**
    * Shows a confirmation dialog in the view.
-   * @param title of the dialog
+   *
+   * @param title   of the dialog
    * @param message of the dialog
    */
   public final CompletableFuture<ButtonType> showConfirmationDialog(String title, String message) {
@@ -496,7 +507,8 @@ public class Workbench extends Control {
 
   /**
    * Shows an information dialog in the view.
-   * @param title of the dialog
+   *
+   * @param title   of the dialog
    * @param message of the dialog
    */
   public final CompletableFuture<ButtonType> showInformationDialog(String title, String message) {
@@ -505,8 +517,9 @@ public class Workbench extends Control {
 
   /**
    * Shows a dialog in the view with custom {@code content}.
-   * @param type of the dialog
-   * @param title of the dialog
+   *
+   * @param type    of the dialog
+   * @param title   of the dialog
    * @param content to be shown inside of the dialog
    * @return result of the dialog
    */
@@ -549,8 +562,7 @@ public class Workbench extends Control {
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
-   *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide
-   *                 it.
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide it.
    */
   public boolean showOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("showOverlay");
@@ -568,7 +580,7 @@ public class Workbench extends Control {
    * Hides the {@code overlay} together with its {@link GlassPane}, which has previously been shown
    * using {@link Workbench#showOverlay(Node, boolean)}.
    *
-   * @param overlay  to be hidden
+   * @param overlay to be hidden
    * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
    *           remove it from the scene graph entirely.
    *           If keeping the {@code overlay} loaded hidden in the scene graph is not possible due
