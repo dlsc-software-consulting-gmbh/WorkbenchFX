@@ -7,36 +7,43 @@
   -text-color: #fafdff;
   -text-color-transparent: rgba(250, 253, 255, 0.8);
   -inverted-text-color: #050200;
-  -toolbar-text-fill: white;
-  -toolbar-background-color: #2b2b2b;
-  -toolbar-button-pressed-color: rgba(255, 255, 255, 0.4);
-  -toolbar-button-selected-color: rgba(255, 255, 255, 0.1);
   -drop-shadow-1: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 10, 0.12, -1, 2);
   -drop-shadow-2: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 15, 0.16, -1, 4);
   -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 20, 0.19, -1, 6);
   -shadow: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.2, 0, 0);
-  -slate-green: #63946a;
-  -greyish-brown: #4a4a4a;
-  -yellowish-orange: #ffa208;
-  -greyish-brown-two: #595959;
-  -vivid-purple: #9012fe;
-  -tomato: #e94b35;
-  -charcoal-grey: #3b424c;
-  -steel: #7a8390;
-  -white: #ebebeb;
-  -greyish: #a3a3a3;
-  -white-two: #f6f6f4;
-  -white-three: #fbfbfb;
-  -white-four: #ffffff;
   -icons-color: -text-color;
-  -fx-font-size: 14px;
-  -fx-font-family: Roboto, sans-serif; }
+  -fx-font-family: "Roboto", sans-serif;
+  -fx-font-size: 14px; }
 
 .glyph-icon {
   -fx-text-fill: -text-color;
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
+@font-face {
+  src: url("../fonts/Roboto-Black.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-BlackItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Bold.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-BoldItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Italic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Light.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-LightItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Medium.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-MediumItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Regular.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Thin.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-ThinItalic.ttf"); }
 #toolbar #menu-button, #toolbar #toolbar-control-left-box .button-inverted, #toolbar #toolbar-control-left-box .button, #toolbar #home-button, #toolbar #toolbar-control-right-box .button, .navigation-drawer #back-button, .tile-control, .tab-control, .dropdown, .dropdown-inverted {
   -fx-pref-height: 3.5em;
   -fx-background-color: -prim-color;
@@ -297,23 +304,27 @@
 
 .dialog-pane {
   -fx-background-color: white;
-  -fx-effect: -drop-shadow-3; }
+  -fx-effect: -drop-shadow-3;
+  -fx-background-radius: 5; }
 
 .dialog-pane .button-bar .button {
-  -fx-background-color: -charcoal-grey;
-  -fx-text-fill: -white-four;
-  -fx-padding: 10 15; }
+  -fx-background-color: transparent;
+  -fx-text-fill: -prim-color;
+  -fx-padding: 10 15;
+  -font-size: 1.25em;
+  -fx-font-weight: 700;
+  -fx-cursor: hand; }
 
 .dialog-header {
-  -fx-padding: 30;
-  -fx-background-color: -white-two;
-  -fx-border-width: .5;
-  -fx-border-color: transparent transparent -greyish-brown-two transparent; }
+  -fx-padding: 0;
+  -fx-background-color: white;
+  -fx-background-radius: 5; }
 
 .dialog-title {
-  -fx-padding: 0;
-  -fx-font-size: 25;
-  -fx-text-fill: -greyish-brown-two; }
+  -fx-padding: 30 30 0 30;
+  -fx-font-size: 1.5em;
+  -fx-font-weight: 700;
+  -fx-text-fill: black; }
 
 .dialog-close-button {
   -fx-background-color: transparent; }
@@ -325,10 +336,12 @@
   -fx-background-color: rgba(0, 0, 0, 0.2); }
 
 .dialog-content-pane {
-  -fx-padding: 30; }
+  -fx-padding: 20 30 20 30; }
 
 .dialog-content-pane .label {
-  -fx-font-size: 18; }
+  -fx-font-size: 1.25em;
+  -fx-font-weight: 600;
+  -fx-text-fill: rgba(0, 0, 0, 0.54); }
 
 .dialog-content-pane .input-container {
   -fx-spacing: 10; }

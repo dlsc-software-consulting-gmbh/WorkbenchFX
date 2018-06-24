@@ -140,10 +140,10 @@ public class CustomDemo extends Application {
     showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
     addPreferences.setOnAction(event -> workbench.getModules().add(preferencesModule));
     removePreferences.setOnAction(event -> workbench.getModules().remove(preferencesModule));
-    showDialogButton.setOnAction(event -> workbench.showErrorDialog("Error", "Something went really wrong!"));
+    showDialogButton.setOnAction(event -> workbench.showConfirmationDialog("Reset settings?", "This will reset your device to its default factory settings."));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
-    workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+    //workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 
     workbench
         .getStylesheets()

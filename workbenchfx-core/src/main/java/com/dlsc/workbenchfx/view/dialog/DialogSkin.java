@@ -148,7 +148,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
   }
 
   private Node createButton(ButtonType buttonType) {
-    final Button button = new Button(buttonType.getText());
+    final Button button = new Button(buttonType.getText().toUpperCase());
     final ButtonBar.ButtonData buttonData = buttonType.getButtonData();
     ButtonBar.setButtonData(button, buttonData);
     button.setDefaultButton(buttonData.isDefaultButton());
