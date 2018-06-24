@@ -208,12 +208,10 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
         dialogPrefHeight = contentHeight * .9;
       }
 
+      final double dialogTargetX = contentX + (contentWidth - dialogPrefWidth) / 2;
       final double dialogTargetY = contentY + (contentHeight - dialogPrefHeight) / 2;
       dialogPane.resizeRelocate(
-          contentX + (contentWidth - dialogPrefWidth) / 2,
-          dialogTargetY,
-          dialogPrefWidth,
-          dialogPrefHeight);
+          dialogTargetX, dialogTargetY, dialogPrefWidth, dialogPrefHeight);
     }
 
     final double gap = 30;
