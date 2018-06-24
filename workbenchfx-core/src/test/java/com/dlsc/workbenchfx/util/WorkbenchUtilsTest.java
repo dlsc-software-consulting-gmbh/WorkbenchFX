@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for {@link WorkbenchFxUtils}.
+ * Test class for {@link WorkbenchUtils}.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -34,17 +34,17 @@ public class WorkbenchUtilsTest {
   void assertNodeNotSame() {
     Node node1 = new Button();
     Node node2 = new Button();
-    WorkbenchFxUtils.assertNodeNotSame(node1, node2); // should not throw
+    WorkbenchUtils.assertNodeNotSame(node1, node2); // should not throw
     assertThrows(
         IllegalArgumentException.class,
-        () -> WorkbenchFxUtils.assertNodeNotSame(node1, node1)
+        () -> WorkbenchUtils.assertNodeNotSame(node1, node1)
     );
   }
 
   @Test
   void addSetListenerAdd() {
     Thread mock = mock(Thread.class);
-    WorkbenchFxUtils.addSetListener(
+    WorkbenchUtils.addSetListener(
         observableSet,
         c -> mock.run(),
         c -> fail("was removed instead of added")
@@ -58,7 +58,7 @@ public class WorkbenchUtilsTest {
     Thread mock = mock(Thread.class);
     String test = "Test";
     observableSet.add(test);
-    WorkbenchFxUtils.addSetListener(
+    WorkbenchUtils.addSetListener(
         observableSet,
         c -> fail("was added instead of removed"),
         c -> mock.run()

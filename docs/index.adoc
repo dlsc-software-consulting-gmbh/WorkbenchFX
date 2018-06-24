@@ -107,6 +107,13 @@ Our customer suggests that it would be easier to skip the `WorkbenchFxModel` cla
 We decide to change it in a way that `WorkbenchFx` is the model object in the MVP pattern in our case.
 This simplifies the architecture and readability is improved, since methods are where they would be expected.
 
+// TODO: used view and presenter class, with view being interface and presenter being abstract.
+`View` is an interface, because it's used as a mixin.
+We implemented it this way because every view needs to already extend a certain JavaFX class and multiple inheritance is not possible in Java, so using an abstract class here isn't an option.
+This makes it possible to initialize all views in the same way while also resulting in less code duplication, since the `init()` method and the JavaDoc doesn't need to be rewritten over and over again.
+`Presenter` is abstract, because it acts more like a "super class" of all the presenters.
+Since all presenters don't need to extend anything else, using an abstract class here is possible.
+
 ==== Builder Pattern
 // TODO: explain how builder pattern works in WorkbenchFx.java
 

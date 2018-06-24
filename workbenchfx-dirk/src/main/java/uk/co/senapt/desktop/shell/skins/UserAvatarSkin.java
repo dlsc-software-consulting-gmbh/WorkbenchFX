@@ -9,8 +9,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import uk.co.senapt.desktop.shell.model.User;
 import uk.co.senapt.desktop.shell.UserAvatar;
+import uk.co.senapt.desktop.shell.model.User;
 
 /**
  * Created by lemmi on 21.08.17.

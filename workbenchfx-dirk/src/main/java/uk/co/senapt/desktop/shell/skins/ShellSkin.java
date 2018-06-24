@@ -1,6 +1,6 @@
 package uk.co.senapt.desktop.shell.skins;
 
-//import com.calendarfx.view.YearMonthView;
+import com.calendarfx.view.YearMonthView;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -9,6 +9,7 @@ import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.BooleanPropertyBase;
@@ -23,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.AccessibleAttribute;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -41,12 +43,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-//import uk.co.senapt.desktop.shell.Dashboard;
+import uk.co.senapt.desktop.shell.Dashboard;
 import uk.co.senapt.desktop.shell.HomeScreen;
 import uk.co.senapt.desktop.shell.HorizontalMenu;
 import uk.co.senapt.desktop.shell.MenuDrawer;
 import uk.co.senapt.desktop.shell.ModuleListCell;
-import uk.co.senapt.desktop.shell.ModulesManager;
 import uk.co.senapt.desktop.shell.Shell;
 import uk.co.senapt.desktop.shell.ShellDialog;
 import uk.co.senapt.desktop.shell.ShellModule;
@@ -56,7 +57,6 @@ import uk.co.senapt.desktop.shell.model.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.function.Supplier;
@@ -80,10 +80,11 @@ public class ShellSkin extends SkinBase<Shell> {
     private HorizontalMenu<ShellModule> moduleSwitcher;
 
     private GlassPane glassPane;
+    private BlockingPane blockingPane;
 
     private HomeScreen homeScreen;
     private ModulePane modulePane;
-    //private Dashboard dashboard;
+    private Dashboard dashboard;
     private Node leftTray;
     private Node rightTray;
 
@@ -115,7 +116,6 @@ public class ShellSkin extends SkinBase<Shell> {
         dialogHeader.getStyleClass().add("dialog-header");
 
         dialogTitle = new Label("Dialog");
-
         dialogTitle.setMaxWidth(Double.MAX_VALUE);
         dialogTitle.getStyleClass().add("dialog-title");
 
@@ -135,13 +135,13 @@ public class ShellSkin extends SkinBase<Shell> {
         dialogContentPane.getStyleClass().add("dialog-content-pane");
 
         dialogButtonBar = new ButtonBar();
+        dialogButtonBar.managedProperty().bind(dialogButtonBar.visibleProperty());
 
         VBox.setVgrow(dialogTitle, Priority.NEVER);
         VBox.setVgrow(dialogContentPane, Priority.ALWAYS);
         VBox.setVgrow(dialogButtonBar, Priority.NEVER);
 
         dialogPane.getChildren().setAll(dialogHeader, dialogContentPane, dialogButtonBar);
-
 
         moduleSwitcher = new HorizontalMenu<>();
         moduleSwitcher.getStyleClass().add("module-switcher");
@@ -155,15 +155,17 @@ public class ShellSkin extends SkinBase<Shell> {
         createToolBar();
 
         floatingElementsContainer = new VBox();
+        floatingElementsContainer.visibleProperty().bind(shell.showFloatingElementsProperty());
         floatingElementsContainer.getStyleClass().add("floating-action-button-container");
         floatingElementsContainer.setManaged(false);
         floatingElementsContainer.setFillWidth(true);
         Bindings.bindContent(floatingElementsContainer.getChildren(), shell.getFloatingElements());
 
-        shell.leftTrayProperty().addListener(it -> updateChildren());
-        shell.rightTrayProperty().addListener(it -> updateChildren());
+        final InvalidationListener updateChildrenListener = it -> updateChildren();
+        shell.leftTrayProperty().addListener(updateChildrenListener);
+        shell.rightTrayProperty().addListener(updateChildrenListener);
 
-        //dashboard = shell.getDashboard();
+        dashboard = shell.getDashboard();
 
         homeScreen = shell.getHomeScreen();
         homeScreen.addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> closeDrawers());
@@ -171,7 +173,10 @@ public class ShellSkin extends SkinBase<Shell> {
         modulePane = new ModulePane();
 
         glassPane = new GlassPane();
-        glassPane.hideProperty().bind(Bindings.not(shell.showMenuDrawerProperty().or(shell.showLeftTrayProperty().or(shell.showRightTrayProperty()).or(shell.dialogProperty().isNotNull()))));
+        glassPane.hideProperty().bind(Bindings.not(shell.showMenuTrayProperty().or(shell.showLeftTrayProperty().or(shell.showRightTrayProperty()).or(shell.dialogProperty().isNotNull()))));
+
+        blockingPane = new BlockingPane();
+        blockingPane.visibleProperty().bind(shell.blockingProperty());
 
         menuDrawer = shell.getMenuDrawer();
         menuDrawer.setVisible(false);
@@ -193,21 +198,21 @@ public class ShellSkin extends SkinBase<Shell> {
             switch (shell.getDisplayMode()) {
                 case DASHBOARD:
                     getChildren().removeAll(homeScreen, modulePane);
-                    /*if (!getChildren().contains(dashboard)) {
+                    if (!getChildren().contains(dashboard)) {
                         getChildren().add(0, dashboard);
-                    }*/
+                    }
                     break;
                 case HOME:
-                    /*getChildren().removeAll(dashboard, modulePane);
+                    getChildren().removeAll(dashboard, modulePane);
                     if (!getChildren().contains(homeScreen)) {
                         getChildren().add(0, homeScreen);
-                    }*/
+                    }
                     break;
                 case MODULE:
-                    /*getChildren().removeAll(dashboard, homeScreen);
+                    getChildren().removeAll(dashboard, homeScreen);
                     if (!getChildren().contains(modulePane)) {
                         getChildren().add(0, modulePane);
-                    }*/
+                    }
                     break;
                 default:
                     throw new IllegalArgumentException("unknown display mode");
@@ -239,21 +244,23 @@ public class ShellSkin extends SkinBase<Shell> {
             }
         });
 
-        registerSlider(shell.showUserOptionsProperty(), userOptionsVisibility, () -> userMenu, ANIMATION_DURATION);
-        registerSlider(shell.showCalendarProperty(), calendarVisibility, () -> calendarView, ANIMATION_DURATION);
-        registerSlider(shell.showSearchFieldProperty(), searchFieldVisibility, () -> searchFieldPane, ANIMATION_DURATION);
-        registerSlider(shell.showMenuDrawerProperty(), menuDrawerVisibility, () -> menuDrawer, ANIMATION_DURATION);
-        registerSlider(shell.showLeftTrayProperty(), leftTrayVisibility, shell::getLeftTray, ANIMATION_DURATION);
-        registerSlider(shell.showRightTrayProperty(), rightTrayVisibility, shell::getRightTray, ANIMATION_DURATION);
-        registerSlider(shell.showDialogProperty(), dialogVisibility, () -> dialogPane, Duration.millis(300));
+        registerSlider(shell.showUserOptionsProperty(), userOptionsVisibility, () -> userMenu, ANIMATION_DURATION, SliderType.MENU);
+        registerSlider(shell.showCalendarProperty(), calendarVisibility, () -> calendarView, ANIMATION_DURATION, SliderType.MENU);
+        registerSlider(shell.showSearchFieldProperty(), searchFieldVisibility, () -> searchFieldPane, ANIMATION_DURATION, SliderType.MENU);
+        registerSlider(shell.showMenuTrayProperty(), menuDrawerVisibility, () -> menuDrawer, ANIMATION_DURATION, SliderType.TRAY);
+        registerSlider(shell.showLeftTrayProperty(), leftTrayVisibility, shell::getLeftTray, ANIMATION_DURATION, SliderType.TRAY);
+        registerSlider(shell.showRightTrayProperty(), rightTrayVisibility, shell::getRightTray, ANIMATION_DURATION, SliderType.TRAY);
+        registerSlider(shell.showDialogProperty(), dialogVisibility, () -> dialogPane, Duration.millis(300), SliderType.DIALOG);
     }
 
     private void showDialog() {
         ShellDialog shellDialog = getSkinnable().getDialog();
         dialogTitle.textProperty().bind(shellDialog.titleProperty());
         dialogContentPane.getChildren().setAll(shellDialog.getContent());
+        dialogPane.getStyleClass().setAll("dialog-pane");
+        dialogPane.getStyleClass().addAll(shellDialog.getStyleClass());
 
-        updateButtons(shellDialog.getButtonTypes());
+        updateButtons(shellDialog);
 
         if (!getChildren().contains(dialogPane)) {
             getChildren().add(dialogPane);
@@ -262,11 +269,12 @@ public class ShellSkin extends SkinBase<Shell> {
 
     private final Map<ButtonType, Node> buttonNodes = new WeakHashMap<>();
 
-    private void updateButtons(List<ButtonType> buttonTypes) {
+    private void updateButtons(ShellDialog<?> dialog) {
         dialogButtonBar.getButtons().clear();
+        dialogButtonBar.setVisible(dialog.isShowButtonsBar());
 
         boolean hasDefault = false;
-        for (ButtonType cmd : buttonTypes) {
+        for (ButtonType cmd : dialog.getButtonTypes()) {
             Node button = buttonNodes.computeIfAbsent(cmd, dialogButton -> createButton(cmd));
 
             // keep only first default button
@@ -305,12 +313,18 @@ public class ShellSkin extends SkinBase<Shell> {
     private void hideDialog() {
     }
 
-    private void registerSlider(ReadOnlyBooleanProperty showProperty, DoubleProperty visibilityProperty, Supplier<Node> nodeSupplier, Duration slideDuration) {
+    private enum SliderType {
+        DIALOG,
+        MENU,
+        TRAY
+    }
+
+    private void registerSlider(ReadOnlyBooleanProperty showProperty, DoubleProperty visibilityProperty, Supplier<Node> nodeSupplier, Duration slideDuration, SliderType sliderType) {
         showProperty.addListener(it -> {
             if (showProperty.get()) {
-                slideInOut(1, visibilityProperty, nodeSupplier, slideDuration);
+                slideInOut(1, visibilityProperty, nodeSupplier, slideDuration, sliderType);
             } else {
-                slideInOut(0, visibilityProperty, nodeSupplier, slideDuration);
+                slideInOut(0, visibilityProperty, nodeSupplier, slideDuration, sliderType);
             }
         });
 
@@ -319,30 +333,56 @@ public class ShellSkin extends SkinBase<Shell> {
         }
     }
 
-    private static void slideInOut(double visibility, DoubleProperty visibilityProperty, Supplier<Node> nodeSupplier, Duration slideDuration) {
-        if (visibility == 1) {
-            nodeSupplier.get().setVisible(true);
-            nodeSupplier.get().setOpacity(0);
-        } else {
-            nodeSupplier.get().setOpacity(1);
-        }
+    private void slideInOut(double visibility, DoubleProperty visibilityProperty, Supplier<Node> nodeSupplier, Duration slideDuration, SliderType sliderType) {
+        Node node = nodeSupplier.get();
 
-        KeyValue value1 = new KeyValue(visibilityProperty, visibility);
-        KeyValue value2 = new KeyValue(nodeSupplier.get().opacityProperty(), visibility == 0 ? 0 : 1);
-        KeyFrame frame = new KeyFrame(slideDuration, value1, value2);
-        Timeline timeline = new Timeline(frame);
-        timeline.setOnFinished(evt -> {
-            if (visibility == 0) {
-                nodeSupplier.get().setVisible(false);
+        if (isAnimated(sliderType)) {
+            if (visibility == 1) {
+                node.setVisible(true);
+                node.setOpacity(0);
+            } else {
+                node.setOpacity(1);
             }
-        });
-        timeline.play();
+
+            KeyValue value1 = new KeyValue(visibilityProperty, visibility);
+            KeyValue value2 = new KeyValue(node.opacityProperty(), visibility == 0 ? 0 : 1);
+            KeyFrame frame = new KeyFrame(slideDuration, value1, value2);
+            Timeline timeline = new Timeline(frame);
+            timeline.setOnFinished(evt -> {
+                if (visibility == 0) {
+                    node.setVisible(false);
+                }
+            });
+            timeline.play();
+        } else {
+            if (visibility == 1) {
+                node.setVisible(true);
+                node.setOpacity(1);
+                visibilityProperty.set(1);
+            } else {
+                node.setOpacity(0);
+                visibilityProperty.set(0);
+            }
+        }
+    }
+
+    private boolean isAnimated(SliderType sliderType) {
+        switch (sliderType) {
+            case MENU:
+                return getSkinnable().isAnimateMenus();
+            case DIALOG:
+                return getSkinnable().isAnimateDialogs();
+            case TRAY:
+                return getSkinnable().getAnimateTrays();
+            default:
+                return true;
+        }
     }
 
     private void updateChildren() {
         leftTray = getSkinnable().getLeftTray();
         rightTray = getSkinnable().getRightTray();
-        getChildren().setAll(homeScreen, userMenu, calendarView, searchFieldPane, toolBar, floatingElementsContainer, glassPane, menuDrawer, leftTray, rightTray);
+        getChildren().setAll(homeScreen, userMenu, calendarView, searchFieldPane, toolBar, floatingElementsContainer, glassPane, menuDrawer, leftTray, rightTray, blockingPane);
     }
 
     @Override
@@ -374,13 +414,20 @@ public class ShellSkin extends SkinBase<Shell> {
 
         menuDrawer.resizeRelocate(-(1 - menuDrawerVisibility.get()) * menuDrawerPrefWidth, contentY, menuDrawerPrefWidth, contentHeight);
 
-        glassPane.resizeRelocate(contentX, contentY, contentWidth, contentHeight);
+        if (glassPane.isVisible()) {
+            glassPane.resizeRelocate(contentX, contentY, contentWidth, contentHeight);
+        }
+
+        if (blockingPane.isVisible()) {
+            blockingPane.resizeRelocate(contentX, contentY, contentWidth, contentHeight);
+        }
 
         final double leftTrayPrefWidth = leftTray.prefWidth(-1);
         final double rightTrayPrefWidth = rightTray.prefWidth(-1);
 
         leftTray.resizeRelocate(-(1 - leftTrayVisibility.get()) * leftTrayPrefWidth, contentY, leftTrayPrefWidth, contentHeight);
         rightTray.resizeRelocate(contentWidth - (rightTrayVisibility.get() * rightTrayPrefWidth), contentY, rightTrayPrefWidth, contentHeight);
+        rightTray.toFront();
 
         contentY += prefHeightToolBar;
         contentHeight -= prefHeightToolBar;
@@ -403,7 +450,7 @@ public class ShellSkin extends SkinBase<Shell> {
 
         modulePane.resizeRelocate(contentX, contentY, contentWidth, contentHeight);
 
-        //dashboard.resizeRelocate(contentX, contentY, contentWidth, contentHeight);
+        dashboard.resizeRelocate(contentX, contentY, contentWidth, contentHeight);
 
         final double gap = 30;
         final double favoritesPrefWidth = floatingElementsContainer.prefWidth(-1);
@@ -413,7 +460,7 @@ public class ShellSkin extends SkinBase<Shell> {
 
     private void createToolBar() {
         ToggleButton menuDrawerButton = new ToggleButton();
-        menuDrawerButton.selectedProperty().bindBidirectional(getSkinnable().showMenuDrawerProperty());
+        menuDrawerButton.selectedProperty().bindBidirectional(getSkinnable().showMenuTrayProperty());
 
         Button homeButton = new Button();
         homeButton.setOnAction(evt -> getSkinnable().showHomeScreen());
@@ -561,23 +608,23 @@ public class ShellSkin extends SkinBase<Shell> {
             dateLabel.setMaxWidth(Double.MAX_VALUE);
             dateLabel.getStyleClass().add("date-label");
 
-            /*YearMonthView monthView = new YearMonthView();
+            YearMonthView monthView = new YearMonthView();
             monthView.setShowTodayButton(false);
             monthView.setShowYear(false);
             monthView.setShowMonth(false);
             monthView.setShowWeekNumbers(false);
-            monthView.getWeekendDays().clear();*/
+            monthView.getWeekendDays().clear();
 
             Button gotoButton = new Button("Go to Calendar >");
             gotoButton.getStyleClass().add("goto-button");
             gotoButton.setMaxWidth(Double.MAX_VALUE);
-            gotoButton.setOnAction(evt -> getSkinnable().openModule(ModulesManager.getInstance().getModule("Calendar").get()));
+            gotoButton.setOnAction(evt -> getSkinnable().openCalendarModule());
 
-            /*if (ModulesManager.getInstance().getModule("Calendar").isPresent()) {
+            if (getSkinnable().isCalendarModuleRegistered()) {
                 getChildren().addAll(timeLabel, dateLabel, monthView, gotoButton);
             } else {
                 getChildren().addAll(timeLabel, dateLabel, monthView);
-            }*/
+            }
 
             Thread thread = new Thread(() -> {
                 Platform.runLater(() -> {
@@ -603,37 +650,43 @@ public class ShellSkin extends SkinBase<Shell> {
         public UserMenu() {
             getStyleClass().add("user-menu");
 
-            Button exitButton = new Button("Exit");
-            exitButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-            exitButton.getStyleClass().add("user-menu-button");
-            exitButton.setOnAction(evt -> getScene().getWindow().hide());
-            getChildren().add(exitButton);
+            getSkinnable().getUserMenuItems().addListener((Observable it) -> buildMenu());
 
-            Button errorDialog = new Button("Show Error");
-            errorDialog.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-            errorDialog.getStyleClass().add("user-menu-button");
-            errorDialog.setOnAction(evt -> {
-                getSkinnable().showError("Error", "Something went really wrong!");
-                getSkinnable().setShowUserOptions(false);
+            buildMenu();
+
+            ControlAcceleratorSupport.addAcceleratorsIntoScene(getSkinnable().getUserMenuItems(), this);
+        }
+
+        private void buildMenu() {
+            getChildren().clear();
+
+            getSkinnable().getUserMenuItems().forEach(item -> {
+                HBox container = new HBox();
+                container.setAlignment(Pos.CENTER_LEFT);
+                container.getStyleClass().add("user-menu-item");
+
+                container.addEventHandler(MouseEvent.MOUSE_CLICKED, evt -> {
+                    item.getOnAction().handle(new ActionEvent(container, container));
+                    getSkinnable().setShowUserOptions(false);
+                });
+
+                Label button = new Label();
+                button.textProperty().bind(item.textProperty());
+                button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                button.setMaxWidth(Double.MAX_VALUE);
+                HBox.setHgrow(button, Priority.ALWAYS);
+                container.getChildren().add(button);
+
+                if (item.getAccelerator() != null) {
+                    Label acceleratorLabel = new Label(item.getAccelerator().getDisplayText());
+                    acceleratorLabel.getStyleClass().add("accelerator-text");
+                    HBox.setHgrow(acceleratorLabel, Priority.NEVER);
+                    container.getChildren().add(acceleratorLabel);
+                }
+
+
+                getChildren().add(container);
             });
-
-            Button confirmationDialog = new Button("Show Confirmation");
-            confirmationDialog.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-            confirmationDialog.getStyleClass().add("user-menu-button");
-            confirmationDialog.setOnAction(evt -> {
-                getSkinnable().showConfirmation("Confirmation", "Are you sure you want to delete this customer?");
-                getSkinnable().setShowUserOptions(false);
-            });
-
-            Button warningDialog = new Button("Show Warning");
-            warningDialog.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-            warningDialog.getStyleClass().add("user-menu-button");
-            warningDialog.setOnAction(evt -> {
-                getSkinnable().showWarning("Warning", "This action will have consequences!");
-                getSkinnable().setShowUserOptions(false);
-            });
-
-            getChildren().addAll(errorDialog, confirmationDialog, warningDialog);
         }
     }
 
@@ -700,8 +753,6 @@ public class ShellSkin extends SkinBase<Shell> {
                         if (tg != null) {
                             if (selected) {
                                 tg.selectToggle(UserMenuButton.this);
-//                            } else if (tg.getSelectedToggle() == ToggleButton.this) {
-//                                tg.clearSelectedToggle();
                             }
                         }
                     }
@@ -756,7 +807,6 @@ public class ShellSkin extends SkinBase<Shell> {
                 ShellModule module = shell.getSelectedModule();
                 if (module != null) {
                     closeDrawers();
-
                     getChildren().setAll(module.getPane(getSkinnable()));
                 } else {
                     getSkinnable().showHomeScreen();
@@ -768,7 +818,7 @@ public class ShellSkin extends SkinBase<Shell> {
     }
 
     private void closeDrawers() {
-        getSkinnable().setShowMenuDrawer(false);
+        getSkinnable().setShowMenuTray(false);
         getSkinnable().setShowModulesMenu(false);
         getSkinnable().setShowCalendar(false);
         getSkinnable().setShowUserOptions(false);
@@ -788,19 +838,24 @@ public class ShellSkin extends SkinBase<Shell> {
 
             hideProperty().addListener(it -> {
 
-                setVisible(true);
+                if (getSkinnable().isFadeInOut()) {
+                    setVisible(true);
 
-                FadeTransition fadeTransition = new FadeTransition();
-                fadeTransition.setDuration(Duration.millis(200));
-                fadeTransition.setNode(glassPane);
-                fadeTransition.setFromValue(glassPane.isHide() ? .5 : 0);
-                fadeTransition.setToValue(glassPane.isHide() ? 0 : .5);
-                fadeTransition.setOnFinished(evt -> {
-                    if (isHide()) {
-                        setVisible(false);
-                    }
-                });
-                fadeTransition.play();
+                    FadeTransition fadeTransition = new FadeTransition();
+                    fadeTransition.setDuration(Duration.millis(200));
+                    fadeTransition.setNode(this);
+                    fadeTransition.setFromValue(isHide() ? .5 : 0);
+                    fadeTransition.setToValue(isHide() ? 0 : .5);
+                    fadeTransition.setOnFinished(evt -> {
+                        if (isHide()) {
+                            setVisible(false);
+                        }
+                    });
+                    fadeTransition.play();
+                } else {
+                    setOpacity(glassPane.isHide() ? 0 : .5);
+                    setVisible(!isHide());
+                }
             });
         }
 
@@ -810,12 +865,16 @@ public class ShellSkin extends SkinBase<Shell> {
             return hide;
         }
 
-        public final void setHide(boolean hide) {
-            this.hide.set(hide);
-        }
-
         public final boolean isHide() {
             return hide.get();
+        }
+    }
+
+    class BlockingPane extends StackPane {
+
+        public BlockingPane() {
+            getStyleClass().add("blocking-pane");
+            setCursor(Cursor.WAIT);
         }
     }
 }

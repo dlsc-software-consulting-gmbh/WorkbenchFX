@@ -8,7 +8,7 @@ import com.dlsc.workbenchfx.Workbench;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ContentPresenter implements Presenter {
+public class ContentPresenter extends Presenter {
   private final Workbench model;
   private final ContentView view;
 

@@ -3,8 +3,9 @@ package com.dlsc.workbenchfx.view;
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.util.WorkbenchUtils;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
@@ -21,14 +22,14 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ToolbarPresenter implements Presenter {
+public class ToolbarPresenter extends Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(ToolbarPresenter.class.getName());
   private final Workbench model;
   private final ToolbarView view;
 
   // Strong reference to prevent garbage collection
-  private final ObservableList<Module> openModules;
+  private final ObservableList<WorkbenchModule> openModules;
   private final ObservableList<MenuItem> navigationDrawerItems;
   private final ObservableSet<Node> toolbarControlsLeft;
   private final ObservableSet<Node> toolbarControlsRight;
@@ -83,31 +84,33 @@ public class ToolbarPresenter implements Presenter {
   @Override
   public void setupValueChangedListeners() {
     // When the List of the currently open toolbarControlsLeft is changed, the view is updated.
-    WorkbenchFxUtils.addSetListener(
+    WorkbenchUtils.addSetListener(
         toolbarControlsLeft,
         change -> view.addToolbarControlLeft(change.getElementAdded()),
         change -> view.removeToolbarControlLeft(change.getElementRemoved())
     );
     // When the List of the currently open toolbarControlsRight is changed, the view is updated.
-    WorkbenchFxUtils.addSetListener(
+    WorkbenchUtils.addSetListener(
         toolbarControlsRight,
         change -> view.addToolbarControlRight(change.getElementAdded()),
         change -> view.removeToolbarControlRight(change.getElementRemoved())
     );
 
     // When the List of the currently open modules is changed, the view is updated.
-    openModules.addListener((ListChangeListener<? super Module>) c -> {
+    openModules.addListener((ListChangeListener<? super WorkbenchModule>) c -> {
       while (c.next()) {
         if (c.wasRemoved()) {
-          for (Module module : c.getRemoved()) {
+          for (WorkbenchModule module : c.getRemoved()) {
             LOGGER.debug("Module " + module + " closed");
             view.removeTab(c.getFrom());
           }
         }
         if (c.wasAdded()) {
-          for (Module module : c.getAddedSubList()) {
+          for (WorkbenchModule module : c.getAddedSubList()) {
             LOGGER.debug("Module " + module + " opened");
-            Node tabControl = model.getTab(module);
+            // create tab control
+            Tab tabControl = model.getTabFactory().call(model);
+            tabControl.setModule(module);
             view.addTab(tabControl);
             tabControl.requestFocus();
           }

@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.custom.test;
 
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 
-public class NavigationDrawerTestModule extends Module {
+public class NavigationDrawerTestModule extends WorkbenchModule {
   private int itemsCount = 1;
 
   private final Button addMenuBtn = new Button("Add 1 MenuItem");
@@ -59,26 +59,26 @@ public class NavigationDrawerTestModule extends Module {
   }
 
   private void removeAllItems() {
-    ObservableList<MenuItem> navigationDrawerItems = workbench.getNavigationDrawerItems();
+    ObservableList<MenuItem> navigationDrawerItems = getWorkbench().getNavigationDrawerItems();
     MenuItem[] menuItems = new MenuItem[navigationDrawerItems.size()];
     for (int i = 0; i < navigationDrawerItems.size();  ++i) {
       menuItems[i] = navigationDrawerItems.get(i);
     }
-    workbench.removeNavigationDrawerItems(menuItems);
+    getWorkbench().getNavigationDrawerItems().remove(menuItems);
   }
 
   private void addItems(int items) {
     for (int i = 0; i < items; i++) {
       MenuItem menuItem = new MenuItem("New Item " + itemsCount++);
       itemsLst.add(menuItem);
-      workbench.addNavigationDrawerItems(menuItem);
+      getWorkbench().getNavigationDrawerItems().add(menuItem);
     }
   }
 
   private void removeItems(int items) {
     for (int i = 0; i < items; i++) {
       if (itemsCount > 1) {
-        workbench.removeNavigationDrawerItems(itemsLst.remove(itemsCount - 2));
+        getWorkbench().getNavigationDrawerItems().remove(itemsLst.remove(itemsCount - 2));
         itemsCount--;
       }
     }
@@ -91,7 +91,7 @@ public class NavigationDrawerTestModule extends Module {
       for(int j = 0; j < subItems; j++) {
         subMenu.getItems().add(new MenuItem("New Sub MenuItem " + (j+1)));
       }
-      workbench.addNavigationDrawerItems(subMenu);
+      getWorkbench().getNavigationDrawerItems().add(subMenu);
     }
   }
 

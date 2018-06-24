@@ -2,13 +2,13 @@ package com.dlsc.workbenchfx.view.controls.module;
 
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
 
-import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.util.Objects;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.value.ChangeListener;
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,15 +26,17 @@ import org.apache.logging.log4j.Logger;
 public class TabSkin extends SkinBase<Tab> {
   private static final Logger LOGGER = LogManager.getLogger(TabSkin.class.getName());
 
-  private final ReadOnlyObjectProperty<Module> module;
+  private final ReadOnlyObjectProperty<WorkbenchModule> module;
 
   private HBox controlBox;
   private Button closeBtn;
   private FontAwesomeIconView closeIconView;
 
-  private Node icon;
   private Label nameLbl;
-  private ChangeListener<Module> activeTabListener;
+
+  private final ReadOnlyBooleanProperty activeTab;
+  private final ReadOnlyStringProperty name;
+  private final ReadOnlyObjectProperty<Node> icon;
 
   /**
    * Creates a new {@link TabSkin} object for a corresponding {@link Tab}.
@@ -44,13 +46,17 @@ public class TabSkin extends SkinBase<Tab> {
   public TabSkin(Tab tab) {
     super(tab);
     module = tab.moduleProperty();
+    activeTab = tab.activeTabProperty();
+    name = tab.nameProperty();
+    icon = tab.iconProperty();
 
     initializeParts();
     layoutParts();
+    setupBindings();
+    setupEventHandlers();
+    setupValueChangedListeners();
 
-    Workbench workbench = tab.getWorkbench();
-    setupSkin(workbench, module.get()); // initial setup
-    setupModuleListener(workbench); // setup for changing modules
+    updateIcon();
 
     getChildren().add(controlBox);
   }
@@ -76,54 +82,42 @@ public class TabSkin extends SkinBase<Tab> {
     controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
   }
 
-  private void setupModuleListener(Workbench workbench) {
-    LOGGER.trace("Add module listener");
-    module.addListener((observable, oldModule, newModule) -> {
-      LOGGER.trace("moduleListener called");
-      LOGGER.trace("old: " + oldModule + " new: " + newModule);
-      if (oldModule != newModule) {
-        LOGGER.trace("Setting up skin");
-        setupSkin(workbench, newModule);
+  private void setupBindings() {
+    nameLbl.textProperty().bind(name);
+  }
+
+  private void setupEventHandlers() {
+    closeBtn.setOnAction(e -> getSkinnable().close());
+    controlBox.setOnMouseClicked(e -> getSkinnable().open());
+  }
+
+  private void setupValueChangedListeners() {
+    // add or remove "active tab" style class, depending on state
+    activeTab.addListener((observable, wasActive, isActive) -> {
+      LOGGER.trace("Tab Factory - Was active: " + wasActive);
+      LOGGER.trace("Tab Factory - Is active: " + isActive);
+      if (isActive) {
+        controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
+        LOGGER.trace("STYLE SET");
+      } else {
+        // switch from this to other tab
+        controlBox.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
+      }
+    });
+
+    // handle icon changes
+    icon.addListener((observable, oldIcon, newIcon) -> {
+      if (oldIcon != newIcon) {
+        updateIcon();
       }
     });
   }
 
-  private void setupSkin(Workbench workbench, Module module) {
-    setupIcon(module);
-    nameLbl.setText(module.getName());
-    closeBtn.setOnAction(e -> workbench.closeModule(module));
-    controlBox.setOnMouseClicked(e -> workbench.openModule(module));
-    setupActiveTabListener(workbench, module);
-  }
-
-  private void setupIcon(Module module) {
-    // remove old and add new icon
-    controlBox.getChildren().remove(0);
-    this.icon = module.getIcon();
-    controlBox.getChildren().add(0, icon);
-    icon.getStyleClass().add("tab-icon");
-  }
-
-  private void setupActiveTabListener(Workbench workbench, Module module) {
-    // remove previously set listener
-    if (!Objects.isNull(activeTabListener)) {
-      workbench.activeModuleProperty().removeListener(activeTabListener);
-    }
-
-    // (re-)initialize active tab listener
-    activeTabListener = (observable, oldModule, newModule) -> {
-      LOGGER.trace("Tab Factory - Old Module: " + oldModule);
-      LOGGER.trace("Tab Factory - New Module: " + oldModule);
-      if (module == newModule) {
-        controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-        LOGGER.trace("STYLE SET");
-      }
-      if (module == oldModule) {
-        // switch from this to other tab
-        controlBox.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
-      }
-    };
-
-    workbench.activeModuleProperty().addListener(activeTabListener);
+  private void updateIcon() {
+    Node iconNode = icon.get();
+    ObservableList<Node> children = controlBox.getChildren();
+    children.remove(0);
+    children.add(0, iconNode);
+    iconNode.getStyleClass().add("tab-icon");
   }
 }

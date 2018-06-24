@@ -13,12 +13,12 @@ import javafx.scene.Node;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public final class WorkbenchFxUtils {
+public final class WorkbenchUtils {
 
   /**
    * Utility class should not be possible to be instantiated.
    */
-  private WorkbenchFxUtils() {
+  private WorkbenchUtils() {
 
   }
 
