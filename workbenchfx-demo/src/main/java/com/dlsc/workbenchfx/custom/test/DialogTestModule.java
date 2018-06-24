@@ -2,10 +2,20 @@ package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.module.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
+import com.dlsc.workbenchfx.view.dialog.WorkbenchDialog;
+import com.lynden.gmapsfx.GoogleMapView;
+import com.lynden.gmapsfx.MapComponentInitializedListener;
+import com.lynden.gmapsfx.javascript.object.GoogleMap;
+import com.lynden.gmapsfx.javascript.object.LatLong;
+import com.lynden.gmapsfx.javascript.object.MapOptions;
+import com.lynden.gmapsfx.javascript.object.Marker;
+import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -13,8 +23,9 @@ import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
+import org.controlsfx.control.CheckListView;
 
-public class DialogTestModule extends WorkbenchModule {
+public class DialogTestModule extends WorkbenchModule implements MapComponentInitializedListener {
   private int itemsCount = 1;
 
   private final Button confirmBtn = new Button("Confirmation Dialog");
@@ -25,13 +36,19 @@ public class DialogTestModule extends WorkbenchModule {
   private final Button informationBtn = new Button("Information Dialog");
   private final Button customSmallBtn = new Button("Custom Small Dialog");
   private final Button customFullBtn = new Button("Custom Full Screen Dialog");
+  private final Button customFullMaxBtn = new Button("Custom Full Screen Maximized Dialog");
   private final Button longTitleBtn = new Button("Long Title Dialog");
   private final Button longMessageBtn = new Button("Long Message Dialog");
   private final Button longTitleMessageBtn = new Button("Long Title & Message Dialog");
 
+  GoogleMapView mapView;
+  GoogleMap map;
+
+
   private final GridPane customPane = new GridPane();
 
   NullPointerException exception;
+  private CheckListView<String> checkListView;
 
   public DialogTestModule() {
     super("Dialog Test", FontAwesomeIcon.QUESTION);
@@ -46,6 +63,18 @@ public class DialogTestModule extends WorkbenchModule {
   }
 
   private void layoutParts() {
+    // create the data to show in the CheckListView
+    final ObservableList<String> strings = FXCollections.observableArrayList();
+    for (int i = 0; i <= 10; i++) {
+      strings.add("Item " + i);
+    }
+
+    // Create the CheckListView with the data
+    checkListView = new CheckListView<>(strings);
+
+    mapView = new GoogleMapView();
+    mapView.addMapInializedListener(this);
+
     customPane.add(confirmBtn, 0, 0);
     customPane.add(errorBtn, 0, 1);
     customPane.add(warningBtn, 0, 2);
@@ -55,6 +84,7 @@ public class DialogTestModule extends WorkbenchModule {
     customPane.add(errorDetailsBtn, 1, 1);
     customPane.add(customSmallBtn, 1, 2);
     customPane.add(customFullBtn, 1, 3);
+    customPane.add(customFullMaxBtn, 1, 4);
 
     customPane.add(longTitleBtn, 2, 0);
     customPane.add(longMessageBtn, 2, 1);
@@ -73,8 +103,37 @@ public class DialogTestModule extends WorkbenchModule {
     longTitleBtn.setOnAction(event -> getWorkbench().showInformationDialog("Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot.", "You can relax, nothing wrong here."));
     longMessageBtn.setOnAction(event -> getWorkbench().showInformationDialog("Everything is fine", "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot."));
     longTitleMessageBtn.setOnAction(event -> getWorkbench().showInformationDialog("In 2004, Bennett ruled that John Graham could be extradited to the United States for trial for the 1975 murder of Anna Mae Aquash, one of the most prominent members of the American Indian Movement. In 2007, she began proceedings on the Basi-Virk Affair where the Minister of Finance's politically appointed assistant was charged with the sale of benefits related to the province's sale of BC Rail, the publicly owned railway. The scandal came to public attention when news media filmed the RCMP conducting a search warrant inside the BC Legislature building.", "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot."));
-    //customSmallBtn.setOnAction(event -> getWorkbench().showCustomDialog("Reset settings?", "This will reset your device to its default factory settings."));
-    //customFullBtn.setOnAction(event -> getWorkbench().showCustomDialog("Reset settings?", "This will reset your device to its default factory settings."));
+    customSmallBtn.setOnAction(event -> getWorkbench().showCustomDialog(WorkbenchDialog.Type.INPUT,"What is your favorite item?", checkListView));
+    customFullBtn.setOnAction(event -> getWorkbench().showCustomDialog(WorkbenchDialog.Type.INFORMATION, "Map Overview", mapView));
+  }
+
+  @Override
+  public void mapInitialized() {
+    //Set the initial properties of the map.
+    MapOptions mapOptions = new MapOptions();
+
+    mapOptions.center(new LatLong(47.6097, -122.3331))
+        .overviewMapControl(false)
+        .panControl(false)
+        .rotateControl(false)
+        .scaleControl(false)
+        .streetViewControl(false)
+        .zoomControl(false)
+        .zoom(12);
+
+    map = mapView.createMap(mapOptions);
+
+    //Add a marker to the map
+    MarkerOptions markerOptions = new MarkerOptions();
+
+    markerOptions.position( new LatLong(47.6, -122.3) )
+        .visible(Boolean.TRUE)
+        .title("My Marker");
+
+    Marker marker = new Marker( markerOptions );
+
+    map.addMarker(marker);
+
   }
 
   @Override
