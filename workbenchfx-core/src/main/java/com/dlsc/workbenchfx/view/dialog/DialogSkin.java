@@ -1,21 +1,15 @@
 package com.dlsc.workbenchfx.view.dialog;
 
-import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.view.controls.Dropdown;
-import com.dlsc.workbenchfx.view.controls.DropdownSkin;
-import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import java.util.Map;
+import java.util.Objects;
 import java.util.WeakHashMap;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.HBox;
@@ -88,23 +82,27 @@ public class DialogSkin extends SkinBase<DialogControl> {
     getChildren().add(dialogPane);
 
     setupListeners();
+    updateDialog(getSkinnable().getDialog());
     }
 
   private void setupListeners() {
     dialog.addListener((observable, oldDialog, newDialog) -> {
-      if (newDialog != null) {
-        // reset bindings
-        dialogTitle.textProperty().unbind();
-
-        WorkbenchDialog workbenchDialog = getSkinnable().getDialog();
-        dialogTitle.textProperty().bind(workbenchDialog.titleProperty());
-        dialogContentPane.getChildren().setAll(workbenchDialog.getContent());
-        dialogPane.getStyleClass().setAll("dialog-pane");
-        dialogPane.getStyleClass().addAll(workbenchDialog.getStyleClass());
-
-        updateButtons(workbenchDialog);
-      }
+      updateDialog(newDialog);
     });
+  }
+
+  private void updateDialog(WorkbenchDialog workbenchDialog) {
+    if (!Objects.isNull(workbenchDialog)) {
+      // reset bindings
+      dialogTitle.textProperty().unbind();
+
+      dialogTitle.textProperty().bind(workbenchDialog.titleProperty());
+      dialogContentPane.getChildren().setAll(workbenchDialog.getContent());
+      dialogPane.getStyleClass().setAll("dialog-pane");
+      dialogPane.getStyleClass().addAll(workbenchDialog.getStyleClass());
+
+      updateButtons(workbenchDialog);
+    }
   }
 
   private void updateButtons(WorkbenchDialog<?> dialog) {

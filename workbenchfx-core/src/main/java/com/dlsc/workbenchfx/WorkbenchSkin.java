@@ -66,8 +66,6 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
   }
 
-
-
   private void initViews(Workbench model) {
     toolbarView = new ToolbarView();
     toolbarPresenter = new ToolbarPresenter(model, toolbarView);
