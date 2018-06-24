@@ -141,9 +141,6 @@ public class DialogSkin extends SkinBase<DialogControl> {
       if (ae.isConsumed()) {
         return;
       }
-      // if (dialog != null) {
-      //   dialog.setResultAndClose(buttonType, true);
-      // }
     });
 
     return button;
