@@ -141,7 +141,11 @@ public class WorkbenchPresenter extends Presenter {
 
     // if overlay is not blocking, make the overlay hide when the glass pane is clicked
     if (!blocking) {
-      glassPane.setOnMouseClicked(event -> model.hideOverlay(overlay));
+      LOGGER.trace("showOverlay - Set GlassPane EventHandler");
+      glassPane.setOnMouseClicked(event -> {
+        LOGGER.trace("GlassPane was clicked, hiding overlay");
+        model.hideOverlay(overlay);
+      });
     }
   }
 

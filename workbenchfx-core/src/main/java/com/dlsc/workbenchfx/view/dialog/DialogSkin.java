@@ -85,6 +85,10 @@ public class DialogSkin extends SkinBase<DialogControl> {
     VBox.setVgrow(dialogButtonBar, Priority.NEVER);
 
     getChildren().add(dialogPane);
+
+    // makes sure that when clicking on transparent pixels outside of dialog, GlassPane will still
+    // receive click events!
+    getSkinnable().setPickOnBounds(false);
   }
 
   private void setupBindings() {
