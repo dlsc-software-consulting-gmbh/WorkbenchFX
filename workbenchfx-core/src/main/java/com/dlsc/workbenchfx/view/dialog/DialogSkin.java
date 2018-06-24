@@ -29,7 +29,6 @@ public class DialogSkin extends SkinBase<DialogControl> {
   private Label dialogTitle;
   private VBox dialogPane;
   private HBox dialogHeader;
-  private Button dialogCloseButton;
   private StackPane dialogContentPane;
   private ButtonBar dialogButtonBar;
   private final Map<ButtonType, Node> buttonNodes = new WeakHashMap<>();
@@ -63,9 +62,6 @@ public class DialogSkin extends SkinBase<DialogControl> {
     dialogTitle = new Label("Dialog");
     dialogTitle.getStyleClass().add("dialog-title");
 
-    dialogCloseButton = new Button();
-    dialogCloseButton.getStyleClass().addAll("dialog-close-button", "dialog-close-icon");
-
     dialogContentPane = new StackPane();
     dialogContentPane.getStyleClass().add("dialog-content-pane");
 
@@ -79,13 +75,11 @@ public class DialogSkin extends SkinBase<DialogControl> {
     VBox.setVgrow(dialogContentPane, Priority.ALWAYS);
 
     dialogHeader.setAlignment(Pos.CENTER_LEFT);
-    dialogHeader.getChildren().setAll(dialogTitle, dialogCloseButton);
+    dialogHeader.getChildren().setAll(dialogTitle);
 
     dialogTitle.setMaxWidth(Double.MAX_VALUE);
     HBox.setHgrow(dialogTitle, Priority.ALWAYS);
     VBox.setVgrow(dialogTitle, Priority.NEVER);
-
-    HBox.setHgrow(dialogCloseButton, Priority.NEVER);
 
     VBox.setVgrow(dialogButtonBar, Priority.NEVER);
 
@@ -97,10 +91,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
   }
 
   private void setupEventHandlers() {
-    dialogCloseButton.setOnAction(evt -> {
-      getSkinnable().getDialog().getResult().complete(ButtonType.CANCEL);
-      getSkinnable().hide();
-    });
+
   }
 
   private void setupValueChangedListeners() {
