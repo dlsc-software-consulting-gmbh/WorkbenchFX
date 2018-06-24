@@ -143,8 +143,11 @@ public class WorkbenchPresenter extends Presenter {
     if (!blocking) {
       LOGGER.trace("showOverlay - Set GlassPane EventHandler");
       glassPane.setOnMouseClicked(event -> {
-        LOGGER.trace("GlassPane was clicked, hiding overlay");
-        model.hideOverlay(overlay);
+        // check if overlay is really not blocking, is needed to avoid false-positives
+        if (overlaysShown.contains(overlay)) {
+          LOGGER.trace("GlassPane was clicked, hiding overlay");
+          model.hideOverlay(overlay);
+        }
       });
     }
   }
