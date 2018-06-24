@@ -29,8 +29,8 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
   private final Button warningBtn = new Button("Warning Dialog");
   private final Button informationBtn = new Button("Information Dialog");
   private final Button customSmallBtn = new Button("Custom Small Dialog");
-  private final Button customFullBtn = new Button("Custom Full Screen Dialog");
-  private final Button customFullMaxBtn = new Button("Custom Full Screen Maximized Dialog");
+  private final Button customFullBtn = new Button("Custom Full Coverage Dialog");
+  private final Button customFullMaxBtn = new Button("Custom Full Coverage Maximized Dialog");
   private final Button longTitleBtn = new Button("Long Title Dialog");
   private final Button longMessageBtn = new Button("Long Message Dialog");
   private final Button longTitleMessageBtn = new Button("Long Title & Message Dialog");
