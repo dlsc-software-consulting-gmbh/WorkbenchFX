@@ -116,7 +116,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
       });
       CompletableFuture<ButtonType> dialogResult = getWorkbench().showDialog(dialog);
       dialogResult.thenAccept(buttonType -> {
-        System.err.println("Favorite Libraries: " + buttonType);
+        System.err.println("Dialog result: " + buttonType);
       });
     });
   }
