@@ -55,6 +55,14 @@ public final class WorkbenchDialog<T> {
     }
   }
 
+  /**
+   * Creates a new model object for a dialog.
+   * @param buttonTypes to be used in the dialog
+   */
+  public WorkbenchDialog(ButtonType... buttonTypes) {
+    getButtonTypes().setAll(buttonTypes);
+  }
+
   public final Type getType() {
     return type;
   }
@@ -138,19 +146,19 @@ public final class WorkbenchDialog<T> {
 
 
   // Show buttons bar
-  private final BooleanProperty showButtonsBar =
-      new SimpleBooleanProperty(this, "showButtonsBar", true);
+  private final BooleanProperty buttonsBarShown =
+      new SimpleBooleanProperty(this, "buttonsBarShown", true);
 
-  public final BooleanProperty showButtonsBarProperty() {
-    return showButtonsBar;
+  public final BooleanProperty buttonsBarShownProperty() {
+    return buttonsBarShown;
   }
 
-  public final boolean isShowButtonsBar() {
-    return showButtonsBarProperty().get();
+  public final boolean isButtonsBarShown() {
+    return buttonsBarShownProperty().get();
   }
 
-  public final void setShowButtonsBar(boolean showButtonsBar) {
-    showButtonsBarProperty().set(showButtonsBar);
+  public final void setButtonsBarShown(boolean buttonsBarShown) {
+    buttonsBarShownProperty().set(buttonsBarShown);
   }
 
   // exception

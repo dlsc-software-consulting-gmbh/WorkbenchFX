@@ -115,7 +115,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
 
   private void updateButtons(WorkbenchDialog<?> dialog) {
     dialogButtonBar.getButtons().clear();
-    dialogButtonBar.setVisible(dialog.isShowButtonsBar());
+    dialogButtonBar.setVisible(dialog.isButtonsBarShown());
 
     boolean hasDefault = false;
     for (ButtonType cmd : dialog.getButtonTypes()) {

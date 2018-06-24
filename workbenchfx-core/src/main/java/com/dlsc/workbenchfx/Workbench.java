@@ -564,6 +564,25 @@ public class Workbench extends Control {
   public final CompletableFuture<ButtonType> showCustomDialog(
       Type type, String title, Node content) {
     WorkbenchDialog<ButtonType> dialog = new WorkbenchDialog<>(type);
+    return showCustomDialog(dialog, title, content);
+  }
+
+  /**
+   * Shows a dialog in the view with custom {@code content}.
+   *
+   * @param title       of the dialog
+   * @param content     to be shown inside of the dialog
+   * @param buttonTypes used in the dialog
+   * @return result of the dialog
+   */
+  public final CompletableFuture<ButtonType> showCustomDialog(
+      String title, Node content, ButtonType... buttonTypes) {
+    WorkbenchDialog<ButtonType> dialog = new WorkbenchDialog<>(buttonTypes);
+    return showCustomDialog(dialog, title, content);
+  }
+
+  private final CompletableFuture<ButtonType> showCustomDialog(
+      WorkbenchDialog<ButtonType> dialog, String title, Node content) {
     dialog.setTitle(title);
     dialog.setContent(content);
     showDialog(dialog);
