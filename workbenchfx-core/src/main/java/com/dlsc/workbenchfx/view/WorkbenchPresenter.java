@@ -64,7 +64,7 @@ public class WorkbenchPresenter extends Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-    // When the active module changes, the new view is set od the home screen if null.
+    // When the active module changes, the new view is set to the home screen if null.
     model.activeModuleViewProperty().addListener((observable, oldModule, newModule) ->
         view.contentView.setContent(Objects.isNull(newModule) ? view.homeView : newModule)
     );

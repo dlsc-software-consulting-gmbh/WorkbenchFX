@@ -609,8 +609,10 @@ public class Workbench extends Control {
       overlays.put(overlay, new GlassPane());
     }
     if (blocking) {
+      LOGGER.trace("showOverlay - blocking");
       return blockingOverlaysShown.add(overlay);
     } else {
+      LOGGER.trace("showOverlay - non-blocking");
       return nonBlockingOverlaysShown.add(overlay);
     }
   }
