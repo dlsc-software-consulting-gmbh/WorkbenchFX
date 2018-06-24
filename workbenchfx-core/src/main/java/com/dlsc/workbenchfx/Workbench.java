@@ -449,7 +449,7 @@ public class Workbench extends Control {
    */
   private final CompletableFuture<ButtonType> showStandardDialog(
       Type type, String title, String message) {
-    return showCustomDialog(type, title, createDialogContentNode(message));
+    return showDialog(type, title, createDialogContentNode(message));
   }
 
   /**
@@ -558,11 +558,6 @@ public class Workbench extends Control {
    *
    * @param title     of the dialog
    * @param content   to be shown inside of the dialog
-   * @param blocking  If false (non-blocking), clicking outside of the {@code dialog} will cause it
-   *                  to get hidden, together with its {@link GlassPane}. If true (blocking),
-   *                  clicking outside of the {@code dialog} will not do anything. In this case,
-   *                  the {@code dialog} must be closed by pressing one of the buttons.
-   * @param maximized defines whether or not the dialog should be scaled to fit the whole window
    * @param type      of the dialog
    * @return result of the dialog
    */
