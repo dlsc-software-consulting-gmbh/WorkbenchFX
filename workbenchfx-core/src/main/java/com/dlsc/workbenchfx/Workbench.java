@@ -111,17 +111,16 @@ public class Workbench extends Control {
       new SimpleObjectProperty<>(this, "pageFactory");
 
   // Properties
-  private final IntegerProperty modulesPerPage;
-  private final IntegerProperty amountOfPages;
+  private final IntegerProperty modulesPerPage = new SimpleIntegerProperty();
+  private final IntegerProperty amountOfPages = new SimpleIntegerProperty();
   private final ReadOnlyObjectWrapper<WorkbenchDialog> dialog =
       new ReadOnlyObjectWrapper<>(this, "dialog");
   private final ReadOnlyBooleanWrapper dialogShown =
       new ReadOnlyBooleanWrapper(this, "dialogShown", false);
 
   Workbench(WorkbenchBuilder builder) {
-    modulesPerPage = new SimpleIntegerProperty(builder.modulesPerPage);
-    amountOfPages = new SimpleIntegerProperty(calculateAmountOfPages());
-    initAmountOfPagesBinding();
+    setModulesPerPage(builder.modulesPerPage);
+    initBindings();
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
@@ -129,16 +128,17 @@ public class Workbench extends Control {
     initNavigationDrawer(builder);
     initModules(builder.modules);
 
-    dialogShown.bind(dialogProperty().isNotNull());
     setupCleanup();
   }
 
-  private void initAmountOfPagesBinding() {
+  private void initBindings() {
     amountOfPages.bind(
-        Bindings.createIntegerBinding(this::calculateAmountOfPages,
-            modulesPerPageProperty(), getModules()
+        Bindings.createIntegerBinding(
+            this::calculateAmountOfPages, modulesPerPageProperty(), getModules()
         )
     );
+
+    dialogShown.bind(dialogProperty().isNotNull());
   }
 
   @Override
