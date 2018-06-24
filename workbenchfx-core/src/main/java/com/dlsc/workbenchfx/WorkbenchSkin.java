@@ -58,8 +58,8 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   private final Map<ButtonType, Node> buttonNodes = new WeakHashMap<>();
 
   /**
-   * Creates a skin for a given {@link Workbench}. It contains all views and presenters.
-   * It sets also the default stylesheet.
+   * Creates a skin for a given {@link Workbench}.
+   * Contains all views and presenters and sets also the default stylesheet.
    *
    * @param workbench for which this skin is created
    */
@@ -157,7 +157,9 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
       if (button instanceof Button) {
         ButtonBar.ButtonData buttonType = cmd.getButtonData();
 
-        ((Button) button).setDefaultButton(!hasDefault && buttonType != null && buttonType.isDefaultButton());
+        ((Button) button).setDefaultButton(
+            !hasDefault && buttonType != null && buttonType.isDefaultButton()
+        );
         ((Button) button).setCancelButton(buttonType != null && buttonType.isCancelButton());
         ((Button) button).setOnAction(evt -> {
           getSkinnable().getDialog().getResult().complete(cmd);
@@ -177,7 +179,9 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
     button.setDefaultButton(buttonData.isDefaultButton());
     button.setCancelButton(buttonData.isCancelButton());
     button.addEventHandler(ActionEvent.ACTION, ae -> {
-      if (ae.isConsumed()) return;
+      if (ae.isConsumed()) {
+        return;
+      }
 //            if (dialog != null) {
 //                dialog.setResultAndClose(buttonType, true);
 //            }
@@ -205,7 +209,11 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
       }
 
       final double dialogTargetY = contentY + (contentHeight - dialogPrefHeight) / 2;
-      dialogPane.resizeRelocate(contentX + (contentWidth - dialogPrefWidth) / 2, dialogTargetY, dialogPrefWidth, dialogPrefHeight);
+      dialogPane.resizeRelocate(
+          contentX + (contentWidth - dialogPrefWidth) / 2,
+          dialogTargetY,
+          dialogPrefWidth,
+          dialogPrefHeight);
     }
 
     final double gap = 30;
