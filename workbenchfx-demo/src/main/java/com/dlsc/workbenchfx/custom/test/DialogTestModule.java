@@ -35,9 +35,8 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
   private final Button longMessageBtn = new Button("Long Message Dialog");
   private final Button longTitleMessageBtn = new Button("Long Title & Message Dialog");
 
-  GoogleMapView mapView;
-  GoogleMap map;
-
+  private GoogleMapView mapView;
+  private GoogleMap map;
 
   private final GridPane customPane = new GridPane();
 
@@ -114,23 +113,23 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     //Set the initial properties of the map.
     MapOptions mapOptions = new MapOptions();
 
-    mapOptions.center(new LatLong(47.6097, -122.3331))
+    mapOptions.center(new LatLong(47.4814072, 8.2116446))
         .overviewMapControl(false)
         .panControl(false)
         .rotateControl(false)
         .scaleControl(false)
         .streetViewControl(false)
         .zoomControl(false)
-        .zoom(12);
+        .zoom(17);
 
     map = mapView.createMap(mapOptions);
 
     //Add a marker to the map
     MarkerOptions markerOptions = new MarkerOptions();
 
-    markerOptions.position( new LatLong(47.6, -122.3) )
+    markerOptions.position( new LatLong(47.4814072, 8.2116446) )
         .visible(Boolean.TRUE)
-        .title("My Marker");
+        .title("FHNW");
 
     Marker marker = new Marker( markerOptions );
 
