@@ -99,6 +99,8 @@ public final class WorkbenchDialog<T> {
       // ButtonTypes were specified
       getButtonTypes().setAll(workbenchDialogBuilder.buttonTypes);
     }
+    setTitle(workbenchDialogBuilder.title);
+    setContent(workbenchDialogBuilder.content);
     setMaximized(workbenchDialogBuilder.maximized);
     setBlocking(workbenchDialogBuilder.blocking);
   }
