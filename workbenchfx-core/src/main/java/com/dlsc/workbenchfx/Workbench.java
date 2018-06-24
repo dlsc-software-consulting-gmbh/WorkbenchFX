@@ -128,7 +128,7 @@ public class Workbench extends Control {
     pageFactory.set(builder.pageFactory);
     initToolbarControls(builder);
     initNavigationDrawer(builder);
-    initDialog();
+    initDialog(builder);
     initModules(builder.modules);
 
     setupCleanup();
@@ -182,7 +182,16 @@ public class Workbench extends Control {
     setNavigationDrawer(builder.navigationDrawer);
   }
 
-  private void initDialog() {
+  private void initDialog(WorkbenchBuilder builder) {
+    // when control of navigation drawer changes, pass in the workbench object
+    dialogControlProperty().addListener((observable, oldControl, newControl) -> {
+      if (oldControl != newControl) {
+        newControl.setWorkbench(this);
+      }
+    });
+    setDialogControl(builder.dialogControl);
+
+    // shows or hides the dialog every time the dialogProperty() changes
     dialogProperty().addListener(it -> {
       final WorkbenchDialog dialog = getDialog();
       if (dialog != null) {
