@@ -23,13 +23,15 @@ public class DialogSkin extends SkinBase<DialogControl> {
   private static final Logger LOGGER =
       LogManager.getLogger(DialogSkin.class.getName());
 
+  private ReadOnlyObjectProperty<WorkbenchDialog> dialog;
+
   private Label dialogTitle;
   private VBox dialogPane;
+  private HBox dialogHeader;
+  private Button dialogCloseButton;
   private StackPane dialogContentPane;
   private ButtonBar dialogButtonBar;
   private final Map<ButtonType, Node> buttonNodes = new WeakHashMap<>();
-
-  private ReadOnlyObjectProperty<WorkbenchDialog> dialog;
 
   /**
    * Creates a new {@link DialogSkin} object for a corresponding {@link DialogControl}.
@@ -41,53 +43,67 @@ public class DialogSkin extends SkinBase<DialogControl> {
 
     dialog = dialogControl.dialogProperty();
 
+    initializeParts();
+    layoutParts();
+    setupBindings();
+    setupEventHandlers();
+    setupValueChangedListeners();
 
+    updateDialog(getSkinnable().getDialog());
+  }
+
+  private void initializeParts() {
     dialogPane = new VBox();
-    dialogPane.setFillWidth(true);
     dialogPane.getStyleClass().add("dialog-pane");
 
-    HBox dialogHeader = new HBox();
-    dialogHeader.setAlignment(Pos.CENTER_LEFT);
+    dialogHeader = new HBox();
     dialogHeader.getStyleClass().add("dialog-header");
 
     dialogTitle = new Label("Dialog");
-    dialogTitle.setMaxWidth(Double.MAX_VALUE);
     dialogTitle.getStyleClass().add("dialog-title");
 
-    Button dialogCloseButton = new Button();
-    dialogCloseButton.setOnAction(evt -> {
-      getSkinnable().getDialog().getResult().complete(ButtonType.CANCEL);
-      getSkinnable().hide();
-    });
+    dialogCloseButton = new Button();
     dialogCloseButton.getStyleClass().addAll("dialog-close-button", "dialog-close-icon");
-
-    HBox.setHgrow(dialogTitle, Priority.ALWAYS);
-    HBox.setHgrow(dialogCloseButton, Priority.NEVER);
-
-    dialogHeader.getChildren().setAll(dialogTitle, dialogCloseButton);
 
     dialogContentPane = new StackPane();
     dialogContentPane.getStyleClass().add("dialog-content-pane");
 
     dialogButtonBar = new ButtonBar();
-    dialogButtonBar.managedProperty().bind(dialogButtonBar.visibleProperty());
-
-    VBox.setVgrow(dialogTitle, Priority.NEVER);
-    VBox.setVgrow(dialogContentPane, Priority.ALWAYS);
-    VBox.setVgrow(dialogButtonBar, Priority.NEVER);
-
-    dialogPane.getChildren().setAll(dialogHeader, dialogContentPane, dialogButtonBar);
-
-    getChildren().add(dialogPane);
-
-    setupListeners();
-    updateDialog(getSkinnable().getDialog());
   }
 
-  private void setupListeners() {
-    dialog.addListener((observable, oldDialog, newDialog) -> {
-      updateDialog(newDialog);
+  private void layoutParts() {
+    dialogPane.setFillWidth(true);
+    dialogPane.getChildren().setAll(dialogHeader, dialogContentPane, dialogButtonBar);
+
+    VBox.setVgrow(dialogContentPane, Priority.ALWAYS);
+
+    dialogHeader.setAlignment(Pos.CENTER_LEFT);
+    dialogHeader.getChildren().setAll(dialogTitle, dialogCloseButton);
+
+    dialogTitle.setMaxWidth(Double.MAX_VALUE);
+    HBox.setHgrow(dialogTitle, Priority.ALWAYS);
+    VBox.setVgrow(dialogTitle, Priority.NEVER);
+
+    HBox.setHgrow(dialogCloseButton, Priority.NEVER);
+
+    VBox.setVgrow(dialogButtonBar, Priority.NEVER);
+
+    getChildren().add(dialogPane);
+  }
+
+  private void setupBindings() {
+    dialogButtonBar.managedProperty().bind(dialogButtonBar.visibleProperty());
+  }
+
+  private void setupEventHandlers() {
+    dialogCloseButton.setOnAction(evt -> {
+      getSkinnable().getDialog().getResult().complete(ButtonType.CANCEL);
+      getSkinnable().hide();
     });
+  }
+
+  private void setupValueChangedListeners() {
+    dialog.addListener((observable, oldDialog, newDialog) -> updateDialog(newDialog));
   }
 
   private void updateDialog(WorkbenchDialog workbenchDialog) {
@@ -142,7 +158,6 @@ public class DialogSkin extends SkinBase<DialogControl> {
         return;
       }
     });
-
     return button;
   }
 
@@ -170,8 +185,6 @@ public class DialogSkin extends SkinBase<DialogControl> {
       dialogPane.resizeRelocate(
           dialogTargetX, dialogTargetY, dialogPrefWidth, dialogPrefHeight);
     }
-
-    final double gap = 30;
   }
 
 }
