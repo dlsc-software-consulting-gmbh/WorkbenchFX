@@ -39,7 +39,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
    */
   public DialogSkin(DialogControl dialogControl) {
     super(dialogControl);
-
+    initDialog();
   }
 
   private void initDialog() {
@@ -131,16 +131,17 @@ public class DialogSkin extends SkinBase<DialogControl> {
       if (ae.isConsumed()) {
         return;
       }
-//            if (dialog != null) {
-//                dialog.setResultAndClose(buttonType, true);
-//            }
+      // if (dialog != null) {
+      //   dialog.setResultAndClose(buttonType, true);
+      // }
     });
 
     return button;
   }
 
   @Override
-  protected void layoutChildren(double contentX, double contentY, double contentWidth, double contentHeight) {
+  protected void layoutChildren(
+      double contentX, double contentY, double contentWidth, double contentHeight) {
     super.layoutChildren(contentX, contentY, contentWidth, contentHeight);
     if (dialogPane.isVisible() && getChildren().contains(dialogPane)) {
 

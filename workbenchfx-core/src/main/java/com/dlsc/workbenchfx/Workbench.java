@@ -404,7 +404,7 @@ public class Workbench extends Control {
   /**
    * Shows a {@link WorkbenchDialog} in the view.
    *
-   * @param dialog
+   * @param dialog to be shown
    */
   public void showDialog(WorkbenchDialog dialog) {
     this.dialog.set(dialog);
@@ -425,7 +425,8 @@ public class Workbench extends Control {
    * @param message of the dialog
    * @return result of the dialog
    */
-  private final CompletableFuture<ButtonType> showStandardDialog(Type type, String title, String message) {
+  private final CompletableFuture<ButtonType> showStandardDialog(
+      Type type, String title, String message) {
     return showCustomDialog(type, title, new Label(message));
   }
 
@@ -471,7 +472,8 @@ public class Workbench extends Control {
    * @param details   about the error
    * @param exception of which the stacktrace should be shown
    */
-  private final void showErrorDialog(String title, String message, String details, Exception exception) {
+  private final void showErrorDialog(
+      String title, String message, String details, Exception exception) {
     WorkbenchDialog<String> dialog = new WorkbenchDialog<>(Type.ERROR);
     dialog.setTitle(title);
 
@@ -537,7 +539,8 @@ public class Workbench extends Control {
    * @param content to be shown inside of the dialog
    * @return result of the dialog
    */
-  public final CompletableFuture<ButtonType> showCustomDialog(Type type, String title, Node content) {
+  public final CompletableFuture<ButtonType> showCustomDialog(
+      Type type, String title, Node content) {
     WorkbenchDialog<ButtonType> dialog = new WorkbenchDialog<>(type);
     dialog.setTitle(title);
     dialog.setContent(content);

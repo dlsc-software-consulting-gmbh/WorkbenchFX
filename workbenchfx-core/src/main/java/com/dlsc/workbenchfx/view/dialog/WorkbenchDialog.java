@@ -25,6 +25,10 @@ public final class WorkbenchDialog<T> {
 
   private Type type;
 
+  /**
+   * Creates a new model object for a dialog.
+   * @param type of the dialog
+   */
   public WorkbenchDialog(Type type) {
     this.type = type;
 
@@ -46,6 +50,8 @@ public final class WorkbenchDialog<T> {
       case CONFIRMATION:
         getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
         break;
+      default:
+        throw new UnsupportedOperationException("Dialog of this type doesn't exist!");
     }
   }
 
