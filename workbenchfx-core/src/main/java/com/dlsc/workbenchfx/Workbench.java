@@ -410,21 +410,44 @@ public class Workbench extends Control {
     return showCustomDialog(type, title, new Label(message));
   }
 
-
+  /**
+   * Shows an error dialog in the view.
+   * @param title of the dialog
+   * @param message of the dialog
+   */
   public final void showErrorDialog(String title, String message) {
     showErrorDialog(title, message, null, null);
   }
 
+  /**
+   * Shows an error dialog in the view with a stacktrace of the {@code exception}.
+   * @param title of the dialog
+   * @param message of the dialog
+   * @param exception of which the stacktrace should be shown
+   */
   public final void showErrorDialog(String title, String message, Exception exception) {
     StringWriter stringWriter = new StringWriter();
     exception.printStackTrace(new PrintWriter(stringWriter));
     showErrorDialog(title, message, stringWriter.toString(), exception);
   }
 
+  /**
+   * Shows an error dialog in the view with {@code details} about the error.
+   * @param title of the dialog
+   * @param message of the dialog
+   * @param details about the error
+   */
   public final void showErrorDialog(String title, String message, String details) {
     showErrorDialog(title, message, details, null);
   }
 
+  /**
+   * Internal method to construct error dialogs.
+   * @param title of the dialog
+   * @param message of the dialog
+   * @param details about the error
+   * @param exception of which the stacktrace should be shown
+   */
   private final void showErrorDialog(String title, String message, String details, Exception exception) {
     WorkbenchDialog<String> dialog = new WorkbenchDialog<>(Type.ERROR);
     dialog.setTitle(title);
@@ -453,22 +476,44 @@ public class Workbench extends Control {
     showDialog(dialog);
   }
 
+  /**
+   * Shows a warning dialog in the view.
+   * @param title of the dialog
+   * @param message of the dialog
+   */
   public final CompletableFuture<ButtonType> showWarningDialog(String title, String message) {
     return showStandardDialog(Type.WARNING, title, message);
   }
 
+  /**
+   * Shows a confirmation dialog in the view.
+   * @param title of the dialog
+   * @param message of the dialog
+   */
   public final CompletableFuture<ButtonType> showConfirmationDialog(String title, String message) {
     return showStandardDialog(Type.CONFIRMATION, title, message);
   }
 
+  /**
+   * Shows an information dialog in the view.
+   * @param title of the dialog
+   * @param message of the dialog
+   */
   public final CompletableFuture<ButtonType> showInformationDialog(String title, String message) {
     return showStandardDialog(Type.INFORMATION, title, message);
   }
 
-  public final CompletableFuture<ButtonType> showCustomDialog(Type type, String title, Node node) {
+  /**
+   * Shows a dialog in the view with custom {@code content}.
+   * @param type of the dialog
+   * @param title of the dialog
+   * @param content to be shown inside of the dialog
+   * @return result of the dialog
+   */
+  public final CompletableFuture<ButtonType> showCustomDialog(Type type, String title, Node content) {
     WorkbenchDialog<ButtonType> dialog = new WorkbenchDialog<>(type);
     dialog.setTitle(title);
-    dialog.setContent(node);
+    dialog.setContent(content);
     showDialog(dialog);
     return dialog.getResult();
   }
