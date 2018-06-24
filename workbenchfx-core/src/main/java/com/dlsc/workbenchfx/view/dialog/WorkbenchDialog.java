@@ -96,7 +96,8 @@ public final class WorkbenchDialog<T> {
    * @param buttonTypes to be used in this dialog
    * @return builder object
    */
-  public static WorkbenchDialogBuilder builder(String title, Node content, ButtonType... buttonTypes) {
+  public static WorkbenchDialogBuilder builder(
+      String title, Node content, ButtonType... buttonTypes) {
     return new WorkbenchDialogBuilder(title, content, buttonTypes);
   }
 
@@ -114,6 +115,11 @@ public final class WorkbenchDialog<T> {
     setBlocking(workbenchDialogBuilder.blocking);
   }
 
+  /**
+   * Cancels this dialog.
+   * @implNote gets called when the dialog is closed in a different way than pressing any of the
+   *           buttons from the {@link ButtonType}s.
+   */
   public void cancel() {
     result.cancel(true);
     try {
