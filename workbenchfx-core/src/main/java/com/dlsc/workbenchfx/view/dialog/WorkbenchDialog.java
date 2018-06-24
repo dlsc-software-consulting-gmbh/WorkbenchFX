@@ -15,149 +15,151 @@ import javafx.scene.control.ButtonType;
 
 public final class WorkbenchDialog<T> {
 
-    public enum Type {
-        INPUT,
-        INFORMATION,
-        ERROR,
-        WARNING,
-        CONFIRMATION
+  public enum Type {
+    INPUT,
+    INFORMATION,
+    ERROR,
+    WARNING,
+    CONFIRMATION
+  }
+
+  private Type type;
+
+  public WorkbenchDialog(Type type) {
+    this.type = type;
+
+    getStyleClass().add(type.name().toLowerCase());
+
+    switch (type) {
+      case INPUT:
+        getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
+        break;
+      case INFORMATION:
+        getButtonTypes().setAll(ButtonType.OK);
+        break;
+      case ERROR:
+        getButtonTypes().setAll(ButtonType.CLOSE);
+        break;
+      case WARNING:
+        getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
+        break;
+      case CONFIRMATION:
+        getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+        break;
     }
+  }
 
-    private Type type;
+  public final Type getType() {
+    return type;
+  }
 
-    public WorkbenchDialog(Type type) {
-        this.type = type;
+  private final CompletableFuture<T> result = new CompletableFuture<>();
 
-        getStyleClass().add(type.name().toLowerCase());
+  public final CompletableFuture<T> getResult() {
+    return result;
+  }
 
-        switch (type) {
-            case INPUT:
-                getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
-                break;
-            case INFORMATION:
-                getButtonTypes().setAll(ButtonType.OK);
-                break;
-            case ERROR:
-                getButtonTypes().setAll(ButtonType.CLOSE);
-                break;
-            case WARNING:
-                getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
-                break;
-            case CONFIRMATION:
-                getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
-                break;
-        }
-    }
+  // button types
 
-    public final Type getType() {
-        return type;
-    }
+  private ObservableList<ButtonType> buttonTypes = FXCollections.observableArrayList();
 
-    private final CompletableFuture<T> result = new CompletableFuture<>();
+  public ObservableList<ButtonType> getButtonTypes() {
+    return buttonTypes;
+  }
 
-    public final CompletableFuture<T> getResult() {
-        return result;
-    }
+  // maximize
 
-    // button types
+  private final BooleanProperty maximize = new SimpleBooleanProperty();
 
-    private ObservableList<ButtonType> buttonTypes = FXCollections.observableArrayList();
+  public final BooleanProperty maximizeProperty() {
+    return maximize;
+  }
 
-    public ObservableList<ButtonType> getButtonTypes() {
-        return buttonTypes;
-    }
+  public final void setMaximize(boolean max) {
+    maximize.set(max);
+  }
 
-    // maximize
+  public final boolean isMaximize() {
+    return maximize.get();
+  }
 
-    private final BooleanProperty maximize = new SimpleBooleanProperty();
+  private final ObjectProperty<Callable> onCancelled =
+      new SimpleObjectProperty<>(this, "onCancelled");
 
-    public final BooleanProperty maximizeProperty() {
-        return maximize;
-    }
+  public Callable getOnCancelled() {
+    return onCancelled.get();
+  }
 
-    public final void setMaximize(boolean max) {
-        maximize.set(max);
-    }
+  // content
 
-    public final boolean isMaximize() {
-        return maximize.get();
-    }
+  private final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content");
 
-    private final ObjectProperty<Callable> onCancelled = new SimpleObjectProperty<>(this, "onCancelled");
+  public final ObjectProperty<Node> contentProperty() {
+    return content;
+  }
 
-    public Callable getOnCancelled() {
-        return onCancelled.get();
-    }
+  public void setContent(Node content) {
+    this.content.set(content);
+  }
 
-    // content
+  public Node getContent() {
+    return content.get();
+  }
 
-    private final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content");
+  // title
 
-    public final ObjectProperty<Node> contentProperty() {
-        return content;
-    }
+  private final StringProperty title = new SimpleStringProperty(this, "title", "Dialog");
 
-    public void setContent(Node content) {
-        this.content.set(content);
-    }
+  public final StringProperty titleProperty() {
+    return title;
+  }
 
-    public Node getContent() {
-        return content.get();
-    }
+  public final String getTitle() {
+    return title.get();
+  }
 
-    // title
+  public final void setTitle(String title) {
+    this.title.set(title);
+  }
 
-    private final StringProperty title = new SimpleStringProperty(this, "title", "Dialog");
+  // custom style
 
-    public final StringProperty titleProperty() {
-        return title;
-    }
+  private final ObservableList<String> styleClass = FXCollections.observableArrayList();
 
-    public final String getTitle() {
-        return title.get();
-    }
-
-    public final void setTitle(String title) {
-        this.title.set(title);
-    }
-
-    // custom style
-
-    private final ObservableList<String> styleClass = FXCollections.observableArrayList();
-
-    public ObservableList<String> getStyleClass() {
-        return styleClass;
-    }
+  public ObservableList<String> getStyleClass() {
+    return styleClass;
+  }
 
 
-    // Show buttons bar
-    private final BooleanProperty showButtonsBar = new SimpleBooleanProperty(this, "showButtonsBar", true);
+  // Show buttons bar
+  private final BooleanProperty showButtonsBar =
+      new SimpleBooleanProperty(this, "showButtonsBar", true);
 
-    public final BooleanProperty showButtonsBarProperty () {
-        return showButtonsBar;
-    }
+  public final BooleanProperty showButtonsBarProperty() {
+    return showButtonsBar;
+  }
 
-    public final boolean isShowButtonsBar () {
-        return showButtonsBarProperty().get();
-    }
+  public final boolean isShowButtonsBar() {
+    return showButtonsBarProperty().get();
+  }
 
-    public final void setShowButtonsBar (boolean showButtonsBar) {
-        showButtonsBarProperty().set(showButtonsBar);
-    }
+  public final void setShowButtonsBar(boolean showButtonsBar) {
+    showButtonsBarProperty().set(showButtonsBar);
+  }
 
-    // exception
+  // exception
 
-    private final ObjectProperty<Exception> exception = new SimpleObjectProperty<>(this, "exception");
+  private final ObjectProperty<Exception> exception = new SimpleObjectProperty<>(this, "exception");
 
-    public final ObjectProperty<Exception> exceptionProperty() {
-        return exception;
-    }
+  public final ObjectProperty<Exception> exceptionProperty() {
+    return exception;
+  }
 
-    public final void setException(Exception ex) {
-        this.exception.set(ex);
-    }
+  public final void setException(Exception ex) {
+    this.exception.set(ex);
+  }
 
-    public final Exception getException() {
-        return exception.get();
-    }
+  public final Exception getException() {
+    return exception.get();
+  }
 }
