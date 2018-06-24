@@ -40,6 +40,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -427,6 +428,18 @@ public class Workbench extends Control {
   }
 
   /**
+   * Internal method used to create the default content node of a dialog.
+   * @param message to be used for the content of the dialog
+   * @return content node to be displayed in the dialog
+   */
+  private Label createDialogContentNode(String message) {
+    Label messageLabel = new Label(message);
+    messageLabel.setWrapText(true);
+    VBox.setVgrow(messageLabel, Priority.ALWAYS);
+    return messageLabel;
+  }
+
+  /**
    * Internal method to create different dialog types based on the {@link Type}.
    *
    * @param type    of the dialog
@@ -436,7 +449,7 @@ public class Workbench extends Control {
    */
   private final CompletableFuture<ButtonType> showStandardDialog(
       Type type, String title, String message) {
-    return showCustomDialog(type, title, new Label(message));
+    return showCustomDialog(type, title, createDialogContentNode(message));
   }
 
   /**
@@ -486,7 +499,7 @@ public class Workbench extends Control {
     WorkbenchDialog<String> dialog = new WorkbenchDialog<>(Type.ERROR);
     dialog.setTitle(title);
 
-    final Label messageLabel = new Label(message);
+    final Label messageLabel = createDialogContentNode(message);
 
     if (StringUtils.isBlank(details)) {
       dialog.setContent(messageLabel);

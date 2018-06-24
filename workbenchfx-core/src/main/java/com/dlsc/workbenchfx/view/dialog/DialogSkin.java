@@ -22,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 public class DialogSkin extends SkinBase<DialogControl> {
   private static final Logger LOGGER =
       LogManager.getLogger(DialogSkin.class.getName());
+  public static final double MARGIN_PERCENT = .1;
 
   private ReadOnlyObjectProperty<WorkbenchDialog> dialog;
 
@@ -172,18 +173,33 @@ public class DialogSkin extends SkinBase<DialogControl> {
 
       final WorkbenchDialog dialog = getSkinnable().getDialog();
 
+      final double maxWidth = contentWidth * (1-MARGIN_PERCENT);
+      final double maxHeight = contentHeight * (1-MARGIN_PERCENT);
+
+      // on a maximized dialog, set the size to the maximum, else use the dialog size
       if (dialog == null) {
         dialogPrefWidth = dialogPane.getWidth();
         dialogPrefHeight = dialogPane.getHeight();
       } else if (dialog.isMaximize()) {
-        dialogPrefWidth = contentWidth * .9;
-        dialogPrefHeight = contentHeight * .9;
+        dialogPrefWidth = maxWidth;
+        dialogPrefHeight = maxHeight;
+      }
+
+      // make sure dialog doesn't get bigger than the maximum size
+      if (dialogPrefWidth > maxWidth) {
+        dialogPrefWidth = maxWidth;
+      }
+      if (dialogPrefHeight > maxHeight) {
+        dialogPrefHeight = maxHeight;
       }
 
       final double dialogTargetX = contentX + (contentWidth - dialogPrefWidth) / 2;
       final double dialogTargetY = contentY + (contentHeight - dialogPrefHeight) / 2;
       dialogPane.resizeRelocate(
           dialogTargetX, dialogTargetY, dialogPrefWidth, dialogPrefHeight);
+
+      // make sure the content is the same width as the dialog
+      dialogContentPane.setMaxWidth(dialogPrefWidth);
     }
   }
 
