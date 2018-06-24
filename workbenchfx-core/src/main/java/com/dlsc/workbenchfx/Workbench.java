@@ -196,7 +196,7 @@ public class Workbench extends Control {
     dialogProperty().addListener(it -> {
       final WorkbenchDialog dialog = getDialog();
       if (dialog != null) {
-        showOverlay(getDialogControl(), true);
+        showOverlay(getDialogControl(), dialog.getBlocking());
       } else {
         hideOverlay(getDialogControl());
       }
@@ -556,33 +556,19 @@ public class Workbench extends Control {
   /**
    * Shows a dialog in the view with custom {@code content}.
    *
-   * @param type    of the dialog
-   * @param title   of the dialog
-   * @param content to be shown inside of the dialog
+   * @param title     of the dialog
+   * @param content   to be shown inside of the dialog
+   * @param blocking  If false (non-blocking), clicking outside of the {@code dialog} will cause it
+   *                  to get hidden, together with its {@link GlassPane}. If true (blocking),
+   *                  clicking outside of the {@code dialog} will not do anything. In this case,
+   *                  the {@code dialog} must be closed by pressing one of the buttons.
+   * @param maximized defines whether or not the dialog should be scaled to fit the whole window
+   * @param type      of the dialog
    * @return result of the dialog
    */
-  public final CompletableFuture<ButtonType> showCustomDialog(
+  public final CompletableFuture<ButtonType> showDialog(
       Type type, String title, Node content) {
     WorkbenchDialog<ButtonType> dialog = new WorkbenchDialog<>(type);
-    return showCustomDialog(dialog, title, content);
-  }
-
-  /**
-   * Shows a dialog in the view with custom {@code content}.
-   *
-   * @param title       of the dialog
-   * @param content     to be shown inside of the dialog
-   * @param buttonTypes used in the dialog
-   * @return result of the dialog
-   */
-  public final CompletableFuture<ButtonType> showCustomDialog(
-      String title, Node content, ButtonType... buttonTypes) {
-    WorkbenchDialog<ButtonType> dialog = new WorkbenchDialog<>(buttonTypes);
-    return showCustomDialog(dialog, title, content);
-  }
-
-  private final CompletableFuture<ButtonType> showCustomDialog(
-      WorkbenchDialog<ButtonType> dialog, String title, Node content) {
     dialog.setTitle(title);
     dialog.setContent(content);
     showDialog(dialog);

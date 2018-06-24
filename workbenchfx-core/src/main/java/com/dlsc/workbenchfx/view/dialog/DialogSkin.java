@@ -172,7 +172,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
       if (dialog == null) {
         dialogPrefWidth = dialogPane.getWidth();
         dialogPrefHeight = dialogPane.getHeight();
-      } else if (dialog.isMaximize()) {
+      } else if (dialog.isMaximized()) {
         dialogPrefWidth = maxWidth;
         dialogPrefHeight = maxHeight;
       }

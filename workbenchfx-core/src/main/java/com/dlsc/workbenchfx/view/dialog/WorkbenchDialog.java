@@ -30,6 +30,10 @@ public final class WorkbenchDialog<T> {
    * @param type of the dialog
    */
   public WorkbenchDialog(Type type) {
+    initType(type);
+  }
+
+  private void initType(Type type) {
     this.type = type;
 
     getStyleClass().add(type.name().toLowerCase());
@@ -63,6 +67,42 @@ public final class WorkbenchDialog<T> {
     getButtonTypes().setAll(buttonTypes);
   }
 
+  /**
+   * Creates a builder for {@link WorkbenchDialog}.
+   *
+   * @param title   of the dialog
+   * @param content of the dialog
+   * @param type    of the dialog
+   * @return builder object
+   */
+  public static WorkbenchDialogBuilder builder(String title, Node content, Type type) {
+    return new WorkbenchDialogBuilder(title, content, type);
+  }
+
+  /**
+   * Creates a builder for {@link WorkbenchDialog}.
+   *
+   * @param title       of the dialog
+   * @param content     of the dialog
+   * @param buttonTypes to be used in this dialog
+   * @return builder object
+   */
+  public static WorkbenchDialogBuilder builder(String title, Node content, ButtonType... buttonTypes) {
+    return new WorkbenchDialogBuilder(title, content, buttonTypes);
+  }
+
+  WorkbenchDialog(WorkbenchDialogBuilder workbenchDialogBuilder) {
+    if (workbenchDialogBuilder.type != null) {
+      // Type was defined
+      initType(workbenchDialogBuilder.type);
+    } else {
+      // ButtonTypes were specified
+      getButtonTypes().setAll(workbenchDialogBuilder.buttonTypes);
+    }
+    setMaximized(workbenchDialogBuilder.maximized);
+    setBlocking(workbenchDialogBuilder.blocking);
+  }
+
   public final Type getType() {
     return type;
   }
@@ -81,20 +121,20 @@ public final class WorkbenchDialog<T> {
     return buttonTypes;
   }
 
-  // maximize
+  // maximized
 
-  private final BooleanProperty maximize = new SimpleBooleanProperty();
+  private final BooleanProperty maximized = new SimpleBooleanProperty();
 
-  public final BooleanProperty maximizeProperty() {
-    return maximize;
+  public final BooleanProperty maximizedProperty() {
+    return maximized;
   }
 
-  public final void setMaximize(boolean max) {
-    maximize.set(max);
+  public final void setMaximized(boolean max) {
+    maximized.set(max);
   }
 
-  public final boolean isMaximize() {
-    return maximize.get();
+  public final boolean isMaximized() {
+    return maximized.get();
   }
 
   private final ObjectProperty<Callable> onCancelled =
@@ -175,5 +215,21 @@ public final class WorkbenchDialog<T> {
 
   public final Exception getException() {
     return exception.get();
+  }
+
+  // blocking dialog or non-blocking dialog (modal or not modal)
+
+  private final BooleanProperty blocking = new SimpleBooleanProperty(false, "blocking");
+
+  public BooleanProperty blockingProperty() {
+    return blocking;
+  }
+
+  public void setBlocking(boolean blocking) {
+    this.blocking.set(blocking);
+  }
+
+  public boolean getBlocking() {
+    return blocking.get();
   }
 }

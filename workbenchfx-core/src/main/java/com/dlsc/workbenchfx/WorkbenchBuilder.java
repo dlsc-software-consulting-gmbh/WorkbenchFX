@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public final class WorkbenchBuilder {
-  private static final Logger LOGGER = LogManager.getLogger(Workbench.class.getName());
+  private static final Logger LOGGER = LogManager.getLogger(WorkbenchBuilder.class.getName());
 
   // Required parameters
   final WorkbenchModule[] modules;
