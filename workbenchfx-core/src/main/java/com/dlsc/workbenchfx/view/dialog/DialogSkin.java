@@ -81,7 +81,6 @@ public class DialogSkin extends SkinBase<DialogControl> {
   }
 
   private void showDialog() {
-    dialogPane.setVisible(true);
     WorkbenchDialog workbenchDialog = getSkinnable().getDialog();
     dialogTitle.textProperty().bind(workbenchDialog.titleProperty());
     dialogContentPane.getChildren().setAll(workbenchDialog.getContent());
@@ -93,10 +92,6 @@ public class DialogSkin extends SkinBase<DialogControl> {
     if (!getChildren().contains(dialogPane)) {
       getChildren().add(dialogPane);
     }
-  }
-
-  private void hideDialog() {
-    dialogPane.setVisible(false);
   }
 
   private void updateButtons(WorkbenchDialog<?> dialog) {
@@ -117,7 +112,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
         ((Button) button).setCancelButton(buttonType != null && buttonType.isCancelButton());
         ((Button) button).setOnAction(evt -> {
           getSkinnable().getDialog().getResult().complete(cmd);
-          getSkinnable().hideDialog();
+          getSkinnable().hide();
         });
 
         hasDefault |= buttonType != null && buttonType.isDefaultButton();

@@ -17,23 +17,37 @@ public class DialogControl extends Control {
   private static final Logger LOGGER =
       LogManager.getLogger(DialogControl.class.getName());
 
-  private final ReadOnlyObjectProperty<WorkbenchDialog> dialog;
+  private ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>();
 
   /**
    * Creates a dialog control.
-   *
-   * @param workbench which created this {@link DialogControl}
    */
-  public DialogControl(Workbench workbench) {
-    dialog = workbench.dialogProperty();
+  public DialogControl() {
+
+  }
+
+  public final void hide() {
+    getWorkbench().hideDialog();
   }
 
   public WorkbenchDialog getDialog() {
-    return dialog.get();
+    return workbench.get().getDialog();
   }
 
   public ReadOnlyObjectProperty<WorkbenchDialog> dialogProperty() {
-    return dialog;
+    return workbench.get().dialogProperty();
+  }
+
+  private Workbench getWorkbench() {
+    return workbench.get();
+  }
+
+  public final void setWorkbench(Workbench workbench) {
+    this.workbench.set(workbench);
+  }
+
+  public ObjectProperty<Workbench> workbenchProperty() {
+    return workbench;
   }
 
   @Override
