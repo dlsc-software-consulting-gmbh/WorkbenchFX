@@ -415,23 +415,6 @@ public class Workbench extends Control {
   }
 
   /**
-   * Shows a {@link WorkbenchDialog} in the view.
-   *
-   * @param dialog to be shown
-   */
-  public <T> CompletableFuture<T> showDialog(WorkbenchDialog<T> dialog) {
-    this.dialog.set(dialog);
-    return dialog.getResult();
-  }
-
-  /**
-   * Hides the currently shown {@link WorkbenchDialog} in the view.
-   */
-  public void hideDialog() {
-    this.dialog.set(null);
-  }
-
-  /**
    * Internal method used to create the default content node of a dialog.
    *
    * @param message to be used for the content of the dialog
@@ -442,6 +425,40 @@ public class Workbench extends Control {
     messageLabel.setWrapText(true);
     VBox.setVgrow(messageLabel, Priority.ALWAYS);
     return messageLabel;
+  }
+
+  /**
+   * Hides the currently shown {@link WorkbenchDialog} in the view.
+   */
+  public void hideDialog() {
+    this.dialog.set(null);
+  }
+
+  /**
+   * Shows a {@link WorkbenchDialog} in the view.
+   *
+   * @param dialog to be shown
+   */
+  public <T> CompletableFuture<T> showDialog(WorkbenchDialog<T> dialog) {
+    this.dialog.set(dialog);
+    return dialog.getResult();
+  }
+
+  /**
+   * Shows a dialog in the view with custom {@code content}.
+   *
+   * @param title   of the dialog
+   * @param content to be shown inside of the dialog
+   * @param type    of the dialog
+   * @return result of the dialog
+   */
+  public final CompletableFuture<ButtonType> showDialog(
+      Type type, String title, Node content) {
+    WorkbenchDialog<ButtonType> dialog = new WorkbenchDialog<>(type);
+    dialog.setTitle(title);
+    dialog.setContent(content);
+    showDialog(dialog);
+    return dialog.getResult();
   }
 
   /**
@@ -556,23 +573,6 @@ public class Workbench extends Control {
    */
   public final CompletableFuture<ButtonType> showInformationDialog(String title, String message) {
     return showStandardDialog(Type.INFORMATION, title, message);
-  }
-
-  /**
-   * Shows a dialog in the view with custom {@code content}.
-   *
-   * @param title   of the dialog
-   * @param content to be shown inside of the dialog
-   * @param type    of the dialog
-   * @return result of the dialog
-   */
-  public final CompletableFuture<ButtonType> showDialog(
-      Type type, String title, Node content) {
-    WorkbenchDialog<ButtonType> dialog = new WorkbenchDialog<>(type);
-    dialog.setTitle(title);
-    dialog.setContent(content);
-    showDialog(dialog);
-    return dialog.getResult();
   }
 
   public final ReadOnlyObjectProperty<WorkbenchDialog> dialogProperty() {
