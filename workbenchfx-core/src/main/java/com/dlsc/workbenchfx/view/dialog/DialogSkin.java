@@ -91,17 +91,19 @@ public class DialogSkin extends SkinBase<DialogControl> {
     }
 
   private void setupListeners() {
-    dialog.addListener(it -> {
-      // reset bindings
-      dialogTitle.textProperty().unbind();
+    dialog.addListener((observable, oldDialog, newDialog) -> {
+      if (newDialog != null) {
+        // reset bindings
+        dialogTitle.textProperty().unbind();
 
-      WorkbenchDialog workbenchDialog = getSkinnable().getDialog();
-      dialogTitle.textProperty().bind(workbenchDialog.titleProperty());
-      dialogContentPane.getChildren().setAll(workbenchDialog.getContent());
-      dialogPane.getStyleClass().setAll("dialog-pane");
-      dialogPane.getStyleClass().addAll(workbenchDialog.getStyleClass());
+        WorkbenchDialog workbenchDialog = getSkinnable().getDialog();
+        dialogTitle.textProperty().bind(workbenchDialog.titleProperty());
+        dialogContentPane.getChildren().setAll(workbenchDialog.getContent());
+        dialogPane.getStyleClass().setAll("dialog-pane");
+        dialogPane.getStyleClass().addAll(workbenchDialog.getStyleClass());
 
-      updateButtons(workbenchDialog);
+        updateButtons(workbenchDialog);
+      }
     });
   }
 
