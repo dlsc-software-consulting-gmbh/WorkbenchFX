@@ -164,8 +164,8 @@ public class DialogSkin extends SkinBase<DialogControl> {
 
       final WorkbenchDialog dialog = getSkinnable().getDialog();
 
-      final double maxWidth = contentWidth * (1-MARGIN_PERCENT);
-      final double maxHeight = contentHeight * (1-MARGIN_PERCENT);
+      final double maxWidth = contentWidth * (1 - MARGIN_PERCENT);
+      final double maxHeight = contentHeight * (1 - MARGIN_PERCENT);
 
       // on a maximized dialog, set the size to the maximum, else use the dialog size
       if (dialog == null) {
