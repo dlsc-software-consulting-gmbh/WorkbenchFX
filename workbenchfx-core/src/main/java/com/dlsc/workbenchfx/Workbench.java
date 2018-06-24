@@ -193,12 +193,15 @@ public class Workbench extends Control {
     setDialogControl(builder.dialogControl);
 
     // shows or hides the dialog every time the dialogProperty() changes
-    dialogProperty().addListener(it -> {
-      final WorkbenchDialog dialog = getDialog();
-      if (dialog != null) {
-        showOverlay(getDialogControl(), dialog.getBlocking());
+    dialogProperty().addListener((observable, oldDialog, newDialog) -> {
+      if (newDialog != null) {
+        showOverlay(getDialogControl(), newDialog.getBlocking());
       } else {
         hideOverlay(getDialogControl());
+        if (!oldDialog.getResult().isDone()) {
+          LOGGER.debug("Dialog was closed by clicking on the GlassPane (cancel)");
+          oldDialog.getResult().cancel(true);
+        }
       }
     });
   }
@@ -629,6 +632,9 @@ public class Workbench extends Control {
    */
   public boolean hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");
+    if (getDialogControl() == overlay) {
+      hideDialog();
+    }
     if (blockingOverlaysShown.contains(overlay)) {
       return blockingOverlaysShown.remove(overlay);
     } else {
