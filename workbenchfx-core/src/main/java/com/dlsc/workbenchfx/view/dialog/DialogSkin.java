@@ -39,13 +39,13 @@ public class DialogSkin extends SkinBase<DialogControl> {
    */
   public DialogSkin(DialogControl dialogControl) {
     super(dialogControl);
+
   }
 
-  private void initDialog(Workbench workbench) {
+  private void initDialog() {
     dialogPane = new VBox();
     dialogPane.setFillWidth(true);
     dialogPane.getStyleClass().add("dialog-pane");
-    //dialogPane.setVisible(false);
 
     HBox dialogHeader = new HBox();
     dialogHeader.setAlignment(Pos.CENTER_LEFT);
@@ -57,8 +57,8 @@ public class DialogSkin extends SkinBase<DialogControl> {
 
     Button dialogCloseButton = new Button();
     dialogCloseButton.setOnAction(evt -> {
-      workbench.getDialog().getResult().complete(ButtonType.CANCEL);
-      workbench.hideDialog();
+      getSkinnable().getDialog().getResult().complete(ButtonType.CANCEL);
+      getSkinnable().hide();
     });
     dialogCloseButton.getStyleClass().addAll("dialog-close-button", "dialog-close-icon");
 
