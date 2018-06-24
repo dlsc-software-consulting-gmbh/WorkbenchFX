@@ -42,7 +42,6 @@ public class DialogSkin extends SkinBase<DialogControl> {
     dialog = dialogControl.dialogProperty();
 
 
-
     dialogPane = new VBox();
     dialogPane.setFillWidth(true);
     dialogPane.getStyleClass().add("dialog-pane");
@@ -83,7 +82,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
 
     setupListeners();
     updateDialog(getSkinnable().getDialog());
-    }
+  }
 
   private void setupListeners() {
     dialog.addListener((observable, oldDialog, newDialog) -> {
