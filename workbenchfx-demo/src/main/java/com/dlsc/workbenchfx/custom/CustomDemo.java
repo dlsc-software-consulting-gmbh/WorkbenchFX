@@ -140,7 +140,7 @@ public class CustomDemo extends Application {
     showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
     addPreferences.setOnAction(event -> workbench.getModules().add(preferencesModule));
     removePreferences.setOnAction(event -> workbench.getModules().remove(preferencesModule));
-    showDialogButton.setOnAction(event -> workbench.showError("Test Title", "Test Message"));
+    showDialogButton.setOnAction(event -> workbench.showErrorDialog("Test Title", "Test Message"));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
     workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());

@@ -18,14 +18,12 @@ import java.util.concurrent.CompletableFuture;
 import javafx.beans.property.IntegerProperty;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -115,6 +113,10 @@ public class Workbench extends Control {
   // Properties
   private final IntegerProperty modulesPerPage;
   private final IntegerProperty amountOfPages;
+  private final ReadOnlyObjectWrapper<WorkbenchDialog> dialog =
+      new ReadOnlyObjectWrapper<>(this, "dialog");
+  private final ReadOnlyBooleanWrapper dialogShown =
+      new ReadOnlyBooleanWrapper(this, "dialogShown", false);
 
   Workbench(WorkbenchBuilder builder) {
     modulesPerPage = new SimpleIntegerProperty(builder.modulesPerPage);
@@ -127,7 +129,7 @@ public class Workbench extends Control {
     initNavigationDrawer(builder);
     initModules(builder.modules);
 
-    showDialog.bind(dialogProperty().isNotNull());
+    dialogShown.bind(dialogProperty().isNotNull());
     setupCleanup();
   }
 
@@ -382,33 +384,48 @@ public class Workbench extends Control {
     return toolbarControlsRight;
   }
 
+  /**
+   * Shows a {@link WorkbenchDialog} in the view.
+   * @param dialog
+   */
   public void showDialog(WorkbenchDialog dialog) {
     this.dialog.set(dialog);
   }
 
+  /**
+   * Hides the currently shown {@link WorkbenchDialog} in the view.
+   */
   public void hideDialog() {
     this.dialog.set(null);
   }
 
+  /**
+   * Internal method to create different dialog types based on the {@link Type}.
+   * @param type of the dialog
+   * @param title of the dialog
+   * @param message of the dialog
+   * @return result of the dialog
+   */
   private final CompletableFuture<ButtonType> showStandardDialog(Type type, String title, String message) {
-    return showNode(type, title, new Label(message));
+    return showCustomDialog(type, title, new Label(message));
   }
 
-  public final void showError(String title, String message) {
-    showError(title, message, null, null);
+
+  public final void showErrorDialog(String title, String message) {
+    showErrorDialog(title, message, null, null);
   }
 
-  public final void showError(String title, String message, Exception exception) {
+  public final void showErrorDialog(String title, String message, Exception exception) {
     StringWriter stringWriter = new StringWriter();
     exception.printStackTrace(new PrintWriter(stringWriter));
-    showError(title, message, stringWriter.toString(), exception);
+    showErrorDialog(title, message, stringWriter.toString(), exception);
   }
 
-  public final void showError(String title, String message, String details) {
-    showError(title, message, details, null);
+  public final void showErrorDialog(String title, String message, String details) {
+    showErrorDialog(title, message, details, null);
   }
 
-  private final void showError(String title, String message, String details, Exception exception) {
+  private final void showErrorDialog(String title, String message, String details, Exception exception) {
     WorkbenchDialog<String> dialog = new WorkbenchDialog<>(Type.ERROR);
     dialog.setTitle(title);
 
@@ -436,19 +453,19 @@ public class Workbench extends Control {
     showDialog(dialog);
   }
 
-  public final CompletableFuture<ButtonType> showWarning(String title, String message) {
+  public final CompletableFuture<ButtonType> showWarningDialog(String title, String message) {
     return showStandardDialog(Type.WARNING, title, message);
   }
 
-  public final CompletableFuture<ButtonType> showConfirmation(String title, String message) {
+  public final CompletableFuture<ButtonType> showConfirmationDialog(String title, String message) {
     return showStandardDialog(Type.CONFIRMATION, title, message);
   }
 
-  public final CompletableFuture<ButtonType> showInformation(String title, String message) {
+  public final CompletableFuture<ButtonType> showInformationDialog(String title, String message) {
     return showStandardDialog(Type.INFORMATION, title, message);
   }
 
-  public final CompletableFuture<ButtonType> showNode(Type type, String title, Node node) {
+  public final CompletableFuture<ButtonType> showCustomDialog(Type type, String title, Node node) {
     WorkbenchDialog<ButtonType> dialog = new WorkbenchDialog<>(type);
     dialog.setTitle(title);
     dialog.setContent(node);
@@ -456,22 +473,16 @@ public class Workbench extends Control {
     return dialog.getResult();
   }
 
-  private final ReadOnlyObjectWrapper<WorkbenchDialog>
-      dialog = new ReadOnlyObjectWrapper<>(this, "dialog");
-
   public final ReadOnlyObjectProperty<WorkbenchDialog> dialogProperty() {
     return dialog;
   }
 
-  public final ReadOnlyBooleanWrapper
-      showDialog = new ReadOnlyBooleanWrapper(this, "showDialog", false);
-
-  public ReadOnlyBooleanProperty showDialogProperty() {
-    return showDialog.getReadOnlyProperty();
+  public ReadOnlyBooleanProperty dialogShownProperty() {
+    return dialogShown.getReadOnlyProperty();
   }
 
-  public boolean isShowDialog() {
-    return showDialog.get();
+  public boolean isDialogShown() {
+    return dialogShown.get();
   }
 
   public final WorkbenchDialog getDialog() {
