@@ -17,8 +17,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO
- * @param <T>
+ * TODO.
+ * @param <T> TODO
  */
 public final class WorkbenchDialog<T> {
   private static final Logger LOGGER =

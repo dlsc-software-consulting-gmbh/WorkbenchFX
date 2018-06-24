@@ -10,6 +10,9 @@ import javafx.scene.control.Skin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * TODO.
+ */
 public class DialogControl extends Control {
   private static final Logger LOGGER =
       LogManager.getLogger(DialogControl.class.getName());

@@ -19,6 +19,9 @@ import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * TODO.
+ */
 public class DialogSkin extends SkinBase<DialogControl> {
   private static final Logger LOGGER =
       LogManager.getLogger(DialogSkin.class.getName());
