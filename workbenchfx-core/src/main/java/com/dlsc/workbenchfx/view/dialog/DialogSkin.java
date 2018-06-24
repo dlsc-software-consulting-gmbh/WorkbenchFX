@@ -4,6 +4,8 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.DropdownSkin;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
+import java.util.Map;
+import java.util.WeakHashMap;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -23,6 +25,12 @@ import org.apache.logging.log4j.Logger;
 public class DialogSkin extends SkinBase<DialogControl> {
   private static final Logger LOGGER =
       LogManager.getLogger(DialogSkin.class.getName());
+
+  private Label dialogTitle;
+  private VBox dialogPane;
+  private StackPane dialogContentPane;
+  private ButtonBar dialogButtonBar;
+  private final Map<ButtonType, Node> buttonNodes = new WeakHashMap<>();
 
   /**
    * Creates a new {@link DialogSkin} object for a corresponding {@link DialogControl}.

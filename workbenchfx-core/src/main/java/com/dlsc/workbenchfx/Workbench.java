@@ -8,6 +8,7 @@ import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
+import com.dlsc.workbenchfx.view.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.dialog.WorkbenchDialog;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -61,6 +62,7 @@ public class Workbench extends Control {
 
   // Custom Controls
   private ObjectProperty<NavigationDrawer> navigationDrawer = new SimpleObjectProperty<>();
+  private ObjectProperty<DialogControl> dialogControl = new SimpleObjectProperty<>();
 
   // Lists
   private final ObservableSet<Node> toolbarControlsRight =
@@ -126,6 +128,7 @@ public class Workbench extends Control {
     pageFactory.set(builder.pageFactory);
     initToolbarControls(builder);
     initNavigationDrawer(builder);
+    initDialog();
     initModules(builder.modules);
 
     setupCleanup();
@@ -177,6 +180,17 @@ public class Workbench extends Control {
       }
     });
     setNavigationDrawer(builder.navigationDrawer);
+  }
+
+  private void initDialog() {
+    dialogProperty().addListener(it -> {
+      final WorkbenchDialog dialog = getDialog();
+      if (dialog != null) {
+        showOverlay(getDialogControl(), true);
+      } else {
+        hideOverlay(getDialogControl());
+      }
+    });
   }
 
   private void initModules(WorkbenchModule... modules) {
@@ -628,6 +642,18 @@ public class Workbench extends Control {
 
   public ObservableList<MenuItem> getNavigationDrawerItems() {
     return navigationDrawerItems;
+  }
+
+  public DialogControl getDialogControl() {
+    return dialogControl.get();
+  }
+
+  public ObjectProperty<DialogControl> dialogControlProperty() {
+    return dialogControl;
+  }
+
+  public void setDialogControl(DialogControl dialogControl) {
+    this.dialogControl.set(dialogControl);
   }
 
   public ObservableSet<Node> getNonBlockingOverlaysShown() {

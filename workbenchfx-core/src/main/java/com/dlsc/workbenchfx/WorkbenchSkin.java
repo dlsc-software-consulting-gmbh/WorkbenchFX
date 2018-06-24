@@ -51,12 +51,6 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   private WorkbenchView workbenchView;
   private WorkbenchPresenter workbenchPresenter;
 
-  private Label dialogTitle;
-  private VBox dialogPane;
-  private StackPane dialogContentPane;
-  private ButtonBar dialogButtonBar;
-  private final Map<ButtonType, Node> buttonNodes = new WeakHashMap<>();
-
   /**
    * Creates a skin for a given {@link Workbench}.
    * Contains all views and presenters and sets also the default stylesheet.
@@ -70,22 +64,9 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
 
     getChildren().add(workbenchView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
-
-    initDialog(workbench);
-
-    initDialogBindings(workbench);
   }
 
-  private void initDialogBindings(Workbench workbench) {
-    workbench.dialogProperty().addListener(it -> {
-      final WorkbenchDialog dialog = workbench.getDialog();
-      if (dialog != null) {
-        showDialog();
-      } else {
-        hideDialog();
-      }
-    });
-  }
+
 
   private void initViews(Workbench model) {
     toolbarView = new ToolbarView();
