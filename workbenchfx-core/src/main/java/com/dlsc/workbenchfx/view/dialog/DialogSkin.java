@@ -78,6 +78,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
     dialogHeader.getChildren().setAll(dialogTitle);
 
     dialogTitle.setMaxWidth(Double.MAX_VALUE);
+    dialogTitle.setWrapText(true);
     HBox.setHgrow(dialogTitle, Priority.ALWAYS);
     VBox.setVgrow(dialogTitle, Priority.NEVER);
 
@@ -189,8 +190,9 @@ public class DialogSkin extends SkinBase<DialogControl> {
       dialogPane.resizeRelocate(
           dialogTargetX, dialogTargetY, dialogPrefWidth, dialogPrefHeight);
 
-      // make sure the content is the same width as the dialog
+      // make sure the content and title are never longer than the dialog (causing it not to wrap)
       dialogContentPane.setMaxWidth(dialogPrefWidth);
+      dialogTitle.setMaxWidth(dialogPrefWidth);
     }
   }
 
