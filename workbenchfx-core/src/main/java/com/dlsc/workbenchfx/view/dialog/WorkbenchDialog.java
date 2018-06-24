@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view.dialog;
 
+import com.dlsc.workbenchfx.Workbench;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import javafx.beans.property.BooleanProperty;
@@ -12,8 +13,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+/**
+ * TODO
+ * @param <T>
+ */
 public final class WorkbenchDialog<T> {
+  private static final Logger LOGGER =
+      LogManager.getLogger(Workbench.class.getName());
 
   public enum Type {
     INPUT,
@@ -105,6 +114,17 @@ public final class WorkbenchDialog<T> {
     setBlocking(workbenchDialogBuilder.blocking);
   }
 
+  public void cancel() {
+    result.cancel(true);
+    try {
+      if (getOnCancelled() != null) {
+        getOnCancelled().call();
+      }
+    } catch (Exception e) {
+      LOGGER.error("Error while calling onCancelled action of dialog");
+    }
+  }
+
   public final Type getType() {
     return type;
   }
@@ -139,11 +159,17 @@ public final class WorkbenchDialog<T> {
     return maximized.get();
   }
 
+  // action on cancelled
+
   private final ObjectProperty<Callable> onCancelled =
       new SimpleObjectProperty<>(this, "onCancelled");
 
   public Callable getOnCancelled() {
     return onCancelled.get();
+  }
+
+  public void setOnCancelled(Callable onCancelled) {
+    this.onCancelled.set(onCancelled);
   }
 
   // content
