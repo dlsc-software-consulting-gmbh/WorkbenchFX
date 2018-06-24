@@ -6,6 +6,9 @@ import com.dlsc.workbenchfx.view.controls.DropdownSkin;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import java.util.Map;
 import java.util.WeakHashMap;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -32,6 +35,8 @@ public class DialogSkin extends SkinBase<DialogControl> {
   private ButtonBar dialogButtonBar;
   private final Map<ButtonType, Node> buttonNodes = new WeakHashMap<>();
 
+  private ReadOnlyObjectProperty<WorkbenchDialog> dialog;
+
   /**
    * Creates a new {@link DialogSkin} object for a corresponding {@link DialogControl}.
    *
@@ -39,10 +44,11 @@ public class DialogSkin extends SkinBase<DialogControl> {
    */
   public DialogSkin(DialogControl dialogControl) {
     super(dialogControl);
-    initDialog();
-  }
 
-  private void initDialog() {
+    dialog = dialogControl.dialogProperty();
+
+
+
     dialogPane = new VBox();
     dialogPane.setFillWidth(true);
     dialogPane.getStyleClass().add("dialog-pane");
@@ -78,20 +84,25 @@ public class DialogSkin extends SkinBase<DialogControl> {
     VBox.setVgrow(dialogButtonBar, Priority.NEVER);
 
     dialogPane.getChildren().setAll(dialogHeader, dialogContentPane, dialogButtonBar);
-  }
 
-  private void showDialog() {
-    WorkbenchDialog workbenchDialog = getSkinnable().getDialog();
-    dialogTitle.textProperty().bind(workbenchDialog.titleProperty());
-    dialogContentPane.getChildren().setAll(workbenchDialog.getContent());
-    dialogPane.getStyleClass().setAll("dialog-pane");
-    dialogPane.getStyleClass().addAll(workbenchDialog.getStyleClass());
+    getChildren().add(dialogPane);
 
-    updateButtons(workbenchDialog);
-
-    if (!getChildren().contains(dialogPane)) {
-      getChildren().add(dialogPane);
+    setupListeners();
     }
+
+  private void setupListeners() {
+    dialog.addListener(it -> {
+      // reset bindings
+      dialogTitle.textProperty().unbind();
+
+      WorkbenchDialog workbenchDialog = getSkinnable().getDialog();
+      dialogTitle.textProperty().bind(workbenchDialog.titleProperty());
+      dialogContentPane.getChildren().setAll(workbenchDialog.getContent());
+      dialogPane.getStyleClass().setAll("dialog-pane");
+      dialogPane.getStyleClass().addAll(workbenchDialog.getStyleClass());
+
+      updateButtons(workbenchDialog);
+    });
   }
 
   private void updateButtons(WorkbenchDialog<?> dialog) {
@@ -121,7 +132,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
     }
   }
 
-  protected Node createButton(ButtonType buttonType) {
+  private Node createButton(ButtonType buttonType) {
     final Button button = new Button(buttonType.getText());
     final ButtonBar.ButtonData buttonData = buttonType.getButtonData();
     ButtonBar.setButtonData(button, buttonData);
