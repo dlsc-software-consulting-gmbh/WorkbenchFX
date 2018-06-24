@@ -33,7 +33,6 @@ public class DialogSkin extends SkinBase<DialogControl> {
     super(dialogControl);
   }
 
-
   private void initDialog(Workbench workbench) {
     dialogPane = new VBox();
     dialogPane.setFillWidth(true);

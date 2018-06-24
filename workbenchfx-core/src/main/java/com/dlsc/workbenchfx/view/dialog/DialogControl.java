@@ -1,7 +1,9 @@
 package com.dlsc.workbenchfx.view.dialog;
 
+import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.DropdownSkin;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import org.apache.logging.log4j.LogManager;
@@ -13,8 +15,10 @@ public class DialogControl extends Control {
 
   /**
    * Creates a dialog control.
+   *
+   * @param workbench which created this {@link DialogControl}
    */
-  public DialogControl() {
+  public DialogControl(Workbench workbench) {
 
   }
 
