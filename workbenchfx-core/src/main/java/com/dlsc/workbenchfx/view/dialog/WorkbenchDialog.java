@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx.view.dialog;
 
 import com.dlsc.workbenchfx.Workbench;
-import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -18,13 +17,12 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the model class of a Dialog in {@link Workbench}.
- *
- * @param <T> type of the {@link CompletableFuture} that is being returned as a result of a dialog
+
  * @author Dirk Lemmermann
  * @author François Martin
  * @author Marco Sanfratello
  */
-public final class WorkbenchDialog<T> {
+public final class WorkbenchDialog {
   private static final Logger LOGGER =
       LogManager.getLogger(Workbench.class.getName());
 
@@ -119,29 +117,13 @@ public final class WorkbenchDialog<T> {
     setBlocking(workbenchDialogBuilder.blocking);
   }
 
-  /**
-   * Cancels this dialog.
-   * @implNote gets called when the dialog is closed in a different way than pressing any of the
-   *           buttons from the {@link ButtonType}s.
-   */
-  public void cancel() {
-    result.cancel(true);
-    try {
-      if (getOnCancelled() != null) {
-        getOnCancelled().call();
-      }
-    } catch (Exception e) {
-      LOGGER.error("Error while calling onCancelled action of dialog");
-    }
-  }
-
   public final Type getType() {
     return type;
   }
 
-  private final CompletableFuture<T> result = new CompletableFuture<>();
+  private final CompletableFuture<ButtonType> result = new CompletableFuture<>();
 
-  public final CompletableFuture<T> getResult() {
+  public final CompletableFuture<ButtonType> getResult() {
     return result;
   }
 
@@ -167,19 +149,6 @@ public final class WorkbenchDialog<T> {
 
   public final boolean isMaximized() {
     return maximized.get();
-  }
-
-  // action on cancelled
-
-  private final ObjectProperty<Callable> onCancelled =
-      new SimpleObjectProperty<>(this, "onCancelled");
-
-  public Callable getOnCancelled() {
-    return onCancelled.get();
-  }
-
-  public void setOnCancelled(Callable onCancelled) {
-    this.onCancelled.set(onCancelled);
   }
 
   // content

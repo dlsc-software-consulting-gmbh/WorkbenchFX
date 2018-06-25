@@ -200,7 +200,7 @@ public class Workbench extends Control {
         hideOverlay(getDialogControl());
         if (!oldDialog.getResult().isDone()) {
           LOGGER.debug("Dialog was closed by clicking on the GlassPane (cancel)");
-          oldDialog.cancel();
+          oldDialog.getResult().complete(ButtonType.CANCEL);
         }
       }
     });
