@@ -18,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import org.controlsfx.control.CheckListView;
 
@@ -36,6 +37,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
   private final Button longTitleBtn = new Button("Long Title Dialog");
   private final Button longMessageBtn = new Button("Long Message Dialog");
   private final Button longTitleMessageBtn = new Button("Long Title & Message Dialog");
+  private final Button noButtonsBtn = new Button("No Buttons Dialog");
 
   private GoogleMapView mapView;
   private GoogleMap map;
@@ -91,6 +93,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     customPane.add(longTitleBtn, 2, 0);
     customPane.add(longMessageBtn, 2, 1);
     customPane.add(longTitleMessageBtn, 2, 2);
+    customPane.add(noButtonsBtn, 2, 3);
 
     customPane.setAlignment(Pos.CENTER);
   }
@@ -121,6 +124,13 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
       WorkbenchDialog dialog = WorkbenchDialog.builder("Map Overview", mapView, ButtonType.FINISH)
               .maximized(true)
               .build();
+      CompletableFuture<ButtonType> dialogResult = getWorkbench().showDialog(dialog);
+      dialogResult.thenAccept(buttonType -> System.err.println("Dialog result: " + buttonType));
+    });
+    noButtonsBtn.setOnAction(event -> {
+      WorkbenchDialog dialog = WorkbenchDialog.builder("This dialog has no buttons", new Label("Click outside of the dialog to close it."), WorkbenchDialog.Type.INFORMATION)
+          .showButtonsBar(false)
+          .build();
       CompletableFuture<ButtonType> dialogResult = getWorkbench().showDialog(dialog);
       dialogResult.thenAccept(buttonType -> System.err.println("Dialog result: " + buttonType));
     });
