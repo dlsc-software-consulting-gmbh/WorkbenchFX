@@ -1,6 +1,8 @@
 package com.dlsc.workbenchfx.view.dialog;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.view.controls.module.Page;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -11,7 +13,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO.
+ * Represents the standard control used to display dialogs in the {@link Workbench}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class DialogControl extends Control {
   private static final Logger LOGGER =

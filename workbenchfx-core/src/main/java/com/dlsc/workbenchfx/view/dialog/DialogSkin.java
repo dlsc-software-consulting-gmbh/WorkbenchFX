@@ -20,7 +20,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO.
+ * Represents the Skin of the {@link DialogControl}.
+ *
+ * @author Dirk Lemmermann
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class DialogSkin extends SkinBase<DialogControl> {
   private static final Logger LOGGER =

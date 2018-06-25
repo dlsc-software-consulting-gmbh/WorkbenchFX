@@ -17,8 +17,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO.
- * @param <T> TODO
+ * Represents the model class of a Dialog in {@link Workbench}.
+ *
+ * @param <T> type of the {@link CompletableFuture} that is being returned as a result of a dialog
+ * @author Dirk Lemmermann
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public final class WorkbenchDialog<T> {
   private static final Logger LOGGER =
