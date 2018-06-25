@@ -1,14 +1,10 @@
 package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.custom.overlay.CustomDialog;
 import com.dlsc.workbenchfx.module.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 
