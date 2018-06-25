@@ -3,7 +3,9 @@ package com.dlsc.workbenchfx.view.dialog;
 import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -38,7 +40,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
   private HBox dialogHeader;
   private StackPane dialogContentPane;
   private ButtonBar dialogButtonBar;
-  private final Map<ButtonType, Node> buttonNodes = new WeakHashMap<>();
+  private final ObservableList<Node> buttons;
 
   /**
    * Creates a new {@link DialogSkin} object for a corresponding {@link DialogControl}.
@@ -49,6 +51,8 @@ public class DialogSkin extends SkinBase<DialogControl> {
     super(dialogControl);
 
     dialog = dialogControl.dialogProperty();
+    buttons = dialogControl.getButtons();
+    dialogControl.setButtonTextUppercase(true);
 
     initializeParts();
     layoutParts();
@@ -92,14 +96,13 @@ public class DialogSkin extends SkinBase<DialogControl> {
     VBox.setVgrow(dialogButtonBar, Priority.NEVER);
 
     getChildren().add(dialogPane);
-
-    // makes sure that when clicking on transparent pixels outside of dialog, GlassPane will still
-    // receive click events!
-    getSkinnable().setPickOnBounds(false);
   }
 
   private void setupBindings() {
     dialogButtonBar.managedProperty().bind(dialogButtonBar.visibleProperty());
+    dialogButtonBar.visibleProperty().bind(Bindings.select(dialog, "buttonsBarShown"));
+    dialogTitle.textProperty().bind(Bindings.select(dialog, "title"));
+    Bindings.bindContent(dialogButtonBar.getButtons(), buttons);
   }
 
   private void setupEventHandlers() {
@@ -113,60 +116,15 @@ public class DialogSkin extends SkinBase<DialogControl> {
   private void updateDialog(WorkbenchDialog oldDialog, WorkbenchDialog newDialog) {
     if (!Objects.isNull(newDialog)) {
       // undo old dialog
-      dialogTitle.textProperty().unbind();
       if (!Objects.isNull(oldDialog)) {
         dialogPane.getStyleClass().removeAll(oldDialog.getStyleClass());
       }
 
       // update to new dialog
-      dialogTitle.textProperty().bind(newDialog.titleProperty());
       dialogContentPane.getChildren().setAll(newDialog.getContent());
       dialogPane.getStyleClass().setAll("dialog-pane");
       dialogPane.getStyleClass().addAll(newDialog.getStyleClass());
-
-      updateButtons(newDialog);
     }
-  }
-
-  private void updateButtons(WorkbenchDialog dialog) {
-    dialogButtonBar.getButtons().clear();
-    dialogButtonBar.setVisible(dialog.isButtonsBarShown());
-
-    boolean hasDefault = false;
-    for (ButtonType cmd : dialog.getButtonTypes()) {
-      Node button = buttonNodes.computeIfAbsent(cmd, dialogButton -> createButton(cmd));
-
-      // keep only first default button
-      if (button instanceof Button) {
-        ButtonBar.ButtonData buttonType = cmd.getButtonData();
-
-        ((Button) button).setDefaultButton(
-            !hasDefault && buttonType != null && buttonType.isDefaultButton()
-        );
-        ((Button) button).setCancelButton(buttonType != null && buttonType.isCancelButton());
-        ((Button) button).setOnAction(evt -> {
-          getSkinnable().getDialog().getResult().complete(cmd);
-          getSkinnable().hide();
-        });
-
-        hasDefault |= buttonType != null && buttonType.isDefaultButton();
-      }
-      dialogButtonBar.getButtons().add(button);
-    }
-  }
-
-  private Node createButton(ButtonType buttonType) {
-    final Button button = new Button(buttonType.getText().toUpperCase());
-    final ButtonBar.ButtonData buttonData = buttonType.getButtonData();
-    ButtonBar.setButtonData(button, buttonData);
-    button.setDefaultButton(buttonData.isDefaultButton());
-    button.setCancelButton(buttonData.isCancelButton());
-    button.addEventHandler(ActionEvent.ACTION, ae -> {
-      if (ae.isConsumed()) {
-        return;
-      }
-    });
-    return button;
   }
 
   @Override
