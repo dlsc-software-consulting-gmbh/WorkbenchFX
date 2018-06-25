@@ -56,7 +56,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
     setupEventHandlers();
     setupValueChangedListeners();
 
-    updateDialog(getSkinnable().getDialog());
+    updateDialog(null, getSkinnable().getDialog());
   }
 
   private void initializeParts() {
@@ -107,20 +107,24 @@ public class DialogSkin extends SkinBase<DialogControl> {
   }
 
   private void setupValueChangedListeners() {
-    dialog.addListener((observable, oldDialog, newDialog) -> updateDialog(newDialog));
+    dialog.addListener((observable, oldDialog, newDialog) -> updateDialog(oldDialog, newDialog));
   }
 
-  private void updateDialog(WorkbenchDialog workbenchDialog) {
-    if (!Objects.isNull(workbenchDialog)) {
-      // reset bindings
+  private void updateDialog(WorkbenchDialog oldDialog, WorkbenchDialog newDialog) {
+    if (!Objects.isNull(newDialog)) {
+      // undo old dialog
       dialogTitle.textProperty().unbind();
+      if (!Objects.isNull(oldDialog)) {
+        dialogPane.getStyleClass().removeAll(oldDialog.getStyleClass());
+      }
 
-      dialogTitle.textProperty().bind(workbenchDialog.titleProperty());
-      dialogContentPane.getChildren().setAll(workbenchDialog.getContent());
+      // update to new dialog
+      dialogTitle.textProperty().bind(newDialog.titleProperty());
+      dialogContentPane.getChildren().setAll(newDialog.getContent());
       dialogPane.getStyleClass().setAll("dialog-pane");
-      dialogPane.getStyleClass().addAll(workbenchDialog.getStyleClass());
+      dialogPane.getStyleClass().addAll(newDialog.getStyleClass());
 
-      updateButtons(workbenchDialog);
+      updateButtons(newDialog);
     }
   }
 
