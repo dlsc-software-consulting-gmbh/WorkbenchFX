@@ -465,10 +465,7 @@ public class Workbench extends Control {
    */
   public final CompletableFuture<ButtonType> showDialog(
       Type type, String title, Node content) {
-    WorkbenchDialog dialog = new WorkbenchDialog(type);
-    dialog.setTitle(title);
-    dialog.setContent(content);
-    showDialog(dialog);
+    WorkbenchDialog dialog = WorkbenchDialog.builder(title, content, type).build();
     return dialog.getResult();
   }
 
@@ -529,15 +526,14 @@ public class Workbench extends Control {
    * @param details   about the error
    * @param exception of which the stacktrace should be shown
    */
-  private final void showErrorDialog(
+  private void showErrorDialog(
       String title, String message, String details, Exception exception) {
-    WorkbenchDialog dialog = new WorkbenchDialog(Type.ERROR);
-    dialog.setTitle(title);
-
     final Label messageLabel = createDialogContentNode(message);
 
+    Node content;
+
     if (StringUtils.isBlank(details)) {
-      dialog.setContent(messageLabel);
+      content = messageLabel;
     } else {
       TextArea textArea = new TextArea();
       textArea.setText(details);
@@ -549,12 +545,14 @@ public class Workbench extends Control {
       titledPane.setContent(textArea);
       titledPane.setPrefHeight(300);
 
-      VBox content = new VBox(messageLabel, titledPane);
-      content.getStyleClass().add("container");
-      dialog.setContent(content);
+      VBox container = new VBox(messageLabel, titledPane);
+      container.getStyleClass().add("container");
+      content = container;
     }
 
-    dialog.setException(exception);
+    WorkbenchDialog dialog = WorkbenchDialog.builder(title, content, Type.ERROR)
+        .exception(exception)
+        .build();
     showDialog(dialog);
   }
 
