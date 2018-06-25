@@ -1,7 +1,5 @@
 package com.dlsc.workbenchfx.view.dialog;
 
-import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.WorkbenchBuilder;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
