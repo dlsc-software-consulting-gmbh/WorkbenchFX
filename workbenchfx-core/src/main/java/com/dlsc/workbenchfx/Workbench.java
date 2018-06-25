@@ -466,8 +466,7 @@ public class Workbench extends Control {
   public final CompletableFuture<ButtonType> showDialog(
       Type type, String title, Node content) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, content, type).build();
-    showDialog(dialog);
-    return dialog.getResult();
+    return showDialog(dialog);
   }
 
   /**
@@ -490,9 +489,11 @@ public class Workbench extends Control {
    *
    * @param title   of the dialog
    * @param message of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    */
-  public final void showErrorDialog(String title, String message) {
-    showErrorDialog(title, message, null, null);
+  public final CompletableFuture<ButtonType> showErrorDialog(String title, String message) {
+    return showErrorDialog(title, message, null, null);
   }
 
   /**
@@ -501,11 +502,13 @@ public class Workbench extends Control {
    * @param title     of the dialog
    * @param message   of the dialog
    * @param exception of which the stacktrace should be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    */
-  public final void showErrorDialog(String title, String message, Exception exception) {
+  public final CompletableFuture<ButtonType> showErrorDialog(String title, String message, Exception exception) {
     StringWriter stringWriter = new StringWriter();
     exception.printStackTrace(new PrintWriter(stringWriter));
-    showErrorDialog(title, message, stringWriter.toString(), exception);
+    return showErrorDialog(title, message, stringWriter.toString(), exception);
   }
 
   /**
@@ -514,9 +517,11 @@ public class Workbench extends Control {
    * @param title   of the dialog
    * @param message of the dialog
    * @param details about the error
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    */
-  public final void showErrorDialog(String title, String message, String details) {
-    showErrorDialog(title, message, details, null);
+  public final CompletableFuture<ButtonType> showErrorDialog(String title, String message, String details) {
+    return showErrorDialog(title, message, details, null);
   }
 
   /**
@@ -526,8 +531,10 @@ public class Workbench extends Control {
    * @param message   of the dialog
    * @param details   about the error
    * @param exception of which the stacktrace should be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    */
-  private void showErrorDialog(
+  private CompletableFuture<ButtonType> showErrorDialog(
       String title, String message, String details, Exception exception) {
     final Label messageLabel = createDialogContentNode(message);
 
@@ -554,7 +561,7 @@ public class Workbench extends Control {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, content, Type.ERROR)
         .exception(exception)
         .build();
-    showDialog(dialog);
+    return showDialog(dialog);
   }
 
   /**
