@@ -80,5 +80,4 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
     workbenchPresenter = new WorkbenchPresenter(model, workbenchView);
   }
 
-
 }

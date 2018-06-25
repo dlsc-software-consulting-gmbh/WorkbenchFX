@@ -112,7 +112,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
         if (ButtonType.CANCEL.equals(buttonType)) {
           System.err.println("Dialog was cancelled!");
         } else {
-          System.err.println("Chosen favorite libraries: " + checkListView.getSelectionModel().getSelectedItems().stream().collect(Collectors.joining(", ")));
+          System.err.println("Chosen favorite libraries: " + checkListView.getCheckModel().getCheckedItems().stream().collect(Collectors.joining(", ")));
         }
       });
     });
