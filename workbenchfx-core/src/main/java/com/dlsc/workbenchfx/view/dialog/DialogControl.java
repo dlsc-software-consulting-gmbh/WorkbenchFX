@@ -130,11 +130,6 @@ public class DialogControl extends Control {
    * so the skin doesn't have to account for a potentially changing workbench.
    */
   private void bindDialog() {
-    // initially bind, in case workbench is already set
-    if (!Objects.isNull(getWorkbench())) {
-      dialog.bind(getWorkbench().dialogProperty());
-    }
-
     // add listener for changing workbench
     workbench.addListener((observable, oldWorkbench, newWorkbench) -> {
       dialog.unbind();
