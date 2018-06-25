@@ -430,7 +430,7 @@ public class Workbench extends Control {
   /**
    * Hides the currently shown {@link WorkbenchDialog} in the view.
    */
-  public void hideDialog() {
+  public final void hideDialog() {
     this.dialog.set(null);
   }
 
@@ -438,8 +438,11 @@ public class Workbench extends Control {
    * Shows a {@link WorkbenchDialog} in the view.
    *
    * @param dialog to be shown
+   * @return result of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    */
-  public <T> CompletableFuture<T> showDialog(WorkbenchDialog<T> dialog) {
+  public final CompletableFuture<ButtonType> showDialog(WorkbenchDialog dialog) {
     this.dialog.set(dialog);
     return dialog.getResult();
   }
@@ -451,10 +454,12 @@ public class Workbench extends Control {
    * @param content to be shown inside of the dialog
    * @param type    of the dialog
    * @return result of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    */
   public final CompletableFuture<ButtonType> showDialog(
       Type type, String title, Node content) {
-    WorkbenchDialog<ButtonType> dialog = new WorkbenchDialog<>(type);
+    WorkbenchDialog dialog = new WorkbenchDialog(type);
     dialog.setTitle(title);
     dialog.setContent(content);
     showDialog(dialog);
@@ -468,8 +473,10 @@ public class Workbench extends Control {
    * @param title   of the dialog
    * @param message of the dialog
    * @return result of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    */
-  private final CompletableFuture<ButtonType> showStandardDialog(
+  private CompletableFuture<ButtonType> showStandardDialog(
       Type type, String title, String message) {
     return showDialog(type, title, createDialogContentNode(message));
   }
@@ -518,7 +525,7 @@ public class Workbench extends Control {
    */
   private final void showErrorDialog(
       String title, String message, String details, Exception exception) {
-    WorkbenchDialog<String> dialog = new WorkbenchDialog<>(Type.ERROR);
+    WorkbenchDialog dialog = new WorkbenchDialog(Type.ERROR);
     dialog.setTitle(title);
 
     final Label messageLabel = createDialogContentNode(message);
@@ -550,6 +557,8 @@ public class Workbench extends Control {
    *
    * @param title   of the dialog
    * @param message of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    */
   public final CompletableFuture<ButtonType> showWarningDialog(String title, String message) {
     return showStandardDialog(Type.WARNING, title, message);
@@ -560,6 +569,8 @@ public class Workbench extends Control {
    *
    * @param title   of the dialog
    * @param message of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    */
   public final CompletableFuture<ButtonType> showConfirmationDialog(String title, String message) {
     return showStandardDialog(Type.CONFIRMATION, title, message);
@@ -570,6 +581,9 @@ public class Workbench extends Control {
    *
    * @param title   of the dialog
    * @param message of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
+   *           All dialogs are
    */
   public final CompletableFuture<ButtonType> showInformationDialog(String title, String message) {
     return showStandardDialog(Type.INFORMATION, title, message);
@@ -579,11 +593,11 @@ public class Workbench extends Control {
     return dialog;
   }
 
-  public ReadOnlyBooleanProperty dialogShownProperty() {
+  public final ReadOnlyBooleanProperty dialogShownProperty() {
     return dialogShown.getReadOnlyProperty();
   }
 
-  public boolean isDialogShown() {
+  public final boolean isDialogShown() {
     return dialogShown.get();
   }
 
