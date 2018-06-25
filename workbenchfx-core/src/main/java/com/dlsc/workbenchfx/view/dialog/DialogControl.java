@@ -56,7 +56,15 @@ public class DialogControl extends Control {
   private void setupChangeListeners() {
     // update tiles list whenever modules or the pageIndex of this page have changed
     dialogChangedListener = observable -> updateButtons(getDialog());
-    dialog.addListener(dialogChangedListener);
+    dialog.addListener((observable, oldDialog, newDialog) -> {
+      updateButtons(newDialog);
+      if (!Objects.isNull(oldDialog)) {
+        oldDialog.getButtonTypes().removeListener(dialogChangedListener);
+      }
+      if (!Objects.isNull(newDialog)) {
+        newDialog.getButtonTypes().addListener(dialogChangedListener);
+      }
+    });
     workbench.addListener(dialogChangedListener);
     buttonTextUppercase.addListener(observable -> {
       buttonNodes.clear(); // force re-creation of buttons
@@ -65,12 +73,13 @@ public class DialogControl extends Control {
   }
 
   private void updateButtons(WorkbenchDialog dialog) {
-    if (Objects.isNull(dialog)) {
-      return;
-    }
     LOGGER.trace("Updating buttons");
 
     buttons.clear();
+
+    if (Objects.isNull(dialog)) {
+      return;
+    }
 
     boolean hasDefault = false;
     for (ButtonType cmd : dialog.getButtonTypes()) {
@@ -96,12 +105,11 @@ public class DialogControl extends Control {
   }
 
   private Node createButton(ButtonType buttonType) {
+    LOGGER.trace("Create Button: " + buttonType.getText());
     String buttonText;
     if (isButtonTextUppercase()) {
-      LOGGER.trace("Uppercase: " + buttonType.getText());
       buttonText = buttonType.getText().toUpperCase();
     } else {
-      LOGGER.trace("Normal case: " + buttonType.getText());
       buttonText = buttonType.getText();
     }
     final Button button = new Button(buttonText);
@@ -130,7 +138,10 @@ public class DialogControl extends Control {
     // add listener for changing workbench
     workbench.addListener((observable, oldWorkbench, newWorkbench) -> {
       dialog.unbind();
-      dialog.bind(newWorkbench.dialogProperty());
+      dialog.set(null);
+      if (!Objects.isNull(newWorkbench)) {
+        dialog.bind(newWorkbench.dialogProperty());
+      }
     });
   }
 
