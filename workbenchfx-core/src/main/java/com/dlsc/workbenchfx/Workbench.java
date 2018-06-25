@@ -466,6 +466,7 @@ public class Workbench extends Control {
   public final CompletableFuture<ButtonType> showDialog(
       Type type, String title, Node content) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, content, type).build();
+    showDialog(dialog);
     return dialog.getResult();
   }
 
