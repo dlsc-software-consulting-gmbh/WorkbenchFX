@@ -117,11 +117,6 @@ public class DialogControl extends Control {
     ButtonBar.setButtonData(button, buttonData);
     button.setDefaultButton(buttonData.isDefaultButton());
     button.setCancelButton(buttonData.isCancelButton());
-    button.addEventHandler(ActionEvent.ACTION, ae -> {
-      if (ae.isConsumed()) {
-        return;
-      }
-    });
     return button;
   }
 
