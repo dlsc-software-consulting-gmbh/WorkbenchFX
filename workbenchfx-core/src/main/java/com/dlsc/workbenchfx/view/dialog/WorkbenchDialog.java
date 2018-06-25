@@ -26,6 +26,18 @@ public final class WorkbenchDialog {
   private static final Logger LOGGER =
       LogManager.getLogger(Workbench.class.getName());
 
+  private Type type;
+  private final CompletableFuture<ButtonType> result = new CompletableFuture<>();
+  private ObservableList<ButtonType> buttonTypes = FXCollections.observableArrayList();
+  private final BooleanProperty maximized = new SimpleBooleanProperty();
+  private final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content");
+  private final StringProperty title = new SimpleStringProperty(this, "title", "Dialog");
+  private final ObservableList<String> styleClass = FXCollections.observableArrayList();
+  private final BooleanProperty buttonsBarShown =
+      new SimpleBooleanProperty(this, "buttonsBarShown", true);
+  private final ObjectProperty<Exception> exception = new SimpleObjectProperty<>(this, "exception");
+  private final BooleanProperty blocking = new SimpleBooleanProperty(false, "blocking");
+
   public enum Type {
     INPUT,
     INFORMATION,
@@ -33,8 +45,6 @@ public final class WorkbenchDialog {
     WARNING,
     CONFIRMATION
   }
-
-  private Type type;
 
   /**
    * Creates a new model object for a dialog.
@@ -121,23 +131,17 @@ public final class WorkbenchDialog {
     return type;
   }
 
-  private final CompletableFuture<ButtonType> result = new CompletableFuture<>();
-
   public final CompletableFuture<ButtonType> getResult() {
     return result;
   }
 
   // button types
 
-  private ObservableList<ButtonType> buttonTypes = FXCollections.observableArrayList();
-
   public ObservableList<ButtonType> getButtonTypes() {
     return buttonTypes;
   }
 
   // maximized
-
-  private final BooleanProperty maximized = new SimpleBooleanProperty();
 
   public final BooleanProperty maximizedProperty() {
     return maximized;
@@ -153,8 +157,6 @@ public final class WorkbenchDialog {
 
   // content
 
-  private final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content");
-
   public final ObjectProperty<Node> contentProperty() {
     return content;
   }
@@ -168,8 +170,6 @@ public final class WorkbenchDialog {
   }
 
   // title
-
-  private final StringProperty title = new SimpleStringProperty(this, "title", "Dialog");
 
   public final StringProperty titleProperty() {
     return title;
@@ -185,16 +185,12 @@ public final class WorkbenchDialog {
 
   // custom style
 
-  private final ObservableList<String> styleClass = FXCollections.observableArrayList();
-
   public ObservableList<String> getStyleClass() {
     return styleClass;
   }
 
 
   // Show buttons bar
-  private final BooleanProperty buttonsBarShown =
-      new SimpleBooleanProperty(this, "buttonsBarShown", true);
 
   public final BooleanProperty buttonsBarShownProperty() {
     return buttonsBarShown;
@@ -210,8 +206,6 @@ public final class WorkbenchDialog {
 
   // exception
 
-  private final ObjectProperty<Exception> exception = new SimpleObjectProperty<>(this, "exception");
-
   public final ObjectProperty<Exception> exceptionProperty() {
     return exception;
   }
@@ -225,8 +219,6 @@ public final class WorkbenchDialog {
   }
 
   // blocking dialog or non-blocking dialog (modal or not modal)
-
-  private final BooleanProperty blocking = new SimpleBooleanProperty(false, "blocking");
 
   public BooleanProperty blockingProperty() {
     return blocking;

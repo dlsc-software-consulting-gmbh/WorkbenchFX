@@ -441,6 +441,9 @@ public class Workbench extends Control {
    * @return result of the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
+   *           All dialogs are non-blocking by default. If you want to change this behavior, use
+   *           {@link WorkbenchDialog#builder} to create a dialog and show it using
+   *           {@link Workbench#showDialog(WorkbenchDialog)}.
    */
   public final CompletableFuture<ButtonType> showDialog(WorkbenchDialog dialog) {
     this.dialog.set(dialog);
@@ -456,6 +459,9 @@ public class Workbench extends Control {
    * @return result of the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
+   *           All dialogs are non-blocking by default. If you want to change this behavior, use
+   *           {@link WorkbenchDialog#builder} to create a dialog and show it using
+   *           {@link Workbench#showDialog(WorkbenchDialog)}.
    */
   public final CompletableFuture<ButtonType> showDialog(
       Type type, String title, Node content) {
