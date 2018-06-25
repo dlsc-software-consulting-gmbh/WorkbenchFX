@@ -11,6 +11,7 @@ import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -105,21 +106,21 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     longMessageBtn.setOnAction(event -> getWorkbench().showInformationDialog("Everything is fine", "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot."));
     longTitleMessageBtn.setOnAction(event -> getWorkbench().showInformationDialog("In 2004, Bennett ruled that John Graham could be extradited to the United States for trial for the 1975 murder of Anna Mae Aquash, one of the most prominent members of the American Indian Movement. In 2007, she began proceedings on the Basi-Virk Affair where the Minister of Finance's politically appointed assistant was charged with the sale of benefits related to the province's sale of BC Rail, the publicly owned railway. The scandal came to public attention when news media filmed the RCMP conducting a search warrant inside the BC Legislature building.", "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot."));
     customSmallBtn.setOnAction(event -> {
-      WorkbenchDialog<String> libraryDialog = new WorkbenchDialog<>(WorkbenchDialog.Type.INPUT);
-      libraryDialog.setTitle("Select your favorite libraries");
-      libraryDialog.setContent(checkListView);
-      CompletableFuture<String> result = getWorkbench().showDialog(libraryDialog);
-      result.thenAccept(library -> System.err.println("Chosen favorite library: " + library));
+      WorkbenchDialog libraryDialog = WorkbenchDialog.builder("Select your favorite libraries", checkListView, WorkbenchDialog.Type.INPUT).build();
+      CompletableFuture<ButtonType> result = getWorkbench().showDialog(libraryDialog);
+      result.thenAccept(buttonType -> {
+        if (ButtonType.CANCEL.equals(buttonType)) {
+          System.err.println("Dialog was cancelled!");
+        } else {
+          System.err.println("Chosen favorite libraries: " + checkListView.getSelectionModel().getSelectedItems().stream().collect(Collectors.joining(", ")));
+        }
+      });
     });
     customFullBtn.setOnAction(event -> getWorkbench().showDialog(WorkbenchDialog.builder("Map Overview (blocking)", mapView, ButtonType.CLOSE).blocking(true).build()));
     customFullMaxBtn.setOnAction(event -> {
-      WorkbenchDialog<ButtonType> dialog = WorkbenchDialog.builder("Map Overview", mapView, ButtonType.CLOSE)
+      WorkbenchDialog dialog = WorkbenchDialog.builder("Map Overview", mapView, ButtonType.FINISH)
               .maximized(true)
               .build();
-      dialog.setOnCancelled(() -> {
-        System.err.println("Map Overview was cancelled!");
-        return null;
-      });
       CompletableFuture<ButtonType> dialogResult = getWorkbench().showDialog(dialog);
       dialogResult.thenAccept(buttonType -> System.err.println("Dialog result: " + buttonType));
     });
