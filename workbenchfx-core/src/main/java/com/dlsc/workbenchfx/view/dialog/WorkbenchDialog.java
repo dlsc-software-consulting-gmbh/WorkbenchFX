@@ -1,8 +1,6 @@
 package com.dlsc.workbenchfx.view.dialog;
 
 import com.dlsc.workbenchfx.Workbench;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -49,48 +47,6 @@ public final class WorkbenchDialog {
   }
 
   /**
-   * Creates a new model object for a dialog.
-   * @param type of the dialog
-   */
-  public WorkbenchDialog(Type type) {
-    initType(type);
-  }
-
-  private void initType(Type type) {
-    this.type = type;
-
-    getStyleClass().add(type.name().toLowerCase());
-
-    switch (type) {
-      case INPUT:
-        getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
-        break;
-      case INFORMATION:
-        getButtonTypes().setAll(ButtonType.OK);
-        break;
-      case ERROR:
-        getButtonTypes().setAll(ButtonType.CLOSE);
-        break;
-      case WARNING:
-        getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
-        break;
-      case CONFIRMATION:
-        getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
-        break;
-      default:
-        throw new UnsupportedOperationException("Dialog of this type doesn't exist!");
-    }
-  }
-
-  /**
-   * Creates a new model object for a dialog.
-   * @param buttonTypes to be used in the dialog
-   */
-  public WorkbenchDialog(ButtonType... buttonTypes) {
-    getButtonTypes().setAll(buttonTypes);
-  }
-
-  /**
    * Creates a builder for {@link WorkbenchDialog}.
    *
    * @param title   of the dialog
@@ -129,6 +85,33 @@ public final class WorkbenchDialog {
     setBlocking(workbenchDialogBuilder.blocking);
     setButtonsBarShown(workbenchDialogBuilder.showButtonsBar);
     getStyleClass().addAll(workbenchDialogBuilder.styleClasses);
+    setException(workbenchDialogBuilder.exception);
+  }
+
+  private void initType(Type type) {
+    this.type = type;
+
+    getStyleClass().add(type.name().toLowerCase());
+
+    switch (type) {
+      case INPUT:
+        getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
+        break;
+      case INFORMATION:
+        getButtonTypes().setAll(ButtonType.OK);
+        break;
+      case ERROR:
+        getButtonTypes().setAll(ButtonType.CLOSE);
+        break;
+      case WARNING:
+        getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
+        break;
+      case CONFIRMATION:
+        getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+        break;
+      default:
+        throw new UnsupportedOperationException("Dialog of this type doesn't exist!");
+    }
   }
 
   public final Type getType() {

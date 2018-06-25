@@ -26,6 +26,7 @@ public class WorkbenchDialogBuilder {
   boolean maximized = false;
   boolean showButtonsBar = true;
   String[] styleClasses = new String[0];
+  Exception exception = null;
 
   WorkbenchDialogBuilder(String title, Node content, ButtonType... buttonTypes) {
     this.title = title;
@@ -81,6 +82,16 @@ public class WorkbenchDialogBuilder {
    */
   public WorkbenchDialogBuilder styleClass(String... styleClasses) {
     this.styleClasses = styleClasses;
+    return this;
+  }
+
+  /**
+   * Defines the exception to be shown in the dialog.
+   * @param exception to be shown
+   * @return builder for chaining
+   */
+  public WorkbenchDialogBuilder exception(Exception exception) {
+    this.exception = exception;
     return this;
   }
 
