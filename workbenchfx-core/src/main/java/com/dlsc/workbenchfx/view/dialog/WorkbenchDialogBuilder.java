@@ -67,7 +67,7 @@ public class WorkbenchDialogBuilder {
    *
    * @return the {@link WorkbenchDialog} object
    */
-  public WorkbenchDialog<ButtonType> build() {
-    return new WorkbenchDialog<>(this);
+  public WorkbenchDialog build() {
+    return new WorkbenchDialog(this);
   }
 }
