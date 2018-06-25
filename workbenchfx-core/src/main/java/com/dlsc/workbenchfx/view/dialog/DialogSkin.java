@@ -29,7 +29,7 @@ import org.apache.logging.log4j.Logger;
 public class DialogSkin extends SkinBase<DialogControl> {
   private static final Logger LOGGER =
       LogManager.getLogger(DialogSkin.class.getName());
-  public static final double MARGIN_PERCENT = .1;
+  private static final double MARGIN_PERCENT = .1;
 
   private ReadOnlyObjectProperty<WorkbenchDialog> dialog;
 
