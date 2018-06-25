@@ -1,6 +1,8 @@
 package com.dlsc.workbenchfx.view.dialog;
 
 import com.dlsc.workbenchfx.Workbench;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -125,6 +127,8 @@ public final class WorkbenchDialog {
     setContent(workbenchDialogBuilder.content);
     setMaximized(workbenchDialogBuilder.maximized);
     setBlocking(workbenchDialogBuilder.blocking);
+    setButtonsBarShown(workbenchDialogBuilder.showButtonsBar);
+    getStyleClass().addAll(workbenchDialogBuilder.styleClasses);
   }
 
   public final Type getType() {
@@ -188,7 +192,6 @@ public final class WorkbenchDialog {
   public ObservableList<String> getStyleClass() {
     return styleClass;
   }
-
 
   // Show buttons bar
 

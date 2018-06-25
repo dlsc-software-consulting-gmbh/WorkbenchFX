@@ -111,10 +111,10 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
       CompletableFuture<String> result = getWorkbench().showDialog(libraryDialog);
       result.thenAccept(library -> System.err.println("Chosen favorite library: " + library));
     });
-    customFullBtn.setOnAction(event -> getWorkbench().showDialog(WorkbenchDialog.builder("Map Overview (blocking)", mapView, ButtonType.CLOSE).setBlocking(true).build()));
+    customFullBtn.setOnAction(event -> getWorkbench().showDialog(WorkbenchDialog.builder("Map Overview (blocking)", mapView, ButtonType.CLOSE).blocking(true).build()));
     customFullMaxBtn.setOnAction(event -> {
       WorkbenchDialog<ButtonType> dialog = WorkbenchDialog.builder("Map Overview", mapView, ButtonType.CLOSE)
-              .setMaximized(true)
+              .maximized(true)
               .build();
       dialog.setOnCancelled(() -> {
         System.err.println("Map Overview was cancelled!");

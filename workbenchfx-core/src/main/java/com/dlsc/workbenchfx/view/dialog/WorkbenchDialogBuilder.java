@@ -24,6 +24,8 @@ public class WorkbenchDialogBuilder {
   // Optional parameters - initialized to default values
   boolean blocking = false;
   boolean maximized = false;
+  boolean showButtonsBar = true;
+  String[] styleClasses = new String[0];
 
   WorkbenchDialogBuilder(String title, Node content, ButtonType... buttonTypes) {
     this.title = title;
@@ -47,7 +49,7 @@ public class WorkbenchDialogBuilder {
    *                 the {@code dialog} must be closed by pressing one of the buttons.
    * @return builder for chaining
    */
-  public WorkbenchDialogBuilder setBlocking(boolean blocking) {
+  public WorkbenchDialogBuilder blocking(boolean blocking) {
     this.blocking = blocking;
     return this;
   }
@@ -57,8 +59,28 @@ public class WorkbenchDialogBuilder {
    * @param maximized whether or not the dialog should be scaled to fit the whole window
    * @return builder for chaining
    */
-  public WorkbenchDialogBuilder setMaximized(boolean maximized) {
+  public WorkbenchDialogBuilder maximized(boolean maximized) {
     this.maximized = maximized;
+    return this;
+  }
+
+  /**
+   * Defines whether the buttons on the dialog should be shown or not.
+   * @param showButtonsBar if true, will show buttons, if false, will hide them
+   * @return builder for chaining
+   */
+  public WorkbenchDialogBuilder showButtonsBar(boolean showButtonsBar) {
+    this.showButtonsBar = showButtonsBar;
+    return this;
+  }
+
+  /**
+   * Defines the style classes to set on the dialog.
+   * @param styleClasses to be set on the dialog
+   * @return builder for chaining
+   */
+  public WorkbenchDialogBuilder styleClass(String... styleClasses) {
+    this.styleClasses = styleClasses;
     return this;
   }
 
