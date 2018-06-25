@@ -505,7 +505,8 @@ public class Workbench extends Control {
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
    */
-  public final CompletableFuture<ButtonType> showErrorDialog(String title, String message, Exception exception) {
+  public final CompletableFuture<ButtonType> showErrorDialog(
+      String title, String message, Exception exception) {
     StringWriter stringWriter = new StringWriter();
     exception.printStackTrace(new PrintWriter(stringWriter));
     return showErrorDialog(title, message, stringWriter.toString(), exception);
@@ -520,7 +521,8 @@ public class Workbench extends Control {
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
    */
-  public final CompletableFuture<ButtonType> showErrorDialog(String title, String message, String details) {
+  public final CompletableFuture<ButtonType> showErrorDialog(
+      String title, String message, String details) {
     return showErrorDialog(title, message, details, null);
   }
 
