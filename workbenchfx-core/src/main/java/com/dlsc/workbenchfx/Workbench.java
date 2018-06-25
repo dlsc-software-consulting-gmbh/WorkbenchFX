@@ -587,7 +587,6 @@ public class Workbench extends Control {
    * @param message of the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
-   *           All dialogs are
    */
   public final CompletableFuture<ButtonType> showInformationDialog(String title, String message) {
     return showStandardDialog(Type.INFORMATION, title, message);
