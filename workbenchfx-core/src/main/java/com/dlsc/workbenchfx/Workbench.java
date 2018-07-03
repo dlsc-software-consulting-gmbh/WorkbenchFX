@@ -8,11 +8,8 @@ import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
-import com.dlsc.workbenchfx.view.dialog.DialogMessageContent;
 import com.dlsc.workbenchfx.view.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.dialog.WorkbenchDialog;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
@@ -36,17 +33,12 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.platform.commons.util.StringUtils;
 
 /**
  * Contains all the model logic for the workbench.
