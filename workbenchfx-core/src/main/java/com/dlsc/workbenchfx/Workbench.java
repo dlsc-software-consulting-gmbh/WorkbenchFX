@@ -438,7 +438,8 @@ public class Workbench extends Control {
    * Shows a {@link WorkbenchDialog} in the view.
    *
    * @param dialog to be shown
-   * @return result of the dialog
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
    *           All dialogs are non-blocking by default. If you want to change this behavior, use
@@ -455,8 +456,9 @@ public class Workbench extends Control {
    *
    * @param title   of the dialog
    * @param content to be shown inside of the dialog
-   * @param type    of the dialog
-   * @return result of the dialog
+   * @param type    depending on the cause for this dialog to be shown
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
    *           All dialogs are non-blocking by default. If you want to change this behavior, use
@@ -472,10 +474,11 @@ public class Workbench extends Control {
   /**
    * Internal method to create different dialog types based on the {@link Type}.
    *
-   * @param type    of the dialog
+   * @param type    depending on the cause for this dialog to be shown
    * @param title   of the dialog
    * @param message of the dialog
-   * @return result of the dialog
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
    */
@@ -491,6 +494,8 @@ public class Workbench extends Control {
    * @param message of the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
    */
   public final CompletableFuture<ButtonType> showErrorDialog(String title, String message) {
     return showErrorDialog(title, message, null, null);
@@ -504,6 +509,8 @@ public class Workbench extends Control {
    * @param exception of which the stacktrace should be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
    */
   public final CompletableFuture<ButtonType> showErrorDialog(
       String title, String message, Exception exception) {
@@ -520,6 +527,8 @@ public class Workbench extends Control {
    * @param details about the error
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
    */
   public final CompletableFuture<ButtonType> showErrorDialog(
       String title, String message, String details) {
@@ -535,6 +544,8 @@ public class Workbench extends Control {
    * @param exception of which the stacktrace should be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
    */
   private CompletableFuture<ButtonType> showErrorDialog(
       String title, String message, String details, Exception exception) {
@@ -573,6 +584,8 @@ public class Workbench extends Control {
    * @param message of the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
    */
   public final CompletableFuture<ButtonType> showWarningDialog(String title, String message) {
     return showStandardDialog(Type.WARNING, title, message);
@@ -585,6 +598,8 @@ public class Workbench extends Control {
    * @param message of the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
    */
   public final CompletableFuture<ButtonType> showConfirmationDialog(String title, String message) {
     return showStandardDialog(Type.CONFIRMATION, title, message);
@@ -597,6 +612,8 @@ public class Workbench extends Control {
    * @param message of the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
    */
   public final CompletableFuture<ButtonType> showInformationDialog(String title, String message) {
     return showStandardDialog(Type.INFORMATION, title, message);
