@@ -18,8 +18,8 @@ public class DialogContent extends Label {
    */
   public DialogContent(String message) {
     setText(message);
-    setWrapText(true);
-    VBox.setVgrow(this,Priority.ALWAYS);
+    setWrapText(true); // makes sure long text doesn't get cut off at the end of a dialog
+    VBox.setVgrow(this,Priority.ALWAYS); // makes sure long text can grow in the dialog
   }
 
 }
