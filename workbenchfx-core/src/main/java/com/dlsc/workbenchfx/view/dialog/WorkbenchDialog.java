@@ -1,6 +1,10 @@
 package com.dlsc.workbenchfx.view.dialog;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.google.common.base.Strings;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -98,6 +102,15 @@ public final class WorkbenchDialog {
   }
 
   WorkbenchDialog(WorkbenchDialogBuilder workbenchDialogBuilder) {
+    // update details with stacktrace of exception, whenever exception is changed
+    exceptionProperty().addListener((observable, oldException, newException) -> {
+      if (!Objects.isNull(newException)) {
+        StringWriter stringWriter = new StringWriter();
+        newException.printStackTrace(new PrintWriter(stringWriter));
+        setDetails(stringWriter.toString());
+      }
+    });
+
     if (workbenchDialogBuilder.type != null) {
       // Type was defined
       initType(workbenchDialogBuilder.type);
@@ -138,6 +151,10 @@ public final class WorkbenchDialog {
       default:
         throw new UnsupportedOperationException("Dialog of this type doesn't exist!");
     }
+  }
+
+  private void initDetails(String details, Exception exception) {
+
   }
 
   public final Type getType() {

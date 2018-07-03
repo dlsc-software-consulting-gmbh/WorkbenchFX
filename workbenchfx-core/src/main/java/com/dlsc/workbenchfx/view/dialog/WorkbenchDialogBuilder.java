@@ -45,6 +45,7 @@ public class WorkbenchDialogBuilder {
 
   /**
    * Defines whether the dialog is blocking (modal) or not.
+   *
    * @param blocking If false (non-blocking), clicking outside of the {@code dialog} will cause it
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code dialog} will not do anything. In this case,
@@ -58,6 +59,7 @@ public class WorkbenchDialogBuilder {
 
   /**
    * Defines whether the dialog is maximized or not.
+   *
    * @param maximized whether or not the dialog should be scaled to fit the whole window
    * @return builder for chaining
    */
@@ -68,6 +70,7 @@ public class WorkbenchDialogBuilder {
 
   /**
    * Defines whether the buttons on the dialog should be shown or not.
+   *
    * @param showButtonsBar if true, will show buttons, if false, will hide them
    * @return builder for chaining
    */
@@ -78,6 +81,7 @@ public class WorkbenchDialogBuilder {
 
   /**
    * Defines the style classes to set on the dialog.
+   *
    * @param styleClasses to be set on the dialog
    * @return builder for chaining
    */
@@ -87,7 +91,8 @@ public class WorkbenchDialogBuilder {
   }
 
   /**
-   * Defines the details to be shown in an <b>error</b> dialog.
+   * Defines the details of an error to be shown in an <b>error</b> dialog.
+   *
    * @param details to be shown
    * @return builder for chaining
    */
@@ -97,7 +102,9 @@ public class WorkbenchDialogBuilder {
   }
 
   /**
-   * Defines the exception to be shown in an <b>error</b> dialog.
+   * Defines the exception to be shown in an <b>error</b> dialog and
+   * sets {@link WorkbenchDialog#details} to the stacktrace of this {@code exception}.
+   *
    * @param exception to be shown
    * @return builder for chaining
    */
