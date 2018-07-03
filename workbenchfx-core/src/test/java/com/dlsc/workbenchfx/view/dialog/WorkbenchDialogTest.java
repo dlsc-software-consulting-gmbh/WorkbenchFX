@@ -128,15 +128,6 @@ class WorkbenchDialogTest extends ApplicationTest {
       assertEquals(type, dialog.getType());
       assertEquals(buttonTypes.length, dialog.getButtonTypes().size());
       assertArrayEquals(buttonTypes, dialog.getButtonTypes().toArray());
-
-      // test default case
-      final Type mockType = mock(Type.class);
-      when(mockType.name()).thenReturn("THIS IS NOT POSSIBLE");
-      WorkbenchDialog build = WorkbenchDialog.builder(TITLE, content, mockType).build();
-      System.out.println(build.getButtonTypes());
-      // TODO: why no exception thrown?
-      /*assertThrows(UnsupportedOperationException.class,
-          () -> WorkbenchDialog.builder(TITLE, content, mockType).build());*/
     });
   }
 }

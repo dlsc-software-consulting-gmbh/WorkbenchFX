@@ -111,7 +111,7 @@ public final class WorkbenchDialog {
       }
     });
 
-    if (workbenchDialogBuilder.type != null) {
+    if (Objects.isNull(workbenchDialogBuilder.buttonTypes)) {
       // Type was defined
       initType(workbenchDialogBuilder.type);
     } else {
@@ -134,14 +134,13 @@ public final class WorkbenchDialog {
   private void initType(Type type) {
     this.type = type;
 
-    getStyleClass().add(type.name().toLowerCase());
+    if (!Objects.isNull(type)) {
+      getStyleClass().add(type.name().toLowerCase());
+    }
 
     switch (type) {
       case INPUT:
         getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
-        break;
-      case INFORMATION:
-        getButtonTypes().setAll(ButtonType.OK);
         break;
       case ERROR:
         getButtonTypes().setAll(ButtonType.CLOSE);
@@ -152,9 +151,8 @@ public final class WorkbenchDialog {
       case CONFIRMATION:
         getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
         break;
-      default:
-        LOGGER.error("Invalid Type of Dialog: " + type);
-        throw new UnsupportedOperationException("Dialog of this type doesn't exist!");
+      default: // INFORMATION
+        getButtonTypes().setAll(ButtonType.OK);
     }
   }
 
