@@ -153,10 +153,6 @@ public final class WorkbenchDialog {
     }
   }
 
-  private void initDetails(String details, Exception exception) {
-
-  }
-
   public final Type getType() {
     return type;
   }
