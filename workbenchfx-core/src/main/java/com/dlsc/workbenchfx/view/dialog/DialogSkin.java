@@ -120,6 +120,15 @@ public class DialogSkin extends SkinBase<DialogControl> {
         dialogPane.getStyleClass().removeAll(oldDialog.getStyleClass());
       }
 
+      // if the new dialog is an error dialog which uses the standard DialogMessageContent control
+      // wrap it in a DialogErrorContent control
+      if (newDialog.getType() == WorkbenchDialog.Type.ERROR &&
+          newDialog.getContent() instanceof DialogMessageContent) {
+        newDialog.setContent(
+            new DialogErrorContent(newDialog.getContent(), newDialog.getDetails())
+        );
+      }
+
       // update to new dialog
       dialogContentPane.getChildren().setAll(newDialog.getContent());
       dialogPane.getStyleClass().setAll("dialog-pane");
