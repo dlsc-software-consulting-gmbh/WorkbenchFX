@@ -27,6 +27,7 @@ public class WorkbenchDialogBuilder {
   boolean showButtonsBar = true;
   String[] styleClasses = new String[0];
   Exception exception = null;
+  String details = "";
 
   WorkbenchDialogBuilder(String title, Node content, ButtonType... buttonTypes) {
     this.title = title;
@@ -86,7 +87,17 @@ public class WorkbenchDialogBuilder {
   }
 
   /**
-   * Defines the exception to be shown in the dialog.
+   * Defines the details to be shown in an <b>error</b> dialog.
+   * @param details to be shown
+   * @return builder for chaining
+   */
+  public WorkbenchDialogBuilder details(String details) {
+    this.details = details;
+    return this;
+  }
+
+  /**
+   * Defines the exception to be shown in an <b>error</b> dialog.
    * @param exception to be shown
    * @return builder for chaining
    */

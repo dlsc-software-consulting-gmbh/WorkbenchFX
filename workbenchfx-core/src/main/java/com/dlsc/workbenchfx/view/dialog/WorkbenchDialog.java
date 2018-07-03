@@ -32,6 +32,7 @@ public final class WorkbenchDialog {
   private final BooleanProperty maximized = new SimpleBooleanProperty();
   private final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content");
   private final StringProperty title = new SimpleStringProperty(this, "title", "Dialog");
+  private final StringProperty details = new SimpleStringProperty(this, "details", "");
   private final ObservableList<String> styleClass = FXCollections.observableArrayList();
   private final BooleanProperty buttonsBarShown =
       new SimpleBooleanProperty(this, "buttonsBarShown", true);
@@ -228,6 +229,21 @@ public final class WorkbenchDialog {
   public final Exception getException() {
     return exception.get();
   }
+
+  // details
+
+  public String getDetails() {
+    return details.get();
+  }
+
+  public StringProperty detailsProperty() {
+    return details;
+  }
+
+  public void setDetails(String details) {
+    this.details.set(details);
+  }
+
 
   // blocking dialog or non-blocking dialog (modal or not modal)
 
