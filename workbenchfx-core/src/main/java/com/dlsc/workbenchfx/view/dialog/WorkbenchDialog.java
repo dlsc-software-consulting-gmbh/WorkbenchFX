@@ -61,6 +61,18 @@ public final class WorkbenchDialog {
   /**
    * Creates a builder for {@link WorkbenchDialog}.
    *
+   * @param title   of the dialog
+   * @param message of the dialog
+   * @param type    of the dialog
+   * @return builder object
+   */
+  public static WorkbenchDialogBuilder builder(String title, String message, Type type) {
+    return new WorkbenchDialogBuilder(title, new DialogContent(message), type);
+  }
+
+  /**
+   * Creates a builder for {@link WorkbenchDialog}.
+   *
    * @param title       of the dialog
    * @param content     of the dialog
    * @param buttonTypes to be used in this dialog
@@ -69,6 +81,19 @@ public final class WorkbenchDialog {
   public static WorkbenchDialogBuilder builder(
       String title, Node content, ButtonType... buttonTypes) {
     return new WorkbenchDialogBuilder(title, content, buttonTypes);
+  }
+
+  /**
+   * Creates a builder for {@link WorkbenchDialog}.
+   *
+   * @param title       of the dialog
+   * @param message     of the dialog
+   * @param buttonTypes to be used in this dialog
+   * @return builder object
+   */
+  public static WorkbenchDialogBuilder builder(
+      String title, String message, ButtonType... buttonTypes) {
+    return new WorkbenchDialogBuilder(title, new DialogContent(message), buttonTypes);
   }
 
   WorkbenchDialog(WorkbenchDialogBuilder workbenchDialogBuilder) {

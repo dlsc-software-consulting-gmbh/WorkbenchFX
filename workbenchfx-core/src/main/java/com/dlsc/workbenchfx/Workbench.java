@@ -8,6 +8,7 @@ import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
+import com.dlsc.workbenchfx.view.dialog.DialogContent;
 import com.dlsc.workbenchfx.view.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.dialog.WorkbenchDialog;
 import java.io.PrintWriter;
@@ -415,19 +416,6 @@ public class Workbench extends Control {
   }
 
   /**
-   * Internal method used to create the default content node of a dialog.
-   *
-   * @param message to be used for the content of the dialog
-   * @return content node to be displayed in the dialog
-   */
-  private Label createDialogContentNode(String message) {
-    Label messageLabel = new Label(message);
-    messageLabel.setWrapText(true);
-    VBox.setVgrow(messageLabel, Priority.ALWAYS);
-    return messageLabel;
-  }
-
-  /**
    * Hides the currently shown {@link WorkbenchDialog} in the view.
    */
   public final void hideDialog() {
@@ -484,7 +472,7 @@ public class Workbench extends Control {
    */
   private CompletableFuture<ButtonType> showStandardDialog(
       Type type, String title, String message) {
-    return showDialog(type, title, createDialogContentNode(message));
+    return showDialog(type, title, new DialogContent(message));
   }
 
   /**
@@ -549,7 +537,7 @@ public class Workbench extends Control {
    */
   private CompletableFuture<ButtonType> showErrorDialog(
       String title, String message, String details, Exception exception) {
-    final Label messageLabel = createDialogContentNode(message);
+    final Label messageLabel = new DialogContent(message);
 
     Node content;
 
