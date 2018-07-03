@@ -1,17 +1,12 @@
 package com.dlsc.workbenchfx.view.dialog;
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.HBox;
@@ -100,6 +95,9 @@ public class DialogSkin extends SkinBase<DialogControl> {
 
   private void setupBindings() {
     dialogButtonBar.managedProperty().bind(dialogButtonBar.visibleProperty());
+    // FIXME: these two select bindings result in these warnings:
+    /* com.sun.javafx.binding.SelectBinding$SelectBindingHelper getObservableValue
+       WARNING: Exception while evaluating select-binding */
     dialogButtonBar.visibleProperty().bind(Bindings.select(dialog, "buttonsBarShown"));
     dialogTitle.textProperty().bind(Bindings.select(dialog, "title"));
     Bindings.bindContent(dialogButtonBar.getButtons(), buttons);
