@@ -128,7 +128,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
       dialogResult.thenAccept(buttonType -> System.err.println("Dialog result: " + buttonType));
     });
     noButtonsBtn.setOnAction(event -> {
-      WorkbenchDialog dialog = WorkbenchDialog.builder("This dialog has no buttons", new Label("Click outside of the dialog to close it."), WorkbenchDialog.Type.INFORMATION)
+      WorkbenchDialog dialog = WorkbenchDialog.builder("This dialog has no buttons","Click outside of the dialog to close it.", WorkbenchDialog.Type.INFORMATION)
           .showButtonsBar(false)
           .build();
       CompletableFuture<ButtonType> dialogResult = getWorkbench().showDialog(dialog);
