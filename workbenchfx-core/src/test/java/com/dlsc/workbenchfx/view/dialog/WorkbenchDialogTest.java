@@ -22,7 +22,7 @@ class WorkbenchDialogTest extends ApplicationTest {
   private static final String MESSAGE = "Dialog Test Message";
   private static final ButtonType[] BUTTON_TYPES =
       new ButtonType[] {ButtonType.PREVIOUS, ButtonType.NEXT};
-  private Label CONTENT;
+  private Label content;
   private static final WorkbenchDialog.Type TYPE = WorkbenchDialog.Type.INFORMATION;
   private WorkbenchDialog dialog;
 
@@ -31,8 +31,8 @@ class WorkbenchDialogTest extends ApplicationTest {
   @Override
   public void start(Stage stage) {
     robot = new FxRobot();
-    CONTENT = new Label(MESSAGE);
-    Scene scene = new Scene(CONTENT, 100, 100);
+    content = new Label(MESSAGE);
+    Scene scene = new Scene(content, 100, 100);
     stage.setScene(scene);
     stage.show();
   }
@@ -40,9 +40,9 @@ class WorkbenchDialogTest extends ApplicationTest {
   @Test
   void testCtorContent() {
     robot.interact(() -> {
-      dialog = WorkbenchDialog.builder(TITLE, CONTENT, TYPE).build();
+      dialog = WorkbenchDialog.builder(TITLE, content, TYPE).build();
       assertEquals(TITLE, dialog.getTitle());
-      assertEquals(CONTENT, dialog.getContent());
+      assertEquals(content, dialog.getContent());
       assertEquals(TYPE, dialog.getType());
       assertEquals(TYPE.name().toLowerCase(), dialog.getStyleClass().get(0));
     });
@@ -75,9 +75,9 @@ class WorkbenchDialogTest extends ApplicationTest {
   @Test
   void testCtorButtonTypesContent() {
     robot.interact(() -> {
-      dialog = WorkbenchDialog.builder(TITLE, CONTENT, BUTTON_TYPES).build();
+      dialog = WorkbenchDialog.builder(TITLE, content, BUTTON_TYPES).build();
       assertEquals(TITLE, dialog.getTitle());
-      assertEquals(CONTENT, dialog.getContent());
+      assertEquals(content, dialog.getContent());
       assertEquals(null, dialog.getType());
       assertEquals(0, dialog.getStyleClass().size());
       assertEquals(BUTTON_TYPES.length, dialog.getButtonTypes().size());
@@ -96,35 +96,35 @@ class WorkbenchDialogTest extends ApplicationTest {
     robot.interact(() -> {
       Type type = Type.INPUT;
       ButtonType[] buttonTypes = new ButtonType[] {ButtonType.OK, ButtonType.CANCEL};
-      dialog = WorkbenchDialog.builder(TITLE, CONTENT, type).build();
+      dialog = WorkbenchDialog.builder(TITLE, content, type).build();
       assertEquals(type, dialog.getType());
       assertEquals(buttonTypes.length, dialog.getButtonTypes().size());
       assertArrayEquals(buttonTypes, dialog.getButtonTypes().toArray());
 
       type = Type.INFORMATION;
       buttonTypes = new ButtonType[] {ButtonType.OK};
-      dialog = WorkbenchDialog.builder(TITLE, CONTENT, type).build();
+      dialog = WorkbenchDialog.builder(TITLE, content, type).build();
       assertEquals(type, dialog.getType());
       assertEquals(buttonTypes.length, dialog.getButtonTypes().size());
       assertArrayEquals(buttonTypes, dialog.getButtonTypes().toArray());
 
       type = Type.ERROR;
       buttonTypes = new ButtonType[] {ButtonType.CLOSE};
-      dialog = WorkbenchDialog.builder(TITLE, CONTENT, type).build();
+      dialog = WorkbenchDialog.builder(TITLE, content, type).build();
       assertEquals(type, dialog.getType());
       assertEquals(buttonTypes.length, dialog.getButtonTypes().size());
       assertArrayEquals(buttonTypes, dialog.getButtonTypes().toArray());
 
       type = Type.WARNING;
       buttonTypes = new ButtonType[] {ButtonType.OK, ButtonType.CANCEL};
-      dialog = WorkbenchDialog.builder(TITLE, CONTENT, type).build();
+      dialog = WorkbenchDialog.builder(TITLE, content, type).build();
       assertEquals(type, dialog.getType());
       assertEquals(buttonTypes.length, dialog.getButtonTypes().size());
       assertArrayEquals(buttonTypes, dialog.getButtonTypes().toArray());
 
       type = Type.CONFIRMATION;
       buttonTypes = new ButtonType[] {ButtonType.YES, ButtonType.NO};
-      dialog = WorkbenchDialog.builder(TITLE, CONTENT, type).build();
+      dialog = WorkbenchDialog.builder(TITLE, content, type).build();
       assertEquals(type, dialog.getType());
       assertEquals(buttonTypes.length, dialog.getButtonTypes().size());
       assertArrayEquals(buttonTypes, dialog.getButtonTypes().toArray());
@@ -132,11 +132,11 @@ class WorkbenchDialogTest extends ApplicationTest {
       // test default case
       final Type mockType = mock(Type.class);
       when(mockType.name()).thenReturn("THIS IS NOT POSSIBLE");
-      WorkbenchDialog build = WorkbenchDialog.builder(TITLE, CONTENT, mockType).build();
+      WorkbenchDialog build = WorkbenchDialog.builder(TITLE, content, mockType).build();
       System.out.println(build.getButtonTypes());
       // TODO: why no exception thrown?
       /*assertThrows(UnsupportedOperationException.class,
-          () -> WorkbenchDialog.builder(TITLE, CONTENT, mockType).build());*/
+          () -> WorkbenchDialog.builder(TITLE, content, mockType).build());*/
     });
   }
 }
