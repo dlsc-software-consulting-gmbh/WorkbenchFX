@@ -8,7 +8,7 @@ import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
-import com.dlsc.workbenchfx.view.dialog.DialogContent;
+import com.dlsc.workbenchfx.view.dialog.DialogMessageContent;
 import com.dlsc.workbenchfx.view.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.dialog.WorkbenchDialog;
 import java.io.PrintWriter;
@@ -41,7 +41,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -472,7 +471,7 @@ public class Workbench extends Control {
    */
   private CompletableFuture<ButtonType> showStandardDialog(
       Type type, String title, String message) {
-    return showDialog(type, title, new DialogContent(message));
+    return showDialog(type, title, new DialogMessageContent(message));
   }
 
   /**
@@ -537,7 +536,7 @@ public class Workbench extends Control {
    */
   private CompletableFuture<ButtonType> showErrorDialog(
       String title, String message, String details, Exception exception) {
-    final Label messageLabel = new DialogContent(message);
+    final Label messageLabel = new DialogMessageContent(message);
 
     Node content;
 

@@ -10,13 +10,13 @@ import javafx.scene.layout.VBox;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class DialogContent extends Label {
+public class DialogMessageContent extends Label {
 
   /**
    * Creates a label to be used as the content of a {@link WorkbenchDialog}.
    * @param message of the dialog
    */
-  public DialogContent(String message) {
+  public DialogMessageContent(String message) {
     setText(message);
     setWrapText(true); // makes sure long text doesn't get cut off at the end of a dialog
     VBox.setVgrow(this,Priority.ALWAYS); // makes sure long text can grow in the dialog

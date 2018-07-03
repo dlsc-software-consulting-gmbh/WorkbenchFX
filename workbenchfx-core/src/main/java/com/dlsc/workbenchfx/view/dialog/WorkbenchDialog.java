@@ -68,7 +68,7 @@ public final class WorkbenchDialog {
    * @return builder object
    */
   public static WorkbenchDialogBuilder builder(String title, String message, Type type) {
-    return new WorkbenchDialogBuilder(title, new DialogContent(message), type);
+    return new WorkbenchDialogBuilder(title, new DialogMessageContent(message), type);
   }
 
   /**
@@ -94,7 +94,7 @@ public final class WorkbenchDialog {
    */
   public static WorkbenchDialogBuilder builder(
       String title, String message, ButtonType... buttonTypes) {
-    return new WorkbenchDialogBuilder(title, new DialogContent(message), buttonTypes);
+    return new WorkbenchDialogBuilder(title, new DialogMessageContent(message), buttonTypes);
   }
 
   WorkbenchDialog(WorkbenchDialogBuilder workbenchDialogBuilder) {
