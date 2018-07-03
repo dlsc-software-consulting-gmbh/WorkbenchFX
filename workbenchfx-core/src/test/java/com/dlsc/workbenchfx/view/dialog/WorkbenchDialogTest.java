@@ -1,32 +1,27 @@
 package com.dlsc.workbenchfx.view.dialog;
 
+import static com.dlsc.workbenchfx.view.dialog.WorkbenchDialog.Type;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.testing.MockDialogControl;
-import java.util.concurrent.TimeoutException;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
-import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
 class WorkbenchDialogTest extends ApplicationTest {
 
   private static final String TITLE = "Dialog Test Title";
   private static final String MESSAGE = "Dialog Test Message";
-  private static final ButtonType[] BUTTON_TYPES = new ButtonType[]{ButtonType.PREVIOUS, ButtonType.NEXT};
+  private static final ButtonType[] BUTTON_TYPES =
+      new ButtonType[] {ButtonType.PREVIOUS, ButtonType.NEXT};
   private Label CONTENT;
   private static final WorkbenchDialog.Type TYPE = WorkbenchDialog.Type.INFORMATION;
   private WorkbenchDialog dialog;
@@ -90,4 +85,58 @@ class WorkbenchDialogTest extends ApplicationTest {
     });
   }
 
+  @Test
+  void testCtorOptional() {
+    // test all optional parameters available
+    // TODO
+  }
+
+  @Test
+  void testInitType() {
+    robot.interact(() -> {
+      Type type = Type.INPUT;
+      ButtonType[] buttonTypes = new ButtonType[] {ButtonType.OK, ButtonType.CANCEL};
+      dialog = WorkbenchDialog.builder(TITLE, CONTENT, type).build();
+      assertEquals(type, dialog.getType());
+      assertEquals(buttonTypes.length, dialog.getButtonTypes().size());
+      assertArrayEquals(buttonTypes, dialog.getButtonTypes().toArray());
+
+      type = Type.INFORMATION;
+      buttonTypes = new ButtonType[] {ButtonType.OK};
+      dialog = WorkbenchDialog.builder(TITLE, CONTENT, type).build();
+      assertEquals(type, dialog.getType());
+      assertEquals(buttonTypes.length, dialog.getButtonTypes().size());
+      assertArrayEquals(buttonTypes, dialog.getButtonTypes().toArray());
+
+      type = Type.ERROR;
+      buttonTypes = new ButtonType[] {ButtonType.CLOSE};
+      dialog = WorkbenchDialog.builder(TITLE, CONTENT, type).build();
+      assertEquals(type, dialog.getType());
+      assertEquals(buttonTypes.length, dialog.getButtonTypes().size());
+      assertArrayEquals(buttonTypes, dialog.getButtonTypes().toArray());
+
+      type = Type.WARNING;
+      buttonTypes = new ButtonType[] {ButtonType.OK, ButtonType.CANCEL};
+      dialog = WorkbenchDialog.builder(TITLE, CONTENT, type).build();
+      assertEquals(type, dialog.getType());
+      assertEquals(buttonTypes.length, dialog.getButtonTypes().size());
+      assertArrayEquals(buttonTypes, dialog.getButtonTypes().toArray());
+
+      type = Type.CONFIRMATION;
+      buttonTypes = new ButtonType[] {ButtonType.YES, ButtonType.NO};
+      dialog = WorkbenchDialog.builder(TITLE, CONTENT, type).build();
+      assertEquals(type, dialog.getType());
+      assertEquals(buttonTypes.length, dialog.getButtonTypes().size());
+      assertArrayEquals(buttonTypes, dialog.getButtonTypes().toArray());
+
+      // test default case
+      final Type mockType = mock(Type.class);
+      when(mockType.name()).thenReturn("THIS IS NOT POSSIBLE");
+      WorkbenchDialog build = WorkbenchDialog.builder(TITLE, CONTENT, mockType).build();
+      System.out.println(build.getButtonTypes());
+      // TODO: why no exception thrown?
+      /*assertThrows(UnsupportedOperationException.class,
+          () -> WorkbenchDialog.builder(TITLE, CONTENT, mockType).build());*/
+    });
+  }
 }

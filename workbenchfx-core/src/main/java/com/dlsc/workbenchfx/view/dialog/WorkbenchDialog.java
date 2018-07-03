@@ -153,6 +153,7 @@ public final class WorkbenchDialog {
         getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
         break;
       default:
+        LOGGER.error("Invalid Type of Dialog: " + type);
         throw new UnsupportedOperationException("Dialog of this type doesn't exist!");
     }
   }
