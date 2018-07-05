@@ -89,7 +89,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         dialog = WorkbenchDialog.builder(TITLE, content, type).build()
 
         expect:
-        type == dialog.getType()
+        dialog.getType() == type
         dialog.getButtonTypes().size() == buttonTypes.length
         dialog.getButtonTypes().toArray() == buttonTypes
 
