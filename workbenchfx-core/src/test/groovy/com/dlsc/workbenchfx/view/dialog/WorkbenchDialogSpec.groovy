@@ -1,3 +1,5 @@
+import spock.lang.Specification
+
 class WorkbenchDialogSpec extends Specification {
     def "maximum of two numbers"(int a, int b, int c) {
         expect:
