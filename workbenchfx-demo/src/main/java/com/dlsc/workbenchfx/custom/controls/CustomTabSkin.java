@@ -2,7 +2,7 @@ package com.dlsc.workbenchfx.custom.controls;
 
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
 
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.ReadOnlyBooleanProperty;
@@ -27,7 +27,7 @@ public class CustomTabSkin extends SkinBase<CustomTab> {
   private static final Logger LOGGER = LogManager.getLogger(
       CustomTabSkin.class.getName());
 
-  private final ReadOnlyObjectProperty<Module> module;
+  private final ReadOnlyObjectProperty<WorkbenchModule> module;
 
   private HBox controlBox;
   private Button closeBtn;

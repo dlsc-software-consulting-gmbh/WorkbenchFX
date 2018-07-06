@@ -116,7 +116,7 @@ public class ExtendedDemo extends Application {
                     new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
-            .navigationDrawer(
+            .navigationDrawerItems(
                 menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
             .build();
 

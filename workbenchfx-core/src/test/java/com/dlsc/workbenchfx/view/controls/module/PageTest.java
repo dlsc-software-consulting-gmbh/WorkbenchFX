@@ -6,7 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import com.dlsc.workbenchfx.testing.MockPage;
 import com.dlsc.workbenchfx.testing.MockTile;
 import javafx.beans.property.IntegerProperty;
@@ -30,9 +30,11 @@ class PageTest extends ApplicationTest {
   private FxRobot robot;
   private Workbench mockBench;
   private static final int SIZE = 10;
-  private Module[] mockModules = new Module[SIZE];
+  private WorkbenchModule[] mockModules = new WorkbenchModule[SIZE];
   private Node[] moduleNodes = new Node[SIZE];
-  private ObservableList<Module> modulesList;
+  private int mockTileFactoryCalls = 0;
+  private Tile[] mockTiles = new Tile[SIZE];
+  private ObservableList<WorkbenchModule> modulesList;
 
   IntegerProperty modulesPerPage;
 
@@ -52,11 +54,16 @@ class PageTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = createMockModule(moduleNodes[i], null,true, "Module " + i);
+      mockModules[i] = createMockModule(moduleNodes[i], null, true, "Module " + i);
       MockTile mockTile = new MockTile(mockBench);
       mockTile.setModule(mockModules[i]);
-      when(mockBench.getTile(mockModules[i])).thenReturn(mockTile);
+      mockTiles[i] = mockTile;
     }
+    when(mockBench.getTileFactory()).thenReturn(mockBench -> {
+      Tile mockTile = mockTiles[mockTileFactoryCalls % SIZE];
+      mockTileFactoryCalls++;
+      return mockTile;
+    });
 
     modulesList = FXCollections.observableArrayList(mockModules);
     when(mockBench.getModules()).thenReturn(modulesList);

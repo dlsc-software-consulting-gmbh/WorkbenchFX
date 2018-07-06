@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
@@ -14,16 +14,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the standard control used to display {@link Page}s with {@link Module}s in the home
- * screen.
+ * Represents the standard control used to display {@link Page}s with {@link WorkbenchModule}s in
+ * the home screen.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
 public class Page extends Control {
   private static final Logger LOGGER = LogManager.getLogger(Page.class.getName());
+  public static final int INITIAL_PAGE_INDEX = -1;
   private final Workbench workbench;
-  private final ObservableList<Module> modules;
+  private final ObservableList<WorkbenchModule> modules;
   private final IntegerProperty pageIndex;
   private final ObservableList<Tile> tiles;
   private final IntegerProperty modulesPerPage;
@@ -36,7 +37,7 @@ public class Page extends Control {
    */
   public Page(Workbench workbench) {
     this.workbench = workbench;
-    pageIndex = new SimpleIntegerProperty();
+    pageIndex = new SimpleIntegerProperty(INITIAL_PAGE_INDEX);
     modulesPerPage = workbench.modulesPerPageProperty();
     modules = workbench.getModules();
     tiles = FXCollections.observableArrayList();
@@ -53,6 +54,10 @@ public class Page extends Control {
   }
 
   private void updateTiles() {
+    if (getPageIndex() == INITIAL_PAGE_INDEX) {
+      LOGGER.debug("Page has not been initialized yet - skipping updates of tiles");
+      return;
+    }
     // remove any preexisting tiles in the list
     LOGGER.debug(String.format("Tiles in page %s are being updated", getPageIndex()));
     tiles.clear();
@@ -62,7 +67,12 @@ public class Page extends Control {
     modules.stream()
         .skip(position) // skip all tiles from previous pages
         .limit(workbench.getModulesPerPage()) // only take as many tiles as there are per page
-        .map(workbench::getTile)
+        .map(module -> {
+          // create tile
+          Tile tile = workbench.getTileFactory().call(workbench);
+          tile.setModule(module);
+          return tile;
+        })
         .map(Tile.class::cast)
         .forEachOrdered(tiles::add);
   }

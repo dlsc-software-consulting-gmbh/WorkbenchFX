@@ -1,6 +1,6 @@
 ignore:
-  - "**/*View.java"         # Views
-  - "**/*Skin.java"         # Skins
-  - "**/Module.java"        # Abstract class cannot be tested: Module
-  - "**/View.java"          # Interface: View
-  - "**/Presenter.java"     # Interface: Presenter
+  - "**/*View.java"               # Views
+  - "**/*Skin.java"               # Skins
+  - "**/WorkbenchModule.java"     # Abstract class cannot be tested: Module
+  - "**/View.java"                # Interface: View
+  - "**/Presenter.java"           # Interface: Presenter

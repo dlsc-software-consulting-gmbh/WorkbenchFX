@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import com.dlsc.workbenchfx.testing.MockTab;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -32,11 +32,11 @@ class TabTest extends ApplicationTest {
   private FxRobot robot;
   private Workbench mockBench;
   private static final int SIZE = 10;
-  private Module[] mockModules = new Module[SIZE];
+  private WorkbenchModule[] mockModules = new WorkbenchModule[SIZE];
   private Node[] moduleNodes = new Node[SIZE];
   private Node[] moduleIcons = new Node[SIZE];
-  private ObservableList<Module> modulesList;
-  private ObjectProperty<Module> activeModule;
+  private ObservableList<WorkbenchModule> modulesList;
+  private ObjectProperty<WorkbenchModule> activeModule;
 
   private MockTab tab;
 

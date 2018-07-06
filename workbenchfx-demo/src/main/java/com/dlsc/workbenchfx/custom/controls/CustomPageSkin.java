@@ -4,7 +4,6 @@ import com.dlsc.workbenchfx.view.controls.module.Tile;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.GridPane;
 import org.apache.logging.log4j.LogManager;

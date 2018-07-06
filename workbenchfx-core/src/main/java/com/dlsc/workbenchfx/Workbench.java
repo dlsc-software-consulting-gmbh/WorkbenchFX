@@ -1,15 +1,19 @@
 package com.dlsc.workbenchfx;
 
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.module.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -18,9 +22,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,7 +45,7 @@ public class Workbench extends Control {
   public static final String STYLE_CLASS_ACTIVE_HOME = "active-home";
 
   // Custom Controls
-  private Node navigationDrawer;
+  private ObjectProperty<NavigationDrawer> navigationDrawer = new SimpleObjectProperty<>();
 
   // Lists
   private final ObservableSet<Node> toolbarControlsRight =
@@ -61,20 +67,20 @@ public class Workbench extends Control {
   /**
    * List of all modules.
    */
-  private final ObservableList<Module> modules = FXCollections.observableArrayList();
+  private final ObservableList<WorkbenchModule> modules = FXCollections.observableArrayList();
 
   /**
    * List of all currently open modules. Open modules are being displayed as open tabs in the
    * application.
    */
-  private final ObservableList<Module> openModules = FXCollections.observableArrayList();
+  private final ObservableList<WorkbenchModule> openModules = FXCollections.observableArrayList();
 
   /**
    * Currently active module. Active module is the module, which is currently being displayed in the
    * view. When the home screen is being displayed, {@code activeModule} and {@code
    * activeModuleView} are null.
    */
-  private final ObjectProperty<Module> activeModule = new SimpleObjectProperty<>();
+  private final ObjectProperty<WorkbenchModule> activeModule = new SimpleObjectProperty<>();
   private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
   // Factories
@@ -91,15 +97,27 @@ public class Workbench extends Control {
 
   // Properties
   private final IntegerProperty modulesPerPage;
+  private final IntegerProperty amountOfPages;
 
   Workbench(WorkbenchBuilder builder) {
     modulesPerPage = new SimpleIntegerProperty(builder.modulesPerPage);
+    amountOfPages = new SimpleIntegerProperty(calculateAmountOfPages());
+    initAmountOfPagesBinding();
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initModules(builder.modules);
+    setupCleanup();
+  }
+
+  private void initAmountOfPagesBinding() {
+    amountOfPages.bind(
+        Bindings.createIntegerBinding(this::calculateAmountOfPages,
+            modulesPerPageProperty(), getModules()
+        )
+    );
   }
 
   @Override
@@ -113,7 +131,7 @@ public class Workbench extends Control {
    * @param modules which should be loaded for the application
    * @return builder object
    */
-  public static WorkbenchBuilder builder(Module... modules) {
+  public static WorkbenchBuilder builder(WorkbenchModule... modules) {
     return new WorkbenchBuilder(modules);
   }
 
@@ -131,10 +149,16 @@ public class Workbench extends Control {
     if (builder.navigationDrawerItems != null) {
       navigationDrawerItems.addAll(builder.navigationDrawerItems);
     }
-    navigationDrawer = builder.navigationDrawerFactory.call(this);
+    // when control of navigation drawer changes, pass in the workbench object
+    navigationDrawerProperty().addListener((observable, oldControl, newControl) -> {
+      if (oldControl != newControl) {
+        newControl.setWorkbench(this);
+      }
+    });
+    setNavigationDrawer(builder.navigationDrawer);
   }
 
-  private void initModules(Module... modules) {
+  private void initModules(WorkbenchModule... modules) {
     this.modules.addAll(modules);
 
     // handle changes of the active module
@@ -170,16 +194,50 @@ public class Workbench extends Control {
     });
   }
 
+  private void setupCleanup() {
+    Platform.runLater(() -> {
+      Scene scene = getScene();
+      // if there is no scene, don't cause NPE by calling "getWindow()" on null
+      if (Objects.isNull(scene)) {
+        // should only be thrown in tests with mocked views
+        LOGGER.error("setupCleanup - Scene could not be found! setOnCloseRequest was not set");
+        return;
+      }
+
+      Stage stage = (Stage) getScene().getWindow();
+      // when application is closed, destroy all modules
+      stage.setOnCloseRequest(event -> {
+        LOGGER.trace("Stage was requested to be closed - Close all open modules first");
+
+        // must be implemented by using "while" since the list of getOpenModules changes when
+        // modules are closed!
+        while (getOpenModules().size() > 0) {
+          WorkbenchModule moduleToClose = getOpenModules().get(0);
+          LOGGER.trace("Cleanup - Close module: " + moduleToClose);
+          if (!closeModule(moduleToClose)) {
+            LOGGER.debug(
+                String.format("Module %s prevented closing of the application", moduleToClose)
+            );
+            // module can't be destroyed yet - prevent closing of the application
+            event.consume();
+            // stop the closing of modules to proceed
+            break;
+          }
+        }
+      });
+    });
+  }
+
   /**
    * Opens the {@code module} in a new tab, if it isn't initialized yet or else opens the tab of
    * it.
    *
    * @param module the module to be opened or null to go to the home view
    */
-  public void openModule(Module module) {
+  public void openModule(WorkbenchModule module) {
     if (!modules.contains(module)) {
       throw new IllegalArgumentException(
-          "Module was not passed in with the constructor of WorkbenchFxModel");
+          "Module has not been loaded yet");
     }
     LOGGER.trace("openModule - set active module to " + module);
     activeModule.setValue(module);
@@ -198,15 +256,17 @@ public class Workbench extends Control {
    * @param module to be closed
    * @return true if closing was successful
    */
-  public boolean closeModule(Module module) {
+  public boolean closeModule(WorkbenchModule module) {
+    LOGGER.trace("closeModule - " + module);
+    LOGGER.trace("closeModule - List of open modules: " + openModules);
     Objects.requireNonNull(module);
     int i = openModules.indexOf(module);
     if (i == -1) {
-      throw new IllegalArgumentException("Module has not been loaded yet.");
+      throw new IllegalArgumentException("Module has not been opened yet.");
     }
     // set new active module
-    Module oldActive = getActiveModule();
-    Module newActive;
+    WorkbenchModule oldActive = getActiveModule();
+    WorkbenchModule newActive;
     if (oldActive != module) {
       // if we are not closing the currently active module, stay at the current
       newActive = oldActive;
@@ -231,7 +291,10 @@ public class Workbench extends Control {
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
       LOGGER.trace("closeModule - Destroy, Removal successful: " + removal + " - " + module);
-      LOGGER.trace("closeModule - Set active module to: " + newActive);
+      if (oldActive != newActive) {
+        // only log if the active module has been changed
+        LOGGER.trace("closeModule - Set active module to: " + newActive);
+      }
       activeModule.setValue(newActive);
       return removal;
     }
@@ -244,7 +307,7 @@ public class Workbench extends Control {
    * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}. This
    *           is repeated until all modules are rendered as tiles.
    */
-  public int amountOfPages() {
+  private int calculateAmountOfPages() {
     int amountOfModules = getModules().size();
     int modulesPerPage = getModulesPerPage();
     // if all pages are completely full
@@ -256,77 +319,23 @@ public class Workbench extends Control {
     }
   }
 
-  /**
-   * Generates a new {@link Tab} control used for the representation of tabs.
-   *
-   * @param module the module for which the {@link Tab} should be created
-   * @return a corresponding {@link Tab} which is created by using the {@code tabFactory}
-   */
-  public Tab getTab(Module module) {
-    Tab tab = tabFactory.get().call(this);
-    tab.setModule(module);
-    return tab;
-  }
-
-  /**
-   * Generates a new {@link Tile} control used for the representation of tiles on the home screen.
-   *
-   * @param module the module for which the {@link Tile} should be created
-   * @return a corresponding {@link Tile} which is created by using the {@code tileFactory}
-   */
-  public Node getTile(Module module) {
-    Tile tile = tileFactory.get().call(this);
-    tile.setModule(module);
-    return tile;
-  }
-
-  /**
-   * Generates a new {@link Page} for the tiles on the home screen.
-   *
-   * @param pageIndex the page index for which the page should be created
-   * @return a corresponding page
-   */
-  public Page getPage(int pageIndex) {
-    Page page = pageFactory.get().call(this);
-    page.setPageIndex(pageIndex);
-    return page;
-  }
-
-  public ObservableList<Module> getOpenModules() {
+  public ObservableList<WorkbenchModule> getOpenModules() {
     return FXCollections.unmodifiableObservableList(openModules);
   }
 
-  public ObservableList<Module> getModules() {
-    return FXCollections.unmodifiableObservableList(modules);
-  }
-
   /**
-   * Adds the {@code module} to the home screen at runtime.
-   *
-   * @param module to be added
-   * @return true if successful, false if already added
+   * Returns a list of the currently loaded modules.
+   * @implNote Use this method to add or remove modules at runtime.
    */
-  public boolean addModule(Module module) {
-    if (modules.contains(module)) {
-      return false;
-    }
-    return modules.add(module);
+  public ObservableList<WorkbenchModule> getModules() {
+    return modules;
   }
 
-  /**
-   * Removes the {@code module} at runtime.
-   * @param module to be removed
-   * @return true if successful, false if not present
-   */
-  public boolean removeModule(Module module) {
-    return modules.remove(module);
-  }
-
-  public Module getActiveModule() {
+  public WorkbenchModule getActiveModule() {
     return activeModule.get();
   }
 
-  public ReadOnlyObjectProperty<Module> activeModuleProperty() {
+  public ReadOnlyObjectProperty<WorkbenchModule> activeModuleProperty() {
     return activeModule;
   }
 
@@ -338,58 +347,20 @@ public class Workbench extends Control {
     return activeModuleView;
   }
 
-  public Node getNavigationDrawer() {
-    return navigationDrawer;
-  }
-
   /**
-   * Removes a {@link Node} if one is in the {@code toolbarControlsLeft}.
-   *
-   * @param node the {@link Node} which should be removed
-   * @return true if sucessful, false if not
+   * Returns a list of the currently loaded toolbar controls on the left.
+   * @implNote Use this method to add or remove toolbar controls on the left at runtime.
    */
-  public boolean removeToolbarControlLeft(Node node) {
-    return toolbarControlsLeft.remove(node);
-  }
-
-  /**
-   * Inserts the given {@code node} at the end of the left toolbar. If the left toolbar already
-   * contains {@code node}, it will not be added.
-   *
-   * @param node to be added to the left toolbar
-   * @return true if {@code node} was added to the left toolbar, false if not
-   */
-  public boolean addToolbarControlLeft(Node node) {
-    return toolbarControlsLeft.add(node);
-  }
-
   public ObservableSet<Node> getToolbarControlsLeft() {
-    return FXCollections.unmodifiableObservableSet(toolbarControlsLeft);
+    return toolbarControlsLeft;
   }
 
   /**
-   * Removes a {@link Node} if one is in the {@code toolbarControlsRight}.
-   *
-   * @param node which should be removed
-   * @return true if sucessful, false if not
+   * Returns a list of the currently loaded toolbar controls on the right.
+   * @implNote Use this method to add or remove toolbar controls on the right at runtime.
    */
-  public boolean removeToolbarControlRight(Node node) {
-    return toolbarControlsRight.remove(node);
-  }
-
-  /**
-   * Inserts a given {@code node} at the end of the right toolbar. If the right toolbar already
-   * contains the {@code node}, it will not be added.
-   *
-   * @param node to be added to the right toolbar
-   * @return true if {@code node} was added to the right toolbar, false if not
-   */
-  public boolean addToolbarControlRight(Node node) {
-    return toolbarControlsRight.add(node);
-  }
-
   public ObservableSet<Node> getToolbarControlsRight() {
-    return FXCollections.unmodifiableObservableSet(toolbarControlsRight);
+    return toolbarControlsRight;
   }
 
   /**
@@ -407,7 +378,7 @@ public class Workbench extends Control {
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
-   *                 overlay} itself must call {@link Workbench#hideOverlay(Node, boolean)} to hide
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide
    *                 it.
    */
   public boolean showOverlay(Node overlay, boolean blocking) {
@@ -427,16 +398,14 @@ public class Workbench extends Control {
    * using {@link Workbench#showOverlay(Node, boolean)}.
    *
    * @param overlay  to be hidden
-   * @param blocking same value which was used when previously calling {@link
-   *                 Workbench#showOverlay(Node, boolean)}
    * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
    *           remove it from the scene graph entirely.
    *           If keeping the {@code overlay} loaded hidden in the scene graph is not possible due
    *           to performance reasons, call {@link Workbench#clearOverlays()} after this method.
    */
-  public boolean hideOverlay(Node overlay, boolean blocking) {
+  public boolean hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");
-    if (blocking) {
+    if (blockingOverlaysShown.contains(overlay)) {
       return blockingOverlaysShown.remove(overlay);
     } else {
       return nonBlockingOverlaysShown.remove(overlay);
@@ -455,23 +424,27 @@ public class Workbench extends Control {
   }
 
   public void showNavigationDrawer() {
-    showOverlay(navigationDrawer, false);
+    showOverlay(navigationDrawer.get(), false);
   }
 
   public void hideNavigationDrawer() {
-    hideOverlay(navigationDrawer, false);
+    hideOverlay(navigationDrawer.get());
+  }
+
+  public ObjectProperty<NavigationDrawer> navigationDrawerProperty() {
+    return navigationDrawer;
+  }
+
+  public NavigationDrawer getNavigationDrawer() {
+    return navigationDrawer.get();
+  }
+
+  public void setNavigationDrawer(NavigationDrawer navigationDrawer) {
+    this.navigationDrawer.set(navigationDrawer);
   }
 
   public ObservableList<MenuItem> getNavigationDrawerItems() {
-    return FXCollections.unmodifiableObservableList(navigationDrawerItems);
-  }
-
-  public void addNavigationDrawerItems(MenuItem... menuItems) {
-    navigationDrawerItems.addAll(menuItems);
-  }
-
-  public void removeNavigationDrawerItems(MenuItem... menuItems) {
-    navigationDrawerItems.removeAll(menuItems);
+    return navigationDrawerItems;
   }
 
   public ObservableSet<Node> getNonBlockingOverlaysShown() {
@@ -486,12 +459,56 @@ public class Workbench extends Control {
     return modulesPerPage.get();
   }
 
+  public void setModulesPerPage(int modulesPerPage) {
+    this.modulesPerPage.set(modulesPerPage);
+  }
+
+  public Callback<Workbench, Tab> getTabFactory() {
+    return tabFactory.get();
+  }
+
+  public ObjectProperty<Callback<Workbench, Tab>> tabFactoryProperty() {
+    return tabFactory;
+  }
+
+  public void setTabFactory(Callback<Workbench, Tab> tabFactory) {
+    this.tabFactory.set(tabFactory);
+  }
+
+  public Callback<Workbench, Tile> getTileFactory() {
+    return tileFactory.get();
+  }
+
+  public ObjectProperty<Callback<Workbench, Tile>> tileFactoryProperty() {
+    return tileFactory;
+  }
+
+  public void setTileFactory(Callback<Workbench, Tile> tileFactory) {
+    this.tileFactory.set(tileFactory);
+  }
+
+  public Callback<Workbench, Page> getPageFactory() {
+    return pageFactory.get();
+  }
+
+  public ObjectProperty<Callback<Workbench, Page>> pageFactoryProperty() {
+    return pageFactory;
+  }
+
+  public void setPageFactory(Callback<Workbench, Page> pageFactory) {
+    this.pageFactory.set(pageFactory);
+  }
+
   public IntegerProperty modulesPerPageProperty() {
     return modulesPerPage;
   }
 
-  public void setModulesPerPage(int modulesPerPage) {
-    this.modulesPerPage.set(modulesPerPage);
+  public int getAmountOfPages() {
+    return amountOfPages.get();
+  }
+
+  public ReadOnlyIntegerProperty amountOfPagesProperty() {
+    return amountOfPages;
   }
 
   @Override
