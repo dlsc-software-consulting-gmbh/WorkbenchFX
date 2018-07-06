@@ -22,7 +22,7 @@ public class ToolbarView extends HBox implements View {
   private FontAwesomeIconView menuIconView;
   Button homeBtn;
   Button menuBtn;
-  private SelectionStrip<String> tabBox;
+  private SelectionStrip<Node> tabBox;
   HBox toolbarControlLeftBox;
   HBox toolbarControlRightBox;
 
@@ -105,8 +105,7 @@ public class ToolbarView extends HBox implements View {
    * @param tab the {@link Node} to be added
    */
   public void addTab(Node tab) {
-//    tabBox.getChildren().add(tab);
-    tabBox.getItems().add(tab.toString());
+    tabBox.getItems().add(tab);
   }
 
   /**
@@ -120,7 +119,6 @@ public class ToolbarView extends HBox implements View {
    * @param index of the tab to be removed
    */
   public void removeTab(int index) {
-//    tabBox.getChildren().remove(index);
     tabBox.getItems().remove(index);
   }
 

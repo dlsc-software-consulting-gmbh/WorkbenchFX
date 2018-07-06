@@ -8,9 +8,11 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.css.PseudoClass;
 import javafx.scene.AccessibleAttribute;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 
-public class StripCell<T> extends Label {
+public class StripCell<T> extends Pane {
 
   private final static PseudoClass PSEUDO_CLASS_SELECTED = PseudoClass.getPseudoClass("selected");
 
@@ -36,7 +38,7 @@ public class StripCell<T> extends Label {
     });
 
     itemProperty().addListener(it -> {
-      setText(getItem() == null ? "" : getItem().toString());
+      getChildren().add((Node) getItem());
       updateSelection();
     });
   }
