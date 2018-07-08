@@ -159,6 +159,13 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         then: "Details gets updated with stacktrace of the new exception by exception listener"
         dialog.getException() == exception2
         dialog.getDetails() == details2
+
+        when:
+        dialog.setException(null)
+
+        then: "Details are not updated"
+        dialog.getException() == null
+        dialog.getDetails() == details2
     }
 
     def setupMockException(Exception mock, String details) {
