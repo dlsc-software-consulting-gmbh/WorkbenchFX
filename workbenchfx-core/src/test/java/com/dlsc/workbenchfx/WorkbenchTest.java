@@ -1273,16 +1273,11 @@ class WorkbenchTest extends ApplicationTest {
   @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane")
   void showDialogNonBlockingCloseGlassPane() {
     robot.interact(() -> {
-      assertSame(null, workbench.getDialog());
-      assertSame(0, workbench.getBlockingOverlaysShown().size());
-      assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+      assertDialogNotShown();
 
       CompletableFuture<ButtonType> result = workbench.showDialog(mockDialog);
 
-      assertSame(mockDialogResult, result);
-      assertSame(mockDialog, workbench.getDialog());
-      assertSame(0, workbench.getBlockingOverlaysShown().size());
-      assertSame(1, workbench.getNonBlockingOverlaysShown().size());
+      assertDialogShown(result, false);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       verify(mockDialog).getResult();
       verify(mockDialogResult, never()).complete(any());
@@ -1294,9 +1289,7 @@ class WorkbenchTest extends ApplicationTest {
       verify(mockDialogResult).isDone();
       verify(mockDialogResult).complete(ButtonType.CANCEL);
       verifyNoMoreInteractions(mockDialogResult);
-      assertSame(null, workbench.getDialog());
-      assertSame(0, workbench.getBlockingOverlaysShown().size());
-      assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+      assertDialogNotShown();
     });
   }
 
@@ -1304,16 +1297,11 @@ class WorkbenchTest extends ApplicationTest {
   @DisplayName("Show non-blocking dialog and close by clicking on one of the dialog buttons")
   void showDialogNonBlockingCloseButton() {
     robot.interact(() -> {
-      assertSame(null, workbench.getDialog());
-      assertSame(0, workbench.getBlockingOverlaysShown().size());
-      assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+      assertDialogNotShown();
 
       CompletableFuture<ButtonType> result = workbench.showDialog(mockDialog);
 
-      assertSame(mockDialogResult, result);
-      assertSame(mockDialog, workbench.getDialog());
-      assertSame(0, workbench.getBlockingOverlaysShown().size());
-      assertSame(1, workbench.getNonBlockingOverlaysShown().size());
+      assertDialogShown(result, false);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       verify(mockDialog).getResult();
       verify(mockDialogResult, never()).complete(any());
@@ -1326,9 +1314,8 @@ class WorkbenchTest extends ApplicationTest {
       verify(mockDialogResult).isDone();
       verify(mockDialogResult).complete(mockDialog.getButtonTypes().get(0));
       verifyNoMoreInteractions(mockDialogResult);
-      assertSame(null, workbench.getDialog());
-      assertSame(0, workbench.getBlockingOverlaysShown().size());
-      assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+
+      assertDialogNotShown();
     });
   }
 
@@ -1338,16 +1325,11 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       when(mockDialog.isBlocking()).thenReturn(true);
 
-      assertSame(null, workbench.getDialog());
-      assertSame(0, workbench.getBlockingOverlaysShown().size());
-      assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+      assertDialogNotShown();
 
       CompletableFuture<ButtonType> result = workbench.showDialog(mockDialog);
 
-      assertSame(mockDialogResult, result);
-      assertSame(mockDialog, workbench.getDialog());
-      assertSame(1, workbench.getBlockingOverlaysShown().size());
-      assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+      assertDialogShown(result, true);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       verify(mockDialog).getResult();
       verify(mockDialogResult, never()).complete(any());
@@ -1359,10 +1341,7 @@ class WorkbenchTest extends ApplicationTest {
       verify(mockDialogResult, never()).complete(any());
       verifyNoMoreInteractions(mockDialogResult);
       // verify dialog hasn't been hidden
-      assertSame(mockDialogResult, result);
-      assertSame(mockDialog, workbench.getDialog());
-      assertSame(1, workbench.getBlockingOverlaysShown().size());
-      assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+      assertDialogShown(result, true);
     });
   }
 
@@ -1372,16 +1351,11 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       when(mockDialog.isBlocking()).thenReturn(true);
 
-      assertSame(null, workbench.getDialog());
-      assertSame(0, workbench.getBlockingOverlaysShown().size());
-      assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+      assertDialogNotShown();
 
       CompletableFuture<ButtonType> result = workbench.showDialog(mockDialog);
 
-      assertSame(mockDialogResult, result);
-      assertSame(mockDialog, workbench.getDialog());
-      assertSame(1, workbench.getBlockingOverlaysShown().size());
-      assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+      assertDialogShown(result, true);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       verify(mockDialog).getResult();
       verify(mockDialogResult, never()).complete(any());
@@ -1394,10 +1368,28 @@ class WorkbenchTest extends ApplicationTest {
       verify(mockDialogResult).isDone();
       verify(mockDialogResult).complete(mockDialog.getButtonTypes().get(0));
       verifyNoMoreInteractions(mockDialogResult);
-      assertSame(null, workbench.getDialog());
-      assertSame(0, workbench.getBlockingOverlaysShown().size());
-      assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+      assertDialogNotShown();
     });
+  }
+
+  private void assertDialogShown(CompletableFuture<ButtonType> result, boolean blocking) {
+    assertTrue(workbench.isDialogShown());
+    assertSame(mockDialogResult, result);
+    assertSame(mockDialog, workbench.getDialog());
+    if (blocking) {
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+    } else {
+      assertSame(0, workbench.getBlockingOverlaysShown().size());
+      assertSame(1, workbench.getNonBlockingOverlaysShown().size());
+    }
+  }
+
+  private void assertDialogNotShown() {
+    assertFalse(workbench.isDialogShown());
+    assertSame(null, workbench.getDialog());
+    assertSame(0, workbench.getBlockingOverlaysShown().size());
+    assertSame(0, workbench.getNonBlockingOverlaysShown().size());
   }
 
   /**
