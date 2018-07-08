@@ -95,6 +95,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         boolean blocking = true
         boolean maximized = true
         boolean showButtonsBar = false
+        def styleClasses = ["first-style-class","second-style-class"] as String[]
         Exception exception = Stub(Exception.class)
         String details = "These are some details"
 
@@ -103,6 +104,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
                 .blocking(blocking)
                 .maximized(maximized)
                 .showButtonsBar(showButtonsBar)
+                .styleClass(styleClasses)
                 .exception(exception)
                 .details(details)
                 .build()
@@ -111,6 +113,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         dialog.isBlocking() == blocking
         dialog.isMaximized() == maximized
         dialog.isButtonsBarShown() == showButtonsBar
+        dialog.getStyleClass().containsAll(styleClasses)
         dialog.getException() == exception
         dialog.getDetails() == details
     }
