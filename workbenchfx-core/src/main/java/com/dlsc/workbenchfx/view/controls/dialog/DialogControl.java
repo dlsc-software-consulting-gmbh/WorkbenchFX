@@ -53,7 +53,7 @@ public class DialogControl extends Control {
   }
 
   private void setupChangeListeners() {
-    // update tiles list whenever modules or the pageIndex of this page have changed
+    // update buttons whenever buttonTypes, workbench, or buttonTextUppercase changes
     dialogChangedListener = observable -> updateButtons(getDialog());
     dialog.addListener((observable, oldDialog, newDialog) -> {
       updateButtons(newDialog);
