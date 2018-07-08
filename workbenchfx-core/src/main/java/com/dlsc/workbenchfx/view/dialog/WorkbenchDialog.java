@@ -271,7 +271,7 @@ public final class WorkbenchDialog {
     this.blocking.set(blocking);
   }
 
-  public boolean getBlocking() {
+  public boolean isBlocking() {
     return blocking.get();
   }
 }

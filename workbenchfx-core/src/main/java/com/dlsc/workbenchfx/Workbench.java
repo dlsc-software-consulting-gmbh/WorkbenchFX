@@ -187,7 +187,7 @@ public class Workbench extends Control {
     // shows or hides the dialog every time the dialogProperty() changes
     dialogProperty().addListener((observable, oldDialog, newDialog) -> {
       if (newDialog != null) {
-        showOverlay(getDialogControl(), newDialog.getBlocking());
+        showOverlay(getDialogControl(), newDialog.isBlocking());
       } else {
         hideOverlay(getDialogControl());
         if (!oldDialog.getResult().isDone()) {
