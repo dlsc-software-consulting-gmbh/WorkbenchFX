@@ -1,10 +1,9 @@
 package com.dlsc.workbenchfx
 
-import com.dlsc.workbenchfx.module.WorkbenchModule
+import com.dlsc.workbenchfx.model.WorkbenchModule
 import com.dlsc.workbenchfx.testing.*
 import com.dlsc.workbenchfx.view.controls.Dropdown
 import com.dlsc.workbenchfx.view.controls.GlassPane
-import com.dlsc.workbenchfx.view.dialog.WorkbenchDialog
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.ObservableList
@@ -12,7 +11,6 @@ import javafx.collections.ObservableMap
 import javafx.collections.ObservableSet
 import javafx.scene.Node
 import javafx.scene.Scene
-import javafx.scene.control.ButtonType
 import javafx.scene.control.Label
 import javafx.scene.control.MenuItem
 import javafx.scene.image.Image
@@ -23,7 +21,7 @@ import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
 import spock.lang.Unroll
 
-import static com.dlsc.workbenchfx.view.dialog.WorkbenchDialog.Type
+import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type
 
 @Unroll
 class WorkbenchSpec extends ApplicationSpec {

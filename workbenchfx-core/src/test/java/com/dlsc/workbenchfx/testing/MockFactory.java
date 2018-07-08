@@ -3,7 +3,7 @@ package com.dlsc.workbenchfx.testing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import javafx.scene.Node;
 
 /**

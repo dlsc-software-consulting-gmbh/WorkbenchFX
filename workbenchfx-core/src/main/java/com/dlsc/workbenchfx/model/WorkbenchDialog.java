@@ -1,6 +1,7 @@
-package com.dlsc.workbenchfx.view.dialog;
+package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent;
 import com.google.common.base.Strings;
 import java.io.PrintWriter;
 import java.io.StringWriter;

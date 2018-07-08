@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.view.dialog;
+package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import javafx.scene.Node;
