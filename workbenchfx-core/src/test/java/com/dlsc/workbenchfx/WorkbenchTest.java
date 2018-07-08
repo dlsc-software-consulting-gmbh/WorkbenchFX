@@ -16,13 +16,18 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.testing.MockDialogControl;
+import com.dlsc.workbenchfx.testing.MockNavigationDrawer;
 import com.dlsc.workbenchfx.testing.MockPage;
 import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
+import com.dlsc.workbenchfx.view.dialog.WorkbenchDialog;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.concurrent.CompletableFuture;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -30,6 +35,7 @@ import javafx.collections.ObservableSet;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
@@ -38,7 +44,10 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InOrder;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -46,6 +55,7 @@ import org.testfx.framework.junit5.ApplicationTest;
  * Tests for {@link Workbench}.
  */
 @Tag("fast")
+@RunWith(MockitoJUnitRunner.class)
 class WorkbenchTest extends ApplicationTest {
 
   private static final int SIZE = 3;
@@ -81,6 +91,14 @@ class WorkbenchTest extends ApplicationTest {
   private Dropdown dropdownLeft;
   private Dropdown dropdownRight;
 
+  private MockNavigationDrawer navigationDrawer;
+  private MockDialogControl dialogControl;
+
+  @Mock
+  private WorkbenchDialog mockDialog;
+  @Mock
+  private CompletableFuture<ButtonType> mockDialogResult;
+
   @Override
   public void start(Stage stage) {
     robot = new FxRobot();
@@ -108,6 +126,9 @@ class WorkbenchTest extends ApplicationTest {
     dropdownLeft = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
     dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
 
+    // Setup WorkbenchDialog Mock
+    when(mockDialog.getResult()).thenReturn(mockDialogResult);
+
     workbench = Workbench.builder(
         mockModules[FIRST_INDEX],
         mockModules[SECOND_INDEX],
@@ -115,6 +136,8 @@ class WorkbenchTest extends ApplicationTest {
         .tabFactory(MockTab::new)
         .tileFactory(MockTile::new)
         .pageFactory(MockPage::new)
+        .dialogControl(dialogControl)
+        .navigationDrawer(navigationDrawer)
         .navigationDrawerItems(menuItem)
         .toolbarLeft(dropdownLeft)
         .toolbarRight(dropdownRight)
@@ -1219,5 +1242,10 @@ class WorkbenchTest extends ApplicationTest {
             WindowEvent.WINDOW_CLOSE_REQUEST
         )
     );
+  }
+
+  @Test
+  void showDialog() {
+
   }
 }
