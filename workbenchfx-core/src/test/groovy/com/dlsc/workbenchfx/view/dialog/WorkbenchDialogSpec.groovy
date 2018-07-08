@@ -133,6 +133,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         Type.WARNING      | [ButtonType.OK, ButtonType.CANCEL] as ButtonType[]
         Type.INPUT        | [ButtonType.OK, ButtonType.CANCEL] as ButtonType[]
         Type.CONFIRMATION | [ButtonType.YES, ButtonType.NO] as ButtonType[]
+        null              | new ButtonType[0]
     }
 
     def "Exception listener correctly sets details"() {

@@ -136,6 +136,9 @@ public final class WorkbenchDialog {
 
     if (!Objects.isNull(type)) {
       getStyleClass().add(type.name().toLowerCase());
+    } else {
+      // don't add any buttonTypes if type is null
+      return;
     }
 
     switch (type) {
