@@ -35,5 +35,4 @@ public class StandardDemo extends Application {
         new NotesModule()
     ).build();
   }
-
 }

@@ -6,6 +6,10 @@ sudo: false   # Linux OS: run in container
 
 jdk: oraclejdk9
 
+env:
+  global:
+    - CODECOV_TOKEN=127975b3-f83a-48d5-8594-69981bfbab1a
+
 addons:
   apt:
     packages:
@@ -19,16 +23,9 @@ install: true
 before_script:
   - if [[ "${TRAVIS_OS_NAME}" == osx ]]; then brew update; brew cask reinstall caskroom/versions/java9; fi
 
-script:
-  - ./gradlew check
-
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-  - rm -f  $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
-  - rm -f  $HOME/.gradle/caches/*/fileHashes/fileHashes.lock
-
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - $HOME/.m2
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

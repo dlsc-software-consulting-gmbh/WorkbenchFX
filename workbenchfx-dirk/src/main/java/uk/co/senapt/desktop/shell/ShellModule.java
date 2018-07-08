@@ -1,5 +1,6 @@
 package uk.co.senapt.desktop.shell;
 
+import com.google.inject.Module;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
@@ -16,6 +17,10 @@ public abstract class ShellModule<T extends Shell> {
 
     protected ShellModule(String name) {
         this.name = Objects.requireNonNull(name);
+    }
+
+    protected List<? extends Module> getContextModules() {
+        return Collections.emptyList();
     }
 
     protected String getIconClassBaseName() {
@@ -54,5 +59,4 @@ public abstract class ShellModule<T extends Shell> {
     public boolean isImplemented() {
         return false;
     }
-
 }

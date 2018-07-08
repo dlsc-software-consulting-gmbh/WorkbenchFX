@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.util.WorkbenchFxUtils;
+import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Objects;
 import javafx.collections.MapChangeListener;
@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchPresenter implements Presenter {
+public class WorkbenchPresenter extends Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchPresenter.class.getName());
 
@@ -80,13 +80,13 @@ public class WorkbenchPresenter implements Presenter {
       }
     });
 
-    WorkbenchFxUtils.addSetListener(
+    WorkbenchUtils.addSetListener(
         overlaysShown,
         change -> showOverlay(change.getElementAdded(), false),
         change -> hideOverlay(change.getElementRemoved())
     );
 
-    WorkbenchFxUtils.addSetListener(
+    WorkbenchUtils.addSetListener(
         blockingOverlaysShown,
         change -> showOverlay(change.getElementAdded(), true),
         change -> hideOverlay(change.getElementRemoved())
@@ -141,7 +141,7 @@ public class WorkbenchPresenter implements Presenter {
 
     // if overlay is not blocking, make the overlay hide when the glass pane is clicked
     if (!blocking) {
-      glassPane.setOnMouseClicked(event -> model.hideOverlay(overlay, false));
+      glassPane.setOnMouseClicked(event -> model.hideOverlay(overlay));
     }
   }
 

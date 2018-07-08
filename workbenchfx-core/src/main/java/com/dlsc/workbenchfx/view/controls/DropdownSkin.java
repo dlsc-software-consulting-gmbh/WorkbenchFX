@@ -77,6 +77,16 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   }
 
   /**
+   * Retrieves the {@link Image} of a given {@link ImageView} and returns it.
+   *
+   * @param imageView the {@link ImageView} from which the {@link Image} should be extracted
+   * @return the found {@link Image}
+   */
+  private static Image getImage(ImageView imageView) {
+    return imageView.getImage();
+  }
+
+  /**
    * Replaces the default arrow icon of the {@code menuButton} with a custom fontawesome icon.
    */
   private void replaceArrowIcon() {
@@ -107,16 +117,6 @@ public class DropdownSkin extends SkinBase<Dropdown> {
           menuButton.prefHeightProperty().multiply(HALF_DROPDOWN_SIZE).multiply(ratio)
       );
     }
-  }
-
-  /**
-   * Retrieves the {@link Image} of a given {@link ImageView} and returns it.
-   *
-   * @param imageView the {@link ImageView} from which the {@link Image} should be extracted
-   * @return the found {@link Image}
-   */
-  private static Image getImage(ImageView imageView) {
-    return imageView.getImage();
   }
 
   private void setupListeners() {
