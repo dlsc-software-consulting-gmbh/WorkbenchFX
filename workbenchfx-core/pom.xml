@@ -163,7 +163,7 @@
                 </executions>
             </plugin>
 
-            <!-- JUnit 5 -->
+            <!-- Execute Tests (JUnit / Spock) -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.0</version>
@@ -173,6 +173,11 @@
                         <include>**/*Spec.java</include>
                         <include>**/*Test.java</include>
                     </includes>
+                    <!-- Run Tests in parallel -->
+                    <parallel>classes</parallel>
+                    <useUnlimitedThreads>true</useUnlimitedThreads>
+                    <threadCount>80</threadCount>
+                    <perCoreThreadCount>true</perCoreThreadCount>
                 </configuration>
             </plugin>
 
