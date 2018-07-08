@@ -47,6 +47,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -55,7 +56,6 @@ import org.testfx.framework.junit5.ApplicationTest;
  * Tests for {@link Workbench}.
  */
 @Tag("fast")
-@RunWith(MockitoJUnitRunner.class)
 class WorkbenchTest extends ApplicationTest {
 
   private static final int SIZE = 3;
@@ -101,6 +101,8 @@ class WorkbenchTest extends ApplicationTest {
 
   @Override
   public void start(Stage stage) {
+    MockitoAnnotations.initMocks(this);
+
     robot = new FxRobot();
 
     for (int i = 0; i < moduleNodes.length; i++) {
