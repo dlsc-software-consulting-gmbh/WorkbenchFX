@@ -138,8 +138,9 @@ class WorkbenchSpec extends ApplicationSpec {
 
     def "Test #methodName(#arguments)"() {
         given:
+        def result
         robot.interact {
-            workbench."$methodName"(arguments)
+            result = workbench."$methodName"(arguments)
         }
         def currentDialog = workbench.getDialog()
 
@@ -149,6 +150,7 @@ class WorkbenchSpec extends ApplicationSpec {
         ((Label) currentDialog.getContent()).getText() == MESSAGE
         currentDialog.getException() == exception
         currentDialog.getDetails() == details
+        currentDialog.getResult() == result
 
         where:
         methodName               | arguments                   | type              | exception | details
