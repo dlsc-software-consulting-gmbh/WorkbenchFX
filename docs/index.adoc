@@ -147,14 +147,14 @@ This is only recommended when an overlay is so resource intensive, that it can't
 * Modular
 * Extendable
 
-==== Persona
+=== Persona
 Who is the persona?
 
 * Programmer (-> Usage of WorkbenchFX)
 * User of the application (-> GUI)
 
 
-==== Layout
+=== Layout
 Challenge:
 
 * Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
@@ -165,7 +165,7 @@ So everyone talks the same language.
 To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
 This includes features, usability and general appearance of the specific workbench.
 
-===== Blender (Tool for creating 3D models)
+==== Blender (Tool for creating 3D models)
 * Blender is divided up into five sections.
 ** Header --> Most important and the common settings
 ** Left Bar --> Tools
@@ -187,7 +187,7 @@ The bar itself is fixed and can't be moved.
 * The tools in the toolbar are stored in tabs.
 * When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
 
-===== Photoshop / Illustrator (Design tools)
+==== Photoshop / Illustrator (Design tools)
 * Photoshop (Image tool, Pixel based)
 **
 
@@ -204,7 +204,7 @@ Multiple workspaces can be stored and it can be switched to. (+)
 *** They have 3 states (not likely to understand) and it's collapsing behaviour is not intuitive. (-)
 **4
 
-===== IntelliJ
+==== IntelliJ
 * all possibilities available,
 Right click on the tab, then one can decide the behaviour of it.
 * "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
@@ -212,11 +212,11 @@ Right click on the tab, then one can decide the behaviour of it.
 * Layout changes should be stored at one place.
 *
 
-===== MSOffice
+==== MSOffice
 
-===== Sublime Text
+==== Sublime Text
 
-===== Minimal viable product
+==== Minimal viable product
 As a result of our research we have enough information to create the most valuable workbench for our use case.
 Nonetheless we need to break down the functionality to it's simplest scenario.
 This way, we can assure our customer, that he minimal viable product as a result from this project.
@@ -234,7 +234,7 @@ They contain either further tools, buttons or a tree-view for navigation.
 * Finally another tool-bar is set below the application.
 It contains the least used tools, or tools which are needed at the end of the process.
 
-==== The way creating the workbench
+=== The way creating the workbench
 
 === Challenges
 === Customizability
