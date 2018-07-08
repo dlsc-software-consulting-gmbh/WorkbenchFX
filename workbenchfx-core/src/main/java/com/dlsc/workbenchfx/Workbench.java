@@ -168,7 +168,7 @@ public class Workbench extends Control {
     }
     // when control of navigation drawer changes, pass in the workbench object
     navigationDrawerProperty().addListener((observable, oldControl, newControl) -> {
-      if (oldControl != newControl) {
+      if (!Objects.isNull(newControl)) {
         newControl.setWorkbench(this);
       }
     });
@@ -178,7 +178,7 @@ public class Workbench extends Control {
   private void initDialog(WorkbenchBuilder builder) {
     // when control of navigation drawer changes, pass in the workbench object
     dialogControlProperty().addListener((observable, oldControl, newControl) -> {
-      if (oldControl != newControl) {
+      if (!Objects.isNull(newControl)) {
         newControl.setWorkbench(this);
       }
     });
