@@ -173,11 +173,6 @@
                         <include>**/*Spec.java</include>
                         <include>**/*Test.java</include>
                     </includes>
-                    <!-- Run Tests in parallel -->
-                    <parallel>classes</parallel>
-                    <useUnlimitedThreads>true</useUnlimitedThreads>
-                    <threadCount>80</threadCount>
-                    <perCoreThreadCount>true</perCoreThreadCount>
                 </configuration>
             </plugin>
 
