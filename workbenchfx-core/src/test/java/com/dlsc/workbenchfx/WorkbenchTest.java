@@ -1264,9 +1264,19 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
+  void initNavigationDrawer() {
+    // verify no NPE is thrown by the listener when setting a null control
+    workbench.setNavigationDrawer(null);
+  }
+
+  @Test
   void initDialog() {
+    // verify correct initialization
     assertSame(dialogControl, workbench.getDialogControl());
     assertSame(workbench, dialogControl.getWorkbench());
+
+    // verify no NPE is thrown by the listener when setting a null control
+    workbench.setDialogControl(null);
   }
 
   @Test
