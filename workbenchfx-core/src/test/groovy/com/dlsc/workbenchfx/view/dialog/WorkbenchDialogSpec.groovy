@@ -134,4 +134,24 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         Type.INPUT        | [ButtonType.OK, ButtonType.CANCEL] as ButtonType[]
         Type.CONFIRMATION | [ButtonType.YES, ButtonType.NO] as ButtonType[]
     }
+
+    def "Exception listener correctly sets details"() {
+        given:
+        Exception exception = Mock(Exception.class)
+        PrintWriter printWriter
+        String details = "Stacktrace of Exception"
+        1 * exception.printStackTrace((PrintWriter)_) >> {arguments ->
+            printWriter = arguments[0] // capture PrintWriter that was used for the call
+            printWriter.print(details) // mock behavior of Throwable#printStackTrace
+        }
+
+        when: "Dialog with exception is created via a builder"
+        dialog = WorkbenchDialog.builder(TITLE, content, TYPE)
+                .exception(exception)
+                .build()
+
+        then: "Specified optional parameters are correctly set"
+        dialog.getException() == exception
+        dialog.getDetails() == details
+    }
 }
