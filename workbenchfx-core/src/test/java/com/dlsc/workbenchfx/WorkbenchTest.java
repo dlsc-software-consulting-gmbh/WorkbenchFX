@@ -131,6 +131,8 @@ class WorkbenchTest extends ApplicationTest {
     // Setup WorkbenchDialog Mock
     when(mockDialog.getResult()).thenReturn(mockDialogResult);
 
+    navigationDrawer = new MockNavigationDrawer();
+
     workbench = Workbench.builder(
         mockModules[FIRST_INDEX],
         mockModules[SECOND_INDEX],
