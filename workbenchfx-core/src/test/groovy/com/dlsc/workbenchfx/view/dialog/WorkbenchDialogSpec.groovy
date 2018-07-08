@@ -78,9 +78,41 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         dialog.getButtonTypes().toArray() == BUTTON_TYPES
     }
 
-    def "Initialization of optional parameters"() {
-        // test all optional parameters available
-        // TODO
+    def "Initialization of optional parameters - Defaults"() {
+        when: "No optional parameters are specified"
+        dialog = WorkbenchDialog.builder(TITLE, content, TYPE).build()
+
+        then: "Defaults are set"
+        !dialog.isBlocking()
+        !dialog.isMaximized()
+        dialog.isButtonsBarShown()
+        Objects.isNull(dialog.getException())
+        dialog.getDetails() == ""
+    }
+
+    def "Initialization of optional parameters - Specified"() {
+        given: "Defined optional parameters"
+        boolean blocking = true
+        boolean maximized = true
+        boolean showButtonsBar = false
+        Exception exception = Stub(Exception.class)
+        String details = "These are some details"
+
+        when: "Optional parameters are specified"
+        dialog = WorkbenchDialog.builder(TITLE, content, TYPE)
+                .blocking(blocking)
+                .maximized(maximized)
+                .showButtonsBar(showButtonsBar)
+                .exception(exception)
+                .details(details)
+                .build()
+
+        then: "Specified optional parameters are correctly set"
+        dialog.isBlocking() == blocking
+        dialog.isMaximized() == maximized
+        dialog.isButtonsBarShown() == showButtonsBar
+        dialog.getException() == exception
+        dialog.getDetails() == details
     }
 
     def "Initialization of a Dialog with Type #type has exactly the ButtonTypes #buttonTypes"(
