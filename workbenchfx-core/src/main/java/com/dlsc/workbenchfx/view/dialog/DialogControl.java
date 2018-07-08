@@ -163,7 +163,7 @@ public class DialogControl extends Control {
     this.buttonTextUppercase.set(buttonTextUppercase);
   }
 
-  private Workbench getWorkbench() {
+  public Workbench getWorkbench() {
     return workbench.get();
   }
 
@@ -171,7 +171,7 @@ public class DialogControl extends Control {
     this.workbench.set(workbench);
   }
 
-  private ObjectProperty<Workbench> workbenchProperty() {
+  public ObjectProperty<Workbench> workbenchProperty() {
     return workbench;
   }
 
