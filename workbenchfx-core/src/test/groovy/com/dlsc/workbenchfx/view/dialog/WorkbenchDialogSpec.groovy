@@ -138,12 +138,11 @@ class WorkbenchDialogSpec extends ApplicationSpec {
     def "Exception listener correctly sets details"() {
         given:
         Exception exception = Mock(Exception.class)
-        PrintWriter printWriter
+        Exception exception2 = Mock(Exception.class)
         String details = "Stacktrace of Exception"
-        1 * exception.printStackTrace((PrintWriter)_) >> {arguments ->
-            printWriter = arguments[0] // capture PrintWriter that was used for the call
-            printWriter.print(details) // mock behavior of Throwable#printStackTrace
-        }
+        String details2 = "Another " + details
+        setupMockException(exception, details)
+        setupMockException(exception2, details2)
 
         when: "Dialog with exception is created via a builder"
         dialog = WorkbenchDialog.builder(TITLE, content, TYPE)
@@ -153,5 +152,19 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         then: "Specified optional parameters are correctly set"
         dialog.getException() == exception
         dialog.getDetails() == details
+
+        when: "Dialog's exception object is changed"
+        dialog.setException(exception2)
+
+        then: "Details gets updated with stacktrace of the new exception by exception listener"
+        dialog.getException() == exception2
+        dialog.getDetails() == details2
+    }
+
+    def setupMockException(Exception mock, String details) {
+        1 * mock.printStackTrace((PrintWriter)_) >> {arguments ->
+            PrintWriter printWriter = arguments[0] // capture PrintWriter that was used in the call
+            printWriter.print(details) // mock behavior of Throwable#printStackTrace
+        }
     }
 }
