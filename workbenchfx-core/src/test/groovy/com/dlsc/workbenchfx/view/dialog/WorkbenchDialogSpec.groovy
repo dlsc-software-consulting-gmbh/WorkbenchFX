@@ -1,6 +1,6 @@
-import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent
 import com.dlsc.workbenchfx.model.WorkbenchDialog
 import com.dlsc.workbenchfx.model.WorkbenchDialog.Type
+import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent
 import javafx.scene.Scene
 import javafx.scene.control.ButtonType
 import javafx.scene.control.Label

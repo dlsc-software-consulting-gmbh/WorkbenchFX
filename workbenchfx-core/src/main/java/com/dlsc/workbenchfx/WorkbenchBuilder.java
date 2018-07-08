@@ -1,12 +1,12 @@
 package com.dlsc.workbenchfx;
 
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
+import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
-import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
-import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.util.Callback;
