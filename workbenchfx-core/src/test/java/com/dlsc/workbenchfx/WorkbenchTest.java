@@ -136,7 +136,9 @@ class WorkbenchTest extends ApplicationTest {
 
     // Setup WorkbenchDialog Mock
     when(mockDialog.getResult()).thenReturn(mockDialogResult);
-    when(mockDialog.getButtonTypes()).thenReturn(FXCollections.observableArrayList(ButtonType.PREVIOUS, ButtonType.NEXT));
+    when(mockDialog.getButtonTypes()).thenReturn(
+        FXCollections.observableArrayList(ButtonType.PREVIOUS, ButtonType.NEXT)
+    );
     when(mockDialogResult.complete(any())).then(invocation -> {
           when(mockDialogResult.isDone()).thenReturn(true);
           return true;
