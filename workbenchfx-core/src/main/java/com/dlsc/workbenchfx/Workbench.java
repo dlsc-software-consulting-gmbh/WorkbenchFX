@@ -116,15 +116,19 @@ public class Workbench extends Control {
   Workbench(WorkbenchBuilder builder) {
     setModulesPerPage(builder.modulesPerPage);
     initBindings();
-    tabFactory.set(builder.tabFactory);
-    tileFactory.set(builder.tileFactory);
-    pageFactory.set(builder.pageFactory);
+    initFactories(builder);
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initDialog(builder);
-    initModules(builder.modules);
+    initModules(builder);
 
     setupCleanup();
+  }
+
+  private void initFactories(WorkbenchBuilder builder) {
+    tabFactory.set(builder.tabFactory);
+    tileFactory.set(builder.tileFactory);
+    pageFactory.set(builder.pageFactory);
   }
 
   /**
@@ -198,7 +202,9 @@ public class Workbench extends Control {
     });
   }
 
-  private void initModules(WorkbenchModule... modules) {
+  private void initModules(WorkbenchBuilder builder) {
+    WorkbenchModule[] modules = builder.modules;
+
     this.modules.addAll(modules);
 
     // handle changes of the active module
