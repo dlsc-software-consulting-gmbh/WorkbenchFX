@@ -151,13 +151,13 @@ class WorkbenchSpec extends ApplicationSpec {
         currentDialog.getResult() == result
 
         where:
-        methodName               | arguments                   | type              | exception | details
-        "showErrorDialog"        | [TITLE, MESSAGE]            | Type.ERROR        | null      | ""
-        "showErrorDialog"        | [TITLE, MESSAGE, DETAILS]   | Type.ERROR        | null      | DETAILS
-        "showErrorDialog"        | [TITLE, MESSAGE, EXCEPTION] | Type.ERROR        | EXCEPTION | ExceptionUtil.printStackTrace(exception)
-        "showWarningDialog"      | [TITLE, MESSAGE]            | Type.WARNING      | null      | ""
-        "showConfirmationDialog" | [TITLE, MESSAGE]            | Type.CONFIRMATION | null      | ""
-        "showInformationDialog"  | [TITLE, MESSAGE]            | Type.INFORMATION  | null      | ""
+        methodName               | arguments                   || type              | exception | details
+        "showErrorDialog"        | [TITLE, MESSAGE]            || Type.ERROR        | null      | ""
+        "showErrorDialog"        | [TITLE, MESSAGE, DETAILS]   || Type.ERROR        | null      | DETAILS
+        "showErrorDialog"        | [TITLE, MESSAGE, EXCEPTION] || Type.ERROR        | EXCEPTION | ExceptionUtil.printStackTrace(exception)
+        "showWarningDialog"      | [TITLE, MESSAGE]            || Type.WARNING      | null      | ""
+        "showConfirmationDialog" | [TITLE, MESSAGE]            || Type.CONFIRMATION | null      | ""
+        "showInformationDialog"  | [TITLE, MESSAGE]            || Type.INFORMATION  | null      | ""
     }
 
     /**
