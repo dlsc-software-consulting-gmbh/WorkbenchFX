@@ -10,9 +10,10 @@ import javafx.css.PseudoClass;
 import javafx.scene.AccessibleAttribute;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.layout.Pane;
 
-public class StripCell<T> extends Pane {
+public class StripCell<T> extends Label {
 
   private final static PseudoClass PSEUDO_CLASS_SELECTED = PseudoClass.getPseudoClass("selected");
 
@@ -38,18 +39,14 @@ public class StripCell<T> extends Pane {
     });
 
     itemProperty().addListener(it -> {
-      getChildren().add((Node) getItem());
+      setText(getItem().toString());
       updateSelection();
     });
   }
 
   private void updateSelection() {
     final T selectedItem = getSelectionStrip().getSelectedItem();
-    if (selectedItem == getItem()) {
-      setSelected(true);
-    } else {
-      setSelected(false);
-    }
+    setSelected(selectedItem == getItem());
   }
 
   private final ObjectProperty<SelectionStrip<T>> selectionStrip = new SimpleObjectProperty<>(this,

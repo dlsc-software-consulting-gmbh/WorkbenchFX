@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view;
 
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 
+import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.selectionStrip.SelectionStrip;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -22,7 +23,7 @@ public class ToolbarView extends HBox implements View {
   private FontAwesomeIconView menuIconView;
   Button homeBtn;
   Button menuBtn;
-  private SelectionStrip<Node> tabBox;
+  SelectionStrip<Tab> tabBox;
   HBox toolbarControlLeftBox;
   HBox toolbarControlRightBox;
 
@@ -104,7 +105,7 @@ public class ToolbarView extends HBox implements View {
    *
    * @param tab the {@link Node} to be added
    */
-  public void addTab(Node tab) {
+  public void addTab(Tab tab) {
     tabBox.getItems().add(tab);
   }
 
