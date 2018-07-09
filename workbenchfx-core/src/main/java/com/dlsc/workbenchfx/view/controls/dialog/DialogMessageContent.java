@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view.controls.dialog;
 
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
