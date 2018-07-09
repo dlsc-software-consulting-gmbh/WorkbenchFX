@@ -5,3 +5,4 @@ ignore:
   - "**/View.java"                # Interface: View
   - "**/Presenter.java"           # Interface: Presenter
   - "**/Dialog*Content.java"      # Dialog View Controls
+  - "**/PrettyScrollPane.java"    # Purely View Control

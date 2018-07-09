@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-core</artifactId>
-    <version>1.2.0</version>
+    <version>1.4.0</version>
     <packaging>jar</packaging>
 
     <distributionManagement>
@@ -34,20 +34,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- Java Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -77,21 +63,21 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <!-- Groovy Compiler for Spock Tests -->
+
+            <!-- Packaging -->
             <plugin>
-                <groupId>org.codehaus.gmavenplus</groupId>
-                <artifactId>gmavenplus-plugin</artifactId>
-                <version>1.6.1</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
+                        <id>attach-sources</id>
                         <goals>
-                            <goal>compile</goal>
-                            <goal>compileTests</goal>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -122,19 +108,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <!-- JUnit 5 -->
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
-                <configuration>
-                    <excludedGroups>slow</excludedGroups>
-                    <includes>
-                        <include>**/*Spec.java</include>
-                        <include>**/*Test.java</include>
-                    </includes>
-                </configuration>
             </plugin>
 
             <!-- Checkstyle -->
@@ -185,6 +158,34 @@
                         <phase>test</phase>
                         <goals>
                             <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Execute Tests (JUnit / Spock) -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+                <configuration>
+                    <excludedGroups>slow</excludedGroups>
+                    <includes>
+                        <include>**/*Spec.java</include>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+            <!-- Groovy Compiler for Spock Tests -->
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>1.6.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>compileTests</goal>
                         </goals>
                     </execution>
                 </executions>

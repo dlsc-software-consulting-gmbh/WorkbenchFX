@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.custom.controls;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
 import javafx.scene.control.Skin;
 

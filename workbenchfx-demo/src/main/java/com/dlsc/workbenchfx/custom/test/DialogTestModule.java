@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.custom.test;
 
-import com.dlsc.workbenchfx.module.WorkbenchModule;
-import com.dlsc.workbenchfx.view.dialog.WorkbenchDialog;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
@@ -18,7 +18,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import org.controlsfx.control.CheckListView;
 

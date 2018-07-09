@@ -1,6 +1,7 @@
-package com.dlsc.workbenchfx.view.dialog;
+package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent;
 import com.google.common.base.Strings;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -136,6 +137,9 @@ public final class WorkbenchDialog {
 
     if (!Objects.isNull(type)) {
       getStyleClass().add(type.name().toLowerCase());
+    } else {
+      // don't add any buttonTypes if type is null
+      return;
     }
 
     switch (type) {
@@ -271,7 +275,7 @@ public final class WorkbenchDialog {
     this.blocking.set(blocking);
   }
 
-  public boolean getBlocking() {
+  public boolean isBlocking() {
     return blocking.get();
   }
 }

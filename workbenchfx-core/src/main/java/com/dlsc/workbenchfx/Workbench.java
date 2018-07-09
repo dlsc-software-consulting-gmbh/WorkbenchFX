@@ -1,15 +1,15 @@
 package com.dlsc.workbenchfx;
 
-import static com.dlsc.workbenchfx.view.dialog.WorkbenchDialog.Type;
+import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
 
-import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
+import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
-import com.dlsc.workbenchfx.view.dialog.DialogControl;
-import com.dlsc.workbenchfx.view.dialog.WorkbenchDialog;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
@@ -116,15 +116,19 @@ public class Workbench extends Control {
   Workbench(WorkbenchBuilder builder) {
     setModulesPerPage(builder.modulesPerPage);
     initBindings();
-    tabFactory.set(builder.tabFactory);
-    tileFactory.set(builder.tileFactory);
-    pageFactory.set(builder.pageFactory);
+    initFactories(builder);
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initDialog(builder);
-    initModules(builder.modules);
+    initModules(builder);
 
     setupCleanup();
+  }
+
+  private void initFactories(WorkbenchBuilder builder) {
+    tabFactory.set(builder.tabFactory);
+    tileFactory.set(builder.tileFactory);
+    pageFactory.set(builder.pageFactory);
   }
 
   /**
@@ -168,7 +172,7 @@ public class Workbench extends Control {
     }
     // when control of navigation drawer changes, pass in the workbench object
     navigationDrawerProperty().addListener((observable, oldControl, newControl) -> {
-      if (oldControl != newControl) {
+      if (!Objects.isNull(newControl)) {
         newControl.setWorkbench(this);
       }
     });
@@ -178,7 +182,7 @@ public class Workbench extends Control {
   private void initDialog(WorkbenchBuilder builder) {
     // when control of navigation drawer changes, pass in the workbench object
     dialogControlProperty().addListener((observable, oldControl, newControl) -> {
-      if (oldControl != newControl) {
+      if (!Objects.isNull(newControl)) {
         newControl.setWorkbench(this);
       }
     });
@@ -187,7 +191,7 @@ public class Workbench extends Control {
     // shows or hides the dialog every time the dialogProperty() changes
     dialogProperty().addListener((observable, oldDialog, newDialog) -> {
       if (newDialog != null) {
-        showOverlay(getDialogControl(), newDialog.getBlocking());
+        showOverlay(getDialogControl(), newDialog.isBlocking());
       } else {
         hideOverlay(getDialogControl());
         if (!oldDialog.getResult().isDone()) {
@@ -198,7 +202,9 @@ public class Workbench extends Control {
     });
   }
 
-  private void initModules(WorkbenchModule... modules) {
+  private void initModules(WorkbenchBuilder builder) {
+    WorkbenchModule[] modules = builder.modules;
+
     this.modules.addAll(modules);
 
     // handle changes of the active module

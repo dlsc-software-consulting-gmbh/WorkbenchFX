@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;

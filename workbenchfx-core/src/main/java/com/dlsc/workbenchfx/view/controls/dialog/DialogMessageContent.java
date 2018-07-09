@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.view.dialog;
+package com.dlsc.workbenchfx.view.controls.dialog;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Priority;

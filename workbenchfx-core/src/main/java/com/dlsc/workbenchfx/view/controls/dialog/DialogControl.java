@@ -1,11 +1,11 @@
-package com.dlsc.workbenchfx.view.dialog;
+package com.dlsc.workbenchfx.view.controls.dialog;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 import javafx.beans.InvalidationListener;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -13,7 +13,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -54,7 +53,7 @@ public class DialogControl extends Control {
   }
 
   private void setupChangeListeners() {
-    // update tiles list whenever modules or the pageIndex of this page have changed
+    // update buttons whenever buttonTypes, workbench, or buttonTextUppercase changes
     dialogChangedListener = observable -> updateButtons(getDialog());
     dialog.addListener((observable, oldDialog, newDialog) -> {
       updateButtons(newDialog);
@@ -163,7 +162,7 @@ public class DialogControl extends Control {
     this.buttonTextUppercase.set(buttonTextUppercase);
   }
 
-  private Workbench getWorkbench() {
+  public Workbench getWorkbench() {
     return workbench.get();
   }
 
@@ -171,7 +170,7 @@ public class DialogControl extends Control {
     this.workbench.set(workbench);
   }
 
-  private ObjectProperty<Workbench> workbenchProperty() {
+  public ObjectProperty<Workbench> workbenchProperty() {
     return workbench;
   }
 

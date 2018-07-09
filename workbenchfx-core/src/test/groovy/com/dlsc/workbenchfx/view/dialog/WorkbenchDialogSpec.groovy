@@ -1,6 +1,6 @@
-import com.dlsc.workbenchfx.view.dialog.DialogMessageContent
-import com.dlsc.workbenchfx.view.dialog.WorkbenchDialog
-import com.dlsc.workbenchfx.view.dialog.WorkbenchDialog.Type
+import com.dlsc.workbenchfx.model.WorkbenchDialog
+import com.dlsc.workbenchfx.model.WorkbenchDialog.Type
+import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent
 import javafx.scene.Scene
 import javafx.scene.control.ButtonType
 import javafx.scene.control.Label
@@ -78,9 +78,44 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         dialog.getButtonTypes().toArray() == BUTTON_TYPES
     }
 
-    def "Initialization of optional parameters"() {
-        // test all optional parameters available
-        // TODO
+    def "Initialization of optional parameters - Defaults"() {
+        when: "No optional parameters are specified"
+        dialog = WorkbenchDialog.builder(TITLE, content, TYPE).build()
+
+        then: "Defaults are set"
+        !dialog.isBlocking()
+        !dialog.isMaximized()
+        dialog.isButtonsBarShown()
+        Objects.isNull(dialog.getException())
+        dialog.getDetails() == ""
+    }
+
+    def "Initialization of optional parameters - Specified"() {
+        given: "Defined optional parameters"
+        boolean blocking = true
+        boolean maximized = true
+        boolean showButtonsBar = false
+        def styleClasses = ["first-style-class","second-style-class"] as String[]
+        Exception exception = Stub(Exception.class)
+        String details = "These are some details"
+
+        when: "Optional parameters are specified"
+        dialog = WorkbenchDialog.builder(TITLE, content, TYPE)
+                .blocking(blocking)
+                .maximized(maximized)
+                .showButtonsBar(showButtonsBar)
+                .styleClass(styleClasses)
+                .exception(exception)
+                .details(details)
+                .build()
+
+        then: "Specified optional parameters are correctly set"
+        dialog.isBlocking() == blocking
+        dialog.isMaximized() == maximized
+        dialog.isButtonsBarShown() == showButtonsBar
+        dialog.getStyleClass().containsAll(styleClasses)
+        dialog.getException() == exception
+        dialog.getDetails() == details
     }
 
     def "Initialization of a Dialog with Type #type has exactly the ButtonTypes #buttonTypes"(
@@ -101,5 +136,46 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         Type.WARNING      | [ButtonType.OK, ButtonType.CANCEL] as ButtonType[]
         Type.INPUT        | [ButtonType.OK, ButtonType.CANCEL] as ButtonType[]
         Type.CONFIRMATION | [ButtonType.YES, ButtonType.NO] as ButtonType[]
+        null              | new ButtonType[0]
+    }
+
+    def "Exception listener correctly sets details"() {
+        given:
+        Exception exception = Mock(Exception.class)
+        Exception exception2 = Mock(Exception.class)
+        String details = "Stacktrace of Exception"
+        String details2 = "Another " + details
+        setupMockException(exception, details)
+        setupMockException(exception2, details2)
+
+        when: "Dialog with exception is created via a builder"
+        dialog = WorkbenchDialog.builder(TITLE, content, TYPE)
+                .exception(exception)
+                .build()
+
+        then: "Specified optional parameters are correctly set"
+        dialog.getException() == exception
+        dialog.getDetails() == details
+
+        when: "Dialog's exception object is changed"
+        dialog.setException(exception2)
+
+        then: "Details gets updated with stacktrace of the new exception by exception listener"
+        dialog.getException() == exception2
+        dialog.getDetails() == details2
+
+        when:
+        dialog.setException(null)
+
+        then: "Details are not updated"
+        dialog.getException() == null
+        dialog.getDetails() == details2
+    }
+
+    def setupMockException(Exception mock, String details) {
+        1 * mock.printStackTrace((PrintWriter)_) >> {arguments ->
+            PrintWriter printWriter = arguments[0] // capture PrintWriter that was used in the call
+            printWriter.print(details) // mock behavior of Throwable#printStackTrace
+        }
     }
 }
