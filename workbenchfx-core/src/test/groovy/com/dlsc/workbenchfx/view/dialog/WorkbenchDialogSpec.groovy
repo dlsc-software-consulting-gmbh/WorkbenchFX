@@ -129,14 +129,14 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         dialog.getButtonTypes().toArray() == buttonTypes
 
         where:
-        type              | buttonTypes
-        Type.INPUT        | [ButtonType.OK, ButtonType.CANCEL] as ButtonType[]
-        Type.INFORMATION  | [ButtonType.OK] as ButtonType[]
-        Type.ERROR        | [ButtonType.CLOSE] as ButtonType[]
-        Type.WARNING      | [ButtonType.OK, ButtonType.CANCEL] as ButtonType[]
-        Type.INPUT        | [ButtonType.OK, ButtonType.CANCEL] as ButtonType[]
-        Type.CONFIRMATION | [ButtonType.YES, ButtonType.NO] as ButtonType[]
-        null              | new ButtonType[0]
+        type              || buttonTypes
+        Type.INPUT        || [ButtonType.OK, ButtonType.CANCEL] as ButtonType[]
+        Type.INFORMATION  || [ButtonType.OK] as ButtonType[]
+        Type.ERROR        || [ButtonType.CLOSE] as ButtonType[]
+        Type.WARNING      || [ButtonType.OK, ButtonType.CANCEL] as ButtonType[]
+        Type.INPUT        || [ButtonType.OK, ButtonType.CANCEL] as ButtonType[]
+        Type.CONFIRMATION || [ButtonType.YES, ButtonType.NO] as ButtonType[]
+        null              || new ButtonType[0]
     }
 
     def "Exception listener correctly sets details"() {
