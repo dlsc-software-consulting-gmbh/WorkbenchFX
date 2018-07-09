@@ -64,7 +64,7 @@ public class WorkbenchPresenter extends Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-    // When the active module changes, the new view is set od the home screen if null.
+    // When the active module changes, the new view is set to the home screen if null.
     model.activeModuleViewProperty().addListener((observable, oldModule, newModule) ->
         view.contentView.setContent(Objects.isNull(newModule) ? view.homeView : newModule)
     );
@@ -141,7 +141,14 @@ public class WorkbenchPresenter extends Presenter {
 
     // if overlay is not blocking, make the overlay hide when the glass pane is clicked
     if (!blocking) {
-      glassPane.setOnMouseClicked(event -> model.hideOverlay(overlay));
+      LOGGER.trace("showOverlay - Set GlassPane EventHandler");
+      glassPane.setOnMouseClicked(event -> {
+        // check if overlay is really not blocking, is needed to avoid false-positives
+        if (overlaysShown.contains(overlay)) {
+          LOGGER.trace("GlassPane was clicked, hiding overlay");
+          model.hideOverlay(overlay);
+        }
+      });
     }
   }
 

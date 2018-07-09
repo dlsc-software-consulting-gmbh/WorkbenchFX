@@ -1,7 +1,7 @@
 .root {
-    -prim-color: #3f51b5;
-    -prim-color-hover: #5566c3;
-    -text-color: #ffffff;
+    -prim-color: #56b53d;
+    -prim-color-hover: #86c356;
+    -text-color: #f2f2f2;
     -text-color-transparent: rgba(255, 255, 255, .7);
 
     -danger-color: #f1986a;
@@ -9,6 +9,4 @@
     -accent-color: #aa8a70;
 
     -icons-color: -text-color;
-    -fx-font-size: 14px;
-    -fx-font-family: Helvetica, sans-serif;
 }

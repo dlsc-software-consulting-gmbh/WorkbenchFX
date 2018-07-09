@@ -4,3 +4,5 @@ ignore:
   - "**/WorkbenchModule.java"     # Abstract class cannot be tested: Module
   - "**/View.java"                # Interface: View
   - "**/Presenter.java"           # Interface: Presenter
+  - "**/Dialog*Content.java"      # Dialog View Controls
+  - "**/PrettyScrollPane.java"    # Purely View Control

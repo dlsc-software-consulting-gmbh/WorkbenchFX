@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.standard.calendar;
 
-import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.Objects;
 import javafx.scene.Node;

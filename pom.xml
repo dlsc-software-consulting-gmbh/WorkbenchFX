@@ -60,7 +60,7 @@
                 <executions>
                     <execution>
                         <id>asciidoc-to-html</id>
-                        <phase>generate-resources</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>process-asciidoc</goal>
                         </goals>
@@ -87,7 +87,7 @@
                 <executions>
                     <execution>
                         <id>set-parent-version</id>
-                        <phase>process-resources</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -104,7 +104,7 @@
                     </execution>
                     <execution>
                         <id>update-children-version</id>
-                        <phase>process-resources</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -119,6 +119,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

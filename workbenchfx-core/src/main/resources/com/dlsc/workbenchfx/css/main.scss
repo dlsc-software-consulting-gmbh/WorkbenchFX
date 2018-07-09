@@ -28,9 +28,15 @@ $custom-color-5: pink;
   -text-color-transparent: $text-color-transparent;
   -inverted-text-color: invert($text-color);
 
+  -drop-shadow-1: dropshadow(gaussian, rgba(0, 0, 0, .26), 10, 0.12, -1, 2);
+  -drop-shadow-2: dropshadow(gaussian, rgba(0, 0, 0, .26), 15, 0.16, -1, 4);
+  -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, .26), 20, 0.19, -1, 6);
+
+  -shadow: dropshadow(gaussian, rgba(0, 0, 0, .1), 6, 0.2, 0, 0);
+
   -icons-color: -text-color;
+  -fx-font-family: "Roboto", sans-serif;
   -fx-font-size: 14px;
-  -fx-font-family: Roboto, sans-serif;
 }
 
 // Default styling of icons. This enables changing the icons styles later on
@@ -40,6 +46,7 @@ $custom-color-5: pink;
   -fx-font-size: 1.5em !important;
 }
 
+@import "fonts";
 @import "includes";
 @import "contentView";
 @import "home";
@@ -51,3 +58,4 @@ $custom-color-5: pink;
 @import "navigationDrawer";
 @import "glassPane";
 @import "activeTools";
+@import "dialog";
