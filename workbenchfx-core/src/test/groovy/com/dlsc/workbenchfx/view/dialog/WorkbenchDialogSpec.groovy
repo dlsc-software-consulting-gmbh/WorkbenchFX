@@ -35,10 +35,10 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         dialog = WorkbenchDialog.builder(TITLE, content, TYPE).build()
 
         then:
-        dialog.getTitle() == TITLE
-        dialog.getContent() == content
-        dialog.getType() == TYPE
-        dialog.getStyleClass().get(0) == TYPE.name().toLowerCase()
+        TITLE == dialog.getTitle()
+        content == dialog.getContent()
+        TYPE == dialog.getType()
+        TYPE.name().toLowerCase() == dialog.getStyleClass().get(0)
     }
 
     def "Dialog Constructor - With type and message"() {
@@ -46,10 +46,10 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         dialog = WorkbenchDialog.builder(TITLE, MESSAGE, TYPE).build()
 
         then:
-        dialog.getTitle() == TITLE
+        TITLE == dialog.getTitle()
         dialog.getContent() instanceof DialogMessageContent
-        dialog.getType() == TYPE
-        dialog.getStyleClass().get(0) == TYPE.name().toLowerCase()
+        TYPE == dialog.getType()
+        TYPE.name().toLowerCase() == dialog.getStyleClass().get(0)
     }
 
     def "Dialog Constructor - With button types and message"() {
@@ -57,12 +57,12 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         dialog = WorkbenchDialog.builder(TITLE, MESSAGE, BUTTON_TYPES).build()
 
         then:
-        dialog.getTitle() == TITLE
+        TITLE == dialog.getTitle()
         dialog.getContent() instanceof DialogMessageContent
-        dialog.getType() == null
-        dialog.getStyleClass().size() == 0
-        dialog.getButtonTypes().size() == BUTTON_TYPES.length
-        dialog.getButtonTypes().toArray() == BUTTON_TYPES
+        null == dialog.getType()
+        0 == dialog.getStyleClass().size()
+        BUTTON_TYPES.length == dialog.getButtonTypes().size()
+        BUTTON_TYPES == dialog.getButtonTypes().toArray()
     }
 
     def "Dialog Constructor - With button types and content node"() {
@@ -70,12 +70,12 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         dialog = WorkbenchDialog.builder(TITLE, content, BUTTON_TYPES).build()
 
         then:
-        dialog.getTitle() == TITLE
-        dialog.getContent() == content
-        dialog.getType() == null
-        dialog.getStyleClass().size() == 0
-        dialog.getButtonTypes().size() == BUTTON_TYPES.length
-        dialog.getButtonTypes().toArray() == BUTTON_TYPES
+        TITLE == dialog.getTitle()
+        content == dialog.getContent()
+        null == dialog.getType()
+        0 == dialog.getStyleClass().size()
+        BUTTON_TYPES.length == dialog.getButtonTypes().size()
+        BUTTON_TYPES == dialog.getButtonTypes().toArray()
     }
 
     def "Initialization of optional parameters - Defaults"() {
@@ -87,7 +87,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         !dialog.isMaximized()
         dialog.isButtonsBarShown()
         Objects.isNull(dialog.getException())
-        dialog.getDetails() == ""
+        "" == dialog.getDetails()
     }
 
     def "Initialization of optional parameters - Specified"() {
@@ -110,12 +110,12 @@ class WorkbenchDialogSpec extends ApplicationSpec {
                 .build()
 
         then: "Specified optional parameters are correctly set"
-        dialog.isBlocking() == blocking
-        dialog.isMaximized() == maximized
-        dialog.isButtonsBarShown() == showButtonsBar
+        blocking == dialog.isBlocking()
+        maximized == dialog.isMaximized()
+        showButtonsBar == dialog.isButtonsBarShown()
         dialog.getStyleClass().containsAll(styleClasses)
-        dialog.getException() == exception
-        dialog.getDetails() == details
+        exception == dialog.getException()
+        details == dialog.getDetails()
     }
 
     def "Initialization of a Dialog with Type #type has exactly the ButtonTypes #buttonTypes"(
@@ -124,9 +124,9 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         dialog = WorkbenchDialog.builder(TITLE, content, type).build()
 
         expect:
-        dialog.getType() == type
-        dialog.getButtonTypes().size() == buttonTypes.length
-        dialog.getButtonTypes().toArray() == buttonTypes
+        type == dialog.getType()
+        buttonTypes.length == dialog.getButtonTypes().size()
+        buttonTypes == dialog.getButtonTypes().toArray()
 
         where:
         type              || buttonTypes
@@ -154,22 +154,22 @@ class WorkbenchDialogSpec extends ApplicationSpec {
                 .build()
 
         then: "Specified optional parameters are correctly set"
-        dialog.getException() == exception
-        dialog.getDetails() == details
+        exception == dialog.getException()
+        details == dialog.getDetails()
 
         when: "Dialog's exception object is changed"
         dialog.setException(exception2)
 
         then: "Details gets updated with stacktrace of the new exception by exception listener"
-        dialog.getException() == exception2
-        dialog.getDetails() == details2
+        exception2 == dialog.getException()
+        details2 == dialog.getDetails()
 
         when:
         dialog.setException(null)
 
         then: "Details are not updated"
-        dialog.getException() == null
-        dialog.getDetails() == details2
+        null == dialog.getException()
+        details2 == dialog.getDetails()
     }
 
     def setupMockException(Exception mock, String details) {

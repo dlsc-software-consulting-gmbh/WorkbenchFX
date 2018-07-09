@@ -143,12 +143,12 @@ class WorkbenchSpec extends ApplicationSpec {
         def currentDialog = workbench.getDialog()
 
         expect:
-        currentDialog.getType() == type
-        currentDialog.getTitle() == TITLE
-        ((Label) currentDialog.getContent()).getText() == MESSAGE
-        currentDialog.getException() == exception
-        currentDialog.getDetails() == details
-        currentDialog.getResult() == result
+        type == currentDialog.getType()
+        TITLE == currentDialog.getTitle()
+        MESSAGE == ((Label) currentDialog.getContent()).getText()
+        exception == currentDialog.getException()
+        details == currentDialog.getDetails()
+        result == currentDialog.getResult()
 
         where:
         methodName               | arguments                   || type              | exception | details
