@@ -58,7 +58,7 @@ public class ToolbarPresenter extends Presenter {
   @Override
   public void initializeViewParts() {
 
-    view.tabBox.setCellFactory(tab -> new TabCell());
+    view.tabBar.setCellFactory(tab -> new TabCell());
 
     toolbarControlsLeft.stream().forEachOrdered(view::addToolbarControlLeft);
     toolbarControlsRight.stream().forEachOrdered(view::addToolbarControlRight);
@@ -148,6 +148,7 @@ public class ToolbarPresenter extends Presenter {
    */
   @Override
   public void setupBindings() {
+//    model.modulesProperty().bindContent(view.tabBar.itemsProperty());
   }
 
 }

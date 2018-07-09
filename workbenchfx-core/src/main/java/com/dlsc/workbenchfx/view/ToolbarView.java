@@ -23,14 +23,15 @@ public class ToolbarView extends HBox implements View {
   private FontAwesomeIconView menuIconView;
   Button homeBtn;
   Button menuBtn;
-  SelectionStrip<Tab> tabBox;
+  SelectionStrip<Tab> tabBar;
   HBox toolbarControlLeftBox;
   HBox toolbarControlRightBox;
 
   /**
    * Creates a new {@link ToolbarView} for the Workbench.
    */
-  public ToolbarView() {
+  public ToolbarView(SelectionStrip<Tab> tabBar) {
+    this.tabBar = tabBar;
     init();
   }
 
@@ -60,8 +61,7 @@ public class ToolbarView extends HBox implements View {
     menuBtn = new Button("", menuIconView);
     menuBtn.setId("menu-button");
 
-    tabBox = new SelectionStrip<>();
-    tabBox.setId("tab-box");
+    tabBar.setId("tab-bar");
 
     toolbarControlLeftBox = new HBox();
     toolbarControlLeftBox.setId("toolbar-control-left-box");
@@ -75,8 +75,8 @@ public class ToolbarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().addAll(toolbarControlLeftBox, homeBtn, tabBox, toolbarControlRightBox);
-    setHgrow(tabBox, Priority.ALWAYS);
+    getChildren().addAll(toolbarControlLeftBox, homeBtn, tabBar, toolbarControlRightBox);
+    setHgrow(tabBar, Priority.ALWAYS);
     Platform.runLater(() -> homeBtn.requestFocus());
   }
 
@@ -97,30 +97,30 @@ public class ToolbarView extends HBox implements View {
   }
 
   /**
-   * Adds a tab to the {@code tabBox}.
+   * Adds a tab to the {@code tabBar}.
    * @param tab to be added
    */
   /**
-   * Adds a {@link Node} at the end of the {@code tabBox}.
+   * Adds a {@link Node} at the end of the {@code tabBar}.
    *
    * @param tab the {@link Node} to be added
    */
   public void addTab(Tab tab) {
-    tabBox.getItems().add(tab);
+    tabBar.getItems().add(tab);
   }
 
   /**
-   * Removes a {@link Node} at the specified index of the {@code tabBox}.
+   * Removes a {@link Node} at the specified index of the {@code tabBar}.
    *
    * @param index the index where the specified {@link Node} should be removed
    */
   /**
-   * Removes a tab to the {@code tabBox}.
+   * Removes a tab to the {@code tabBar}.
    *
    * @param index of the tab to be removed
    */
   public void removeTab(int index) {
-    tabBox.getItems().remove(index);
+    tabBar.getItems().remove(index);
   }
 
   /**

@@ -74,11 +74,11 @@ public class TabSkin extends SkinBase<Tab> {
     controlBox.getChildren().addAll(iconPlaceholder, nameLbl, closeBtn);
 
     nameLbl.getStyleClass().add("tab-name-lbl");
-    nameLbl.setMouseTransparent(true);
+//    nameLbl.setMouseTransparent(true);
 
     closeBtn.getStyleClass().add("close-btn");
     closeIconView.setStyleClass("close-icon-view");
-    closeBtn.setMouseTransparent(false);
+//    closeBtn.setMouseTransparent(false);
 
     controlBox.getStyleClass().add("tab-control");
     controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
@@ -90,7 +90,7 @@ public class TabSkin extends SkinBase<Tab> {
 
   private void setupEventHandlers() {
     closeBtn.setOnAction(e -> getSkinnable().close());
-//    controlBox.setOnMouseClicked(e -> getSkinnable().open());
+    controlBox.setOnMouseClicked(e -> getSkinnable().open());
   }
 
   private void setupValueChangedListeners() {
@@ -120,7 +120,7 @@ public class TabSkin extends SkinBase<Tab> {
    */
   private void updateIcon() {
     Node iconNode = icon.get();
-    iconNode.setMouseTransparent(true);
+//    iconNode.setMouseTransparent(true);
     ObservableList<Node> children = controlBox.getChildren();
     children.remove(0);
     children.add(0, iconNode);

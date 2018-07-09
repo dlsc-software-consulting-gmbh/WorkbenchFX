@@ -8,19 +8,22 @@ import com.dlsc.workbenchfx.view.ToolbarPresenter;
 import com.dlsc.workbenchfx.view.ToolbarView;
 import com.dlsc.workbenchfx.view.WorkbenchPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchView;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
+import com.dlsc.workbenchfx.view.controls.selectionStrip.SelectionStrip;
 import javafx.application.Application;
 import javafx.scene.control.SkinBase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the Skin which is made for the {@link Workbench}.
- * It creates all the Views and Presenters which are needed and sets the stylesheets.
+ * Represents the Skin which is made for the {@link Workbench}. It creates all the Views and
+ * Presenters which are needed and sets the stylesheets.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
 public class WorkbenchSkin extends SkinBase<Workbench> {
+
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchSkin.class.getName());
 
@@ -37,9 +40,11 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   private WorkbenchView workbenchView;
   private WorkbenchPresenter workbenchPresenter;
 
+  private SelectionStrip<Tab> tabBar;
+
   /**
-   * Creates a skin for a given {@link Workbench}. It contains all views and presenters.
-   * It sets also the default stylesheet.
+   * Creates a skin for a given {@link Workbench}. It contains all views and presenters. It sets
+   * also the default stylesheet.
    *
    * @param workbench for which this skin is created
    */
@@ -54,7 +59,9 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   }
 
   private void initViews(Workbench model) {
-    toolbarView = new ToolbarView();
+    tabBar = new SelectionStrip<>();
+
+    toolbarView = new ToolbarView(tabBar);
     toolbarPresenter = new ToolbarPresenter(model, toolbarView);
 
     homeView = new HomeView();

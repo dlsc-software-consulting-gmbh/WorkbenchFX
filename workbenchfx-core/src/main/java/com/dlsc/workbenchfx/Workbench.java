@@ -12,10 +12,12 @@ import java.util.Objects;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -67,7 +69,7 @@ public class Workbench extends Control {
   /**
    * List of all modules.
    */
-  private final ObservableList<WorkbenchModule> modules = FXCollections.observableArrayList();
+  private final ListProperty<WorkbenchModule> modules = new SimpleListProperty<>(this, "modules", FXCollections.observableArrayList());
 
   /**
    * List of all currently open modules. Open modules are being displayed as open tabs in the
@@ -323,13 +325,19 @@ public class Workbench extends Control {
     return FXCollections.unmodifiableObservableList(openModules);
   }
 
+  public ObservableList<WorkbenchModule> getModules() {
+    return modules.get();
+  }
+
+  public ListProperty<WorkbenchModule> modulesProperty() {
+    return modules;
+  }
+
   /**
    * Returns a list of the currently loaded modules.
    * @implNote Use this method to add or remove modules at runtime.
    */
-  public ObservableList<WorkbenchModule> getModules() {
-    return modules;
-  }
+
 
   public WorkbenchModule getActiveModule() {
     return activeModule.get();
