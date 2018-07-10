@@ -21,7 +21,7 @@ public class TabCell extends StripCell<Tab> {
 
 
 
-    selectedProperty().bind(Bindings.select(itemProperty(), "activeTab"));
+//    selectedProperty().bind(Bindings.select(itemProperty(), "activeTab"));
 
 
 

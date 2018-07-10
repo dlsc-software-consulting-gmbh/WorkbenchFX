@@ -9,7 +9,9 @@ import com.dlsc.workbenchfx.view.controls.module.Tile;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
@@ -20,6 +22,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
@@ -32,6 +35,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.controlsfx.control.PropertySheet.Item;
 
 /**
  * Contains all the model logic for the workbench.
@@ -40,6 +44,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class Workbench extends Control {
+
   private static final Logger LOGGER =
       LogManager.getLogger(Workbench.class.getName());
 
@@ -69,7 +74,10 @@ public class Workbench extends Control {
   /**
    * List of all modules.
    */
-  private final ListProperty<WorkbenchModule> modules = new SimpleListProperty<>(this, "modules", FXCollections.observableArrayList());
+  private final ListProperty<WorkbenchModule> modules = new SimpleListProperty<>(this, "modules",
+      FXCollections.observableArrayList());
+  private final ListProperty<Tab> tabsList = new SimpleListProperty<>(this, "tabsList",
+      FXCollections.observableArrayList());
 
   /**
    * List of all currently open modules. Open modules are being displayed as open tabs in the
@@ -111,7 +119,33 @@ public class Workbench extends Control {
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initModules(builder.modules);
+    setupModulesTabListener();
     setupCleanup();
+  }
+
+  private void setupModulesTabListener() {
+    openModules.addListener((ListChangeListener<WorkbenchModule>) c -> {
+      while (c.next()) {
+        if (c.wasRemoved()) {
+          c.getRemoved().forEach(module -> {
+            // Remove tab from the tabsList
+            tabsList.remove(
+                tabsList.stream()
+                    .filter(tab -> tab.getModule() == module)
+                    .collect(Collectors.toList())
+                    .get(0) // Get the first element (cause it contains only one)
+            );
+          });
+        } else if (c.wasAdded()) {
+          c.getAddedSubList().forEach(module -> {
+            // Add tab to the tabsList
+            Tab tabControl = getTabFactory().call(this);
+            tabControl.setModule(module);
+            tabsList.add(tabControl);
+          });
+        }
+      }
+    });
   }
 
   private void initAmountOfPagesBinding() {
@@ -307,7 +341,7 @@ public class Workbench extends Control {
    *
    * @return amount of pages
    * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}. This
-   *           is repeated until all modules are rendered as tiles.
+   * is repeated until all modules are rendered as tiles.
    */
   private int calculateAmountOfPages() {
     int amountOfModules = getModules().size();
@@ -333,8 +367,21 @@ public class Workbench extends Control {
     return modules;
   }
 
+  public ObservableList<Tab> getTabsList() {
+    return tabsList.get();
+  }
+
+  public ListProperty<Tab> tabsListProperty() {
+    return tabsList;
+  }
+
+  public void setTabsList(ObservableList<Tab> tabsList) {
+    this.tabsList.set(tabsList);
+  }
+
   /**
    * Returns a list of the currently loaded modules.
+   *
    * @implNote Use this method to add or remove modules at runtime.
    */
 
@@ -357,6 +404,7 @@ public class Workbench extends Control {
 
   /**
    * Returns a list of the currently loaded toolbar controls on the left.
+   *
    * @implNote Use this method to add or remove toolbar controls on the left at runtime.
    */
   public ObservableSet<Node> getToolbarControlsLeft() {
@@ -365,6 +413,7 @@ public class Workbench extends Control {
 
   /**
    * Returns a list of the currently loaded toolbar controls on the right.
+   *
    * @implNote Use this method to add or remove toolbar controls on the right at runtime.
    */
   public ObservableSet<Node> getToolbarControlsRight() {
@@ -382,12 +431,11 @@ public class Workbench extends Control {
   /**
    * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background.
    *
-   * @param overlay  to be shown
+   * @param overlay to be shown
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
-   *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
-   *                 clicking outside of the {@code overlay} will not do anything. The {@code
-   *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide
-   *                 it.
+   * to get hidden, together with its {@link GlassPane}. If true (blocking), clicking outside of the
+   * {@code overlay} will not do anything. The {@code overlay} itself must call {@link
+   * Workbench#hideOverlay(Node)} to hide it.
    */
   public boolean showOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("showOverlay");
@@ -405,11 +453,11 @@ public class Workbench extends Control {
    * Hides the {@code overlay} together with its {@link GlassPane}, which has previously been shown
    * using {@link Workbench#showOverlay(Node, boolean)}.
    *
-   * @param overlay  to be hidden
+   * @param overlay to be hidden
    * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
-   *           remove it from the scene graph entirely.
-   *           If keeping the {@code overlay} loaded hidden in the scene graph is not possible due
-   *           to performance reasons, call {@link Workbench#clearOverlays()} after this method.
+   * remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden in the
+   * scene graph is not possible due to performance reasons, call {@link Workbench#clearOverlays()}
+   * after this method.
    */
   public boolean hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");
