@@ -124,13 +124,13 @@ public class Workbench extends Control {
       new ReadOnlyBooleanWrapper(this, "dialogShown", false);
 
   Workbench(WorkbenchBuilder builder) {
-    setModulesPerPage(builder.modulesPerPage);
+    setModulesPerPage(builder);
     initBindings();
     initFactories(builder);
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initDialog(builder);
-    initModules(builder.modules);
+    initModules(builder);
     setupModulesTabListener();
     setupCleanup();
   }
@@ -197,11 +197,6 @@ public class Workbench extends Control {
     );
 
     dialogShown.bind(dialogProperty().isNotNull());
-  }
-
-  @Override
-  protected Skin<?> createDefaultSkin() {
-    return new WorkbenchSkin(this);
   }
 
   private void initToolbarControls(WorkbenchBuilder builder) {
@@ -728,8 +723,8 @@ public class Workbench extends Control {
     return modulesPerPage.get();
   }
 
-  public void setModulesPerPage(int modulesPerPage) {
-    this.modulesPerPage.set(modulesPerPage);
+  public void setModulesPerPage(WorkbenchBuilder builder) {
+    this.modulesPerPage.set(builder.modulesPerPage);
   }
 
   public Callback<Workbench, Tab> getTabFactory() {
