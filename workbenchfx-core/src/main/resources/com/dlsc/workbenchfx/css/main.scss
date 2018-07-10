@@ -8,7 +8,7 @@ $darken-percentage: -10%;
 //$text-color: darken($primary-color, 60%);
 
 // Color schema with a light -text-color and a dark -prim-color
-$text-color: hsl(202, 98%, 99%);
+$text-color: hsl(23, 76%, 99%);
 $primary-color: darken($text-color, 60%);
 
 $text-color-transparent: transparentize($text-color, .2);

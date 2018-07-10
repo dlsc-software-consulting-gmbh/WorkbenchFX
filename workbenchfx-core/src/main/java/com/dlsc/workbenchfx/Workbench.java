@@ -142,28 +142,28 @@ public class Workbench extends Control {
   }
 
   private void setupModulesTabListener() {
-    openModules.addListener((ListChangeListener<WorkbenchModule>) c -> {
-      while (c.next()) {
-        if (c.wasRemoved()) {
-          c.getRemoved().forEach(module -> {
-            // Remove tab from the tabsList
-            tabsList.remove(
-                tabsList.stream()
-                    .filter(tab -> tab.getModule() == module)
-                    .collect(Collectors.toList())
-                    .get(0) // Get the first element (cause it contains only one)
-            );
-          });
-        } else if (c.wasAdded()) {
-          c.getAddedSubList().forEach(module -> {
-            // Add tab to the tabsList
-            Tab tabControl = getTabFactory().call(this);
-            tabControl.setModule(module);
-            tabsList.add(tabControl);
-          });
-        }
-      }
-    });
+//    tabsList.addListener((ListChangeListener<Tab>) c -> {
+//      while (c.next()) {
+//        if (c.wasRemoved()) {
+//          c.getRemoved().forEach(module -> {
+//            // Remove tab from the tabsList
+//            tabsList.remove(
+//                tabsList.stream()
+//                    .filter(tab -> tab.getModule() == module)
+//                    .collect(Collectors.toList())
+//                    .get(0) // Get the first element (cause it contains only one)
+//            );
+//          });
+//        } else if (c.wasAdded()) {
+//          c.getAddedSubList().forEach(module -> {
+//            // Add tab to the tabsList
+//            Tab tabControl = getTabFactory().call(this);
+//            tabControl.setModule(module);
+//            tabsList.add(tabControl);
+//          });
+//        }
+//      }
+//    });
   }
 
   private void initAmountOfPagesBinding() {

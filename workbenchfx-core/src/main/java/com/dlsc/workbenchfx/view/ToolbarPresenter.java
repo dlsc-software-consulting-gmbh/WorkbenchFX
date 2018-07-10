@@ -148,7 +148,7 @@ public class ToolbarPresenter extends Presenter {
    */
   @Override
   public void setupBindings() {
-//    model.modulesProperty().bindContent(view.tabBar.itemsProperty());
+    model.tabsListProperty().bindContent(view.tabBar.itemsProperty());
   }
 
 }

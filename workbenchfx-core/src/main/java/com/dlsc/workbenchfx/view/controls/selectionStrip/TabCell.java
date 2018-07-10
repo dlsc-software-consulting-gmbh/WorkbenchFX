@@ -14,6 +14,8 @@ public class TabCell extends StripCell<Tab> {
     super();
     itemProperty().addListener(it -> {
       setText("");
+      //Tab erstellen
+
       setGraphic(getItem());
     });
 
