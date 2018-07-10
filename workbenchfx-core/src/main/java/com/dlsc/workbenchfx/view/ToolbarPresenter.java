@@ -57,7 +57,6 @@ public class ToolbarPresenter extends Presenter {
    */
   @Override
   public void initializeViewParts() {
-
     view.tabBar.setCellFactory(tab -> new TabCell());
 
     toolbarControlsLeft.stream().forEachOrdered(view::addToolbarControlLeft);

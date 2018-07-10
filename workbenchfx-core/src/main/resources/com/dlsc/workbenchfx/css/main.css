@@ -1,12 +1,12 @@
 .root {
-  -prim-color: #027dc5;
-  -prim-color-hover: #028ede;
+  -prim-color: #af5218;
+  -prim-color-hover: #c55c1b;
   -danger-color: #ed5a5a;
   -success-color: #47aa71;
   -accent-color: #00aaff;
-  -text-color: #fafdff;
-  -text-color-transparent: rgba(250, 253, 255, 0.8);
-  -inverted-text-color: #050200;
+  -text-color: #fefcfb;
+  -text-color-transparent: rgba(254, 252, 251, 0.8);
+  -inverted-text-color: #010304;
   -drop-shadow-1: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 10, 0.12, -1, 2);
   -drop-shadow-2: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 15, 0.16, -1, 4);
   -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 20, 0.19, -1, 6);
@@ -168,6 +168,14 @@
 #toolbar {
   -fx-background-color: -prim-color;
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 3); }
+
+#toolbar .selection-strip {
+  -fx-background-color: yellow !important; }
+  #toolbar .selection-strip .strip-cell:pressed {
+    -fx-background-color: derive(-prim-color, -30%) !important; }
+  #toolbar .selection-strip .strip-cell:selected {
+    -fx-background-color: -fx-selection-bar;
+    -fx-text-fill: -fx-selection-bar-text; }
 
 .tile-control {
   -fx-min-width: 16em;

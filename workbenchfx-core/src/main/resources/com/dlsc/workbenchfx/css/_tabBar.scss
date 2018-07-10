@@ -1,0 +1,31 @@
+#toolbar {
+  .selection-strip {
+
+    -fx-background-color: yellow !important;
+
+    & .strip-cell {
+
+      &:pressed {
+        -fx-background-color: derive(-prim-color, -30%) !important;
+      }
+
+      &:selected {
+        -fx-background-color: -fx-selection-bar;
+        -fx-text-fill: -fx-selection-bar-text;
+      }
+
+      & .tab-control {
+
+        & .tab-icon {
+
+        }
+        & .tab-name-lbl {
+
+        }
+        & .close-btn {
+
+        }
+      }
+    }
+  }
+}
