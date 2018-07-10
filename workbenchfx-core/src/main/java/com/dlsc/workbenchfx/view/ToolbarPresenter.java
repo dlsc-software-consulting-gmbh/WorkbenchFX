@@ -113,10 +113,10 @@ public class ToolbarPresenter extends Presenter {
           for (WorkbenchModule module : c.getAddedSubList()) {
             LOGGER.debug("Module " + module + " opened");
             // create tab control
-            Tab tabControl = model.getTabFactory().call(model);
-            tabControl.setModule(module);
-            view.addTab(tabControl);
-            tabControl.requestFocus();
+//            Tab tabControl = model.getTabFactory().call(model);
+//            tabControl.setModule(module);
+            view.addModule(module);
+//            tabControl.requestFocus();
           }
         }
       }
@@ -148,7 +148,7 @@ public class ToolbarPresenter extends Presenter {
    */
   @Override
   public void setupBindings() {
-    model.tabsListProperty().bindContent(view.tabBar.itemsProperty());
+//    model.tabsListProperty().bindContent(view.tabBar.itemsProperty());
   }
 
 }

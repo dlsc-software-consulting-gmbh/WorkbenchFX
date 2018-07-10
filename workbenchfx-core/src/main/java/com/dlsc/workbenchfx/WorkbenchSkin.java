@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx;
 
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.ContentPresenter;
 import com.dlsc.workbenchfx.view.ContentView;
 import com.dlsc.workbenchfx.view.HomePresenter;
@@ -40,7 +41,7 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   private WorkbenchView workbenchView;
   private WorkbenchPresenter workbenchPresenter;
 
-  private SelectionStrip<Tab> tabBar;
+  private SelectionStrip<WorkbenchModule> tabBar;
 
   /**
    * Creates a skin for a given {@link Workbench}.

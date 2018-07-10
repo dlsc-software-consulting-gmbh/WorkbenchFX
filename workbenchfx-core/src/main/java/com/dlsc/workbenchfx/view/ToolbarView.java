@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view;
 
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.selectionStrip.SelectionStrip;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -23,14 +24,14 @@ public class ToolbarView extends HBox implements View {
   private FontAwesomeIconView menuIconView;
   Button homeBtn;
   Button menuBtn;
-  SelectionStrip<Tab> tabBar;
+  SelectionStrip<WorkbenchModule> tabBar;
   HBox toolbarControlLeftBox;
   HBox toolbarControlRightBox;
 
   /**
    * Creates a new {@link ToolbarView} for the Workbench.
    */
-  public ToolbarView(SelectionStrip<Tab> tabBar) {
+  public ToolbarView(SelectionStrip<WorkbenchModule> tabBar) {
     this.tabBar = tabBar;
     init();
   }
@@ -101,12 +102,12 @@ public class ToolbarView extends HBox implements View {
    * @param tab to be added
    */
   /**
-   * Adds a {@link Node} at the end of the {@code tabBar}.
+   * Adds a {@link WorkbenchModule} at the end of the {@code tabBar}.
    *
-   * @param tab the {@link Node} to be added
+   * @param module the {@link WorkbenchModule} to be added
    */
-  public void addTab(Tab tab) {
-    tabBar.getItems().add(tab);
+  public void addModule(WorkbenchModule module) {
+    tabBar.getItems().add(module);
   }
 
   /**
