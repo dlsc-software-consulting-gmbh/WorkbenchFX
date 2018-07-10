@@ -101,26 +101,26 @@ public class ToolbarPresenter extends Presenter {
     );
 
     // When the List of the currently open modules is changed, the view is updated.
-    openModules.addListener((ListChangeListener<? super WorkbenchModule>) c -> {
-      while (c.next()) {
-        if (c.wasRemoved()) {
-          for (WorkbenchModule module : c.getRemoved()) {
-            LOGGER.debug("Module " + module + " closed");
-            view.removeTab(c.getFrom());
-          }
-        }
-        if (c.wasAdded()) {
-          for (WorkbenchModule module : c.getAddedSubList()) {
-            LOGGER.debug("Module " + module + " opened");
-            // create tab control
-//            Tab tabControl = model.getTabFactory().call(model);
-//            tabControl.setModule(module);
-            view.addModule(module);
-//            tabControl.requestFocus();
-          }
-        }
-      }
-    });
+//    openModules.addListener((ListChangeListener<? super WorkbenchModule>) c -> {
+//      while (c.next()) {
+//        if (c.wasRemoved()) {
+//          for (WorkbenchModule module : c.getRemoved()) {
+//            LOGGER.debug("Module " + module + " closed");
+//            view.removeTab(c.getFrom());
+//          }
+//        }
+//        if (c.wasAdded()) {
+//          for (WorkbenchModule module : c.getAddedSubList()) {
+//            LOGGER.debug("Module " + module + " opened");
+//            // create tab control
+////            Tab tabControl = model.getTabFactory().call(model);
+////            tabControl.setModule(module);
+//            view.addModule(module);
+////            tabControl.requestFocus();
+//          }
+//        }
+//      }
+//    });
 
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       if (Objects.isNull(oldModule)) {
@@ -149,6 +149,8 @@ public class ToolbarPresenter extends Presenter {
   @Override
   public void setupBindings() {
 //    model.tabsListProperty().bindContent(view.tabBar.itemsProperty());
+    view.tabBar.itemsProperty().bindContentBidirectional(model.openModulesProperty());
+    view.tabBar.selectedItemProperty().bindBidirectional(model.activeModuleProperty());
   }
 
 }

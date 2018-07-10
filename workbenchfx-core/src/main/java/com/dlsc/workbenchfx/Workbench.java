@@ -93,7 +93,8 @@ public class Workbench extends Control {
    * List of all currently open modules. Open modules are being displayed as open tabs in the
    * application.
    */
-  private final ObservableList<WorkbenchModule> openModules = FXCollections.observableArrayList();
+  private final ListProperty<WorkbenchModule> openModules = new SimpleListProperty<>(this, "modules",
+      FXCollections.observableArrayList());
 
   /**
    * Currently active module. Active module is the module, which is currently being displayed in the
@@ -409,7 +410,15 @@ public class Workbench extends Control {
   }
 
   public ObservableList<WorkbenchModule> getOpenModules() {
-    return FXCollections.unmodifiableObservableList(openModules);
+    return openModules.get();
+  }
+
+  public ListProperty<WorkbenchModule> openModulesProperty() {
+    return openModules;
+  }
+
+  public void setOpenModules(ObservableList<WorkbenchModule> openModules) {
+    this.openModules.set(openModules);
   }
 
   public ObservableList<WorkbenchModule> getModules() {
@@ -443,7 +452,7 @@ public class Workbench extends Control {
     return activeModule.get();
   }
 
-  public ReadOnlyObjectProperty<WorkbenchModule> activeModuleProperty() {
+  public ObjectProperty<WorkbenchModule> activeModuleProperty() {
     return activeModule;
   }
 
