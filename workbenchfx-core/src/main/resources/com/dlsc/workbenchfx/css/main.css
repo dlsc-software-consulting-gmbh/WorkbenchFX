@@ -174,22 +174,26 @@
   -fx-border-color: derive(-prim-color, -10%);
   -fx-border-width: 0 1px 0 1px;
   -fx-border-insets: 0 -1px 0 -1px; }
-  #toolbar .selection-strip .strip-cell:pressed {
-    -fx-background-color: derive(-prim-color, -10%) !important; }
-  #toolbar .selection-strip .strip-cell:selected {
-    -fx-background-color: derive(-prim-color, -10%); }
-  #toolbar .selection-strip .strip-cell .tab-control {
-    -fx-alignment: center;
-    -fx-border-width: 0;
-    -fx-padding: 0 1em 0 1em; }
-    #toolbar .selection-strip .strip-cell .tab-control .tab-name-lbl {
-      -fx-text-fill: -text-color;
+  #toolbar .selection-strip .strip-cell {
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: -prim-color; }
+    #toolbar .selection-strip .strip-cell:pressed {
+      -fx-background-color: -prim-color; }
+    #toolbar .selection-strip .strip-cell:selected {
+      -fx-background-color: -prim-color;
+      -fx-border-color: -text-color; }
+    #toolbar .selection-strip .strip-cell .tab-control {
+      -fx-alignment: center;
+      -fx-border-width: 0;
       -fx-padding: 0 1em 0 1em; }
-    #toolbar .selection-strip .strip-cell .tab-control .glyph-icon {
-      -fx-font-size: 1.25em !important; }
-    #toolbar .selection-strip .strip-cell .tab-control .close-btn {
-      -fx-background-color: transparent;
-      -fx-padding: 0; }
+      #toolbar .selection-strip .strip-cell .tab-control .tab-name-lbl {
+        -fx-text-fill: -text-color;
+        -fx-padding: 0 1em 0 1em; }
+      #toolbar .selection-strip .strip-cell .tab-control .glyph-icon {
+        -fx-font-size: 1.25em !important; }
+      #toolbar .selection-strip .strip-cell .tab-control .close-btn {
+        -fx-background-color: transparent;
+        -fx-padding: 0; }
   #toolbar .selection-strip .fader.left {
     -fx-background-color: linear-gradient(from 25 0 to 80 0, derive(-prim-color, -10%), transparent); }
   #toolbar .selection-strip .fader.right {

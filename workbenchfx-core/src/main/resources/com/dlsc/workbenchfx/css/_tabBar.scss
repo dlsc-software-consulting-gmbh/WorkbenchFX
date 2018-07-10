@@ -6,13 +6,19 @@
     -fx-border-insets: 0 -1px 0 -1px;
 
     & .strip-cell {
+      -fx-border-width: 0 0 2px 0;
+      -fx-border-color: -prim-color;
 
       &:pressed {
-        -fx-background-color: derive(-prim-color, $darken-percentage) !important;
+        //-fx-background-color: derive(-prim-color, $darken-percentage) !important;
+        -fx-background-color: -prim-color;
+        //-fx-border-color: derive(-prim-color, $darken-percentage);
       }
 
       &:selected {
-        -fx-background-color: derive(-prim-color, $darken-percentage);
+        //-fx-background-color: derive(-prim-color, $darken-percentage);
+        -fx-background-color: -prim-color;
+        -fx-border-color: -text-color;
       }
 
       & .tab-control {
