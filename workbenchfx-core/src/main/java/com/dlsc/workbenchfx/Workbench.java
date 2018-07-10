@@ -1,14 +1,19 @@
 package com.dlsc.workbenchfx;
 
-import com.dlsc.workbenchfx.module.WorkbenchModule;
+import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
+
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
+import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
@@ -16,8 +21,11 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -28,6 +36,7 @@ import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
@@ -53,6 +62,7 @@ public class Workbench extends Control {
 
   // Custom Controls
   private ObjectProperty<NavigationDrawer> navigationDrawer = new SimpleObjectProperty<>();
+  private ObjectProperty<DialogControl> dialogControl = new SimpleObjectProperty<>();
 
   // Lists
   private final ObservableSet<Node> toolbarControlsRight =
@@ -106,21 +116,29 @@ public class Workbench extends Control {
       new SimpleObjectProperty<>(this, "pageFactory");
 
   // Properties
-  private final IntegerProperty modulesPerPage;
-  private final IntegerProperty amountOfPages;
+  private final IntegerProperty modulesPerPage = new SimpleIntegerProperty();
+  private final IntegerProperty amountOfPages = new SimpleIntegerProperty();
+  private final ReadOnlyObjectWrapper<WorkbenchDialog> dialog =
+      new ReadOnlyObjectWrapper<>(this, "dialog");
+  private final ReadOnlyBooleanWrapper dialogShown =
+      new ReadOnlyBooleanWrapper(this, "dialogShown", false);
 
   Workbench(WorkbenchBuilder builder) {
-    modulesPerPage = new SimpleIntegerProperty(builder.modulesPerPage);
-    amountOfPages = new SimpleIntegerProperty(calculateAmountOfPages());
-    initAmountOfPagesBinding();
-    tabFactory.set(builder.tabFactory);
-    tileFactory.set(builder.tileFactory);
-    pageFactory.set(builder.pageFactory);
+    setModulesPerPage(builder.modulesPerPage);
+    initBindings();
+    initFactories(builder);
     initToolbarControls(builder);
     initNavigationDrawer(builder);
+    initDialog(builder);
     initModules(builder.modules);
     setupModulesTabListener();
     setupCleanup();
+  }
+
+  private void initFactories(WorkbenchBuilder builder) {
+    tabFactory.set(builder.tabFactory);
+    tileFactory.set(builder.tileFactory);
+    pageFactory.set(builder.pageFactory);
   }
 
   private void setupModulesTabListener() {
@@ -171,6 +189,21 @@ public class Workbench extends Control {
     return new WorkbenchBuilder(modules);
   }
 
+  private void initBindings() {
+    amountOfPages.bind(
+        Bindings.createIntegerBinding(
+            this::calculateAmountOfPages, modulesPerPageProperty(), getModules()
+        )
+    );
+
+    dialogShown.bind(dialogProperty().isNotNull());
+  }
+
+  @Override
+  protected Skin<?> createDefaultSkin() {
+    return new WorkbenchSkin(this);
+  }
+
   private void initToolbarControls(WorkbenchBuilder builder) {
     if (builder.toolbarControlsLeft != null) {
       toolbarControlsLeft.addAll(List.of(builder.toolbarControlsLeft));
@@ -187,14 +220,39 @@ public class Workbench extends Control {
     }
     // when control of navigation drawer changes, pass in the workbench object
     navigationDrawerProperty().addListener((observable, oldControl, newControl) -> {
-      if (oldControl != newControl) {
+      if (!Objects.isNull(newControl)) {
         newControl.setWorkbench(this);
       }
     });
     setNavigationDrawer(builder.navigationDrawer);
   }
 
-  private void initModules(WorkbenchModule... modules) {
+  private void initDialog(WorkbenchBuilder builder) {
+    // when control of navigation drawer changes, pass in the workbench object
+    dialogControlProperty().addListener((observable, oldControl, newControl) -> {
+      if (!Objects.isNull(newControl)) {
+        newControl.setWorkbench(this);
+      }
+    });
+    setDialogControl(builder.dialogControl);
+
+    // shows or hides the dialog every time the dialogProperty() changes
+    dialogProperty().addListener((observable, oldDialog, newDialog) -> {
+      if (newDialog != null) {
+        showOverlay(getDialogControl(), newDialog.isBlocking());
+      } else {
+        hideOverlay(getDialogControl());
+        if (!oldDialog.getResult().isDone()) {
+          LOGGER.debug("Dialog was closed by clicking on the GlassPane (cancel)");
+          oldDialog.getResult().complete(ButtonType.CANCEL);
+        }
+      }
+    });
+  }
+
+  private void initModules(WorkbenchBuilder builder) {
+    WorkbenchModule[] modules = builder.modules;
+
     this.modules.addAll(modules);
 
     // handle changes of the active module
@@ -341,7 +399,7 @@ public class Workbench extends Control {
    *
    * @return amount of pages
    * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}. This
-   * is repeated until all modules are rendered as tiles.
+   *           is repeated until all modules are rendered as tiles.
    */
   private int calculateAmountOfPages() {
     int amountOfModules = getModules().size();
@@ -421,6 +479,144 @@ public class Workbench extends Control {
   }
 
   /**
+   * Hides the currently shown {@link WorkbenchDialog} in the view.
+   */
+  public final void hideDialog() {
+    this.dialog.set(null);
+  }
+
+  /**
+   * Shows a {@link WorkbenchDialog} in the view.
+   *
+   * @param dialog to be shown
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
+   *           All dialogs are non-blocking by default. If you want to change this behavior, use
+   *           {@link WorkbenchDialog#builder} to create a dialog and show it using
+   *           {@link Workbench#showDialog(WorkbenchDialog)}.
+   */
+  public final CompletableFuture<ButtonType> showDialog(WorkbenchDialog dialog) {
+    this.dialog.set(dialog);
+    return dialog.getResult();
+  }
+
+  /**
+   * Shows an error dialog in the view.
+   *
+   * @param title   of the dialog
+   * @param message of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
+   */
+  public final CompletableFuture<ButtonType> showErrorDialog(String title, String message) {
+    WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR).build();
+    return showDialog(dialog);
+  }
+
+  /**
+   * Shows an error dialog in the view with a stacktrace of the {@code exception}.
+   *
+   * @param title     of the dialog
+   * @param message   of the dialog
+   * @param exception of which the stacktrace should be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
+   */
+  public final CompletableFuture<ButtonType> showErrorDialog(
+      String title, String message, Exception exception) {
+    WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
+        .exception(exception)
+        .build();
+    return showDialog(dialog);
+  }
+
+  /**
+   * Shows an error dialog in the view with {@code details} about the error.
+   *
+   * @param title   of the dialog
+   * @param message of the dialog
+   * @param details about the error
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
+   */
+  public final CompletableFuture<ButtonType> showErrorDialog(
+      String title, String message, String details) {
+    WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
+        .details(details)
+        .build();
+    return showDialog(dialog);
+  }
+
+  /**
+   * Shows a warning dialog in the view.
+   *
+   * @param title   of the dialog
+   * @param message of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
+   */
+  public final CompletableFuture<ButtonType> showWarningDialog(String title, String message) {
+    WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.WARNING).build();
+    return showDialog(dialog);
+  }
+
+  /**
+   * Shows a confirmation dialog in the view.
+   *
+   * @param title   of the dialog
+   * @param message of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
+   */
+  public final CompletableFuture<ButtonType> showConfirmationDialog(String title, String message) {
+    WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.CONFIRMATION).build();
+    return showDialog(dialog);
+  }
+
+  /**
+   * Shows an information dialog in the view.
+   *
+   * @param title   of the dialog
+   * @param message of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
+   */
+  public final CompletableFuture<ButtonType> showInformationDialog(String title, String message) {
+    WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.INFORMATION).build();
+    return showDialog(dialog);
+  }
+
+  public final ReadOnlyObjectProperty<WorkbenchDialog> dialogProperty() {
+    return dialog;
+  }
+
+  public final ReadOnlyBooleanProperty dialogShownProperty() {
+    return dialogShown.getReadOnlyProperty();
+  }
+
+  public final boolean isDialogShown() {
+    return dialogShown.get();
+  }
+
+  public final WorkbenchDialog getDialog() {
+    return dialog.get();
+  }
+
+  /**
    * Returns a map of all overlays, which have previously been opened, with their corresponding
    * {@link GlassPane}.
    */
@@ -433,9 +629,9 @@ public class Workbench extends Control {
    *
    * @param overlay to be shown
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
-   * to get hidden, together with its {@link GlassPane}. If true (blocking), clicking outside of the
-   * {@code overlay} will not do anything. The {@code overlay} itself must call {@link
-   * Workbench#hideOverlay(Node)} to hide it.
+   *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
+   *                 clicking outside of the {@code overlay} will not do anything. The {@code
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide it.
    */
   public boolean showOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("showOverlay");
@@ -443,8 +639,10 @@ public class Workbench extends Control {
       overlays.put(overlay, new GlassPane());
     }
     if (blocking) {
+      LOGGER.trace("showOverlay - blocking");
       return blockingOverlaysShown.add(overlay);
     } else {
+      LOGGER.trace("showOverlay - non-blocking");
       return nonBlockingOverlaysShown.add(overlay);
     }
   }
@@ -455,12 +653,15 @@ public class Workbench extends Control {
    *
    * @param overlay to be hidden
    * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
-   * remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden in the
-   * scene graph is not possible due to performance reasons, call {@link Workbench#clearOverlays()}
-   * after this method.
+   *           remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden in the
+   *           scene graph is not possible due to performance reasons, call {@link Workbench#clearOverlays()}
+   *           after this method.
    */
   public boolean hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");
+    if (getDialogControl() == overlay) {
+      hideDialog();
+    }
     if (blockingOverlaysShown.contains(overlay)) {
       return blockingOverlaysShown.remove(overlay);
     } else {
@@ -503,6 +704,18 @@ public class Workbench extends Control {
     return navigationDrawerItems;
   }
 
+  public DialogControl getDialogControl() {
+    return dialogControl.get();
+  }
+
+  public void setDialogControl(DialogControl dialogControl) {
+    this.dialogControl.set(dialogControl);
+  }
+
+  public ObjectProperty<DialogControl> dialogControlProperty() {
+    return dialogControl;
+  }
+
   public ObservableSet<Node> getNonBlockingOverlaysShown() {
     return FXCollections.unmodifiableObservableSet(nonBlockingOverlaysShown);
   }
@@ -523,36 +736,36 @@ public class Workbench extends Control {
     return tabFactory.get();
   }
 
-  public ObjectProperty<Callback<Workbench, Tab>> tabFactoryProperty() {
-    return tabFactory;
-  }
-
   public void setTabFactory(Callback<Workbench, Tab> tabFactory) {
     this.tabFactory.set(tabFactory);
+  }
+
+  public ObjectProperty<Callback<Workbench, Tab>> tabFactoryProperty() {
+    return tabFactory;
   }
 
   public Callback<Workbench, Tile> getTileFactory() {
     return tileFactory.get();
   }
 
-  public ObjectProperty<Callback<Workbench, Tile>> tileFactoryProperty() {
-    return tileFactory;
-  }
-
   public void setTileFactory(Callback<Workbench, Tile> tileFactory) {
     this.tileFactory.set(tileFactory);
+  }
+
+  public ObjectProperty<Callback<Workbench, Tile>> tileFactoryProperty() {
+    return tileFactory;
   }
 
   public Callback<Workbench, Page> getPageFactory() {
     return pageFactory.get();
   }
 
-  public ObjectProperty<Callback<Workbench, Page>> pageFactoryProperty() {
-    return pageFactory;
-  }
-
   public void setPageFactory(Callback<Workbench, Page> pageFactory) {
     this.pageFactory.set(pageFactory);
+  }
+
+  public ObjectProperty<Callback<Workbench, Page>> pageFactoryProperty() {
+    return pageFactory;
   }
 
   public IntegerProperty modulesPerPageProperty() {

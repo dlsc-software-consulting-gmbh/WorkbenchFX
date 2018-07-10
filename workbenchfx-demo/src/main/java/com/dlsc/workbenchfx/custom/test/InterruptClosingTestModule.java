@@ -1,10 +1,11 @@
 package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.custom.overlay.CustomDialog;
-import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import java.util.concurrent.CompletableFuture;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 
 public class InterruptClosingTestModule extends WorkbenchModule {
@@ -30,12 +31,19 @@ public class InterruptClosingTestModule extends WorkbenchModule {
   public boolean destroy() {
     if (!closePossible) {
       getWorkbench().openModule(this);
-      getWorkbench().showOverlay(new CustomDialog(getWorkbench(), this), true);
+      CompletableFuture<ButtonType> dialogResult =
+          getWorkbench().showConfirmationDialog("Confirmation",
+              "Are you sure you want to close this module without saving?");
+      dialogResult.thenAccept(buttonType -> {
+        if (ButtonType.YES.equals(buttonType)) {
+          closePossible = true;
+          getWorkbench().closeModule(this);
+        }
+      });
       return false;
     } else {
       return true;
     }
-
   }
 
   public boolean isClosePossible() {

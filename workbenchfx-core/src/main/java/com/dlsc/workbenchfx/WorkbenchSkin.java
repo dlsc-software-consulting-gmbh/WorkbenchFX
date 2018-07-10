@@ -43,8 +43,8 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   private SelectionStrip<Tab> tabBar;
 
   /**
-   * Creates a skin for a given {@link Workbench}. It contains all views and presenters. It sets
-   * also the default stylesheet.
+   * Creates a skin for a given {@link Workbench}.
+   * Contains all views and presenters and sets also the default stylesheet.
    *
    * @param workbench for which this skin is created
    */
@@ -55,7 +55,6 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
 
     getChildren().add(workbenchView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
-
   }
 
   private void initViews(Workbench model) {
@@ -73,4 +72,5 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
     workbenchView = new WorkbenchView(toolbarView, homeView, contentView);
     workbenchPresenter = new WorkbenchPresenter(model, workbenchView);
   }
+
 }

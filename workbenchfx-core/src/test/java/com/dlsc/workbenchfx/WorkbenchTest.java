@@ -8,14 +8,20 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.testing.MockDialogControl;
+import com.dlsc.workbenchfx.testing.MockNavigationDrawer;
 import com.dlsc.workbenchfx.testing.MockPage;
 import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
@@ -23,22 +29,31 @@ import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.concurrent.CompletableFuture;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -81,8 +96,18 @@ class WorkbenchTest extends ApplicationTest {
   private Dropdown dropdownLeft;
   private Dropdown dropdownRight;
 
+  private MockNavigationDrawer navigationDrawer;
+  private MockDialogControl dialogControl;
+
+  @Mock
+  private WorkbenchDialog mockDialog;
+  @Mock
+  private CompletableFuture<ButtonType> mockDialogResult;
+
   @Override
   public void start(Stage stage) {
+    MockitoAnnotations.initMocks(this);
+
     robot = new FxRobot();
 
     for (int i = 0; i < moduleNodes.length; i++) {
@@ -108,6 +133,20 @@ class WorkbenchTest extends ApplicationTest {
     dropdownLeft = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
     dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
 
+    // Setup WorkbenchDialog Mock
+    when(mockDialog.getResult()).thenReturn(mockDialogResult);
+    when(mockDialog.getButtonTypes()).thenReturn(
+        FXCollections.observableArrayList(ButtonType.PREVIOUS, ButtonType.NEXT)
+    );
+    when(mockDialogResult.complete(any())).then(invocation -> {
+          when(mockDialogResult.isDone()).thenReturn(true);
+          return true;
+        }
+    );
+
+    navigationDrawer = new MockNavigationDrawer();
+    dialogControl = new MockDialogControl();
+
     workbench = Workbench.builder(
         mockModules[FIRST_INDEX],
         mockModules[SECOND_INDEX],
@@ -115,6 +154,8 @@ class WorkbenchTest extends ApplicationTest {
         .tabFactory(MockTab::new)
         .tileFactory(MockTile::new)
         .pageFactory(MockPage::new)
+        .dialogControl(dialogControl)
+        .navigationDrawer(navigationDrawer)
         .navigationDrawerItems(menuItem)
         .toolbarLeft(dropdownLeft)
         .toolbarRight(dropdownRight)
@@ -1218,6 +1259,159 @@ class WorkbenchTest extends ApplicationTest {
             stage,
             WindowEvent.WINDOW_CLOSE_REQUEST
         )
+    );
+  }
+
+  @Test
+  void initNavigationDrawer() {
+    // verify no NPE is thrown by the listener when setting a null control
+    workbench.setNavigationDrawer(null);
+  }
+
+  @Test
+  void initDialog() {
+    // verify correct initialization
+    assertSame(dialogControl, workbench.getDialogControl());
+    assertSame(workbench, dialogControl.getWorkbench());
+
+    // verify no NPE is thrown by the listener when setting a null control
+    workbench.setDialogControl(null);
+  }
+
+  @Test
+  @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane")
+  void showDialogNonBlockingCloseGlassPane() {
+    robot.interact(() -> {
+      assertDialogNotShown();
+
+      CompletableFuture<ButtonType> result = workbench.showDialog(mockDialog);
+
+      assertDialogShown(result, false);
+      verify(mockDialog, atLeastOnce()).getButtonTypes();
+      verify(mockDialog).getResult();
+      verify(mockDialogResult, never()).complete(any());
+
+      // hiding by GlassPane click
+      simulateGlassPaneClick(dialogControl);
+
+      verify(mockDialog, times(3)).getResult();
+      verify(mockDialogResult).isDone();
+      verify(mockDialogResult).complete(ButtonType.CANCEL);
+      verifyNoMoreInteractions(mockDialogResult);
+      assertDialogNotShown();
+    });
+  }
+
+  @Test
+  @DisplayName("Show non-blocking dialog and close by clicking on one of the dialog buttons")
+  void showDialogNonBlockingCloseButton() {
+    robot.interact(() -> {
+      assertDialogNotShown();
+
+      CompletableFuture<ButtonType> result = workbench.showDialog(mockDialog);
+
+      assertDialogShown(result, false);
+      verify(mockDialog, atLeastOnce()).getButtonTypes();
+      verify(mockDialog).getResult();
+      verify(mockDialogResult, never()).complete(any());
+
+      // hiding by button press
+      Button pressedButton = (Button) dialogControl.getButtons().get(0);
+      pressedButton.fire(); // simulate button getting pressed
+
+      verify(mockDialog, times(3)).getResult();
+      verify(mockDialogResult).isDone();
+      verify(mockDialogResult).complete(mockDialog.getButtonTypes().get(0));
+      verifyNoMoreInteractions(mockDialogResult);
+
+      assertDialogNotShown();
+    });
+  }
+
+  @Test
+  @DisplayName("Show blocking dialog and try to close by clicking on the GlassPane")
+  void showDialogBlockingCloseGlassPane() {
+    robot.interact(() -> {
+      when(mockDialog.isBlocking()).thenReturn(true);
+
+      assertDialogNotShown();
+
+      CompletableFuture<ButtonType> result = workbench.showDialog(mockDialog);
+
+      assertDialogShown(result, true);
+      verify(mockDialog, atLeastOnce()).getButtonTypes();
+      verify(mockDialog).getResult();
+      verify(mockDialogResult, never()).complete(any());
+
+      // try hiding by clicking on GlassPane
+      simulateGlassPaneClick(dialogControl); // simulates a click on GlassPane
+
+      verify(mockDialog, times(1)).getResult();
+      verify(mockDialogResult, never()).complete(any());
+      verifyNoMoreInteractions(mockDialogResult);
+      // verify dialog hasn't been hidden
+      assertDialogShown(result, true);
+    });
+  }
+
+  @Test
+  @DisplayName("Show blocking dialog and close by clicking on one of the dialog buttons")
+  void showDialogBlockingCloseButton() {
+    robot.interact(() -> {
+      when(mockDialog.isBlocking()).thenReturn(true);
+
+      assertDialogNotShown();
+
+      CompletableFuture<ButtonType> result = workbench.showDialog(mockDialog);
+
+      assertDialogShown(result, true);
+      verify(mockDialog, atLeastOnce()).getButtonTypes();
+      verify(mockDialog).getResult();
+      verify(mockDialogResult, never()).complete(any());
+
+      // hiding by button press
+      Button pressedButton = (Button) dialogControl.getButtons().get(0);
+      pressedButton.fire(); // simulate button getting pressed
+
+      verify(mockDialog, times(3)).getResult();
+      verify(mockDialogResult).isDone();
+      verify(mockDialogResult).complete(mockDialog.getButtonTypes().get(0));
+      verifyNoMoreInteractions(mockDialogResult);
+      assertDialogNotShown();
+    });
+  }
+
+  private void assertDialogShown(CompletableFuture<ButtonType> result, boolean blocking) {
+    assertTrue(workbench.isDialogShown());
+    assertSame(mockDialogResult, result);
+    assertSame(mockDialog, workbench.getDialog());
+    if (blocking) {
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+    } else {
+      assertSame(0, workbench.getBlockingOverlaysShown().size());
+      assertSame(1, workbench.getNonBlockingOverlaysShown().size());
+    }
+  }
+
+  private void assertDialogNotShown() {
+    assertFalse(workbench.isDialogShown());
+    assertSame(null, workbench.getDialog());
+    assertSame(0, workbench.getBlockingOverlaysShown().size());
+    assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+  }
+
+  /**
+   * Internal testing method that will simulate a click on a {@link GlassPane} of
+   * an {@code overlayNode}.
+   * @param overlayNode of which the GlassPane should be clicked
+   */
+  private void simulateGlassPaneClick(Node overlayNode) {
+    GlassPane glassPane = workbench.getOverlays().get(overlayNode);
+    glassPane.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0,
+        MouseButton.PRIMARY, 1,
+        false, false, false, false, true, false, false, false, false, false,
+        null)
     );
   }
 }

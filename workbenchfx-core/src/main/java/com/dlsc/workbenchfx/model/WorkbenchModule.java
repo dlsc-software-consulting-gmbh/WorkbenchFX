@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.module;
+package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.Workbench;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
