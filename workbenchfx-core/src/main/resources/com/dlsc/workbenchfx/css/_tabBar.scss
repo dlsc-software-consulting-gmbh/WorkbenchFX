@@ -9,6 +9,10 @@
       -fx-border-width: 0 0 2px 0;
       -fx-border-color: -prim-color;
 
+      &:hover {
+          -fx-cursor: hand;
+      }
+
       &:pressed {
         //-fx-background-color: derive(-prim-color, $darken-percentage) !important;
         -fx-background-color: -prim-color;
@@ -19,6 +23,7 @@
         //-fx-background-color: derive(-prim-color, $darken-percentage);
         -fx-background-color: -prim-color;
         -fx-border-color: -text-color;
+        -fx-cursor: inherit;
       }
 
       & .tab-control {
@@ -27,7 +32,9 @@
         -fx-padding: 0 1em 0 1em;
 
         & .tab-icon {
-
+          & .glyph-icon {
+            -fx-font-size: 1.125em !important;
+          }
         }
 
         & .tab-name-lbl {
@@ -35,15 +42,21 @@
           -fx-padding: 0 1em 0 1em;
         }
 
-        & .glyph-icon {
-          -fx-font-size: 1.25em !important;
-        }
-
         & .close-btn {
           -fx-background-color: transparent;
           -fx-padding: 0;
+
+          & .glyph-icon {
+            -fx-font-size: 1em !important;
+          }
+
+          &:hover {
+            -fx-cursor: hand;
+            & .glyph-icon {
+              -fx-fill: -danger-color;
+          }
         }
-      }
+      }}
     }
 
     & .fader {
