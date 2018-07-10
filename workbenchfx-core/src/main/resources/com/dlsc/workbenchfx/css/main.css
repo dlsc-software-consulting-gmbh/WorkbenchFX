@@ -1,25 +1,49 @@
 .root {
-  -primary-color: #6200EE;
-  -primary-variant-color: #3700B3;
-  -secondary-color: #03DAC6;
-  -secondary-variant-color: #018786;
-  -background-color: #FFFFFF;
-  -surface-color: #FFFFFF;
-  -error-color: #B00020;
-  -on-primary-color: #FFFFFF;
-  -on-secondary-color: #000000;
-  -on-background-color: #000000;
-  -on-surface-color: #000000;
-  -on-error-color: #FFFFFF;
-  -icons-color: -on-primary-color;
-  -fx-font-size: 14px;
-  -fx-font-family: Roboto, sans-serif; }
+  -prim-color: #027dc5;
+  -prim-color-hover: #028ede;
+  -danger-color: #ed5a5a;
+  -success-color: #47aa71;
+  -accent-color: #00aaff;
+  -text-color: #fafdff;
+  -text-color-transparent: rgba(250, 253, 255, 0.8);
+  -inverted-text-color: #050200;
+  -drop-shadow-1: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 10, 0.12, -1, 2);
+  -drop-shadow-2: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 15, 0.16, -1, 4);
+  -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 20, 0.19, -1, 6);
+  -shadow: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.2, 0, 0);
+  -icons-color: -text-color;
+  -fx-font-family: "Roboto", sans-serif;
+  -fx-font-size: 14px; }
 
 .glyph-icon {
   -fx-text-fill: -text-color;
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
+@font-face {
+  src: url("../fonts/Roboto-Black.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-BlackItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Bold.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-BoldItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Italic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Light.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-LightItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Medium.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-MediumItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Regular.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Thin.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-ThinItalic.ttf"); }
 #toolbar #menu-button, #toolbar #toolbar-control-left-box .button-inverted, #toolbar #toolbar-control-left-box .button, #toolbar #home-button, #toolbar #toolbar-control-right-box .button, .navigation-drawer #back-button, .tile-control, .tab-control, .dropdown, .dropdown-inverted {
   -fx-pref-height: 3.5em;
   -fx-background-color: -prim-color;
@@ -277,5 +301,42 @@
 
 .active-home {
   -fx-background-color: derive(-prim-color, -10%) !important; }
+
+.dialog-pane {
+  -fx-background-color: white;
+  -fx-effect: -drop-shadow-3;
+  -fx-background-radius: 5; }
+  .dialog-pane .button-bar .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -prim-color;
+    -fx-padding: 10 15;
+    -font-size: 1.25em;
+    -fx-font-weight: 700;
+    -fx-cursor: hand; }
+
+.dialog-header {
+  -fx-padding: 0;
+  -fx-background-color: white;
+  -fx-background-radius: 5; }
+
+.dialog-title {
+  -fx-padding: 30 30 0 30;
+  -fx-font-size: 1.5em;
+  -fx-font-weight: 700;
+  -fx-text-fill: black; }
+
+.dialog-content-pane {
+  -fx-padding: 20 30 20 30; }
+  .dialog-content-pane .label {
+    -fx-font-size: 1.2em;
+    -fx-font-weight: 600;
+    -fx-text-fill: rgba(0, 0, 0, 0.54); }
+  .dialog-content-pane .input-container {
+    -fx-spacing: 10; }
+  .dialog-content-pane .textfield-container {
+    -fx-spacing: 10; }
+
+.error-details-titled-pane {
+  -fx-padding: 20 0 0 0; }
 
 /*# sourceMappingURL=main.css.map */

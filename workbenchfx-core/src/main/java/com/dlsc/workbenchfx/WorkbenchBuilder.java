@@ -1,7 +1,9 @@
 package com.dlsc.workbenchfx;
 
-import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
+import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
@@ -18,7 +20,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public final class WorkbenchBuilder {
-  private static final Logger LOGGER = LogManager.getLogger(Workbench.class.getName());
+  private static final Logger LOGGER = LogManager.getLogger(WorkbenchBuilder.class.getName());
 
   // Required parameters
   final WorkbenchModule[] modules;
@@ -36,6 +38,7 @@ public final class WorkbenchBuilder {
   Node[] toolbarControlsLeft;
 
   NavigationDrawer navigationDrawer = new NavigationDrawer();
+  DialogControl dialogControl = new DialogControl();
 
   MenuItem[] navigationDrawerItems;
 
@@ -104,6 +107,19 @@ public final class WorkbenchBuilder {
    */
   public WorkbenchBuilder navigationDrawer(NavigationDrawer navigationDrawer) {
     this.navigationDrawer = navigationDrawer;
+    return this;
+  }
+
+  /**
+   * Defines which dialog control should be shown.
+   *
+   * @param dialogControl to be shown as the dialog control
+   * @return builder for chaining
+   * @implNote Use this to replace the dialog control, which is displayed when using any of the
+   *           {@link Workbench#showDialog(WorkbenchDialog)} methods, with your own implementation.
+   */
+  public WorkbenchBuilder dialogControl(DialogControl dialogControl) {
+    this.dialogControl = dialogControl;
     return this;
   }
 
