@@ -121,11 +121,7 @@ public class SelectionStripSkin<T> extends SkinBase<SelectionStrip<T>> {
     content.getChildren().setAll(strip.getItems().stream().map(item -> {
       final StripCell<T> cell = strip.getCellFactory().call(strip);
       nodeMap.put(item, cell);
-      cell.addEventHandler(MouseEvent.MOUSE_CLICKED, evt -> {
-        strip.setSelectedItem(item);
-        strip.scrollTo(item);
-        strip.requestLayout();
-      });
+      cell.addEventHandler(MouseEvent.MOUSE_CLICKED, evt -> strip.setSelectedItem(item));
       cell.setSelectionStrip(strip);
       cell.setItem(item);
       return cell;
