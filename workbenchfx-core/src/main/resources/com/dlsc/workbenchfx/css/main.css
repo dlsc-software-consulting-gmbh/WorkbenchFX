@@ -1,13 +1,17 @@
 .root {
-  -prim-color: #027dc5;
-  -prim-color-hover: #028ede;
-  -danger-color: #ed5a5a;
-  -success-color: #47aa71;
-  -accent-color: #00aaff;
-  -text-color: #fafdff;
-  -text-color-transparent: rgba(250, 253, 255, 0.8);
-  -inverted-text-color: #050200;
-  -icons-color: -text-color;
+  -primary-color: #6200EE;
+  -primary-variant-color: #3700B3;
+  -secondary-color: #03DAC6;
+  -secondary-variant-color: #018786;
+  -background-color: #FFFFFF;
+  -surface-color: #FFFFFF;
+  -error-color: #B00020;
+  -on-primary-color: #FFFFFF;
+  -on-secondary-color: #000000;
+  -on-background-color: #000000;
+  -on-surface-color: #000000;
+  -on-error-color: #FFFFFF;
+  -icons-color: -on-primary-color;
   -fx-font-size: 14px;
   -fx-font-family: Roboto, sans-serif; }
 

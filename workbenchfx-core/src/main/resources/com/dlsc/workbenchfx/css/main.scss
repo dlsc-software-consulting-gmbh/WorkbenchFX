@@ -1,34 +1,36 @@
-$border: 3px;
-$pref-size: 3.5em;
-$darken-percentage: -10%;
+// Color Theme - https://material.io/design/color/the-color-system.html#color-theme-creation
+$primary-color: #6200EE;
+$primary-variant-color: #3700B3;
+$secondary-color: #03DAC6;
+$secondary-variant-color: #018786;
 
-// Comment in the color schema you like to use.
-// Color schema with a dark -text-color and a light -prim-color
-//$primary-color: hsl(202, 98%, 99%);
-//$text-color: darken($primary-color, 60%);
+$background-color: #FFFFFF;
+$surface-color: #FFFFFF;
+$error-color: #B00020;
 
-// Color schema with a light -text-color and a dark -prim-color
-$text-color: hsl(202, 98%, 99%);
-$primary-color: darken($text-color, 60%);
-
-$text-color-transparent: transparentize($text-color, .2);
-$custom-color-1: blue;
-$custom-color-2: red;
-$custom-color-3: green;
-$custom-color-4: purple;
-$custom-color-5: pink;
+$on-primary-color: #FFFFFF;
+$on-secondary-color: #000000;
+$on-background-color: #000000;
+$on-surface-color: #000000;
+$on-error-color: #FFFFFF;
 
 .root {
-  -prim-color: $primary-color;
-  -prim-color-hover: lighten($primary-color, 5%);
-  -danger-color: #ed5a5a;
-  -success-color: #47aa71;
-  -accent-color: #00aaff;
-  -text-color: $text-color;
-  -text-color-transparent: $text-color-transparent;
-  -inverted-text-color: invert($text-color);
+  -primary-color: $primary-color;
+  -primary-variant-color: $primary-variant-color;
+  -secondary-color: $secondary-color;
+  -secondary-variant-color: $secondary-variant-color;
 
-  -icons-color: -text-color;
+  -background-color: $background-color;
+  -surface-color: $surface-color;
+  -error-color: $error-color;
+
+  -on-primary-color: $on-primary-color;
+  -on-secondary-color: $on-secondary-color;
+  -on-background-color: $on-background-color;
+  -on-surface-color: $on-surface-color;
+  -on-error-color: $on-error-color;
+
+  -icons-color: -on-primary-color; // TODO: how to handle this?
   -fx-font-size: 14px;
   -fx-font-family: Roboto, sans-serif;
 }
@@ -39,6 +41,10 @@ $custom-color-5: pink;
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important;
 }
+
+$border: 3px;
+$pref-size: 3.5em;
+$darken-percentage: -10%;
 
 @import "includes";
 @import "contentView";
