@@ -44,7 +44,7 @@
   src: url("../fonts/Roboto-Thin.ttf"); }
 @font-face {
   src: url("../fonts/Roboto-ThinItalic.ttf"); }
-#toolbar #menu-button, #toolbar #toolbar-control-left-box .button-inverted, #toolbar #toolbar-control-left-box .button, #toolbar #home-button, #toolbar #toolbar-control-right-box .button, .navigation-drawer #back-button, .tile-control, .tab-control, .dropdown, .dropdown-inverted {
+#toolbar #menu-button, #toolbar #toolbar-control-left-box .button-inverted, #toolbar #toolbar-control-left-box .button, #toolbar #home-button, #toolbar #toolbar-control-right-box .button, .navigation-drawer #back-button, .tile-control, .dropdown, .dropdown-inverted {
   -fx-pref-height: 3.5em;
   -fx-background-color: -prim-color;
   -fx-padding: .5em;
@@ -56,12 +56,12 @@
   -fx-text-fill: -text-color;
   -fx-border-width: 0;
   -fx-border-color: -prim-color; }
-  #toolbar #menu-button:focused, #toolbar #toolbar-control-left-box .button-inverted:focused, #toolbar #toolbar-control-left-box .button:focused, #toolbar #home-button:focused, #toolbar #toolbar-control-right-box .button:focused, .navigation-drawer #back-button:focused, .tile-control:focused, .tab-control:focused, .dropdown:focused, .dropdown-inverted:focused {
+  #toolbar #menu-button:focused, #toolbar #toolbar-control-left-box .button-inverted:focused, #toolbar #toolbar-control-left-box .button:focused, #toolbar #home-button:focused, #toolbar #toolbar-control-right-box .button:focused, .navigation-drawer #back-button:focused, .tile-control:focused, .dropdown:focused, .dropdown-inverted:focused {
     -fx-background-insets: 0;
     -fx-background-radius: 0; }
-  #toolbar #menu-button:hover, #toolbar #toolbar-control-left-box .button-inverted:hover, #toolbar #toolbar-control-left-box .button:hover, #toolbar #home-button:hover, #toolbar #toolbar-control-right-box .button:hover, .navigation-drawer #back-button:hover, .tile-control:hover, .tab-control:hover, .dropdown:hover, .dropdown-inverted:hover {
+  #toolbar #menu-button:hover, #toolbar #toolbar-control-left-box .button-inverted:hover, #toolbar #toolbar-control-left-box .button:hover, #toolbar #home-button:hover, #toolbar #toolbar-control-right-box .button:hover, .navigation-drawer #back-button:hover, .tile-control:hover, .dropdown:hover, .dropdown-inverted:hover {
     -fx-cursor: hand; }
-  #toolbar #menu-button .label, #toolbar #toolbar-control-left-box .button-inverted .label, #toolbar #toolbar-control-left-box .button .label, #toolbar #home-button .label, #toolbar #toolbar-control-right-box .button .label, .navigation-drawer #back-button .label, .tile-control .label, .tab-control .label, .dropdown .label, .dropdown-inverted .label {
+  #toolbar #menu-button .label, #toolbar #toolbar-control-left-box .button-inverted .label, #toolbar #toolbar-control-left-box .button .label, #toolbar #home-button .label, #toolbar #toolbar-control-right-box .button .label, .navigation-drawer #back-button .label, .tile-control .label, .dropdown .label, .dropdown-inverted .label {
     -fx-text-fill: -text-color; }
 
 .dropdown .menu-item, .dropdown-inverted .menu-item, .navigation-drawer .menu-item {
@@ -170,12 +170,36 @@
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 3); }
 
 #toolbar .selection-strip {
-  -fx-background-color: yellow !important; }
+  -fx-background-color: -prim-color !important;
+  -fx-border-color: derive(-prim-color, -10%);
+  -fx-border-width: 0 1px 0 1px;
+  -fx-border-insets: 0 -1px 0 -1px; }
   #toolbar .selection-strip .strip-cell:pressed {
-    -fx-background-color: derive(-prim-color, -30%) !important; }
+    -fx-background-color: derive(-prim-color, -10%) !important; }
   #toolbar .selection-strip .strip-cell:selected {
-    -fx-background-color: -fx-selection-bar;
-    -fx-text-fill: -fx-selection-bar-text; }
+    -fx-background-color: derive(-prim-color, -10%); }
+  #toolbar .selection-strip .strip-cell .tab-control {
+    -fx-alignment: center;
+    -fx-border-width: 0;
+    -fx-padding: 0 1em 0 1em; }
+    #toolbar .selection-strip .strip-cell .tab-control .tab-name-lbl {
+      -fx-text-fill: -text-color;
+      -fx-padding: 0 1em 0 1em; }
+    #toolbar .selection-strip .strip-cell .tab-control .glyph-icon {
+      -fx-font-size: 1.25em !important; }
+    #toolbar .selection-strip .strip-cell .tab-control .close-btn {
+      -fx-background-color: transparent;
+      -fx-padding: 0; }
+  #toolbar .selection-strip .fader.left {
+    -fx-background-color: linear-gradient(from 25 0 to 80 0, derive(-prim-color, -10%), transparent); }
+  #toolbar .selection-strip .fader.right {
+    -fx-background-color: linear-gradient(from 0 0 to 55 0, transparent, derive(-prim-color, -10%)); }
+  #toolbar .selection-strip .scroller {
+    -fx-background-color: -text-color;
+    -fx-pref-width: 1.4em;
+    -fx-pref-height: 3.5em;
+    -fx-background-insets: 1.2962962963em 0.3846153846em 1.2962962963em 0.4901960784em;
+    -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z"; }
 
 .tile-control {
   -fx-min-width: 16em;
@@ -191,28 +215,6 @@
   .tile-control:pressed {
     -fx-background-color: derive(-prim-color, -10%);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.3, 2, 4); }
-
-.tab-control {
-  -fx-border-width: 0 0 3px 0;
-  -fx-padding: .5em 1.5em .5em 1.5em; }
-  .tab-control .tab-icon {
-    -icons-color: -text-color-transparent; }
-  .tab-control .tab-name-lbl {
-    -fx-text-fill: -text-color-transparent; }
-  .tab-control .close-btn {
-    -fx-padding: 0;
-    -fx-background-color: transparent;
-    -icons-color: -text-color-transparent; }
-    .tab-control .close-btn .close-icon-view {
-      -fx-font-size: 1em !important; }
-    .tab-control .close-btn:hover .close-icon-view {
-      -icons-color: -danger-color; }
-  .tab-control:hover .tab-icon {
-    -icons-color: -text-color; }
-  .tab-control:hover .tab-name-lbl {
-    -fx-text-fill: -text-color; }
-  .tab-control:hover .close-btn {
-    -icons-color: -text-color; }
 
 .dropdown:hover {
   -fx-background-color: derive(-prim-color, -10%); }

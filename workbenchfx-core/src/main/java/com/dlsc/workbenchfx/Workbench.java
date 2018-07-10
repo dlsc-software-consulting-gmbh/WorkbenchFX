@@ -44,7 +44,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.controlsfx.control.PropertySheet.Item;
 
 /**
  * Contains all the model logic for the workbench.
