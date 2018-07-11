@@ -127,7 +127,6 @@ public class Workbench extends Control {
     initNavigationDrawer(builder);
     initDialog(builder);
     initModules(builder);
-    setupModulesTabListener();
     setupCleanup();
   }
 
@@ -135,31 +134,6 @@ public class Workbench extends Control {
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
-  }
-
-  private void setupModulesTabListener() {
-//    tabsList.addListener((ListChangeListener<Tab>) c -> {
-//      while (c.next()) {
-//        if (c.wasRemoved()) {
-//          c.getRemoved().forEach(module -> {
-//            // Remove tab from the tabsList
-//            tabsList.remove(
-//                tabsList.stream()
-//                    .filter(tab -> tab.getModule() == module)
-//                    .collect(Collectors.toList())
-//                    .get(0) // Get the first element (cause it contains only one)
-//            );
-//          });
-//        } else if (c.wasAdded()) {
-//          c.getAddedSubList().forEach(module -> {
-//            // Add tab to the tabsList
-//            Tab tabControl = getTabFactory().call(this);
-//            tabControl.setModule(module);
-//            tabsList.add(tabControl);
-//          });
-//        }
-//      }
-//    });
   }
 
   private void initAmountOfPagesBinding() {
@@ -390,7 +364,7 @@ public class Workbench extends Control {
    *
    * @return amount of pages
    * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}. This
-   * is repeated until all modules are rendered as tiles.
+   *           is repeated until all modules are rendered as tiles.
    */
   private int calculateAmountOfPages() {
     int amountOfModules = getModules().size();
@@ -478,11 +452,12 @@ public class Workbench extends Control {
    *
    * @param dialog to be shown
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   * was pressed in the dialog
-   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   * result will be {@link ButtonType#CANCEL}. All dialogs are non-blocking by default. If you want
-   * to change this behavior, use {@link WorkbenchDialog#builder} to create a dialog and show it
-   * using {@link Workbench#showDialog(WorkbenchDialog)}.
+   *         was pressed in the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
+   *           All dialogs are non-blocking by default. If you want to change this behavior, use
+   *           {@link WorkbenchDialog#builder} to create a dialog and show it using
+   *           {@link Workbench#showDialog(WorkbenchDialog)}.
    */
   public final CompletableFuture<ButtonType> showDialog(WorkbenchDialog dialog) {
     this.dialog.set(dialog);
@@ -495,9 +470,9 @@ public class Workbench extends Control {
    * @param title of the dialog
    * @param message of the dialog
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   * was pressed in the dialog
+   *         was pressed in the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   * result will be {@link ButtonType#CANCEL}.
+   *           result will be {@link ButtonType#CANCEL}.
    */
   public final CompletableFuture<ButtonType> showErrorDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR).build();
@@ -511,9 +486,9 @@ public class Workbench extends Control {
    * @param message of the dialog
    * @param exception of which the stacktrace should be shown
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   * was pressed in the dialog
+   *         was pressed in the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   * result will be {@link ButtonType#CANCEL}.
+   *           result will be {@link ButtonType#CANCEL}.
    */
   public final CompletableFuture<ButtonType> showErrorDialog(
       String title, String message, Exception exception) {
@@ -530,9 +505,9 @@ public class Workbench extends Control {
    * @param message of the dialog
    * @param details about the error
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   * was pressed in the dialog
+   *         was pressed in the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   * result will be {@link ButtonType#CANCEL}.
+   *           result will be {@link ButtonType#CANCEL}.
    */
   public final CompletableFuture<ButtonType> showErrorDialog(
       String title, String message, String details) {
@@ -548,9 +523,9 @@ public class Workbench extends Control {
    * @param title of the dialog
    * @param message of the dialog
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   * was pressed in the dialog
+   *         was pressed in the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   * result will be {@link ButtonType#CANCEL}.
+   *           result will be {@link ButtonType#CANCEL}.
    */
   public final CompletableFuture<ButtonType> showWarningDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.WARNING).build();
@@ -563,9 +538,9 @@ public class Workbench extends Control {
    * @param title of the dialog
    * @param message of the dialog
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   * was pressed in the dialog
+   *         was pressed in the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   * result will be {@link ButtonType#CANCEL}.
+   *           result will be {@link ButtonType#CANCEL}.
    */
   public final CompletableFuture<ButtonType> showConfirmationDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.CONFIRMATION).build();
@@ -578,9 +553,9 @@ public class Workbench extends Control {
    * @param title of the dialog
    * @param message of the dialog
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   * was pressed in the dialog
+   *         was pressed in the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   * result will be {@link ButtonType#CANCEL}.
+   *           result will be {@link ButtonType#CANCEL}.
    */
   public final CompletableFuture<ButtonType> showInformationDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.INFORMATION).build();
@@ -616,9 +591,9 @@ public class Workbench extends Control {
    *
    * @param overlay to be shown
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
-   * to get hidden, together with its {@link GlassPane}. If true (blocking), clicking outside of the
-   * {@code overlay} will not do anything. The {@code overlay} itself must call {@link
-   * Workbench#hideOverlay(Node)} to hide it.
+   *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
+   *                 clicking outside of the {@code overlay} will not do anything. The {@code
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide it.
    */
   public boolean showOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("showOverlay");
@@ -640,9 +615,9 @@ public class Workbench extends Control {
    *
    * @param overlay to be hidden
    * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
-   * remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden in the
-   * scene graph is not possible due to performance reasons, call {@link Workbench#clearOverlays()}
-   * after this method.
+   *           remove it from the scene graph entirely.
+   *           If keeping the {@code overlay} loaded hidden in the scene graph is not possible due
+   *           to performance reasons, call {@link Workbench#clearOverlays()} after this method.
    */
   public boolean hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");

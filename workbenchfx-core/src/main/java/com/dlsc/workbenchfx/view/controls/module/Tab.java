@@ -50,7 +50,6 @@ public class Tab extends Control {
     activeTab = new SimpleBooleanProperty();
     setupModuleListeners();
     setupActiveTabListener();
-//    setMouseTransparent(true);
   }
 
   private void setupModuleListeners() {

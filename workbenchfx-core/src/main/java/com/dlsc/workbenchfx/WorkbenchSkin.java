@@ -17,8 +17,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the Skin which is made for the {@link Workbench}. It creates all the Views and
- * Presenters which are needed and sets the stylesheets.
+ * Represents the Skin which is made for the {@link Workbench}.
+ * It creates all the Views and Presenters which are needed and sets the stylesheets.
  *
  * @author François Martin
  * @author Marco Sanfratello
