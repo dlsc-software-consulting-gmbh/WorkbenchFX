@@ -204,9 +204,9 @@
           #toolbar .selection-strip .strip-cell .tab-control .close-btn:hover .glyph-icon {
             -fx-fill: -danger-color; }
   #toolbar .selection-strip .fader.left {
-    -fx-background-color: linear-gradient(from 25 0 to 80 0, derive(-prim-color, -10%), transparent); }
+    -fx-background-color: linear-gradient(to right, -prim-color 25%, derive(-prim-color, -10%) 25%, transparent 100%); }
   #toolbar .selection-strip .fader.right {
-    -fx-background-color: linear-gradient(from 0 0 to 55 0, transparent, derive(-prim-color, -10%)); }
+    -fx-background-color: linear-gradient(to left, -prim-color 25%, derive(-prim-color, -10%) 25%, transparent 100%); }
   #toolbar .selection-strip .scroller {
     -fx-background-color: -text-color;
     -fx-pref-width: 1.4em;
