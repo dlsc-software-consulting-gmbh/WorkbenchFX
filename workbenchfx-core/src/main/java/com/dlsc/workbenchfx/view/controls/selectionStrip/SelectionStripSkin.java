@@ -179,7 +179,10 @@ public class SelectionStripSkin<T> extends SkinBase<SelectionStrip<T>> {
     rightBtn.setOnMouseClicked(event -> scroll(false));
 
     getSkinnable().addEventHandler(ScrollEvent.SCROLL,
-        evt -> translateX.set(translateX.get() + evt.getDeltaX()));
+        evt -> {
+          double delta = evt.getDeltaX() == 0 ? evt.getDeltaY() : evt.getDeltaX();
+          translateX.set(translateX.get() + delta);
+        });
   }
 
   private void fixTranslate() {
