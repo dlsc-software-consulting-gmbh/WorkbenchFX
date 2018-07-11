@@ -61,12 +61,18 @@
 
     & .fader {
       &.left {
+        // Background Color, where the scroller is in the derived prim-color
         //-fx-background-color: linear-gradient(from 25 0 to 80 0, derive(-prim-color, $darken-percentage), transparent);
+
+        // Background Color, where the scroller is in the prim-color
         -fx-background-color: linear-gradient(to right, -prim-color 25%, derive(-prim-color, $darken-percentage) 25%, transparent 100%);
       }
 
       &.right {
+        // Background Color, where the scroller is in the derived prim-color
         //-fx-background-color: linear-gradient(from 0 0 to 55 0, transparent, derive(-prim-color, $darken-percentage));
+
+        // Background Color, where the scroller is in the prim-color
         -fx-background-color: linear-gradient(to left, -prim-color 25%, derive(-prim-color, $darken-percentage) 25%, transparent 100%);
       }
     }
