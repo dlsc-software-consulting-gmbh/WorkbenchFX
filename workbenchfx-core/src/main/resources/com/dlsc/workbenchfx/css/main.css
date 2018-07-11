@@ -1,12 +1,12 @@
 .root {
-  -prim-color: #af5218;
-  -prim-color-hover: #c55c1b;
+  -prim-color: #2e78e7;
+  -prim-color-hover: #4587ea;
   -danger-color: #ed5a5a;
   -success-color: #47aa71;
   -accent-color: #00aaff;
-  -text-color: #fefcfb;
-  -text-color-transparent: rgba(254, 252, 251, 0.8);
-  -inverted-text-color: #010304;
+  -text-color: white;
+  -text-color-transparent: rgba(255, 255, 255, 0.8);
+  -inverted-text-color: black;
   -drop-shadow-1: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 10, 0.12, -1, 2);
   -drop-shadow-2: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 15, 0.16, -1, 4);
   -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 20, 0.19, -1, 6);
@@ -204,9 +204,9 @@
           #toolbar .selection-strip .strip-cell .tab-control .close-btn:hover .glyph-icon {
             -fx-fill: -danger-color; }
   #toolbar .selection-strip .fader.left {
-    -fx-background-color: linear-gradient(to right, -prim-color 25%, derive(-prim-color, -10%) 25%, transparent 100%); }
+    -fx-background-color: linear-gradient(from 25 0 to 80 0, -prim-color, transparent); }
   #toolbar .selection-strip .fader.right {
-    -fx-background-color: linear-gradient(to left, -prim-color 25%, derive(-prim-color, -10%) 25%, transparent 100%); }
+    -fx-background-color: linear-gradient(from 0 0 to 55 0, transparent, -prim-color); }
   #toolbar .selection-strip .scroller {
     -fx-background-color: -text-color;
     -fx-pref-width: 1.4em;
