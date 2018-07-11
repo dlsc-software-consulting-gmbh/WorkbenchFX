@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.view.controls.selectionStrip;
+package com.dlsc.workbenchfx.view.controls.selectionstrip;
 
 import java.util.HashMap;
 import java.util.Map;

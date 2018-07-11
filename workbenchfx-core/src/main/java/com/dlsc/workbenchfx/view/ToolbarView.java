@@ -4,7 +4,7 @@ import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
-import com.dlsc.workbenchfx.view.controls.selectionStrip.SelectionStrip;
+import com.dlsc.workbenchfx.view.controls.selectionstrip.SelectionStrip;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;

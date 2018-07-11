@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.view.controls.selectionStrip;
+package com.dlsc.workbenchfx.view.controls.selectionstrip;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;

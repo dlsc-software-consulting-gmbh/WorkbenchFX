@@ -3,13 +3,10 @@ package com.dlsc.workbenchfx.view;
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
-import com.dlsc.workbenchfx.view.controls.module.Tab;
-import com.dlsc.workbenchfx.view.controls.selectionStrip.TabCell;
+import com.dlsc.workbenchfx.view.controls.selectionstrip.TabCell;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;

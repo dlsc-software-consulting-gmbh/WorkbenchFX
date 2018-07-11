@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.view.controls.selectionStrip;
+package com.dlsc.workbenchfx.view.controls.selectionstrip;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
@@ -8,10 +8,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.css.PseudoClass;
 import javafx.scene.AccessibleAttribute;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
-import javafx.scene.layout.Pane;
 
 public class StripCell<T> extends Label {
 
@@ -50,7 +47,7 @@ public class StripCell<T> extends Label {
   }
 
   private final ObjectProperty<SelectionStrip<T>> selectionStrip = new SimpleObjectProperty<>(this,
-      "selectionStrip");
+      "selectionstrip");
 
   public final ObjectProperty<SelectionStrip<T>> selectionStripProperty() {
     return selectionStrip;
