@@ -20,6 +20,7 @@ import javafx.scene.layout.Priority;
  * @author Marco Sanfratello
  */
 public class ToolbarView extends HBox implements View {
+
   private FontAwesomeIconView homeIconView;
   private FontAwesomeIconView menuIconView;
   Button homeBtn;
@@ -30,6 +31,8 @@ public class ToolbarView extends HBox implements View {
 
   /**
    * Creates a new {@link ToolbarView} for the Workbench.
+   *
+   * @param tabBar the Control which is used to create and display the {@link Tab}s
    */
   public ToolbarView(SelectionStrip<WorkbenchModule> tabBar) {
     this.tabBar = tabBar;
@@ -95,33 +98,6 @@ public class ToolbarView extends HBox implements View {
    */
   public void removeMenuButton() {
     getChildren().remove(menuBtn);
-  }
-
-  /**
-   * Adds a tab to the {@code tabBar}.
-   * @param tab to be added
-   */
-  /**
-   * Adds a {@link WorkbenchModule} at the end of the {@code tabBar}.
-   *
-   * @param module the {@link WorkbenchModule} to be added
-   */
-  public void addModule(WorkbenchModule module) {
-    tabBar.getItems().add(module);
-  }
-
-  /**
-   * Removes a {@link Node} at the specified index of the {@code tabBar}.
-   *
-   * @param index the index where the specified {@link Node} should be removed
-   */
-  /**
-   * Removes a tab to the {@code tabBar}.
-   *
-   * @param index of the tab to be removed
-   */
-  public void removeTab(int index) {
-    tabBar.getItems().remove(index);
   }
 
   /**

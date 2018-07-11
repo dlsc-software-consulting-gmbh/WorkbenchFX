@@ -30,14 +30,9 @@ public class ToolbarPresenter extends Presenter {
   private final ToolbarView view;
 
   // Strong reference to prevent garbage collection
-  private final ObservableList<WorkbenchModule> openModules;
   private final ObservableList<MenuItem> navigationDrawerItems;
   private final ObservableSet<Node> toolbarControlsLeft;
   private final ObservableSet<Node> toolbarControlsRight;
-
-  // Strings for detection of listener-type in the toolbar
-  private final String leftToolbarSide = "LEFT_TOOLBAR_SIDE";
-  private final String rightToolbarSide = "RIGHT_TOOLBAR_SIDE";
 
   /**
    * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
@@ -45,7 +40,6 @@ public class ToolbarPresenter extends Presenter {
   public ToolbarPresenter(Workbench model, ToolbarView view) {
     this.model = model;
     this.view = view;
-    openModules = model.getOpenModules();
     navigationDrawerItems = model.getNavigationDrawerItems();
     toolbarControlsLeft = model.getToolbarControlsLeft();
     toolbarControlsRight = model.getToolbarControlsRight();
@@ -99,28 +93,6 @@ public class ToolbarPresenter extends Presenter {
         change -> view.removeToolbarControlRight(change.getElementRemoved())
     );
 
-    // When the List of the currently open modules is changed, the view is updated.
-//    openModules.addListener((ListChangeListener<? super WorkbenchModule>) c -> {
-//      while (c.next()) {
-//        if (c.wasRemoved()) {
-//          for (WorkbenchModule module : c.getRemoved()) {
-//            LOGGER.debug("Module " + module + " closed");
-//            view.removeTab(c.getFrom());
-//          }
-//        }
-//        if (c.wasAdded()) {
-//          for (WorkbenchModule module : c.getAddedSubList()) {
-//            LOGGER.debug("Module " + module + " opened");
-//            // create tab control
-////            Tab tabControl = model.getTabFactory().call(model);
-////            tabControl.setModule(module);
-//            view.addModule(module);
-////            tabControl.requestFocus();
-//          }
-//        }
-//      }
-//    });
-
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       if (Objects.isNull(oldModule)) {
         // Home is the old value
@@ -147,7 +119,7 @@ public class ToolbarPresenter extends Presenter {
    */
   @Override
   public void setupBindings() {
-//    model.tabsListProperty().bindContent(view.tabBar.itemsProperty());
+    // Binds content of the SelectionStrip to the Workbench content
     view.tabBar.itemsProperty().bindContentBidirectional(model.openModulesProperty());
     view.tabBar.selectedItemProperty().bindBidirectional(model.activeModuleProperty());
   }

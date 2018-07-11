@@ -29,6 +29,8 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
       LogManager.getLogger(WorkbenchSkin.class.getName());
 
   // Views
+  private SelectionStrip<WorkbenchModule> tabBar;
+
   private ToolbarView toolbarView;
   private ToolbarPresenter toolbarPresenter;
 
@@ -40,8 +42,6 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
 
   private WorkbenchView workbenchView;
   private WorkbenchPresenter workbenchPresenter;
-
-  private SelectionStrip<WorkbenchModule> tabBar;
 
   /**
    * Creates a skin for a given {@link Workbench}.
