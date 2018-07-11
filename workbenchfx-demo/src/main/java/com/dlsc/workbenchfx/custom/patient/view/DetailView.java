@@ -14,6 +14,7 @@ import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 
 import com.dlsc.workbenchfx.custom.patient.model.Patient;
+import com.dlsc.workbenchfx.custom.patient.model.Translator;
 import com.dlsc.workbenchfx.custom.patient.view.util.MaterialDesign;
 import com.dlsc.workbenchfx.custom.patient.view.util.ViewMixin;
 import com.dlsc.workbenchfx.custom.patient.view.util.numberrange.NumberRangeControl;
@@ -25,7 +26,8 @@ import com.dlsc.workbenchfx.custom.patient.view.util.rectangularimageview.Rectan
  */
 class DetailView extends HBox implements ViewMixin {
 
-    private final Patient patient;
+    private final Patient    patient;
+    private final Translator translator;
 
     private TextField firstNameField;
     private TextField lastNameField;
@@ -41,8 +43,9 @@ class DetailView extends HBox implements ViewMixin {
     private NumberRangeControl weightControl;
     private NumberRangeControl tallnessControl;
 
-    DetailView(Patient patient) {
+    DetailView(Patient patient, Translator translator) {
         this.patient = patient;
+        this.translator = translator;
 
         init();
     }
@@ -190,5 +193,10 @@ class DetailView extends HBox implements ViewMixin {
 
         imageView.imageURLProperty().bindBidirectional(patient.imageURLProperty());
         imgURLField.textProperty().bindBidirectional(patient.imageURLProperty());
+
+        bloodPressureSystolicControl.titleProperty().bind(translator.bloodPressureSystolicLabelProperty());
+        bloodPressureDiastolicControl.titleProperty().bind(translator.bloodPressureDiastolicLabelProperty());
+        weightControl.titleProperty().bind(translator.weightLabelProperty());
+        tallnessControl.titleProperty().bind(translator.tallnessLabelProperty());
     }
 }

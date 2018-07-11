@@ -5,6 +5,7 @@ import javafx.scene.control.ToolBar;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.patient.model.FileCabinet;
+import com.dlsc.workbenchfx.custom.patient.model.Translator;
 import com.dlsc.workbenchfx.custom.patient.view.util.ViewMixin;
 
 /**
@@ -16,7 +17,9 @@ public class PatientToolbar extends ToolBar implements ViewMixin {
     private static final String PLUS_ICON   = "\uf067";
     private static final String REMOVE_ICON = "\uf00d";
     private static final String USER_ICON = "\uf007";
+
     private final FileCabinet cabinet;
+    private final Translator translator;
     private final Workbench workbench;
 
     private Button saveButton;
@@ -24,8 +27,9 @@ public class PatientToolbar extends ToolBar implements ViewMixin {
     private Button deleteButton;
     private Button switchButton;
 
-    public PatientToolbar(FileCabinet cabinet, Workbench workbench) {
+    public PatientToolbar(FileCabinet cabinet, Translator translator, Workbench workbench) {
         this.cabinet = cabinet;
+        this.translator = translator;
         this.workbench = workbench;
         init();
     }

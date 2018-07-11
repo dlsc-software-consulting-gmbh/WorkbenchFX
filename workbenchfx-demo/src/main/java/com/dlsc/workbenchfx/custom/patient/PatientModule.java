@@ -6,6 +6,7 @@ import javafx.scene.control.MenuItem;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.patient.model.FileCabinet;
+import com.dlsc.workbenchfx.custom.patient.model.Translator;
 import com.dlsc.workbenchfx.custom.patient.view.PatientView;
 import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
@@ -19,6 +20,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 public class PatientModule extends Module {
 
     private FileCabinet fileCabinet;
+    private Translator  translator;
     private PatientView patientView;
 
 
@@ -35,16 +37,23 @@ public class PatientModule extends Module {
         this.workbench = workbench;
 
         fileCabinet = new FileCabinet();
+        translator  = new Translator();
 
-        patientView = new PatientView(fileCabinet, workbench);
+        patientView = new PatientView(fileCabinet, translator, workbench);
     }
 
     @Override
     public Node activate() {
 
+        MenuItem de = new MenuItem("de");
+        de.setOnAction(event -> translator.translateToGerman());
+
+        MenuItem en = new MenuItem("en");
+        en.setOnAction(event -> translator.translateToEnglish());
+
         dropdown = Dropdown.of(new FontAwesomeIconView(FontAwesomeIcon.LANGUAGE),
-                               new MenuItem("de"),
-                               new MenuItem("en"));
+                               de,
+                               en);
         workbench.addToolbarControlRight(dropdown);
 
         return patientView;
