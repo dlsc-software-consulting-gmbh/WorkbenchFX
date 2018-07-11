@@ -1,12 +1,12 @@
 .root {
-    -prim-color: #2196f3;
-    -prim-color-hover: #2196f3;
-    -text-color: #fafafa;
-    -text-color-transparent: rgba(255, 255, 255, .7);
+  -prim-color: #2196f3;
+  -prim-color-hover: #2196f3;
+  -text-color: #333;
+  -text-color-transparent: rgba(255, 255, 255, .7);
 
-    -danger-color: #f1986a;
-    -success-color: #51aaa0;
-    -accent-color: #aa8a70;
+  -danger-color: #f1986a;
+  -success-color: #51aaa0;
+  -accent-color: #aa8a70;
 
-    -icons-color: -text-color;
+  -icons-color: -text-color;
 }

@@ -1,7 +1,23 @@
 .custom-overlay {
-    -fx-background-color: #ff9538;
-    -fx-min-width: 700px;
-    -fx-max-width: 300px;
-    -fx-min-height: 300px;
-    -fx-max-height: 300px;
+  -fx-background-color: -prim-color;
+  -fx-min-width: 300px;
+  -fx-max-width: 300px;
+  -fx-min-height: 300px;
+  -fx-max-height: 300px;
+}
+
+.custom-overlay .label {
+  -fx-text-fill: -text-color;
+}
+
+.custom-overlay .button {
+  -fx-background-color: transparent;
+}
+
+.custom-overlay .button:hover {
+  -fx-cursor: hand;
+}
+
+.custom-overlay .button:hover .glyph-icon {
+  -fx-fill: -danger-color;
 }
