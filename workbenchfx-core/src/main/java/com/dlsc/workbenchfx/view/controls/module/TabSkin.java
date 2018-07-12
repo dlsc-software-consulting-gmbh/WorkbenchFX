@@ -114,7 +114,7 @@ public class TabSkin extends SkinBase<Tab> {
   }
 
   /**
-   * Replaces the Icon when calling setModule()
+   * Replaces the Icon when calling setModule().
    */
   private void updateIcon() {
     Node iconNode = icon.get();

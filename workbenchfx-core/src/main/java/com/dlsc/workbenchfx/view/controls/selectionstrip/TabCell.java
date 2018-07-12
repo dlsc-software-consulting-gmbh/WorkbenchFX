@@ -6,6 +6,9 @@ import com.dlsc.workbenchfx.view.controls.module.Tab;
 
 public class TabCell extends StripCell<WorkbenchModule> {
 
+  /**
+   * Constructs a new {@link TabCell}.
+   */
   public TabCell() {
     super();
     itemProperty().addListener(it -> {

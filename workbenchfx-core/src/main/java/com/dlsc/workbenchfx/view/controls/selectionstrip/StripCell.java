@@ -12,13 +12,16 @@ import javafx.scene.control.Label;
 
 public class StripCell<T> extends Label {
 
-  private final static PseudoClass PSEUDO_CLASS_SELECTED = PseudoClass.getPseudoClass("selected");
+  private static final PseudoClass PSEUDO_CLASS_SELECTED = PseudoClass.getPseudoClass("selected");
 
   private final InvalidationListener selectionListener = it -> updateSelection();
 
   private final WeakInvalidationListener weakSelectionListener = new WeakInvalidationListener(
       selectionListener);
 
+  /**
+   * Constructs a new {@link StripCell}.
+   */
   public StripCell() {
     getStyleClass().add("strip-cell");
     setMaxWidth(Double.MAX_VALUE);
@@ -71,6 +74,11 @@ public class StripCell<T> extends Label {
     return selected != null && selected.get();
   }
 
+  /**
+   * Returns the property of the {@link StripCell}s item which defines whether it's selected or not.
+   *
+   * @return the property which changes the value when the item is selected
+   */
   public final BooleanProperty selectedProperty() {
     if (selected == null) {
       selected = new BooleanPropertyBase() {

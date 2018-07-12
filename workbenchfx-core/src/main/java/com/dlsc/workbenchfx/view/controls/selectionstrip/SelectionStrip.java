@@ -15,6 +15,9 @@ import javafx.util.Duration;
 
 public class SelectionStrip<T> extends Control {
 
+  /**
+   * Constructs a new {@link SelectionStrip}.
+   */
   public SelectionStrip() {
     getStyleClass().add("selection-strip");
 
@@ -128,8 +131,8 @@ public class SelectionStrip<T> extends Control {
 
   // cell factory support
 
-  private final ObjectProperty<Callback<SelectionStrip, StripCell<T>>> cellFactory = new SimpleObjectProperty<>(
-      this, "cellFactory");
+  private final ObjectProperty<Callback<SelectionStrip, StripCell<T>>> cellFactory
+      = new SimpleObjectProperty<>(this, "cellFactory");
 
   public Callback<SelectionStrip, StripCell<T>> getCellFactory() {
     return cellFactory.get();
