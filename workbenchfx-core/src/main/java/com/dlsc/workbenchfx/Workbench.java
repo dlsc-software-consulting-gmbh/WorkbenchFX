@@ -386,7 +386,7 @@ public class Workbench extends Control {
   /**
    * Returns a list of the currently loaded modules.
    *
-   * @return the List of all loaded modules
+   * @return the list of all loaded modules
    * @implNote Use this method to add or remove modules at runtime.
    */
   public ObservableList<WorkbenchModule> getModules() {
