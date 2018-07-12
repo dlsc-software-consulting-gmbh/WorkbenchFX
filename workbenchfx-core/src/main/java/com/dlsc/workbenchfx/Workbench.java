@@ -371,10 +371,9 @@ public class Workbench extends Control {
   }
 
   /**
-   * Returns a list of the currently open modules.
+   * Returns an unmodifiableObservableList of the currently open modules.
    *
    * @return the list of open modules
-   * @implNote Use this method to open or close modules at runtime.
    */
   public ObservableList<WorkbenchModule> getOpenModules() {
     return FXCollections.unmodifiableObservableList(openModules);
