@@ -170,7 +170,7 @@
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 3); }
 
 #toolbar .selection-strip {
-  -fx-background-color: -prim-color !important;
+  -fx-background-color: -prim-color;
   -fx-border-color: derive(-prim-color, -10%);
   -fx-border-width: 0 1px 0 1px;
   -fx-border-insets: 0 -1px 0 -1px; }
