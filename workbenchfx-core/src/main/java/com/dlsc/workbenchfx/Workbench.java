@@ -136,14 +136,6 @@ public class Workbench extends Control {
     pageFactory.set(builder.pageFactory);
   }
 
-  private void initAmountOfPagesBinding() {
-    amountOfPages.bind(
-        Bindings.createIntegerBinding(this::calculateAmountOfPages,
-            modulesPerPageProperty(), getModules()
-        )
-    );
-  }
-
   @Override
   protected Skin<?> createDefaultSkin() {
     return new WorkbenchSkin(this);
