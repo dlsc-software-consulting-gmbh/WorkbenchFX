@@ -120,7 +120,7 @@ public class Workbench extends Control {
       new ReadOnlyBooleanWrapper(this, "dialogShown", false);
 
   Workbench(WorkbenchBuilder builder) {
-    setModulesPerPage(builder);
+    setModulesPerPage(builder.modulesPerPage);
     initBindings();
     initFactories(builder);
     initToolbarControls(builder);
@@ -690,8 +690,8 @@ public class Workbench extends Control {
     return modulesPerPage.get();
   }
 
-  public void setModulesPerPage(WorkbenchBuilder builder) {
-    this.modulesPerPage.set(builder.modulesPerPage);
+  public void setModulesPerPage(int modulesPerPage) {
+    this.modulesPerPage.set(modulesPerPage);
   }
 
   public Callback<Workbench, Tab> getTabFactory() {
