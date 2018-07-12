@@ -1,0 +1,53 @@
+* {
+    -selection-strip-background-color: -fx-base;
+}
+
+.selection-strip {
+    -fx-background-color: -selection-strip-background-color;
+}
+
+.strip-cell {
+    -fx-padding: 10 5 10 5;
+}
+
+.strip-cell:hover {
+}
+
+.strip-cell:pressed {
+    -fx-background-color: derive(-selection-strip-background-color, -30%);
+}
+
+.strip-cell:selected {
+    -fx-background-color: -fx-selection-bar;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+
+.scroller {
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+    -fx-background-insets: 5;
+    -fx-background-color: gray;
+    -fx-padding: 0.25em;
+    -fx-shape: "M 0 -3.5 v 7 l 4 -3.5 z";
+    -fx-cursor: hand;
+}
+
+.scroller.left {
+    -fx-rotate: 180;
+}
+
+.scroller.right {
+    -fx-rotate: 0;
+}
+
+.fader {
+    -fx-pref-width: 80;
+}
+
+.fader.left {
+    -fx-background-color: linear-gradient(from 25 0 to 80 0, -selection-strip-background-color, transparent);
+}
+
+.fader.right {
+    -fx-background-color: linear-gradient(from 0 0 to 55 0, transparent, -selection-strip-background-color);
+}

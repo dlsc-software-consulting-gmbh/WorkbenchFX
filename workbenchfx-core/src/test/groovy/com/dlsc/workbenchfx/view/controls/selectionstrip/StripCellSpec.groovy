@@ -28,5 +28,6 @@ class StripCellSpec extends ApplicationSpec {
     wird getSelectedItem auf selectionstrip aufgerufen?
     ist aktuelles item selektiert?
 
+    pseudoclassstate -> wird richtige gesetzt?
      */
 }
