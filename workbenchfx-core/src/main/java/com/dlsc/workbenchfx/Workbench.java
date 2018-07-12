@@ -371,9 +371,9 @@ public class Workbench extends Control {
   }
 
   /**
-   * Returns a list of the currently opened modules.
+   * Returns a list of the currently open modules.
    *
-   * @return the List of open modules
+   * @return the list of open modules
    * @implNote Use this method to open or close modules at runtime.
    */
   public ObservableList<WorkbenchModule> getOpenModules() {
