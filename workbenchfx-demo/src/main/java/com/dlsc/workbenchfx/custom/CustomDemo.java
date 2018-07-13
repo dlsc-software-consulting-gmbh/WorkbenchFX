@@ -30,7 +30,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.fxmisc.cssfx.CSSFX;
 
 public class CustomDemo extends Application {
 
@@ -56,7 +55,7 @@ public class CustomDemo extends Application {
     // TODO: Remove before publishing
     System.setProperty("cssfx.log", "true");
     System.setProperty("cssfx.log.level", "DEBUG");
-    CSSFX.start(); // Live reloading of css
+//    CSSFX.start(); // Live reloading of css
   }
 
   private Workbench initWorkbench() {
@@ -115,12 +114,16 @@ public class CustomDemo extends Application {
                 new NavigationDrawerTestModule(),
                 new InterruptClosingTestModule(),
                 new DialogTestModule())
-            .toolbarLeft(addPreferences, removePreferences, showDialogButton)
-            .toolbarRight(
+            .toolbarLeft(
+                addPreferences,
+                removePreferences,
                 Dropdown.of(
                     new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                     new CustomMenuItem(new Label("Content 1")),
-                    new CustomMenuItem(new Label("Content 2"))),
+                    new CustomMenuItem(new Label("Content 2")))
+            )
+            .toolbarRight(
+                showDialogButton,
                 Dropdown.of(
                     new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
                     new Menu(

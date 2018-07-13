@@ -57,7 +57,9 @@ public class ToolbarView extends VBox implements View {
   @Override
   public void initializeParts() {
     topBox = new HBox();
+    topBox.setId("top-box");
     bottomBox = new HBox();
+    bottomBox.setId("bottom-box");
 
     homeIconView = new FontAwesomeIconView(FontAwesomeIcon.PLUS);
     homeIconView.setId("home-icon-view");

@@ -1,43 +1,103 @@
 #toolbar {
-  -fx-background-color: -prim-color;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0, 0, 3);
+  -fx-background-color: -primary-color;
 
-  #menu-button {
-    @extend %button-inverted;
+  & .button {
+    -fx-min-width: $pref-size;
+    -fx-pref-height: $pref-size;
+    -fx-background-color: -primary-color;
+    -fx-border-width: 0;
+    -fx-background-insets: 0; //needed to remove the focused border on bottom
+    -fx-padding: 0 .5em 0 .5em;
 
-    & #menu-icon-view {
-
+    & .glyph-icon {
+      -fx-font-size: 1.25em !important;
+      -fx-fill: -on-primary-color;
     }
 
-    &:focused {
-
-    }
-  }
-
-  & #toolbar-control-left-box {
-    & .button {
-      @extend %button;
-    }
-    & .button-inverted {
-      @extend %button-inverted;
+    & .text {
+      -fx-fill: -on-primary-color;
     }
   }
 
-  & #home-button {
-    @extend %button;
+  & #top-box {
+    -fx-pref-height: $pref-size;
 
-    & #home-icon-view {
+    & .dropdown {
+      -fx-pref-height: $pref-size;
+      -fx-background-color: -primary-color;
+      -fx-border-width: 0;
+      -fx-background-insets: 0; //needed to remove the focused border on bottom
 
+      -fx-padding: 0 .5em 0 .5em;
+
+      & .label {
+        & .glyph-icon {
+          -fx-font-size: 1.25em !important;
+          -fx-fill: -on-primary-color;
+        }
+        & .image-view {
+
+        }
+        & .text {
+          -fx-fill: -on-primary-color;
+        }
+      }
+
+      & .arrow-button {
+        & .glyph-icon {
+          //angle-down
+          -fx-font-size: .75em !important;
+          -fx-fill: -on-primary-color;
+        }
+      }
     }
   }
 
-  & #tab-box {
-
-  }
-
-  & #toolbar-control-right-box {
-    & .button {
-      @extend %button;
-    }
+  & #bottom-box {
+    -fx-pref-height: $pref-size;
   }
 }
+
+//#toolbar {
+//  -fx-background-color: -prim-color;
+//  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0, 0, 3);
+//
+//  #menu-button {
+//    @extend %button-inverted;
+//
+//    & #menu-icon-view {
+//
+//    }
+//
+//    &:focused {
+//
+//    }
+//  }
+//
+//  & #toolbar-control-left-box {
+//    & .button {
+//      @extend %button;
+//    }
+//    & .button-inverted {
+//      @extend %button-inverted;
+//    }
+//  }
+//
+//  & #home-button {
+//    @extend %button;
+//
+//    & #home-icon-view {
+//
+//    }
+//  }
+//
+//  & #tab-box {
+//
+//  }
+//
+//  & #toolbar-control-right-box {
+//    & .button {
+//      @extend %button;
+//    }
+//  }
+//}

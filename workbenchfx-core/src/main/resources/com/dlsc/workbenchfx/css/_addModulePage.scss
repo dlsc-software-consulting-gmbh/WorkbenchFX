@@ -16,10 +16,10 @@
               -fx-min-height: 7.5em;
               -fx-background-color: -surface-color;
               -fx-effect: -drop-shadow-1;
-              -fx-background-radius: $border;
-
               -fx-border-width: 0;
-              -fx-border-radius: $border;
+
+              -fx-border-radius: $radius;
+              -fx-background-radius: $radius;
 
               -fx-background-insets: 0; //needed to remove the focused border on bottom
 

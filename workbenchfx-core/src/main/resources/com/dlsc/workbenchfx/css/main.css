@@ -1,22 +1,130 @@
-/*
-Errno::ENOENT: No such file or directory @ rb_sysopen - main.scss
+.root {
+  -primary-color: #6200EE;
+  -primary-variant-color: #3700B3;
+  -secondary-color: #03DAC6;
+  -secondary-variant-color: #018786;
+  -background-color: #FFFFFF;
+  -surface-color: #FFFFFF;
+  -error-color: #B00020;
+  -on-primary-color: #FFFFFF;
+  -on-secondary-color: #000000;
+  -on-background-color: #000000;
+  -on-surface-color: #000000;
+  -on-error-color: #FFFFFF;
+  -drop-shadow-1: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 10, 0.12, -1, 2);
+  -drop-shadow-2: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 15, 0.16, -1, 4);
+  -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 20, 0.19, -1, 6);
+  -shadow: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.2, 0, 0);
+  -icons-color: -on-primary-color;
+  -fx-font-family: "Roboto", sans-serif;
+  -fx-font-size: 14px; }
 
-Backtrace:
-C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:454:in `read'
-C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:454:in `update_stylesheet'
-C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
-C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:209:in `each'
-C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.6/lib/sass/plugin.rb:82:in `update_stylesheets'
-C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.6/lib/sass/exec/sass_scss.rb:340:in `watch_or_update'
-C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.6/lib/sass/exec/sass_scss.rb:51:in `process_result'
-C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.6/lib/sass/exec/base.rb:52:in `parse'
-C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.6/lib/sass/exec/base.rb:19:in `parse!'
-C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.6/bin/scss:13:in `<top (required)>'
-C:/Ruby24-x64/bin/scss:23:in `load'
-C:/Ruby24-x64/bin/scss:23:in `<main>'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Errno::ENOENT: No such file or directory @ rb_sysopen - main.scss"; }
+.glyph-icon {
+  -fx-text-fill: -on-primary-color;
+  -fx-fill: -icons-color;
+  -fx-font-size: 1.5em !important; }
+
+@font-face {
+  src: url("../fonts/Roboto-Black.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-BlackItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Bold.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-BoldItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Italic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Light.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-LightItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Medium.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-MediumItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Regular.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Thin.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-ThinItalic.ttf"); }
+#workbench {
+  -fx-background-color: -background-color; }
+
+#content-view #home #tile-pane .pagination {
+  -fx-arrows-visible: false;
+  -fx-page-information-visible: false;
+  -fx-tooltip-visible: false; }
+  #content-view #home #tile-pane .pagination .page .tile-page {
+    -fx-vgap: 3em;
+    -fx-hgap: 3em;
+    -fx-padding: 1.5em;
+    -fx-alignment: center center; }
+    #content-view #home #tile-pane .pagination .page .tile-page .tile-control {
+      -fx-padding: 2em;
+      -fx-min-width: 12em;
+      -fx-min-height: 7.5em;
+      -fx-background-color: -surface-color;
+      -fx-effect: -drop-shadow-1;
+      -fx-border-width: 0;
+      -fx-border-radius: 5px;
+      -fx-background-radius: 5px;
+      -fx-background-insets: 0; }
+      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .glyph-icon {
+        -fx-fill: -on-surface-color; }
+      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .text {
+        -fx-text-fill: -on-surface-color; }
+      #content-view #home #tile-pane .pagination .page .tile-page .tile-control:hover {
+        -fx-effect: -drop-shadow-2; }
+      #content-view #home #tile-pane .pagination .page .tile-page .tile-control:pressed {
+        -fx-effect: -drop-shadow-3; }
+  #content-view #home #tile-pane .pagination > .pagination-control > .control-box {
+    -fx-spacing: 0.5em; }
+    #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button {
+      -fx-background-radius: 50%;
+      -fx-background-insets: 0.5em;
+      -fx-background-color: -surface-color;
+      -fx-effect: -drop-shadow-1; }
+      #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:hover {
+        -fx-cursor: hand;
+        -fx-effect: -drop-shadow-2; }
+      #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected {
+        -fx-background-color: -primary-color; }
+        #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
+          -fx-cursor: hand;
+          -fx-background-color: -primary-variant-color; }
+
+#toolbar {
+  -fx-background-color: -primary-color; }
+  #toolbar .button {
+    -fx-min-width: 3em;
+    -fx-pref-height: 3em;
+    -fx-background-color: -primary-color;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0 .5em 0 .5em; }
+    #toolbar .button .glyph-icon {
+      -fx-font-size: 1.25em !important;
+      -fx-fill: -on-primary-color; }
+    #toolbar .button .text {
+      -fx-fill: -on-primary-color; }
+  #toolbar #top-box {
+    -fx-pref-height: 3em; }
+    #toolbar #top-box .dropdown {
+      -fx-pref-height: 3em;
+      -fx-background-color: -primary-color;
+      -fx-border-width: 0;
+      -fx-background-insets: 0;
+      -fx-padding: 0 .5em 0 .5em; }
+      #toolbar #top-box .dropdown .label .glyph-icon {
+        -fx-font-size: 1.25em !important;
+        -fx-fill: -on-primary-color; }
+      #toolbar #top-box .dropdown .label .text {
+        -fx-fill: -on-primary-color; }
+      #toolbar #top-box .dropdown .arrow-button .glyph-icon {
+        -fx-font-size: .75em !important;
+        -fx-fill: -on-primary-color; }
+  #toolbar #bottom-box {
+    -fx-pref-height: 3em; }
+
+/*# sourceMappingURL=main.css.map */
