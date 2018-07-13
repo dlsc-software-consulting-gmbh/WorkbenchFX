@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 /**
  * Represents the toolbar which is being shown at the top of the window.
@@ -19,7 +20,10 @@ import javafx.scene.layout.Priority;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ToolbarView extends HBox implements View {
+public class ToolbarView extends VBox implements View {
+
+  private HBox topBox;
+  private HBox bottomBox;
 
   private FontAwesomeIconView homeIconView;
   private FontAwesomeIconView menuIconView;
@@ -52,7 +56,10 @@ public class ToolbarView extends HBox implements View {
    */
   @Override
   public void initializeParts() {
-    homeIconView = new FontAwesomeIconView(FontAwesomeIcon.HOME);
+    topBox = new HBox();
+    bottomBox = new HBox();
+
+    homeIconView = new FontAwesomeIconView(FontAwesomeIcon.PLUS);
     homeIconView.setId("home-icon-view");
     homeIconView.getStyleClass().add("icon-view");
     homeBtn = new Button("", homeIconView);
@@ -79,8 +86,22 @@ public class ToolbarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().addAll(toolbarControlLeftBox, homeBtn, tabBar, toolbarControlRightBox);
-    setHgrow(tabBar, Priority.ALWAYS);
+    topBox.getChildren().addAll(
+        toolbarControlLeftBox,
+        toolbarControlRightBox
+    );
+    HBox.setHgrow(toolbarControlLeftBox, Priority.ALWAYS);
+
+    bottomBox.getChildren().addAll(
+        tabBar,
+        homeBtn
+    );
+    HBox.setHgrow(tabBar, Priority.ALWAYS);
+
+    getChildren().addAll(
+        topBox,
+        bottomBox
+    );
     Platform.runLater(() -> homeBtn.requestFocus());
   }
 
@@ -89,7 +110,7 @@ public class ToolbarView extends HBox implements View {
    */
   public void addMenuButton() {
     if (!getChildren().contains(menuBtn)) {
-      getChildren().add(0, menuBtn);
+      topBox.getChildren().add(0, menuBtn);
     }
   }
 

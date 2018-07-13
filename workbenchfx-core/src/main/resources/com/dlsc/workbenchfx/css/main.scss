@@ -43,7 +43,7 @@ $on-error-color: #FFFFFF;
 
 // Default styling of icons. This enables changing the icons styles later on
 .glyph-icon {
-  -fx-text-fill: -text-color;
+  -fx-text-fill: -on-primary-color;
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important;
 }

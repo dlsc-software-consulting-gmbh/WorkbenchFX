@@ -1,22 +1,26 @@
 .root {
-  -prim-color: #2e78e7;
-  -prim-color-hover: #4587ea;
-  -danger-color: #ed5a5a;
-  -success-color: #47aa71;
-  -accent-color: #00aaff;
-  -text-color: white;
-  -text-color-transparent: rgba(255, 255, 255, 0.8);
-  -inverted-text-color: black;
+  -primary-color: #6200EE;
+  -primary-variant-color: #3700B3;
+  -secondary-color: #03DAC6;
+  -secondary-variant-color: #018786;
+  -background-color: #FFFFFF;
+  -surface-color: #FFFFFF;
+  -error-color: #B00020;
+  -on-primary-color: #FFFFFF;
+  -on-secondary-color: #000000;
+  -on-background-color: #000000;
+  -on-surface-color: #000000;
+  -on-error-color: #FFFFFF;
   -drop-shadow-1: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 10, 0.12, -1, 2);
   -drop-shadow-2: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 15, 0.16, -1, 4);
   -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 20, 0.19, -1, 6);
   -shadow: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.2, 0, 0);
-  -icons-color: -text-color;
+  -icons-color: -on-primary-color;
   -fx-font-family: "Roboto", sans-serif;
   -fx-font-size: 14px; }
 
 .glyph-icon {
-  -fx-text-fill: -text-color;
+  -fx-text-fill: -on-primary-color;
   -fx-fill: -icons-color;
   -fx-font-size: 1.5em !important; }
 
