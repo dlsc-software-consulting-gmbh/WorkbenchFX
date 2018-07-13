@@ -32,6 +32,19 @@ class SelectionStripSpec extends ApplicationSpec {
         selectionStrip.getStyleClass().contains(styleClass)
     }
 
+    def "test if maxWidth and Height were set correctly"() {
+        given: "Double value of max and min which shall be set"
+        double prefWidth = 400;
+        double prefHeight = 50;
+
+        when: "the cell is created"
+        selectionStrip = new SelectionStrip<>()
+
+        then: "max and min must be set"
+        prefWidth == selectionStrip.getPrefWidth()
+        prefHeight == selectionStrip.getPrefHeight()
+    }
+
     /*
     Wurde styleklasse gesetzt? korrekt?
     prefwidth/height korrekt gesetzt?
