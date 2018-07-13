@@ -8,14 +8,28 @@ import org.testfx.framework.spock.ApplicationSpec
 
 class SelectionStripSpec extends ApplicationSpec {
 
-    private SelectionStrip<WorkbenchModule> selectionStrip = new SelectionStrip<>()
-    private FxRobot robot = new FxRobot()
+    private SelectionStrip<WorkbenchModule> selectionStrip
+    private FxRobot robot
 
     @Override
     void start(Stage stage) throws Exception {
+        selectionStrip = new SelectionStrip<>()
+        robot = new FxRobot()
+
         Scene scene = new Scene(selectionStrip, 100, 100)
         stage.setScene(scene)
         stage.show()
+    }
+
+    def "test if styleclass was set correctly"() {
+        given: "String of styleclass which shall be set"
+        String styleClass = "selection-strip"
+
+        when: "the cell is created"
+        selectionStrip = new SelectionStrip<>()
+
+        then: "styleclass must be set"
+        selectionStrip.getStyleClass().contains(styleClass)
     }
 
     /*
