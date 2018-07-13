@@ -54,7 +54,7 @@ public class Workbench extends Control {
       LogManager.getLogger(Workbench.class.getName());
 
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
-  public static final String STYLE_CLASS_ACTIVE_HOME = "active-home";
+  public static final String STYLE_CLASS_ACTIVE_HOME = "active-add-button";
 
   // Custom Controls
   private ObjectProperty<NavigationDrawer> navigationDrawer = new SimpleObjectProperty<>();

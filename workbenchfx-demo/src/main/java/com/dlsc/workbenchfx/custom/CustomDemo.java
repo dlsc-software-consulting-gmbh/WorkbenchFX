@@ -30,6 +30,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.fxmisc.cssfx.CSSFX;
 
 public class CustomDemo extends Application {
 
@@ -55,7 +56,7 @@ public class CustomDemo extends Application {
     // TODO: Remove before publishing
     System.setProperty("cssfx.log", "true");
     System.setProperty("cssfx.log.level", "DEBUG");
-//    CSSFX.start(); // Live reloading of css
+    CSSFX.start(); // Live reloading of css
   }
 
   private Workbench initWorkbench() {

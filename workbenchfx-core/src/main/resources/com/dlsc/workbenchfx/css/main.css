@@ -101,21 +101,20 @@
     -fx-pref-height: 3em;
     -fx-background-color: -primary-color;
     -fx-border-width: 0;
-    -fx-background-insets: 0;
-    -fx-padding: 0 .5em 0 .5em; }
+    -fx-background-insets: 0; }
     #toolbar .button .glyph-icon {
       -fx-font-size: 1.25em !important;
       -fx-fill: -on-primary-color; }
     #toolbar .button .text {
       -fx-fill: -on-primary-color; }
   #toolbar #top-box {
-    -fx-pref-height: 3em; }
+    -fx-pref-height: 3em;
+    -fx-spacing: .25em; }
     #toolbar #top-box .dropdown {
       -fx-pref-height: 3em;
       -fx-background-color: -primary-color;
       -fx-border-width: 0;
-      -fx-background-insets: 0;
-      -fx-padding: 0 .5em 0 .5em; }
+      -fx-background-insets: 0; }
       #toolbar #top-box .dropdown .label .glyph-icon {
         -fx-font-size: 1.25em !important;
         -fx-fill: -on-primary-color; }
@@ -125,6 +124,71 @@
         -fx-font-size: .75em !important;
         -fx-fill: -on-primary-color; }
   #toolbar #bottom-box {
-    -fx-pref-height: 3em; }
+    -fx-pref-height: 3em;
+    -fx-padding: 0 .35em 0 .35em; }
+    #toolbar #bottom-box .selection-strip {
+      -fx-background-color: -primary-color; }
+      #toolbar #bottom-box .selection-strip .strip-cell {
+        -fx-padding: 0; }
+        #toolbar #bottom-box .selection-strip .strip-cell:hover {
+          -fx-cursor: hand; }
+        #toolbar #bottom-box .selection-strip .strip-cell:pressed {
+          -fx-background-color: -primary-color;
+          -fx-border-width: 0 !important; }
+        #toolbar #bottom-box .selection-strip .strip-cell .tab-control {
+          -fx-max-height: .111em;
+          -fx-alignment: center;
+          -fx-border-width: 0 1px 0 1px;
+          -fx-border-color: -primary-color -on-primary-color -primary-color -primary-color;
+          -fx-padding: 0 .25em 0 1.25em; }
+          #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-icon {
+            -fx-fill: -on-primary-color;
+            -fx-font-size: 1.25em !important; }
+          #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl {
+            -fx-padding: 0 0 0 .35em; }
+            #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl .text {
+              -fx-fill: -on-primary-color; }
+          #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn {
+            -fx-background-color: none;
+            -fx-min-width: 0;
+            -fx-padding: .111em 1em .111em 1em; }
+            #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn .glyph-icon {
+              -fx-fill: -on-primary-color;
+              -fx-font-size: .75em !important; }
+            #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn:hover {
+              -fx-cursor: hand; }
+              #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn:hover .glyph-icon {
+                -fx-fill: -error-color; }
+        #toolbar #bottom-box .selection-strip .strip-cell:selected {
+          -fx-background-color: -surface-color;
+          -fx-background-radius: 5px 5px 0 0;
+          -fx-border-radius: 5px 5px 0 0;
+          -fx-cursor: inherit; }
+          #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control {
+            -fx-border-color: -surface-color; }
+            #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-icon {
+              -fx-fill: -on-surface-color; }
+            #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-name-lbl .text {
+              -fx-fill: -on-surface-color; }
+            #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-btn .glyph-icon {
+              -fx-fill: -on-surface-color; }
+            #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-btn:hover .glyph-icon {
+              -fx-fill: -error-color; }
+      #toolbar #bottom-box .selection-strip .fader.left {
+        -fx-background-color: linear-gradient(from 25 0 to 80 0, -primary-color, transparent); }
+      #toolbar #bottom-box .selection-strip .fader.right {
+        -fx-background-color: linear-gradient(from 0 0 to 55 0, transparent, -primary-color); }
+      #toolbar #bottom-box .selection-strip .scroller {
+        -fx-background-color: -on-primary-color;
+        -fx-pref-width: 1.2em;
+        -fx-pref-height: 3em;
+        -fx-background-insets: 1.1111111111em 0.3296703297em 1.1111111111em 0.4201680672em;
+        -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z"; }
+    #toolbar #bottom-box .active-add-button {
+      -fx-background-color: -surface-color;
+      -fx-background-radius: 5px 5px 0 0;
+      -fx-border-radius: 5px 5px 0 0; }
+      #toolbar #bottom-box .active-add-button .glyph-icon {
+        -fx-fill: -on-surface-color; }
 
 /*# sourceMappingURL=main.css.map */

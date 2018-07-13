@@ -27,7 +27,7 @@ public class ToolbarView extends VBox implements View {
 
   private FontAwesomeIconView homeIconView;
   private FontAwesomeIconView menuIconView;
-  Button homeBtn;
+  Button addBtn;
   Button menuBtn;
   SelectionStrip<WorkbenchModule> tabBar;
   HBox toolbarControlLeftBox;
@@ -64,9 +64,9 @@ public class ToolbarView extends VBox implements View {
     homeIconView = new FontAwesomeIconView(FontAwesomeIcon.PLUS);
     homeIconView.setId("home-icon-view");
     homeIconView.getStyleClass().add("icon-view");
-    homeBtn = new Button("", homeIconView);
-    homeBtn.setId("home-button");
-    homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_HOME);
+    addBtn = new Button("", homeIconView);
+    addBtn.setId("add-button");
+    addBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_HOME);
 
     menuIconView = new FontAwesomeIconView(FontAwesomeIcon.BARS);
     menuIconView.setId("menu-icon-view");
@@ -96,7 +96,7 @@ public class ToolbarView extends VBox implements View {
 
     bottomBox.getChildren().addAll(
         tabBar,
-        homeBtn
+        addBtn
     );
     HBox.setHgrow(tabBar, Priority.ALWAYS);
 
@@ -104,7 +104,7 @@ public class ToolbarView extends VBox implements View {
         topBox,
         bottomBox
     );
-    Platform.runLater(() -> homeBtn.requestFocus());
+    Platform.runLater(() -> addBtn.requestFocus());
   }
 
   /**
