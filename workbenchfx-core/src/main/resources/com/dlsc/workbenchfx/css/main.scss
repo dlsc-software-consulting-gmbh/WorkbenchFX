@@ -48,21 +48,22 @@ $on-error-color: #FFFFFF;
   -fx-font-size: 1.5em !important;
 }
 
-$border: 3px;
-$pref-size: 3.5em;
+$border: 2px;
+$pref-size: 3em;
 $darken-percentage: -10%;
+$radius: 5px;
 
 @import "fonts";
-@import "includes";
-@import "contentView";
-@import "home";
-@import "toolbar";
-@import "tabBar";
-@import "module";
+//@import "includes";
 @import "workbench";
-@import "dropdown";
-@import "prettyScrollPane";
-@import "navigationDrawer";
-@import "glassPane";
-@import "activeTools";
-@import "dialog";
+//@import "contentView";
+@import "addModulePage";
+//@import "toolbar";
+//@import "tabBar";
+//@import "module";
+//@import "dropdown";
+//@import "prettyScrollPane";
+//@import "navigationDrawer";
+//@import "glassPane";
+//@import "activeTools";
+//@import "dialog";
