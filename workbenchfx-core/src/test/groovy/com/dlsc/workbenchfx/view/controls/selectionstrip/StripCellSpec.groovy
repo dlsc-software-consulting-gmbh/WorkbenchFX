@@ -32,6 +32,18 @@ class StripCellSpec extends ApplicationSpec {
         stripCell.getStyleClass().contains(styleClass)
     }
 
+    def "test if maxWidth and Height were set correctly"() {
+        given: "Double value of max and min which shall be set"
+        double val = Double.MAX_VALUE;
+
+        when: "the cell is created"
+        stripCell = new StripCell<>()
+
+        then: "max and min must be set"
+        val == stripCell.getMaxWidth()
+        val == stripCell.getMaxHeight()
+    }
+
     /*
     maxwitdh? maxheight?
     listener: 4 möglichkeiten -> selectionstrip-mock -> abfragen ob gecallt worden
