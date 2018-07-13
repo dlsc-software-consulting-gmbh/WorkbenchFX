@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.view.controls.selectionstrip
 import com.dlsc.workbenchfx.model.WorkbenchModule
 import javafx.scene.Scene
 import javafx.stage.Stage
+import javafx.util.Callback
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
 
@@ -43,6 +44,14 @@ class SelectionStripSpec extends ApplicationSpec {
         then: "max and min must be set"
         prefWidth == selectionStrip.getPrefWidth()
         prefHeight == selectionStrip.getPrefHeight()
+    }
+
+    def "set a cell factory"() {
+        when: "initial setup"
+        selectionStrip = new SelectionStrip<>()
+
+        then: "cellfactory is instance of StripCell"
+        selectionStrip.getCellFactory() instanceof Callback<SelectionStrip, StripCell<WorkbenchModule>>
     }
 
     /*
