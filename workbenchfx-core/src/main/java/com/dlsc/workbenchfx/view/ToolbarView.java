@@ -2,6 +2,9 @@ package com.dlsc.workbenchfx.view;
 
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 
+import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
+import com.dlsc.workbenchfx.view.controls.selectionstrip.SelectionStrip;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
@@ -17,18 +20,22 @@ import javafx.scene.layout.Priority;
  * @author Marco Sanfratello
  */
 public class ToolbarView extends HBox implements View {
+
   private FontAwesomeIconView homeIconView;
   private FontAwesomeIconView menuIconView;
   Button homeBtn;
   Button menuBtn;
-  private HBox tabBox;
+  SelectionStrip<WorkbenchModule> tabBar;
   HBox toolbarControlLeftBox;
   HBox toolbarControlRightBox;
 
   /**
    * Creates a new {@link ToolbarView} for the Workbench.
+   *
+   * @param tabBar the Control which is used to create and display the {@link Tab}s
    */
-  public ToolbarView() {
+  public ToolbarView(SelectionStrip<WorkbenchModule> tabBar) {
+    this.tabBar = tabBar;
     init();
   }
 
@@ -58,8 +65,7 @@ public class ToolbarView extends HBox implements View {
     menuBtn = new Button("", menuIconView);
     menuBtn.setId("menu-button");
 
-    tabBox = new HBox();
-    tabBox.setId("tab-box");
+    tabBar.setId("tab-bar");
 
     toolbarControlLeftBox = new HBox();
     toolbarControlLeftBox.setId("toolbar-control-left-box");
@@ -73,8 +79,8 @@ public class ToolbarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().addAll(toolbarControlLeftBox, homeBtn, tabBox, toolbarControlRightBox);
-    setHgrow(tabBox, Priority.ALWAYS);
+    getChildren().addAll(toolbarControlLeftBox, homeBtn, tabBar, toolbarControlRightBox);
+    setHgrow(tabBar, Priority.ALWAYS);
     Platform.runLater(() -> homeBtn.requestFocus());
   }
 
@@ -92,33 +98,6 @@ public class ToolbarView extends HBox implements View {
    */
   public void removeMenuButton() {
     getChildren().remove(menuBtn);
-  }
-
-  /**
-   * Adds a tab to the {@code tabBox}.
-   * @param tab to be added
-   */
-  /**
-   * Adds a {@link Node} at the end of the {@code tabBox}.
-   *
-   * @param tab the {@link Node} to be added
-   */
-  public void addTab(Node tab) {
-    tabBox.getChildren().add(tab);
-  }
-
-  /**
-   * Removes a {@link Node} at the specified index of the {@code tabBox}.
-   *
-   * @param index the index where the specified {@link Node} should be removed
-   */
-  /**
-   * Removes a tab to the {@code tabBox}.
-   *
-   * @param index of the tab to be removed
-   */
-  public void removeTab(int index) {
-    tabBox.getChildren().remove(index);
   }
 
   /**
