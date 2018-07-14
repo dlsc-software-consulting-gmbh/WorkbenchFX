@@ -18,7 +18,10 @@
   -fx-cursor: hand;
 }
 
-.custom-overlay .button:hover .glyph-icon {
+.custom-overlay .button .glyph-icon {
   -fx-font-size: 1.25em !important;
+}
+
+.custom-overlay .button:hover .glyph-icon {
   -fx-fill: -error-color;
 }
