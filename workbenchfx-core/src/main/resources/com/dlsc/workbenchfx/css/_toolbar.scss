@@ -120,27 +120,27 @@
         }
 
         &:selected {
-          -fx-background-color: -surface-color;
+          -fx-background-color: -background-color;
           -fx-background-radius: $radius $radius 0 0;
           -fx-border-radius: $radius $radius 0 0;
           -fx-cursor: inherit;
 
           & .tab-control {
-            -fx-border-color: -surface-color;
+            -fx-border-color: -background-color;
 
             & .tab-icon {
-              -fx-fill: -on-surface-color;
+              -fx-fill: -on-background-color;
             }
 
             & .tab-name-lbl {
               & .text {
-                -fx-fill: -on-surface-color;
+                -fx-fill: -on-background-color;
               }
             }
 
             & .close-btn {
               & .glyph-icon {
-                -fx-fill: -on-surface-color;
+                -fx-fill: -on-background-color;
               }
               &:hover {
                 & .glyph-icon {
@@ -193,12 +193,12 @@
     }
 
     & .active-add-button {
-      -fx-background-color: -surface-color;
+      -fx-background-color: -background-color;
       -fx-background-radius: $radius $radius 0 0;
       -fx-border-radius: $radius $radius 0 0;
 
       & #add-icon {
-        -fx-background-color: -on-surface-color !important;
+        -fx-background-color: -on-background-color !important;
       }
     }
   }
