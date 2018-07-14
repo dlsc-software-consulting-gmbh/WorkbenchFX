@@ -147,7 +147,7 @@ public class Workbench extends Control {
 
     MenuItem[] navigationDrawerItems;
 
-    public WorkbenchBuilder(WorkbenchModule... modules) {
+    private WorkbenchBuilder(WorkbenchModule... modules) {
       this.modules = modules;
     }
 
@@ -193,8 +193,8 @@ public class Workbench extends Control {
      *
      * @param pageFactory to be used to create the {@link Page} for the tiles
      * @return builder for chaining
-     * @implNote Use this to replace the page which is used in the home screen to display tiles of the
-     *           modules with your own implementation.
+     * @implNote Use this to replace the page which is used in the home screen to display tiles of
+     *           the modules with your own implementation.
      */
     public WorkbenchBuilder pageFactory(Callback<Workbench, Page> pageFactory) {
       this.pageFactory = pageFactory;
@@ -206,8 +206,8 @@ public class Workbench extends Control {
      *
      * @param navigationDrawer to be shown as the navigation drawer
      * @return builder for chaining
-     * @implNote Use this to replace the navigation drawer, which is displayed when pressing the menu
-     *           icon, with your own implementation. To access the {@link MenuItem}s, use
+     * @implNote Use this to replace the navigation drawer, which is displayed when pressing the
+     *           menu icon, with your own implementation. To access the {@link MenuItem}s, use
      *           {@link Workbench#getNavigationDrawerItems()}.
      */
     public WorkbenchBuilder navigationDrawer(NavigationDrawer navigationDrawer) {
@@ -221,7 +221,7 @@ public class Workbench extends Control {
      * @param dialogControl to be shown as the dialog control
      * @return builder for chaining
      * @implNote Use this to replace the dialog control, which is displayed when using any of the
-     *           {@link Workbench#showDialog(WorkbenchDialog)} methods, with your own implementation.
+     *           {@link Workbench#showDialog(WorkbenchDialog)} methods with your own implementation.
      */
     public WorkbenchBuilder dialogControl(DialogControl dialogControl) {
       this.dialogControl = dialogControl;

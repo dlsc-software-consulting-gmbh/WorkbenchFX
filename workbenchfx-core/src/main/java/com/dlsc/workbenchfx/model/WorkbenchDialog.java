@@ -105,7 +105,8 @@ public final class WorkbenchDialog {
 
   // Builder
   public static class WorkbenchDialogBuilder {
-    private static final Logger LOGGER = LogManager.getLogger(WorkbenchDialogBuilder.class.getName());
+    private static final Logger LOGGER =
+        LogManager.getLogger(WorkbenchDialogBuilder.class.getName());
 
     // Required parameters - only either type or buttonTypes are required
     final WorkbenchDialog.Type type;
@@ -121,14 +122,14 @@ public final class WorkbenchDialog {
     Exception exception = null;
     String details = "";
 
-    public WorkbenchDialogBuilder(String title, Node content, ButtonType... buttonTypes) {
+    private WorkbenchDialogBuilder(String title, Node content, ButtonType... buttonTypes) {
       this.title = title;
       this.content = content;
       this.buttonTypes = buttonTypes;
       this.type = null;
     }
 
-    public WorkbenchDialogBuilder(String title, Node content, WorkbenchDialog.Type type) {
+    private WorkbenchDialogBuilder(String title, Node content, WorkbenchDialog.Type type) {
       this.title = title;
       this.content = content;
       this.type = type;
