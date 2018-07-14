@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx;
 
-import static com.dlsc.workbenchfx.Workbench.*;
+import static com.dlsc.workbenchfx.Workbench.WorkbenchBuilder;
 import static com.dlsc.workbenchfx.testing.MockFactory.createMockModule;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
