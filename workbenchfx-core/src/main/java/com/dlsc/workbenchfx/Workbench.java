@@ -423,17 +423,16 @@ public class Workbench extends Control {
    * Shows a {@link WorkbenchDialog} in the view.
    *
    * @param dialog to be shown
-   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *                was pressed in the dialog
+   * @return the {@link DialogControl} which is being shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
    *           All dialogs are non-blocking by default. If you want to change this behavior, use
    *           {@link WorkbenchDialog#builder} to create a dialog and show it using
    *           {@link Workbench#showDialog(WorkbenchDialog)}.
    */
-  public final CompletableFuture<ButtonType> showDialog(WorkbenchDialog dialog) {
+  public final DialogControl showDialog(WorkbenchDialog dialog) {
     this.dialog.set(dialog);
-    return dialog.getResult();
+    return getDialogControl();
   }
 
   /**
@@ -448,7 +447,8 @@ public class Workbench extends Control {
    */
   public final CompletableFuture<ButtonType> showErrorDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR).build();
-    return showDialog(dialog);
+    showDialog(dialog);
+    return dialog.getResult();
   }
 
   /**
@@ -467,7 +467,8 @@ public class Workbench extends Control {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
         .exception(exception)
         .build();
-    return showDialog(dialog);
+    showDialog(dialog);
+    return dialog.getResult();
   }
 
   /**
@@ -486,7 +487,8 @@ public class Workbench extends Control {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
         .details(details)
         .build();
-    return showDialog(dialog);
+    showDialog(dialog);
+    return dialog.getResult();
   }
 
   /**
@@ -501,7 +503,8 @@ public class Workbench extends Control {
    */
   public final CompletableFuture<ButtonType> showWarningDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.WARNING).build();
-    return showDialog(dialog);
+    showDialog(dialog);
+    return dialog.getResult();
   }
 
   /**
@@ -516,7 +519,8 @@ public class Workbench extends Control {
    */
   public final CompletableFuture<ButtonType> showConfirmationDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.CONFIRMATION).build();
-    return showDialog(dialog);
+    showDialog(dialog);
+    return dialog.getResult();
   }
 
   /**
@@ -531,7 +535,8 @@ public class Workbench extends Control {
    */
   public final CompletableFuture<ButtonType> showInformationDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.INFORMATION).build();
-    return showDialog(dialog);
+    showDialog(dialog);
+    return dialog.getResult();
   }
 
   public final ReadOnlyObjectProperty<WorkbenchDialog> dialogProperty() {
