@@ -3,8 +3,21 @@ package com.dlsc.workbenchfx.view.controls.selectionstrip;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
+import javafx.beans.value.ChangeListener;
 
 public class TabCell extends StripCell<WorkbenchModule> {
+
+  private final String previousCell = "previous-cell";
+  private final ChangeListener<WorkbenchModule> previousCellListener =
+      (observableValue, oldModule, newModule) -> {
+        int cellIndex = getSelectionStrip().getItems().indexOf(getItem());
+        if (cellIndex + 1 == getSelectionStrip().getItems().indexOf(oldModule)) {
+          getStyleClass().remove(previousCell);
+        }
+        if (cellIndex + 1 == getSelectionStrip().getItems().indexOf(newModule)) {
+          getStyleClass().add(previousCell);
+        }
+      };
 
   /**
    * Constructs a new {@link TabCell}.
@@ -19,6 +32,16 @@ public class TabCell extends StripCell<WorkbenchModule> {
       Tab tab = workbench.getTabFactory().call(workbench);
       tab.setModule(getItem());
       setGraphic(tab);
+    });
+
+    selectionStripProperty().addListener((observable, oldStrip, newStrip) -> {
+      if (oldStrip != null) {
+        oldStrip.selectedItemProperty().removeListener(previousCellListener);
+      }
+
+      if (newStrip != null) {
+        newStrip.selectedItemProperty().addListener(previousCellListener);
+      }
     });
   }
 }
