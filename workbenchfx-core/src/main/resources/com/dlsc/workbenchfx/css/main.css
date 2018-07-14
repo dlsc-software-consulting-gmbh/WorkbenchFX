@@ -83,11 +83,10 @@
     #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button {
       -fx-background-radius: 50%;
       -fx-background-insets: 0.5em;
-      -fx-background-color: -surface-color;
-      -fx-effect: -drop-shadow-1; }
+      -fx-background-color: derive(-surface-color, -5%); }
       #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:hover {
         -fx-cursor: hand;
-        -fx-effect: -drop-shadow-2; }
+        -fx-background-color: derive(-surface-color, -10%); }
       #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected {
         -fx-background-color: -primary-color; }
         #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
