@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
@@ -18,6 +19,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
 import org.controlsfx.control.CheckListView;
 
@@ -37,6 +39,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
   private final Button longMessageBtn = new Button("Long Message Dialog");
   private final Button longTitleMessageBtn = new Button("Long Title & Message Dialog");
   private final Button noButtonsBtn = new Button("No Buttons Dialog");
+  private final Button conditionalBtn = new Button("Conditional Button Dialog");
 
   private GoogleMapView mapView;
   private GoogleMap map;
@@ -45,6 +48,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
 
   NullPointerException exception;
   private CheckListView<String> checkListView;
+  private CheckBox checkBox = new CheckBox("I accept the Terms and Conditions");
 
   public DialogTestModule() {
     super("Dialog Test", FontAwesomeIcon.QUESTION);
@@ -93,6 +97,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     customPane.add(longMessageBtn, 2, 1);
     customPane.add(longTitleMessageBtn, 2, 2);
     customPane.add(noButtonsBtn, 2, 3);
+    customPane.add(conditionalBtn, 2, 4);
 
     customPane.setAlignment(Pos.CENTER);
   }
@@ -135,6 +140,13 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
       getWorkbench().showDialog(dialog);
       CompletableFuture<ButtonType> dialogResult = dialog.getResult();
       dialogResult.thenAccept(buttonType -> System.err.println("Dialog result: " + buttonType));
+    });
+    conditionalBtn.setOnAction(event -> {
+      WorkbenchDialog dialog = WorkbenchDialog.builder("Check the box to continue", checkBox, ButtonType.OK)
+          .build();
+      DialogControl dialogControl = getWorkbench().showDialog(dialog);
+      System.out.println(dialogControl.getButtons());
+      dialogControl.getButtons().get(0).disableProperty().bind(checkBox.selectedProperty().not());
     });
   }
 
