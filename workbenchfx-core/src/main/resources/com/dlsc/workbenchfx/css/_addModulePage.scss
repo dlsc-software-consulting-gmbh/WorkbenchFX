@@ -10,6 +10,7 @@
             -fx-alignment: center center;
 
             & .tile-control {
+              -fx-graphic-text-gap: .5em;
               -fx-padding: 2em;
 
               -fx-min-width: 12em;

@@ -61,6 +61,7 @@
     -fx-padding: 1.5em;
     -fx-alignment: center center; }
     #content-view #home #tile-pane .pagination .page .tile-page .tile-control {
+      -fx-graphic-text-gap: .5em;
       -fx-padding: 2em;
       -fx-min-width: 12em;
       -fx-min-height: 7.5em;
@@ -96,6 +97,7 @@
 #toolbar {
   -fx-background-color: -primary-color; }
   #toolbar .button {
+    -fx-graphic-text-gap: .5em;
     -fx-min-width: 3em;
     -fx-pref-height: 3em;
     -fx-background-color: -primary-color;
@@ -107,18 +109,21 @@
     #toolbar .button .text {
       -fx-fill: -on-primary-color; }
   #toolbar #top-box {
-    -fx-pref-height: 3em;
-    -fx-spacing: .25em; }
+    -fx-pref-height: 3em; }
+    #toolbar #top-box #toolbar-control-right-box, #toolbar #top-box #toolbar-control-left-box {
+      -fx-spacing: .25em; }
     #toolbar #top-box .dropdown {
       -fx-pref-height: 3em;
       -fx-background-color: -primary-color;
       -fx-border-width: 0;
       -fx-background-insets: 0; }
-      #toolbar #top-box .dropdown .label .glyph-icon {
-        -fx-font-size: 1.25em !important;
-        -fx-fill: -on-primary-color; }
-      #toolbar #top-box .dropdown .label .text {
-        -fx-fill: -on-primary-color; }
+      #toolbar #top-box .dropdown .label {
+        -fx-graphic-text-gap: .5em; }
+        #toolbar #top-box .dropdown .label .glyph-icon {
+          -fx-font-size: 1.25em !important;
+          -fx-fill: -on-primary-color; }
+        #toolbar #top-box .dropdown .label .text {
+          -fx-fill: -on-primary-color; }
       #toolbar #top-box .dropdown .arrow-button .glyph-icon {
         -fx-font-size: .75em !important;
         -fx-fill: -on-primary-color; }
@@ -188,10 +193,10 @@
       #toolbar #bottom-box #add-button #add-icon {
         -fx-padding: 0;
         -fx-background-color: -on-primary-color;
-        -fx-pref-width: 1.25em;
-        -fx-max-width: 1.25em;
-        -fx-pref-height: 1.25em;
-        -fx-max-height: 1.25em;
+        -fx-pref-width: 1.125em;
+        -fx-max-width: 1.125em;
+        -fx-pref-height: 1.125em;
+        -fx-max-height: 1.125em;
         -fx-shape: "M11 0H9V9H0V11H9V20H11V11H20V9H11V0Z"; }
     #toolbar #bottom-box .active-add-button {
       -fx-background-color: -surface-color;
@@ -241,6 +246,7 @@
       .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container {
         -fx-padding: 1.5em 1em 1.5em 1em; }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item {
+          -fx-graphic-text-gap: 1.5em;
           -fx-pref-height: 3em;
           -fx-border-radius: 5px;
           -fx-background-radius: 5px;

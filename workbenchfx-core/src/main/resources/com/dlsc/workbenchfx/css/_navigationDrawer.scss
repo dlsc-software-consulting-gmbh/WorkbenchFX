@@ -59,6 +59,8 @@
 
           // Defines all items, cause the drawer accepts only menu-items
           & .menu-item {
+            -fx-graphic-text-gap: 1.5em;
+
             -fx-pref-height: $pref-size;
             -fx-border-radius: $radius;
             -fx-background-radius: $radius;
@@ -76,6 +78,7 @@
 
             //menu-button
             & .label {
+
               & .glyph-icon {
                 -fx-font-size: 1.25em !important;
                 -fx-fill: -on-surface-color;

@@ -2,6 +2,8 @@
   -fx-background-color: -primary-color;
 
   & .button {
+    -fx-graphic-text-gap: .5em;
+
     -fx-min-width: $pref-size;
     -fx-pref-height: $pref-size;
     -fx-background-color: -primary-color;
@@ -20,7 +22,11 @@
 
   & #top-box {
     -fx-pref-height: $pref-size;
-    -fx-spacing: .25em;
+
+    & #toolbar-control-right-box,
+    & #toolbar-control-left-box {
+      -fx-spacing: .25em;
+    }
 
     & .dropdown {
       -fx-pref-height: $pref-size;
@@ -29,6 +35,8 @@
       -fx-background-insets: 0; //needed to remove the focused border on bottom
 
       & .label {
+        -fx-graphic-text-gap: .5em;
+
         & .glyph-icon {
           -fx-font-size: 1.25em !important;
           -fx-fill: -on-primary-color;
@@ -176,10 +184,10 @@
       & #add-icon {
         -fx-padding: 0;
         -fx-background-color: -on-primary-color;
-        -fx-pref-width: 1.25em;
-        -fx-max-width: 1.25em;
-        -fx-pref-height: 1.25em;
-        -fx-max-height: 1.25em;
+        -fx-pref-width: 1.125em;
+        -fx-max-width: 1.125em;
+        -fx-pref-height: 1.125em;
+        -fx-max-height: 1.125em;
         -fx-shape: "M11 0H9V9H0V11H9V20H11V11H20V9H11V0Z";
       }
     }
