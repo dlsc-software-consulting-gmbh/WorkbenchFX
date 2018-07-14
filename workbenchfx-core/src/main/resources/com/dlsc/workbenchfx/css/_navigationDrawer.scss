@@ -1,11 +1,35 @@
 .navigation-drawer {
   -fx-background-color: -surface-color;
 
+  & .separator:horizontal .line {
+    -fx-border-color: derive(-surface-color, -30%) transparent transparent transparent;
+    -fx-border-insets: 1 0 0 0;
+  }
+
+  & > .scroll-arrow {
+    -fx-padding: .5em;
+    -fx-background-color: transparent;
+    &:hover {
+      -fx-background: -fx-selection-bar;
+      -fx-background-color: -fx-background;
+      -fx-text-fill: -fx-text-background-color;
+    }
+  }
+
+  &:show-mnemonics > .mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+  }
+
   & .drawer-box {
     & .header {
       -fx-background-color: -surface-color;
       -fx-effect: -shadow;
       -fx-min-height: $pref-size * 2;
+
+      .separator .line {
+        -fx-border-color: -on-surface-color;
+        -fx-border-width: 1;
+      }
 
       & .button {
         //back-button
@@ -93,10 +117,8 @@
                   -fx-fill: -on-primary-color;
                 }
               }
-              & .arrow-button {
-                & .arrow {
-                  -fx-background-color: -on-primary-color;
-                }
+              & .arrow-button .arrow {
+                -fx-background-color: -on-primary-color;
               }
             }
           }
@@ -123,18 +145,14 @@
           -fx-pref-width: $size;
           -fx-pref-height: $size;
         }
-        .increment-button {
-          @extend %zero-size;
-        }
-        .increment-arrow {
-          @extend %zero-size;
-        }
-        .decrement-button {
-          @extend %zero-size;
-        }
+
+        .increment-button,
+        .increment-arrow,
+        .decrement-button,
         .decrement-arrow {
           @extend %zero-size;
         }
+
         &:vertical .thumb {
           -fx-background-insets: 0 $scroll-pane-padding 0 0;
         }
@@ -144,4 +162,5 @@
       }
     }
   }
+
 }

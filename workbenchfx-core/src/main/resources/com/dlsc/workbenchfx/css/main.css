@@ -197,10 +197,25 @@
 
 .navigation-drawer {
   -fx-background-color: -surface-color; }
+  .navigation-drawer .separator:horizontal .line {
+    -fx-border-color: derive(-surface-color, -30%) transparent transparent transparent;
+    -fx-border-insets: 1 0 0 0; }
+  .navigation-drawer > .scroll-arrow {
+    -fx-padding: .5em;
+    -fx-background-color: transparent; }
+    .navigation-drawer > .scroll-arrow:hover {
+      -fx-background: -fx-selection-bar;
+      -fx-background-color: -fx-background;
+      -fx-text-fill: -fx-text-background-color; }
+  .navigation-drawer:show-mnemonics > .mnemonic-underline {
+    -fx-stroke: -fx-text-fill; }
   .navigation-drawer .drawer-box .header {
     -fx-background-color: -surface-color;
     -fx-effect: -shadow;
     -fx-min-height: 6em; }
+    .navigation-drawer .drawer-box .header .separator .line {
+      -fx-border-color: -on-surface-color;
+      -fx-border-width: 1; }
     .navigation-drawer .drawer-box .header .button {
       -fx-min-width: 3em;
       -fx-pref-height: 3em;
@@ -257,7 +272,10 @@
       -fx-pref-height: 12;
       -fx-padding: 2;
       -fx-background-color: transparent; }
-      .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .increment-button, .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .increment-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .decrement-button, .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .decrement-arrow {
+      .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .increment-button,
+      .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .increment-arrow,
+      .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .decrement-button,
+      .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .decrement-arrow {
         -fx-pref-width: 0 !important;
         -fx-pref-height: 0 !important; }
       .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .thumb {
