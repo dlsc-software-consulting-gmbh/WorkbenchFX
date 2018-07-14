@@ -171,13 +171,26 @@
       }
     }
 
+    & #add-button {
+      -fx-padding: 0;
+      & #add-icon {
+        -fx-padding: 0;
+        -fx-background-color: -on-primary-color;
+        -fx-pref-width: 1.25em;
+        -fx-max-width: 1.25em;
+        -fx-pref-height: 1.25em;
+        -fx-max-height: 1.25em;
+        -fx-shape: "M11 0H9V9H0V11H9V20H11V11H20V9H11V0Z";
+      }
+    }
+
     & .active-add-button {
       -fx-background-color: -surface-color;
       -fx-background-radius: $radius $radius 0 0;
       -fx-border-radius: $radius $radius 0 0;
 
-      & .glyph-icon {
-        -fx-fill: -on-surface-color;
+      & #add-icon {
+        -fx-background-color: -on-surface-color !important;
       }
     }
   }

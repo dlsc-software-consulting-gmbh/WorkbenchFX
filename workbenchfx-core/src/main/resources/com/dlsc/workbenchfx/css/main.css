@@ -183,12 +183,22 @@
         -fx-pref-height: 3em;
         -fx-background-insets: 1.1111111111em 0.3296703297em 1.1111111111em 0.4201680672em;
         -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z"; }
+    #toolbar #bottom-box #add-button {
+      -fx-padding: 0; }
+      #toolbar #bottom-box #add-button #add-icon {
+        -fx-padding: 0;
+        -fx-background-color: -on-primary-color;
+        -fx-pref-width: 1.25em;
+        -fx-max-width: 1.25em;
+        -fx-pref-height: 1.25em;
+        -fx-max-height: 1.25em;
+        -fx-shape: "M11 0H9V9H0V11H9V20H11V11H20V9H11V0Z"; }
     #toolbar #bottom-box .active-add-button {
       -fx-background-color: -surface-color;
       -fx-background-radius: 5px 5px 0 0;
       -fx-border-radius: 5px 5px 0 0; }
-      #toolbar #bottom-box .active-add-button .glyph-icon {
-        -fx-fill: -on-surface-color; }
+      #toolbar #bottom-box .active-add-button #add-icon {
+        -fx-background-color: -on-surface-color !important; }
 
 .glass-pane {
   -fx-background-color: black;

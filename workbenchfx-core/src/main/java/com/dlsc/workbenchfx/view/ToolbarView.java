@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -27,6 +28,7 @@ public class ToolbarView extends VBox implements View {
 
   private FontAwesomeIconView homeIconView;
   private FontAwesomeIconView menuIconView;
+  StackPane addIconPane;
   Button addBtn;
   Button menuBtn;
   SelectionStrip<WorkbenchModule> tabBar;
@@ -64,7 +66,10 @@ public class ToolbarView extends VBox implements View {
     homeIconView = new FontAwesomeIconView(FontAwesomeIcon.PLUS);
     homeIconView.setId("home-icon-view");
     homeIconView.getStyleClass().add("icon-view");
-    addBtn = new Button("", homeIconView);
+
+    addIconPane = new StackPane();
+    addIconPane.setId("add-icon");
+    addBtn = new Button("", addIconPane);
     addBtn.setId("add-button");
     addBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_HOME);
 
