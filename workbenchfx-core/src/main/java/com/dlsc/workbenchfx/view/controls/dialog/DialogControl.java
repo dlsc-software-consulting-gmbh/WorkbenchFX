@@ -56,7 +56,11 @@ public class DialogControl extends Control {
 
   private void setupChangeListeners() {
     // update buttons whenever buttonTypes, workbench, or buttonTextUppercase changes
-    dialogChangedListener = observable -> updateButtons(getDialog());
+    dialogChangedListener = observable -> {
+      buttonNodes.clear(); // force re-creation of buttons
+      updateButtons(getDialog());
+      fireOnShown();
+    };
     dialog.addListener((observable, oldDialog, newDialog) -> {
       updateButtons(newDialog);
       if (!Objects.isNull(oldDialog)) {
@@ -65,11 +69,17 @@ public class DialogControl extends Control {
       if (!Objects.isNull(newDialog)) {
         newDialog.getButtonTypes().addListener(dialogChangedListener);
       }
+      fireOnShown();
     });
     workbench.addListener(dialogChangedListener);
-    buttonTextUppercase.addListener(observable -> {
-      buttonNodes.clear(); // force re-creation of buttons
-      updateButtons(getDialog());
+    buttonTextUppercase.addListener(dialogChangedListener);
+
+    // fire onHidden event, when dialog is hidden
+    visibleProperty().addListener((observable, oldVisible, newVisible) -> {
+      if (oldVisible && !newVisible) {
+        // dialog has been hidden
+        fireOnHidden();
+      }
     });
   }
 
@@ -102,6 +112,18 @@ public class DialogControl extends Control {
         hasDefault |= buttonType != null && buttonType.isDefaultButton();
       }
       buttons.add(button);
+    }
+  }
+
+  private void fireOnShown() {
+    if (getOnShown() != null) {
+      getOnShown().handle(new Event(this, this, Event.ANY));
+    }
+  }
+
+  private void fireOnHidden() {
+    if (getOnHidden() != null) {
+      getOnHidden().handle(new Event(this, this, Event.ANY));
     }
   }
 
