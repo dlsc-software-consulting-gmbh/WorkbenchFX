@@ -116,13 +116,15 @@ public class DialogControl extends Control {
   }
 
   private void fireOnShown() {
-    if (getOnShown() != null) {
+    if (!Objects.isNull(getDialog()) && !Objects.isNull(getOnShown())) {
+      LOGGER.trace("Firing onShown event - Dialog is initialized and being shown");
       getOnShown().handle(new Event(this, this, Event.ANY));
     }
   }
 
   private void fireOnHidden() {
-    if (getOnHidden() != null) {
+    if (!Objects.isNull(getOnHidden())) {
+      LOGGER.trace("Firing onHidden event - Dialog has been hidden");
       getOnHidden().handle(new Event(this, this, Event.ANY));
     }
   }
