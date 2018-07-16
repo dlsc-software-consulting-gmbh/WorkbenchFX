@@ -88,7 +88,6 @@ public class TabSkin extends SkinBase<Tab> {
 
   private void setupEventHandlers() {
     closeBtn.setOnAction(e -> getSkinnable().close());
-    controlBox.setOnMouseClicked(e -> getSkinnable().open());
   }
 
   private void setupValueChangedListeners() {

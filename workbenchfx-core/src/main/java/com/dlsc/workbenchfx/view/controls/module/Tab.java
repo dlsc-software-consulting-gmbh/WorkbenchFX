@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class Tab extends Control {
+
   private static final Logger LOGGER = LogManager.getLogger(Tab.class.getName());
 
   private final Workbench workbench;
@@ -50,6 +51,11 @@ public class Tab extends Control {
     activeTab = new SimpleBooleanProperty();
     setupModuleListeners();
     setupActiveTabListener();
+    setupEventHandlers();
+  }
+
+  private void setupEventHandlers() {
+    setOnMouseClicked(e -> open());
   }
 
   private void setupModuleListeners() {
