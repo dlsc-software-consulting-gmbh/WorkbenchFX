@@ -127,6 +127,7 @@ public class Workbench extends Control {
     initNavigationDrawer(builder);
     initDialog(builder);
     initModules(builder);
+
     setupCleanup();
   }
 
@@ -134,11 +135,6 @@ public class Workbench extends Control {
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
-  }
-
-  @Override
-  protected Skin<?> createDefaultSkin() {
-    return new WorkbenchSkin(this);
   }
 
   /**
@@ -159,6 +155,11 @@ public class Workbench extends Control {
     );
 
     dialogShown.bind(dialogProperty().isNotNull());
+  }
+
+  @Override
+  protected Skin<?> createDefaultSkin() {
+    return new WorkbenchSkin(this);
   }
 
   private void initToolbarControls(WorkbenchBuilder builder) {
@@ -442,115 +443,120 @@ public class Workbench extends Control {
    * Shows a {@link WorkbenchDialog} in the view.
    *
    * @param dialog to be shown
-   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *         was pressed in the dialog
+   * @return the {@link DialogControl} which is being shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
    *           All dialogs are non-blocking by default. If you want to change this behavior, use
    *           {@link WorkbenchDialog#builder} to create a dialog and show it using
    *           {@link Workbench#showDialog(WorkbenchDialog)}.
    */
-  public final CompletableFuture<ButtonType> showDialog(WorkbenchDialog dialog) {
+  public final DialogControl showDialog(WorkbenchDialog dialog) {
     this.dialog.set(dialog);
-    return dialog.getResult();
+    return getDialogControl();
   }
 
   /**
    * Shows an error dialog in the view.
    *
-   * @param title of the dialog
+   * @param title   of the dialog
    * @param message of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *         was pressed in the dialog
-   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   *           result will be {@link ButtonType#CANCEL}.
+   *                was pressed in the dialog
    */
   public final CompletableFuture<ButtonType> showErrorDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR).build();
-    return showDialog(dialog);
+    showDialog(dialog);
+    return dialog.getResult();
   }
 
   /**
    * Shows an error dialog in the view with a stacktrace of the {@code exception}.
    *
-   * @param title of the dialog
-   * @param message of the dialog
+   * @param title     of the dialog
+   * @param message   of the dialog
    * @param exception of which the stacktrace should be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *         was pressed in the dialog
-   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   *           result will be {@link ButtonType#CANCEL}.
+   *                was pressed in the dialog
    */
   public final CompletableFuture<ButtonType> showErrorDialog(
       String title, String message, Exception exception) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
         .exception(exception)
         .build();
-    return showDialog(dialog);
+    showDialog(dialog);
+    return dialog.getResult();
   }
 
   /**
    * Shows an error dialog in the view with {@code details} about the error.
    *
-   * @param title of the dialog
+   * @param title   of the dialog
    * @param message of the dialog
    * @param details about the error
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *         was pressed in the dialog
-   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   *           result will be {@link ButtonType#CANCEL}.
+   *                was pressed in the dialog
    */
   public final CompletableFuture<ButtonType> showErrorDialog(
       String title, String message, String details) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
         .details(details)
         .build();
-    return showDialog(dialog);
+    showDialog(dialog);
+    return dialog.getResult();
   }
 
   /**
    * Shows a warning dialog in the view.
    *
-   * @param title of the dialog
+   * @param title   of the dialog
    * @param message of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *         was pressed in the dialog
-   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   *           result will be {@link ButtonType#CANCEL}.
+   *                was pressed in the dialog
    */
   public final CompletableFuture<ButtonType> showWarningDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.WARNING).build();
-    return showDialog(dialog);
+    showDialog(dialog);
+    return dialog.getResult();
   }
 
   /**
    * Shows a confirmation dialog in the view.
    *
-   * @param title of the dialog
+   * @param title   of the dialog
    * @param message of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *         was pressed in the dialog
-   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   *           result will be {@link ButtonType#CANCEL}.
+   *                was pressed in the dialog
    */
   public final CompletableFuture<ButtonType> showConfirmationDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.CONFIRMATION).build();
-    return showDialog(dialog);
+    showDialog(dialog);
+    return dialog.getResult();
   }
 
   /**
    * Shows an information dialog in the view.
    *
-   * @param title of the dialog
+   * @param title   of the dialog
    * @param message of the dialog
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *         was pressed in the dialog
-   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   *           result will be {@link ButtonType#CANCEL}.
+   *                was pressed in the dialog
    */
   public final CompletableFuture<ButtonType> showInformationDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.INFORMATION).build();
-    return showDialog(dialog);
+    showDialog(dialog);
+    return dialog.getResult();
   }
 
   public final ReadOnlyObjectProperty<WorkbenchDialog> dialogProperty() {
@@ -580,7 +586,7 @@ public class Workbench extends Control {
   /**
    * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background.
    *
-   * @param overlay to be shown
+   * @param overlay  to be shown
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
