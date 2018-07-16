@@ -106,7 +106,7 @@ public class DialogControl extends Control {
         );
         ((Button) button).setCancelButton(buttonType != null && buttonType.isCancelButton());
         ((Button) button).setOnAction(evt -> {
-          getDialog().getResult().complete(cmd);
+          getWorkbench().getDialog().getOnResult().accept(cmd);
           hide();
         });
 
