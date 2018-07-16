@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import java.util.function.Consumer;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import org.apache.logging.log4j.LogManager;
@@ -28,6 +29,7 @@ public class WorkbenchDialogBuilder {
   String[] styleClasses = new String[0];
   Exception exception = null;
   String details = "";
+  Consumer<ButtonType> onResult;
 
   WorkbenchDialogBuilder(String title, Node content, ButtonType... buttonTypes) {
     this.title = title;
@@ -110,6 +112,14 @@ public class WorkbenchDialogBuilder {
    */
   public WorkbenchDialogBuilder exception(Exception exception) {
     this.exception = exception;
+    return this;
+  }
+
+  /**
+   * TODO
+   */
+  public WorkbenchDialogBuilder onResult(Consumer<ButtonType> onResult) {
+    this.onResult = onResult;
     return this;
   }
 
