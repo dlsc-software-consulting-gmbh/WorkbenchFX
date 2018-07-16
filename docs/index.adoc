@@ -107,6 +107,13 @@ Our customer suggests that it would be easier to skip the `WorkbenchFxModel` cla
 We decide to change it in a way that `WorkbenchFx` is the model object in the MVP pattern in our case.
 This simplifies the architecture and readability is improved, since methods are where they would be expected.
 
+// TODO: used view and presenter class, with view being interface and presenter being abstract.
+`View` is an interface, because it's used as a mixin.
+We implemented it this way because every view needs to already extend a certain JavaFX class and multiple inheritance is not possible in Java, so using an abstract class here isn't an option.
+This makes it possible to initialize all views in the same way while also resulting in less code duplication, since the `init()` method and the JavaDoc doesn't need to be rewritten over and over again.
+`Presenter` is abstract, because it acts more like a "super class" of all the presenters.
+Since all presenters don't need to extend anything else, using an abstract class here is possible.
+
 ==== Builder Pattern
 // TODO: explain how builder pattern works in WorkbenchFx.java
 
@@ -140,14 +147,14 @@ This is only recommended when an overlay is so resource intensive, that it can't
 * Modular
 * Extendable
 
-==== Persona
+=== Persona
 Who is the persona?
 
 * Programmer (-> Usage of WorkbenchFX)
 * User of the application (-> GUI)
 
 
-==== Layout
+=== Layout
 Challenge:
 
 * Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
@@ -158,7 +165,7 @@ So everyone talks the same language.
 To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
 This includes features, usability and general appearance of the specific workbench.
 
-===== Blender (Tool for creating 3D models)
+==== Blender (Tool for creating 3D models)
 * Blender is divided up into five sections.
 ** Header --> Most important and the common settings
 ** Left Bar --> Tools
@@ -180,7 +187,7 @@ The bar itself is fixed and can't be moved.
 * The tools in the toolbar are stored in tabs.
 * When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
 
-===== Photoshop / Illustrator (Design tools)
+==== Photoshop / Illustrator (Design tools)
 * Photoshop (Image tool, Pixel based)
 **
 
@@ -197,7 +204,7 @@ Multiple workspaces can be stored and it can be switched to. (+)
 *** They have 3 states (not likely to understand) and it's collapsing behaviour is not intuitive. (-)
 **4
 
-===== IntelliJ
+==== IntelliJ
 * all possibilities available,
 Right click on the tab, then one can decide the behaviour of it.
 * "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
@@ -205,11 +212,11 @@ Right click on the tab, then one can decide the behaviour of it.
 * Layout changes should be stored at one place.
 *
 
-===== MSOffice
+==== MSOffice
 
-===== Sublime Text
+==== Sublime Text
 
-===== Minimal viable product
+==== Minimal viable product
 As a result of our research we have enough information to create the most valuable workbench for our use case.
 Nonetheless we need to break down the functionality to it's simplest scenario.
 This way, we can assure our customer, that he minimal viable product as a result from this project.
@@ -227,7 +234,7 @@ They contain either further tools, buttons or a tree-view for navigation.
 * Finally another tool-bar is set below the application.
 It contains the least used tools, or tools which are needed at the end of the process.
 
-==== The way creating the workbench
+=== The way creating the workbench
 
 === Challenges
 === Customizability

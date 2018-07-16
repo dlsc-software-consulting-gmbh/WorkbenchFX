@@ -8,6 +8,7 @@ public class Tab {
 
     private String icon;
     private String name;
+    private Node graphic;
     private Node content;
 
     public String getIcon() {
@@ -24,6 +25,14 @@ public class Tab {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Node getGraphic() {
+        return graphic;
+    }
+
+    public void setGraphic(Node graphic) {
+        this.graphic = graphic;
     }
 
     public Node getContent() {

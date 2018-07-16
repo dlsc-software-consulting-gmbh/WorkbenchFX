@@ -4,6 +4,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -25,6 +27,13 @@ import javafx.scene.layout.VBox;
 public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
   private VBox menuContainer;
+  private NavigationDrawer navigationDrawer;
+  private VBox drawerBox;
+  private BorderPane header;
+  private PrettyScrollPane scrollPane;
+  private Button backBtn;
+  private ImageView companyLogo;
+  private ReadOnlyDoubleProperty workbenchWidth;
 
   /**
    * Creates the skin for the {@link NavigationDrawer} control.
@@ -33,38 +42,79 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
    */
   public NavigationDrawerSkin(NavigationDrawer navigationDrawer) {
     super(navigationDrawer);
+    this.navigationDrawer = navigationDrawer;
 
-    VBox drawerBox = new VBox();
+    initializeSelf();
+    initializeParts();
+    layoutParts();
+    setupBindings();
+    setupEventHandlers();
+    setupValueChangedListeners();
+
+    buildMenu();
+  }
+
+  private void setupBindings() {
+    workbenchWidth = navigationDrawer.workbenchWidthProperty(); // strong reference to avoid GC
+    navigationDrawer.maxWidthProperty().bind(workbenchWidth.multiply(.333));
+  }
+
+  /**
+   * Initializes the skin.
+   */
+  private void initializeSelf() {
+    navigationDrawer.getStyleClass().add("navigation-drawer");
+  }
+
+  /**
+   * Initializes all parts of the skin.
+   */
+  private void initializeParts() {
+    drawerBox = new VBox();
     drawerBox.getStyleClass().add("drawer-box");
 
-    BorderPane header = new BorderPane();
+    header = new BorderPane();
     header.getStyleClass().add("header");
-    drawerBox.getChildren().add(header);
 
     menuContainer = new VBox();
-    menuContainer.setFillWidth(true);
     menuContainer.getStyleClass().add("menu-container");
 
-    PrettyScrollPane scrollPane = new PrettyScrollPane(menuContainer);
-    drawerBox.getChildren().add(scrollPane);
+    scrollPane = new PrettyScrollPane(menuContainer);
 
     FontAwesomeIconView backIconView = new FontAwesomeIconView(FontAwesomeIcon.ARROW_LEFT);
     backIconView.setId("back-icon-view");
     backIconView.getStyleClass().add("icon-view");
-    Button backBtn = new Button("", backIconView);
+    backBtn = new Button("", backIconView);
     backBtn.setId("back-button");
-    backBtn.setOnAction(evt -> navigationDrawer.getWorkbench().hideNavigationDrawer());
+
+    companyLogo = new ImageView();
+    companyLogo.getStyleClass().add("logo");
+  }
+
+  /**
+   * Defines the layout of all parts in the skin.
+   */
+  private void layoutParts() {
+    drawerBox.getChildren().addAll(header, scrollPane);
+
+    menuContainer.setFillWidth(true);
+
     BorderPane.setAlignment(backBtn, Pos.CENTER_LEFT);
 
-    ImageView companyLogo = new ImageView();
-    companyLogo.getStyleClass().add("logo");
     header.setTop(backBtn);
     header.setCenter(companyLogo);
 
     getChildren().add(drawerBox);
 
+    StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
+  }
+
+  private void setupEventHandlers() {
+    backBtn.setOnAction(evt -> navigationDrawer.hide());
+  }
+
+  private void setupValueChangedListeners() {
     navigationDrawer.getItems().addListener((Observable it) -> buildMenu());
-    buildMenu();
   }
 
   private void buildMenu() {

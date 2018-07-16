@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx;
 
-import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
-
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.ContentPresenter;
 import com.dlsc.workbenchfx.view.ContentView;
 import com.dlsc.workbenchfx.view.HomePresenter;
@@ -10,6 +9,7 @@ import com.dlsc.workbenchfx.view.ToolbarPresenter;
 import com.dlsc.workbenchfx.view.ToolbarView;
 import com.dlsc.workbenchfx.view.WorkbenchPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchView;
+import com.dlsc.workbenchfx.view.controls.selectionstrip.SelectionStrip;
 import javafx.application.Application;
 import javafx.scene.control.SkinBase;
 import org.apache.logging.log4j.LogManager;
@@ -23,10 +23,13 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class WorkbenchSkin extends SkinBase<Workbench> {
+
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchSkin.class.getName());
 
   // Views
+  private SelectionStrip<WorkbenchModule> tabBar;
+
   private ToolbarView toolbarView;
   private ToolbarPresenter toolbarPresenter;
 
@@ -40,8 +43,8 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   private WorkbenchPresenter workbenchPresenter;
 
   /**
-   * Creates a skin for a given {@link Workbench}. It contains all views and presenters.
-   * It sets also the default stylesheet.
+   * Creates a skin for a given {@link Workbench}.
+   * Contains all views and presenters and sets also the default stylesheet.
    *
    * @param workbench for which this skin is created
    */
@@ -52,11 +55,14 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
 
     getChildren().add(workbenchView);
     Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
-    addUserAgentStylesheet(Workbench.class.getResource("css/main.css").toExternalForm());
   }
 
   private void initViews(Workbench model) {
-    toolbarView = new ToolbarView();
+    tabBar = new SelectionStrip<>();
+    // Adding our styles: Needed to override/add custom styling
+    tabBar.getStylesheets().add(getSkinnable().getUserAgentStylesheet());
+
+    toolbarView = new ToolbarView(tabBar);
     toolbarPresenter = new ToolbarPresenter(model, toolbarView);
 
     homeView = new HomeView();
@@ -68,4 +74,5 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
     workbenchView = new WorkbenchView(toolbarView, homeView, contentView);
     workbenchPresenter = new WorkbenchPresenter(model, workbenchView);
   }
+
 }

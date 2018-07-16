@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.custom;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
+import com.dlsc.workbenchfx.custom.controls.CustomNavigationDrawer;
 import com.dlsc.workbenchfx.custom.controls.CustomPage;
 import com.dlsc.workbenchfx.custom.controls.CustomTab;
 import com.dlsc.workbenchfx.custom.controls.CustomTile;
@@ -10,15 +11,15 @@ import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.custom.patient.PatientModule;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
+import com.dlsc.workbenchfx.custom.test.DialogTestModule;
 import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
+import com.dlsc.workbenchfx.custom.test.InterruptClosingTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
-import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,25 +28,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.fxmisc.cssfx.CSSFX;
 
 public class CustomDemo extends Application {
 
   private static final Logger LOGGER = LogManager.getLogger(CustomDemo.class.getName());
   public Workbench workbench;
   PreferencesModule preferencesModule = new PreferencesModule();
-
-  private Callback<Workbench, Node> navigationDrawerFactory =
-      workbench -> {
-        NavigationDrawer navigationDrawer = new NavigationDrawer(workbench);
-        StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
-        navigationDrawer.maxWidthProperty().bind(workbench.widthProperty().multiply(.333));
-        return navigationDrawer;
-      };
 
   public static void main(String[] args) {
     launch(args);
@@ -61,6 +53,11 @@ public class CustomDemo extends Application {
     primaryStage.setHeight(700);
     primaryStage.show();
     primaryStage.centerOnScreen();
+
+    // TODO: Remove before publishing
+    System.setProperty("cssfx.log", "true");
+    System.setProperty("cssfx.log.level", "DEBUG");
+    CSSFX.start(); // Live reloading of css
   }
 
   private Workbench initWorkbench() {
@@ -105,6 +102,8 @@ public class CustomDemo extends Application {
     Button removePreferences = new Button("", new FontAwesomeIconView(FontAwesomeIcon.MINUS));
     addPreferences.getStyleClass().add("button-inverted");
 
+    Button showDialogButton = new Button("Show", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+
     // WorkbenchFX
     workbench =
         Workbench.builder(
@@ -115,13 +114,19 @@ public class CustomDemo extends Application {
                 new PreferencesModule(),
                 new WidgetsTestModule(),
                 new DropdownTestModule(),
-                new NavigationDrawerTestModule())
-            .toolbarLeft(addPreferences, removePreferences)
-            .toolbarRight(
+                new NavigationDrawerTestModule(),
+                new InterruptClosingTestModule(),
+                new DialogTestModule())
+            .toolbarLeft(
+                addPreferences,
+                removePreferences,
                 Dropdown.of(
                     new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                     new CustomMenuItem(new Label("Content 1")),
-                    new CustomMenuItem(new Label("Content 2"))),
+                    new CustomMenuItem(new Label("Content 2")))
+            )
+            .toolbarRight(
+                showDialogButton,
                 Dropdown.of(
                     new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
                     new Menu(
@@ -138,8 +143,8 @@ public class CustomDemo extends Application {
             .pageFactory(CustomPage::new)
             .tabFactory(CustomTab::new)
             .tileFactory(CustomTile::new)
-            .navigationDrawerFactory(navigationDrawerFactory)
-            .navigationDrawer(
+            .navigationDrawer(new CustomNavigationDrawer())
+            .navigationDrawerItems(
                 menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
             .build();
 
@@ -147,11 +152,12 @@ public class CustomDemo extends Application {
     CustomOverlay blockingCustomOverlay = new CustomOverlay(workbench, true);
     showOverlay.setOnAction(event -> workbench.showOverlay(customOverlay, false));
     showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
-    addPreferences.setOnAction(event -> workbench.addModule(preferencesModule));
-    removePreferences.setOnAction(event -> workbench.removeModule(preferencesModule));
+    addPreferences.setOnAction(event -> workbench.getModules().add(preferencesModule));
+    removePreferences.setOnAction(event -> workbench.getModules().remove(preferencesModule));
+    showDialogButton.setOnAction(event -> workbench.showConfirmationDialog("Reset settings?", "This will reset your device to its default factory settings."));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
-    // workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+    workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 
     workbench
         .getStylesheets()

@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.custom.test;
 
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-public class WidgetsTestModule extends Module {
+public class WidgetsTestModule extends WorkbenchModule {
   private final GridPane customPane = new GridPane();
   Button invert = new Button("invert");
 
@@ -28,7 +28,7 @@ public class WidgetsTestModule extends Module {
     customPane.add(new CheckBox("CheckBox"), 0, 3);
     customPane.add(new ComboBox<String>(), 0, 4);
 
-    invert.setOnAction(event -> workbench.getToolbarControlsLeft().stream()
+    invert.setOnAction(event -> getWorkbench().getToolbarControlsLeft().stream()
         .limit(1) // take first
         .findAny()
         .ifPresent(control -> {

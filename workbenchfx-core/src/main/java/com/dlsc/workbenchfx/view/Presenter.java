@@ -6,12 +6,12 @@ package com.dlsc.workbenchfx.view;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public interface Presenter {
+public abstract class Presenter {
 
   /**
    * Calls all the other methods for easier initialization.
    */
-  default void init() {
+  void init() {
     initializeViewParts();
     setupEventHandlers();
     setupValueChangedListeners();
@@ -21,25 +21,25 @@ public interface Presenter {
   /**
    * Initializes parts of the view which require more logic.
    */
-  default void initializeViewParts() {
+  void initializeViewParts() {
   }
 
   /**
    * Sets up event handlers of the view.
    */
-  default void setupEventHandlers() {
+  void setupEventHandlers() {
   }
 
   /**
    * Adds all listeners to view elements and model properties.
    */
-  default void setupValueChangedListeners() {
+  void setupValueChangedListeners() {
   }
 
   /**
    * Sets up bindings of the view.
    */
-  default void setupBindings() {
+  void setupBindings() {
   }
 
 }

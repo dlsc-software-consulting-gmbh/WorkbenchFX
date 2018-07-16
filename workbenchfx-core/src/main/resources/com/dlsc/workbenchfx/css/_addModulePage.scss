@@ -1,0 +1,81 @@
+#content-view {
+  & #home {
+    & #tile-pane {
+      & .pagination {
+        & .page {
+          & .tile-page {
+            -fx-vgap: 3em;
+            -fx-hgap: 3em;
+            -fx-padding: 1.5em;
+            -fx-alignment: center center;
+
+            & .tile-control {
+              -fx-graphic-text-gap: .5em;
+              -fx-padding: 2em;
+
+              -fx-min-width: 12em;
+              -fx-min-height: 7.5em;
+              -fx-background-color: -surface-color;
+              -fx-effect: -drop-shadow-1;
+              -fx-border-width: 0;
+
+              -fx-border-radius: $radius;
+              -fx-background-radius: $radius;
+
+              -fx-background-insets: 0; //needed to remove the focused border on bottom
+
+              & .glyph-icon {
+                -fx-fill: -on-surface-color;
+              }
+
+              & .text {
+                -fx-text-fill: -on-surface-color;
+              }
+
+              &:hover {
+                -fx-effect: -drop-shadow-2;
+              }
+
+              &:focused {
+
+              }
+
+              &:pressed {
+                -fx-effect: -drop-shadow-3;
+              }
+            }
+          }
+        }
+        -fx-arrows-visible: false;
+        -fx-page-information-visible: false;
+        -fx-tooltip-visible: false;
+
+        & > .pagination-control > .control-box {
+          -fx-spacing: 0.5em;
+
+          & > .bullet-button {
+            -fx-background-radius: 50%;
+            -fx-background-insets: 0.5em;
+            //-fx-background-color: -surface-color;
+            //-fx-background-color: rgba(0, 0, 0, .1);
+            -fx-background-color: derive(-surface-color, -5%);
+            //-fx-effect: -drop-shadow-1;
+            &:hover {
+              -fx-cursor: hand;
+              //-fx-background-color: rgba(0, 0, 0, .2);
+              -fx-background-color: derive(-surface-color, -10%);
+              //-fx-effect: -drop-shadow-2;
+            }
+            &:selected {
+              -fx-background-color: -primary-color;
+              &:hover {
+                -fx-cursor: hand;
+                -fx-background-color: -primary-variant-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

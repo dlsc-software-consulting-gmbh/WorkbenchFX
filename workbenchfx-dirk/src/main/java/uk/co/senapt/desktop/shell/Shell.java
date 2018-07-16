@@ -1,5 +1,11 @@
 package uk.co.senapt.desktop.shell;
 
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
@@ -10,31 +16,76 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
-import javafx.scene.image.Image;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 import uk.co.senapt.desktop.shell.ShellDialog.Type;
 import uk.co.senapt.desktop.shell.model.Favorite;
 import uk.co.senapt.desktop.shell.model.User;
+import uk.co.senapt.desktop.shell.preferences.Category;
+import uk.co.senapt.desktop.shell.preferences.EffectsPreferencesView;
+import uk.co.senapt.desktop.shell.preferences.PreferenceView;
 import uk.co.senapt.desktop.shell.skins.ShellSkin;
+import uk.co.senapt.desktop.shell.util.LoggingDomain;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.prefs.Preferences;
+import java.util.stream.Collectors;
 
 /**
  * Created by lemmi on 11.08.17.
  */
+@Singleton
 public class Shell extends Control {
+
+    private final Executor executor = Executors.newCachedThreadPool(r -> {
+        Thread thread = new Thread(r);
+        thread.setName("Worker Execution Thread");
+        thread.setDaemon(true);
+        return thread;
+    });
+
+    public static Injector context;
+
+    public static Injector getContext() {
+        return context;
+    }
 
     private final MenuDrawer menuDrawer;
 
     private final HomeScreen homeScreen;
 
-    private final Label dashboard;
+    private final Dashboard dashboard;
+
+    @Inject
+    private Provider<EffectsPreferencesView> effectsPreferencesViewProvider;
 
     public Shell() {
         getStyleClass().add("shell");
@@ -42,11 +93,9 @@ public class Shell extends Control {
         getStylesheets().add(Shell.class.getResource("shell.css").toExternalForm());
         getStylesheets().add(Shell.class.getResource("shell-icons.css").toExternalForm());
 
-        //LoggingDomain.SHELL.info("Creating shell");
-
         menuDrawer = new MenuDrawer(this);
         homeScreen = new HomeScreen(this);
-        dashboard = new Label("Dashboard not implemented, yet.");
+        dashboard = new Dashboard();
 
         addEventFilter(KeyEvent.KEY_PRESSED, evt -> {
             if (evt.getCode().equals(KeyCode.ESCAPE)) {
@@ -57,14 +106,6 @@ public class Shell extends Control {
                 setShowModulesMenu(false);
             }
         });
-
-        User user = new User();
-        user.setFullName("Michell Smith");
-        user.setTitle("Sales Accountant");
-        user.setUsername("msmith");
-        user.setAvatar(new Image(Shell.class.getResource("woman.png").toExternalForm()));
-
-        setUser(user);
 
         Label leftTray = new Label("Empty Left Tray");
         Label rightTray = new Label("Empty Right Tray");
@@ -109,7 +150,7 @@ public class Shell extends Control {
 
         showLeftTray.addListener(it -> {
             if (isShowLeftTray()) {
-                setShowMenuDrawer(false);
+                setShowMenuTray(false);
             }
         });
 
@@ -120,11 +161,164 @@ public class Shell extends Control {
                 hideDialog();
             }
         });
+
+        createUserMenuItems();
+
+        blockingProperty().bind(Bindings.isNotEmpty(workers));
+
+        persist(animateDialogs, "animate.dialogs");
+        persist(animateMenus, "animate.menu");
+        persist(animateTrays, "animate.trays");
+        persist(showShadow, "show.shadow");
+        persist(fadeInOut, "fade.in.out");
+    }
+
+    /*
+     * Register the given boolean property for preferences / session state support.
+     * First: the current value gets loaded from the preference store (or the current value of the property will be used).
+     * Second: a listener gets attached to listen for property changes and storing the new value into the preference store.
+     */
+    private void persist(BooleanProperty property, String key) {
+        property.setValue(Preferences.userNodeForPackage(getClass()).getBoolean(key, property.getValue()));
+        property.addListener(it -> Preferences.userNodeForPackage(getClass()).putBoolean(key, property.getValue()));
     }
 
     @Override
     protected Skin<?> createDefaultSkin() {
         return new ShellSkin(this);
+    }
+
+    public Executor getExecutor() {
+        return executor;
+    }
+
+    private ObservableList<Worker<?>> workers = FXCollections.observableArrayList();
+
+    protected void addWorker(Worker worker) {
+        LoggingDomain.VIEW.debug("executing worker: " + worker.getTitle());
+
+        workers.add(worker);
+
+        worker.stateProperty().addListener(it -> {
+            switch (worker.getState()) {
+                case CANCELLED:
+                case FAILED:
+                case SUCCEEDED:
+                    Platform.runLater(() -> workers.remove(worker));
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
+    public void execute(Task task) {
+        addWorker(task);
+        executor.execute(task);
+    }
+
+    private Dialog<Void> activitiesDialog;
+
+    public void showProgressDialog() {
+        if (activitiesDialog == null) {
+
+            ActivitiesView<Worker<?>> activitiesView = new ActivitiesView<>();
+            Bindings.bindContent(activitiesView.getWorkers(), workers);
+
+            activitiesDialog = new Dialog<>();
+            activitiesDialog.getDialogPane().setContent(activitiesView);
+            activitiesDialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            activitiesDialog.getDialogPane().getStylesheets().add(Shell.class.getResource("shell.css").toExternalForm());
+            activitiesDialog.setTitle("Activities");
+            activitiesDialog.setHeight(300);
+            activitiesDialog.setWidth(400);
+            activitiesDialog.initModality(Modality.NONE);
+            activitiesDialog.initOwner(getScene().getWindow());
+        }
+
+        activitiesDialog.show();
+    }
+
+    @Inject
+    private Provider<PreferenceView> preferenceViewProvider;
+
+    public final PreferenceView getPreferencesView() {
+        // preferences view is a singleton
+        PreferenceView view = preferenceViewProvider.get();
+        if (view.getCategories().isEmpty()) {
+            Category effectsCategory = new Category("Effects");
+            effectsCategory.setContentProvider(effectsPreferencesViewProvider);
+            getPreferenceCategories().add(effectsCategory);
+        }
+
+        return view;
+    }
+
+    public void showPreferencesDialog() {
+        ShellDialog<ButtonType> dialog = new ShellDialog<>(Type.INFORMATION);
+        dialog.setContent(getPreferencesView());
+        dialog.setTitle("Preferences");
+        dialog.getButtonTypes().setAll(new ButtonType("Close", ButtonBar.ButtonData.OK_DONE));
+
+        showDialog(dialog);
+    }
+
+    private final ObservableList<Category> preferenceCategories = FXCollections.observableArrayList();
+
+    public final ObservableList<Category> getPreferenceCategories() {
+        return preferenceCategories;
+    }
+
+    private void createUserMenuItems() {
+        MenuItem exit = new MenuItem("Exit");
+        exit.setAccelerator(KeyCombination.valueOf("Shortcut+q"));
+        exit.setOnAction(evt -> {
+            try {
+                showConfirmation("Exit Senapt CRM", "Are you sure you want to exit the application?")
+                        .thenAccept(buttonType -> {
+                            if (buttonType == ButtonType.YES) {
+                                Platform.exit();
+                            }
+                        });
+            } catch (Exception e) {
+                LoggingDomain.VIEW.error("an error occurred when trying to exit the application", e);
+            }
+        });
+
+        MenuItem errorDialog = new MenuItem("Show Error");
+        errorDialog.setOnAction(evt -> {
+            showError("Error", "Something went really wrong!");
+            setShowUserOptions(false);
+        });
+
+        MenuItem confirmationDialog = new MenuItem("Show Confirmation");
+        confirmationDialog.setOnAction(evt -> {
+            showConfirmation("Confirmation", "Are you sure you want to delete this customer?");
+            setShowUserOptions(false);
+        });
+
+        MenuItem warningDialog = new MenuItem("Show Warning");
+        warningDialog.setOnAction(evt -> {
+            showWarning("Warning", "This action will have consequences!");
+            setShowUserOptions(false);
+        });
+
+        MenuItem showProgressDialogItem = new MenuItem("Activities");
+        showProgressDialogItem.setAccelerator(KeyCombination.valueOf("Shortcut+A"));
+        showProgressDialogItem.setOnAction(evt -> showProgressDialog());
+        getUserMenuItems().add(showProgressDialogItem);
+
+        MenuItem preferencesItem = new MenuItem("Preferences");
+        preferencesItem.setAccelerator(KeyCombination.valueOf("Shortcut+,"));
+        preferencesItem.setOnAction(evt -> showPreferencesDialog());
+
+        getUserMenuItems().setAll(exit, errorDialog, confirmationDialog, warningDialog, showProgressDialogItem, preferencesItem);
+    }
+
+    private final ObservableList<MenuItem> userMenuItems = FXCollections.observableArrayList();
+
+    public final ObservableList<MenuItem> getUserMenuItems() {
+        return userMenuItems;
     }
 
     public void showDialog(ShellDialog dialog) {
@@ -140,16 +334,45 @@ public class Shell extends Control {
     }
 
     public final void showError(String title, String message) {
-        ShellDialog<String> dialog = new ShellDialog<>(Type.ERROR);
-        dialog.setTitle(title);
-        dialog.setContent(new Label(message));
-        showDialog(dialog);
+        showError(title, message, null, null);
     }
 
     public final void showError(String title, String message, Exception exception) {
-        showError(title, message);
+        StringWriter stringWriter = new StringWriter();
+        exception.printStackTrace(new PrintWriter(stringWriter));
+        showError(title, message, stringWriter.toString(), exception);
+    }
 
-        // TODO: also display exception in expandable area
+    public final void showError(String title, String message, String details) {
+        showError(title, message, details, null);
+    }
+
+    private final void showError(String title, String message, String details, Exception exception) {
+        ShellDialog<String> dialog = new ShellDialog<>(Type.ERROR);
+        dialog.setTitle(title);
+
+        final Label messageLabel = new Label(message);
+
+        if (StringUtils.isBlank(details)) {
+            dialog.setContent(messageLabel);
+        } else {
+            TextArea textArea = new TextArea();
+            textArea.setText(details);
+            textArea.setWrapText(true);
+
+            TitledPane titledPane = new TitledPane();
+            titledPane.getStyleClass().add("error-details-titled-pane");
+            titledPane.setText("Details");
+            titledPane.setContent(textArea);
+            titledPane.setPrefHeight(300);
+
+            VBox content = new VBox(messageLabel, titledPane);
+            content.getStyleClass().add("container");
+            dialog.setContent(content);
+        }
+
+        dialog.setException(exception);
+        showDialog(dialog);
     }
 
     public final CompletableFuture<ButtonType> showWarning(String title, String message) {
@@ -170,6 +393,142 @@ public class Shell extends Control {
         dialog.setContent(node);
         showDialog(dialog);
         return dialog.getResult();
+    }
+
+    public final void showProperties(Object obj) {
+        try {
+            TableView<PojoProperty> tableView = new TableView<>();
+
+            TableColumn<PojoProperty, String> keyColumn = new TableColumn<>("Key");
+            keyColumn.setCellValueFactory(new PropertyValueFactory<>("key"));
+            keyColumn.setPrefWidth(250);
+
+            TableColumn<PojoProperty, String> valueColumn = new TableColumn<>("Value");
+            valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
+            valueColumn.setPrefWidth(400);
+
+            tableView.getColumns().setAll(keyColumn, valueColumn);
+
+            final Map<String, String> map = BeanUtils.describe(obj);
+            final List<String> keys = new ArrayList(map.keySet());
+            Collections.sort(keys);
+
+            tableView.getItems().setAll(keys.stream().map(key -> new PojoProperty(key, map.get(key))).collect(Collectors.toList()));
+
+            showNode(Type.INFORMATION, "Properties", tableView);
+
+        } catch (Exception e) {
+            showError("Properties", "An exception occurred when trying to display properties of given object.", e);
+        }
+    }
+
+    public static class PojoProperty {
+
+        private String key;
+        private String value;
+
+        public PojoProperty(String key, String value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    // show shadows
+
+    private final BooleanProperty showShadow = new SimpleBooleanProperty(this, "showShadow", true);
+
+    public final BooleanProperty showShadowProperty() {
+        return showShadow;
+    }
+
+    public final boolean isShowShadow() {
+        return showShadow.get();
+    }
+
+    public final void setShowShadow(boolean show) {
+        showShadow.set(show);
+    }
+
+    // animation settings
+
+    private final BooleanProperty animateMenus = new SimpleBooleanProperty(this, "animateMenus", true);
+
+    public final BooleanProperty animateMenusProperty() {
+        return animateMenus;
+    }
+
+    public final boolean isAnimateMenus() {
+        return animateMenus.get();
+    }
+
+    public final void setAnimateMenu(boolean animate) {
+        this.animateMenus.set(animate);
+    }
+
+    private final BooleanProperty animateDialogs = new SimpleBooleanProperty(this, "animateDialogs", false);
+
+    public final BooleanProperty animateDialogsProperty() {
+        return animateDialogs;
+    }
+
+    public final boolean isAnimateDialogs() {
+        return animateDialogs.get();
+    }
+
+    public final void setAnimateDialogs(boolean animate) {
+        this.animateDialogs.set(animate);
+    }
+
+    private final BooleanProperty animateTrays = new SimpleBooleanProperty(this, "animateTrays", true);
+
+    public final boolean getAnimateTrays() {
+        return animateTrays.get();
+    }
+
+    public final BooleanProperty animateTraysProperty() {
+        return animateTrays;
+    }
+
+    public final void setAnimateTrays(boolean animateTrays) {
+        this.animateTrays.set(animateTrays);
+    }
+
+    private final BooleanProperty fadeInOut = new SimpleBooleanProperty(this, "fadeInOut", true);
+
+    public final BooleanProperty fadeInOutProperty() {
+        return fadeInOut;
+    }
+
+    public final boolean isFadeInOut() {
+        return fadeInOut.get();
+    }
+
+    public final void setFadeInOut(boolean animate) {
+        this.fadeInOut.set(animate);
+    }
+
+    // blocking support
+
+    private final BooleanProperty blocking = new SimpleBooleanProperty(this, "blocking");
+
+    public final BooleanProperty blockingProperty() {
+        return blocking;
+    }
+
+    public final void setBlocking(boolean blocking) {
+        this.blocking.set(blocking);
+    }
+
+    public final boolean isBlocking() {
+        return blocking.get();
     }
 
     // dialog support
@@ -201,6 +560,14 @@ public class Shell extends Control {
         setSelectedModule(module);
     }
 
+    public void openCalendarModule() {
+        throw new UnsupportedOperationException();
+    }
+
+    public boolean isCalendarModuleRegistered() {
+        return false;
+    }
+
     public void closeModule(ShellModule module) {
         int index = getActiveModules().indexOf(module);
         getActiveModules().remove(module);
@@ -217,6 +584,22 @@ public class Shell extends Control {
         HOME,
         DASHBOARD,
         MODULE
+    }
+
+    // floating support
+
+    private final BooleanProperty showFloatingElements = new SimpleBooleanProperty(this, "showFloatingElements", true);
+
+    public final BooleanProperty showFloatingElementsProperty() {
+        return showFloatingElements;
+    }
+
+    public final void setShowFloatingElements(boolean show) {
+        this.showFloatingElements.set(show);
+    }
+
+    public final boolean isShowFloatingElements() {
+        return showFloatingElements.get();
     }
 
     // display mode support
@@ -247,7 +630,7 @@ public class Shell extends Control {
         return homeScreen;
     }
 
-    public final Node getDashboard() {
+    public final Dashboard getDashboard() {
         return dashboard;
     }
 
@@ -339,18 +722,18 @@ public class Shell extends Control {
 
     // show menu drawer support
 
-    private final BooleanProperty showMenuDrawer = new SimpleBooleanProperty(this, "showMenuDrawer");
+    private final BooleanProperty showMenuTray = new SimpleBooleanProperty(this, "showMenuTray");
 
-    public final BooleanProperty showMenuDrawerProperty() {
-        return showMenuDrawer;
+    public final BooleanProperty showMenuTrayProperty() {
+        return showMenuTray;
     }
 
-    public final void setShowMenuDrawer(boolean showMenuDrawer) {
-        this.showMenuDrawer.set(showMenuDrawer);
+    public final void setShowMenuTray(boolean showMenuTray) {
+        this.showMenuTray.set(showMenuTray);
     }
 
-    public final boolean isShowMenuDrawer() {
-        return showMenuDrawer.get();
+    public final boolean getShowMenuTray() {
+        return showMenuTray.get();
     }
 
     // show uk.co.senapt.desktop.ui.modules.calendar support
