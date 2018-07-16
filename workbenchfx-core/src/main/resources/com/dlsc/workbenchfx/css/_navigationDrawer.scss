@@ -2,7 +2,7 @@
   -fx-background-color: -surface-color;
 
   & .separator:horizontal .line {
-    -fx-border-color: derive(-surface-color, -30%) transparent transparent transparent;
+    -fx-border-color: rgba(0, 0, 0, .2) transparent transparent transparent;
     -fx-border-insets: 1 0 0 0;
   }
 
@@ -25,6 +25,7 @@
       -fx-background-color: -surface-color;
       -fx-effect: -shadow;
       -fx-min-height: $pref-size * 2;
+      -fx-padding: .35em;
 
       .separator .line {
         -fx-border-color: -on-surface-color;
@@ -33,8 +34,8 @@
 
       & .button {
         //back-button
-        -fx-min-width: $pref-size;
-        -fx-pref-height: $pref-size;
+        -fx-pref-width: $pref-size*.75;
+        -fx-pref-height: $pref-size*.75;
         -fx-background-color: transparent;
         -fx-border-width: 0;
         -fx-background-insets: 0; //needed to remove the focused border on bottom
@@ -45,6 +46,12 @@
         }
         & .logo {
           //image-view
+        }
+        &:hover {
+          -fx-cursor: hand;
+        }
+        &:pressed {
+          -fx-background-color: rgba(0, 0, 0, .2);
         }
       }
     }
@@ -123,6 +130,13 @@
               & .arrow-button .arrow {
                 -fx-background-color: -on-primary-color;
               }
+              &:hover {
+                -fx-cursor: inherit !important;
+              }
+            }
+
+            &:hover {
+              -fx-cursor: hand !important;
             }
           }
         }
