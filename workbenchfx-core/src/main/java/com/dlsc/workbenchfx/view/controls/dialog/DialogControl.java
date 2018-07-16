@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view.controls.dialog;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
@@ -55,7 +56,7 @@ public class DialogControl extends Control {
   }
 
   private void setupChangeListeners() {
-    // update buttons whenever buttonTypes, workbench, or buttonTextUppercase changes
+    // update buttons whenever dialog, buttonTypes, workbench, or buttonTextUppercase changes
     dialogChangedListener = observable -> {
       buttonNodes.clear(); // force re-creation of buttons
       updateButtons(getDialog());
@@ -164,17 +165,48 @@ public class DialogControl extends Control {
     getWorkbench().hideDialog();
   }
 
+  // EventHandler
+
+  /**
+   * The dialog's action, which is invoked whenever the dialog has been fully initialized and is
+   * being shown. Whenever the {@link #dialogProperty()}, {@link WorkbenchDialog#buttonTypes},
+   * {@link #buttonTextUppercaseProperty()} or {@link #workbenchProperty()} changes, the dialog will
+   * be rebuilt and upon completion, an event will be fired.
+   *
+   * @return the property to represent the event, which is invoked whenever the dialog has been
+   * fully initialized and is being shown.
+   */
+  public final ObjectProperty<EventHandler<Event>> onShownProperty() {
+    return onShown;
+  }
+  public final void setOnShown(EventHandler<Event> value) {
+    onShown.set(value);
+  }
+  public final EventHandler<Event> getOnShown() {
+    return onShown.get();
+  }
   private ObjectProperty<EventHandler<Event>> onShown =
       new SimpleObjectProperty<EventHandler<Event>>(this, "onShown");
-  public final void setOnShown(EventHandler<Event> value) { onShown.set(value); }
-  public final EventHandler<Event> getOnShown() { return onShown.get(); }
-  public final ObjectProperty<EventHandler<Event>> onShownProperty() { return onShown; }
 
+  /**
+   * The dialog's action, which is invoked whenever the dialog has been hidden in the scene graph.
+   * An event will be fired whenever {@link #hide()} or {@link Workbench#hideDialog()} has been
+   * called or the dialog has been closed by clicking on its corresponding {@link GlassPane}.
+   *
+   * @return the property to represent the event, which is invoked whenever the dialog has been
+   * hidden in the scene graph.
+   */
+  public final ObjectProperty<EventHandler<Event>> onHiddenProperty() {
+    return onHidden;
+  }
+  public final void setOnHidden(EventHandler<Event> value) {
+    onHidden.set(value);
+  }
+  public final EventHandler<Event> getOnHidden() {
+    return onHidden.get();
+  }
   private ObjectProperty<EventHandler<Event>> onHidden =
       new SimpleObjectProperty<EventHandler<Event>>(this, "onHidden");
-  public final void setOnHidden(EventHandler<Event> value) { onHidden.set(value); }
-  public final EventHandler<Event> getOnHidden() { return onHidden.get(); }
-  public final ObjectProperty<EventHandler<Event>> onHiddenProperty() { return onHidden; }
 
   // Accessors and mutators
 
