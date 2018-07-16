@@ -145,7 +145,6 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
       WorkbenchDialog dialog = WorkbenchDialog.builder("Check the box to continue", checkBox, ButtonType.OK)
           .build();
       DialogControl dialogControl = getWorkbench().showDialog(dialog);
-      System.out.println(dialogControl.getButtons());
       dialogControl.setOnShown(event1 -> dialogControl.getButtons().get(0).disableProperty().bind(checkBox.selectedProperty().not()));
     });
   }
