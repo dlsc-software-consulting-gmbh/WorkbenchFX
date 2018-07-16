@@ -423,16 +423,17 @@ public class Workbench extends Control {
    * Shows a {@link WorkbenchDialog} in the view.
    *
    * @param dialog to be shown
-   * @return the {@link DialogControl} which is being shown
+   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
+   *                was pressed in the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
    *           All dialogs are non-blocking by default. If you want to change this behavior, use
    *           {@link WorkbenchDialog#builder} to create a dialog and show it using
    *           {@link Workbench#showDialog(WorkbenchDialog)}.
    */
-  public final DialogControl showDialog(WorkbenchDialog dialog) {
+  public final CompletableFuture<ButtonType> showDialog(WorkbenchDialog dialog) {
     this.dialog.set(dialog);
-    return getDialogControl();
+    return dialog.getResult();
   }
 
   /**
