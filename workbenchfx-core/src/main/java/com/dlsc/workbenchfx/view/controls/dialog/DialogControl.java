@@ -13,6 +13,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -137,6 +139,20 @@ public class DialogControl extends Control {
   public final void hide() {
     getWorkbench().hideDialog();
   }
+
+  private ObjectProperty<EventHandler<Event>> onShown =
+      new SimpleObjectProperty<EventHandler<Event>>(this, "onShown");
+  public final void setOnShown(EventHandler<Event> value) { onShown.set(value); }
+  public final EventHandler<Event> getOnShown() { return onShown.get(); }
+  public final ObjectProperty<EventHandler<Event>> onShownProperty() { return onShown; }
+
+  private ObjectProperty<EventHandler<Event>> onHidden =
+      new SimpleObjectProperty<EventHandler<Event>>(this, "onHidden");
+  public final void setOnHidden(EventHandler<Event> value) { onHidden.set(value); }
+  public final EventHandler<Event> getOnHidden() { return onHidden.get(); }
+  public final ObjectProperty<EventHandler<Event>> onHiddenProperty() { return onHidden; }
+
+  // Accessors and mutators
 
   public WorkbenchDialog getDialog() {
     return dialog.get();
