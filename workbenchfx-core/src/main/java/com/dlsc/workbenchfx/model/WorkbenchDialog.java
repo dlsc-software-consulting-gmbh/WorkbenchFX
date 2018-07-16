@@ -288,6 +288,10 @@ public final class WorkbenchDialog {
   }
 
   public void setOnResult(Consumer<ButtonType> onResult) {
+    if (Objects.isNull(onResult)) {
+      // set empty consumer instead to avoid NPE
+      onResult = buttonType -> {};
+    }
     this.onResult.set(onResult);
   }
 }
