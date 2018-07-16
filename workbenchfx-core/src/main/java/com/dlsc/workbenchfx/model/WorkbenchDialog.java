@@ -127,6 +127,7 @@ public final class WorkbenchDialog {
     setButtonsBarShown(workbenchDialogBuilder.showButtonsBar);
     getStyleClass().addAll(workbenchDialogBuilder.styleClasses);
     setException(workbenchDialogBuilder.exception);
+    setOnResult(workbenchDialogBuilder.onResult);
     // don't override details set by exception listener if no details were specified
     if (!Strings.isNullOrEmpty(workbenchDialogBuilder.details)) {
       setDetails(workbenchDialogBuilder.details);

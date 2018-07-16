@@ -29,7 +29,7 @@ public class WorkbenchDialogBuilder {
   String[] styleClasses = new String[0];
   Exception exception = null;
   String details = "";
-  Consumer<ButtonType> onResult;
+  Consumer<ButtonType> onResult = null;
 
   WorkbenchDialogBuilder(String title, Node content, ButtonType... buttonTypes) {
     this.title = title;
