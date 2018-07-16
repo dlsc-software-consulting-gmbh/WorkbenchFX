@@ -31,10 +31,7 @@ public class InterruptClosingTestModule extends WorkbenchModule {
   public boolean destroy() {
     if (!closePossible) {
       getWorkbench().openModule(this);
-      CompletableFuture<ButtonType> dialogResult =
-          getWorkbench().showConfirmationDialog("Confirmation",
-              "Are you sure you want to close this module without saving?");
-      dialogResult.thenAccept(buttonType -> {
+      getWorkbench().showConfirmationDialog("Confirmation", "Are you sure you want to close this module without saving?", buttonType -> {
         if (ButtonType.YES.equals(buttonType)) {
           closePossible = true;
           getWorkbench().closeModule(this);
