@@ -448,8 +448,7 @@ public class Workbench extends Control {
    */
   public final WorkbenchDialog showErrorDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR).build();
-    showDialog(dialog);
-    return dialog;
+    return showDialog(dialog);
   }
 
   /**
@@ -468,8 +467,7 @@ public class Workbench extends Control {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
         .exception(exception)
         .build();
-    showDialog(dialog);
-    return dialog;
+    return showDialog(dialog);
   }
 
   /**
@@ -488,8 +486,7 @@ public class Workbench extends Control {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
         .details(details)
         .build();
-    showDialog(dialog);
-    return dialog;
+    return showDialog(dialog);
   }
 
   /**
@@ -504,8 +501,7 @@ public class Workbench extends Control {
    */
   public final WorkbenchDialog showWarningDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.WARNING).build();
-    showDialog(dialog);
-    return dialog;
+    return showDialog(dialog);
   }
 
   /**
@@ -520,8 +516,7 @@ public class Workbench extends Control {
    */
   public final WorkbenchDialog showConfirmationDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.CONFIRMATION).build();
-    showDialog(dialog);
-    return dialog;
+    return showDialog(dialog);
   }
 
   /**
@@ -536,8 +531,7 @@ public class Workbench extends Control {
    */
   public final WorkbenchDialog showInformationDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.INFORMATION).build();
-    showDialog(dialog);
-    return dialog;
+    return showDialog(dialog);
   }
 
   public final ReadOnlyObjectProperty<WorkbenchDialog> dialogProperty() {
