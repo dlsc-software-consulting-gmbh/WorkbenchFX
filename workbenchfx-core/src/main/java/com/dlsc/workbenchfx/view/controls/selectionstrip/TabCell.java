@@ -33,13 +33,15 @@ public class TabCell extends StripCell<WorkbenchModule> {
       tab.setModule(getItem());
       setGraphic(tab);
 
-      // Set id with toString of module. Replaces spaces with highfins and lowecases letters.
-      // eg. Customer Management converts to customer-management
+      // Sets id with toString of module.
+      // Adds 'tab-', replaces spaces with highfins and lowecases letters.
+      // eg. Customer Management converts to tab-customer-management
       setId(
-          getItem()
-              .toString()
-              .replace(" ", "-")
-              .toLowerCase()
+          "tab-" +
+              getItem()
+                  .toString()
+                  .replace(" ", "-")
+                  .toLowerCase()
       );
     });
 
