@@ -29,7 +29,7 @@ import org.apache.logging.log4j.Logger;
  */
 public final class WorkbenchDialog {
   private static final Logger LOGGER =
-      LogManager.getLogger(Workbench.class.getName());
+      LogManager.getLogger(WorkbenchDialog.class.getName());
 
   private Type type;
   private final CompletableFuture<ButtonType> result = new CompletableFuture<>();
