@@ -1,7 +1,9 @@
 package com.dlsc.workbenchfx.custom.test;
 
-import com.dlsc.workbenchfx.model.WorkbenchModule;
+import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
+
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
@@ -113,38 +115,38 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     longMessageBtn.setOnAction(event -> getWorkbench().showInformationDialog("Everything is fine", "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot."));
     longTitleMessageBtn.setOnAction(event -> getWorkbench().showInformationDialog("In 2004, Bennett ruled that John Graham could be extradited to the United States for trial for the 1975 murder of Anna Mae Aquash, one of the most prominent members of the American Indian Movement. In 2007, she began proceedings on the Basi-Virk Affair where the Minister of Finance's politically appointed assistant was charged with the sale of benefits related to the province's sale of BC Rail, the publicly owned railway. The scandal came to public attention when news media filmed the RCMP conducting a search warrant inside the BC Legislature building.", "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot."));
     customSmallBtn.setOnAction(event -> {
-      WorkbenchDialog libraryDialog = WorkbenchDialog.builder("Select your favorite libraries", checkListView, WorkbenchDialog.Type.INPUT).build();
-      getWorkbench().showDialog(libraryDialog);
-      CompletableFuture<ButtonType> result = libraryDialog.getResult();
-      result.thenAccept(buttonType -> {
-        if (ButtonType.CANCEL.equals(buttonType)) {
-          System.err.println("Dialog was cancelled!");
-        } else {
-          System.err.println("Chosen favorite libraries: " + checkListView.getCheckModel().getCheckedItems().stream().collect(Collectors.joining(", ")));
-        }
-      });
+      getWorkbench().showDialog(
+          WorkbenchDialog.builder("Select your favorite libraries", checkListView, Type.INPUT)
+              .onResult(buttonType -> {
+                if (ButtonType.CANCEL.equals(buttonType)) {
+                  System.err.println("Dialog was cancelled!");
+                } else {
+                  System.err.println("Chosen favorite libraries: " + checkListView.getCheckModel().getCheckedItems().stream().collect(Collectors.joining(", ")));
+                }
+              }).build()
+      );
     });
     customFullBtn.setOnAction(event -> getWorkbench().showDialog(WorkbenchDialog.builder("Map Overview (blocking)", mapView, ButtonType.CLOSE).blocking(true).build()));
     customFullMaxBtn.setOnAction(event -> {
-      WorkbenchDialog dialog = WorkbenchDialog.builder("Map Overview", mapView, ButtonType.FINISH)
-              .maximized(true)
-              .build();
-      getWorkbench().showDialog(dialog);
-      CompletableFuture<ButtonType> dialogResult = dialog.getResult();
-      dialogResult.thenAccept(buttonType -> System.err.println("Dialog result: " + buttonType));
+      getWorkbench().showDialog(WorkbenchDialog.builder("Map Overview", mapView, ButtonType.FINISH)
+          .maximized(true)
+          .onResult(buttonType -> System.err.println("Dialog result: " + buttonType))
+          .build()
+      );
     });
     noButtonsBtn.setOnAction(event -> {
-      WorkbenchDialog dialog = WorkbenchDialog.builder("This dialog has no buttons","Click outside of the dialog to close it.", WorkbenchDialog.Type.INFORMATION)
+      getWorkbench().showDialog(WorkbenchDialog.builder("This dialog has no buttons", "Click outside of the dialog to close it.", Type.INFORMATION)
           .showButtonsBar(false)
-          .build();
-      getWorkbench().showDialog(dialog);
-      CompletableFuture<ButtonType> dialogResult = dialog.getResult();
-      dialogResult.thenAccept(buttonType -> System.err.println("Dialog result: " + buttonType));
+          .onResult(buttonType -> System.err.println("Dialog result: " + buttonType))
+          .build()
+      );
     });
     conditionalBtn.setOnAction(event -> {
       WorkbenchDialog dialog = WorkbenchDialog.builder("Check the box to continue", checkBox, ButtonType.OK)
           .build();
-      DialogControl dialogControl = getWorkbench().showDialog(dialog);
+      getWorkbench().showDialog(dialog);
+      // TODO
+      DialogControl dialogControl = getWorkbench().getDialogControl();
       dialogControl.setOnShown(event1 -> dialogControl.getButtons().get(0).disableProperty().bind(checkBox.selectedProperty().not()));
     });
   }
