@@ -431,9 +431,9 @@ public class Workbench extends Control {
    *           {@link WorkbenchDialog#builder} to create a dialog and show it using
    *           {@link Workbench#showDialog(WorkbenchDialog)}.
    */
-  public final CompletableFuture<ButtonType> showDialog(WorkbenchDialog dialog) {
+  public final WorkbenchDialog showDialog(WorkbenchDialog dialog) {
     this.dialog.set(dialog);
-    return dialog.getResult();
+    return dialog;
   }
 
   /**
@@ -446,10 +446,10 @@ public class Workbench extends Control {
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
    *                was pressed in the dialog
    */
-  public final CompletableFuture<ButtonType> showErrorDialog(String title, String message) {
+  public final WorkbenchDialog showErrorDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR).build();
     showDialog(dialog);
-    return dialog.getResult();
+    return dialog;
   }
 
   /**
@@ -463,13 +463,13 @@ public class Workbench extends Control {
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
    *                was pressed in the dialog
    */
-  public final CompletableFuture<ButtonType> showErrorDialog(
+  public final WorkbenchDialog showErrorDialog(
       String title, String message, Exception exception) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
         .exception(exception)
         .build();
     showDialog(dialog);
-    return dialog.getResult();
+    return dialog;
   }
 
   /**
@@ -483,13 +483,13 @@ public class Workbench extends Control {
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
    *                was pressed in the dialog
    */
-  public final CompletableFuture<ButtonType> showErrorDialog(
+  public final WorkbenchDialog showErrorDialog(
       String title, String message, String details) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
         .details(details)
         .build();
     showDialog(dialog);
-    return dialog.getResult();
+    return dialog;
   }
 
   /**
@@ -502,10 +502,10 @@ public class Workbench extends Control {
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
    *                was pressed in the dialog
    */
-  public final CompletableFuture<ButtonType> showWarningDialog(String title, String message) {
+  public final WorkbenchDialog showWarningDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.WARNING).build();
     showDialog(dialog);
-    return dialog.getResult();
+    return dialog;
   }
 
   /**
@@ -518,10 +518,10 @@ public class Workbench extends Control {
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
    *                was pressed in the dialog
    */
-  public final CompletableFuture<ButtonType> showConfirmationDialog(String title, String message) {
+  public final WorkbenchDialog showConfirmationDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.CONFIRMATION).build();
     showDialog(dialog);
-    return dialog.getResult();
+    return dialog;
   }
 
   /**
@@ -534,10 +534,10 @@ public class Workbench extends Control {
    * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
    *                was pressed in the dialog
    */
-  public final CompletableFuture<ButtonType> showInformationDialog(String title, String message) {
+  public final WorkbenchDialog showInformationDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.INFORMATION).build();
     showDialog(dialog);
-    return dialog.getResult();
+    return dialog;
   }
 
   public final ReadOnlyObjectProperty<WorkbenchDialog> dialogProperty() {
