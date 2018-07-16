@@ -423,8 +423,7 @@ public class Workbench extends Control {
    * Shows a {@link WorkbenchDialog} in the view.
    *
    * @param dialog to be shown
-   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *                was pressed in the dialog
+   * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
    *           All dialogs are non-blocking by default. If you want to change this behavior, use
@@ -443,8 +442,7 @@ public class Workbench extends Control {
    * @param message of the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
-   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *                was pressed in the dialog
+   * @return the {@link WorkbenchDialog}, which will be shown
    */
   public final WorkbenchDialog showErrorDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR).build();
@@ -459,8 +457,7 @@ public class Workbench extends Control {
    * @param exception of which the stacktrace should be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
-   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *                was pressed in the dialog
+   * @return the {@link WorkbenchDialog}, which will be shown
    */
   public final WorkbenchDialog showErrorDialog(
       String title, String message, Exception exception) {
@@ -478,8 +475,7 @@ public class Workbench extends Control {
    * @param details about the error
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
-   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *                was pressed in the dialog
+   * @return the {@link WorkbenchDialog}, which will be shown
    */
   public final WorkbenchDialog showErrorDialog(
       String title, String message, String details) {
@@ -496,8 +492,7 @@ public class Workbench extends Control {
    * @param message of the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
-   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *                was pressed in the dialog
+   * @return the {@link WorkbenchDialog}, which will be shown
    */
   public final WorkbenchDialog showWarningDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.WARNING).build();
@@ -511,8 +506,7 @@ public class Workbench extends Control {
    * @param message of the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
-   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *                was pressed in the dialog
+   * @return the {@link WorkbenchDialog}, which will be shown
    */
   public final WorkbenchDialog showConfirmationDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.CONFIRMATION).build();
@@ -526,8 +520,7 @@ public class Workbench extends Control {
    * @param message of the dialog
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
-   * @return result a {@link CompletableFuture} which is completed with the {@link ButtonType} that
-   *                was pressed in the dialog
+   * @return the {@link WorkbenchDialog}, which will be shown
    */
   public final WorkbenchDialog showInformationDialog(String title, String message) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.INFORMATION).build();
