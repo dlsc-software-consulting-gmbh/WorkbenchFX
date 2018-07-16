@@ -134,7 +134,7 @@ class WorkbenchTest extends ApplicationTest {
     dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
 
     // Setup WorkbenchDialog Mock
-    when(mockDialog.getResult()).thenReturn(mockDialogResult);
+    // TODO: REFACTOR when(mockDialog.getResult()).thenReturn(mockDialogResult);
     when(mockDialog.getButtonTypes()).thenReturn(
         FXCollections.observableArrayList(ButtonType.PREVIOUS, ButtonType.NEXT)
     );
@@ -1288,13 +1288,13 @@ class WorkbenchTest extends ApplicationTest {
 
       //assertDialogShown(result, false);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
-      verify(mockDialog).getResult();
+      // TODO: REFACTOR verify(mockDialog).getResult();
       verify(mockDialogResult, never()).complete(any());
 
       // hiding by GlassPane click
       simulateGlassPaneClick(dialogControl);
 
-      verify(mockDialog, times(3)).getResult();
+      // TODO: REFACTOR verify(mockDialog, times(3)).getResult();
       verify(mockDialogResult).isDone();
       verify(mockDialogResult).complete(ButtonType.CANCEL);
       verifyNoMoreInteractions(mockDialogResult);
@@ -1312,14 +1312,14 @@ class WorkbenchTest extends ApplicationTest {
 
       //assertDialogShown(result, false);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
-      verify(mockDialog).getResult();
+      // TODO: REFACTOR verify(mockDialog).getResult();
       verify(mockDialogResult, never()).complete(any());
 
       // hiding by button press
       Button pressedButton = (Button) dialogControl.getButtons().get(0);
       pressedButton.fire(); // simulate button getting pressed
 
-      verify(mockDialog, times(3)).getResult();
+      // TODO: REFACTOR verify(mockDialog, times(3)).getResult();
       verify(mockDialogResult).isDone();
       verify(mockDialogResult).complete(mockDialog.getButtonTypes().get(0));
       verifyNoMoreInteractions(mockDialogResult);
@@ -1340,13 +1340,13 @@ class WorkbenchTest extends ApplicationTest {
 
       //assertDialogShown(result, true);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
-      verify(mockDialog).getResult();
+      // TODO: REFACTOR verify(mockDialog).getResult();
       verify(mockDialogResult, never()).complete(any());
 
       // try hiding by clicking on GlassPane
       simulateGlassPaneClick(dialogControl); // simulates a click on GlassPane
 
-      verify(mockDialog, times(1)).getResult();
+      // TODO: REFACTOR verify(mockDialog, times(1)).getResult();
       verify(mockDialogResult, never()).complete(any());
       verifyNoMoreInteractions(mockDialogResult);
       // verify dialog hasn't been hidden
@@ -1366,14 +1366,14 @@ class WorkbenchTest extends ApplicationTest {
 
       //assertDialogShown(result, true);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
-      verify(mockDialog).getResult();
+      // TODO: REFACTOR verify(mockDialog).getResult();
       verify(mockDialogResult, never()).complete(any());
 
       // hiding by button press
       Button pressedButton = (Button) dialogControl.getButtons().get(0);
       pressedButton.fire(); // simulate button getting pressed
 
-      verify(mockDialog, times(3)).getResult();
+      // TODO: REFACTOR verify(mockDialog, times(3)).getResult();
       verify(mockDialogResult).isDone();
       verify(mockDialogResult).complete(mockDialog.getButtonTypes().get(0));
       verifyNoMoreInteractions(mockDialogResult);

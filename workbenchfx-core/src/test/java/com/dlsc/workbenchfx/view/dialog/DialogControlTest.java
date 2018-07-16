@@ -50,7 +50,7 @@ class DialogControlTest extends ApplicationTest {
     mockDialog = mock(WorkbenchDialog.class);
     buttonTypes = FXCollections.observableArrayList(BUTTON_TYPE_1);
     when(mockDialog.getButtonTypes()).thenReturn(buttonTypes);
-    when(mockDialog.getResult()).thenReturn(result);
+    // TODO: REFACTOR when(mockDialog.getResult()).thenReturn(result);
 
     mockBench = mock(Workbench.class);
     dialogProperty = new SimpleObjectProperty<>(mockDialog);
