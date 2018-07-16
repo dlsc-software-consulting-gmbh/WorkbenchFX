@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.custom.patient.view;
 
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.Button;
 import javafx.scene.control.Pagination;
@@ -45,6 +46,19 @@ public class PatientView extends BorderPane implements ViewMixin {
         pagination.pageCountProperty().bind(Bindings.size(cabinet.getAllPatients()));
         pagination.setPageFactory(param -> new DetailView(cabinet.getAllPatients().get(param), translator));
 
+    }
+
+    @Override
+    public void setupValueChangedListeners() {
+        cabinet.selectedPatientProperty().addListener((observable, oldValue, newValue) -> {
+
+            pagination.setCurrentPageIndex(cabinet.getAllPatients().indexOf(newValue));
+
+        });
+
+        pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
+            cabinet.setSelectedPatient(cabinet.getAllPatients().get(newValue.intValue()));
+        });
     }
 
     @Override

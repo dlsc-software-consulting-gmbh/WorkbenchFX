@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -23,6 +25,8 @@ public class FileCabinet {
     private static final String DELIMITER = ";";
 
     private final ObservableList<Patient> allPatients = FXCollections.observableArrayList();
+
+    private ObjectProperty<Patient> selectedPatient = new SimpleObjectProperty<>();
 
     public FileCabinet() {
         allPatients.setAll(readFromFile());
@@ -93,4 +97,15 @@ public class FileCabinet {
         return new File(System.getProperty("java.io.tmpdir"), DATA);
     }
 
+    public Patient getSelectedPatient() {
+        return selectedPatient.get();
+    }
+
+    public ObjectProperty<Patient> selectedPatientProperty() {
+        return selectedPatient;
+    }
+
+    public void setSelectedPatient(Patient selectedPatient) {
+        this.selectedPatient.set(selectedPatient);
+    }
 }

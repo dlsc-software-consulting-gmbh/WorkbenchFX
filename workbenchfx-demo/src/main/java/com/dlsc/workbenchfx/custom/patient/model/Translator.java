@@ -18,6 +18,10 @@ public class Translator {
     private StringProperty genderLabel                 = new SimpleStringProperty();
     private StringProperty imageURLLabel               = new SimpleStringProperty();
 
+    private StringProperty selectPatientLabel = new SimpleStringProperty();
+    private StringProperty okLabel            = new SimpleStringProperty();
+    private StringProperty cancelLabel        = new SimpleStringProperty();
+
     public Translator() {
         translateToEnglish();
     }
@@ -33,6 +37,10 @@ public class Translator {
         setYearOfBirthLabel           ("Geburtsjahr");
         setGenderLabel                ("Geschlecht");
         setImageURLLabel              ("Bild URL");
+
+        setSelectPatientLabel("Patient ausw\u00e4hlen");
+        setOkLabel("OK");
+        setCancelLabel("Abbrechen");
     }
 
     public void translateToEnglish(){
@@ -46,6 +54,10 @@ public class Translator {
         setYearOfBirthLabel           ("Year of Birth");
         setGenderLabel                ("Gender");
         setImageURLLabel              ("Image URL");
+
+        setSelectPatientLabel("Select patient");
+        setOkLabel("OK");
+        setCancelLabel("Cancel");
     }
 
     public String getIdLabel() {
@@ -166,5 +178,41 @@ public class Translator {
 
     public void setImageURLLabel(String imageURLLabel) {
         this.imageURLLabel.set(imageURLLabel);
+    }
+
+    public String getSelectPatientLabel() {
+        return selectPatientLabel.get();
+    }
+
+    public StringProperty selectPatientLabelProperty() {
+        return selectPatientLabel;
+    }
+
+    public void setSelectPatientLabel(String selectPatientLabel) {
+        this.selectPatientLabel.set(selectPatientLabel);
+    }
+
+    public String getOkLabel() {
+        return okLabel.get();
+    }
+
+    public StringProperty okLabelProperty() {
+        return okLabel;
+    }
+
+    public void setOkLabel(String okLabel) {
+        this.okLabel.set(okLabel);
+    }
+
+    public String getCancelLabel() {
+        return cancelLabel.get();
+    }
+
+    public StringProperty cancelLabelProperty() {
+        return cancelLabel;
+    }
+
+    public void setCancelLabel(String cancelLabel) {
+        this.cancelLabel.set(cancelLabel);
     }
 }

@@ -1,5 +1,5 @@
 .patient-toolbar {
-  -fx-background-color: rgb(66,66,66);
+  -fx-background-color: white;
   -fx-padding: 4px;
 
   & .button {
@@ -9,12 +9,12 @@
       -fx-font-size: 14px;
 
     &:hover {
-      -fx-background-color: rgb(33,33,33);
+      -fx-background-color: rgb(233,233,233);
     }
 
     & .text {
+      -fx-fill: black;
       -fx-font-size: 22px;
-      -fx-fill: white;
       -fx-scale-x: 1;
       -fx-scale-y: 1;
       -fx-cursor: hand;

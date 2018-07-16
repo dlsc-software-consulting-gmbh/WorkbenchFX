@@ -8,7 +8,7 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.patient.model.FileCabinet;
 import com.dlsc.workbenchfx.custom.patient.model.Translator;
 import com.dlsc.workbenchfx.custom.patient.view.PatientView;
-import com.dlsc.workbenchfx.module.Module;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -17,7 +17,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 /**
  * @author Dieter Holz
  */
-public class PatientModule extends Module {
+public class PatientModule extends WorkbenchModule {
 
     private FileCabinet fileCabinet;
     private Translator  translator;
@@ -54,14 +54,14 @@ public class PatientModule extends Module {
         dropdown = Dropdown.of(new FontAwesomeIconView(FontAwesomeIcon.LANGUAGE),
                                de,
                                en);
-        workbench.addToolbarControlRight(dropdown);
+        workbench.getToolbarControlsRight().add(dropdown);
 
         return patientView;
     }
 
     @Override
     public void deactivate() {
-        workbench.removeToolbarControlRight(dropdown);
+        workbench.getToolbarControlsRight().remove(dropdown);
     }
 
     @Override

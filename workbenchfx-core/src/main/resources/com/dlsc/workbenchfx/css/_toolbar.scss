@@ -61,6 +61,7 @@
 
   & #bottom-box {
     -fx-pref-height: $pref-size;
+    -fx-min-height: $pref-size;
     -fx-padding: 0 .35em 0 .35em;
 
     .selection-strip {
@@ -126,7 +127,7 @@
           -fx-cursor: inherit;
 
           & .tab-control {
-            -fx-border-color: -background-color;
+            -fx-border-color: -transparent;
 
             & .tab-icon {
               -fx-fill: -on-background-color;

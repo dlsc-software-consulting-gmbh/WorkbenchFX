@@ -129,6 +129,7 @@
         -fx-fill: -on-primary-color; }
   #toolbar #bottom-box {
     -fx-pref-height: 3em;
+    -fx-min-height: 3em;
     -fx-padding: 0 .35em 0 .35em; }
     #toolbar #bottom-box .selection-strip {
       -fx-background-color: -primary-color; }
@@ -169,7 +170,7 @@
           -fx-border-radius: 5px 5px 0 0;
           -fx-cursor: inherit; }
           #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control {
-            -fx-border-color: -background-color; }
+            -fx-border-color: -transparent; }
             #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-icon {
               -fx-fill: -on-background-color; }
             #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-name-lbl .text {

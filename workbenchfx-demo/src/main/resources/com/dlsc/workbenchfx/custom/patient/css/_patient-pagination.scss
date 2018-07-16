@@ -25,13 +25,13 @@
       -fx-background-insets: 5.25;
       &:hover {
         -fx-cursor: hand;
-        -fx-background-color: derive(-text-color, -10%);
+        -fx-background-color: derive(-primary-color, -10%);
       }
       &:selected {
-        -fx-background-color: -prim-color;
+        -fx-background-color: -primary-color;
         &:hover {
           -fx-cursor: hand;
-          -fx-background-color: -prim-color-hover;
+          -fx-background-color: derive(-primary-color, 20%);
         }
       }
     }

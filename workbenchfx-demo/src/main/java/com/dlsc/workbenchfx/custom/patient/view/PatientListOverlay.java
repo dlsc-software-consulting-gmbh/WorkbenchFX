@@ -38,7 +38,7 @@ public class PatientListOverlay extends VBox implements ViewMixin {
     @Override
     public void layoutParts() {
         Button closeButton = new Button("Close");
-        closeButton.setOnAction(event -> workbench.hideOverlay(this, false));
+        closeButton.setOnAction(event -> workbench.hideOverlay(this));
 
         getChildren().addAll(label, closeButton);
     }
