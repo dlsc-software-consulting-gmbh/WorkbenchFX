@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -32,7 +33,6 @@ public final class WorkbenchDialog {
       LogManager.getLogger(WorkbenchDialog.class.getName());
 
   private Type type;
-  private final CompletableFuture<ButtonType> result = new CompletableFuture<>();
   private ObservableList<ButtonType> buttonTypes = FXCollections.observableArrayList();
   private final BooleanProperty maximized = new SimpleBooleanProperty();
   private final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content");
@@ -43,6 +43,7 @@ public final class WorkbenchDialog {
       new SimpleBooleanProperty(this, "buttonsBarShown", true);
   private final ObjectProperty<Exception> exception = new SimpleObjectProperty<>(this, "exception");
   private final BooleanProperty blocking = new SimpleBooleanProperty(false, "blocking");
+  private final ObjectProperty<Consumer<ButtonType>> onResult = new SimpleObjectProperty<>(this, "onResult");
 
   public enum Type {
     INPUT,
@@ -164,10 +165,6 @@ public final class WorkbenchDialog {
     return type;
   }
 
-  public final CompletableFuture<ButtonType> getResult() {
-    return result;
-  }
-
   // button types
 
   public ObservableList<ButtonType> getButtonTypes() {
@@ -277,5 +274,19 @@ public final class WorkbenchDialog {
 
   public boolean isBlocking() {
     return blocking.get();
+  }
+
+  // action to be performed when dialog has been completed // TODO
+
+  public Consumer<ButtonType> getOnResult() {
+    return onResult.get();
+  }
+
+  public ObjectProperty<Consumer<ButtonType>> onResultProperty() {
+    return onResult;
+  }
+
+  public void setOnResult(Consumer<ButtonType> onResult) {
+    this.onResult.set(onResult);
   }
 }
