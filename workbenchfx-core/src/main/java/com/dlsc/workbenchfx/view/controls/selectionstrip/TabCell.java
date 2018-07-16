@@ -32,6 +32,15 @@ public class TabCell extends StripCell<WorkbenchModule> {
       Tab tab = workbench.getTabFactory().call(workbench);
       tab.setModule(getItem());
       setGraphic(tab);
+
+      // Set id with toString of module. Replaces spaces with highfins and lowecases letters.
+      // eg. Customer Management converts to customer-management
+      setId(
+          getItem()
+              .toString()
+              .replace(" ", "-")
+              .toLowerCase()
+      );
     });
 
     selectionStripProperty().addListener((observable, oldStrip, newStrip) -> {
