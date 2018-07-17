@@ -12,6 +12,7 @@ import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DialogTestModule;
 import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
+import com.dlsc.workbenchfx.custom.test.InterruptClosing2TestModule;
 import com.dlsc.workbenchfx.custom.test.InterruptClosingTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
@@ -108,6 +109,7 @@ public class CustomDemo extends Application {
                 new DropdownTestModule(),
                 new NavigationDrawerTestModule(),
                 new InterruptClosingTestModule(),
+                new InterruptClosing2TestModule(),
                 new DialogTestModule())
             .toolbarLeft(addPreferences, removePreferences, showDialogButton)
             .toolbarRight(
