@@ -29,7 +29,8 @@ public class InterruptClosing2TestModule extends WorkbenchModule {
 
   @Override
   public boolean destroy(CompletableFuture<Boolean> stageCloseable) {
-      getWorkbench().openModule(this);
+    System.out.println("DESTROY CALLED ON 2");
+    getWorkbench().openModule(this);
       CompletableFuture<ButtonType> dialogResult =
           getWorkbench().showConfirmationDialog("Confirmation 2",
               "Are you sure you want to close this module without saving?");
