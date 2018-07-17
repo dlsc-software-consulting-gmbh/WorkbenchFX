@@ -370,12 +370,9 @@ public class Workbench extends Control {
       newActive = openModules.get(i - 1);
       LOGGER.trace("closeModule - Next active: Previous Module - " + newActive);
     }
-    // attempt to destroy module
-    if (!module.destroy(moduleCloseable)) {
-      // module should or could not be destroyed
-      LOGGER.trace("closeModule - Destroy: Fail - " + module);
-      return false;
-    } else {
+    // attempt to destroy module, or suceed anyways if the module has been closed successfully
+    // during the stage closing process
+    if (module.destroy(moduleCloseable) || moduleCloseable.getNow(false)) {
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
       modulesPendingClose.remove(moduleCloseable); // remove from map if present
@@ -386,6 +383,10 @@ public class Workbench extends Control {
       }
       activeModule.setValue(newActive);
       return removal;
+    } else {
+      // module should or could not be destroyed
+      LOGGER.trace("closeModule - Destroy: Fail - " + module);
+      return false;
     }
   }
 
