@@ -37,6 +37,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -285,6 +286,8 @@ public class Workbench extends Control {
               if (closeable) {
                 LOGGER.trace("Module " + openModule + " can now be safely closed");
                 closeModule(openModule, moduleCloseable);
+                // re-start closing process, in case other modules are blocking the closing process
+                stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
               } else {
                 LOGGER.trace("Module " + openModule + " requests abort of closing process");
                 isClosing = false;
