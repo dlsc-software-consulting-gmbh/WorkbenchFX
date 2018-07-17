@@ -6,11 +6,17 @@ import javafx.stage.Stage
 import javafx.util.Callback
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
+import spock.lang.Shared
 
 class SelectionStripSpec extends ApplicationSpec {
 
     private SelectionStrip<WorkbenchModule> selectionStrip
     private FxRobot robot
+
+    @Shared
+    private WorkbenchModule workbenchModule = Mock()
+    @Shared
+    private WorkbenchModule workbenchModule2 = Mock()
 
     @Override
     void start(Stage stage) throws Exception {
@@ -54,81 +60,46 @@ class SelectionStripSpec extends ApplicationSpec {
         selectionStrip.getCellFactory() instanceof Callback<SelectionStrip, StripCell<WorkbenchModule>>
     }
 
-    def "tests if setting an item sets them active the correct way"() {
-        given: "WorkbenchModule-mocks as items"
-        WorkbenchModule workbenchModule = Mock()
-        WorkbenchModule workbenchModule2 = Mock()
-        int size = selectionStrip.getItems().size()
-
-        when: "adding null as parameter"
+    def "tests behaviour of adding a module and setting it selected"(WorkbenchModule module, WorkbenchModule selectedModule, int listSize) {
+        given:
         robot.interact {
-            selectionStrip.getItems().add(null)
+            selectionStrip.getItems().add(module)
         }
 
-        then: "the active module is null and the size of the list is 0"
+        expect:
         robot.interact {
-            Objects.isNull(selectionStrip.getSelectedItem())
-            size == selectionStrip.getItems().size()
+            selectedModule == selectionStrip.getSelectedItem()
+            listSize == selectionStrip.getItems().size()
         }
 
-        when: "adding a module"
-        robot.interact {
-            selectionStrip.getItems().add(workbenchModule)
-        }
-
-        then: "the active module is the one hand over"
-        robot.interact {
-            workbenchModule == selectionStrip.getSelectedItem()
-            size == selectionStrip.getItems().size()
-        }
-
-        when: "setting another Module"
-        robot.interact {
-            selectionStrip.getItems().add(workbenchModule2)
-        }
-
-        then: "the active module should change to the second one"
-        robot.interact {
-            workbenchModule == selectionStrip.getSelectedItem()
-            size + 1 == selectionStrip.getItems().size()
-        }
-
-        when: "setting the second module again"
-        robot.interact {
-            selectionStrip.getItems().add(workbenchModule2)
-        }
-
-        then: "it will be added and the active module should change to the second one"
-        robot.interact {
-            workbenchModule2 == selectionStrip.getSelectedItem()
-            size + 2 == selectionStrip.getItems().size()
-        }
+        where:
+        module          || selectedModule  | listSize
+        null            || null            | 0
+        workbenchModule || workbenchModule | 1
     }
 
-    def "bla"() {
-        given: ""
-        WorkbenchModule workbenchModule = Mock()
-        WorkbenchModule workbenchModule2 = Mock()
+    @Shared
+    SelectionStrip<WorkbenchModule> selectionStripShared
 
-        when: ""
-        boolean areSame = workbenchModule.equals(workbenchModule2)
+    def "tests behaviour of adding multiple modules and setting them selected"(WorkbenchModule module, WorkbenchModule selectedModule, int listSize) {
+        given:
+        robot.interact {
+            selectionStripShared = new SelectionStrip<>()
+            selectionStripShared.getItems().add(module)
+        }
 
-        then: ""
-        1 * workbenchModule.equals(_) >> true
-        areSame
-    }
+        expect:
+        robot.interact {
+            selectedModule == selectionStrip.getSelectedItem()
+            listSize == selectionStrip.getItems().size()
+        }
 
-    def "bla2"() {
-        given: ""
-        SelectionStrip<WorkbenchModule> selectionStrip = Mock()
-        WorkbenchModule workbenchModule = Mock()
-
-        when: ""
-        WorkbenchModule module = selectionStrip.getSelectedItem()
-
-        then: ""
-        1 * selectionStrip.getSelectedItem() >> workbenchModule
-        workbenchModule == module
+        where:
+        module           || selectedModule   | listSize
+        null             || null             | 0
+        workbenchModule  || workbenchModule  | 1
+        workbenchModule2 || workbenchModule2 | 2
+        workbenchModule2 || workbenchModule2 | 3
     }
 
     /*
