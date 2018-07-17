@@ -357,6 +357,7 @@ public class Workbench extends Control {
     } else {
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
+      modulesPendingClose.remove(moduleCloseable); // remove from map if present
       LOGGER.trace("closeModule - Destroy, Removal successful: " + removal + " - " + module);
       if (oldActive != newActive) {
         // only log if the active module has been changed
