@@ -2,7 +2,6 @@ package com.dlsc.workbenchfx.custom;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
-import com.dlsc.workbenchfx.custom.controls.CustomNavigationDrawer;
 import com.dlsc.workbenchfx.custom.controls.CustomPage;
 import com.dlsc.workbenchfx.custom.controls.CustomTab;
 import com.dlsc.workbenchfx.custom.controls.CustomTile;
@@ -141,7 +140,7 @@ public class CustomDemo extends Application {
             .pageFactory(CustomPage::new)
             .tabFactory(CustomTab::new)
             .tileFactory(CustomTile::new)
-            .navigationDrawer(new CustomNavigationDrawer())
+//            .navigationDrawer(new CustomNavigationDrawer())
             .navigationDrawerItems(
                 menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
             .build();

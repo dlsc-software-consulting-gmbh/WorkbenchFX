@@ -13,9 +13,13 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the skin of the corresponding {@link NavigationDrawer}.
@@ -25,6 +29,8 @@ import javafx.scene.layout.VBox;
  * @author Marco Sanfratello
  */
 public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
+
+  private static final Logger LOGGER = LogManager.getLogger(NavigationDrawerSkin.class.getName());
 
   private VBox menuContainer;
   private NavigationDrawer navigationDrawer;
@@ -140,6 +146,18 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     menuButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     menuButton.getStyleClass().addAll(item.getStyleClass());
     Bindings.bindContent(menuButton.getItems(), menu.getItems());
+    menuButton.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+//      double posX = getSkinnable().getScene().getWindow().getX();
+      double posX = menuButton.getLayoutX();
+      double posY = menuButton.getLayoutY();
+//      double posY = getSkinnable().getScene().getWindow().getY();
+      LOGGER.trace("PosX" + posX + " PosY" + posY);
+      menuButton.fireEvent(
+          new MouseEvent(MouseEvent.MOUSE_CLICKED, posX, posY, posX, posY, MouseButton.PRIMARY, 1,
+              false, false, false, false, false, false, false, false, false, false, null));
+//      menuButton.fire();
+      LOGGER.trace("HOVER ON MENUITEM!!!");
+    });
     return menuButton;
   }
 
