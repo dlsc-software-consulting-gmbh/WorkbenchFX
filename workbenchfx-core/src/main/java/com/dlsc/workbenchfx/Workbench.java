@@ -10,6 +10,7 @@ import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
@@ -268,9 +269,14 @@ public class Workbench extends Control {
           isClosing = true; // start the closing process
         }
 
+        // create copy of currently open modules, as the list of open modules changes while calling
+        // Workbench#closeModule() later, this way we avoid iterating through a changing list
+        ObservableList<WorkbenchModule> openModules =
+            FXCollections.observableArrayList(getOpenModules());
+
         // close all modules while preserving those which returned "false" in a map associated with
         // their CompletableFuture object
-        for (WorkbenchModule openModule : getOpenModules()) {
+        for (WorkbenchModule openModule : openModules) {
           CompletableFuture<Boolean> moduleCloseable = new CompletableFuture<>();
           if (!closeModule(openModule, moduleCloseable)) {
             LOGGER.trace("Module " + openModule + " could not be closed yet");
