@@ -374,7 +374,7 @@ public class Workbench extends Control {
    * @return true if closing was successful
    */
   public boolean closeModule(WorkbenchModule module) {
-    closeModule(module, null);
+    return closeModule(module, null);
   }
 
   /**
