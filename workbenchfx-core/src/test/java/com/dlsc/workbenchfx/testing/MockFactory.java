@@ -20,8 +20,13 @@ public class MockFactory {
    * @param toString    what {@link WorkbenchModule#toString()} should return
    * @return the mock
    */
-  public static WorkbenchModule createMockModule(Node displayNode, Node icon,
-                                                 boolean destroy, String toString, Workbench workbench) {
+  public static WorkbenchModule createMockModule(
+      Node displayNode,
+      Node icon,
+      boolean destroy,
+      String toString,
+      Workbench workbench
+  ) {
     WorkbenchModule mockModule = mock(WorkbenchModule.class);
     when(mockModule.getName()).thenReturn(toString);
     when(mockModule.getIcon()).thenReturn(icon);

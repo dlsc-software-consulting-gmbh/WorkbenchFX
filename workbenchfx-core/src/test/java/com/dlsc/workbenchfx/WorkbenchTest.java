@@ -1116,7 +1116,13 @@ class WorkbenchTest extends ApplicationTest {
       ObservableList<WorkbenchModule> modules = workbench.getModules();
       int currentSize = modules.size();
       String mockModuleName = "Mock Module";
-      WorkbenchModule mockModule = createMockModule(new Label(), null, true, mockModuleName, workbench);
+      WorkbenchModule mockModule = createMockModule(
+          new Label(),
+          null,
+          true,
+          mockModuleName,
+          workbench
+      );
 
       assertTrue(workbench.getModules().add(mockModule));
 
