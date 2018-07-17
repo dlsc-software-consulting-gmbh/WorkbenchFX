@@ -270,14 +270,10 @@ public class Workbench extends Control {
           isClosing = true; // start the closing process
         }
 
-        // create copy of currently open modules, as the list of open modules changes while calling
-        // Workbench#closeModule() later, this way we avoid iterating through a changing list
-        ObservableList<WorkbenchModule> openModules =
-            FXCollections.observableArrayList(getOpenModules());
-
-        // close all modules while preserving those which returned "false" in a map associated with
-        // their CompletableFuture object
-        for (WorkbenchModule openModule : openModules) {
+        // close all modules until one returns false, while preserving those which returned "false"
+        // in a map associated with their CompletableFuture object
+        while (!getOpenModules().isEmpty()) {
+          WorkbenchModule openModule = getOpenModules().get(0);
           CompletableFuture<Boolean> moduleCloseable = new CompletableFuture<>();
           if (!closeModule(openModule, moduleCloseable)) {
             LOGGER.trace("Module " + openModule + " could not be closed yet");
@@ -299,6 +295,7 @@ public class Workbench extends Control {
                 stage.close();
               }
             });
+            break; // interrupt closing until the interrupting module has been safely closed
           }
         }
 
