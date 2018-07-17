@@ -113,7 +113,10 @@ public class Workbench extends Control {
   private final ReadOnlyBooleanWrapper dialogShown =
       new ReadOnlyBooleanWrapper(this, "dialogShown", false);
 
+  // Related to Stage closing
   private boolean isClosing = false;
+  private final ObservableMap<CompletableFuture<Boolean>, Module> modulesPendingClose =
+      FXCollections.observableHashMap();
 
   Workbench(WorkbenchBuilder builder) {
     setModulesPerPage(builder.modulesPerPage);
@@ -262,6 +265,7 @@ public class Workbench extends Control {
         } else {
           LOGGER.trace("Stage was requested to be closed - Process has not started yet");
           event.consume(); // we need to perform some cleanup actions first
+          isClosing = true; // start the closing process
         }
 
         // must be implemented by using "while" since the list of getOpenModules changes when
