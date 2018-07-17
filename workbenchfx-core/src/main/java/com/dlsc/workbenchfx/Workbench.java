@@ -115,7 +115,7 @@ public class Workbench extends Control {
 
   // Related to Stage closing
   private boolean isClosing = false;
-  private final ObservableMap<CompletableFuture<Boolean>, Module> modulesPendingClose =
+  private final ObservableMap<CompletableFuture<Boolean>, WorkbenchModule> modulesPendingClose =
       FXCollections.observableHashMap();
 
   Workbench(WorkbenchBuilder builder) {
