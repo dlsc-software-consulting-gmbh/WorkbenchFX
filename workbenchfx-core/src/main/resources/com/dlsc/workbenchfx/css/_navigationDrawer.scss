@@ -22,7 +22,7 @@
 
   & .drawer-box {
     & .header {
-      -fx-background-color: -surface-color;
+      //-fx-background-color: -surface-color;
       -fx-effect: -shadow;
       -fx-min-height: $pref-size * 2;
       -fx-padding: .35em;
@@ -55,6 +55,7 @@
         }
       }
     }
+
     & .pretty-scroll-pane {
       -fx-background-color: transparent;
 
@@ -64,8 +65,8 @@
         & .menu-container {
           -fx-padding: 1.5em 1em 1.5em 1em;
 
-          // Defines all items, cause the drawer accepts only menu-items
           & .menu-item {
+            // styles for all items
             -fx-graphic-text-gap: 1.5em;
 
             -fx-pref-height: $pref-size;
@@ -74,18 +75,34 @@
             -fx-padding: 0 1em 0 1em;
             -fx-alignment: left !important;
 
-            //standard button
+            &:focused {
+              -fx-background-color: transparent;
+            }
+
+            &:hover {
+              -fx-cursor: hand;
+            }
+          }
+
+          & .button {
+            // styles only for buttons
             & .glyph-icon {
-              -fx-font-size: 1.25em !important;
+              -fx-font-size: 1.25em;
               -fx-fill: -on-surface-color;
             }
+
             & .text {
               -fx-fill: -on-surface-color;
             }
 
-            //menu-button
-            & .label {
+            &:pressed {
+              -fx-background-color: rgba(0, 0, 0, .2);
+            }
+          }
 
+          & .menu-button {
+            // styles only for menus
+            & .label {
               & .glyph-icon {
                 -fx-font-size: 1.25em !important;
                 -fx-fill: -on-surface-color;
@@ -106,19 +123,10 @@
                 -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z";
               }
             }
-
-            &:focused {
+            &:showing {
               -fx-background-color: -primary-color;
+              -fx-cursor: inherit;
 
-              //standard button
-              & .glyph-icon {
-                -fx-fill: -on-primary-color;
-              }
-              & .text {
-                -fx-fill: -on-primary-color;
-              }
-
-              //menu-button
               & .label {
                 & .glyph-icon {
                   -fx-fill: -on-primary-color;
@@ -130,54 +138,46 @@
               & .arrow-button .arrow {
                 -fx-background-color: -on-primary-color;
               }
-              &:hover {
-                -fx-cursor: inherit !important;
-              }
-            }
-
-            &:hover {
-              -fx-cursor: hand !important;
             }
           }
         }
       }
-
-      .scroll-bar {
-        $size: 12;
-        $scroll-pane-padding: 2;
-
-        %zero-size {
-          -fx-pref-width: 0 !important;
-          -fx-pref-height: 0 !important;
-        }
-
-        -fx-pref-width: $size;
-        -fx-pref-height: $size;
-        -fx-padding: $scroll-pane-padding;
-        -fx-background-color: transparent;
-
-        .thumb {
-          -fx-background-color: rgba(0, 0, 0, .2);
-          -fx-background-radius: 999;
-          -fx-pref-width: $size;
-          -fx-pref-height: $size;
-        }
-
-        .increment-button,
-        .increment-arrow,
-        .decrement-button,
-        .decrement-arrow {
-          @extend %zero-size;
-        }
-
-        &:vertical .thumb {
-          -fx-background-insets: 0 $scroll-pane-padding 0 0;
-        }
-        &:horizontal .thumb {
-          -fx-background-insets: 0 0 $scroll-pane-padding 0;
-        }
-      }
     }
   }
+}
 
+.scroll-bar {
+  $size: 12;
+  $scroll-pane-padding: 2;
+
+  %zero-size {
+    -fx-pref-width: 0 !important;
+    -fx-pref-height: 0 !important;
+  }
+
+  -fx-pref-width: $size;
+  -fx-pref-height: $size;
+  -fx-padding: $scroll-pane-padding;
+  -fx-background-color: transparent;
+
+  .thumb {
+    -fx-background-color: rgba(0, 0, 0, .2);
+    -fx-background-radius: 999;
+    -fx-pref-width: $size;
+    -fx-pref-height: $size;
+  }
+
+  .increment-button,
+  .increment-arrow,
+  .decrement-button,
+  .decrement-arrow {
+    @extend %zero-size;
+  }
+
+  &:vertical .thumb {
+    -fx-background-insets: 0 $scroll-pane-padding 0 0;
+  }
+  &:horizontal .thumb {
+    -fx-background-insets: 0 0 $scroll-pane-padding 0;
+  }
 }

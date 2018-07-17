@@ -13,7 +13,6 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -136,6 +135,8 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     }
   }
 
+  private MenuButton hoveredBtn;
+
   private MenuButton buildSubmenu(MenuItem item) {
     Menu menu = (Menu) item;
     MenuButton menuButton = new MenuButton();
@@ -146,17 +147,13 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     menuButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     menuButton.getStyleClass().addAll(item.getStyleClass());
     Bindings.bindContent(menuButton.getItems(), menu.getItems());
-    menuButton.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-//      double posX = getSkinnable().getScene().getWindow().getX();
-      double posX = menuButton.getLayoutX();
-      double posY = menuButton.getLayoutY();
-//      double posY = getSkinnable().getScene().getWindow().getY();
-      LOGGER.trace("PosX" + posX + " PosY" + posY);
-      menuButton.fireEvent(
-          new MouseEvent(MouseEvent.MOUSE_CLICKED, posX, posY, posX, posY, MouseButton.PRIMARY, 1,
-              false, false, false, false, false, false, false, false, false, false, null));
+    menuButton.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Menu
 //      menuButton.fire();
-      LOGGER.trace("HOVER ON MENUITEM!!!");
+      menuButton.show(); // Shows the context-menu
+      if (hoveredBtn != null && hoveredBtn != menuButton) {
+        hoveredBtn.hide(); // Hides the previously hovered Button if not null and not itself
+      }
+      hoveredBtn = menuButton; // Add the button as previously hovered
     });
     return menuButton;
   }
@@ -169,6 +166,12 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     button.getStyleClass().addAll(item.getStyleClass());
     button.setOnAction(item.getOnAction());
+    button.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Button
+      if (hoveredBtn != null) {
+        hoveredBtn.hide(); // Hides the previously hovered Button if not null
+      }
+      hoveredBtn = null; // Sets it to null
+    });
     return button;
   }
 }

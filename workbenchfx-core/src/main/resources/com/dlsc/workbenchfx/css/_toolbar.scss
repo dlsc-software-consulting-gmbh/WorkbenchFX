@@ -67,11 +67,10 @@
       &:hover {
         -fx-cursor: hand;
       }
-      &:focused {
+
+      &:showing {
         -fx-background-color: -primary-variant-color;
-        &:hover {
-          -fx-cursor: inherit !important;
-        }
+        -fx-cursor: inherit !important;
       }
     }
   }
