@@ -662,6 +662,9 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(last).activate();
       // Call: workbench.closeModule(second)
       inOrder.verify(second).destroy();
+      inOrder.verify(last).getWorkbench();
+      inOrder.verify(last).getName();
+      inOrder.verify(last).getIcon();
       inOrder.verifyNoMoreInteractions();
     });
   }
