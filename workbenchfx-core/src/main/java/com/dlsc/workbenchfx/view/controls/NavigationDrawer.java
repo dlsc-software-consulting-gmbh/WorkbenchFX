@@ -22,6 +22,10 @@ import javafx.scene.control.Skin;
 public class NavigationDrawer extends Control {
 
   private ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>();
+  /**
+   * Defines the showing behaviour of the {@link MenuItem}s when hovering over them.
+   * The default value is set in the constructor to SOMETIMES.
+   */
   private ObjectProperty<Behaviour> hoverOnItems = new SimpleObjectProperty<>();
 
   /**
@@ -76,7 +80,18 @@ public class NavigationDrawer extends Control {
     return workbench;
   }
 
+  /**
+   * Defines the showing behaviour of the {@link MenuItem}s when hovering over them.
+   * The default value is set in the constructor to SOMETIMES.
+   *
+   * ALWAYS:    Triggers whenever the mouse hovers over a {@link MenuItem}
+   * SOMETIMES: Requires one initial click on a {@link MenuItem} to open.
+   *            After that, hovering over other Items shows their submenus automatically
+   * NEVER:     No hover behaviour on the {@link MenuItem}s
+   */
   public enum Behaviour {
-    ALWAYS, SOMETIMES, NEVER
+    ALWAYS,
+    SOMETIMES,
+    NEVER
   }
 }
