@@ -323,6 +323,9 @@ public class Workbench extends Control {
    */
   private boolean closeModule(WorkbenchModule module, CompletableFuture<Boolean> moduleCloseable) {
     LOGGER.trace("closeModule - " + module);
+    if (!Objects.isNull(moduleCloseable)) {
+      LOGGER.trace("Module is being closed by the stage");
+    }
     LOGGER.trace("closeModule - List of open modules: " + openModules);
     Objects.requireNonNull(module);
     int i = openModules.indexOf(module);
