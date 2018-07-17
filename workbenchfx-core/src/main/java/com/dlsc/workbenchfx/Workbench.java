@@ -268,20 +268,19 @@ public class Workbench extends Control {
           isClosing = true; // start the closing process
         }
 
-        // must be implemented by using "while" since the list of getOpenModules changes when
-        // modules are closed!
-        while (getOpenModules().size() > 0) {
-          WorkbenchModule moduleToClose = getOpenModules().get(0);
-          LOGGER.trace("Cleanup - Close module: " + moduleToClose);
-          if (!closeModule(moduleToClose)) {
-            LOGGER.debug(
-                String.format("Module %s prevented closing of the application", moduleToClose)
-            );
-            // module can't be destroyed yet - prevent closing of the application
-            event.consume();
-            // stop the closing of modules to proceed
-            break;
+        // close all modules while preserving those which returned "false" in a map associated with
+        // their CompletableFuture object
+        for (WorkbenchModule openModule : getOpenModules()) {
+          CompletableFuture<Boolean> moduleCloseable = new CompletableFuture<>();
+          if (!closeModule(openModule, moduleCloseable)) {
+            LOGGER.trace("Module " + openModule + " could not be closed yet");
+            modulesPendingClose.put(moduleCloseable, openModule);
           }
+        }
+
+        if (modulesPendingClose.size() == 0) {
+          LOGGER.trace("All modules could be closed successfully, closing stage");
+          stage.close();
         }
       });
     });
