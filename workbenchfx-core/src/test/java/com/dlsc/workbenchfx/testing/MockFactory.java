@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.testing;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -25,7 +26,7 @@ public class MockFactory {
     when(mockModule.getName()).thenReturn(toString);
     when(mockModule.getIcon()).thenReturn(icon);
     when(mockModule.activate()).thenReturn(displayNode);
-    when(mockModule.destroy()).thenReturn(destroy);
+    when(mockModule.destroy(any())).thenReturn(destroy);
     when(mockModule.toString()).thenReturn(toString);
     return mockModule;
   }
