@@ -4,6 +4,7 @@ import com.dlsc.workbenchfx.Workbench;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -91,6 +92,7 @@ public abstract class WorkbenchModule {
   /**
    * Gets called when this module is explicitly being closed by the user in the toolbar.
    *
+   * @param stageCloseable TODO
    * @return true if successful
    * @implNote Assuming Module 1 and Module 2, with both being already initialized and Module 2
    *           being the currently active and displayed module.
@@ -101,7 +103,7 @@ public abstract class WorkbenchModule {
    *           module is being closed in its deactivated state, by calling:
    *           {@code getWorkbench().openModule(this)} before opening the dialog.
    */
-  public boolean destroy() {
+  public boolean destroy(CompletableFuture<Boolean> stageCloseable) {
     return true;
   }
 
