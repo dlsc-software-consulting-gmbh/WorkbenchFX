@@ -115,7 +115,7 @@ class WorkbenchTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = createMockModule(moduleNodes[i], null, true, "Module " + i);
+      mockModules[i] = createMockModule(moduleNodes[i], null, true, "Module " + i, workbench);
     }
 
     FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
@@ -162,8 +162,11 @@ class WorkbenchTest extends ApplicationTest {
         .build();
 
     first = mockModules[FIRST_INDEX];
+    when(first.getWorkbench()).thenReturn(workbench);
     second = mockModules[SECOND_INDEX];
+    when(second.getWorkbench()).thenReturn(workbench);
     last = mockModules[LAST_INDEX];
+    when(last.getWorkbench()).thenReturn(workbench);
 
     overlays = workbench.getOverlays();
     blockingOverlaysShown = workbench.getBlockingOverlaysShown();
@@ -1103,7 +1106,7 @@ class WorkbenchTest extends ApplicationTest {
       ObservableList<WorkbenchModule> modules = workbench.getModules();
       int currentSize = modules.size();
       String mockModuleName = "Mock Module";
-      WorkbenchModule mockModule = createMockModule(new Label(), null, true, mockModuleName);
+      WorkbenchModule mockModule = createMockModule(new Label(), null, true, mockModuleName, workbench);
 
       assertTrue(workbench.getModules().add(mockModule));
 
