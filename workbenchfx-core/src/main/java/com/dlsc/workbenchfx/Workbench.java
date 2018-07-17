@@ -259,7 +259,7 @@ public class Workbench extends Control {
       // when application is closed, destroy all modules
       stage.setOnCloseRequest(event -> {
         LOGGER.trace("Stage was requested to be closed - Check if closing process is ongoing");
-        if (isClosing && modulesPendingClose.size() == 0) {
+        if (isClosing && modulesPendingClose.isEmpty()) {
           LOGGER.trace("Stage was requested to be closed - Process is ongoing, closing stage");
           return; // let the stage close
         } else {
@@ -275,10 +275,25 @@ public class Workbench extends Control {
           if (!closeModule(openModule, moduleCloseable)) {
             LOGGER.trace("Module " + openModule + " could not be closed yet");
             modulesPendingClose.put(moduleCloseable, openModule);
+            moduleCloseable.thenAccept(closeable -> {
+              if (closeable) {
+                LOGGER.trace("Module " + openModule + " can now be safely closed");
+                closeModule(openModule, moduleCloseable);
+              } else {
+                LOGGER.trace("Module " + openModule + " requests abort of closing process");
+                isClosing = false;
+                modulesPendingClose.clear();
+                return; // abort process
+              }
+              if (modulesPendingClose.isEmpty()) {
+                // if this was the last module that had to be closed, the stage can now be closed
+                stage.close();
+              }
+            });
           }
         }
 
-        if (modulesPendingClose.size() == 0) {
+        if (isClosing && modulesPendingClose.isEmpty()) {
           LOGGER.trace("All modules could be closed successfully, closing stage");
           stage.close();
         }
