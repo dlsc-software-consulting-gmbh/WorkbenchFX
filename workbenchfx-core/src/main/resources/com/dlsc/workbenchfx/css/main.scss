@@ -54,16 +54,11 @@ $darken-percentage: -10%;
 $radius: 5px;
 
 @import "fonts";
-//@import "includes";
 @import "workbench";
 @import "addModulePage";
 @import "toolbar";
 @import "glassPane";
 @import "navigationDrawer";
 @import "dialog";
-//@import "contentView";
-//@import "tabBar";
-//@import "module";
-//@import "dropdown";
-//@import "prettyScrollPane";
-//@import "activeTools";
+@import "contextmenu";
+

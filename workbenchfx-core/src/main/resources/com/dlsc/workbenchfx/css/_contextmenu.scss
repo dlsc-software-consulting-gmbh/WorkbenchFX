@@ -1,0 +1,36 @@
+.context-menu:show-mnemonics > .mnemonic-underline {
+  -fx-stroke: red !important;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * PopupMenu                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+.context-menu {
+  -fx-background-color: linear-gradient(to bottom,
+      derive(green, -17%),
+      derive(yellow, -30%)
+  ),
+  blue !important;
+  -fx-background-insets: 0, 1 !important;
+  -fx-padding: 0.333333em 0.083333em 0.333333em 0.083333em !important; /* 4 1 8 1 */
+  -fx-effect: dropshadow(gaussian, rgba(255, 0, 255, 0.2), 12, 0.0, 0, 8) !important;
+}
+
+.context-menu .separator:horizontal .line {
+  -fx-border-color: rosybrown transparent transparent transparent !important;
+  -fx-border-insets: 1 0 0 0 !important;
+}
+
+.context-menu > .scroll-arrow {
+  -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em !important; /* 5 */
+  -fx-background-color: transparent !important;
+}
+
+.context-menu > .scroll-arrow:hover {
+  -fx-background: -fx-selection-bar !important;
+  -fx-background-color: -fx-background !important;
+  -fx-text-fill: -fx-text-background-color !important;
+}
+
