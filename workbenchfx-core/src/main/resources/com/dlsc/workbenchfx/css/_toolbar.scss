@@ -214,6 +214,9 @@
         -fx-max-height: 1.125em;
         -fx-shape: "M11 0H9V9H0V11H9V20H11V11H20V9H11V0Z";
       }
+      &:pressed {
+        -fx-background-radius: $radius $radius 0 0;
+      }
     }
 
     & .active-add-button {
