@@ -12,9 +12,10 @@
             & .tile-control {
               -fx-graphic-text-gap: .5em;
               -fx-padding: 2em;
-
-              -fx-min-width: 12em;
-              -fx-min-height: 7.5em;
+              -fx-pref-width: 14em;
+              -fx-pref-height: 7.875em; //factor 1.778
+              //-fx-pref-width: 16em;
+              //-fx-pref-height: 9em;
               -fx-background-color: -surface-color;
               -fx-effect: -drop-shadow-1;
               -fx-border-width: 0;

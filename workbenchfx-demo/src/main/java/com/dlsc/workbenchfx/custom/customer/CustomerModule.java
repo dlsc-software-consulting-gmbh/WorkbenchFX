@@ -7,7 +7,7 @@ import javafx.scene.Node;
 public class CustomerModule extends WorkbenchModule {
 
   public CustomerModule() {
-    super("Customer Management", FontAwesomeIcon.USERS);
+    super("Customer Management Customer ManagementCustomer ManagementCustomer ManagementCustomer Management", FontAwesomeIcon.USERS);
   }
 
   @Override
