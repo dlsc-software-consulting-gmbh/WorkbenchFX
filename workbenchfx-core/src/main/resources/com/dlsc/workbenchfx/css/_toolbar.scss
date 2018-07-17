@@ -27,7 +27,7 @@
   }
 
   & #top-box {
-    -fx-pref-height: $pref-size;
+    -fx-max-height: $pref-size;
     -fx-padding: .35em;
 
     & #toolbar-control-right-box,

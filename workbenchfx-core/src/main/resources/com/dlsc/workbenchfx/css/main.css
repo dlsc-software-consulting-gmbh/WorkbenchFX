@@ -113,7 +113,7 @@
     #toolbar .button:pressed {
       -fx-background-color: -primary-variant-color; }
   #toolbar #top-box {
-    -fx-pref-height: 3em;
+    -fx-max-height: 3em;
     -fx-padding: .35em; }
     #toolbar #top-box #toolbar-control-right-box, #toolbar #top-box #toolbar-control-left-box {
       -fx-spacing: .25em; }
