@@ -310,12 +310,18 @@ public class Workbench extends Control {
   }
 
   /**
+   * Internal method, which gets called during the closing process of the stage to handle modules
+   * that return "false" during {@link WorkbenchModule#destroy(CompletableFuture)} and also by
+   * {@link #closeModule(WorkbenchModule)} with {@code moduleCloseable} as  {@code null}.
    * Closes the {@code module}.
    *
+   * @param moduleCloseable which indicates if a module can or cannot be closed during the stage
+   *                        closing process or null, if the module is not being closed by the stage
+   *                        TODO
    * @param module to be closed
    * @return true if closing was successful
    */
-  public boolean closeModule(WorkbenchModule module) {
+  private boolean closeModule(WorkbenchModule module, CompletableFuture<Boolean> moduleCloseable) {
     LOGGER.trace("closeModule - " + module);
     LOGGER.trace("closeModule - List of open modules: " + openModules);
     Objects.requireNonNull(module);
@@ -342,7 +348,7 @@ public class Workbench extends Control {
       LOGGER.trace("closeModule - Next active: Previous Module - " + newActive);
     }
     // attempt to destroy module
-    if (!module.destroy()) {
+    if (!module.destroy(moduleCloseable)) {
       // module should or could not be destroyed
       LOGGER.trace("closeModule - Destroy: Fail - " + module);
       return false;
@@ -357,6 +363,16 @@ public class Workbench extends Control {
       activeModule.setValue(newActive);
       return removal;
     }
+  }
+
+  /**
+   * Closes the {@code module}.
+   *
+   * @param module to be closed
+   * @return true if closing was successful
+   */
+  public boolean closeModule(WorkbenchModule module) {
+    closeModule(module, null);
   }
 
   /**
