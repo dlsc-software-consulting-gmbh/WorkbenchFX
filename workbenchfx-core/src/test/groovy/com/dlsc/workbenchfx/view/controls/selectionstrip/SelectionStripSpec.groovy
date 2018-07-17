@@ -70,12 +70,26 @@ class SelectionStripSpec extends ApplicationSpec {
         robot.interact {
             selectedModule == selectionStrip.getSelectedItem()
             listSize == selectionStrip.getItems().size()
+            selectedModule == selectionStrip.getProperties().get("scroll.to");
         }
 
         where:
         module          || selectedModule  | listSize
         null            || null            | 0
         workbenchModule || workbenchModule | 1
+    }
+
+    def "tests setting the autoscroll property to false"() {
+        given: "selectionStrip, autoscrolling to false"
+        selectionStrip.setAutoScrolling(false)
+
+        when:
+        robot.interact {
+            selectionStrip.getItems().add(workbenchModule)
+        }
+
+        then:
+        null == selectionStrip.getProperties().get("scroll.to");
     }
 
     @Shared
@@ -92,6 +106,7 @@ class SelectionStripSpec extends ApplicationSpec {
         robot.interact {
             selectedModule == selectionStrip.getSelectedItem()
             listSize == selectionStrip.getItems().size()
+            selectedModule == selectionStrip.getProperties().get("scroll.to");
         }
 
         where:
