@@ -91,12 +91,12 @@ class StripCellSpec extends ApplicationSpec {
 
         when: "old null and new !null"
         robot.interact {
-            stripCell.setSelectionStrip(selectionStrip)
+//            stripCell.setSelectionStrip(selectionStrip)
         }
 
         then: ""
-        1 * selectionStrip.selectedItemProperty()
-        1 * property.addListener(_ as WeakInvalidationListener)
+        0 * selectionStrip.selectedItemProperty()
+        0 * property.addListener(_ as WeakInvalidationListener)
     }
 
     /*
