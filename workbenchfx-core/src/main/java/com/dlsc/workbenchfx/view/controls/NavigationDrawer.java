@@ -22,12 +22,13 @@ import javafx.scene.control.Skin;
 public class NavigationDrawer extends Control {
 
   private ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>();
+  private ObjectProperty<Behaviour> hoverOnItems = new SimpleObjectProperty<>();
 
   /**
    * Creates a navigation drawer control.
    */
   public NavigationDrawer() {
-
+    setHoverOnItems(Behaviour.SOMETIMES);
   }
 
   public final void hide() {
@@ -37,6 +38,18 @@ public class NavigationDrawer extends Control {
   @Override
   protected Skin<?> createDefaultSkin() {
     return new NavigationDrawerSkin(this);
+  }
+
+  public Behaviour getHoverOnItems() {
+    return hoverOnItems.get();
+  }
+
+  public ObjectProperty<Behaviour> hoverOnItemsProperty() {
+    return hoverOnItems;
+  }
+
+  public void setHoverOnItems(Behaviour hoverOnItems) {
+    this.hoverOnItems.set(hoverOnItems);
   }
 
   public final ObservableList<MenuItem> getItems() {
@@ -61,5 +74,9 @@ public class NavigationDrawer extends Control {
 
   private ObjectProperty<Workbench> workbenchProperty() {
     return workbench;
+  }
+
+  public enum Behaviour {
+    ALWAYS, SOMETIMES, NEVER
   }
 }
