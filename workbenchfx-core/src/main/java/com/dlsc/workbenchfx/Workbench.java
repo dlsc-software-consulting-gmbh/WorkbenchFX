@@ -261,7 +261,7 @@ public class Workbench extends Control {
       // when application is closed, destroy all modules
       stage.setOnCloseRequest(event -> {
         LOGGER.trace("Stage was requested to be closed - Check if closing process is ongoing");
-        if (isClosing && getOpenModules().isEmpty()) {
+        if (isClosing && getOpenModules().isEmpty()) { // TODO: potentially same as below?
           LOGGER.trace("Stage was requested to be closed - Process is ongoing, closing stage");
           return; // let the stage close
         } else {
