@@ -113,6 +113,8 @@ public class Workbench extends Control {
   private final ReadOnlyBooleanWrapper dialogShown =
       new ReadOnlyBooleanWrapper(this, "dialogShown", false);
 
+  private boolean isClosing = false;
+
   Workbench(WorkbenchBuilder builder) {
     setModulesPerPage(builder.modulesPerPage);
     initBindings();
@@ -253,7 +255,14 @@ public class Workbench extends Control {
       Stage stage = (Stage) getScene().getWindow();
       // when application is closed, destroy all modules
       stage.setOnCloseRequest(event -> {
-        LOGGER.trace("Stage was requested to be closed - Close all open modules first");
+        LOGGER.trace("Stage was requested to be closed - Check if closing process is ongoing");
+        if (isClosing) {
+          LOGGER.trace("Stage was requested to be closed - Process is ongoing, closing stage");
+          return; // let the stage close
+        } else {
+          LOGGER.trace("Stage was requested to be closed - Process has not started yet");
+          event.consume(); // we need to perform some cleanup actions first
+        }
 
         // must be implemented by using "while" since the list of getOpenModules changes when
         // modules are closed!
