@@ -73,7 +73,7 @@
             -fx-border-radius: $radius;
             -fx-background-radius: $radius;
             -fx-padding: 0 1em 0 1em;
-            -fx-alignment: left !important;
+            -fx-alignment: CENTER_LEFT !important;
 
             &:focused {
               -fx-background-color: transparent;
