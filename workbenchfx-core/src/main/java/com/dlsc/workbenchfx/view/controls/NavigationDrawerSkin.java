@@ -148,7 +148,6 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     menuButton.getStyleClass().addAll(item.getStyleClass());
     Bindings.bindContent(menuButton.getItems(), menu.getItems());
     menuButton.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Menu
-//      menuButton.fire();
       menuButton.show(); // Shows the context-menu
       if (hoveredBtn != null && hoveredBtn != menuButton) {
         hoveredBtn.hide(); // Hides the previously hovered Button if not null and not itself
