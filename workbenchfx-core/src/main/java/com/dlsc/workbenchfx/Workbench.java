@@ -244,6 +244,7 @@ public class Workbench extends Control {
           // module has not been loaded yet
           LOGGER.trace("Active Module Listener - Initializing module - " + newModule);
           newModule.init(this);
+          newModule.getModuleCloseable().thenRun(() -> closeModule(newModule));
           openModules.add(newModule);
         }
         LOGGER.trace("Active Module Listener - Activating module - " + newModule);
@@ -376,9 +377,10 @@ public class Workbench extends Control {
       newActive = openModules.get(i - 1);
       LOGGER.trace("closeModule - Next active: Previous Module - " + newActive);
     }
-    // attempt to destroy module, or suceed anyways if the module has been closed successfully
-    // during the stage closing process
-    if (module.destroy(moduleCloseable) || moduleCloseable.getNow(false)) {
+    // if module has previously been closed and can now safely be closed, calling destroy() is not
+    // necessary anymore, simply remove the module from the list
+    // if this module is being closed the first time, attempt to destroy module
+    if (moduleCloseable.getNow(false) || module.destroy(moduleCloseable)) {
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
       modulesPendingClose.remove(moduleCloseable); // remove from map if present

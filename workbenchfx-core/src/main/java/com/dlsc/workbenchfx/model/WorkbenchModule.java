@@ -21,6 +21,7 @@ public abstract class WorkbenchModule {
   private String name;
   private FontAwesomeIcon faIcon;
   private Image imgIcon;
+  private CompletableFuture<Boolean> moduleCloseable = new CompletableFuture<>();
 
   /**
    * Super constructor to be called by the implementing class.
@@ -44,28 +45,17 @@ public abstract class WorkbenchModule {
     this.imgIcon = icon;
   }
 
-  /**
-   * Returns the name of this module.
-   */
-  public String getName() {
-    return Objects.isNull(name) ? "" : name;
-  }
-
-  /**
-   * Returns the icon of this module as a {@link Node}.
-   */
-  public Node getIcon() {
-    return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
-  }
-
   // Lifecycle
   /**
    * Gets called when the module is being opened from the overview for the first time.
    *
    * @param workbench the calling workbench object
+   * @implSpec the implementor of this method <b>must</b> call {@code super(Workbench)} to ensure
+   *           correct working order.
    */
   public void init(Workbench workbench) {
     this.workbench = workbench;
+    moduleCloseable = new CompletableFuture<>(); // reset in case module was destroyed before
   }
 
   /**
@@ -92,7 +82,6 @@ public abstract class WorkbenchModule {
   /**
    * Gets called when this module is explicitly being closed by the user in the toolbar.
    *
-   * @param stageCloseable TODO
    * @return true if successful
    * @implNote Assuming Module 1 and Module 2, with both being already initialized and Module 2
    *           being the currently active and displayed module.
@@ -103,7 +92,7 @@ public abstract class WorkbenchModule {
    *           module is being closed in its deactivated state, by calling:
    *           {@code getWorkbench().openModule(this)} before opening the dialog.
    */
-  public boolean destroy(CompletableFuture<Boolean> stageCloseable) {
+  public boolean destroy() {
     return true;
   }
 
@@ -113,10 +102,12 @@ public abstract class WorkbenchModule {
 
   /**
    * Closes this module.
-   * @return true if closing was successful
+   * @implNote Warning! This will <b>definitely</b> close this module! Any unsaved changes are lost.
+   *           If you need to clean up before closing the module, call {@link #destroy()} before
+   *           calling {@link #close()}.
    */
-  public final boolean close() {
-    return getWorkbench().closeModule(this);
+  public final void close() {
+    getModuleCloseable().complete(true);
   }
 
   /**
@@ -125,5 +116,27 @@ public abstract class WorkbenchModule {
   @Override
   public String toString() {
     return name;
+  }
+
+  /**
+   * Returns the name of this module.
+   */
+  public String getName() {
+    return Objects.isNull(name) ? "" : name;
+  }
+
+  /**
+   * Returns the icon of this module as a {@link Node}.
+   */
+  public Node getIcon() {
+    return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
+  }
+
+  /**
+   * TODO
+   * @return
+   */
+  public CompletableFuture<Boolean> getModuleCloseable() {
+    return moduleCloseable;
   }
 }
