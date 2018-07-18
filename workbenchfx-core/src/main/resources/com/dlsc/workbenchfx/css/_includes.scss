@@ -1,0 +1,86 @@
+%menu-item {
+  //.menu-item {
+  //  &:focused {
+  //    -fx-background-color: orange !important;
+  //    & .label {
+  //      -fx-text-fill: white !important;
+  //    }
+  //  }
+  //  & .label {
+  //    -fx-text-fill: yellow !important;
+  //  }
+  //}
+}
+
+%context-menu {
+  .context-menu {
+    -fx-background-color: -surface-color;
+    -fx-background-radius: $radius;
+    -fx-effect: -drop-shadow-3;
+    -fx-padding: .5em 0 .5em 0;
+
+    & .menu-item {
+      -fx-background-radius: 0;
+      -fx-padding: .75em 1.25em .75em 1.25em;
+
+      & .glyph-icon {
+        -fx-font-size: 1.25em !important;
+        -fx-fill: -on-surface-color;
+      }
+
+      & .label {
+        -fx-padding: 0 2em 0 .25em; // TODO: Find better solution
+
+        & .text {
+          -fx-fill: -on-surface-color;
+        }
+      }
+
+      & .right-container > .arrow {
+        -fx-background-color: -on-surface-color;
+      }
+
+      &:focused {
+        -fx-background-color: rgba(0, 0, 0, .075);
+      }
+    }
+
+    // ArrowMenuItem when having a lot of items
+    & > .scroll-arrow {
+      -fx-padding: 1em;
+
+      &:hover {
+        -fx-background-color: rgba(0, 0, 0, .075);
+      }
+
+      & .menu-up-arrow {
+        -fx-background-color: -on-surface-color;
+        @extend %arrow-shape;
+        -fx-rotate: -90;
+      }
+
+      & .menu-down-arrow {
+        -fx-background-color: -on-surface-color;
+        @extend %arrow-shape;
+        -fx-rotate: 90;
+      }
+    }
+  }
+}
+
+%arrow-shape {
+  -fx-padding: 0;
+  -fx-background-insets: 0;
+
+  $wid: .5em;
+  $hei: $wid * 1.718; //ratio of the arrow to the right
+  -fx-pref-width: $wid;
+  -fx-pref-height: $hei;
+  // Arrow points to the right
+  -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z";
+
+  //-fx-padding: 0.458em 0.167em 0.458em 0.167em; /* 4.5 2 4.5 2 */
+  //-fx-background-color: -fx-mark-color;
+  //-fx-shape: "M0,-4L4,0L0,4Z";
+  //-fx-scale-shape: true;
+}

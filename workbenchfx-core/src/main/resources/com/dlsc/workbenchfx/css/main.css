@@ -48,6 +48,43 @@
   src: url("../fonts/Roboto-Thin.ttf"); }
 @font-face {
   src: url("../fonts/Roboto-ThinItalic.ttf"); }
+#toolbar #top-box .context-menu, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu {
+  -fx-background-color: -surface-color;
+  -fx-background-radius: 5px;
+  -fx-effect: -drop-shadow-3;
+  -fx-padding: .5em 0 .5em 0; }
+  #toolbar #top-box .context-menu .menu-item, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item {
+    -fx-background-radius: 0;
+    -fx-padding: .75em 1.25em .75em 1.25em; }
+    #toolbar #top-box .context-menu .menu-item .glyph-icon, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .glyph-icon {
+      -fx-font-size: 1.25em !important;
+      -fx-fill: -on-surface-color; }
+    #toolbar #top-box .context-menu .menu-item .label, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .label {
+      -fx-padding: 0 2em 0 .25em; }
+      #toolbar #top-box .context-menu .menu-item .label .text, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .label .text {
+        -fx-fill: -on-surface-color; }
+    #toolbar #top-box .context-menu .menu-item .right-container > .arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .right-container > .arrow {
+      -fx-background-color: -on-surface-color; }
+    #toolbar #top-box .context-menu .menu-item:focused, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item:focused {
+      -fx-background-color: rgba(0, 0, 0, 0.075); }
+  #toolbar #top-box .context-menu > .scroll-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow {
+    -fx-padding: 1em; }
+    #toolbar #top-box .context-menu > .scroll-arrow:hover, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow:hover {
+      -fx-background-color: rgba(0, 0, 0, 0.075); }
+    #toolbar #top-box .context-menu > .scroll-arrow .menu-up-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow .menu-up-arrow {
+      -fx-background-color: -on-surface-color;
+      -fx-rotate: -90; }
+    #toolbar #top-box .context-menu > .scroll-arrow .menu-down-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow .menu-down-arrow {
+      -fx-background-color: -on-surface-color;
+      -fx-rotate: 90; }
+
+#toolbar #top-box .context-menu > .scroll-arrow .menu-up-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow .menu-up-arrow, #toolbar #top-box .context-menu > .scroll-arrow .menu-down-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow .menu-down-arrow, #toolbar #bottom-box .selection-strip .scroller, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
+  -fx-padding: 0;
+  -fx-background-insets: 0;
+  -fx-pref-width: 0.5em;
+  -fx-pref-height: 0.859em;
+  -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z"; }
+
 #workbench {
   -fx-background-color: -background-color; }
 
@@ -197,8 +234,7 @@
         -fx-background-color: -on-primary-color;
         -fx-pref-width: 1.2em;
         -fx-pref-height: 3em;
-        -fx-background-insets: 1.1111111111em 0.3296703297em 1.1111111111em 0.4201680672em;
-        -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z"; }
+        -fx-background-insets: 1.1111111111em 0.3296703297em 1.1111111111em 0.4201680672em; }
     #toolbar #bottom-box #add-button {
       -fx-padding: 0;
       -fx-pref-width: 3em; }
@@ -258,7 +294,7 @@
       .navigation-drawer .drawer-box .header .button:hover {
         -fx-cursor: hand; }
       .navigation-drawer .drawer-box .header .button:pressed {
-        -fx-background-color: rgba(0, 0, 0, 0.2); }
+        -fx-background-color: rgba(0, 0, 0, 0.075); }
   .navigation-drawer .drawer-box .pretty-scroll-pane {
     -fx-background-color: transparent; }
     .navigation-drawer .drawer-box .pretty-scroll-pane .viewport {
@@ -282,20 +318,16 @@
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button .text {
           -fx-fill: -on-surface-color; }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button:pressed {
-          -fx-background-color: rgba(0, 0, 0, 0.2); }
+          -fx-background-color: rgba(0, 0, 0, 0.075); }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .label .glyph-icon {
           -fx-font-size: 1.25em !important;
           -fx-fill: -on-surface-color; }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .label .text {
           -fx-fill: -on-surface-color; }
-        .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button {
-          -fx-padding: 0; }
-          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
-            -fx-padding: 0;
-            -fx-background-color: -on-surface-color;
-            -fx-pref-width: 0.25em;
-            -fx-pref-height: 0.4295em;
-            -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z"; }
+        .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
+          -fx-background-color: -on-surface-color;
+          -fx-pref-width: 0.25em;
+          -fx-pref-height: 0.4295em; }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button:showing {
           -fx-background-color: -primary-color;
           -fx-cursor: inherit; }
@@ -318,7 +350,7 @@
     -fx-pref-width: 0 !important;
     -fx-pref-height: 0 !important; }
   .scroll-bar .thumb {
-    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-background-color: rgba(0, 0, 0, 0.075);
     -fx-background-radius: 999;
     -fx-pref-width: 12;
     -fx-pref-height: 12; }
@@ -363,34 +395,5 @@
 
 .error-details-titled-pane {
   -fx-padding: 20 0 0 0; }
-
-.context-menu:show-mnemonics > .mnemonic-underline {
-  -fx-stroke: red !important; }
-
-/*******************************************************************************
- *                                                                             *
- * PopupMenu                                                                   *
- *                                                                             *
- ******************************************************************************/
-.context-menu {
-  -fx-background-color: linear-gradient(to bottom, derive(green, -17%), derive(yellow, -30%)), blue !important;
-  -fx-background-insets: 0, 1 !important;
-  -fx-padding: 0.333333em 0.083333em 0.333333em 0.083333em !important;
-  /* 4 1 8 1 */
-  -fx-effect: dropshadow(gaussian, rgba(255, 0, 255, 0.2), 12, 0, 0, 8) !important; }
-
-.context-menu .separator:horizontal .line {
-  -fx-border-color: rosybrown transparent transparent transparent !important;
-  -fx-border-insets: 1 0 0 0 !important; }
-
-.context-menu > .scroll-arrow {
-  -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em !important;
-  /* 5 */
-  -fx-background-color: transparent !important; }
-
-.context-menu > .scroll-arrow:hover {
-  -fx-background: -fx-selection-bar !important;
-  -fx-background-color: -fx-background !important;
-  -fx-text-fill: -fx-text-background-color !important; }
 
 /*# sourceMappingURL=main.css.map */

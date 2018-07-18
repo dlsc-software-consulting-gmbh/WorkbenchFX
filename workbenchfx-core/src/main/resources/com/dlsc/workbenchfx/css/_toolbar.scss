@@ -73,6 +73,8 @@
         -fx-cursor: inherit !important;
       }
     }
+
+    @extend %context-menu;
   }
 
   & #bottom-box {
@@ -185,10 +187,12 @@
 
       .scroller {
         -fx-background-color: -on-primary-color;
+        @extend %arrow-shape;
+
+        // Increase the click-area of the arrow to maintain a good usability
         -fx-pref-width: $pref-size/2.5;
         -fx-pref-height: $pref-size;
         -fx-background-insets: $pref-size/2.7 $pref-size/9.1 $pref-size/2.7 $pref-size/7.14;
-        -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z";
 
         &.left {
 
