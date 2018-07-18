@@ -89,6 +89,11 @@ public abstract class WorkbenchModule {
    *           and Module 1 will be set as the active module. If false is returned, Module 2 will
    *           not be removed and Module 1 will be set as the new active module, to enable the
    *           user to react to the interrupted closing of the module.
+   * @implSpec To implement an asynchronous, controlled closing of a module, execute the immediate
+   *           action (e.g. open a dialog) and define the asynchronous behavior in advance to call
+   *           {@link #close()} (e.g. define pressing "Yes" on the dialog to call {@link #close()}).
+   *           Then <b>return {@code false}</b>, which prevents this module from immediately getting
+   *           closed and causes this {@link Module} to get opened, so the user can react.
    */
   public boolean destroy() {
     return true;
