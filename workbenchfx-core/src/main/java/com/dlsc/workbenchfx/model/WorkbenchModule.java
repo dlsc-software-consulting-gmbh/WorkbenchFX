@@ -137,10 +137,13 @@ public abstract class WorkbenchModule {
   }
 
   /**
-   * TODO
-   * @return
+   * Returns a {@link CompletableFuture}, which upon completion will cause the module to be closed
+   * and if there was an ongoing stage closing process, it will re-initiate that process.
+   * @implNote This method is not relevant to the implementor and is more useful for internal usage.
+   *           Implementors should use the {@link #destroy()} and {@link #close()} method, to make
+   *           the most out of the implementations around this.
    */
-  public CompletableFuture<Boolean> getModuleCloseable() {
+  public final CompletableFuture<Boolean> getModuleCloseable() {
     return moduleCloseable;
   }
 }
