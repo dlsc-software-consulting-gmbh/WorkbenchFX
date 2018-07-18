@@ -41,7 +41,7 @@ public class InterruptClosingTestModule extends WorkbenchModule {
         stageCloseable.complete(false);
       }
     });
-      return false;
+    return false;
   }
 
 
