@@ -37,11 +37,15 @@ public final class WorkbenchDialog {
   private final StringProperty title = new SimpleStringProperty(this, "title");
   private final StringProperty details = new SimpleStringProperty(this, "details");
 
-  private final BooleanProperty maximized = new SimpleBooleanProperty(this, "maximized");
-  private final BooleanProperty blocking = new SimpleBooleanProperty(false, "blocking");
-  private final BooleanProperty buttonsBarShown = new SimpleBooleanProperty(this, "buttonsBarShown", true);
-  private final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content");
+  private final BooleanProperty maximized =
+      new SimpleBooleanProperty(this, "maximized");
+  private final BooleanProperty blocking =
+      new SimpleBooleanProperty(this, "blocking");
+  private final BooleanProperty buttonsBarShown =
+      new SimpleBooleanProperty(this, "buttonsBarShown");
 
+  private final ObjectProperty<Node> content =
+      new SimpleObjectProperty<>(this, "content");
   private final ObjectProperty<Exception> exception =
       new SimpleObjectProperty<>(this, "exception");
   private final ObjectProperty<Consumer<ButtonType>> onResult =

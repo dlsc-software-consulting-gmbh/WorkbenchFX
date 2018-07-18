@@ -34,14 +34,17 @@ public class DialogControl extends Control {
   private static final Logger LOGGER =
       LogManager.getLogger(DialogControl.class.getName());
 
-  private final BooleanProperty buttonTextUppercase = new SimpleBooleanProperty(this, "buttonTextUppercase", false);
+  private final BooleanProperty buttonTextUppercase =
+      new SimpleBooleanProperty(this, "buttonTextUppercase", false);
 
-  private final ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>(this, "workbench");
-  private final ObjectProperty<WorkbenchDialog> dialog = new SimpleObjectProperty<>(this, "dialog");
+  private final ObjectProperty<Workbench> workbench =
+      new SimpleObjectProperty<>(this, "workbench");
+  private final ObjectProperty<WorkbenchDialog> dialog =
+      new SimpleObjectProperty<>(this, "dialog");
   private final ObjectProperty<EventHandler<Event>> onHidden =
-      new SimpleObjectProperty<EventHandler<Event>>(this, "onHidden");
+      new SimpleObjectProperty<>(this, "onHidden");
   private final ObjectProperty<EventHandler<Event>> onShown =
-      new SimpleObjectProperty<EventHandler<Event>>(this, "onShown");
+      new SimpleObjectProperty<>(this, "onShown");
 
   private final ObservableList<Node> buttons = FXCollections.observableArrayList();
   private final Map<ButtonType, Node> buttonNodes = new WeakHashMap<>();
@@ -167,17 +170,20 @@ public class DialogControl extends Control {
   public final ObjectProperty<EventHandler<Event>> onShownProperty() {
     return onShown;
   }
+
   public final void setOnShown(EventHandler<Event> value) {
     onShown.set(value);
   }
+
   public final EventHandler<Event> getOnShown() {
     return onShown.get();
   }
 
   /**
    * The dialog's action, which is invoked whenever the dialog has been hidden in the scene graph.
-   * An event will be fired whenever {@link #hide()} or {@link Workbench#hideDialog(WorkbenchDialog)} has been
-   * called or the dialog has been closed by clicking on its corresponding {@link GlassPane}.
+   * An event will be fired whenever {@link #hide()} or {@link Workbench#hideDialog(WorkbenchDialog)}
+   * has been called or the dialog has been closed by clicking on its corresponding {@link
+   * GlassPane}.
    *
    * @return the property to represent the event, which is invoked whenever the dialog has been
    * hidden in the scene graph.
@@ -185,9 +191,11 @@ public class DialogControl extends Control {
   public final ObjectProperty<EventHandler<Event>> onHiddenProperty() {
     return onHidden;
   }
+
   public final void setOnHidden(EventHandler<Event> value) {
     onHidden.set(value);
   }
+
   public final EventHandler<Event> getOnHidden() {
     return onHidden.get();
   }
