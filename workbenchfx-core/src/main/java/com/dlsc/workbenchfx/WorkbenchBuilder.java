@@ -111,19 +111,6 @@ public final class WorkbenchBuilder {
   }
 
   /**
-   * Defines which dialog control should be shown.
-   *
-   * @param dialogControl to be shown as the dialog control
-   * @return builder for chaining
-   * @implNote Use this to replace the dialog control, which is displayed when using any of the
-   *           {@link Workbench#showDialog(WorkbenchDialog)} methods, with your own implementation.
-   */
-  public WorkbenchBuilder dialogControl(DialogControl dialogControl) {
-    this.dialogControl = dialogControl;
-    return this;
-  }
-
-  /**
    * Defines the {@link MenuItem}s, which will be rendered using the respective {@code
    * navigationDrawerFactory}.
    *

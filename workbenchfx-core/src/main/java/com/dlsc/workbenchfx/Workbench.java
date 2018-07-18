@@ -56,7 +56,6 @@ public class Workbench extends Control {
 
   // Custom Controls
   private ObjectProperty<NavigationDrawer> navigationDrawer = new SimpleObjectProperty<>();
-  private ObjectProperty<DialogControl> dialogControl = new SimpleObjectProperty<>();
 
   // Lists
   private final ObservableSet<Node> toolbarControlsRight =
@@ -109,10 +108,6 @@ public class Workbench extends Control {
   // Properties
   private final IntegerProperty modulesPerPage = new SimpleIntegerProperty();
   private final IntegerProperty amountOfPages = new SimpleIntegerProperty();
-  private final ReadOnlyObjectWrapper<WorkbenchDialog> dialog =
-      new ReadOnlyObjectWrapper<>(this, "dialog");
-  private final ReadOnlyBooleanWrapper dialogShown =
-      new ReadOnlyBooleanWrapper(this, "dialogShown", false);
 
   Workbench(WorkbenchBuilder builder) {
     setModulesPerPage(builder.modulesPerPage);
@@ -120,7 +115,6 @@ public class Workbench extends Control {
     initFactories(builder);
     initToolbarControls(builder);
     initNavigationDrawer(builder);
-    initDialog(builder);
     initModules(builder);
 
     setupCleanup();
@@ -148,8 +142,6 @@ public class Workbench extends Control {
             this::calculateAmountOfPages, modulesPerPageProperty(), getModules()
         )
     );
-
-    dialogShown.bind(dialogProperty().isNotNull());
   }
 
   @Override
@@ -178,33 +170,6 @@ public class Workbench extends Control {
       }
     });
     setNavigationDrawer(builder.navigationDrawer);
-  }
-
-  private void initDialog(WorkbenchBuilder builder) {
-    // when control of navigation drawer changes, pass in the workbench object
-    dialogControlProperty().addListener((observable, oldControl, newControl) -> {
-      if (!Objects.isNull(newControl)) {
-        newControl.setWorkbench(this);
-      }
-    });
-    setDialogControl(builder.dialogControl);
-
-    // shows or hides the dialog every time the dialogProperty() changes
-    dialogProperty().addListener((observable, oldDialog, newDialog) -> {
-      LOGGER.trace(
-          String.format("DialogProperty Listener - oldDialog: %s, newDialog: %s", oldDialog,
-              newDialog));
-      if (!Objects.isNull(oldDialog) && !Objects.isNull(newDialog)) {
-        LOGGER.trace("DialogProperty Listener - Switching from one dialog to another");
-        hideOverlay(getDialogControl());
-      } else if (!Objects.isNull(newDialog)) {
-        LOGGER.trace("DialogProperty Listener - Showing dialog");
-        showOverlay(getDialogControl(), newDialog.isBlocking());
-      } else {
-        LOGGER.trace("DialogProperty Listener - Hiding dialog");
-        hideOverlay(getDialogControl());
-      }
-    });
   }
 
   private void initModules(WorkbenchBuilder builder) {
@@ -582,22 +547,6 @@ public class Workbench extends Control {
     return showDialog(dialog);
   }
 
-  public final ReadOnlyObjectProperty<WorkbenchDialog> dialogProperty() {
-    return dialog;
-  }
-
-  public final ReadOnlyBooleanProperty dialogShownProperty() {
-    return dialogShown.getReadOnlyProperty();
-  }
-
-  public final boolean isDialogShown() {
-    return dialogShown.get();
-  }
-
-  public final WorkbenchDialog getDialog() {
-    return dialog.get();
-  }
-
   /**
    * Returns a map of all overlays, which have previously been opened, with their corresponding
    * {@link GlassPane}.
@@ -681,18 +630,6 @@ public class Workbench extends Control {
 
   public ObservableList<MenuItem> getNavigationDrawerItems() {
     return navigationDrawerItems;
-  }
-
-  public DialogControl getDialogControl() {
-    return dialogControl.get();
-  }
-
-  public void setDialogControl(DialogControl dialogControl) {
-    this.dialogControl.set(dialogControl);
-  }
-
-  public ObjectProperty<DialogControl> dialogControlProperty() {
-    return dialogControl;
   }
 
   public ObservableSet<Node> getNonBlockingOverlaysShown() {

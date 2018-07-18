@@ -146,8 +146,8 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
           .build();
       getWorkbench().showDialog(dialog);
       // TODO
-      DialogControl dialogControl = getWorkbench().getDialogControl();
-      dialogControl.setOnShown(event1 -> dialogControl.getButtons().get(0).disableProperty().bind(checkBox.selectedProperty().not()));
+      // TODO: DialogControl dialogControl = getWorkbench().getDialogControl();
+      // TODO: dialogControl.setOnShown(event1 -> dialogControl.getButtons().get(0).disableProperty().bind(checkBox.selectedProperty().not()));
     });
   }
 

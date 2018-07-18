@@ -54,7 +54,7 @@ class DialogControlTest extends ApplicationTest {
 
     mockBench = mock(Workbench.class);
     dialogProperty = new SimpleObjectProperty<>(mockDialog);
-    when(mockBench.dialogProperty()).thenReturn(dialogProperty);
+    // TODO: when(mockBench.dialogProperty()).thenReturn(dialogProperty);
 
     dialogControl = new MockDialogControl();
 
