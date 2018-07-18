@@ -136,7 +136,7 @@ public class WorkbenchPresenter extends Presenter {
    * @param glassPane the {@code overlay}'s corresponding {@link GlassPane}
    * @param blocking if false, will make {@code overlay} hide, if its {@code glassPane} was clicked
    */
-  public void showOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
+  private void showOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
     LOGGER.trace("showOverlay - Blocking: " + blocking);
     view.showOverlay(overlay);
 
