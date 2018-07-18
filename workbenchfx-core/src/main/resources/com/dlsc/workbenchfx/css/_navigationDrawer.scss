@@ -102,9 +102,13 @@
 
           & .menu-button {
             // styles only for menus
+            -fx-padding: .5em .25em .5em 1em;
+
             & .label {
+              -fx-padding: 0 2em 0 0;
+
               & .glyph-icon {
-                -fx-font-size: 1.25em !important;
+                -fx-font-size: 1.5em !important;
                 -fx-fill: -on-surface-color;
               }
               & .text {
