@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.concurrent.CompletableFuture;
@@ -30,10 +31,10 @@ public class InterruptClosing2TestModule extends WorkbenchModule {
   @Override
   public boolean destroy(CompletableFuture<Boolean> stageCloseable) {
     System.out.println("DESTROY CALLED ON 2");
-    getWorkbench().openModule(this);
-      CompletableFuture<ButtonType> dialogResult =
-          getWorkbench().showConfirmationDialog("Confirmation 2",
-              "Are you sure you want to close this module without saving?");
+    CompletableFuture<ButtonType> dialogResult =
+        getWorkbench().showDialog(WorkbenchDialog.builder("Confirmation",
+            "Are you sure you want to close this module without saving?",
+            WorkbenchDialog.Type.CONFIRMATION).blocking(true).build());
       dialogResult.thenAccept(buttonType -> {
         if (ButtonType.YES.equals(buttonType)) {
           stageCloseable.complete(true);

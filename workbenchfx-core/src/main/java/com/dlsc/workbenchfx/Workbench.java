@@ -197,9 +197,17 @@ public class Workbench extends Control {
 
     // shows or hides the dialog every time the dialogProperty() changes
     dialogProperty().addListener((observable, oldDialog, newDialog) -> {
-      if (newDialog != null) {
+      LOGGER.trace(
+          String.format("DialogProperty Listener - oldDialog: %s, newDialog: %s", oldDialog,
+              newDialog));
+      if (!Objects.isNull(oldDialog) && !Objects.isNull(newDialog)) {
+        LOGGER.trace("DialogProperty Listener - Switching from one dialog to another");
+        hideOverlay(getDialogControl());
+      } else if (!Objects.isNull(newDialog)) {
+        LOGGER.trace("DialogProperty Listener - Showing dialog");
         showOverlay(getDialogControl(), newDialog.isBlocking());
       } else {
+        LOGGER.trace("DialogProperty Listener - Hiding dialog");
         hideOverlay(getDialogControl());
         if (!oldDialog.getResult().isDone()) {
           LOGGER.debug("Dialog was closed by clicking on the GlassPane (cancel)");
@@ -386,6 +394,7 @@ public class Workbench extends Control {
     } else {
       // module should or could not be destroyed
       LOGGER.trace("closeModule - Destroy: Fail - " + module);
+      openModule(module); // set focus to new module
       return false;
     }
   }
@@ -470,6 +479,7 @@ public class Workbench extends Control {
    * Hides the currently shown {@link WorkbenchDialog} in the view.
    */
   public final void hideDialog() {
+    LOGGER.trace("hideDialog");
     this.dialog.set(null);
   }
 
@@ -486,6 +496,7 @@ public class Workbench extends Control {
    *           {@link Workbench#showDialog(WorkbenchDialog)}.
    */
   public final CompletableFuture<ButtonType> showDialog(WorkbenchDialog dialog) {
+    LOGGER.trace("showDialog");
     this.dialog.set(dialog);
     return dialog.getResult();
   }
