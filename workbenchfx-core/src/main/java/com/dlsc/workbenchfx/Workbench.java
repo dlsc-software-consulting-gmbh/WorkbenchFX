@@ -284,6 +284,7 @@ public class Workbench extends Control {
             LOGGER.trace("Module " + openModule + " could not be closed yet");
             modulesPendingClose.put(moduleCloseable, openModule);
             moduleCloseable.thenAccept(closeable -> {
+              LOGGER.trace("Completed for Module " + openModule + " with: " + closeable);
               if (closeable) {
                 LOGGER.trace("Module " + openModule + " can now be safely closed");
                 closeModule(openModule, moduleCloseable);
@@ -473,11 +474,13 @@ public class Workbench extends Control {
   }
 
   /**
-   * Hides the currently shown {@link WorkbenchDialog} in the view.
+   * Hides the currently shown {@link WorkbenchDialog} in the view. TODO
    */
-  public final void hideDialog() {
+  public final void hideDialog(WorkbenchDialog dialog) {
     LOGGER.trace("hideDialog");
-    this.dialog.set(null);
+    DialogControl dialogControl = dialog.getDialogControl();
+    dialogControl.setWorkbench(null);
+    hideOverlay(dialogControl);
   }
 
   /**
@@ -492,7 +495,9 @@ public class Workbench extends Control {
    *           {@link Workbench#showDialog(WorkbenchDialog)}.
    */
   public final WorkbenchDialog showDialog(WorkbenchDialog dialog) {
-    this.dialog.set(dialog);
+    DialogControl dialogControl = dialog.getDialogControl();
+    dialogControl.setWorkbench(this);
+    showOverlay(dialogControl, dialog.isBlocking());
     return dialog;
   }
 
@@ -655,9 +660,6 @@ public class Workbench extends Control {
    */
   public boolean hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");
-    if (getDialogControl() == overlay) {
-      hideDialog();
-    }
     if (blockingOverlaysShown.contains(overlay)) {
       return blockingOverlaysShown.remove(overlay);
     } else {

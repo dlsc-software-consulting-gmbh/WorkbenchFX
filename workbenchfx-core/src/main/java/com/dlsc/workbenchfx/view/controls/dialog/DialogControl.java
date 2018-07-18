@@ -51,8 +51,6 @@ public class DialogControl extends Control {
     setPickOnBounds(false);
 
     setupChangeListeners();
-
-    bindDialog();
   }
 
   private void setupChangeListeners() {
@@ -72,7 +70,6 @@ public class DialogControl extends Control {
       }
       fireOnShown();
     });
-    workbench.addListener(dialogChangedListener);
     buttonTextUppercase.addListener(dialogChangedListener);
 
     // fire onHidden event, when dialog is hidden
@@ -146,23 +143,8 @@ public class DialogControl extends Control {
     return button;
   }
 
-  /**
-   * Binds {@link Workbench#dialogProperty()} of the workbench to this {@code dialog} property,
-   * so the skin doesn't have to account for a potentially changing workbench.
-   */
-  private void bindDialog() {
-    // add listener for changing workbench
-    workbench.addListener((observable, oldWorkbench, newWorkbench) -> {
-      dialog.unbind();
-      dialog.set(null);
-      if (!Objects.isNull(newWorkbench)) {
-        dialog.bind(newWorkbench.dialogProperty());
-      }
-    });
-  }
-
   public final void hide() {
-    getWorkbench().hideDialog();
+    getWorkbench().hideDialog(getDialog());
   }
 
   // EventHandler
@@ -190,7 +172,7 @@ public class DialogControl extends Control {
 
   /**
    * The dialog's action, which is invoked whenever the dialog has been hidden in the scene graph.
-   * An event will be fired whenever {@link #hide()} or {@link Workbench#hideDialog()} has been
+   * An event will be fired whenever {@link #hide()} or {@link Workbench#hideDialog(WorkbenchDialog)} has been
    * called or the dialog has been closed by clicking on its corresponding {@link GlassPane}.
    *
    * @return the property to represent the event, which is invoked whenever the dialog has been
@@ -214,8 +196,12 @@ public class DialogControl extends Control {
     return dialog.get();
   }
 
-  public ReadOnlyObjectProperty<WorkbenchDialog> dialogProperty() {
+  public ObjectProperty<WorkbenchDialog> dialogProperty() {
     return dialog;
+  }
+
+  public void setDialog(WorkbenchDialog dialog) {
+    this.dialog.set(dialog);
   }
 
   public ObservableList<Node> getButtons() {

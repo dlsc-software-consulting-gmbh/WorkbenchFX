@@ -150,6 +150,7 @@ public class WorkbenchPresenter extends Presenter {
 
           // if the overlay is a dialog
           if (!Objects.isNull(model.getDialog())) {
+            LOGGER.trace("GlassPane was clicked, hiding dialog");
             model.getDialog().getOnResult().accept(ButtonType.CANCEL);
           }
 

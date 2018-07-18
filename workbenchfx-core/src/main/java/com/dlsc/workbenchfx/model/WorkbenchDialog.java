@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent;
 import com.google.common.base.Strings;
 import java.io.PrintWriter;
@@ -18,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -44,6 +46,7 @@ public final class WorkbenchDialog {
   private final ObjectProperty<Exception> exception = new SimpleObjectProperty<>(this, "exception");
   private final BooleanProperty blocking = new SimpleBooleanProperty(false, "blocking");
   private final ObjectProperty<Consumer<ButtonType>> onResult = new SimpleObjectProperty<>(this, "onResult");
+  private final ObjectProperty<DialogControl> dialogControl = new SimpleObjectProperty<>(this, "dialogControl");
 
   public enum Type {
     INPUT,
@@ -132,6 +135,10 @@ public final class WorkbenchDialog {
     if (!Strings.isNullOrEmpty(workbenchDialogBuilder.details)) {
       setDetails(workbenchDialogBuilder.details);
     }
+    setDialogControl(workbenchDialogBuilder.dialogControl);
+
+    // initialize dialog control
+    getDialogControl().setDialog(this);
   }
 
   private void initType(Type type) {
@@ -293,5 +300,19 @@ public final class WorkbenchDialog {
       onResult = buttonType -> {};
     }
     this.onResult.set(onResult);
+  }
+
+  // Dialog Control to be used
+
+  public DialogControl getDialogControl() {
+    return dialogControl.get();
+  }
+
+  public ObjectProperty<DialogControl> dialogControlProperty() {
+    return dialogControl;
+  }
+
+  public void setDialogControl(DialogControl dialogControl) {
+    this.dialogControl.set(dialogControl);
   }
 }
