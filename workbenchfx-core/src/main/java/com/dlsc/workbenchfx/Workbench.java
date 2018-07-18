@@ -323,7 +323,7 @@ public class Workbench extends Control {
    * @param module to be closed
    * @return true if closing was successful
    */
-  private boolean closeModule(WorkbenchModule module) {
+  public boolean closeModule(WorkbenchModule module) {
     LOGGER.trace("closeModule - " + module);
     LOGGER.trace("closeModule - List of open modules: " + openModules);
     Objects.requireNonNull(module);
