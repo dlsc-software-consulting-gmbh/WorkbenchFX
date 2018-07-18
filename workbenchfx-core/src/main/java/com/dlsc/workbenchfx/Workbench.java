@@ -10,11 +10,9 @@ import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -352,9 +350,10 @@ public class Workbench extends Control {
       newActive = openModules.get(i - 1);
       LOGGER.trace("closeModule - Next active: Previous Module - " + newActive);
     }
-    // if module has previously been closed and can now safely be closed, calling destroy() is not
-    // necessary anymore, simply remove the module from the list
-    // if this module is being closed the first time, attempt to destroy module
+    /* If module has previously been closed and can now safely be closed, calling destroy() is not
+    necessary anymore, simply remove the module
+    If this module is being closed the first time or cannot be safely closed yet, attempt to
+    destroy module. */
     if (module.getModuleCloseable().getNow(false) || module.destroy()) {
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
