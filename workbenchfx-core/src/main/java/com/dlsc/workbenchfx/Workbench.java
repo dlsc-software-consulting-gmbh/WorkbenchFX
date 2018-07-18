@@ -469,15 +469,18 @@ public class Workbench extends Control {
   /**
    * Shows an error dialog in the view.
    *
-   * @param title   of the dialog
-   * @param message of the dialog
+   * @param title    of the dialog
+   * @param message  of the dialog
    * @param onResult TODO
-   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
-   *           the result will be {@link ButtonType#CANCEL}.
    * @return the {@link WorkbenchDialog}, which will be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
+   *           result will be {@link ButtonType#CANCEL}.
    */
-  public final WorkbenchDialog showErrorDialog(String title, String message, Consumer<ButtonType> onResult) {
-    WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR).onResult(onResult).build();
+  public final WorkbenchDialog showErrorDialog(String title,
+                                               String message,
+                                               Consumer<ButtonType> onResult) {
+    WorkbenchDialog dialog =
+        WorkbenchDialog.builder(title, message, Type.ERROR).onResult(onResult).build();
     return showDialog(dialog);
   }
 
@@ -487,10 +490,10 @@ public class Workbench extends Control {
    * @param title     of the dialog
    * @param message   of the dialog
    * @param exception of which the stacktrace should be shown
-   * @param onResult TODO
-   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
-   *           the result will be {@link ButtonType#CANCEL}.
+   * @param onResult  TODO
    * @return the {@link WorkbenchDialog}, which will be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
+   *           result will be {@link ButtonType#CANCEL}.
    */
   public final WorkbenchDialog showErrorDialog(
       String title, String message, Exception exception, Consumer<ButtonType> onResult) {
@@ -504,13 +507,13 @@ public class Workbench extends Control {
   /**
    * Shows an error dialog in the view with {@code details} about the error.
    *
-   * @param title   of the dialog
-   * @param message of the dialog
-   * @param details about the error
+   * @param title    of the dialog
+   * @param message  of the dialog
+   * @param details  about the error
    * @param onResult TODO
-   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
-   *           the result will be {@link ButtonType#CANCEL}.
    * @return the {@link WorkbenchDialog}, which will be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
+   *           result will be {@link ButtonType#CANCEL}.
    */
   public final WorkbenchDialog showErrorDialog(
       String title, String message, String details, Consumer<ButtonType> onResult) {
@@ -524,45 +527,52 @@ public class Workbench extends Control {
   /**
    * Shows a warning dialog in the view.
    *
-   * @param title   of the dialog
-   * @param message of the dialog
+   * @param title    of the dialog
+   * @param message  of the dialog
    * @param onResult TODO
+   * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
-   * @return the {@link WorkbenchDialog}, which will be shown
    */
-  public final WorkbenchDialog showWarningDialog(String title, String message, Consumer<ButtonType> onResult) {
-    WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.WARNING).onResult(onResult).build();
+  public final WorkbenchDialog showWarningDialog(String title,
+                                                 String message,
+                                                 Consumer<ButtonType> onResult) {
+    WorkbenchDialog dialog =
+        WorkbenchDialog.builder(title, message, Type.WARNING).onResult(onResult).build();
     return showDialog(dialog);
   }
 
   /**
    * Shows a confirmation dialog in the view.
    *
-   * @param title   of the dialog
-   * @param message of the dialog
+   * @param title    of the dialog
+   * @param message  of the dialog
    * @param onResult TODO
+   * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
-   * @return the {@link WorkbenchDialog}, which will be shown
    */
   public final WorkbenchDialog showConfirmationDialog(String title, String message, Consumer<ButtonType> onResult) {
-    WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.CONFIRMATION).onResult(onResult).build();
+    WorkbenchDialog dialog =
+        WorkbenchDialog.builder(title, message, Type.CONFIRMATION).onResult(onResult).build();
     return showDialog(dialog);
   }
 
   /**
    * Shows an information dialog in the view.
    *
-   * @param title   of the dialog
-   * @param message of the dialog
+   * @param title    of the dialog
+   * @param message  of the dialog
    * @param onResult TODO
+   * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
-   * @return the {@link WorkbenchDialog}, which will be shown
    */
-  public final WorkbenchDialog showInformationDialog(String title, String message, Consumer<ButtonType> onResult) {
-    WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.INFORMATION).onResult(onResult).build();
+  public final WorkbenchDialog showInformationDialog(String title,
+                                                     String message,
+                                                     Consumer<ButtonType> onResult) {
+    WorkbenchDialog dialog =
+        WorkbenchDialog.builder(title, message, Type.INFORMATION).onResult(onResult).build();
     return showDialog(dialog);
   }
 
