@@ -8,6 +8,7 @@ import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -146,6 +147,12 @@ public class WorkbenchPresenter extends Presenter {
         // check if overlay is really not blocking, is needed to avoid false-positives
         if (overlaysShown.contains(overlay)) {
           LOGGER.trace("GlassPane was clicked, hiding overlay");
+
+          // if the overlay is a dialog
+          if (!Objects.isNull(model.getDialog())) {
+            model.getDialog().getOnResult().accept(ButtonType.CANCEL);
+          }
+
           model.hideOverlay(overlay);
         }
       });
