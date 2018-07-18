@@ -87,7 +87,8 @@ public abstract class WorkbenchModule {
    *           being the currently active and displayed module.
    *           When calling destroy() on Module 1: If true is returned, Module 2 will be removed
    *           and Module 1 will be set as the active module. If false is returned, Module 2 will
-   *           not be removed and kept as the active module.
+   *           not be removed and Module 1 will be set as the new active module, to enable the
+   *           user to react to the interrupted closing of the module.
    */
   public boolean destroy() {
     return true;
