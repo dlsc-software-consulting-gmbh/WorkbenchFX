@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.view;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import java.util.Objects;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
@@ -149,9 +150,9 @@ public class WorkbenchPresenter extends Presenter {
           LOGGER.trace("GlassPane was clicked, hiding overlay");
 
           // if the overlay is a dialog
-          if (!Objects.isNull(model.getDialog())) {
+          if (overlay instanceof DialogControl) {
             LOGGER.trace("GlassPane was clicked, hiding dialog");
-            model.getDialog().getOnResult().accept(ButtonType.CANCEL);
+            ((DialogControl) overlay).getDialog().getOnResult().accept(ButtonType.CANCEL);
           }
 
           model.hideOverlay(overlay);
