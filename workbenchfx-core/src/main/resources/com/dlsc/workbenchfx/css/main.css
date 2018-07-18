@@ -278,6 +278,7 @@
   .navigation-drawer:show-mnemonics > .mnemonic-underline {
     -fx-stroke: -fx-text-fill; }
   .navigation-drawer .drawer-box .header {
+    -fx-background-color: -surface-color;
     -fx-effect: -shadow;
     -fx-min-height: 6em;
     -fx-padding: .35em; }

@@ -22,7 +22,7 @@
 
   & .drawer-box {
     & .header {
-      //-fx-background-color: -surface-color;
+      -fx-background-color: -surface-color; // Needed to gain the drop-shadow below
       -fx-effect: -shadow;
       -fx-min-height: $pref-size * 2;
       -fx-padding: .35em;
