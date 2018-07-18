@@ -180,7 +180,8 @@
     #toolbar #bottom-box .selection-strip {
       -fx-background-color: -primary-color; }
       #toolbar #bottom-box .selection-strip .strip-cell {
-        -fx-padding: 0; }
+        -fx-padding: 0;
+        -fx-max-width: 18em; }
         #toolbar #bottom-box .selection-strip .strip-cell:hover {
           -fx-cursor: hand; }
         #toolbar #bottom-box .selection-strip .strip-cell:pressed {
@@ -195,6 +196,7 @@
             -fx-fill: -on-primary-color;
             -fx-font-size: 1.25em !important; }
           #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl {
+            -fx-max-width: 13em;
             -fx-padding: 0 0 0 .35em; }
             #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl .text {
               -fx-fill: -on-primary-color; }

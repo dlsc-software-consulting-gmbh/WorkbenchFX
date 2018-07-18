@@ -85,8 +85,10 @@
     .selection-strip {
       -fx-background-color: -primary-color;
 
+      $tab-width: $pref-size*6;
       & .strip-cell {
         -fx-padding: 0;
+        -fx-max-width: $tab-width;
 
         &:hover {
           -fx-cursor: hand;
@@ -111,6 +113,7 @@
           }
 
           & .tab-name-lbl {
+            -fx-max-width: ($tab-width - 5);
             -fx-padding: 0 0 0 .35em;
             & .text {
               -fx-fill: -on-primary-color;
