@@ -264,11 +264,13 @@ public class Workbench extends Control {
         LOGGER.trace("Stage was requested to be closed");
         event.consume(); // we need to perform some cleanup actions first
 
-        // close all modules until one returns false
+        // close all open modules until one returns false
         while (!getOpenModules().isEmpty()) {
           WorkbenchModule openModule = getOpenModules().get(0);
           if (!closeModule(openModule)) {
             LOGGER.trace("Module " + openModule + " could not be closed yet");
+
+            // once module is ready to be closed, start stage closing process over again
             openModule.getModuleCloseable().thenAccept(closeable -> {
               LOGGER.trace("Completed for Module " + openModule + " with: " + closeable);
               if (closeable) {
@@ -280,6 +282,7 @@ public class Workbench extends Control {
                     "when the module should definitely be closed!");
               }
             });
+
             break; // interrupt closing until the interrupting module has been safely closed
           }
         }
