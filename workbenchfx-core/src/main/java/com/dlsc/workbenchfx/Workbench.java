@@ -116,11 +116,6 @@ public class Workbench extends Control {
   private final ReadOnlyBooleanWrapper dialogShown =
       new ReadOnlyBooleanWrapper(this, "dialogShown", false);
 
-  // Related to Stage closing
-  private boolean isClosing = false;
-  private final ObservableMap<CompletableFuture<Boolean>, WorkbenchModule> modulesPendingClose =
-      FXCollections.observableHashMap();
-
   Workbench(WorkbenchBuilder builder) {
     setModulesPerPage(builder.modulesPerPage);
     initBindings();
@@ -266,47 +261,30 @@ public class Workbench extends Control {
       Stage stage = (Stage) getScene().getWindow();
       // when application is closed, destroy all modules
       stage.setOnCloseRequest(event -> {
-        LOGGER.trace("Stage was requested to be closed - Check if closing process is ongoing");
-        if (isClosing && getOpenModules().isEmpty()) { // TODO: potentially same as below?
-          LOGGER.trace("Stage was requested to be closed - Process is ongoing, closing stage");
-          return; // let the stage close
-        } else {
-          LOGGER.trace("Stage was requested to be closed - Process has not started yet");
-          event.consume(); // we need to perform some cleanup actions first
-          isClosing = true; // start the closing process
-        }
+        LOGGER.trace("Stage was requested to be closed");
+        event.consume(); // we need to perform some cleanup actions first
 
-        // close all modules until one returns false, while preserving those which returned "false"
-        // in a map associated with their CompletableFuture object
+        // close all modules until one returns false
         while (!getOpenModules().isEmpty()) {
           WorkbenchModule openModule = getOpenModules().get(0);
-          CompletableFuture<Boolean> moduleCloseable = new CompletableFuture<>();
-          if (!closeModule(openModule, moduleCloseable)) {
+          if (!closeModule(openModule)) {
             LOGGER.trace("Module " + openModule + " could not be closed yet");
-            modulesPendingClose.put(moduleCloseable, openModule);
-            moduleCloseable.thenAccept(closeable -> {
+            openModule.getModuleCloseable().thenAccept(closeable -> {
               LOGGER.trace("Completed for Module " + openModule + " with: " + closeable);
               if (closeable) {
                 LOGGER.trace("Module " + openModule + " can now be safely closed");
-                closeModule(openModule, moduleCloseable);
                 // re-start closing process, in case other modules are blocking the closing process
                 stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
               } else {
-                LOGGER.trace("Module " + openModule + " requests abort of closing process");
-                isClosing = false;
-                modulesPendingClose.clear();
-                return; // abort process
-              }
-              if (modulesPendingClose.isEmpty()) {
-                // if this was the last module that had to be closed, the stage can now be closed
-                stage.close();
+                throw new UnsupportedOperationException("moduleCloseable should only be completed" +
+                    "when the module should definitely be closed!");
               }
             });
             break; // interrupt closing until the interrupting module has been safely closed
           }
         }
 
-        if (isClosing && modulesPendingClose.isEmpty()) {
+        if (getOpenModules().isEmpty()) {
           LOGGER.trace("All modules could be closed successfully, closing stage");
           stage.close();
         }
@@ -338,21 +316,15 @@ public class Workbench extends Control {
 
   /**
    * Internal method, which gets called during the closing process of the stage to handle modules
-   * that return "false" during {@link WorkbenchModule#destroy(CompletableFuture)} and also by
+   * that return "false" during {@link WorkbenchModule#destroy()} and also by
    * {@link #closeModule(WorkbenchModule)} with {@code moduleCloseable} as  {@code null}.
    * Closes the {@code module}.
    *
-   * @param moduleCloseable which indicates if a module can or cannot be closed during the stage
-   *                        closing process or null, if the module is not being closed by the stage
-   *                        TODO
    * @param module to be closed
    * @return true if closing was successful
    */
-  private boolean closeModule(WorkbenchModule module, CompletableFuture<Boolean> moduleCloseable) {
+  private boolean closeModule(WorkbenchModule module) {
     LOGGER.trace("closeModule - " + module);
-    if (!Objects.isNull(moduleCloseable)) {
-      LOGGER.trace("Module is being closed by the stage");
-    }
     LOGGER.trace("closeModule - List of open modules: " + openModules);
     Objects.requireNonNull(module);
     int i = openModules.indexOf(module);
@@ -380,10 +352,9 @@ public class Workbench extends Control {
     // if module has previously been closed and can now safely be closed, calling destroy() is not
     // necessary anymore, simply remove the module from the list
     // if this module is being closed the first time, attempt to destroy module
-    if (moduleCloseable.getNow(false) || module.destroy(moduleCloseable)) {
+    if (module.getModuleCloseable().getNow(false) || module.destroy()) {
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
-      modulesPendingClose.remove(moduleCloseable); // remove from map if present
       LOGGER.trace("closeModule - Destroy, Removal successful: " + removal + " - " + module);
       if (oldActive != newActive) {
         // only log if the active module has been changed
@@ -397,16 +368,6 @@ public class Workbench extends Control {
       openModule(module); // set focus to new module
       return false;
     }
-  }
-
-  /**
-   * Closes the {@code module}.
-   *
-   * @param module to be closed
-   * @return true if closing was successful
-   */
-  public boolean closeModule(WorkbenchModule module) {
-    return closeModule(module, null);
   }
 
   /**
