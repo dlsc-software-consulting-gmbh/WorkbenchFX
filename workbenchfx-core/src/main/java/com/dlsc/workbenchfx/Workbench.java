@@ -128,6 +128,9 @@ public class Workbench extends Control {
     initDialog(builder);
     initModules(builder);
     setupCleanup();
+
+    Platform.runLater(() -> getScene().getStylesheets()
+        .add(Workbench.class.getResource("css/main.css").toExternalForm()));
   }
 
   private void initFactories(WorkbenchBuilder builder) {

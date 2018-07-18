@@ -10,14 +10,13 @@ import com.dlsc.workbenchfx.view.ToolbarView;
 import com.dlsc.workbenchfx.view.WorkbenchPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchView;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.SelectionStrip;
-import javafx.application.Application;
 import javafx.scene.control.SkinBase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the Skin which is made for the {@link Workbench}.
- * It creates all the Views and Presenters which are needed and sets the stylesheets.
+ * Represents the Skin which is made for the {@link Workbench}. It creates all the Views and
+ * Presenters which are needed and sets the stylesheets.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -43,8 +42,8 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   private WorkbenchPresenter workbenchPresenter;
 
   /**
-   * Creates a skin for a given {@link Workbench}.
-   * Contains all views and presenters and sets also the default stylesheet.
+   * Creates a skin for a given {@link Workbench}. Contains all views and presenters and sets also
+   * the default stylesheet.
    *
    * @param workbench for which this skin is created
    */
@@ -54,7 +53,7 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
     initViews(workbench);
 
     getChildren().add(workbenchView);
-    Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
+//    Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA); //TODO: Why is this needed?
   }
 
   private void initViews(Workbench model) {
