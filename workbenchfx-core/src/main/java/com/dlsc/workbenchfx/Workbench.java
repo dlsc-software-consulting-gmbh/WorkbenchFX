@@ -276,8 +276,8 @@ public class Workbench extends Control {
                 // re-start closing process, in case other modules are blocking the closing process
                 stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
               } else {
-                throw new UnsupportedOperationException("moduleCloseable should only be completed" +
-                    "when the module should definitely be closed!");
+                throw new UnsupportedOperationException("moduleCloseable should only be completed"
+                    + "when the module should definitely be closed!");
               }
             });
 
@@ -495,8 +495,10 @@ public class Workbench extends Control {
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
    *           result will be {@link ButtonType#CANCEL}.
    */
-  public final WorkbenchDialog showErrorDialog(
-      String title, String message, Exception exception, Consumer<ButtonType> onResult) {
+  public final WorkbenchDialog showErrorDialog(String title,
+                                               String message,
+                                               Exception exception,
+                                               Consumer<ButtonType> onResult) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
         .exception(exception)
         .onResult(onResult)
@@ -515,8 +517,10 @@ public class Workbench extends Control {
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
    *           result will be {@link ButtonType#CANCEL}.
    */
-  public final WorkbenchDialog showErrorDialog(
-      String title, String message, String details, Consumer<ButtonType> onResult) {
+  public final WorkbenchDialog showErrorDialog(String title,
+                                               String message,
+                                               String details,
+                                               Consumer<ButtonType> onResult) {
     WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
         .details(details)
         .onResult(onResult)
@@ -552,7 +556,9 @@ public class Workbench extends Control {
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
    */
-  public final WorkbenchDialog showConfirmationDialog(String title, String message, Consumer<ButtonType> onResult) {
+  public final WorkbenchDialog showConfirmationDialog(String title,
+                                                      String message,
+                                                      Consumer<ButtonType> onResult) {
     WorkbenchDialog dialog =
         WorkbenchDialog.builder(title, message, Type.CONFIRMATION).onResult(onResult).build();
     return showDialog(dialog);

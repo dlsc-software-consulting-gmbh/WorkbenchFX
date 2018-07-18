@@ -118,7 +118,7 @@ public class WorkbenchDialogBuilder {
   }
 
   /**
-   * TODO
+   * TODO.
    */
   public WorkbenchDialogBuilder onResult(Consumer<ButtonType> onResult) {
     this.onResult = onResult;
@@ -126,7 +126,7 @@ public class WorkbenchDialogBuilder {
   }
 
   /**
-   * TODO
+   * TODO.
    */
   public WorkbenchDialogBuilder dialogControl(DialogControl dialogControl) {
     this.dialogControl = dialogControl;

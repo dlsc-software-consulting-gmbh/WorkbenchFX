@@ -7,7 +7,6 @@ import com.google.common.base.Strings;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -19,7 +18,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,18 +33,24 @@ public final class WorkbenchDialog {
       LogManager.getLogger(WorkbenchDialog.class.getName());
 
   private Type type;
-  private ObservableList<ButtonType> buttonTypes = FXCollections.observableArrayList();
-  private final BooleanProperty maximized = new SimpleBooleanProperty();
-  private final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content");
-  private final StringProperty title = new SimpleStringProperty(this, "title", "Dialog");
-  private final StringProperty details = new SimpleStringProperty(this, "details", "");
-  private final ObservableList<String> styleClass = FXCollections.observableArrayList();
-  private final BooleanProperty buttonsBarShown =
-      new SimpleBooleanProperty(this, "buttonsBarShown", true);
-  private final ObjectProperty<Exception> exception = new SimpleObjectProperty<>(this, "exception");
+
+  private final StringProperty title = new SimpleStringProperty(this, "title");
+  private final StringProperty details = new SimpleStringProperty(this, "details");
+
+  private final BooleanProperty maximized = new SimpleBooleanProperty(this, "maximized");
   private final BooleanProperty blocking = new SimpleBooleanProperty(false, "blocking");
-  private final ObjectProperty<Consumer<ButtonType>> onResult = new SimpleObjectProperty<>(this, "onResult");
-  private final ObjectProperty<DialogControl> dialogControl = new SimpleObjectProperty<>(this, "dialogControl");
+  private final BooleanProperty buttonsBarShown = new SimpleBooleanProperty(this, "buttonsBarShown", true);
+  private final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content");
+
+  private final ObjectProperty<Exception> exception =
+      new SimpleObjectProperty<>(this, "exception");
+  private final ObjectProperty<Consumer<ButtonType>> onResult =
+      new SimpleObjectProperty<>(this, "onResult");
+  private final ObjectProperty<DialogControl> dialogControl =
+      new SimpleObjectProperty<>(this, "dialogControl");
+
+  private ObservableList<ButtonType> buttonTypes = FXCollections.observableArrayList();
+  private final ObservableList<String> styleClass = FXCollections.observableArrayList();
 
   public enum Type {
     INPUT,
@@ -269,7 +273,6 @@ public final class WorkbenchDialog {
     this.details.set(details);
   }
 
-
   // blocking dialog or non-blocking dialog (modal or not modal)
 
   public BooleanProperty blockingProperty() {
@@ -294,10 +297,15 @@ public final class WorkbenchDialog {
     return onResult;
   }
 
+  /**
+   * TODO.
+   * @param onResult TODO
+   */
   public void setOnResult(Consumer<ButtonType> onResult) {
     if (Objects.isNull(onResult)) {
       // set empty consumer instead to avoid NPE
-      onResult = buttonType -> {};
+      onResult = buttonType -> {
+      };
     }
     this.onResult.set(onResult);
   }

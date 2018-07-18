@@ -9,7 +9,6 @@ import java.util.WeakHashMap;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -35,11 +34,18 @@ public class DialogControl extends Control {
   private static final Logger LOGGER =
       LogManager.getLogger(DialogControl.class.getName());
 
-  private final ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>();
-  private final ObjectProperty<WorkbenchDialog> dialog = new SimpleObjectProperty<>();
-  private final BooleanProperty buttonTextUppercase = new SimpleBooleanProperty(false);
+  private final BooleanProperty buttonTextUppercase = new SimpleBooleanProperty(this, "buttonTextUppercase", false);
+
+  private final ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>(this, "workbench");
+  private final ObjectProperty<WorkbenchDialog> dialog = new SimpleObjectProperty<>(this, "dialog");
+  private final ObjectProperty<EventHandler<Event>> onHidden =
+      new SimpleObjectProperty<EventHandler<Event>>(this, "onHidden");
+  private final ObjectProperty<EventHandler<Event>> onShown =
+      new SimpleObjectProperty<EventHandler<Event>>(this, "onShown");
+
   private final ObservableList<Node> buttons = FXCollections.observableArrayList();
   private final Map<ButtonType, Node> buttonNodes = new WeakHashMap<>();
+
   private InvalidationListener dialogChangedListener;
 
   /**
@@ -156,7 +162,7 @@ public class DialogControl extends Control {
    * be rebuilt and upon completion, an event will be fired.
    *
    * @return the property to represent the event, which is invoked whenever the dialog has been
-   * fully initialized and is being shown.
+   *         fully initialized and is being shown.
    */
   public final ObjectProperty<EventHandler<Event>> onShownProperty() {
     return onShown;
@@ -167,8 +173,6 @@ public class DialogControl extends Control {
   public final EventHandler<Event> getOnShown() {
     return onShown.get();
   }
-  private ObjectProperty<EventHandler<Event>> onShown =
-      new SimpleObjectProperty<EventHandler<Event>>(this, "onShown");
 
   /**
    * The dialog's action, which is invoked whenever the dialog has been hidden in the scene graph.
@@ -187,8 +191,6 @@ public class DialogControl extends Control {
   public final EventHandler<Event> getOnHidden() {
     return onHidden.get();
   }
-  private ObjectProperty<EventHandler<Event>> onHidden =
-      new SimpleObjectProperty<EventHandler<Event>>(this, "onHidden");
 
   // Accessors and mutators
 
