@@ -35,7 +35,7 @@ public class CalendarModule extends WorkbenchModule {
    * {@inheritDoc}
    */
   @Override
-  public boolean destroy(CompletableFuture<Boolean> stageCloseable) {
+  public boolean destroy() {
     calendarView.stopClock();
     calendarView = null;
     return true;

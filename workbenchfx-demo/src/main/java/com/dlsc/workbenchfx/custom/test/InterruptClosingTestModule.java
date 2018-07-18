@@ -29,19 +29,12 @@ public class InterruptClosingTestModule extends WorkbenchModule {
   }
 
   @Override
-  public boolean destroy(CompletableFuture<Boolean> stageCloseable) {
-    if (stageCloseable != null && stageCloseable.isDone()) {
-      return true;
-    }
+  public boolean destroy() {
     System.out.println("DESTROY CALLED ON 1");
-    getWorkbench().openModule(this);
     getWorkbench().showConfirmationDialog("Confirmation", "Are you sure you want to close this module without saving?", buttonType -> {
       if (ButtonType.YES.equals(buttonType)) {
         System.out.println("Pressed: YES");
-        stageCloseable.complete(true);
-      } else {
-        System.out.println("Pressed: NO/CANCEL");
-        stageCloseable.complete(false);
+        close();
       }
     });
     return false;

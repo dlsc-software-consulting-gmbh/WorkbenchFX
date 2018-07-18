@@ -26,7 +26,7 @@ public class MockFactory {
     when(mockModule.getName()).thenReturn(toString);
     when(mockModule.getIcon()).thenReturn(icon);
     when(mockModule.activate()).thenReturn(displayNode);
-    when(mockModule.destroy(any())).thenReturn(destroy);
+    when(mockModule.destroy()).thenReturn(destroy);
     when(mockModule.toString()).thenReturn(toString);
     return mockModule;
   }
