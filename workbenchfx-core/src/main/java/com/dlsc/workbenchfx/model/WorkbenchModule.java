@@ -87,10 +87,7 @@ public abstract class WorkbenchModule {
    *           being the currently active and displayed module.
    *           When calling destroy() on Module 1: If true is returned, Module 2 will be removed
    *           and Module 1 will be set as the active module. If false is returned, Module 2 will
-   *           not be removed and kept as the active module. When implementing a closing dialog,
-   *           make sure to switch to this module first, so the user can see it, even if this
-   *           module is being closed in its deactivated state, by calling:
-   *           {@code getWorkbench().openModule(this)} before opening the dialog.
+   *           not be removed and kept as the active module.
    */
   public boolean destroy() {
     return true;
