@@ -15,13 +15,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the standard control used to display {@link WorkbenchModule}s as tiles in the
- * home screen.
+ * Represents the standard control used to display {@link WorkbenchModule}s as tiles in the home
+ * screen.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
 public class Tile extends Control {
+
   private static final Logger LOGGER = LogManager.getLogger(Tile.class.getName());
 
   private final Workbench workbench;
@@ -48,6 +49,16 @@ public class Tile extends Control {
       WorkbenchModule current = getModule();
       name.setValue(current.getName());
       icon.setValue(current.getIcon());
+
+      // Sets id with toString of module.
+      // Adds 'tile-', replaces spaces with highfins and lowecases letters.
+      // eg. Customer Management converts to tile-customer-management
+      setId(
+          "tile-" +
+              getName()
+                  .replace(" ", "-")
+                  .toLowerCase()
+      );
     });
   }
 
