@@ -320,6 +320,12 @@ public final class WorkbenchDialog {
     return dialogControl.get();
   }
 
+  /**
+   * The root node of the dialog, the {@link DialogControl} contains all visual
+   * elements shown in the dialog. As such, it is possible to completely adjust
+   * the display of the dialog by modifying the existing dialog control or creating
+   * a new one.
+   */
   public ObjectProperty<DialogControl> dialogControlProperty() {
     return dialogControl;
   }
