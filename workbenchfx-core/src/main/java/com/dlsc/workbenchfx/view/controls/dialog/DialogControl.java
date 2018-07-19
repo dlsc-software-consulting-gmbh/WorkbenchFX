@@ -16,7 +16,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -105,20 +104,19 @@ public class DialogControl extends Control {
       Button button = buttonNodes.computeIfAbsent(cmd, dialogButton -> createButton(cmd));
 
       // keep only first default button
-      if (button instanceof Button) {
-        ButtonBar.ButtonData buttonType = cmd.getButtonData();
+      ButtonBar.ButtonData buttonType = cmd.getButtonData();
 
-        ((Button) button).setDefaultButton(
-            !hasDefault && buttonType != null && buttonType.isDefaultButton()
-        );
-        ((Button) button).setCancelButton(buttonType != null && buttonType.isCancelButton());
-        ((Button) button).setOnAction(evt -> {
-          getDialog().getOnResult().accept(cmd);
-          hide();
-        });
+      button.setDefaultButton(
+          !hasDefault && buttonType != null && buttonType.isDefaultButton()
+      );
+      button.setCancelButton(buttonType != null && buttonType.isCancelButton());
+      button.setOnAction(evt -> {
+        getDialog().getOnResult().accept(cmd);
+        hide();
+      });
 
-        hasDefault |= buttonType != null && buttonType.isDefaultButton();
-      }
+      hasDefault |= buttonType != null && buttonType.isDefaultButton();
+
       buttons.add(button);
     }
   }
