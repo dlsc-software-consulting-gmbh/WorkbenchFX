@@ -508,8 +508,8 @@ class WorkbenchTest extends ApplicationTest {
       workbench.openModule(second);
       workbench.closeModule(first);
 
-      assertSame(second, workbench.getActiveModule());
-      assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
+      assertSame(first, workbench.getActiveModule());
+      assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
       assertEquals(2, workbench.getOpenModules().size());
 
       InOrder inOrder = inOrder(first, second);
@@ -523,7 +523,9 @@ class WorkbenchTest extends ApplicationTest {
       // Call: workbench.closeModule(second)
       // destroy second
       inOrder.verify(first).destroy();
-      // notice destroy() was unsuccessful, keep focus on second
+      // notice destroy() was unsuccessful, switch focus to first
+      inOrder.verify(second).deactivate();
+      inOrder.verify(first).activate();
       inOrder.verifyNoMoreInteractions();
     });
   }
@@ -537,9 +539,6 @@ class WorkbenchTest extends ApplicationTest {
     // open two modules, close first (inactive) module
     // destroy() on first module will return false, so the module shouldn't get closed
     when(first.destroy()).then(invocation -> {
-      robot.interact(() -> {
-        workbench.openModule(first);
-      });
       // dialog opens, user confirms closing module
       return true;
     });
