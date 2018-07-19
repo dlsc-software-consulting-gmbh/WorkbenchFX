@@ -1130,7 +1130,7 @@ class WorkbenchTest extends ApplicationTest {
   /**
    * Test for {@link Workbench#setupCleanup()}.
    * Simulates all modules returning {@code true} when
-   * {@link WorkbenchModule#destroy(CompletableFuture)} is being called on them during the cleanup.
+   * {@link WorkbenchModule#destroy()} is being called on them during the cleanup.
    */
   @Test
   void closeStageSuccess() {
@@ -1166,7 +1166,7 @@ class WorkbenchTest extends ApplicationTest {
   /**
    * Test for {@link Workbench#setupCleanup()}.
    * Simulates the first (inactive) module returning {@code false} and the second (active) module
-   * returning {@code true}, when {@link WorkbenchModule#destroy(CompletableFuture)} is being called
+   * returning {@code true}, when {@link WorkbenchModule#destroy()} is being called
    * on them during cleanup.
    */
   @Test
