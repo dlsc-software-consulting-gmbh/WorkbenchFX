@@ -5,6 +5,7 @@ import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.WeakHashMap;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
@@ -101,7 +102,7 @@ public class DialogControl extends Control {
 
     boolean hasDefault = false;
     for (ButtonType cmd : dialog.getButtonTypes()) {
-      Node button = buttonNodes.computeIfAbsent(cmd, dialogButton -> createButton(cmd));
+      Button button = buttonNodes.computeIfAbsent(cmd, dialogButton -> createButton(cmd));
 
       // keep only first default button
       if (button instanceof Button) {
@@ -136,7 +137,7 @@ public class DialogControl extends Control {
     }
   }
 
-  private Node createButton(ButtonType buttonType) {
+  private Button createButton(ButtonType buttonType) {
     LOGGER.trace("Create Button: " + buttonType.getText());
     String buttonText;
     if (isButtonTextUppercase()) {
