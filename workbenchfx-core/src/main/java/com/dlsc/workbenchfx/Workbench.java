@@ -18,11 +18,8 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -404,7 +401,8 @@ public class Workbench extends Control {
   }
 
   /**
-   * Hides the currently shown {@link WorkbenchDialog} in the view. TODO
+   * Hides the {@code dialog} which was previously shown in the view using {@link #showDialog(WorkbenchDialog)}.
+   * @param dialog to be hidden
    */
   public final void hideDialog(WorkbenchDialog dialog) {
     LOGGER.trace("hideDialog");
@@ -436,7 +434,8 @@ public class Workbench extends Control {
    *
    * @param title    of the dialog
    * @param message  of the dialog
-   * @param onResult TODO
+   * @param onResult  the action to perform when a button of the dialog was pressed, providing the
+   *                  {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
    *           result will be {@link ButtonType#CANCEL}.
@@ -455,7 +454,8 @@ public class Workbench extends Control {
    * @param title     of the dialog
    * @param message   of the dialog
    * @param exception of which the stacktrace should be shown
-   * @param onResult  TODO
+   * @param onResult  the action to perform when a button of the dialog was pressed, providing the
+   *                  {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
    *           result will be {@link ButtonType#CANCEL}.
@@ -477,7 +477,8 @@ public class Workbench extends Control {
    * @param title    of the dialog
    * @param message  of the dialog
    * @param details  about the error
-   * @param onResult TODO
+   * @param onResult  the action to perform when a button of the dialog was pressed, providing the
+   *                  {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
    *           result will be {@link ButtonType#CANCEL}.
@@ -498,7 +499,8 @@ public class Workbench extends Control {
    *
    * @param title    of the dialog
    * @param message  of the dialog
-   * @param onResult TODO
+   * @param onResult  the action to perform when a button of the dialog was pressed, providing the
+   *                  {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
@@ -516,7 +518,8 @@ public class Workbench extends Control {
    *
    * @param title    of the dialog
    * @param message  of the dialog
-   * @param onResult TODO
+   * @param onResult  the action to perform when a button of the dialog was pressed, providing the
+   *                  {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
@@ -534,7 +537,8 @@ public class Workbench extends Control {
    *
    * @param title    of the dialog
    * @param message  of the dialog
-   * @param onResult TODO
+   * @param onResult  the action to perform when a button of the dialog was pressed, providing the
+   *                  {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.

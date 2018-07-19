@@ -183,9 +183,12 @@ public final class WorkbenchDialog {
   }
 
   /**
-   * TODO.
-   * @param buttonType TODO
-   * @return TODO
+   * Retrieves the {@link Button} instance of the {@link DialogControl} which is of the
+   * specified {@link ButtonType}.
+   *
+   * @param buttonType to retrieve from the {@link DialogControl}
+   * @return the button or an empty {@link Optional}, if the {@link DialogControl} hasn't been
+   *         initialized before
    */
   public final Optional<Button> getButton(ButtonType buttonType) {
     if (Objects.isNull(getDialogControl())) {
@@ -354,7 +357,7 @@ public final class WorkbenchDialog {
     return blocking.get();
   }
 
-  // action to be performed when dialog has been completed // TODO
+  // action to be performed when a button on the DialogControl has been pressed
 
   public Consumer<ButtonType> getOnResult() {
     return onResult.get();
@@ -365,8 +368,10 @@ public final class WorkbenchDialog {
   }
 
   /**
-   * TODO.
-   * @param onResult TODO
+   * Defines the action to perform when a button of the dialog was pressed.
+   * @param onResult action to be performed
+   * @implNote If {@code onResult} is null, an empty consumer will be set instead, to avoid
+   *           throwing {@link NullPointerException} upon calling.
    */
   public void setOnResult(Consumer<ButtonType> onResult) {
     if (Objects.isNull(onResult)) {

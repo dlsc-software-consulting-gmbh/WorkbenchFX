@@ -118,7 +118,11 @@ public class WorkbenchDialogBuilder {
   }
 
   /**
-   * TODO.
+   * Defines the action to perform when a button of the dialog was pressed.
+   * @param onResult action to be performed
+   * @return builder for chaining
+   * @implNote If {@code onResult} is null, an empty consumer will be set instead, to avoid
+   *           throwing {@link NullPointerException} upon calling.
    */
   public WorkbenchDialogBuilder onResult(Consumer<ButtonType> onResult) {
     this.onResult = onResult;
@@ -126,7 +130,9 @@ public class WorkbenchDialogBuilder {
   }
 
   /**
-   * TODO.
+   * Defines which {@link DialogControl} should be used to render the {@link WorkbenchDialog}.
+   * @param dialogControl to be used to render the {@link WorkbenchDialog}.
+   * @return
    */
   public WorkbenchDialogBuilder dialogControl(DialogControl dialogControl) {
     this.dialogControl = dialogControl;

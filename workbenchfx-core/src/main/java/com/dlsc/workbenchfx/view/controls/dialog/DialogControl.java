@@ -156,9 +156,12 @@ public class DialogControl extends Control {
   }
 
   /**
-   * TODO.
-   * @param buttonType TODO
-   * @return TODO
+   * Retrieves the {@link Button} instance of the {@link DialogControl} which is of the
+   * specified {@link ButtonType}.
+   *
+   * @param buttonType to retrieve from the {@link DialogControl}
+   * @return the button or an empty {@link Optional}, if the {@link DialogControl} hasn't been
+   *         initialized before
    */
   public final Optional<Button> getButton(ButtonType buttonType) {
     return Optional.ofNullable(buttonNodes.get(buttonType));

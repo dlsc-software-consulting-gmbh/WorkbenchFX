@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx;
 
-import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
