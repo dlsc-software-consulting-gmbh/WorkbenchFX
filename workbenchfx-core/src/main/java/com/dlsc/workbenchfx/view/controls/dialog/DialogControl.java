@@ -46,8 +46,8 @@ public class DialogControl extends Control {
   private final ObjectProperty<EventHandler<Event>> onShown =
       new SimpleObjectProperty<>(this, "onShown");
 
-  private final ObservableList<Node> buttons = FXCollections.observableArrayList();
-  private final Map<ButtonType, Node> buttonNodes = new WeakHashMap<>();
+  private final ObservableList<Button> buttons = FXCollections.observableArrayList();
+  private final Map<ButtonType, Button> buttonNodes = new WeakHashMap<>();
 
   private InvalidationListener dialogChangedListener;
 
