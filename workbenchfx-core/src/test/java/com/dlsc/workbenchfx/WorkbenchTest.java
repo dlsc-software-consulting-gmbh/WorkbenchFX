@@ -1199,6 +1199,12 @@ class WorkbenchTest extends ApplicationTest {
       // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
       // Implicit Call: workbench.closeModule(first)
       inOrder.verify(first).destroy(); // returns false
+      // Implicit Call: workbench.openModule(first) -> set focus on module that couldn't be closed
+      inOrder.verify(second).deactivate();
+      inOrder.verify(first).activate();
+      // Implicit Call: openModule.getModuleCloseable().thenAccept(...) -> setOnCloseRequest
+      inOrder.verify(first).getModuleCloseable();
+      verify(mockModuleCloseable).thenAccept(any());
       // closing should be interrupted
       inOrder.verifyNoMoreInteractions();
 
