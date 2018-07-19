@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent;
 import com.google.common.base.Strings;
@@ -17,6 +18,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -190,6 +193,51 @@ public final class WorkbenchDialog {
     } else {
       return getDialogControl().getButton(buttonType);
     }
+  }
+
+  // Event Handler
+
+  /**
+   * The dialog's action, which is invoked whenever the dialog has been fully initialized and is
+   * being shown. Whenever the {@link DialogControl#dialogProperty()}, {@link
+   * WorkbenchDialog#buttonTypes}, {@link DialogControl#buttonTextUppercaseProperty()} or {@link
+   * DialogControl#workbenchProperty()} changes, the dialog will be rebuilt and upon completion, an
+   * event will be fired.
+   *
+   * @return the property to represent the event, which is invoked whenever the dialog has been
+   * fully initialized and is being shown.
+   */
+  public final ObjectProperty<EventHandler<Event>> onShownProperty() {
+    return getDialogControl().onShownProperty();
+  }
+
+  public final void setOnShown(EventHandler<Event> value) {
+    getDialogControl().setOnShown(value);
+  }
+
+  public final EventHandler<Event> getOnShown() {
+    return getDialogControl().getOnShown();
+  }
+
+  /**
+   * The dialog's action, which is invoked whenever the dialog has been hidden in the scene graph.
+   * An event will be fired whenever {@link DialogControl#hide()} or
+   * {@link Workbench#hideDialog(WorkbenchDialog)} has been called or the dialog has been closed by
+   * clicking on its corresponding {@link GlassPane}.
+   *
+   * @return the property to represent the event, which is invoked whenever the dialog has been
+   *         hidden in the scene graph.
+   */
+  public final ObjectProperty<EventHandler<Event>> onHiddenProperty() {
+    return getDialogControl().onHiddenProperty();
+  }
+
+  public final void setOnHidden(EventHandler<Event> value) {
+    getDialogControl().setOnHidden(value);
+  }
+
+  public final EventHandler<Event> getOnHidden() {
+    return getDialogControl().getOnHidden();
   }
 
   public final Type getType() {
