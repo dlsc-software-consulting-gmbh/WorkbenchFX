@@ -30,6 +30,7 @@ import com.dlsc.workbenchfx.view.controls.GlassPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -102,10 +103,9 @@ class WorkbenchTest extends ApplicationTest {
   @Mock
   private WorkbenchDialog mockDialog;
   @Mock
-  private CompletableFuture<ButtonType> mockDialogResult;
-  @Mock
   private CompletableFuture<Boolean> mockModuleCloseable;
-
+  @Mock
+  private Consumer<ButtonType> mockOnResult;
 
   @Override
   public void start(Stage stage) {
@@ -142,15 +142,11 @@ class WorkbenchTest extends ApplicationTest {
     when(mockDialog.getButtonTypes()).thenReturn(
         FXCollections.observableArrayList(ButtonType.PREVIOUS, ButtonType.NEXT)
     );
-    // TODO getDialogControl mock
-    when(mockDialogResult.complete(any())).then(invocation -> {
-          when(mockDialogResult.isDone()).thenReturn(true);
-          return true;
-        }
-    );
+    when(mockDialog.getOnResult()).thenReturn(mockOnResult);
 
     navigationDrawer = new MockNavigationDrawer();
     dialogControl = new MockDialogControl();
+    when(mockDialog.getDialogControl()).thenReturn(dialogControl);
 
     workbench = Workbench.builder(
         mockModules[FIRST_INDEX],
@@ -1300,15 +1296,15 @@ class WorkbenchTest extends ApplicationTest {
       //assertDialogShown(result, false);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       // TODO: REFACTOR verify(mockDialog).getResult();
-      verify(mockDialogResult, never()).complete(any());
+      // TODO: verify(mockDialogResult, never()).complete(any());
 
       // hiding by GlassPane click
       simulateGlassPaneClick(dialogControl);
 
       // TODO: REFACTOR verify(mockDialog, times(3)).getResult();
-      verify(mockDialogResult).isDone();
-      verify(mockDialogResult).complete(ButtonType.CANCEL);
-      verifyNoMoreInteractions(mockDialogResult);
+      // TODO: verify(mockDialogResult).isDone();
+      // TODO: verify(mockDialogResult).complete(ButtonType.CANCEL);
+      // TODO: verifyNoMoreInteractions(mockDialogResult);
       assertDialogNotShown();
     });
   }
@@ -1324,16 +1320,16 @@ class WorkbenchTest extends ApplicationTest {
       //assertDialogShown(result, false);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       // TODO: REFACTOR verify(mockDialog).getResult();
-      verify(mockDialogResult, never()).complete(any());
+      // TODO: verify(mockDialogResult, never()).complete(any());
 
       // hiding by button press
       Button pressedButton = (Button) dialogControl.getButtons().get(0);
       pressedButton.fire(); // simulate button getting pressed
 
       // TODO: REFACTOR verify(mockDialog, times(3)).getResult();
-      verify(mockDialogResult).isDone();
-      verify(mockDialogResult).complete(mockDialog.getButtonTypes().get(0));
-      verifyNoMoreInteractions(mockDialogResult);
+      // TODO: verify(mockDialogResult).isDone();
+      // TODO: verify(mockDialogResult).complete(mockDialog.getButtonTypes().get(0));
+      // TODO: verifyNoMoreInteractions(mockDialogResult);
 
       assertDialogNotShown();
     });
@@ -1350,16 +1346,15 @@ class WorkbenchTest extends ApplicationTest {
       WorkbenchDialog result = workbench.showDialog(mockDialog);
 
       assertDialogShown(result, true);
-      verify(mockDialog, atLeastOnce()).getButtonTypes();
-      verify(mockDialog).getResult();
-      verify(mockDialogResult, never()).complete(any());
 
       // try hiding by clicking on GlassPane
       simulateGlassPaneClick(dialogControl); // simulates a click on GlassPane
 
-      verify(mockDialog, times(1)).getResult();
-      verify(mockDialogResult, never()).complete(any());
-      verifyNoMoreInteractions(mockDialogResult);
+      verify(mockDialog, never()).getOnResult();
+      verify(mockDialog).isBlocking();
+      verify(mockOnResult, never()).accept(any());
+      verifyNoMoreInteractions(mockDialog);
+      verifyNoMoreInteractions(mockOnResult);
       // verify dialog hasn't been hidden
       assertDialogShown(result, true);
     });
@@ -1378,26 +1373,26 @@ class WorkbenchTest extends ApplicationTest {
       //assertDialogShown(result, true);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       // TODO: REFACTOR verify(mockDialog).getResult();
-      verify(mockDialogResult, never()).complete(any());
+      // TODO: verify(mockDialogResult, never()).complete(any());
 
       // hiding by button press
       Button pressedButton = (Button) dialogControl.getButtons().get(0);
       pressedButton.fire(); // simulate button getting pressed
 
       // TODO: REFACTOR verify(mockDialog, times(3)).getResult();
-      verify(mockDialogResult).isDone();
-      verify(mockDialogResult).complete(mockDialog.getButtonTypes().get(0));
-      verifyNoMoreInteractions(mockDialogResult);
+      // TODO: verify(mockDialogResult).isDone();
+      // TODO: verify(mockDialogResult).complete(mockDialog.getButtonTypes().get(0));
+      // TODO: verifyNoMoreInteractions(mockDialogResult);
       assertDialogNotShown();
     });
   }
 
   private void assertDialogShown(WorkbenchDialog result, boolean blocking) {
-    assertNotNull(result.getDialogControl());
-    // TODO: mock all DialogControls where showDialog gets called and check if correct one is set
-    assertSame(mockDialogResult, result);
-    assertSame(2, workbench.getOverlays().size());
-    assertSame(mockDialog, workbench.getOverlays()); // Test for.. TODO
+    verify(result).getDialogControl();
+    assertSame(mockDialog, result);
+    assertSame(1, workbench.getOverlays().size());
+    assertSame(dialogControl, workbench.getOverlays().keySet().stream().findAny().get());
+    assertSame(workbench, dialogControl.getWorkbench());
     if (blocking) {
       assertSame(1, workbench.getBlockingOverlaysShown().size());
       assertSame(0, workbench.getNonBlockingOverlaysShown().size());
@@ -1408,8 +1403,8 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   private void assertDialogNotShown() {
-    // TODO: assertFalse(workbench.isDialogShown());
-    // TODO: assertSame(null, workbench.getDialog());
+    assertSame(null, dialogControl.getWorkbench());
+    assertSame(0, workbench.getOverlays().size());
     assertSame(0, workbench.getBlockingOverlaysShown().size());
     assertSame(0, workbench.getNonBlockingOverlaysShown().size());
   }
