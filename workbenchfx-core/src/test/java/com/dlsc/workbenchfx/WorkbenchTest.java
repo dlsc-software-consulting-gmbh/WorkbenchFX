@@ -107,6 +107,9 @@ class WorkbenchTest extends ApplicationTest {
   @Mock
   private Consumer<ButtonType> mockOnResult;
 
+  private ObservableList<ButtonType> buttonTypes =
+      FXCollections.observableArrayList(ButtonType.PREVIOUS, ButtonType.NEXT);
+
   @Override
   public void start(Stage stage) {
     MockitoAnnotations.initMocks(this);
@@ -139,14 +142,13 @@ class WorkbenchTest extends ApplicationTest {
     dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
 
     // Setup WorkbenchDialog Mock
-    when(mockDialog.getButtonTypes()).thenReturn(
-        FXCollections.observableArrayList(ButtonType.PREVIOUS, ButtonType.NEXT)
-    );
+    when(mockDialog.getButtonTypes()).thenReturn(buttonTypes);
     when(mockDialog.getOnResult()).thenReturn(mockOnResult);
 
     navigationDrawer = new MockNavigationDrawer();
     dialogControl = new MockDialogControl();
     when(mockDialog.getDialogControl()).thenReturn(dialogControl);
+    dialogControl.setDialog(mockDialog);
 
     workbench = Workbench.builder(
         mockModules[FIRST_INDEX],
@@ -1345,13 +1347,14 @@ class WorkbenchTest extends ApplicationTest {
 
       WorkbenchDialog result = workbench.showDialog(mockDialog);
 
+      verify(mockDialog).isBlocking(); // call showOverlay(...) inside showDialog()
+      verify(mockDialog, atLeastOnce()).getButtonTypes();
       assertDialogShown(result, true);
 
       // try hiding by clicking on GlassPane
       simulateGlassPaneClick(dialogControl); // simulates a click on GlassPane
 
       verify(mockDialog, never()).getOnResult();
-      verify(mockDialog).isBlocking();
       verify(mockOnResult, never()).accept(any());
       verifyNoMoreInteractions(mockDialog);
       verifyNoMoreInteractions(mockOnResult);
@@ -1368,21 +1371,26 @@ class WorkbenchTest extends ApplicationTest {
 
       assertDialogNotShown();
 
-      //CompletableFuture<ButtonType> result = workbench.showDialog(mockDialog);
+      WorkbenchDialog result = workbench.showDialog(mockDialog);
 
-      //assertDialogShown(result, true);
+      verify(mockDialog).isBlocking(); // call showOverlay(...) inside showDialog()
       verify(mockDialog, atLeastOnce()).getButtonTypes();
-      // TODO: REFACTOR verify(mockDialog).getResult();
-      // TODO: verify(mockDialogResult, never()).complete(any());
+      verify(mockDialog, atLeastOnce()).getDialogControl();
+      assertDialogShown(result, true);
+      verify(mockDialog, never()).getOnResult();
+      verify(mockOnResult, never()).accept(any());
+      ObservableList<Button> buttons = dialogControl.getButtons();
+      assertSame(buttonTypes.size(), buttons.size());
 
       // hiding by button press
-      Button pressedButton = (Button) dialogControl.getButtons().get(0);
+      Button pressedButton = buttons.get(0);
       pressedButton.fire(); // simulate button getting pressed
 
-      // TODO: REFACTOR verify(mockDialog, times(3)).getResult();
-      // TODO: verify(mockDialogResult).isDone();
-      // TODO: verify(mockDialogResult).complete(mockDialog.getButtonTypes().get(0));
-      // TODO: verifyNoMoreInteractions(mockDialogResult);
+      verify(mockDialog).getOnResult();
+      verify(mockDialog, atLeastOnce()).getDialogControl();
+      verify(mockOnResult).accept(buttonTypes.get(0));
+      verifyNoMoreInteractions(mockDialog);
+      verifyNoMoreInteractions(mockOnResult);
       assertDialogNotShown();
     });
   }
@@ -1404,7 +1412,6 @@ class WorkbenchTest extends ApplicationTest {
 
   private void assertDialogNotShown() {
     assertSame(null, dialogControl.getWorkbench());
-    assertSame(0, workbench.getOverlays().size());
     assertSame(0, workbench.getBlockingOverlaysShown().size());
     assertSame(0, workbench.getNonBlockingOverlaysShown().size());
   }
