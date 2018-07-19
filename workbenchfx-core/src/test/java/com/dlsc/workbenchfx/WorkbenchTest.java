@@ -142,6 +142,7 @@ class WorkbenchTest extends ApplicationTest {
     when(mockDialog.getButtonTypes()).thenReturn(
         FXCollections.observableArrayList(ButtonType.PREVIOUS, ButtonType.NEXT)
     );
+    // TODO getDialogControl mock
     when(mockDialogResult.complete(any())).then(invocation -> {
           when(mockDialogResult.isDone()).thenReturn(true);
           return true;
@@ -1346,21 +1347,21 @@ class WorkbenchTest extends ApplicationTest {
 
       assertDialogNotShown();
 
-      //CompletableFuture<ButtonType> result = workbench.showDialog(mockDialog);
+      WorkbenchDialog result = workbench.showDialog(mockDialog);
 
-      //assertDialogShown(result, true);
+      assertDialogShown(result, true);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
-      // TODO: REFACTOR verify(mockDialog).getResult();
+      verify(mockDialog).getResult();
       verify(mockDialogResult, never()).complete(any());
 
       // try hiding by clicking on GlassPane
       simulateGlassPaneClick(dialogControl); // simulates a click on GlassPane
 
-      // TODO: REFACTOR verify(mockDialog, times(1)).getResult();
+      verify(mockDialog, times(1)).getResult();
       verify(mockDialogResult, never()).complete(any());
       verifyNoMoreInteractions(mockDialogResult);
       // verify dialog hasn't been hidden
-      //assertDialogShown(result, true);
+      assertDialogShown(result, true);
     });
   }
 
@@ -1391,10 +1392,12 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
-  private void assertDialogShown(CompletableFuture<ButtonType> result, boolean blocking) {
-    // TODO: assertTrue(workbench.isDialogShown());
+  private void assertDialogShown(WorkbenchDialog result, boolean blocking) {
+    assertNotNull(result.getDialogControl());
+    // TODO: mock all DialogControls where showDialog gets called and check if correct one is set
     assertSame(mockDialogResult, result);
-    // TODO: assertSame(mockDialog, workbench.getDialog());
+    assertSame(2, workbench.getOverlays().size());
+    assertSame(mockDialog, workbench.getOverlays()); // Test for.. TODO
     if (blocking) {
       assertSame(1, workbench.getBlockingOverlaysShown().size());
       assertSame(0, workbench.getNonBlockingOverlaysShown().size());
