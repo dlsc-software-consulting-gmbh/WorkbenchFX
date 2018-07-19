@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
@@ -36,7 +37,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
   private HBox dialogHeader;
   private StackPane dialogContentPane;
   private ButtonBar dialogButtonBar;
-  private final ObservableList<Node> buttons;
+  private final ObservableList<Button> buttons;
 
   /**
    * Creates a new {@link DialogSkin} object for a corresponding {@link DialogControl}.
