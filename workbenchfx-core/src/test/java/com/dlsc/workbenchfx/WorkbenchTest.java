@@ -1222,6 +1222,7 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       workbench.openModule(first);
       workbench.openModule(second);
+      verify(mockModuleCloseable, never()).thenAccept(any());
 
       // make sure closing of the stage gets interrupted, if destroy returns false on a module
       when(second.destroy()).thenReturn(false);
@@ -1241,9 +1242,13 @@ class WorkbenchTest extends ApplicationTest {
 
       // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
       // Implicit Call: workbench.closeModule(first)
+      inOrder.verify(first).getModuleCloseable();
       inOrder.verify(first).destroy(); // returns true
       // Implicit Call: workbench.closeModule(second)
       inOrder.verify(second).destroy(); // returns false
+      // Implicit Call: openModule.getModuleCloseable().thenAccept(...) -> setOnCloseRequest
+      inOrder.verify(second).getModuleCloseable();
+      verify(mockModuleCloseable).thenAccept(any());
       // closing should be interrupted
       inOrder.verifyNoMoreInteractions();
 
