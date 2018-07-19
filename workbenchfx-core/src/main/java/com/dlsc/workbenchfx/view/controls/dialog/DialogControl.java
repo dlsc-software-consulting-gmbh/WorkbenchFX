@@ -157,6 +157,15 @@ public class DialogControl extends Control {
     getWorkbench().hideDialog(getDialog());
   }
 
+  /**
+   * TODO.
+   * @param buttonType TODO
+   * @return TODO
+   */
+  public final Optional<Button> getButton(ButtonType buttonType) {
+    return Optional.ofNullable(buttonNodes.get(buttonType));
+  }
+
   // EventHandler
 
   /**

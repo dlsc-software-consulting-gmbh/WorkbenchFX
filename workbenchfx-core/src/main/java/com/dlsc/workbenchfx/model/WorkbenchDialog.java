@@ -7,6 +7,7 @@ import com.google.common.base.Strings;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -17,6 +18,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -174,6 +176,19 @@ public final class WorkbenchDialog {
         break;
       default: // INFORMATION
         getButtonTypes().setAll(ButtonType.OK);
+    }
+  }
+
+  /**
+   * TODO.
+   * @param buttonType TODO
+   * @return TODO
+   */
+  public final Optional<Button> getButton(ButtonType buttonType) {
+    if (Objects.isNull(getDialogControl())) {
+      return Optional.empty();
+    } else {
+      return getDialogControl().getButton(buttonType);
     }
   }
 
