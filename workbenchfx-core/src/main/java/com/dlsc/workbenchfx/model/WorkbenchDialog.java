@@ -208,7 +208,7 @@ public final class WorkbenchDialog {
    * event will be fired.
    *
    * @return the property to represent the event, which is invoked whenever the dialog has been
-   * fully initialized and is being shown.
+   *         fully initialized and is being shown.
    */
   public final ObjectProperty<EventHandler<Event>> onShownProperty() {
     return getDialogControl().onShownProperty();

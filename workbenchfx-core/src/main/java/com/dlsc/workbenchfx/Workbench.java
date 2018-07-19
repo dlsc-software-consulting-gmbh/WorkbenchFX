@@ -401,7 +401,8 @@ public class Workbench extends Control {
   }
 
   /**
-   * Hides the {@code dialog} which was previously shown in the view using {@link #showDialog(WorkbenchDialog)}.
+   * Hides the {@code dialog} which was previously shown in the view
+   * using {@link #showDialog(WorkbenchDialog)}.
    * @param dialog to be hidden
    */
   public final void hideDialog(WorkbenchDialog dialog) {

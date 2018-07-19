@@ -79,14 +79,17 @@ class DialogControlTest extends ApplicationTest {
       // change ButtonTextUppercase to uppercase
       dialogControl.setButtonTextUppercase(true);
       // TODO: assertSame(1, buttons.size());
-      // TODO: assertEquals(BUTTON_TYPE_1.getText().toUpperCase(), ((Button)buttons.get(0)).getText());
+      // TODO:
+      // assertEquals(BUTTON_TYPE_1.getText().toUpperCase(), ((Button)buttons.get(0)).getText());
       verify(mockDialog, times(3)).getButtonTypes();
 
       // add buttonType
       buttonTypes.add(BUTTON_TYPE_2);
       // TODO: assertSame(2, buttons.size());
-      // TODO: assertEquals(BUTTON_TYPE_1.getText().toUpperCase(), ((Button)buttons.get(0)).getText());
-      // TODO: assertEquals(BUTTON_TYPE_2.getText().toUpperCase(), ((Button)buttons.get(1)).getText());
+      // TODO:
+      // assertEquals(BUTTON_TYPE_1.getText().toUpperCase(), ((Button)buttons.get(0)).getText());
+      // TODO:
+      // assertEquals(BUTTON_TYPE_2.getText().toUpperCase(), ((Button)buttons.get(1)).getText());
       verify(mockDialog, times(4)).getButtonTypes();
 
       // change ButtonTextUppercase back to lowercase
