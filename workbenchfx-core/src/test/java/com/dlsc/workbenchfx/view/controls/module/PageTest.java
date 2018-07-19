@@ -9,6 +9,7 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.testing.MockPage;
 import com.dlsc.workbenchfx.testing.MockTile;
+import java.util.concurrent.CompletableFuture;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -19,6 +20,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -43,8 +46,13 @@ class PageTest extends ApplicationTest {
   private ObservableList<Tile> tiles0;
   private ObservableList<Tile> tiles1;
 
+  @Mock
+  private CompletableFuture<Boolean> mockModuleCloseable;
+
   @Override
   public void start(Stage stage) {
+    MockitoAnnotations.initMocks(this);
+
     robot = new FxRobot();
 
     mockBench = mock(Workbench.class);
@@ -54,7 +62,9 @@ class PageTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = createMockModule(moduleNodes[i], null, true, "Module " + i);
+      mockModules[i] = createMockModule(
+          moduleNodes[i], null, true, "Module " + i, mockModuleCloseable
+      );
       MockTile mockTile = new MockTile(mockBench);
       mockTile.setModule(mockModules[i]);
       mockTiles[i] = mockTile;

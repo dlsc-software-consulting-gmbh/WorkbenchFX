@@ -103,6 +103,9 @@ class WorkbenchTest extends ApplicationTest {
   private WorkbenchDialog mockDialog;
   @Mock
   private CompletableFuture<ButtonType> mockDialogResult;
+  @Mock
+  private CompletableFuture<Boolean> mockModuleCloseable;
+
 
   @Override
   public void start(Stage stage) {
@@ -115,7 +118,9 @@ class WorkbenchTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = createMockModule(moduleNodes[i], null, true, "Module " + i);
+      mockModules[i] = createMockModule(
+          moduleNodes[i], null, true, "Module " + i, mockModuleCloseable
+      );
     }
 
     FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
@@ -134,7 +139,6 @@ class WorkbenchTest extends ApplicationTest {
     dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
 
     // Setup WorkbenchDialog Mock
-    // TODO: REFACTOR when(mockDialog.getResult()).thenReturn(mockDialogResult);
     when(mockDialog.getButtonTypes()).thenReturn(
         FXCollections.observableArrayList(ButtonType.PREVIOUS, ButtonType.NEXT)
     );
@@ -1102,7 +1106,8 @@ class WorkbenchTest extends ApplicationTest {
       ObservableList<WorkbenchModule> modules = workbench.getModules();
       int currentSize = modules.size();
       String mockModuleName = "Mock Module";
-      WorkbenchModule mockModule = createMockModule(new Label(), null, true, mockModuleName);
+      WorkbenchModule mockModule = createMockModule(
+          new Label(), null, true, mockModuleName, mockModuleCloseable);
 
       assertTrue(workbench.getModules().add(mockModule));
 

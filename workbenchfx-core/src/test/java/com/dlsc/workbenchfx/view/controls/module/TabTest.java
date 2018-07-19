@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.testing.MockTab;
+import java.util.concurrent.CompletableFuture;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -21,6 +22,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -40,8 +43,13 @@ class TabTest extends ApplicationTest {
 
   private MockTab tab;
 
+  @Mock
+  private CompletableFuture<Boolean> mockModuleCloseable;
+
   @Override
   public void start(Stage stage) {
+    MockitoAnnotations.initMocks(this);
+
     robot = new FxRobot();
 
     mockBench = mock(Workbench.class);
@@ -52,7 +60,9 @@ class TabTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = createMockModule(moduleNodes[i], moduleIcons[i], true, "Module " + i);
+      mockModules[i] = createMockModule(
+          moduleNodes[i], moduleIcons[i], true, "Module " + i, mockModuleCloseable
+      );
     }
 
     modulesList = FXCollections.observableArrayList(mockModules);
