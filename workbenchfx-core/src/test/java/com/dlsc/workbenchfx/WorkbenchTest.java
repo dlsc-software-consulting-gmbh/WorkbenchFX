@@ -1283,16 +1283,6 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  void initDialog() {
-    // verify correct initialization
-    // TODO: assertSame(dialogControl, workbench.getDialogControl());
-    assertSame(workbench, dialogControl.getWorkbench());
-
-    // verify no NPE is thrown by the listener when setting a null control
-    // TODO: workbench.setDialogControl(null);
-  }
-
-  @Test
   @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane")
   void showDialogNonBlockingCloseGlassPane() {
     robot.interact(() -> {
