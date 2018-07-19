@@ -108,10 +108,8 @@
       -fx-border-radius: 5px;
       -fx-background-radius: 5px;
       -fx-background-insets: 0; }
-      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .glyph-icon {
+      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .glyph-icon, #content-view #home #tile-pane .pagination .page .tile-page .tile-control .text {
         -fx-fill: -on-surface-color; }
-      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .text {
-        -fx-text-fill: -on-surface-color; }
       #content-view #home #tile-pane .pagination .page .tile-page .tile-control:hover {
         -fx-effect: -drop-shadow-2;
         -fx-cursor: hand; }
@@ -218,9 +216,7 @@
           -fx-cursor: inherit; }
           #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control {
             -fx-border-color: transparent; }
-            #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-icon {
-              -fx-fill: -on-background-color; }
-            #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-name-lbl .text {
+            #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-icon, #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-name-lbl .text {
               -fx-fill: -on-background-color; }
             #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-btn .glyph-icon {
               -fx-fill: -on-background-color; }

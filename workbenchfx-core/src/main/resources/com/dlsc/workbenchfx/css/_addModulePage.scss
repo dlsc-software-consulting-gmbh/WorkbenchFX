@@ -25,12 +25,9 @@
 
               -fx-background-insets: 0; //needed to remove the focused border on bottom
 
-              & .glyph-icon {
-                -fx-fill: -on-surface-color;
-              }
-
+              & .glyph-icon,
               & .text {
-                -fx-text-fill: -on-surface-color;
+                -fx-fill: -on-surface-color;
               }
 
               &:hover {

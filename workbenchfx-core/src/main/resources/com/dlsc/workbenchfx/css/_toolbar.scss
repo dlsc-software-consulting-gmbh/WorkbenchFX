@@ -148,14 +148,9 @@
           & .tab-control {
             -fx-border-color: transparent;
 
-            & .tab-icon {
+            & .tab-icon,
+            & .tab-name-lbl .text {
               -fx-fill: -on-background-color;
-            }
-
-            & .tab-name-lbl {
-              & .text {
-                -fx-fill: -on-background-color;
-              }
             }
 
             & .close-btn {
