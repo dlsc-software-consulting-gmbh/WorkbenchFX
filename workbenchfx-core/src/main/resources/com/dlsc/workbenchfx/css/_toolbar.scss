@@ -144,6 +144,7 @@
           -fx-background-radius: $radius $radius 0 0;
           -fx-border-radius: $radius $radius 0 0;
           -fx-cursor: inherit;
+          -fx-background-insets: 0 0 0 $border*-1; // Needed to remove the border of the tab
 
           & .tab-control {
             -fx-border-color: transparent;
@@ -167,10 +168,12 @@
         }
       }
 
-      & .previous-cell {
-        & .tab-control {
-          -fx-border-color: -primary-color;
-        }
+      /**
+       * Remove the insets which were set in the :selected section.
+       * Otherwise the end of the SelectionStrip would cut off the side.
+       */
+      & .first-child {
+        -fx-background-insets: 0 !important;
       }
 
       & .fader {

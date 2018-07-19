@@ -3,21 +3,10 @@ package com.dlsc.workbenchfx.view.controls.selectionstrip;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
-import javafx.beans.value.ChangeListener;
 
 public class TabCell extends StripCell<WorkbenchModule> {
 
-  private final String previousCell = "previous-cell";
-  private final ChangeListener<WorkbenchModule> previousCellListener =
-      (observableValue, oldModule, newModule) -> {
-        int cellIndex = getSelectionStrip().getItems().indexOf(getItem());
-        if (cellIndex + 1 == getSelectionStrip().getItems().indexOf(oldModule)) {
-          getStyleClass().remove(previousCell);
-        }
-        if (cellIndex + 1 == getSelectionStrip().getItems().indexOf(newModule)) {
-          getStyleClass().add(previousCell);
-        }
-      };
+  private final String firstChild = "first-child";
 
   /**
    * Constructs a new {@link TabCell}.
@@ -43,15 +32,13 @@ public class TabCell extends StripCell<WorkbenchModule> {
                   .replace(" ", "-")
                   .toLowerCase()
       );
-    });
 
-    selectionStripProperty().addListener((observable, oldStrip, newStrip) -> {
-      if (oldStrip != null) {
-        oldStrip.selectedItemProperty().removeListener(previousCellListener);
-      }
-
-      if (newStrip != null) {
-        newStrip.selectedItemProperty().addListener(previousCellListener);
+      /*
+        To remove the background-insets from this cell.
+        Otherwise the SelectionStrip's end would cut off the side.
+       */
+      if (getSelectionStrip().getItems().get(0).equals(getItem())) {
+        getStyleClass().add(firstChild);
       }
     });
   }

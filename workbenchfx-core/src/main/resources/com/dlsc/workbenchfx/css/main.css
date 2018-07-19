@@ -176,7 +176,11 @@
     -fx-pref-height: 3em;
     -fx-padding: 0 .35em 0 .35em; }
     #toolbar #bottom-box .selection-strip {
-      -fx-background-color: -primary-color; }
+      -fx-background-color: -primary-color;
+      /**
+       * Remove the insets which were set in the :selected section.
+       * Otherwise the end of the SelectionStrip would cut off the side.
+       */ }
       #toolbar #bottom-box .selection-strip .strip-cell {
         -fx-padding: 0;
         -fx-max-width: 18em; }
@@ -213,7 +217,8 @@
           -fx-background-color: -background-color;
           -fx-background-radius: 5px 5px 0 0;
           -fx-border-radius: 5px 5px 0 0;
-          -fx-cursor: inherit; }
+          -fx-cursor: inherit;
+          -fx-background-insets: 0 0 0 -1px; }
           #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control {
             -fx-border-color: transparent; }
             #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-icon, #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-name-lbl .text {
@@ -222,8 +227,8 @@
               -fx-fill: -on-background-color; }
             #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-btn:hover .glyph-icon {
               -fx-fill: -error-color; }
-      #toolbar #bottom-box .selection-strip .previous-cell .tab-control {
-        -fx-border-color: -primary-color; }
+      #toolbar #bottom-box .selection-strip .first-child {
+        -fx-background-insets: 0 !important; }
       #toolbar #bottom-box .selection-strip .fader.left {
         -fx-background-color: linear-gradient(from 25 0 to 80 0, -primary-color, transparent); }
       #toolbar #bottom-box .selection-strip .fader.right {
