@@ -215,7 +215,7 @@ public class DialogControl extends Control {
     this.dialog.set(dialog);
   }
 
-  public ObservableList<Node> getButtons() {
+  public ObservableList<Button> getButtons() {
     return FXCollections.unmodifiableObservableList(buttons);
   }
 
