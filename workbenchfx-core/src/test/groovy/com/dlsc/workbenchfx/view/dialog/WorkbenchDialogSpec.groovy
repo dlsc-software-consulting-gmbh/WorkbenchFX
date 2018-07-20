@@ -6,6 +6,7 @@ import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent
 import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.scene.Scene
+import javafx.scene.control.Button
 import javafx.scene.control.ButtonType
 import javafx.scene.control.Label
 import javafx.stage.Stage
@@ -25,6 +26,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
     private Label content
     private static final WorkbenchDialog.Type TYPE = WorkbenchDialog.Type.INFORMATION
     private WorkbenchDialog dialog
+    private MockDialogControl mockDialogControl;
 
     private FxRobot robot
 
@@ -32,6 +34,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
     void start(Stage stage) {
         robot = new FxRobot()
         content = new Label(MESSAGE)
+        mockDialogControl = new MockDialogControl()
         Scene scene = new Scene(content, 100, 100)
         stage.setScene(scene)
         stage.show()
@@ -109,7 +112,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         def styleClasses = ["first-style-class", "second-style-class"] as String[]
         Exception exception = Stub(Exception.class)
         String details = "These are some details"
-        Consumer<ButtonType> onResult = { buttonType ->  }
+        Consumer<ButtonType> onResult = { buttonType -> }
         EventHandler<Event> onHidden = { event -> }
         EventHandler<Event> onShown = { event -> }
         DialogControl dialogControl = new MockDialogControl()
@@ -200,5 +203,18 @@ class WorkbenchDialogSpec extends ApplicationSpec {
             PrintWriter printWriter = arguments[0] // capture PrintWriter that was used in the call
             printWriter.print(details) // mock behavior of Throwable#printStackTrace
         }
+    }
+
+    def "Test getButton"() {
+        given: "WorkbenchDialog with dialogControl as null"
+        dialog = WorkbenchDialog.builder(TITLE, content, TYPE)
+                .dialogControl(null)
+                .build()
+
+        when: "getButton specific for TYPE"
+        Optional<Button> button = dialog.getButton(ButtonType.OK)
+
+        then:
+        Optional.empty() == button
     }
 }
