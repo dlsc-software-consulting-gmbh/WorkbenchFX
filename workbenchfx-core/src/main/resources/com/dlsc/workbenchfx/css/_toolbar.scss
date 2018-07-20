@@ -3,9 +3,9 @@
 
   & .button {
     -fx-graphic-text-gap: .5em;
-
     -fx-pref-height: $pref-size;
     -fx-background-color: -primary-color;
+    -fx-background-radius: $radius*.6;
     -fx-border-width: 0;
     -fx-background-insets: 0; //needed to remove the focused border on bottom
 
@@ -38,6 +38,7 @@
     & .dropdown {
       -fx-pref-height: $pref-size;
       -fx-background-color: -primary-color;
+      -fx-background-radius: $radius*.6;
       -fx-border-width: 0;
       -fx-background-insets: 0; //needed to remove the focused border on bottom
 
@@ -80,7 +81,7 @@
   & #bottom-box {
     -fx-pref-height: $pref-size;
 
-    -fx-padding: 0 .35em 0 .35em;
+    -fx-padding: 0 .42em 0 .35em;
 
     .selection-strip {
       -fx-background-color: -primary-color;
@@ -227,6 +228,7 @@
       -fx-background-color: -background-color;
       -fx-background-radius: $radius $radius 0 0;
       -fx-border-radius: $radius $radius 0 0;
+      -fx-background-insets: 0 $border*-1 0 $border*-1;
 
       & #add-icon {
         -fx-background-color: -on-background-color !important;

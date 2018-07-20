@@ -37,6 +37,7 @@
         -fx-pref-width: $pref-size*.75;
         -fx-pref-height: $pref-size*.75;
         -fx-background-color: transparent;
+        -fx-background-radius: $radius*.6;
         -fx-border-width: 0;
         -fx-background-insets: 0; //needed to remove the focused border on bottom
 
@@ -70,7 +71,7 @@
             -fx-graphic-text-gap: 1.5em;
 
             -fx-pref-height: $pref-size;
-            -fx-border-radius: $radius;
+            -fx-border-width: 0;
             -fx-background-radius: $radius;
             -fx-padding: 0 1em 0 1em;
             -fx-alignment: CENTER_LEFT !important;

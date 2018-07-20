@@ -136,6 +136,7 @@
     -fx-graphic-text-gap: .5em;
     -fx-pref-height: 3em;
     -fx-background-color: -primary-color;
+    -fx-background-radius: 3px;
     -fx-border-width: 0;
     -fx-background-insets: 0; }
     #toolbar .button .glyph-icon {
@@ -155,6 +156,7 @@
     #toolbar #top-box .dropdown {
       -fx-pref-height: 3em;
       -fx-background-color: -primary-color;
+      -fx-background-radius: 3px;
       -fx-border-width: 0;
       -fx-background-insets: 0; }
       #toolbar #top-box .dropdown .label {
@@ -174,7 +176,7 @@
         -fx-cursor: inherit !important; }
   #toolbar #bottom-box {
     -fx-pref-height: 3em;
-    -fx-padding: 0 .35em 0 .35em; }
+    -fx-padding: 0 .42em 0 .35em; }
     #toolbar #bottom-box .selection-strip {
       -fx-background-color: -primary-color;
       /**
@@ -254,7 +256,8 @@
     #toolbar #bottom-box .active-add-button {
       -fx-background-color: -background-color;
       -fx-background-radius: 5px 5px 0 0;
-      -fx-border-radius: 5px 5px 0 0; }
+      -fx-border-radius: 5px 5px 0 0;
+      -fx-background-insets: 0 -1px 0 -1px; }
       #toolbar #bottom-box .active-add-button #add-icon {
         -fx-background-color: -on-background-color !important; }
       #toolbar #bottom-box .active-add-button:hover {
@@ -290,6 +293,7 @@
       -fx-pref-width: 2.25em;
       -fx-pref-height: 2.25em;
       -fx-background-color: transparent;
+      -fx-background-radius: 3px;
       -fx-border-width: 0;
       -fx-background-insets: 0; }
       .navigation-drawer .drawer-box .header .button .glyph-icon {
@@ -308,7 +312,7 @@
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item {
           -fx-graphic-text-gap: 1.5em;
           -fx-pref-height: 3em;
-          -fx-border-radius: 5px;
+          -fx-border-width: 0;
           -fx-background-radius: 5px;
           -fx-padding: 0 1em 0 1em;
           -fx-alignment: CENTER_LEFT !important; }
