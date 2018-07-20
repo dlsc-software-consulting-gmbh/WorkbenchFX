@@ -4,12 +4,24 @@ import com.dlsc.workbenchfx.model.WorkbenchModule
 import com.dlsc.workbenchfx.testing.MockSelectionStrip
 import javafx.beans.WeakInvalidationListener
 import javafx.scene.Scene
+import javafx.scene.input.MouseButton
 import javafx.stage.Stage
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
+import spock.lang.Shared
+import spock.lang.Unroll
 
 class StripCellSpec extends ApplicationSpec {
 
+    @Shared
+    private WorkbenchModule mockModule = Mock()
+    @Shared
+    private String expectedToString = "mock_module"
+
+    @Override
+    FxRobot clickOn(MouseButton... param0) {
+        return super.clickOn(param0)
+    }
     private StripCell<WorkbenchModule> stripCell
     private SelectionStrip<WorkbenchModule> mockSelectionStrip
     private FxRobot robot
@@ -24,6 +36,10 @@ class StripCellSpec extends ApplicationSpec {
         Scene scene = new Scene(stripCell, 100, 100)
         stage.setScene(scene)
         stage.show()
+    }
+
+    def setupSpec() {
+        mockModule.toString() >> expectedToString
     }
 
     def "test if styleclass was set correctly"() {
@@ -49,58 +65,37 @@ class StripCellSpec extends ApplicationSpec {
         val == stripCell.getMaxHeight()
     }
 
-    def "test item listener"() {
-        given: "mockmodule"
-        WorkbenchModule workbenchModule = Mock()
-        String expectedText = "modules_name"
-        1 * workbenchModule.toString() >> expectedText
+    @Unroll
+    def "test item listener: '#item' as item, '#selectedItem' as selected item => '#expectedText' as expectedText, '#isSelected' as selection state"(
+            WorkbenchModule item,
+            WorkbenchModule selectedItem,
+            String expectedText,
+            boolean isSelected
+    ) {
+        given:
         robot.interact {
-            mockSelectionStrip = new MockSelectionStrip()
-        }
-
-        when: "adding module"
-        robot.interact {
+            mockSelectionStrip.setSelectedItem(selectedItem)
             stripCell.setSelectionStrip(mockSelectionStrip)
-            stripCell.setItem(workbenchModule)
+            stripCell.setItem(item)
         }
 
-        then: "text must be set"
-        expectedText == stripCell.getText()
-        !stripCell.isSelected()
-
-        when: "adding a module to the selectionStrip"
+        expect:
         robot.interact {
-            mockSelectionStrip.setSelectedItem(workbenchModule)
+            expectedText == stripCell.getText()
+            isSelected == stripCell.isSelected()
         }
 
-        then: "Selection has to change"
-        expectedText == stripCell.getText()
-        stripCell.isSelected()
+        where:
+        item       | selectedItem || expectedText     | isSelected
+        null       | null         || ""               | false
+        null       | mockModule   || ""               | false
+        mockModule | mockModule   || expectedToString | true
+        mockModule | null         || expectedToString | false
     }
 
     def "test update selection"() {
 
     }
-
-//    def "tests selecteditem listener: behaviour of adding a module and setting it selected"(
-//            boolean autoscrolling, WorkbenchModule module, WorkbenchModule selectedModule, int listSize) {
-//        given:
-//        robot.interact {
-//            selectionStrip.setAutoScrolling(autoscrolling)
-//            selectionStrip.getItems().add(module)
-//        }
-//
-//        expect:
-//        robot.interact {
-//            selectedModule == selectionStrip.getSelectedItem()
-//            listSize == selectionStrip.getItems().size()
-//            selectedModule == selectionStrip.getProperties().get("scroll.to");
-//            mockSelectionStrip.selectedItemProperty().
-//        }
-//
-//        where:
-//        oldStrip | newStrip ||
-//    }
 
     def "test listener when setting the selectionStrip"() {
         given: "SelectionStrip as Mock"
