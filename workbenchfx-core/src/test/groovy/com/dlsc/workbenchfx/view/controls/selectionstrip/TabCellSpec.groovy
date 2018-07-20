@@ -22,8 +22,8 @@ class TabCellSpec extends ApplicationSpec {
 
     def "test adding one module"() {
         given: "WorkbenchModule and SelectionStrip as mock"
-//        SelectionStrip<WorkbenchModule> selectionStrip = Mock()
-//        selectionStrip.selectedItemProperty() >> {
+//        SelectionStrip<WorkbenchModule> mockSelectionStrip = Mock()
+//        mockSelectionStrip.selectedItemProperty() >> {
 //            ObjectProperty<WorkbenchModule> objectProperty = Mock()
 //            objectProperty.addListener(_) >> {
 ////                ???
@@ -34,7 +34,7 @@ class TabCellSpec extends ApplicationSpec {
         when: "the module is added"
 //        robot.interact {
 //            tabCell = new TabCell()
-//            tabCell.setSelectionStrip(selectionStrip)
+//            tabCell.setSelectionStrip(mockSelectionStrip)
 //            tabCell.setItem(workbenchModule)
 //        }
 

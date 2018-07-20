@@ -1,8 +1,8 @@
 package com.dlsc.workbenchfx.view.controls.selectionstrip
 
 import com.dlsc.workbenchfx.model.WorkbenchModule
+import com.dlsc.workbenchfx.testing.MockSelectionStrip
 import javafx.beans.WeakInvalidationListener
-import javafx.beans.property.ObjectProperty
 import javafx.scene.Scene
 import javafx.stage.Stage
 import org.testfx.api.FxRobot
@@ -11,17 +11,13 @@ import org.testfx.framework.spock.ApplicationSpec
 class StripCellSpec extends ApplicationSpec {
 
     private StripCell<WorkbenchModule> stripCell
-//    ObjectProperty<WorkbenchModule> property
-//    SelectionStrip<WorkbenchModule> selectionStrip
+    private SelectionStrip<WorkbenchModule> mockSelectionStrip
     private FxRobot robot
 
     @Override
     void start(Stage stage) throws Exception {
         stripCell = new StripCell<>()
-//        property = Mock()
-//        property.addListener(_ as WeakInvalidationListener)
-//        selectionStrip = Mock()
-//        selectionStrip.selectedItemProperty() >> property
+        mockSelectionStrip = new MockSelectionStrip()
 
         robot = new FxRobot()
 
@@ -53,29 +49,68 @@ class StripCellSpec extends ApplicationSpec {
         val == stripCell.getMaxHeight()
     }
 
-//    def "Initialization of a Dialog with Type #type has exactly the ButtonTypes #buttonTypes"(
-//            Type type, ButtonType[] buttonTypes) {
+    def "test item listener"() {
+        given: "mockmodule"
+        WorkbenchModule workbenchModule = Mock()
+        String expectedText = "modules_name"
+        1 * workbenchModule.toString() >> expectedText
+        robot.interact {
+            mockSelectionStrip = new MockSelectionStrip()
+        }
+
+        when: "adding module"
+        robot.interact {
+            stripCell.setSelectionStrip(mockSelectionStrip)
+            stripCell.setItem(workbenchModule)
+        }
+
+        then: "text must be set"
+        expectedText == stripCell.getText()
+        !stripCell.isSelected()
+
+        when: "adding a module to the selectionStrip"
+        robot.interact {
+            mockSelectionStrip.setSelectedItem(workbenchModule)
+        }
+
+        then: "Selection has to change"
+        expectedText == stripCell.getText()
+        stripCell.isSelected()
+    }
+
+    def "test update selection"() {
+
+    }
+
+//    def "tests selecteditem listener: behaviour of adding a module and setting it selected"(
+//            boolean autoscrolling, WorkbenchModule module, WorkbenchModule selectedModule, int listSize) {
 //        given:
-//        dialog = WorkbenchDialog.builder(TITLE, content, type).build()
+//        robot.interact {
+//            selectionStrip.setAutoScrolling(autoscrolling)
+//            selectionStrip.getItems().add(module)
+//        }
 //
 //        expect:
-//        type == dialog.getType()
-//        buttonTypes.length == dialog.getButtonTypes().size()
-//        buttonTypes == dialog.getButtonTypes().toArray()
+//        robot.interact {
+//            selectedModule == selectionStrip.getSelectedItem()
+//            listSize == selectionStrip.getItems().size()
+//            selectedModule == selectionStrip.getProperties().get("scroll.to");
+//            mockSelectionStrip.selectedItemProperty().
+//        }
 //
 //        where:
-//        type              || buttonTypes
-//        Type.INPUT        || [ButtonType.OK, ButtonType.CANCEL] as ButtonType[]
+//        oldStrip | newStrip ||
+//    }
 
     def "test listener when setting the selectionStrip"() {
         given: "SelectionStrip as Mock"
-        ObjectProperty<WorkbenchModule> property = Mock()
-        SelectionStrip<WorkbenchModule> selectionStrip = Mock()
-        selectionStrip.selectedItemProperty() >> { args -> property }
+        robot.interact {
+            mockSelectionStrip = new MockSelectionStrip()
+        }
 
         when: "initial setup"
         robot.interact {
-            stripCell = new StripCell<>()
+            stripCell.setSelectionStrip(mockSelectionStrip)
         }
 
         then: "selectionStripProperty is null"
@@ -91,11 +126,11 @@ class StripCellSpec extends ApplicationSpec {
 
         when: "old null and new !null"
         robot.interact {
-//            stripCell.setSelectionStrip(selectionStrip)
+//            stripCell.setSelectionStrip(mockSelectionStrip)
         }
 
         then: ""
-        0 * selectionStrip.selectedItemProperty()
+        0 * mockSelectionStrip.selectedItemProperty()
         0 * property.addListener(_ as WeakInvalidationListener)
     }
 
