@@ -8,7 +8,6 @@ import com.dlsc.workbenchfx.custom.controls.CustomTile;
 import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
-import com.dlsc.workbenchfx.custom.pokemon.PokemonModule;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DialogTestModule;
 import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
@@ -106,7 +105,6 @@ public class CustomDemo extends Application {
     // WorkbenchFX
     workbench =
         Workbench.builder(
-            new PokemonModule(),
             new CalendarModule(),
             new NotesModule(),
             new CustomerModule(),
@@ -159,7 +157,6 @@ public class CustomDemo extends Application {
     // This sets the custom style. Comment this out to have a look at the default styles.
     workbench.getStylesheets()
         .add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
-    workbench.getStylesheets().add(getClass().getResource("pokemon/pokemon.css").toExternalForm());
 
     workbench
         .getStylesheets()
