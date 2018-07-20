@@ -288,7 +288,7 @@ public final class WorkbenchDialog {
     }
   }
 
-  private WorkbenchDialog(WorkbenchDialogBuilder workbenchDialogBuilder) {
+  private WorkbenchDialog(WorkbenchDialogBuilder builder) {
     // update details with stacktrace of exception, whenever exception is changed
     exceptionProperty().addListener((observable, oldException, newException) -> {
       if (!Objects.isNull(newException)) {
@@ -298,28 +298,28 @@ public final class WorkbenchDialog {
       }
     });
 
-    if (Objects.isNull(workbenchDialogBuilder.buttonTypes)) {
+    if (Objects.isNull(builder.buttonTypes)) {
       // Type was defined
-      initType(workbenchDialogBuilder.type);
+      initType(builder.type);
     } else {
       // ButtonTypes were specified
-      getButtonTypes().setAll(workbenchDialogBuilder.buttonTypes);
+      getButtonTypes().setAll(builder.buttonTypes);
     }
-    setTitle(workbenchDialogBuilder.title);
-    setContent(workbenchDialogBuilder.content);
-    setMaximized(workbenchDialogBuilder.maximized);
-    setBlocking(workbenchDialogBuilder.blocking);
-    setButtonsBarShown(workbenchDialogBuilder.showButtonsBar);
-    getStyleClass().addAll(workbenchDialogBuilder.styleClasses);
-    setException(workbenchDialogBuilder.exception);
-    setOnResult(workbenchDialogBuilder.onResult);
+    setTitle(builder.title);
+    setContent(builder.content);
+    setMaximized(builder.maximized);
+    setBlocking(builder.blocking);
+    setButtonsBarShown(builder.showButtonsBar);
+    getStyleClass().addAll(builder.styleClasses);
+    setException(builder.exception);
+    setOnResult(builder.onResult);
     // don't override details set by exception listener if no details were specified
-    if (!Strings.isNullOrEmpty(workbenchDialogBuilder.details)) {
-      setDetails(workbenchDialogBuilder.details);
+    if (!Strings.isNullOrEmpty(builder.details)) {
+      setDetails(builder.details);
     }
-    setDialogControl(workbenchDialogBuilder.dialogControl);
-    setOnShown(workbenchDialogBuilder.onShown);
-    setOnHidden(workbenchDialogBuilder.onHidden);
+    setDialogControl(builder.dialogControl);
+    setOnShown(builder.onShown);
+    setOnHidden(builder.onHidden);
 
     // initialize dialog control
     getDialogControl().setDialog(this);
