@@ -231,16 +231,11 @@ public class Workbench extends Control {
             LOGGER.trace("Module " + openModule + " could not be closed yet");
 
             // once module is ready to be closed, start stage closing process over again
-            openModule.getModuleCloseable().thenAccept(closeable -> {
-              LOGGER.trace("Completed for Module " + openModule + " with: " + closeable);
-              if (closeable) {
-                LOGGER.trace("Module " + openModule + " can now be safely closed");
-                // re-start closing process, in case other modules are blocking the closing process
-                stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
-              } else {
-                throw new UnsupportedOperationException("moduleCloseable should only be completed"
-                    + "when the module should definitely be closed!");
-              }
+            openModule.getModuleCloseable().thenRun(() -> {
+              LOGGER.trace("Completed for Module " + openModule);
+              LOGGER.trace("Module " + openModule + " can now be safely closed");
+              // re-start closing process, in case other modules are blocking the closing process
+              stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
             });
 
             break; // interrupt closing until the interrupting module has been safely closed

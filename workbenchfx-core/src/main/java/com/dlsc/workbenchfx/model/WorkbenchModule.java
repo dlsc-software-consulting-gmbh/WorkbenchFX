@@ -5,9 +5,11 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 /**
  * Represents the base for a module, to be displayed in WorkbenchFX.
@@ -21,6 +23,13 @@ public abstract class WorkbenchModule {
   private String name;
   private FontAwesomeIcon faIcon;
   private Image imgIcon;
+  /**
+   * Will close the module without calling {@link #destroy()} if it is completed. If the stage was
+   * closed and {@code false} was returned on {@link #destroy()}, it will also
+   * trigger {@link Stage#setOnCloseRequest(EventHandler)}.
+   * Is <b>always</b> completed with {@code true}. This way, there is no need to differentiate
+   * whether it was completed with {@code true} or {@code false}.
+   */
   private CompletableFuture<Boolean> moduleCloseable = new CompletableFuture<>();
 
   /**
