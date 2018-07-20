@@ -115,15 +115,15 @@ class StripCellSpec extends ApplicationSpec {
         }
 
         expect:
-        robot.interact {
-            expectedText == stripCell.getText()
-            isSelected == stripCell.isSelected()
-            isSelected == stripCell.getPseudoClassStates().contains(PSEUDO_CLASS_SELECTED)
-        }
+        expectedText == stripCell.getText()
+        isSelected == stripCell.isSelected()
+        isSelected == stripCell.getPseudoClassStates().contains(PSEUDO_CLASS_SELECTED)
+        stripCell == stripCell.selectedProperty().getBean()
+        "selected" == stripCell.selectedProperty().getName()
 
         where:
         item       | selectedItem || expectedText     | isSelected
-        null       | null         || ""               | false
+        null       | null         || ""               | true
         null       | mockModule   || ""               | false
         mockModule | mockModule   || expectedToString | true
         mockModule | null         || expectedToString | false
