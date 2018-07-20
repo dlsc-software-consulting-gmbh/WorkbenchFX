@@ -106,9 +106,9 @@ public abstract class WorkbenchModule {
   /**
    * Closes this module.
    *
-   * @implNote Warning! This will <b>definitely</b> close this module! Any unsaved changes are lost.
-   *           If you need to clean up before closing the module, call {@link #destroy()} before
-   *           calling {@link #close()}.
+   * @implNote Warning! This will <b>definitely</b> close this module!
+   *           It will <b>not</b> call {@link #destroy()} before closing it. If you need to clean up
+   *           before closing the module, call {@link #destroy()} before calling {@link #close()}.
    */
   public final void close() {
     getModuleCloseable().complete(true);
