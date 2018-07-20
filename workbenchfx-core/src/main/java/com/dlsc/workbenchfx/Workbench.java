@@ -150,7 +150,6 @@ public class Workbench extends Control {
     Node[] toolbarControlsLeft;
 
     NavigationDrawer navigationDrawer = new NavigationDrawer();
-    DialogControl dialogControl = new DialogControl();
 
     MenuItem[] navigationDrawerItems;
 
@@ -219,19 +218,6 @@ public class Workbench extends Control {
      */
     public WorkbenchBuilder navigationDrawer(NavigationDrawer navigationDrawer) {
       this.navigationDrawer = navigationDrawer;
-      return this;
-    }
-
-    /**
-     * Defines which dialog control should be shown.
-     *
-     * @param dialogControl to be shown as the dialog control
-     * @return builder for chaining
-     * @implNote Use this to replace the dialog control, which is displayed when using any of the
-     *           {@link Workbench#showDialog(WorkbenchDialog)} methods with your own implementation.
-     */
-    public WorkbenchBuilder dialogControl(DialogControl dialogControl) {
-      this.dialogControl = dialogControl;
       return this;
     }
 

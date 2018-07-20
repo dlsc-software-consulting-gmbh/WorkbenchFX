@@ -138,6 +138,8 @@ public final class WorkbenchDialog {
     String[] styleClasses = new String[0];
     Exception exception = null;
     String details = "";
+    Consumer<ButtonType> onResult = null;
+    DialogControl dialogControl = new DialogControl();
 
     private WorkbenchDialogBuilder(String title, Node content, ButtonType... buttonTypes) {
       this.title = title;
@@ -220,6 +222,28 @@ public final class WorkbenchDialog {
      */
     public WorkbenchDialogBuilder exception(Exception exception) {
       this.exception = exception;
+      return this;
+    }
+
+    /**
+     * Defines the action to perform when a button of the dialog was pressed.
+     * @param onResult action to be performed
+     * @return builder for chaining
+     * @implNote If {@code onResult} is null, an empty consumer will be set instead, to avoid
+     *           throwing {@link NullPointerException} upon calling.
+     */
+    public WorkbenchDialogBuilder onResult(Consumer<ButtonType> onResult) {
+      this.onResult = onResult;
+      return this;
+    }
+
+    /**
+     * Defines which {@link DialogControl} should be used to render the {@link WorkbenchDialog}.
+     * @param dialogControl to be used to render the {@link WorkbenchDialog}.
+     * @return builder for chaining
+     */
+    public WorkbenchDialogBuilder dialogControl(DialogControl dialogControl) {
+      this.dialogControl = dialogControl;
       return this;
     }
 
