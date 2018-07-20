@@ -25,13 +25,7 @@ public class TabCell extends StripCell<WorkbenchModule> {
       // Sets id with toString of module.
       // Adds 'tab-', replaces spaces with highfins and lowecases letters.
       // eg. Customer Management converts to tab-customer-management
-      setId(
-          "tab-" +
-              getItem()
-                  .toString()
-                  .replace(" ", "-")
-                  .toLowerCase()
-      );
+      setId("tab-" + getItem().toString().replace(" ", "-").toLowerCase());
 
       /*
         To remove the background-insets from this cell.

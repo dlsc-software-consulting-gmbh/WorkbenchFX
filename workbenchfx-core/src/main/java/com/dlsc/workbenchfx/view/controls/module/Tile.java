@@ -53,12 +53,7 @@ public class Tile extends Control {
       // Sets id with toString of module.
       // Adds 'tile-', replaces spaces with highfins and lowecases letters.
       // eg. Customer Management converts to tile-customer-management
-      setId(
-          "tile-" +
-              getName()
-                  .replace(" ", "-")
-                  .toLowerCase()
-      );
+      setId("tile-" + getName().replace(" ", "-").toLowerCase());
     });
   }
 

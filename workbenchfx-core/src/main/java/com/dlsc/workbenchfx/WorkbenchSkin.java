@@ -53,7 +53,6 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
     initViews(workbench);
 
     getChildren().add(workbenchView);
-//    Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA); //TODO: Why is this needed?
   }
 
   private void initViews(Workbench model) {
