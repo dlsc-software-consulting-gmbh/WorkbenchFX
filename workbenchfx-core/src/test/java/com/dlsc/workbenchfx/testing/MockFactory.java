@@ -30,7 +30,6 @@ public class MockFactory {
     when(mockModule.activate()).thenReturn(displayNode);
     when(mockModule.destroy()).thenReturn(destroy);
     when(mockModule.toString()).thenReturn(toString);
-    when(mockModule.getModuleCloseable()).thenReturn(moduleCloseable);
     when(moduleCloseable.getNow(false)).thenReturn(false);
     return mockModule;
   }

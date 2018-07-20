@@ -10,9 +10,12 @@ import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -26,6 +29,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
@@ -105,6 +109,16 @@ public class Workbench extends Control {
   // Properties
   private final IntegerProperty modulesPerPage = new SimpleIntegerProperty();
   private final IntegerProperty amountOfPages = new SimpleIntegerProperty();
+
+  /**
+   * Will close the module without calling {@link WorkbenchModule#destroy()} if the corresponding
+   * {@link CompletableFuture} is completed. If the stage was closed and {@code false} was returned
+   * on {@link WorkbenchModule#destroy()}, it will also
+   * trigger {@link Stage#setOnCloseRequest(EventHandler)}.
+   * Is <b>always</b> completed with {@code true}. This way, there is no need to differentiate
+   * whether it was completed with {@code true} or {@code false}.
+   */
+  private final Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap = new HashMap<>();
 
   Workbench(WorkbenchBuilder builder) {
     setModulesPerPage(builder.modulesPerPage);
@@ -199,6 +213,7 @@ public class Workbench extends Control {
           // module has not been loaded yet
           LOGGER.trace("Active Module Listener - Initializing module - " + newModule);
           newModule.init(this);
+          resetModuleCloseable(newModule); // initialize closing on call to #close()
           openModules.add(newModule);
         }
         LOGGER.trace("Active Module Listener - Activating module - " + newModule);
@@ -230,7 +245,7 @@ public class Workbench extends Control {
             LOGGER.trace("Module " + openModule + " could not be closed yet");
 
             // once module is ready to be closed, start stage closing process over again
-            openModule.getModuleCloseable().thenRun(() -> {
+            getModuleCloseable(openModule).thenRun(() -> {
               LOGGER.trace("moduleCloseable - Stage - thenAccept triggered: " + openModule);
               LOGGER.trace(openModule + " restarted stage closing process");
               // re-start closing process, in case other modules are blocking the closing process
@@ -312,9 +327,10 @@ public class Workbench extends Control {
     If this module is being closed the first time or cannot be safely closed yet, attempt to
     destroy module.
     Note: destroy() will not be called if moduleCloseable was completed with true! */
-    if (module.getModuleCloseable().getNow(false) || module.destroy()) {
+    if (getModuleCloseable(module).getNow(false) || module.destroy()) {
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
+      moduleCloseableMap.remove(module);
       LOGGER.trace("closeModule - Destroy, Removal successful: " + removal + " - " + module);
       if (oldActive != newActive) {
         // only log if the active module has been changed
@@ -323,18 +339,18 @@ public class Workbench extends Control {
       activeModule.setValue(newActive);
       return removal;
     } else {
-      if (!module.getModuleCloseable().isDone()) {
+      if (!getModuleCloseable(module).isDone()) {
         /*
         If moduleCloseable wasn't completed yet but closeModule was called, there are two cases:
         1. the stage is calling closeModule() => since thenRun will be set on moduleCloseable after
-        getting returned "false" on closeModule(), we need to reset moduleCloseable so that
-        repeating stage closes without completing moduleClosable won't lead to multiple thenRun
-        actions being layered with each stage close
+        closeModule() returns "false", we need to reset moduleCloseable so that repeating stage
+        closes without completing moduleClosable won't lead to multiple thenRun actions being
+        layered with each stage close.
         2. the tab is being closed, calling closeModule() => if there was a stage close beforehand
         (and thus a thenRun from the stage closing process is still active) we need to
         reset moduleCloseable so that the stage closing process will not be triggered again.
         */
-        module.resetModuleCloseable();
+        resetModuleCloseable(module);
       }
       // module should or could not be destroyed
       LOGGER.trace("closeModule - Destroy: Fail - " + module);
@@ -620,6 +636,37 @@ public class Workbench extends Control {
     nonBlockingOverlaysShown.clear();
     blockingOverlaysShown.clear();
     overlays.clear();
+  }
+
+  /**
+   * Completes the {@code moduleCloseable} of the {@code module}.
+   * Results in the module getting closed without calling {@link WorkbenchModule#destroy()}
+   * beforehand. If the stage was closed and calling {@link WorkbenchModule#destroy()} returned
+   * {@code false}, calling this method will also cause the stage closing process to get continued.
+   *
+   * @param module whose {@code moduleCloseable} should be completed
+   */
+  public final void completeModuleCloseable(WorkbenchModule module) {
+    getModuleCloseable(module).complete(true);
+  }
+
+  /**
+   * Returns a {@link CompletableFuture}, which upon completion will cause the module to be closed
+   * and if there was an ongoing stage closing process, it will re-initiate that process.
+   */
+  private final CompletableFuture<Boolean> getModuleCloseable(WorkbenchModule module) {
+    return moduleCloseableMap.get(module);
+  }
+
+  private final void resetModuleCloseable(WorkbenchModule module) {
+    LOGGER.trace("moduleCloseable - Cleared future: " + this);
+    CompletableFuture<Boolean> moduleCloseable = new CompletableFuture<>();
+    moduleCloseableMap.put(module, moduleCloseable);
+    LOGGER.trace("moduleCloseable - thenRun set: " + this);
+    moduleCloseable.thenRun(() -> {
+      LOGGER.trace("moduleCloseable -  thenRun triggered: " + this);
+      closeModule(module);
+    });
   }
 
   public void showNavigationDrawer() {

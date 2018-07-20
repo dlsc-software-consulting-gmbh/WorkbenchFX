@@ -28,14 +28,6 @@ public abstract class WorkbenchModule {
   private String name;
   private FontAwesomeIcon faIcon;
   private Image imgIcon;
-  /**
-   * Will close the module without calling {@link #destroy()} if it is completed. If the stage was
-   * closed and {@code false} was returned on {@link #destroy()}, it will also
-   * trigger {@link Stage#setOnCloseRequest(EventHandler)}.
-   * Is <b>always</b> completed with {@code true}. This way, there is no need to differentiate
-   * whether it was completed with {@code true} or {@code false}.
-   */
-  private CompletableFuture<Boolean> moduleCloseable = new CompletableFuture<>();
 
   /**
    * Super constructor to be called by the implementing class.
@@ -69,7 +61,6 @@ public abstract class WorkbenchModule {
    */
   public void init(Workbench workbench) {
     this.workbench = workbench;
-    resetModuleCloseable(); // initialize closing on call to #close()
   }
 
   /**
@@ -125,7 +116,7 @@ public abstract class WorkbenchModule {
    *           before closing the module, call {@link #destroy()} before calling {@link #close()}.
    */
   public final void close() {
-    getModuleCloseable().complete(true);
+    getWorkbench().completeModuleCloseable(this);
   }
 
   /**
@@ -148,26 +139,5 @@ public abstract class WorkbenchModule {
    */
   public Node getIcon() {
     return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
-  }
-
-  /**
-   * Returns a {@link CompletableFuture}, which upon completion will cause the module to be closed
-   * and if there was an ongoing stage closing process, it will re-initiate that process.
-   * @implNote This method is not relevant to the implementor and is more useful for internal usage.
-   *           Implementors should use the {@link #destroy()} and {@link #close()} method, to make
-   *           the most out of the implementations around this.
-   */
-  public final CompletableFuture<Boolean> getModuleCloseable() {
-    return moduleCloseable;
-  }
-
-  public final void resetModuleCloseable() {
-    LOGGER.trace("moduleCloseable - Module - Cleared future: " + this);
-    moduleCloseable = new CompletableFuture<>();
-    LOGGER.trace("moduleCloseable - Module - thenRun set: " + this);
-    getModuleCloseable().thenRun(() -> {
-      LOGGER.trace("moduleCloseable - Module - thenRun triggered: " + this);
-      workbench.closeModule(this);
-    });
   }
 }
