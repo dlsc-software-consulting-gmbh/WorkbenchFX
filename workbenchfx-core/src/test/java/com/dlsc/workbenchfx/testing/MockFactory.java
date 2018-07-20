@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import java.util.concurrent.CompletableFuture;
 import javafx.scene.Node;
-import javafx.scene.control.ButtonType;
 
 /**
  * Internal utility methods for producing mocks.

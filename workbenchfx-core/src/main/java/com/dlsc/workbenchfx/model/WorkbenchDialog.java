@@ -3,7 +3,6 @@ package com.dlsc.workbenchfx.model;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
-import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent;
 import com.google.common.base.Strings;
 import java.io.PrintWriter;
