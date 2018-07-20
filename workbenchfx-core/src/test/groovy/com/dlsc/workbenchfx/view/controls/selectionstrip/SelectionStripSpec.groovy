@@ -1,12 +1,14 @@
 package com.dlsc.workbenchfx.view.controls.selectionstrip
 
 import com.dlsc.workbenchfx.model.WorkbenchModule
+import com.dlsc.workbenchfx.testing.MockSelectionStrip
 import javafx.scene.Scene
 import javafx.stage.Stage
 import javafx.util.Callback
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
 import spock.lang.Shared
+import spock.lang.Unroll
 
 class SelectionStripSpec extends ApplicationSpec {
 
@@ -20,7 +22,7 @@ class SelectionStripSpec extends ApplicationSpec {
 
     @Override
     void start(Stage stage) throws Exception {
-        selectionStrip = new SelectionStrip<>()
+        selectionStrip = new MockSelectionStrip()
         robot = new FxRobot()
 
         Scene scene = new Scene(selectionStrip, 100, 100)
@@ -32,8 +34,7 @@ class SelectionStripSpec extends ApplicationSpec {
         given: "String of styleclass which shall be set"
         String styleClass = "selection-strip"
 
-        when: "the cell is created"
-        selectionStrip = new SelectionStrip<>()
+        when: "selectionStrip was initialized"
 
         then: "styleclass must be set"
         selectionStrip.getStyleClass().contains(styleClass)
@@ -44,8 +45,7 @@ class SelectionStripSpec extends ApplicationSpec {
         double prefWidth = 400;
         double prefHeight = 50;
 
-        when: "the cell is created"
-        selectionStrip = new SelectionStrip<>()
+        when: "selectionStrip was initialized"
 
         then: "max and min must be set"
         prefWidth == selectionStrip.getPrefWidth()
@@ -53,8 +53,7 @@ class SelectionStripSpec extends ApplicationSpec {
     }
 
     def "set a cell factory"() {
-        when: "initial setup"
-        selectionStrip = new SelectionStrip<>()
+        when: "selectionStrip was initialized"
 
         then: "cellfactory is instance of StripCell"
         selectionStrip.getCellFactory() instanceof Callback<SelectionStrip, StripCell<WorkbenchModule>>
@@ -89,7 +88,7 @@ class SelectionStripSpec extends ApplicationSpec {
     def "tests behaviour of adding multiple modules and setting them selected"(WorkbenchModule module, WorkbenchModule selectedModule, int listSize) {
         given:
         robot.interact {
-            selectionStripShared = new SelectionStrip<>()
+            selectionStripShared = new MockSelectionStrip<>()
             selectionStripShared.getItems().add(module)
         }
 
