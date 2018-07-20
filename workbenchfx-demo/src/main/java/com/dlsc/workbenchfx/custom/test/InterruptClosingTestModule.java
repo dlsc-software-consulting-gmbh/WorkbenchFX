@@ -4,7 +4,6 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import java.util.concurrent.CompletableFuture;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -31,12 +30,19 @@ public class InterruptClosingTestModule extends WorkbenchModule {
   @Override
   public boolean destroy() {
     System.out.println("DESTROY CALLED ON 1");
-    getWorkbench().showConfirmationDialog("Confirmation", "Are you sure you want to close this module without saving?", buttonType -> {
-      if (ButtonType.YES.equals(buttonType)) {
-        System.out.println("Pressed: YES");
-        close();
-      }
-    });
+
+    WorkbenchDialog.builder("Confirmation",
+        "Are you sure you want to close this module without saving?",
+        WorkbenchDialog.Type.CONFIRMATION)
+        .blocking(true)
+        .onResult(buttonType -> {
+          if (ButtonType.YES.equals(buttonType)) {
+            System.out.println("Pressed: YES");
+            close();
+          }
+        })
+        .build();
+
     return false;
   }
 
