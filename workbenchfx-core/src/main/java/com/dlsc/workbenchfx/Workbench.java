@@ -176,7 +176,7 @@ public class Workbench extends Control {
      * @param tabFactory to be used to create the {@link Tab}
      * @return builder for chaining
      * @implNote Use this to replace the control which is used for the tab with your own
-     * implementation.
+     *           implementation.
      */
     public WorkbenchBuilder tabFactory(Callback<Workbench, Tab> tabFactory) {
       this.tabFactory = tabFactory;
@@ -189,7 +189,7 @@ public class Workbench extends Control {
      * @param tileFactory to be used to create the {@link Tile}
      * @return builder for chaining
      * @implNote Use this to replace the control which is used for the tiles with your own
-     * implementation.
+     *           implementation.
      */
     public WorkbenchBuilder tileFactory(Callback<Workbench, Tile> tileFactory) {
       this.tileFactory = tileFactory;
@@ -201,8 +201,8 @@ public class Workbench extends Control {
      *
      * @param pageFactory to be used to create the {@link Page} for the tiles
      * @return builder for chaining
-     * @implNote Use this to replace the page which is used in the home screen to display tiles of
-     * the modules with your own implementation.
+     * @implNote Use this to replace the page which is used in the home screen to display tiles
+     *           of the modules with your own implementation.
      */
     public WorkbenchBuilder pageFactory(Callback<Workbench, Page> pageFactory) {
       this.pageFactory = pageFactory;
@@ -427,9 +427,6 @@ public class Workbench extends Control {
   }
 
   /**
-   * Internal method, which gets called during the closing process of the stage to handle modules
-   * that return "false" during {@link WorkbenchModule#destroy()} and also by
-   * {@link #closeModule(WorkbenchModule)} with {@code moduleCloseable} as  {@code null}.
    * Closes the {@code module}.
    *
    * @param module to be closed
@@ -503,7 +500,7 @@ public class Workbench extends Control {
    *
    * @return amount of pages
    * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}. This
-   * is repeated until all modules are rendered as tiles.
+   *           is repeated until all modules are rendered as tiles.
    */
   private int calculateAmountOfPages() {
     int amountOfModules = getModules().size();
@@ -604,7 +601,7 @@ public class Workbench extends Control {
    *                 {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   * result will be {@link ButtonType#CANCEL}.
+   *           result will be {@link ButtonType#CANCEL}.
    */
   public final WorkbenchDialog showErrorDialog(String title,
                                                String message,
@@ -624,7 +621,7 @@ public class Workbench extends Control {
    *                  {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   * result will be {@link ButtonType#CANCEL}.
+   *           result will be {@link ButtonType#CANCEL}.
    */
   public final WorkbenchDialog showErrorDialog(String title,
                                                String message,
@@ -647,7 +644,7 @@ public class Workbench extends Control {
    *                 {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   * result will be {@link ButtonType#CANCEL}.
+   *           result will be {@link ButtonType#CANCEL}.
    */
   public final WorkbenchDialog showErrorDialog(String title,
                                                String message,

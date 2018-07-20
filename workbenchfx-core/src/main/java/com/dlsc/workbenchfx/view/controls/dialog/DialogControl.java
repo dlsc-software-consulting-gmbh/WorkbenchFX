@@ -161,7 +161,7 @@ public class DialogControl extends Control {
    *
    * @param buttonType to retrieve from the {@link DialogControl}
    * @return the button or an empty {@link Optional}, if the {@link DialogControl} hasn't been
-   * initialized before
+   *         initialized before
    */
   public final Optional<Button> getButton(ButtonType buttonType) {
     return Optional.ofNullable(buttonNodes.get(buttonType));
@@ -176,7 +176,7 @@ public class DialogControl extends Control {
    * be rebuilt and upon completion, an event will be fired.
    *
    * @return the property to represent the event, which is invoked whenever the dialog has been
-   * fully initialized and is being shown.
+   *         fully initialized and is being shown.
    */
   public final ObjectProperty<EventHandler<Event>> onShownProperty() {
     return onShown;
@@ -197,7 +197,7 @@ public class DialogControl extends Control {
    * clicking on its corresponding {@link GlassPane}.
    *
    * @return the property to represent the event, which is invoked whenever the dialog has been
-   * hidden in the scene graph.
+   *         hidden in the scene graph.
    */
   public final ObjectProperty<EventHandler<Event>> onHiddenProperty() {
     return onHidden;

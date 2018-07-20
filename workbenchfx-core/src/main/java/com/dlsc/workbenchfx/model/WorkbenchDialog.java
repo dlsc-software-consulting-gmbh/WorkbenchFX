@@ -232,7 +232,7 @@ public final class WorkbenchDialog {
      * @param onResult action to be performed
      * @return builder for chaining
      * @implNote If {@code onResult} is null, an empty consumer will be set instead, to avoid
-     * throwing {@link NullPointerException} upon calling.
+     *           throwing {@link NullPointerException} upon calling.
      */
     public WorkbenchDialogBuilder onResult(Consumer<ButtonType> onResult) {
       this.onResult = onResult;
@@ -360,7 +360,7 @@ public final class WorkbenchDialog {
    *
    * @param buttonType to retrieve from the {@link DialogControl}
    * @return the button or an empty {@link Optional}, if the {@link DialogControl} hasn't been
-   * initialized before
+   *         initialized before
    */
   public final Optional<Button> getButton(ButtonType buttonType) {
     if (Objects.isNull(getDialogControl())) {
@@ -380,7 +380,7 @@ public final class WorkbenchDialog {
    * event will be fired.
    *
    * @return the property to represent the event, which is invoked whenever the dialog has been
-   * fully initialized and is being shown.
+   *         fully initialized and is being shown.
    */
   public final ObjectProperty<EventHandler<Event>> onShownProperty() {
     return getDialogControl().onShownProperty();
@@ -401,7 +401,7 @@ public final class WorkbenchDialog {
    * clicking on its corresponding {@link GlassPane}.
    *
    * @return the property to represent the event, which is invoked whenever the dialog has been
-   * hidden in the scene graph.
+   *         hidden in the scene graph.
    */
   public final ObjectProperty<EventHandler<Event>> onHiddenProperty() {
     return getDialogControl().onHiddenProperty();

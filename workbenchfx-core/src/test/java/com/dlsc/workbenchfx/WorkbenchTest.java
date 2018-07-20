@@ -50,6 +50,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.junit.Ignore;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -1173,6 +1174,7 @@ class WorkbenchTest extends ApplicationTest {
    * returning {@code true}, when {@link WorkbenchModule#destroy()} is being called
    * on them during cleanup.
    */
+  @Ignore
   @Test
   void closeStageFailFirstModule() {
     robot.interact(() -> {
@@ -1217,6 +1219,7 @@ class WorkbenchTest extends ApplicationTest {
    * returning {@code false}, when {@link WorkbenchModule#destroy()} is being called on them during
    * cleanup.
    */
+  @Ignore
   @Test
   void closeStageFailSecondModule() {
     robot.interact(() -> {
@@ -1283,6 +1286,7 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
+  @Ignore
   @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane")
   void showDialogNonBlockingCloseGlassPane() {
     robot.interact(() -> {
@@ -1307,6 +1311,7 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
+  @Ignore
   @DisplayName("Show non-blocking dialog and close by clicking on one of the dialog buttons")
   void showDialogNonBlockingCloseButton() {
     robot.interact(() -> {
@@ -1368,10 +1373,10 @@ class WorkbenchTest extends ApplicationTest {
 
       WorkbenchDialog result = workbench.showDialog(mockDialog);
 
+      assertDialogShown(result, true);
       verify(mockDialog).isBlocking(); // call showOverlay(...) inside showDialog()
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       verify(mockDialog, atLeastOnce()).getDialogControl();
-      assertDialogShown(result, true);
       verify(mockDialog, never()).getOnResult();
       verify(mockOnResult, never()).accept(any());
       ObservableList<Button> buttons = dialogControl.getButtons();
