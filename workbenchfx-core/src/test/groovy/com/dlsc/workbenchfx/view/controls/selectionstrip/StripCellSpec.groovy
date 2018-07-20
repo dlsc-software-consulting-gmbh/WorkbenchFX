@@ -98,6 +98,15 @@ class StripCellSpec extends ApplicationSpec {
         then: "the selectionStripProperty listener triggers and executes updateSelection()"
         stripCell.isSelected()
         stripCell.getPseudoClassStates().contains(PSEUDO_CLASS_SELECTED)
+
+        when: "a selectionStrip with null is set"
+        robot.interact {
+            stripCell.setSelectionStrip(null)
+        }
+
+        then: "nothing should happen, because no selectionstrip is set -> all old states are remaining"
+        stripCell.isSelected()
+        stripCell.getPseudoClassStates().contains(PSEUDO_CLASS_SELECTED)
     }
 
     @Unroll
