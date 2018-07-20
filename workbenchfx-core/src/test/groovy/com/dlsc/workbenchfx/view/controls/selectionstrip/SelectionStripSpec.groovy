@@ -81,42 +81,4 @@ class SelectionStripSpec extends ApplicationSpec {
         false         | null            || null
         false         | workbenchModule || null
     }
-
-    def "test removing indicees from items"(
-            WorkbenchModule[] initialModules,
-            int[] removeIndicees,
-            WorkbenchModule activeModule,
-            int expectedSize
-    ) {
-        given: "selectionStrip with two items"
-        robot.interact {
-            selectionStrip.getItems().addAll(initialModules)
-        }
-
-        when: "removing the items"
-        robot.interact {
-            for (int i = 0; i < removeIndicees.length; i++) {
-                selectionStrip.getItems().remove(removeIndicees[i])
-                // decrease the index of all other values, cause the items-size decreased
-                for (int j = i + 1; j < removeIndicees.length; j++) {
-                    removeIndicees[j]--
-                }
-            }
-        }
-
-        then: "the selectionStrip contains"
-        robot.interact {
-            activeModule == selectionStrip.getSelectedItem()
-            expectedSize == selectionStrip.getItems().size()
-        }
-
-        where:
-        initialModules                                       | removeIndicees || activeModule     | expectedSize
-        [workbenchModule, workbenchModule2]                  | [1]            || workbenchModule  | 1
-        [workbenchModule, workbenchModule2]                  | [0, 1]         || null             | 0
-        [workbenchModule, workbenchModule2, workbenchModule] | [0, 2]         || workbenchModule2 | 1
-        [workbenchModule, workbenchModule2, workbenchModule] | [2, 1]         || workbenchModule  | 1
-        [workbenchModule]                                    | [0]            || null             | 0
-        [workbenchModule, workbenchModule2]                  | [0]            || workbenchModule2 | 1
-    }
 }
