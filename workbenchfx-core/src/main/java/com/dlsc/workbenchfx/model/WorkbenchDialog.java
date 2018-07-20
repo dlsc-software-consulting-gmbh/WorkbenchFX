@@ -28,7 +28,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the model class of a Dialog in {@link Workbench}.
-
+ *
  * @author Dirk Lemmermann
  * @author François Martin
  * @author Marco Sanfratello
@@ -228,10 +228,11 @@ public final class WorkbenchDialog {
 
     /**
      * Defines the action to perform when a button of the dialog was pressed.
+     *
      * @param onResult action to be performed
      * @return builder for chaining
      * @implNote If {@code onResult} is null, an empty consumer will be set instead, to avoid
-     *           throwing {@link NullPointerException} upon calling.
+     * throwing {@link NullPointerException} upon calling.
      */
     public WorkbenchDialogBuilder onResult(Consumer<ButtonType> onResult) {
       this.onResult = onResult;
@@ -240,6 +241,7 @@ public final class WorkbenchDialog {
 
     /**
      * Defines which {@link DialogControl} should be used to render the {@link WorkbenchDialog}.
+     *
      * @param dialogControl to be used to render the {@link WorkbenchDialog}.
      * @return builder for chaining
      */
@@ -252,9 +254,9 @@ public final class WorkbenchDialog {
      * The dialog's action, which is invoked whenever the dialog has been fully initialized and is
      * being shown. Whenever the {@link DialogControl#dialogProperty()}, {@link
      * WorkbenchDialog#buttonTypes}, {@link DialogControl#buttonTextUppercaseProperty()} or {@link
-     * DialogControl#workbenchProperty()} changes, the dialog will be rebuilt and upon completion, an
-     * event will be fired.
-
+     * DialogControl#workbenchProperty()} changes, the dialog will be rebuilt and upon completion,
+     * an event will be fired.
+     *
      * @param onShown action to be performed
      * @return builder for chaining
      */
@@ -266,8 +268,8 @@ public final class WorkbenchDialog {
     /**
      * The dialog's action, which is invoked whenever the dialog has been hidden in the scene graph.
      * An event will be fired whenever {@link DialogControl#hide()} or
-     * {@link Workbench#hideDialog(WorkbenchDialog)} has been called or the dialog has been closed by
-     * clicking on its corresponding {@link GlassPane}.
+     * {@link Workbench#hideDialog(WorkbenchDialog)} has been called or the dialog has been closed
+     * by clicking on its corresponding {@link GlassPane}.
      *
      * @param onHidden action to be performed
      * @return builder for chaining
@@ -358,7 +360,7 @@ public final class WorkbenchDialog {
    *
    * @param buttonType to retrieve from the {@link DialogControl}
    * @return the button or an empty {@link Optional}, if the {@link DialogControl} hasn't been
-   *         initialized before
+   * initialized before
    */
   public final Optional<Button> getButton(ButtonType buttonType) {
     if (Objects.isNull(getDialogControl())) {
@@ -378,7 +380,7 @@ public final class WorkbenchDialog {
    * event will be fired.
    *
    * @return the property to represent the event, which is invoked whenever the dialog has been
-   *         fully initialized and is being shown.
+   * fully initialized and is being shown.
    */
   public final ObjectProperty<EventHandler<Event>> onShownProperty() {
     return getDialogControl().onShownProperty();
@@ -394,12 +396,12 @@ public final class WorkbenchDialog {
 
   /**
    * The dialog's action, which is invoked whenever the dialog has been hidden in the scene graph.
-   * An event will be fired whenever {@link DialogControl#hide()} or
-   * {@link Workbench#hideDialog(WorkbenchDialog)} has been called or the dialog has been closed by
+   * An event will be fired whenever {@link DialogControl#hide()} or {@link
+   * Workbench#hideDialog(WorkbenchDialog)} has been called or the dialog has been closed by
    * clicking on its corresponding {@link GlassPane}.
    *
    * @return the property to represent the event, which is invoked whenever the dialog has been
-   *         hidden in the scene graph.
+   * hidden in the scene graph.
    */
   public final ObjectProperty<EventHandler<Event>> onHiddenProperty() {
     return getDialogControl().onHiddenProperty();
@@ -539,6 +541,7 @@ public final class WorkbenchDialog {
 
   /**
    * Defines the action to perform when a button of the dialog was pressed.
+   *
    * @param onResult action to be performed
    * @implNote If {@code onResult} is null, an empty consumer will be set instead, to avoid
    *           throwing {@link NullPointerException} upon calling.
@@ -559,10 +562,9 @@ public final class WorkbenchDialog {
   }
 
   /**
-   * The root node of the dialog, the {@link DialogControl} contains all visual
-   * elements shown in the dialog. As such, it is possible to completely adjust
-   * the display of the dialog by modifying the existing dialog control or creating
-   * a new one.
+   * The root node of the dialog, the {@link DialogControl} contains all visual elements shown in
+   * the dialog. As such, it is possible to completely adjust the display of the dialog by modifying
+   * the existing dialog control or creating a new one.
    */
   public ObjectProperty<DialogControl> dialogControlProperty() {
     return dialogControl;

@@ -49,12 +49,13 @@ public abstract class WorkbenchModule {
   }
 
   // Lifecycle
+
   /**
    * Gets called when the module is being opened from the overview for the first time.
    *
    * @param workbench the calling workbench object
    * @implSpec the implementor of this method <b>must</b> call {@code super(Workbench)} to ensure
-   *           correct working order.
+   * correct working order.
    */
   public void init(Workbench workbench) {
     this.workbench = workbench;
@@ -65,7 +66,7 @@ public abstract class WorkbenchModule {
    *
    * @return content to be displayed in this module
    * @implNote if a module is being opened from the overview for the first time, it will get
-   *           initialized first by calling init(), afterwards activate() will be called.
+   * initialized first by calling init(), afterwards activate() will be called.
    */
   public abstract Node activate();
 

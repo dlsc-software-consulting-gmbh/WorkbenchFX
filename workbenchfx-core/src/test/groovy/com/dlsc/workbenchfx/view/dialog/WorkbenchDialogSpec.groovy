@@ -95,7 +95,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         boolean blocking = true
         boolean maximized = true
         boolean showButtonsBar = false
-        def styleClasses = ["first-style-class","second-style-class"] as String[]
+        def styleClasses = ["first-style-class", "second-style-class"] as String[]
         Exception exception = Stub(Exception.class)
         String details = "These are some details"
 
@@ -173,7 +173,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
     }
 
     def setupMockException(Exception mock, String details) {
-        1 * mock.printStackTrace((PrintWriter)_) >> {arguments ->
+        1 * mock.printStackTrace((PrintWriter) _) >> { arguments ->
             PrintWriter printWriter = arguments[0] // capture PrintWriter that was used in the call
             printWriter.print(details) // mock behavior of Throwable#printStackTrace
         }

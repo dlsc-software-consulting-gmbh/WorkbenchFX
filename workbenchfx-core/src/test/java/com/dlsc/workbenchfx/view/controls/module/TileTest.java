@@ -73,12 +73,12 @@ class TileTest extends ApplicationTest {
   @Test
   void testModuleListener() {
     assertEquals("Module 0", tile.getName());
-    assertEquals("Module Icon 0", ((Label)tile.getIcon()).getText());
+    assertEquals("Module Icon 0", ((Label) tile.getIcon()).getText());
 
     // change to module 1
     tile.setModule(mockModules[1]);
     assertEquals("Module 1", tile.getName());
-    assertEquals("Module Icon 1", ((Label)tile.getIcon()).getText());
+    assertEquals("Module Icon 1", ((Label) tile.getIcon()).getText());
   }
 
   @Test

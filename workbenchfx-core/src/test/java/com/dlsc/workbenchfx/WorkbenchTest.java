@@ -1264,7 +1264,7 @@ class WorkbenchTest extends ApplicationTest {
    * Using {@link FxRobot#closeCurrentWindow()} would be better, but it only works on Windows
    * because of its implementation, so this approach was chosen as a workaround.
    * @see <a href="https://github.com/TestFX/TestFX/issues/447>
-   *   closeCurrentWindow() doesn't work headless</a>
+   * closeCurrentWindow() doesn't work headless</a>
    */
   private void closeStage() {
     Stage stage = ((Stage) workbench.getScene().getWindow());
@@ -1414,6 +1414,7 @@ class WorkbenchTest extends ApplicationTest {
   /**
    * Internal testing method that will simulate a click on a {@link GlassPane} of
    * an {@code overlayNode}.
+   *
    * @param overlayNode of which the GlassPane should be clicked
    */
   private void simulateGlassPaneClick(Node overlayNode) {

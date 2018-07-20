@@ -98,7 +98,7 @@ public class WorkbenchPresenter extends Presenter {
   /**
    * Adds an {@code overlay} together with the {@code glassPane} to the view.
    *
-   * @param overlay to be added
+   * @param overlay   to be added
    * @param glassPane to be added
    */
   public void addOverlay(Node overlay, GlassPane glassPane) {
@@ -109,7 +109,7 @@ public class WorkbenchPresenter extends Presenter {
   /**
    * Removes an {@code overlay} together with the {@code glassPane} from the view.
    *
-   * @param overlay to be removed
+   * @param overlay   to be removed
    * @param glassPane to be removed
    */
   public void removeOverlay(Node overlay, GlassPane glassPane) {
@@ -123,7 +123,7 @@ public class WorkbenchPresenter extends Presenter {
   /**
    * Makes the {@code overlay} visible, along with its {@code glassPane}.
    *
-   * @param overlay to be shown
+   * @param overlay  to be shown
    * @param blocking if false, will make {@code overlay} hide, if its {@code glassPane} was clicked
    */
   public void showOverlay(Node overlay, boolean blocking) {
@@ -133,7 +133,7 @@ public class WorkbenchPresenter extends Presenter {
   /**
    * Makes the {@code overlay} visible, along with its {@code glassPane}.
    *
-   * @param overlay to be shown
+   * @param overlay   to be shown
    * @param glassPane the {@code overlay}'s corresponding {@link GlassPane}
    * @param blocking if false, will make {@code overlay} hide, if its {@code glassPane} was clicked
    */

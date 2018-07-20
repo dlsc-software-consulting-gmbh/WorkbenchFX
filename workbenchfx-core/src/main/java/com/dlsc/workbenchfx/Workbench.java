@@ -118,9 +118,11 @@ public class Workbench extends Control {
    * Is <b>always</b> completed with {@code true}. This way, there is no need to differentiate
    * whether it was completed with {@code true} or {@code false}.
    */
-  private final Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap = new HashMap<>();
+  private final Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap =
+      new HashMap<>();
 
   // Builder
+
   /**
    * Creates a builder for {@link Workbench}.
    *
@@ -174,7 +176,7 @@ public class Workbench extends Control {
      * @param tabFactory to be used to create the {@link Tab}
      * @return builder for chaining
      * @implNote Use this to replace the control which is used for the tab with your own
-     *           implementation.
+     * implementation.
      */
     public WorkbenchBuilder tabFactory(Callback<Workbench, Tab> tabFactory) {
       this.tabFactory = tabFactory;
@@ -187,7 +189,7 @@ public class Workbench extends Control {
      * @param tileFactory to be used to create the {@link Tile}
      * @return builder for chaining
      * @implNote Use this to replace the control which is used for the tiles with your own
-     *           implementation.
+     * implementation.
      */
     public WorkbenchBuilder tileFactory(Callback<Workbench, Tile> tileFactory) {
       this.tileFactory = tileFactory;
@@ -200,7 +202,7 @@ public class Workbench extends Control {
      * @param pageFactory to be used to create the {@link Page} for the tiles
      * @return builder for chaining
      * @implNote Use this to replace the page which is used in the home screen to display tiles of
-     *           the modules with your own implementation.
+     * the modules with your own implementation.
      */
     public WorkbenchBuilder pageFactory(Callback<Workbench, Page> pageFactory) {
       this.pageFactory = pageFactory;
@@ -501,7 +503,7 @@ public class Workbench extends Control {
    *
    * @return amount of pages
    * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}. This
-   *           is repeated until all modules are rendered as tiles.
+   * is repeated until all modules are rendered as tiles.
    */
   private int calculateAmountOfPages() {
     int amountOfModules = getModules().size();
@@ -565,6 +567,7 @@ public class Workbench extends Control {
   /**
    * Hides the {@code dialog} which was previously shown in the view
    * using {@link #showDialog(WorkbenchDialog)}.
+   *
    * @param dialog to be hidden
    */
   public final void hideDialog(WorkbenchDialog dialog) {
@@ -597,11 +600,11 @@ public class Workbench extends Control {
    *
    * @param title    of the dialog
    * @param message  of the dialog
-   * @param onResult  the action to perform when a button of the dialog was pressed, providing the
-   *                  {@link ButtonType} that was pressed
+   * @param onResult the action to perform when a button of the dialog was pressed, providing the
+   *                 {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   *           result will be {@link ButtonType#CANCEL}.
+   * result will be {@link ButtonType#CANCEL}.
    */
   public final WorkbenchDialog showErrorDialog(String title,
                                                String message,
@@ -621,7 +624,7 @@ public class Workbench extends Control {
    *                  {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   *           result will be {@link ButtonType#CANCEL}.
+   * result will be {@link ButtonType#CANCEL}.
    */
   public final WorkbenchDialog showErrorDialog(String title,
                                                String message,
@@ -640,11 +643,11 @@ public class Workbench extends Control {
    * @param title    of the dialog
    * @param message  of the dialog
    * @param details  about the error
-   * @param onResult  the action to perform when a button of the dialog was pressed, providing the
-   *                  {@link ButtonType} that was pressed
+   * @param onResult the action to perform when a button of the dialog was pressed, providing the
+   *                 {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
-   *           result will be {@link ButtonType#CANCEL}.
+   * result will be {@link ButtonType#CANCEL}.
    */
   public final WorkbenchDialog showErrorDialog(String title,
                                                String message,
@@ -662,8 +665,8 @@ public class Workbench extends Control {
    *
    * @param title    of the dialog
    * @param message  of the dialog
-   * @param onResult  the action to perform when a button of the dialog was pressed, providing the
-   *                  {@link ButtonType} that was pressed
+   * @param onResult the action to perform when a button of the dialog was pressed, providing the
+   *                 {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
@@ -681,8 +684,8 @@ public class Workbench extends Control {
    *
    * @param title    of the dialog
    * @param message  of the dialog
-   * @param onResult  the action to perform when a button of the dialog was pressed, providing the
-   *                  {@link ButtonType} that was pressed
+   * @param onResult the action to perform when a button of the dialog was pressed, providing the
+   *                 {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
@@ -700,8 +703,8 @@ public class Workbench extends Control {
    *
    * @param title    of the dialog
    * @param message  of the dialog
-   * @param onResult  the action to perform when a button of the dialog was pressed, providing the
-   *                  {@link ButtonType} that was pressed
+   * @param onResult the action to perform when a button of the dialog was pressed, providing the
+   *                 {@link ButtonType} that was pressed
    * @return the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.

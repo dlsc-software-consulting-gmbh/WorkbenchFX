@@ -16,8 +16,8 @@ import javafx.scene.layout.VBox;
 public class DialogErrorContent extends VBox {
 
   /**
-   * Creates a control which shows the details of an exception or error to be used as the content
-   * of a {@link WorkbenchDialog}.
+   * Creates a control which shows the details of an exception or error to be used as the content of
+   * a {@link WorkbenchDialog}.
    *
    * @param message the {@link Node} containing the standard dialog message
    * @param details about the error or exception
