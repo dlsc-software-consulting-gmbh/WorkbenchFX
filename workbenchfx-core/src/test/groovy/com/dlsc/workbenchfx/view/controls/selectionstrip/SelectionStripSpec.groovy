@@ -59,27 +59,27 @@ class SelectionStripSpec extends ApplicationSpec {
         selectionStrip.getCellFactory() instanceof Callback<SelectionStrip, StripCell<WorkbenchModule>>
     }
 
-    def "tests selecteditem listener: behaviour of adding a module and setting it selected"(
-            boolean autoscrolling, WorkbenchModule module, WorkbenchModule selectedModule, int listSize) {
+    @Unroll
+    def "tests selected-item listener: autoScrolling: '#autoScrolling' and selectedItem adding: '#selectedItem' => autoscrolledModule: '#autoscrolledModule'"(
+            boolean autoScrolling,
+            WorkbenchModule selectedItem,
+            WorkbenchModule autoscrolledModule
+    ) {
         given:
         robot.interact {
-            selectionStrip.setAutoScrolling(autoscrolling)
-            selectionStrip.getItems().add(module)
+            selectionStrip.setAutoScrolling(autoScrolling)
+            selectionStrip.setSelectedItem(selectedItem)
         }
 
         expect:
-        robot.interact {
-            selectedModule == selectionStrip.getSelectedItem()
-            listSize == selectionStrip.getItems().size()
-            selectedModule == selectionStrip.getProperties().get("scroll.to");
-        }
+        autoscrolledModule == selectionStrip.getProperties().get("scroll.to");
 
         where:
-        autoscrolling | module          || selectedModule  | listSize
-        true          | null            || null            | 0
-        true          | workbenchModule || workbenchModule | 1
-        false         | null            || null            | 0
-        false         | workbenchModule || null            | 1
+        autoScrolling | selectedItem    || autoscrolledModule
+        true          | null            || null
+        true          | workbenchModule || workbenchModule
+        false         | null            || null
+        false         | workbenchModule || null
     }
 
     @Shared
