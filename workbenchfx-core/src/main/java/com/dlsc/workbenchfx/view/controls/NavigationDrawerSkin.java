@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import com.dlsc.workbenchfx.view.controls.NavigationDrawer.Behaviour;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.Observable;
@@ -16,6 +15,7 @@ import javafx.scene.control.SkinBase;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
@@ -149,12 +149,13 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     menuButton.getStyleClass().addAll(item.getStyleClass());
     Bindings.bindContent(menuButton.getItems(), menu.getItems());
 
-    if (!getSkinnable().getHoverOnItems().equals(Behaviour.NEVER)) { //Only when ALWAYS or SOMETIMES
+    // Only when ALWAYS or SOMETIMES
+    if (!getSkinnable().getMenuHoverBehaviour().equals(Priority.NEVER)) {
       menuButton
           .addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Menu
             // When ALWAYS, then trigger immediately. Else check if clicked before (case: SOMETIMES)
-            if (getSkinnable().getHoverOnItems().equals(Behaviour.ALWAYS) ||
-                (hoveredBtn != null && hoveredBtn.isShowing())) {
+            if (getSkinnable().getMenuHoverBehaviour().equals(Priority.ALWAYS)
+                || (hoveredBtn != null && hoveredBtn.isShowing())) {
               menuButton.show(); // Shows the context-menu
               if (hoveredBtn != null && hoveredBtn != menuButton) {
                 hoveredBtn.hide(); // Hides the previously hovered Button if not null and not self
@@ -175,7 +176,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     button.getStyleClass().addAll(item.getStyleClass());
     button.setOnAction(item.getOnAction());
     // Only in cases ALWAYS and SOMETIMES: hide previously hovered button
-    if (!getSkinnable().getHoverOnItems().equals(Behaviour.NEVER)) {
+    if (!getSkinnable().getMenuHoverBehaviour().equals(Priority.NEVER)) {
       button.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Button
         if (hoveredBtn != null) {
           hoveredBtn.hide(); // Hides the previously hovered Button if not null
