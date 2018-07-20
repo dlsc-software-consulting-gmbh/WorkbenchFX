@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view.controls.selectionstrip;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 
 public class TabCell extends StripCell<WorkbenchModule> {
@@ -25,7 +26,7 @@ public class TabCell extends StripCell<WorkbenchModule> {
       // Sets id with toString of module.
       // Adds 'tab-', replaces spaces with highfins and lowecases letters.
       // eg. Customer Management converts to tab-customer-management
-      setId("tab-" + getItem().toString().replace(" ", "-").toLowerCase());
+      setId(WorkbenchUtils.convertToId("tab-" + getItem()));
 
       /*
         To remove the background-insets from this cell.

@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -53,7 +54,7 @@ public class Tile extends Control {
       // Sets id with toString of module.
       // Adds 'tile-', replaces spaces with highfins and lowecases letters.
       // eg. Customer Management converts to tile-customer-management
-      setId("tile-" + getName().replace(" ", "-").toLowerCase());
+      setId(WorkbenchUtils.convertToId("tile-" + getName()));
     });
   }
 

@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.util;
 
+import com.google.common.base.CharMatcher;
 import java.util.Set;
 import java.util.function.Consumer;
 import javafx.collections.ObservableSet;
@@ -8,7 +9,7 @@ import javafx.scene.Node;
 
 /**
  * Provides utility methods to do general transformations between different model objects of
- * WorkbenchFX and or lists and maps of them.
+ * WorkbenchFX or or lists or maps of them.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -42,14 +43,14 @@ public final class WorkbenchUtils {
   /**
    * Adds a {@link SetChangeListener} to an {@link ObservableSet}.
    *
-   * @param set     to add a listener to
-   * @param added   action to be performed when an object was added to the {@link Set}
+   * @param set to add a listener to
+   * @param added action to be performed when an object was added to the {@link Set}
    * @param removed action to be performed when an object was removed from the {@link Set}
-   * @param <T>     type of the {@link ObservableSet}
+   * @param <T> type of the {@link ObservableSet}
    */
   public static <T> void addSetListener(ObservableSet<T> set,
-                                        Consumer<SetChangeListener.Change<? extends T>> added,
-                                        Consumer<SetChangeListener.Change<? extends T>> removed) {
+      Consumer<SetChangeListener.Change<? extends T>> added,
+      Consumer<SetChangeListener.Change<? extends T>> removed) {
     set.addListener((SetChangeListener<? super T>) c -> {
       if (c.wasAdded()) {
         added.accept(c);
@@ -57,5 +58,22 @@ public final class WorkbenchUtils {
         removed.accept(c);
       }
     });
+  }
+
+  /**
+   * TODO
+   *
+   * @param name TODO
+   * @return TODO
+   */
+  public static String convertToId(String name) {
+    return CharMatcher.inRange('a', 'z')
+        .or(CharMatcher.inRange('A', 'Z'))
+        .or(CharMatcher.inRange('0', '9'))
+        .or(CharMatcher.whitespace())
+        .or(CharMatcher.is('-'))
+        .retainFrom(name)
+        .replace(' ', '-')
+        .toLowerCase();
   }
 }
