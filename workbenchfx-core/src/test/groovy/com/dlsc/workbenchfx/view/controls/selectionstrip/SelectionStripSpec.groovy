@@ -82,31 +82,6 @@ class SelectionStripSpec extends ApplicationSpec {
         false         | workbenchModule || null
     }
 
-    @Shared
-    SelectionStrip<WorkbenchModule> selectionStripShared
-
-    def "tests behaviour of adding multiple modules and setting them selected"(WorkbenchModule module, WorkbenchModule selectedModule, int listSize) {
-        given:
-        robot.interact {
-            selectionStripShared = new MockSelectionStrip<>()
-            selectionStripShared.getItems().add(module)
-        }
-
-        expect:
-        robot.interact {
-            selectedModule == selectionStrip.getSelectedItem()
-            listSize == selectionStrip.getItems().size()
-            selectedModule == selectionStrip.getProperties().get("scroll.to");
-        }
-
-        where:
-        module           || selectedModule   | listSize
-        null             || null             | 0
-        workbenchModule  || workbenchModule  | 1
-        workbenchModule2 || workbenchModule2 | 2
-        workbenchModule2 || workbenchModule2 | 3
-    }
-
     def "test removing indicees from items"(
             WorkbenchModule[] initialModules,
             int[] removeIndicees,
