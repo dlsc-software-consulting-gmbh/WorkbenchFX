@@ -31,7 +31,7 @@ public class InterruptClosingTestModule extends WorkbenchModule {
   public boolean destroy() {
     System.out.println("DESTROY CALLED ON 1");
 
-    WorkbenchDialog.builder("Confirmation",
+    getWorkbench().showDialog(WorkbenchDialog.builder("Confirmation",
         "Are you sure you want to close this module without saving?",
         WorkbenchDialog.Type.CONFIRMATION)
         .blocking(true)
@@ -41,7 +41,7 @@ public class InterruptClosingTestModule extends WorkbenchModule {
             close();
           }
         })
-        .build();
+        .build());
 
     return false;
   }
