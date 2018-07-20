@@ -319,11 +319,17 @@ public final class WorkbenchDialog {
       setDetails(builder.details);
     }
     setDialogControl(builder.dialogControl);
-    setOnShown(builder.onShown);
-    setOnHidden(builder.onHidden);
+    if (!Objects.isNull(getDialogControl())) {
+      setOnShown(builder.onShown);
+      setOnHidden(builder.onHidden);
+      // initialize dialog control
+      getDialogControl().setDialog(this);
+    }
+    // set itself to changing dialogControls
+    dialogControlProperty().addListener((observable, oldDialogControl, newDialogControl) -> {
+      newDialogControl.setDialog(this);
+    });
 
-    // initialize dialog control
-    getDialogControl().setDialog(this);
   }
 
   private void initType(Type type) {
