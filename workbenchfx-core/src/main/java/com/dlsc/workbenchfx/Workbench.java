@@ -315,7 +315,8 @@ public class Workbench extends Control {
     /* If module has previously been closed and can now safely be closed, calling destroy() is not
     necessary anymore, simply remove the module
     If this module is being closed the first time or cannot be safely closed yet, attempt to
-    destroy module. */
+    destroy module.
+    Note: destroy() will not be called if moduleCloseable was completed with true! */
     if (module.getModuleCloseable().getNow(false) || module.destroy()) {
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
