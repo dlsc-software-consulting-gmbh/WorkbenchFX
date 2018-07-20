@@ -140,6 +140,8 @@ public final class WorkbenchDialog {
     String details = "";
     Consumer<ButtonType> onResult = null;
     DialogControl dialogControl = new DialogControl();
+    EventHandler<Event> onShown = null;
+    EventHandler<Event> onHidden = null;
 
     private WorkbenchDialogBuilder(String title, Node content, ButtonType... buttonTypes) {
       this.title = title;
@@ -248,6 +250,35 @@ public final class WorkbenchDialog {
     }
 
     /**
+     * The dialog's action, which is invoked whenever the dialog has been fully initialized and is
+     * being shown. Whenever the {@link DialogControl#dialogProperty()}, {@link
+     * WorkbenchDialog#buttonTypes}, {@link DialogControl#buttonTextUppercaseProperty()} or {@link
+     * DialogControl#workbenchProperty()} changes, the dialog will be rebuilt and upon completion, an
+     * event will be fired.
+
+     * @param onShown action to be performed
+     * @return builder for chaining
+     */
+    public WorkbenchDialogBuilder onShown(EventHandler<Event> onShown) {
+      this.onShown = onShown;
+      return this;
+    }
+
+    /**
+     * The dialog's action, which is invoked whenever the dialog has been hidden in the scene graph.
+     * An event will be fired whenever {@link DialogControl#hide()} or
+     * {@link Workbench#hideDialog(WorkbenchDialog)} has been called or the dialog has been closed by
+     * clicking on its corresponding {@link GlassPane}.
+     *
+     * @param onHidden action to be performed
+     * @return builder for chaining
+     */
+    public WorkbenchDialogBuilder onHidden(EventHandler<Event> onHidden) {
+      this.onHidden = onHidden;
+      return this;
+    }
+
+    /**
      * Builds and fully initializes a {@link WorkbenchDialog} object.
      *
      * @return the {@link WorkbenchDialog} object
@@ -287,6 +318,8 @@ public final class WorkbenchDialog {
       setDetails(workbenchDialogBuilder.details);
     }
     setDialogControl(workbenchDialogBuilder.dialogControl);
+    setOnShown(workbenchDialogBuilder.onShown);
+    setOnHidden(workbenchDialogBuilder.onHidden);
 
     // initialize dialog control
     getDialogControl().setDialog(this);
