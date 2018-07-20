@@ -60,9 +60,11 @@ class SelectionStripSpec extends ApplicationSpec {
         selectionStrip.getCellFactory() instanceof Callback<SelectionStrip, StripCell<WorkbenchModule>>
     }
 
-    def "tests behaviour of adding a module and setting it selected"(WorkbenchModule module, WorkbenchModule selectedModule, int listSize) {
+    def "tests selecteditem listener: behaviour of adding a module and setting it selected"(
+            boolean autoscrolling, WorkbenchModule module, WorkbenchModule selectedModule, int listSize) {
         given:
         robot.interact {
+            selectionStrip.setAutoScrolling(autoscrolling)
             selectionStrip.getItems().add(module)
         }
 
@@ -74,22 +76,11 @@ class SelectionStripSpec extends ApplicationSpec {
         }
 
         where:
-        module          || selectedModule  | listSize
-        null            || null            | 0
-        workbenchModule || workbenchModule | 1
-    }
-
-    def "tests setting the autoscroll property to false"() {
-        given: "selectionStrip, autoscrolling to false"
-        selectionStrip.setAutoScrolling(false)
-
-        when:
-        robot.interact {
-            selectionStrip.getItems().add(workbenchModule)
-        }
-
-        then:
-        null == selectionStrip.getProperties().get("scroll.to");
+        autoscrolling | module          || selectedModule  | listSize
+        true          | null            || null            | 0
+        true          | workbenchModule || workbenchModule | 1
+        false         | null            || null            | 0
+        false         | workbenchModule || null            | 1
     }
 
     @Shared
@@ -134,7 +125,7 @@ class SelectionStripSpec extends ApplicationSpec {
                 selectionStrip.getItems().remove(removeIndicees[i])
                 // decrease the index of all other values, cause the items-size decreased
                 for (int j = i + 1; j < removeIndicees.length; j++) {
-                    removeIndicees[j] -= 1
+                    removeIndicees[j]--
                 }
             }
         }
