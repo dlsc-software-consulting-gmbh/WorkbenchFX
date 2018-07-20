@@ -2,7 +2,7 @@ package com.dlsc.workbenchfx.view.controls.selectionstrip
 
 import com.dlsc.workbenchfx.model.WorkbenchModule
 import com.dlsc.workbenchfx.testing.MockSelectionStrip
-import javafx.beans.WeakInvalidationListener
+import javafx.css.PseudoClass
 import javafx.scene.Scene
 import javafx.scene.input.MouseButton
 import javafx.stage.Stage
@@ -24,6 +24,7 @@ class StripCellSpec extends ApplicationSpec {
     }
     private StripCell<WorkbenchModule> stripCell
     private SelectionStrip<WorkbenchModule> mockSelectionStrip
+    private static final PseudoClass PSEUDO_CLASS_SELECTED = PseudoClass.getPseudoClass("selected")
 
     private FxRobot robot
 
@@ -77,6 +78,26 @@ class StripCellSpec extends ApplicationSpec {
 
         then: "the selectionlistener triggers and executes updateSelection()"
         stripCell.isSelected()
+        stripCell.getPseudoClassStates().contains(PSEUDO_CLASS_SELECTED)
+    }
+
+    def "test selectionStripListener"() {
+        given: "selectionstrip was set"
+        SelectionStrip<WorkbenchModule> mockStrip = new MockSelectionStrip()
+        robot.interact {
+            mockStrip.setSelectedItem(mockModule)
+            stripCell.setSelectionStrip(mockSelectionStrip)
+            stripCell.setItem(mockModule)
+        }
+
+        when: "a new selectionStrip with the same module is set"
+        robot.interact {
+            stripCell.setSelectionStrip(mockStrip)
+        }
+
+        then: "the selectionStripProperty listener triggers and executes updateSelection()"
+        stripCell.isSelected()
+        stripCell.getPseudoClassStates().contains(PSEUDO_CLASS_SELECTED)
     }
 
     @Unroll
@@ -97,6 +118,7 @@ class StripCellSpec extends ApplicationSpec {
         robot.interact {
             expectedText == stripCell.getText()
             isSelected == stripCell.isSelected()
+            isSelected == stripCell.getPseudoClassStates().contains(PSEUDO_CLASS_SELECTED)
         }
 
         where:
@@ -106,51 +128,4 @@ class StripCellSpec extends ApplicationSpec {
         mockModule | mockModule   || expectedToString | true
         mockModule | null         || expectedToString | false
     }
-
-    def "test update selection"() {
-
-    }
-
-    def "test listener when setting the selectionStrip"() {
-        given: "SelectionStrip as Mock"
-        robot.interact {
-            mockSelectionStrip = new MockSelectionStrip()
-        }
-
-        when: "initial setup"
-        robot.interact {
-            stripCell.setSelectionStrip(mockSelectionStrip)
-        }
-
-        then: "selectionStripProperty is null"
-        Objects.isNull(stripCell.getSelectionStrip())
-
-        when: "old null and new null"
-        robot.interact {
-            stripCell.setSelectionStrip(null)
-        }
-
-        then: "nothing shall happen (selectionStripProperty is still null)"
-        Objects.isNull(stripCell.getSelectionStrip())
-
-        when: "old null and new !null"
-        robot.interact {
-//            stripCell.setSelectionStrip(mockSelectionStrip)
-        }
-
-        then: ""
-        0 * mockSelectionStrip.selectedItemProperty()
-        0 * property.addListener(_ as WeakInvalidationListener)
-    }
-
-    /*
-    listener: 4 möglichkeiten -> selectionstrip-mock -> abfragen ob gecallt worden
-    sttext aufgerufen?
-    getitem.toString aufgerufen?
-
-    wird getSelectedItem auf selectionstrip aufgerufen?
-    ist aktuelles item selektiert?
-
-    pseudoclassstate -> wird richtige gesetzt?
-     */
 }
