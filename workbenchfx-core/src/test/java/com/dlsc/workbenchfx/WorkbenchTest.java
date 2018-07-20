@@ -51,6 +51,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -536,6 +537,7 @@ class WorkbenchTest extends ApplicationTest {
    * Example of what happens in case of a closing dialog in the destroy() method of a module with
    * the user confirming the module should get closed. Precondition: openModule tests pass.
    */
+  @Disabled // TODO
   @Test
   void closeModuleDestroyInactiveDialogClose() {
     // open two modules, close first (inactive) module
@@ -1174,7 +1176,7 @@ class WorkbenchTest extends ApplicationTest {
    * returning {@code true}, when {@link WorkbenchModule#destroy()} is being called
    * on them during cleanup.
    */
-  @Ignore
+  @Disabled // TODO
   @Test
   void closeStageFailFirstModule() {
     robot.interact(() -> {
@@ -1219,7 +1221,7 @@ class WorkbenchTest extends ApplicationTest {
    * returning {@code false}, when {@link WorkbenchModule#destroy()} is being called on them during
    * cleanup.
    */
-  @Ignore
+  @Disabled // TODO
   @Test
   void closeStageFailSecondModule() {
     robot.interact(() -> {
@@ -1286,7 +1288,7 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  @Ignore
+  @Disabled // TODO
   @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane")
   void showDialogNonBlockingCloseGlassPane() {
     robot.interact(() -> {
@@ -1311,7 +1313,7 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  @Ignore
+  @Disabled // TODO
   @DisplayName("Show non-blocking dialog and close by clicking on one of the dialog buttons")
   void showDialogNonBlockingCloseButton() {
     robot.interact(() -> {
