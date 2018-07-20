@@ -231,11 +231,15 @@ public class Workbench extends Control {
             LOGGER.trace("Module " + openModule + " could not be closed yet");
 
             // once module is ready to be closed, start stage closing process over again
-            openModule.getModuleCloseable().thenRun(() -> {
-              LOGGER.trace("Completed for Module " + openModule);
-              LOGGER.trace("Module " + openModule + " can now be safely closed");
-              // re-start closing process, in case other modules are blocking the closing process
-              stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+            openModule.getModuleCloseable().thenAccept(closeable -> {
+              LOGGER.trace("Completed for Module " + openModule + " with: " + closeable);
+              if (closeable) {
+                LOGGER.trace("Module " + openModule + " can now be safely closed");
+                // re-start closing process, in case other modules are blocking the closing process
+                stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+              } else {
+                LOGGER.trace("Module " + openModule + " not closeable");
+              }
             });
 
             break; // interrupt closing until the interrupting module has been safely closed
@@ -313,6 +317,10 @@ public class Workbench extends Control {
     destroy module.
     Note: destroy() will not be called if moduleCloseable was completed with true! */
     if (module.getModuleCloseable().getNow(false) || module.destroy()) {
+      if (!module.getModuleCloseable().isDone()) {
+        module.resetModuleCloseable();
+        module.getModuleCloseable().thenRun(() -> closeModule(module));
+      }
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
       LOGGER.trace("closeModule - Destroy, Removal successful: " + removal + " - " + module);
@@ -323,6 +331,10 @@ public class Workbench extends Control {
       activeModule.setValue(newActive);
       return removal;
     } else {
+      if (!module.getModuleCloseable().isDone()) {
+        module.resetModuleCloseable();
+        module.getModuleCloseable().thenRun(() -> closeModule(module));
+      }
       // module should or could not be destroyed
       LOGGER.trace("closeModule - Destroy: Fail - " + module);
       openModule(module); // set focus to new module

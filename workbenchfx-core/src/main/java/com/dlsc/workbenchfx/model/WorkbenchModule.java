@@ -155,4 +155,8 @@ public abstract class WorkbenchModule {
   public final CompletableFuture<Boolean> getModuleCloseable() {
     return moduleCloseable;
   }
+
+  public final void resetModuleCloseable() {
+    moduleCloseable = new CompletableFuture<>();
+  }
 }
