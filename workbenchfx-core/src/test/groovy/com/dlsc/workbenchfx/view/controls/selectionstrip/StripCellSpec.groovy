@@ -24,6 +24,7 @@ class StripCellSpec extends ApplicationSpec {
     }
     private StripCell<WorkbenchModule> stripCell
     private SelectionStrip<WorkbenchModule> mockSelectionStrip
+
     private FxRobot robot
 
     @Override
@@ -63,6 +64,19 @@ class StripCellSpec extends ApplicationSpec {
         then: "max and min must be set"
         val == stripCell.getMaxWidth()
         val == stripCell.getMaxHeight()
+    }
+
+    def "test selectionStripSelectionListener"() {
+
+        when: "the selected item of the selectionStrip changes"
+        robot.interact {
+            stripCell.setSelectionStrip(mockSelectionStrip)
+            stripCell.setItem(mockModule)
+            mockSelectionStrip.setSelectedItem(mockModule)
+        }
+
+        then: "the selectionlistener triggers and executes updateSelection()"
+        stripCell.isSelected()
     }
 
     @Unroll
