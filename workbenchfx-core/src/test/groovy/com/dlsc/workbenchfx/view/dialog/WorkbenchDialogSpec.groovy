@@ -1,6 +1,10 @@
 import com.dlsc.workbenchfx.model.WorkbenchDialog
 import com.dlsc.workbenchfx.model.WorkbenchDialog.Type
+import com.dlsc.workbenchfx.testing.MockDialogControl
+import com.dlsc.workbenchfx.view.controls.dialog.DialogControl
 import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent
+import javafx.event.Event
+import javafx.event.EventHandler
 import javafx.scene.Scene
 import javafx.scene.control.ButtonType
 import javafx.scene.control.Label
@@ -9,6 +13,8 @@ import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
 import spock.lang.Ignore
 import spock.lang.Unroll
+
+import java.util.function.Consumer
 
 @Unroll
 class WorkbenchDialogSpec extends ApplicationSpec {
@@ -79,7 +85,6 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         BUTTON_TYPES == dialog.getButtonTypes().toArray()
     }
 
-    @Ignore // TODO
     def "Initialization of optional parameters - Defaults"() {
         when: "No optional parameters are specified"
         dialog = WorkbenchDialog.builder(TITLE, content, TYPE).build()
@@ -88,8 +93,12 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         !dialog.isBlocking()
         !dialog.isMaximized()
         dialog.isButtonsBarShown()
-        Objects.isNull(dialog.getException())
+        null == dialog.getException()
         "" == dialog.getDetails()
+        null != dialog.getOnResult()
+        null != dialog.getDialogControl()
+        null == dialog.getOnHidden()
+        null == dialog.getOnShown()
     }
 
     def "Initialization of optional parameters - Specified"() {
@@ -100,6 +109,10 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         def styleClasses = ["first-style-class", "second-style-class"] as String[]
         Exception exception = Stub(Exception.class)
         String details = "These are some details"
+        Consumer<ButtonType> onResult = { buttonType ->  }
+        EventHandler<Event> onHidden = { event -> }
+        EventHandler<Event> onShown = { event -> }
+        DialogControl dialogControl = new MockDialogControl()
 
         when: "Optional parameters are specified"
         dialog = WorkbenchDialog.builder(TITLE, content, TYPE)
@@ -109,6 +122,10 @@ class WorkbenchDialogSpec extends ApplicationSpec {
                 .styleClass(styleClasses)
                 .exception(exception)
                 .details(details)
+                .onResult(onResult)
+                .onHidden(onHidden)
+                .onShown(onShown)
+                .dialogControl(dialogControl)
                 .build()
 
         then: "Specified optional parameters are correctly set"
@@ -118,6 +135,10 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         dialog.getStyleClass().containsAll(styleClasses)
         exception == dialog.getException()
         details == dialog.getDetails()
+        onResult == dialog.getOnResult()
+        onHidden == dialog.getOnHidden()
+        onShown == dialog.getOnShown()
+        dialogControl == dialog.getDialogControl()
     }
 
     def "Initialization of a Dialog with Type #type has exactly the ButtonTypes #buttonTypes"(

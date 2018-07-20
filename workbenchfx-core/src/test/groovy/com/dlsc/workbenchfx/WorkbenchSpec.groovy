@@ -165,12 +165,12 @@ class WorkbenchSpec extends ApplicationSpec {
 
         where:
         methodName               | arguments                              || type              | exception | details
-        "showErrorDialog"        | [TITLE, MESSAGE, ON_RESULT]            || Type.ERROR        | null      | null
+        "showErrorDialog"        | [TITLE, MESSAGE, ON_RESULT]            || Type.ERROR        | null      | ""
         "showErrorDialog"        | [TITLE, MESSAGE, DETAILS, ON_RESULT]   || Type.ERROR        | null      | DETAILS
         "showErrorDialog"        | [TITLE, MESSAGE, EXCEPTION, ON_RESULT] || Type.ERROR        | EXCEPTION | ExceptionUtil.printStackTrace(exception)
-        "showWarningDialog"      | [TITLE, MESSAGE, ON_RESULT]            || Type.WARNING      | null      | null
-        "showConfirmationDialog" | [TITLE, MESSAGE, ON_RESULT]            || Type.CONFIRMATION | null      | null
-        "showInformationDialog"  | [TITLE, MESSAGE, ON_RESULT]            || Type.INFORMATION  | null      | null
+        "showWarningDialog"      | [TITLE, MESSAGE, ON_RESULT]            || Type.WARNING      | null      | ""
+        "showConfirmationDialog" | [TITLE, MESSAGE, ON_RESULT]            || Type.CONFIRMATION | null      | ""
+        "showInformationDialog"  | [TITLE, MESSAGE, ON_RESULT]            || Type.INFORMATION  | null      | ""
     }
 
     /**
