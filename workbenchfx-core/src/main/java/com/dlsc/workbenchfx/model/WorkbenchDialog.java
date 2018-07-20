@@ -40,7 +40,7 @@ public final class WorkbenchDialog {
   private Type type;
 
   private final StringProperty title = new SimpleStringProperty(this, "title");
-  private final StringProperty details = new SimpleStringProperty(this, "details");
+  private final StringProperty details = new SimpleStringProperty(this, "details", "");
 
   private final BooleanProperty maximized =
       new SimpleBooleanProperty(this, "maximized");
