@@ -10,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the base for a module, to be displayed in WorkbenchFX.
@@ -18,6 +20,9 @@ import javafx.stage.Stage;
  * @author Marco Sanfratello
  */
 public abstract class WorkbenchModule {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(WorkbenchModule.class.getName());
 
   private Workbench workbench;
   private String name;
@@ -64,7 +69,7 @@ public abstract class WorkbenchModule {
    */
   public void init(Workbench workbench) {
     this.workbench = workbench;
-    moduleCloseable = new CompletableFuture<>(); // reset in case module was destroyed before
+    resetModuleCloseable(); // initialize closing on call to #close()
   }
 
   /**
@@ -157,6 +162,12 @@ public abstract class WorkbenchModule {
   }
 
   public final void resetModuleCloseable() {
+    LOGGER.trace("moduleCloseable - Module - Cleared future: " + this);
     moduleCloseable = new CompletableFuture<>();
+    LOGGER.trace("moduleCloseable - Module - thenRun set: " + this);
+    getModuleCloseable().thenRun(() -> {
+      LOGGER.trace("moduleCloseable - Module - thenRun triggered: " + this);
+      workbench.closeModule(this);
+    });
   }
 }
