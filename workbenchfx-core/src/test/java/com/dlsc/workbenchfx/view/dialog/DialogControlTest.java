@@ -22,6 +22,7 @@ import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.function.Consumer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -61,6 +62,9 @@ class DialogControlTest extends ApplicationTest {
   @Mock
   private EventHandler<Event> mockHiddenHandler2;
 
+  @Mock
+  private Consumer<ButtonType> mockOnResult;
+
   private Stage stage;
   private DialogControl dialogControl2;
 
@@ -74,6 +78,7 @@ class DialogControlTest extends ApplicationTest {
     mockDialog = mock(WorkbenchDialog.class);
     buttonTypes = FXCollections.observableArrayList(BUTTON_TYPE_1);
     when(mockDialog.getButtonTypes()).thenReturn(buttonTypes);
+    when(mockDialog.getOnResult()).thenReturn(mockOnResult);
 
     mockBench = mock(Workbench.class);
 
@@ -199,17 +204,12 @@ class DialogControlTest extends ApplicationTest {
       assertEquals(BUTTON_TYPE_1.getText(), button.getText());
 
       // verify result before firing event
-      assertFalse(result.isDone());
+      verify(mockOnResult, never()).accept(any());
 
       // fire event (simulate click on button) causing setOnAction to get triggered
       button.fire();
-      assertTrue(result.isDone());
-      try {
-        assertEquals(BUTTON_TYPE_1, result.get());
-      } catch (InterruptedException | ExecutionException e) {
-        fail("Could not get result of dialog!");
-      }
-      //verify(mockBench).hideDialog();
+      verify(mockOnResult).accept(BUTTON_TYPE_1);
+      verify(mockBench).hideDialog(mockDialog);
     });
   }
 
