@@ -39,7 +39,6 @@ class DialogControlTest extends ApplicationTest {
   private ObservableList<ButtonType> buttonTypes;
 
   private DialogControl dialogControl;
-  private SimpleObjectProperty<WorkbenchDialog> dialogProperty;
 
   private CompletableFuture<ButtonType> result = new CompletableFuture<>();
 
@@ -69,63 +68,47 @@ class DialogControlTest extends ApplicationTest {
   void testCtor() {
     assertFalse(dialogControl.isPickOnBounds());
   }
-
-  @Disabled // TODO
+  
   @Test
   void testListeners() {
     robot.interact(() -> {
       // initially
-      // TODO: ObservableList<Node> buttons = dialogControl.getButtons();
-      // TODO: assertSame(1, buttons.size());
-      // TODO: assertEquals(BUTTON_TYPE_1.getText(), ((Button)buttons.get(0)).getText());
+      ObservableList<Button> buttons = dialogControl.getButtons();
+      assertSame(1, buttons.size());
+      assertEquals(BUTTON_TYPE_1.getText(), buttons.get(0).getText());
       verify(mockDialog, times(2)).getButtonTypes();
 
       // change ButtonTextUppercase to uppercase
       dialogControl.setButtonTextUppercase(true);
-      // TODO: assertSame(1, buttons.size());
-      // TODO:
-      // assertEquals(BUTTON_TYPE_1.getText().toUpperCase(), ((Button)buttons.get(0)).getText());
+      assertSame(1, buttons.size());
+      assertEquals(BUTTON_TYPE_1.getText().toUpperCase(), buttons.get(0).getText());
       verify(mockDialog, times(3)).getButtonTypes();
 
       // add buttonType
       buttonTypes.add(BUTTON_TYPE_2);
-      // TODO: assertSame(2, buttons.size());
-      // TODO:
-      // assertEquals(BUTTON_TYPE_1.getText().toUpperCase(), ((Button)buttons.get(0)).getText());
-      // TODO:
-      // assertEquals(BUTTON_TYPE_2.getText().toUpperCase(), ((Button)buttons.get(1)).getText());
+      assertSame(2, buttons.size());
+      assertEquals(BUTTON_TYPE_1.getText().toUpperCase(), buttons.get(0).getText());
+      assertEquals(BUTTON_TYPE_2.getText().toUpperCase(), buttons.get(1).getText());
       verify(mockDialog, times(4)).getButtonTypes();
 
       // change ButtonTextUppercase back to lowercase
       dialogControl.setButtonTextUppercase(false);
-      // TODO: assertSame(2, buttons.size());
-      // TODO: assertEquals(BUTTON_TYPE_1.getText(), ((Button)buttons.get(0)).getText());
-      // TODO: assertEquals(BUTTON_TYPE_2.getText(), ((Button)buttons.get(1)).getText());
+      assertSame(2, buttons.size());
+      assertEquals(BUTTON_TYPE_1.getText(), buttons.get(0).getText());
+      assertEquals(BUTTON_TYPE_2.getText(), buttons.get(1).getText());
       verify(mockDialog, times(5)).getButtonTypes();
 
-      // change workbench
-      dialogControl.setWorkbench(null);
-      // TODO: assertSame(0, buttons.size());
-      verify(mockDialog, times(7)).getButtonTypes();
-
-      // change workbench back
-      dialogControl.setWorkbench(mockBench);
-      // TODO: assertSame(2, buttons.size());
-      // TODO: assertEquals(BUTTON_TYPE_1.getText(), ((Button)buttons.get(0)).getText());
-      // TODO: assertEquals(BUTTON_TYPE_2.getText(), ((Button)buttons.get(1)).getText());
-      verify(mockDialog, times(9)).getButtonTypes();
-
       // change dialog
-      dialogProperty.set(null);
-      // TODO: assertSame(0, buttons.size());
-      verify(mockDialog, times(10)).getButtonTypes();
+      dialogControl.setDialog(null);
+      assertSame(0, buttons.size());
+      verify(mockDialog, times(6)).getButtonTypes();
 
       // change dialog back
-      dialogProperty.set(mockDialog);
-      // TODO: assertSame(2, buttons.size());
-      // TODO: assertEquals(BUTTON_TYPE_1.getText(), ((Button)buttons.get(0)).getText());
-      // TODO: assertEquals(BUTTON_TYPE_2.getText(), ((Button)buttons.get(1)).getText());
-      verify(mockDialog, times(12)).getButtonTypes();
+      dialogControl.setDialog(mockDialog);
+      assertSame(2, buttons.size());
+      assertEquals(BUTTON_TYPE_1.getText(), buttons.get(0).getText());
+      assertEquals(BUTTON_TYPE_2.getText(), buttons.get(1).getText());
+      verify(mockDialog, times(8)).getButtonTypes();
     });
   }
 
