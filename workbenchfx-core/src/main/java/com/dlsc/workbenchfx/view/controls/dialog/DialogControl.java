@@ -208,9 +208,9 @@ public class DialogControl extends Control {
 
   /**
    * The dialog's action, which is invoked whenever the dialog has been hidden in the scene graph.
-   * An event will be fired whenever {@link #hide()} or {@link Workbench#hideDialog(WorkbenchDialog)}
-   * has been called or the dialog has been closed by clicking on its corresponding {@link
-   * GlassPane}.
+   * An event will be fired whenever {@link #hide()} or
+   * {@link Workbench#hideDialog(WorkbenchDialog)} has been called or the dialog has been closed by
+   * clicking on its corresponding {@link GlassPane}.
    *
    * @return the property to represent the event, which is invoked whenever the dialog has been
    *     hidden in the scene graph.
