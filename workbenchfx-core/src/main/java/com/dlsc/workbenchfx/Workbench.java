@@ -458,11 +458,13 @@ public class Workbench extends Control {
       newActive = openModules.get(i - 1);
       LOGGER.trace("closeModule - Next active: Previous Module - " + newActive);
     }
-    /* If module has previously been closed and can now safely be closed, calling destroy() is not
-    necessary anymore, simply remove the module
-    If this module is being closed the first time or cannot be safely closed yet, attempt to
-    destroy module.
-    Note: destroy() will not be called if moduleCloseable was completed with true! */
+    /*
+      If module has previously been closed and can now safely be closed, calling destroy() is not
+      necessary anymore, simply remove the module
+      If this module is being closed the first time or cannot be safely closed yet, attempt to
+      destroy module.
+      Note: destroy() will not be called if moduleCloseable was completed with true!
+     */
     if (getModuleCloseable(module).getNow(false) || module.destroy()) {
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
@@ -475,19 +477,17 @@ public class Workbench extends Control {
       activeModule.setValue(newActive);
       return removal;
     } else {
-      if (!getModuleCloseable(module).isDone()) {
-        /*
+      /*
         If moduleCloseable wasn't completed yet but closeModule was called, there are two cases:
-        1. the stage is calling closeModule() => since thenRun will be set on moduleCloseable after
-        closeModule() returns "false", we need to reset moduleCloseable so that repeating stage
-        closes without completing moduleClosable won't lead to multiple thenRun actions being
-        layered with each stage close.
-        2. the tab is being closed, calling closeModule() => if there was a stage close beforehand
-        (and thus a thenRun from the stage closing process is still active) we need to
-        reset moduleCloseable so that the stage closing process will not be triggered again.
-        */
-        resetModuleCloseable(module);
-      }
+        1. The stage is calling closeModule() => since thenRun will be set on moduleCloseable after
+           closeModule() returns "false", we need to reset moduleCloseable so that repeating stage
+           closes without completing moduleClosable won't lead to multiple thenRun actions being
+           layered with each stage close.
+        2. The tab is being closed, calling closeModule() => if there was a stage close beforehand
+           (and thus a thenRun from the stage closing process is still active) we need to
+           reset moduleCloseable so that the stage closing process will not be triggered again.
+       */
+      resetModuleCloseable(module);
       // module should or could not be destroyed
       LOGGER.trace("closeModule - Destroy: Fail - " + module);
       openModule(module); // set focus to new module
