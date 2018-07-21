@@ -70,15 +70,14 @@ public class DialogControl extends Control {
       fireOnShown();
     };
     dialog.addListener((observable, oldDialog, newDialog) -> {
-      updateButtons(newDialog);
       if (!Objects.isNull(oldDialog)) {
         oldDialog.getButtonTypes().removeListener(dialogChangedListener);
       }
       if (!Objects.isNull(newDialog)) {
         newDialog.getButtonTypes().addListener(dialogChangedListener);
       }
-      fireOnShown();
     });
+    dialog.addListener(dialogChangedListener);
     buttonTextUppercase.addListener(dialogChangedListener);
 
     // fire onHidden event, when dialog is hidden
