@@ -156,14 +156,17 @@ class DialogControlTest extends ApplicationTest {
     robot.interact(() -> {
       // Make sure dialogControl2's skin hasn't been initialized yet
       assertNull(dialogControl2.getSkin());
+      assertFalse(dialogControl2.isShowing());
 
       // when setting workbench, it shouldn't trigger an onShown event
       dialogControl2.setWorkbench(mockBench);
+      assertFalse(dialogControl2.isShowing());
       verify(mockShownHandler2, never()).handle(any());
 
       // when setting workbench to null, it shouldn't trigger an onHidden event
       dialogControl2.setWorkbench(null);
       verify(mockHiddenHandler2, never()).handle(any());
+      assertFalse(dialogControl2.isShowing());
 
       // **** Simulate Dialog getting shown ****
       // simulate call from Workbench#showDialog()
@@ -173,6 +176,7 @@ class DialogControlTest extends ApplicationTest {
       assertNotNull(dialogControl2.getSkin());
 
       // shownHandler should've been triggered
+      assertTrue(dialogControl2.isShowing());
       verify(mockShownHandler2).handle(any());
       verify(mockHiddenHandler2, never()).handle(any());
 
@@ -180,8 +184,10 @@ class DialogControlTest extends ApplicationTest {
       // simulate call from Workbench#hideDialog()
       dialogControl2.setWorkbench(null);
 
-      // shownHandler should've been triggered
+      // hiddenHandler should've been triggered
+      assertFalse(dialogControl2.isShowing());
       verify(mockHiddenHandler2).handle(any());
+
     });
   }
 
