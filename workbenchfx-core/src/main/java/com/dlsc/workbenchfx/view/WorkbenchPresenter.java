@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
@@ -152,10 +153,12 @@ public class WorkbenchPresenter extends Presenter {
           // if the overlay is a dialog
           if (overlay instanceof DialogControl) {
             LOGGER.trace("GlassPane was clicked, hiding dialog");
-            ((DialogControl) overlay).getDialog().getOnResult().accept(ButtonType.CANCEL);
+            WorkbenchDialog dialog = ((DialogControl) overlay).getDialog();
+            dialog.getOnResult().accept(ButtonType.CANCEL);
+            model.hideDialog(dialog);
+          } else {
+            model.hideOverlay(overlay);
           }
-
-          model.hideOverlay(overlay);
         }
       });
     }
