@@ -1292,15 +1292,7 @@ class WorkbenchTest extends ApplicationTest {
       });
       assertTrue(isStageOpen());
 
-      // When: Close stage, press No, Close Stage, press no, Close Stage, press yes.
-      closeStage();
-      assertSame(1, workbench.getBlockingOverlaysShown().size());
-      assertSame(2, workbench.getOpenModules().size());
-
-      simulateDialogButtonClick(ButtonType.NO);
-      assertSame(0, workbench.getBlockingOverlaysShown().size());
-      assertSame(2, workbench.getOpenModules().size());
-
+      // When: Close stage, press No, Close Stage, press yes.
       closeStage();
       assertSame(1, workbench.getBlockingOverlaysShown().size());
       assertSame(2, workbench.getOpenModules().size());
