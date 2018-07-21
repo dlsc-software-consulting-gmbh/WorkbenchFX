@@ -28,15 +28,16 @@ import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.Optional;
 import java.util.function.Consumer;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -50,7 +51,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -1309,10 +1309,10 @@ class WorkbenchTest extends ApplicationTest {
       verify(mockOnResult, never()).accept(any()); // no result yet
 
       // hiding by button press
-      Button pressedButton = dialogControl.getButtons().get(0);
-      pressedButton.fire(); // simulate button getting pressed
+      ButtonType toPress = buttonTypes.get(0);
+      simulateDialogButtonClick(dialogControl, toPress);
 
-      verify(mockOnResult).accept(buttonTypes.get(0));
+      verify(mockOnResult).accept(toPress);
       assertDialogNotShown();
     });
   }
@@ -1363,12 +1363,12 @@ class WorkbenchTest extends ApplicationTest {
       assertSame(buttonTypes.size(), buttons.size());
 
       // hiding by button press
-      Button pressedButton = buttons.get(0);
-      pressedButton.fire(); // simulate button getting pressed
+      ButtonType toPress = buttonTypes.get(0);
+      simulateDialogButtonClick(dialogControl, toPress);
 
       verify(mockDialog).getOnResult();
       verify(mockDialog, atLeastOnce()).getDialogControl();
-      verify(mockOnResult).accept(buttonTypes.get(0));
+      verify(mockOnResult).accept(toPress);
       verifyNoMoreInteractions(mockDialog);
       verifyNoMoreInteractions(mockOnResult);
       assertDialogNotShown();
@@ -1409,5 +1409,29 @@ class WorkbenchTest extends ApplicationTest {
         false, false, false, false, true, false, false, false, false, false,
         null)
     );
+  }
+
+  /**
+   * Internal testing method that will simulate a click on the {@link Button} of
+   * {@link ButtonType} of the {@code dialog}.
+   *
+   * @param dialog of which the button is to be pressed
+   * @param press the {@link ButtonType} of the {@link Button} that should be pressed
+   */
+  private void simulateDialogButtonClick(WorkbenchDialog dialog, ButtonType press) {
+    Optional<Button> button = dialog.getButton(press);
+    button.get().fire();
+  }
+
+  /**
+   * Internal testing method that will simulate a click on the {@link Button} of
+   * {@link ButtonType} of the {@code dialog}.
+   *
+   * @param dialog of which the button is to be pressed
+   * @param press the {@link ButtonType} of the {@link Button} that should be pressed
+   */
+  private void simulateDialogButtonClick(DialogControl dialog, ButtonType press) {
+    Optional<Button> button = dialog.getButton(press);
+    button.get().fire();
   }
 }
