@@ -537,19 +537,20 @@ class WorkbenchTest extends ApplicationTest {
    * Example of what happens in case of a closing dialog in the destroy() method of a module with
    * the user confirming the module should get closed. Precondition: openModule tests pass.
    */
-  @Disabled // TODO
   @Test
   void closeModuleDestroyInactiveDialogClose() {
     // open two modules, close first (inactive) module
     // destroy() on first module will return false, so the module shouldn't get closed
     when(first.destroy()).then(invocation -> {
-      // dialog opens, user confirms closing module
-      return true;
+      // dialog opens
+      return false;
     });
     robot.interact(() -> {
       workbench.openModule(first);
       workbench.openModule(second);
       workbench.closeModule(first);
+      // user confirms yes on dialog: WorkbenchModule#close()
+      workbench.completeModuleCloseable(first);
 
       assertSame(second, workbench.getActiveModule());
       assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
@@ -566,7 +567,7 @@ class WorkbenchTest extends ApplicationTest {
       // Call: workbench.closeModule(first)
       // attempt to destroy first
       inOrder.verify(first).destroy();
-      // destroy() opens itself: workbench.openModule(first)
+      // destroy() returns false, closeModule() opens first module
       inOrder.verify(second).deactivate();
       inOrder.verify(first).activate();
       // destroy() returns true, switch to second
