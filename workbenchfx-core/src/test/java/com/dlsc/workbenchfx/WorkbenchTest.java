@@ -1332,6 +1332,62 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   /**
+   * Test for {@link Workbench#setupCleanup()}.
+   * Simulates a special case that caused in bug scenarios for the stage closing process to go on,
+   * even though a tab was closed and not the stage itself.
+   */
+  @Test
+  void closeStageSpecial2() {
+    robot.interact(() -> {
+      // Given: 2 Modules open, destroy() on both opens a dialog and returns false.
+      //        Pressing yes on the dialog calls WorkbenchModule#close(), pressing no leaves the
+      //        module open.
+      workbench.openModule(first);
+      workbench.openModule(second);
+      when(first.destroy()).then(invocationOnMock -> {
+        workbench.showDialog(WorkbenchDialog.builder("1", "", WorkbenchDialog.Type.CONFIRMATION)
+            .blocking(true).onResult(buttonType -> {
+              if (ButtonType.YES.equals(buttonType)) {
+                simulateModuleClose(first);
+              }
+            }).build());
+        return false;
+      });
+      when(second.destroy()).then(invocationOnMock -> {
+        workbench.showDialog(WorkbenchDialog.builder("2", "", WorkbenchDialog.Type.CONFIRMATION)
+            .blocking(true).onResult(buttonType -> {
+              if (ButtonType.YES.equals(buttonType)) {
+                simulateModuleClose(second);
+              }
+            }).build());
+        return false;
+      });
+      assertTrue(isStageOpen());
+
+      // When: Close stage, press No, Close Tab, Press Yes
+      closeStage();
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      simulateDialogButtonClick(ButtonType.NO);
+      assertSame(0, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      workbench.closeModule(first); // simulate tab closing
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      simulateDialogButtonClick(ButtonType.YES);
+      assertSame(0, workbench.getBlockingOverlaysShown().size());
+      assertSame(1, workbench.getOpenModules().size());
+
+      // Then: Only second module is open and no dialogs are open (stage closing is interrupted)
+      assertEquals(second, workbench.getOpenModules().get(0));
+      assertTrue(isStageOpen());
+    });
+  }
+
+  /**
    * Internal utility method for testing.
    * Determines whether the current stage is open or was closed.
    */
