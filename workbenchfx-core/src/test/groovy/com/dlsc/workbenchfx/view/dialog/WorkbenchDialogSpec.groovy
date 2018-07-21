@@ -3,6 +3,7 @@ import com.dlsc.workbenchfx.model.WorkbenchDialog.Type
 import com.dlsc.workbenchfx.testing.MockDialogControl
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl
 import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent
+import javafx.beans.property.ObjectProperty
 import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.scene.Scene
@@ -231,5 +232,64 @@ class WorkbenchDialogSpec extends ApplicationSpec {
 
         then:
         Optional.empty() == button
+    }
+
+    def "Test delegation of onShownProperty"() {
+        given: "WorkbenchDialog with dialogControl as null"
+        dialog = WorkbenchDialog.builder(TITLE, content, TYPE)
+                .dialogControl(null)
+                .build()
+
+        when:
+        dialog.onShownProperty()
+
+        then: "Since DialogControl is not set yet, it will throw an NPE"
+        thrown NullPointerException
+
+        when: "DialogControl is defined"
+        dialog.setDialogControl(mockDialogControl)
+        def onShownProperty = dialog.onShownProperty()
+
+        then:
+        mockDialogControl.onShownProperty() == onShownProperty
+    }
+
+    def "Test delegation of onHiddenProperty"() {
+        given: "WorkbenchDialog with dialogControl as null"
+        dialog = WorkbenchDialog.builder(TITLE, content, TYPE)
+                .dialogControl(null)
+                .build()
+
+        when:
+        dialog.onHiddenProperty()
+
+        then: "Since DialogControl is not set yet, it will throw an NPE"
+        thrown NullPointerException
+
+        when: "DialogControl is defined"
+        dialog.setDialogControl(mockDialogControl)
+        def onHiddenProperty = dialog.onHiddenProperty()
+
+        then:
+        mockDialogControl.onHiddenProperty() == onHiddenProperty
+    }
+
+    def "Test setOnResult"() {
+        given: "WorkbenchDialog with dialogControl as null"
+        dialog = WorkbenchDialog.builder(TITLE, content, TYPE)
+                .build()
+
+        when: "Setting null as onResult"
+        dialog.setOnResult(null)
+
+        then: "Instead of null, an empty consumer has been set"
+        null != dialog.getOnResult()
+
+        when: "Setting a proper consumer"
+        Consumer<ButtonType> onResult = { buttonType -> System.out.println("Test") }
+        dialog.setOnResult(onResult)
+
+        then:
+        onResult == dialog.getOnResult()
     }
 }
