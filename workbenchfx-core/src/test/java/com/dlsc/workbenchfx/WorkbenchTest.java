@@ -36,6 +36,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -1276,26 +1277,21 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  @Disabled // TODO
   @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane")
   void showDialogNonBlockingCloseGlassPane() {
     robot.interact(() -> {
       assertDialogNotShown();
 
-      //CompletableFuture<ButtonType> result = workbench.showDialog(mockDialog);
+      WorkbenchDialog result = workbench.showDialog(mockDialog);
 
-      //assertDialogShown(result, false);
+      assertDialogShown(result, false);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
-      // TODO: REFACTOR verify(mockDialog).getResult();
-      // TODO: verify(mockDialogResult, never()).complete(any());
+      verify(mockOnResult, never()).accept(any()); // no result yet
 
       // hiding by GlassPane click
       simulateGlassPaneClick(dialogControl);
 
-      // TODO: REFACTOR verify(mockDialog, times(3)).getResult();
-      // TODO: verify(mockDialogResult).isDone();
-      // TODO: verify(mockDialogResult).complete(ButtonType.CANCEL);
-      // TODO: verifyNoMoreInteractions(mockDialogResult);
+      verify(mockOnResult).accept(ButtonType.CANCEL);
       assertDialogNotShown();
     });
   }
