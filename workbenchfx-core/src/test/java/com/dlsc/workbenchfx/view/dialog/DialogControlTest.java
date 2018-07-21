@@ -2,10 +2,15 @@ package com.dlsc.workbenchfx.view.dialog;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -16,7 +21,6 @@ import com.dlsc.workbenchfx.testing.MockDialogControl;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -52,8 +56,18 @@ class DialogControlTest extends ApplicationTest {
   @Mock
   private EventHandler<Event> mockHiddenHandler;
 
+  @Mock
+  private EventHandler<Event> mockShownHandler2;
+
+  @Mock
+  private EventHandler<Event> mockHiddenHandler2;
+
+  private Stage stage;
+  private DialogControl dialogControl2;
+
   @Override
   public void start(Stage stage) {
+    this.stage = stage;
     MockitoAnnotations.initMocks(this);
 
     robot = new FxRobot();
@@ -75,8 +89,14 @@ class DialogControlTest extends ApplicationTest {
     dialogControl.setOnHidden(mockHiddenHandler);
     dialogControl.setOnShown(mockShownHandler);
 
+    // setup second dialog control that isn't showing, to test behavior of skin listeners
+    dialogControl2 = new MockDialogControl();
+    dialogControl2.setDialog(mockDialog);
+    dialogControl2.setOnShown(mockShownHandler2);
+    dialogControl2.setOnHidden(mockHiddenHandler2);
+
     Scene scene = new Scene(dialogControl, 100, 100);
-    stage.setScene(scene);
+    this.stage.setScene(scene);
     stage.show();
   }
 
@@ -125,6 +145,42 @@ class DialogControlTest extends ApplicationTest {
       assertEquals(BUTTON_TYPE_1.getText(), buttons.get(0).getText());
       assertEquals(BUTTON_TYPE_2.getText(), buttons.get(1).getText());
       verify(mockDialog, times(8)).getButtonTypes();
+
+      verify(mockShownHandler).handle(any());
+    });
+  }
+
+  @Test
+  void testOnShownHiddenListeners() {
+    robot.interact(() -> {
+      // Make sure dialogControl2's skin hasn't been initialized yet
+      assertNull(dialogControl2.getSkin());
+
+      // when setting workbench, it shouldn't trigger an onShown event
+      dialogControl2.setWorkbench(mockBench);
+      verify(mockShownHandler2, never()).handle(any());
+
+      // when setting workbench to null, it shouldn't trigger an onHidden event
+      dialogControl2.setWorkbench(null);
+      verify(mockHiddenHandler2, never()).handle(any());
+
+      // **** Simulate Dialog getting shown ****
+      // simulate call from Workbench#showDialog()
+      dialogControl2.setWorkbench(mockBench);
+      // initialize skin
+      stage.setScene(new Scene(dialogControl2, 100, 100));
+      assertNotNull(dialogControl2.getSkin());
+
+      // shownHandler should've been triggered
+      verify(mockShownHandler2).handle(any());
+      verify(mockHiddenHandler2, never()).handle(any());
+
+      // **** Simulate Dialog getting hidden ****
+      // simulate call from Workbench#hideDialog()
+      dialogControl2.setWorkbench(null);
+
+      // shownHandler should've been triggered
+      verify(mockHiddenHandler2).handle(any());
     });
   }
 
