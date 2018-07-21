@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view.dialog;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -10,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -19,6 +19,7 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.testing.MockDialogControl;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import javafx.collections.FXCollections;
@@ -219,5 +220,28 @@ class DialogControlTest extends ApplicationTest {
   @Test
   void getDialog() {
     assertEquals(mockDialog, dialogControl.getDialog());
+  }
+
+  @Test
+  void getButton() {
+    // when asking for a button type
+    Optional<Button> button = dialogControl.getButton(BUTTON_TYPE_1);
+
+    // returns its button in an Optional
+    assertNotEquals(Optional.empty(), button);
+    assertEquals(dialogControl.getButtons().get(0), button.get());
+
+    // if the buttonType doesn't exist
+    button = dialogControl.getButton(ButtonType.CANCEL);
+
+    // return empty optional
+    assertEquals(Optional.empty(), button);
+
+    // if there are no buttonTypes
+    buttonTypes.clear();
+    button = dialogControl.getButton(BUTTON_TYPE_1);
+
+    // return empty optional
+    assertEquals(Optional.empty(), button);
   }
 }
