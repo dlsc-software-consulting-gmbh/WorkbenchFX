@@ -19,12 +19,16 @@ import java.util.concurrent.ExecutionException;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -42,8 +46,16 @@ class DialogControlTest extends ApplicationTest {
 
   private CompletableFuture<ButtonType> result = new CompletableFuture<>();
 
+  @Mock
+  private EventHandler<Event> mockShownHandler;
+
+  @Mock
+  private EventHandler<Event> mockHiddenHandler;
+
   @Override
   public void start(Stage stage) {
+    MockitoAnnotations.initMocks(this);
+
     robot = new FxRobot();
 
     mockDialog = mock(WorkbenchDialog.class);
@@ -58,6 +70,10 @@ class DialogControlTest extends ApplicationTest {
     dialogControl.setWorkbench(mockBench);
     // simulate call of WorkbenchDialog to set itself in the dialogControl
     dialogControl.setDialog(mockDialog);
+
+    // setup mocks for listeners
+    dialogControl.setOnHidden(mockHiddenHandler);
+    dialogControl.setOnShown(mockShownHandler);
 
     Scene scene = new Scene(dialogControl, 100, 100);
     stage.setScene(scene);
