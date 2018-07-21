@@ -14,7 +14,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -88,7 +87,7 @@ public class DialogControl extends Control {
       LOGGER.trace("Dialog Showing Listener - old: " + oldShowing + " new: " + newShowing);
       if (!oldShowing && newShowing) {
         fireOnShown();
-      } else if (oldShowing && !newShowing){
+      } else if (oldShowing && !newShowing) {
         fireOnHidden();
       }
     });
@@ -173,12 +172,12 @@ public class DialogControl extends Control {
   }
 
   /**
-   * Retrieves the {@link Button} instance of the {@link DialogControl} which is of the
-   * specified {@link ButtonType}.
+   * Retrieves the {@link Button} instance of the {@link DialogControl} which is of the specified
+   * {@link ButtonType}.
    *
    * @param buttonType to retrieve from the {@link DialogControl}
    * @return the button or an empty {@link Optional}, if the {@link DialogControl} hasn't been
-   *         initialized before
+   *     initialized before
    */
   public final Optional<Button> getButton(ButtonType buttonType) {
     return Optional.ofNullable(buttonNodes.get(buttonType));
@@ -193,7 +192,7 @@ public class DialogControl extends Control {
    * be rebuilt and upon completion, an event will be fired.
    *
    * @return the property to represent the event, which is invoked whenever the dialog has been
-   *         fully initialized and is being shown.
+   *     fully initialized and is being shown.
    */
   public final ObjectProperty<EventHandler<Event>> onShownProperty() {
     return onShown;
@@ -209,12 +208,12 @@ public class DialogControl extends Control {
 
   /**
    * The dialog's action, which is invoked whenever the dialog has been hidden in the scene graph.
-   * An event will be fired whenever {@link #hide()} or
-   * {@link Workbench#hideDialog(WorkbenchDialog)} has been called or the dialog has been closed by
-   * clicking on its corresponding {@link GlassPane}.
+   * An event will be fired whenever {@link #hide()} or {@link Workbench#hideDialog(WorkbenchDialog)}
+   * has been called or the dialog has been closed by clicking on its corresponding {@link
+   * GlassPane}.
    *
    * @return the property to represent the event, which is invoked whenever the dialog has been
-   *         hidden in the scene graph.
+   *     hidden in the scene graph.
    */
   public final ObjectProperty<EventHandler<Event>> onHiddenProperty() {
     return onHidden;
@@ -272,6 +271,7 @@ public class DialogControl extends Control {
 
   /**
    * Represents whether the dialog is currently showing.
+   *
    * @return the property representing whether the dialog is currently showing
    */
   public final ReadOnlyBooleanProperty showingProperty() {
