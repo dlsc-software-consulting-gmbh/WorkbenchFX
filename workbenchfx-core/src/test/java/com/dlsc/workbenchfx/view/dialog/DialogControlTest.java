@@ -49,8 +49,6 @@ class DialogControlTest extends ApplicationTest {
 
   private DialogControl dialogControl;
 
-  private CompletableFuture<ButtonType> result = new CompletableFuture<>();
-
   @Mock
   private EventHandler<Event> mockShownHandler;
 
@@ -190,29 +188,28 @@ class DialogControlTest extends ApplicationTest {
 
     });
   }
-
-  @Disabled // TODO
+  
   @Test
   void testButtonActions() {
     robot.interact(() -> {
       // initially
-      // TODO: ObservableList<Node> buttons = dialogControl.getButtons();
-      // TODO: assertSame(1, buttons.size());
-      // TODO: Button button = ((Button) buttons.get(0));
-      // TODO: assertEquals(BUTTON_TYPE_1.getText(), button.getText());
+      ObservableList<Button> buttons = dialogControl.getButtons();
+      assertSame(1, buttons.size());
+      Button button = buttons.get(0);
+      assertEquals(BUTTON_TYPE_1.getText(), button.getText());
 
       // verify result before firing event
       assertFalse(result.isDone());
 
       // fire event (simulate click on button) causing setOnAction to get triggered
-      // TODO: button.fire();
+      button.fire();
       assertTrue(result.isDone());
       try {
         assertEquals(BUTTON_TYPE_1, result.get());
       } catch (InterruptedException | ExecutionException e) {
         fail("Could not get result of dialog!");
       }
-      // TODO: verify(mockBench).hideDialog();
+      //verify(mockBench).hideDialog();
     });
   }
 
