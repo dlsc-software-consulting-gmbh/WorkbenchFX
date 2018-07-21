@@ -83,10 +83,11 @@ public class DialogControl extends Control {
     buttonTextUppercase.addListener(dialogChangedListener);
 
     // fire events depending on the dialog being shown or not
-    showingProperty.addListener(observable -> {
-      if (isShowing()) {
+    showingProperty.addListener((observable, oldShowing, newShowing) -> {
+      LOGGER.trace("Dialog Showing Listener - old: " + oldShowing + " new: " + newShowing);
+      if (!oldShowing && newShowing) {
         fireOnShown();
-      } else {
+      } else if (oldShowing && !newShowing) {
         fireOnHidden();
       }
     });
