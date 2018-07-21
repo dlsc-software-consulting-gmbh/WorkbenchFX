@@ -1297,28 +1297,22 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  @Disabled // TODO
   @DisplayName("Show non-blocking dialog and close by clicking on one of the dialog buttons")
   void showDialogNonBlockingCloseButton() {
     robot.interact(() -> {
       assertDialogNotShown();
 
-      //CompletableFuture<ButtonType> result = workbench.showDialog(mockDialog);
+      WorkbenchDialog result = workbench.showDialog(mockDialog);
 
-      //assertDialogShown(result, false);
+      assertDialogShown(result, false);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
-      // TODO: REFACTOR verify(mockDialog).getResult();
-      // TODO: verify(mockDialogResult, never()).complete(any());
+      verify(mockOnResult, never()).accept(any()); // no result yet
 
       // hiding by button press
-      Button pressedButton = (Button) dialogControl.getButtons().get(0);
+      Button pressedButton = dialogControl.getButtons().get(0);
       pressedButton.fire(); // simulate button getting pressed
 
-      // TODO: REFACTOR verify(mockDialog, times(3)).getResult();
-      // TODO: verify(mockDialogResult).isDone();
-      // TODO: verify(mockDialogResult).complete(mockDialog.getButtonTypes().get(0));
-      // TODO: verifyNoMoreInteractions(mockDialogResult);
-
+      verify(mockOnResult).accept(buttonTypes.get(0));
       assertDialogNotShown();
     });
   }
