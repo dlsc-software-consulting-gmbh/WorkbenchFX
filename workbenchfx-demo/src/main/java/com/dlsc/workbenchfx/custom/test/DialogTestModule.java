@@ -51,6 +51,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
   NullPointerException exception;
   private CheckListView<String> checkListView;
   private CheckBox checkBox = new CheckBox("I accept the Terms and Conditions");
+  private WorkbenchDialog favoriteLibrariesDialog;
 
   public DialogTestModule() {
     super("Dialog Test", FontAwesomeIcon.QUESTION);
@@ -81,6 +82,18 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     // initialize map for dialog
     mapView = new GoogleMapView();
     mapView.addMapInializedListener(this);
+
+    // initialize favorites dialog separately
+    favoriteLibrariesDialog = WorkbenchDialog.builder("Select your favorite libraries", checkListView, Type.INPUT)
+        .onResult(buttonType -> {
+          if (ButtonType.CANCEL.equals(buttonType)) {
+            System.err.println("Dialog was cancelled!");
+          } else {
+            System.err.println("Chosen favorite libraries: " +
+                checkListView.getCheckModel().getCheckedItems().stream().collect(
+                    Collectors.joining(", ")));
+          }
+        }).build();
   }
 
   private void layoutParts() {
@@ -116,14 +129,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     longTitleMessageBtn.setOnAction(event -> getWorkbench().showInformationDialog("In 2004, Bennett ruled that John Graham could be extradited to the United States for trial for the 1975 murder of Anna Mae Aquash, one of the most prominent members of the American Indian Movement. In 2007, she began proceedings on the Basi-Virk Affair where the Minister of Finance's politically appointed assistant was charged with the sale of benefits related to the province's sale of BC Rail, the publicly owned railway. The scandal came to public attention when news media filmed the RCMP conducting a search warrant inside the BC Legislature building.", "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot.", null));
     customSmallBtn.setOnAction(event -> {
       getWorkbench().showDialog(
-          WorkbenchDialog.builder("Select your favorite libraries", checkListView, Type.INPUT)
-              .onResult(buttonType -> {
-                if (ButtonType.CANCEL.equals(buttonType)) {
-                  System.err.println("Dialog was cancelled!");
-                } else {
-                  System.err.println("Chosen favorite libraries: " + checkListView.getCheckModel().getCheckedItems().stream().collect(Collectors.joining(", ")));
-                }
-              }).build()
+          favoriteLibrariesDialog
       );
     });
     customFullBtn.setOnAction(event -> getWorkbench().showDialog(WorkbenchDialog.builder("Map Overview (blocking)", mapView, ButtonType.CLOSE).blocking(true).build()));
@@ -144,12 +150,12 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     conditionalBtn.setOnAction(event -> {
       WorkbenchDialog dialog = WorkbenchDialog.builder("Check the box to continue", checkBox, ButtonType.OK)
           .build();
-      getWorkbench().showDialog(dialog);
       dialog.setOnShown(event1 -> {
         dialog.getButton(ButtonType.OK).ifPresent(button -> {
           button.disableProperty().bind(checkBox.selectedProperty().not());
         });
       });
+      getWorkbench().showDialog(dialog);
     });
   }
 
