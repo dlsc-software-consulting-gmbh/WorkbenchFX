@@ -1259,6 +1259,87 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   /**
+   * Test for {@link Workbench#setupCleanup()}.
+   * Simulates a special case that caused in bug scenarios to have 2x {@code thenRun} set on
+   * {@code moduleCloseable} in {@code stage.setOnCloseRequest}, which lead to 2 dialogs being open
+   * instead of one, after the first module has been closed.
+   */
+  @Test
+  void closeStageSpecial1() {
+    robot.interact(() -> {
+      // Given: 2 Modules open, destroy() on both opens a dialog and returns false.
+      //        Pressing yes on the dialog calls WorkbenchModule#close(), pressing no leaves the
+      //        module open.
+      workbench.openModule(first);
+      workbench.openModule(second);
+      when(first.destroy()).then(invocationOnMock -> {
+        workbench.showDialog(WorkbenchDialog.builder("1", "", WorkbenchDialog.Type.CONFIRMATION)
+            .blocking(true).onResult(buttonType -> {
+              if (ButtonType.YES.equals(buttonType)) {
+                simulateModuleClose(first);
+              }
+            }).build());
+        return false;
+      });
+      when(second.destroy()).then(invocationOnMock -> {
+        workbench.showDialog(WorkbenchDialog.builder("2", "", WorkbenchDialog.Type.CONFIRMATION)
+            .blocking(true).onResult(buttonType -> {
+              if (ButtonType.YES.equals(buttonType)) {
+                simulateModuleClose(second);
+              }
+            }).build());
+        return false;
+      });
+      assertTrue(isStageOpen());
+
+      // When: Close stage, press No, Close Stage, press no, Close Stage, press yes.
+      closeStage();
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      simulateDialogButtonClick(ButtonType.NO);
+      assertSame(0, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      closeStage();
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      simulateDialogButtonClick(ButtonType.NO);
+      assertSame(0, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      closeStage();
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      simulateDialogButtonClick(ButtonType.YES);
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(1, workbench.getOpenModules().size());
+
+      // Then: Only second module is open and 1 dialog is open (closing of second module)
+      assertEquals(second, workbench.getOpenModules().get(0));
+      assertEquals("2", getShowingDialogControl().getDialog().getTitle());
+
+      // When: Press yes
+      simulateDialogButtonClick(ButtonType.YES);
+
+      // Then: No modules and dialogs are open, stage is closed.
+      assertSame(0, workbench.getBlockingOverlaysShown().size());
+      assertSame(0, workbench.getOpenModules().size());
+      assertFalse(isStageOpen());
+    });
+  }
+
+  /**
+   * Internal utility method for testing.
+   * Determines whether the current stage is open or was closed.
+   */
+  private boolean isStageOpen() {
+    return robot.listTargetWindows().size() == 1;
+  }
+
+  /**
    * Internal utility method for testing.
    * Simulates closing the stage, which fires a close request to test logic
    * inside of {@link Stage#setOnCloseRequest(EventHandler)}.
@@ -1440,5 +1521,29 @@ class WorkbenchTest extends ApplicationTest {
   private void simulateDialogButtonClick(DialogControl dialog, ButtonType press) {
     Optional<Button> button = dialog.getButton(press);
     button.get().fire();
+  }
+
+  /**
+   * Internal testing method that will simulate a click on the {@link Button} of
+   * {@link ButtonType} of the currently shown dialog, assuming only one overlay is shown, which
+   * is a dialog.
+   *
+   * @param press the {@link ButtonType} of the {@link Button} that should be pressed
+   */
+  private void simulateDialogButtonClick(ButtonType press) {
+    DialogControl showingDialogControl = getShowingDialogControl();
+    simulateDialogButtonClick(showingDialogControl, press);
+  }
+
+  /**
+   * Internal testing method which returns the currently shown DialogControl.
+   */
+  private DialogControl getShowingDialogControl() {
+    if (workbench.getNonBlockingOverlaysShown().size() == 1) {
+      return (DialogControl) workbench.getNonBlockingOverlaysShown().stream().findAny().get();
+    } else if (workbench.getBlockingOverlaysShown().size() == 1) {
+      return (DialogControl) workbench.getBlockingOverlaysShown().stream().findAny().get();
+    }
+    return null;
   }
 }
