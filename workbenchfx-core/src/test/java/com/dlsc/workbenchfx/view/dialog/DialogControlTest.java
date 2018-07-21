@@ -219,7 +219,6 @@ class DialogControlTest extends ApplicationTest {
     verify(mockBench).hideDialog(mockDialog);
   }
 
-  @Disabled // TODO
   @Test
   void getDialog() {
     assertEquals(mockDialog, dialogControl.getDialog());
