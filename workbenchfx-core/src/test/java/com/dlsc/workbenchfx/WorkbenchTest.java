@@ -30,7 +30,6 @@ import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.FXCollections;
@@ -50,7 +49,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -105,8 +103,7 @@ class WorkbenchTest extends ApplicationTest {
 
   @Mock
   private WorkbenchDialog mockDialog;
-  @Mock
-  private CompletableFuture<Boolean> mockModuleCloseable;
+
   @Mock
   private Consumer<ButtonType> mockOnResult;
 
@@ -125,7 +122,7 @@ class WorkbenchTest extends ApplicationTest {
 
     for (int i = 0; i < mockModules.length; i++) {
       mockModules[i] = createMockModule(
-          moduleNodes[i], null, true, "Module " + i, mockModuleCloseable
+          moduleNodes[i], null, true, "Module " + i
       );
     }
 
@@ -1110,7 +1107,7 @@ class WorkbenchTest extends ApplicationTest {
       int currentSize = modules.size();
       String mockModuleName = "Mock Module";
       WorkbenchModule mockModule = createMockModule(
-          new Label(), null, true, mockModuleName, mockModuleCloseable);
+          new Label(), null, true, mockModuleName);
 
       assertTrue(workbench.getModules().add(mockModule));
 
@@ -1208,7 +1205,7 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(first).activate();
       // Implicit Call: openModule.getModuleCloseable().thenAccept(...) -> setOnCloseRequest
       // TODO: inOrder.verify(first).getModuleCloseable();
-      verify(mockModuleCloseable).thenAccept(any());
+      // TODO: verify(mockModuleCloseable).thenAccept(any());
       // closing should be interrupted
       inOrder.verifyNoMoreInteractions();
 
@@ -1228,7 +1225,7 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       workbench.openModule(first);
       workbench.openModule(second);
-      verify(mockModuleCloseable, never()).thenAccept(any());
+      // TODO: verify(mockModuleCloseable, never()).thenAccept(any());
 
       // make sure closing of the stage gets interrupted, if destroy returns false on a module
       when(second.destroy()).thenReturn(false);
@@ -1254,7 +1251,7 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).destroy(); // returns false
       // Implicit Call: openModule.getModuleCloseable().thenAccept(...) -> setOnCloseRequest
       // TODO: inOrder.verify(second).getModuleCloseable();
-      verify(mockModuleCloseable).thenAccept(any());
+      // TODO: verify(mockModuleCloseable).thenAccept(any());
       // closing should be interrupted
       inOrder.verifyNoMoreInteractions();
 
