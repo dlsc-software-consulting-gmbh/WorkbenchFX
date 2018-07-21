@@ -214,6 +214,21 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         when: "getButton specific for TYPE"
         Optional<Button> button = dialog.getButton(ButtonType.OK)
 
+        then: "Since dialogControl is null, empty Optional is returned"
+        Optional.empty() == button
+
+        when: "DialogControl is defined"
+        dialog.setDialogControl(mockDialogControl)
+        button = dialog.getButton(ButtonType.OK)
+
+        then: "Button is returned of DialogControl"
+        Optional.empty() != button
+        button.get() == mockDialogControl.getButtons().get(0)
+
+        when: "WorkbenchDialog has no ButtonTypes"
+        dialog.getButtonTypes().clear()
+        button = dialog.getButton(ButtonType.OK)
+
         then:
         Optional.empty() == button
     }
