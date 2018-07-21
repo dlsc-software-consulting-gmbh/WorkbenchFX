@@ -1174,7 +1174,6 @@ class WorkbenchTest extends ApplicationTest {
    * returning {@code true}, when {@link WorkbenchModule#destroy()} is being called
    * on them during cleanup.
    */
-  @Disabled // TODO
   @Test
   void closeStageFailFirstModule() {
     robot.interact(() -> {
@@ -1203,9 +1202,6 @@ class WorkbenchTest extends ApplicationTest {
       // Implicit Call: workbench.openModule(first) -> set focus on module that couldn't be closed
       inOrder.verify(second).deactivate();
       inOrder.verify(first).activate();
-      // Implicit Call: openModule.getModuleCloseable().thenAccept(...) -> setOnCloseRequest
-      // TODO: inOrder.verify(first).getModuleCloseable();
-      // TODO: verify(mockModuleCloseable).thenAccept(any());
       // closing should be interrupted
       inOrder.verifyNoMoreInteractions();
 
