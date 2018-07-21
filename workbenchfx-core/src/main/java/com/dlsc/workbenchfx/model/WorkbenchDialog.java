@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -578,5 +579,22 @@ public final class WorkbenchDialog {
 
   public void setDialogControl(DialogControl dialogControl) {
     this.dialogControl.set(dialogControl);
+  }
+
+  /**
+   * Represents whether the dialog is currently showing.
+   * @return the property representing whether the dialog is currently showing
+   */
+  public final ReadOnlyBooleanProperty showingProperty() {
+    return dialogControl.get().showingProperty();
+  }
+
+  /**
+   * Returns whether or not the dialog is showing.
+   *
+   * @return true if dialog is showing.
+   */
+  public final boolean isShowing() {
+    return showingProperty().get();
   }
 }

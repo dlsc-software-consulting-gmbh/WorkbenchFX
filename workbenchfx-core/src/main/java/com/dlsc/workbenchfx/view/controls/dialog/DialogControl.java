@@ -8,10 +8,13 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.WeakHashMap;
 import javafx.beans.InvalidationListener;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -34,6 +37,7 @@ public class DialogControl extends Control {
   private static final Logger LOGGER =
       LogManager.getLogger(DialogControl.class.getName());
 
+  private final BooleanProperty showingProperty = new SimpleBooleanProperty(this, "showing", false);
   private final BooleanProperty buttonTextUppercase =
       new SimpleBooleanProperty(this, "buttonTextUppercase", false);
 
@@ -67,7 +71,6 @@ public class DialogControl extends Control {
     dialogChangedListener = observable -> {
       buttonNodes.clear(); // force re-creation of buttons
       updateButtons(getDialog());
-      fireOnShown();
     };
     dialog.addListener((observable, oldDialog, newDialog) -> {
       if (!Objects.isNull(oldDialog)) {
@@ -80,10 +83,21 @@ public class DialogControl extends Control {
     dialog.addListener(dialogChangedListener);
     buttonTextUppercase.addListener(dialogChangedListener);
 
-    // fire onHidden event, when dialog is hidden
-    visibleProperty().addListener((observable, oldVisible, newVisible) -> {
-      if (oldVisible && !newVisible) {
-        // dialog has been hidden
+    skinProperty().addListener((observable, oldSkin, newSkin) -> {
+      // make sure onShown doesn't get fired before the skin was fully initialized
+      if (Objects.isNull(oldSkin) && !Objects.isNull(newSkin)) {
+        setShowing(true);
+
+        // now that the skin is initialized, whenever workbench is set, it is about to get shown
+        showingProperty.bind(Bindings.isNotNull(workbenchProperty()));
+      }
+    });
+
+    // fire events depending on the dialog being shown or not
+    showingProperty.addListener((observable, oldShowing, newShowing) -> {
+      if (!oldShowing && newShowing) {
+        fireOnShown();
+      } else if (oldShowing && !newShowing){
         fireOnHidden();
       }
     });
@@ -117,18 +131,20 @@ public class DialogControl extends Control {
       hasDefault |= buttonType != null && buttonType.isDefaultButton();
 
       buttons.add(button);
+
+      LOGGER.trace("updateButtons finished");
     }
   }
 
   private void fireOnShown() {
-    if (!Objects.isNull(getDialog()) && !Objects.isNull(getOnShown()) && isVisible()) {
+    if (!Objects.isNull(getDialog()) && !Objects.isNull(getOnShown())) {
       LOGGER.trace("Firing onShown event - Dialog is initialized and being shown");
       getOnShown().handle(new Event(this, this, Event.ANY));
     }
   }
 
   private void fireOnHidden() {
-    if (!Objects.isNull(getOnHidden()) && !isVisible()) {
+    if (!Objects.isNull(getOnHidden())) {
       LOGGER.trace("Firing onHidden event - Dialog has been hidden");
       getOnHidden().handle(new Event(this, this, Event.ANY));
     }
@@ -250,6 +266,27 @@ public class DialogControl extends Control {
 
   public ObjectProperty<Workbench> workbenchProperty() {
     return workbench;
+  }
+
+  /**
+   * Represents whether the dialog is currently showing.
+   * @return the property representing whether the dialog is currently showing
+   */
+  public final ReadOnlyBooleanProperty showingProperty() {
+    return showingProperty;
+  }
+
+  /**
+   * Returns whether or not the dialog is showing.
+   *
+   * @return true if dialog is showing.
+   */
+  public final boolean isShowing() {
+    return showingProperty().get();
+  }
+
+  private void setShowing(boolean showing) {
+    this.showingProperty.set(showing);
   }
 
   @Override
