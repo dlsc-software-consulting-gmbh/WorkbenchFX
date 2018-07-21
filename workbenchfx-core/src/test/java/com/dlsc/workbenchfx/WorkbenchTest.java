@@ -548,7 +548,7 @@ class WorkbenchTest extends ApplicationTest {
       workbench.openModule(second);
       workbench.closeModule(first);
       // user confirms yes on dialog: WorkbenchModule#close()
-      workbench.completeModuleCloseable(first);
+      simulateModuleClose(first);
 
       assertSame(second, workbench.getActiveModule());
       assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
@@ -572,6 +572,13 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).activate();
       inOrder.verifyNoMoreInteractions();
     });
+  }
+
+  /**
+   * Internal testing method which simulates a call to {@link WorkbenchModule#close()}.
+   */
+  private void simulateModuleClose(WorkbenchModule module) {
+    workbench.completeModuleCloseable(module);
   }
 
   /**
