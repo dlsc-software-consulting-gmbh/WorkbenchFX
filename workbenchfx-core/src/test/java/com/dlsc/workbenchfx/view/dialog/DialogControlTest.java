@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -116,39 +117,39 @@ class DialogControlTest extends ApplicationTest {
       ObservableList<Button> buttons = dialogControl.getButtons();
       assertSame(1, buttons.size());
       assertEquals(BUTTON_TYPE_1.getText(), buttons.get(0).getText());
-      verify(mockDialog, times(2)).getButtonTypes();
+      verify(mockDialog, times(4)).getButtonTypes();
 
       // change ButtonTextUppercase to uppercase
       dialogControl.setButtonTextUppercase(true);
       assertSame(1, buttons.size());
       assertEquals(BUTTON_TYPE_1.getText().toUpperCase(), buttons.get(0).getText());
-      verify(mockDialog, times(3)).getButtonTypes();
+      verify(mockDialog, times(5)).getButtonTypes();
 
       // add buttonType
       buttonTypes.add(BUTTON_TYPE_2);
       assertSame(2, buttons.size());
       assertEquals(BUTTON_TYPE_1.getText().toUpperCase(), buttons.get(0).getText());
       assertEquals(BUTTON_TYPE_2.getText().toUpperCase(), buttons.get(1).getText());
-      verify(mockDialog, times(4)).getButtonTypes();
+      verify(mockDialog, times(7)).getButtonTypes();
 
       // change ButtonTextUppercase back to lowercase
       dialogControl.setButtonTextUppercase(false);
       assertSame(2, buttons.size());
       assertEquals(BUTTON_TYPE_1.getText(), buttons.get(0).getText());
       assertEquals(BUTTON_TYPE_2.getText(), buttons.get(1).getText());
-      verify(mockDialog, times(5)).getButtonTypes();
+      verify(mockDialog, times(8)).getButtonTypes();
 
       // change dialog
       dialogControl.setDialog(null);
       assertSame(0, buttons.size());
-      verify(mockDialog, times(6)).getButtonTypes();
+      verify(mockDialog, times(9)).getButtonTypes();
 
       // change dialog back
       dialogControl.setDialog(mockDialog);
       assertSame(2, buttons.size());
       assertEquals(BUTTON_TYPE_1.getText(), buttons.get(0).getText());
       assertEquals(BUTTON_TYPE_2.getText(), buttons.get(1).getText());
-      verify(mockDialog, times(8)).getButtonTypes();
+      verify(mockDialog, times(11)).getButtonTypes();
 
       verify(mockShownHandler).handle(any());
     });
