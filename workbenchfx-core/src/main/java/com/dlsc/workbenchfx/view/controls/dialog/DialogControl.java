@@ -83,22 +83,24 @@ public class DialogControl extends Control {
     dialog.addListener(dialogChangedListener);
     buttonTextUppercase.addListener(dialogChangedListener);
 
+    // fire events depending on the dialog being shown or not
+    showingProperty.addListener((observable, oldShowing, newShowing) -> {
+      LOGGER.trace("Dialog Showing Listener - old: " + oldShowing + " new: " + newShowing);
+      if (!oldShowing && newShowing) {
+        fireOnShown();
+      } else if (oldShowing && !newShowing){
+        fireOnHidden();
+      }
+    });
+
     skinProperty().addListener((observable, oldSkin, newSkin) -> {
+      LOGGER.trace("Skin Listener - old: " + oldSkin + " new: " + newSkin);
       // make sure onShown doesn't get fired before the skin was fully initialized
       if (Objects.isNull(oldSkin) && !Objects.isNull(newSkin)) {
         setShowing(true);
 
         // now that the skin is initialized, whenever workbench is set, it is about to get shown
         showingProperty.bind(Bindings.isNotNull(workbenchProperty()));
-      }
-    });
-
-    // fire events depending on the dialog being shown or not
-    showingProperty.addListener((observable, oldShowing, newShowing) -> {
-      if (!oldShowing && newShowing) {
-        fireOnShown();
-      } else if (oldShowing && !newShowing){
-        fireOnHidden();
       }
     });
   }
