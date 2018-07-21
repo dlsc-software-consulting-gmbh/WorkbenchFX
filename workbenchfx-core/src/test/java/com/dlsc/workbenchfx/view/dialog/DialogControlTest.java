@@ -216,7 +216,7 @@ class DialogControlTest extends ApplicationTest {
   @Test
   void hide() {
     dialogControl.hide();
-    // TODO: verify(mockBench).hideDialog();
+    verify(mockBench).hideDialog(mockDialog);
   }
 
   @Disabled // TODO
