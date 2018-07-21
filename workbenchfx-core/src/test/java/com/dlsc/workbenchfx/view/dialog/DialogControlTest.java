@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view.dialog;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
@@ -19,6 +20,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Disabled;
@@ -48,16 +50,16 @@ class DialogControlTest extends ApplicationTest {
     mockDialog = mock(WorkbenchDialog.class);
     buttonTypes = FXCollections.observableArrayList(BUTTON_TYPE_1);
     when(mockDialog.getButtonTypes()).thenReturn(buttonTypes);
-    // TODO: REFACTOR when(mockDialog.getResult()).thenReturn(result);
 
     mockBench = mock(Workbench.class);
-    dialogProperty = new SimpleObjectProperty<>(mockDialog);
-    // TODO: when(mockBench.dialogProperty()).thenReturn(dialogProperty);
 
     dialogControl = new MockDialogControl();
 
     // simulate call of workbench to set itself in the dialogControl
     dialogControl.setWorkbench(mockBench);
+    // simulate call of WorkbenchDialog to set itself in the dialogControl
+    dialogControl.setDialog(mockDialog);
+
     Scene scene = new Scene(dialogControl, 100, 100);
     stage.setScene(scene);
     stage.show();
