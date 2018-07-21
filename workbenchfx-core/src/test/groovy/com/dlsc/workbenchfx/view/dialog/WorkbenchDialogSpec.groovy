@@ -3,7 +3,6 @@ import com.dlsc.workbenchfx.model.WorkbenchDialog.Type
 import com.dlsc.workbenchfx.testing.MockDialogControl
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl
 import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent
-import javafx.beans.property.ObjectProperty
 import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.scene.Scene
@@ -13,7 +12,6 @@ import javafx.scene.control.Label
 import javafx.stage.Stage
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
-import spock.lang.Ignore
 import spock.lang.Unroll
 
 import java.util.function.Consumer

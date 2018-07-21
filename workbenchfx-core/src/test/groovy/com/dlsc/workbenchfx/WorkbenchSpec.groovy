@@ -20,7 +20,6 @@ import javafx.scene.control.MenuItem
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.stage.Stage
-import spock.lang.Ignore
 import org.spockframework.util.ExceptionUtil
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
