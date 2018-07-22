@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx.view.controls.selectionstrip
 
-import com.dlsc.workbenchfx.Workbench
 import com.dlsc.workbenchfx.model.WorkbenchModule
 import javafx.beans.property.ObjectProperty
 import javafx.scene.Scene
@@ -41,7 +40,7 @@ class TabCellSpec extends ApplicationSpec {
             tabCell.setItem(workbenchModule)
         }
 
-        then: "text must be empty"
+        then: "textLbl must be empty"
         "" == tabCell.getText()
     }
 

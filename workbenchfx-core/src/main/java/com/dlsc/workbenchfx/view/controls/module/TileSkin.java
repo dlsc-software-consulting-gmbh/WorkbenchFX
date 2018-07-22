@@ -1,7 +1,10 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
-import javafx.scene.control.Button;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
+import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,9 +15,12 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class TileSkin extends SkinBase<Tile> {
+
   private static final Logger LOGGER = LogManager.getLogger(TileSkin.class.getName());
 
-  private Button button;
+  private VBox contentBox;
+  private Label textLbl;
+  private Node icon;
 
   /**
    * Creates a new {@link TileSkin} object for a corresponding {@link Tile}.
@@ -27,29 +33,32 @@ public class TileSkin extends SkinBase<Tile> {
     initializeParts();
     layoutParts();
     setupBindings();
-    setupEventHandlers();
     setupValueChangedListeners();
   }
 
   private void initializeParts() {
-    button = new Button();
-    button.getStyleClass().add("tile-control");
+    contentBox = new VBox();
+    contentBox.getStyleClass().add("tile-control");
+    textLbl = new Label(getSkinnable().getName());
+    textLbl.getStyleClass().add("text-label");
+    icon = getSkinnable().getIcon();
+    icon.getStyleClass().add("icon");
   }
 
   private void layoutParts() {
-    getChildren().add(button);
+    contentBox.getChildren().addAll(
+        icon,
+        textLbl
+    );
+    contentBox.setAlignment(Pos.CENTER);
+    getChildren().add(contentBox);
   }
 
   private void setupBindings() {
-    button.textProperty().bind(getSkinnable().nameProperty());
-    button.graphicProperty().bind(getSkinnable().iconProperty());
-  }
-
-  private void setupEventHandlers() {
-    button.setOnAction(e -> getSkinnable().open());
+    textLbl.textProperty().bind(getSkinnable().nameProperty());
   }
 
   private void setupValueChangedListeners() {
-
+    getSkinnable().iconProperty().addListener(observable -> icon = getSkinnable().getIcon());
   }
 }

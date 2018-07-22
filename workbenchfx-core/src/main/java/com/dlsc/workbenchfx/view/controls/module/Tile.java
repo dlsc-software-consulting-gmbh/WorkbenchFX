@@ -43,6 +43,7 @@ public class Tile extends Control {
     name = new SimpleStringProperty();
     icon = new SimpleObjectProperty<>();
     setupModuleListeners();
+    setupEventHandlers();
   }
 
   private void setupModuleListeners() {
@@ -56,6 +57,10 @@ public class Tile extends Control {
       // eg. Customer Management converts to tile-customer-management
       setId(WorkbenchUtils.convertToId("tile-" + getName()));
     });
+  }
+
+  private void setupEventHandlers() {
+    setOnMouseClicked(event -> open());
   }
 
   /**
