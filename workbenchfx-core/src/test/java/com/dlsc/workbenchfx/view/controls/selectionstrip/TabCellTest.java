@@ -74,6 +74,30 @@ public class TabCellTest extends ApplicationTest {
     verify(mockProperty).addListener((WeakInvalidationListener) any());
   }
 
+//  @Test
+//  void testSettingItemNotNullWithSelectionStripNull() {
+//    robot.interact(() -> {
+//      tabCell.setSelectionStrip(null);
+//      try {
+//        tabCell.setItem(mockModule);
+//        fail("Should throw a NullpointerException");
+//      } catch (Exception e) {
+//        assertTrue(e instanceof NullPointerException);
+//      }
+//    });
+//
+//    assertEquals("", tabCell.getText());
+//    assertEquals(mockTab, tabCell.getGraphic());
+//
+//    verify(mockStrip, never()).getSelectedItem();
+//    verify(mockStrip, never()).selectedItemProperty();
+//    verify(mockModule).getWorkbench();
+//    verify(mockBench).getTabFactory();
+//    verify(mockFactory).call(mockBench);
+//    verify(mockTab).setModule(mockModule);
+//    verify(mockProperty, never()).addListener((WeakInvalidationListener) any());
+//  }
+
   @Test
   void testSettingItemNullWithSelectionStripNotNull() {
     robot.interact(() -> {
