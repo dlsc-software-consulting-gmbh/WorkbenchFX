@@ -93,4 +93,23 @@ public class TabCellTest extends ApplicationTest {
     verify(mockProperty, times(1)).addListener((WeakInvalidationListener) any());
   }
 
+  @Test
+  void testSettingItemNullWithSelectionStripNull() {
+    robot.interact(() -> {
+      tabCell.setSelectionStrip(null);
+      tabCell.setItem(null);
+    });
+
+    assertEquals("", tabCell.getText());
+    assertEquals(null, tabCell.getGraphic());
+
+    verify(mockStrip, never()).getSelectedItem();
+    verify(mockStrip, never()).selectedItemProperty();
+    verify(mockModule, never()).getWorkbench();
+    verify(mockBench, never()).getTabFactory();
+    verify(mockFactory, never()).call(mockBench);
+    verify(mockTab, never()).setModule(mockModule);
+    verify(mockProperty, never()).addListener((WeakInvalidationListener) any());
+  }
+
 }
