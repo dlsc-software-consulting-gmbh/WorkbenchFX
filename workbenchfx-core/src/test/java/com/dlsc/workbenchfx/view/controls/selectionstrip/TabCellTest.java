@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.view.controls.selectionstrip;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -55,7 +56,7 @@ public class TabCellTest extends ApplicationTest {
   }
 
   @Test
-  void testSettingItem() {
+  void testSettingItemNotNullWithSelectionStripNotNull() {
     robot.interact(() -> {
       tabCell.setSelectionStrip(mockStrip);
       tabCell.setItem(mockModule);
@@ -72,4 +73,24 @@ public class TabCellTest extends ApplicationTest {
     verify(mockTab, times(1)).setModule(mockModule);
     verify(mockProperty, times(1)).addListener((WeakInvalidationListener) any());
   }
+
+  @Test
+  void testSettingItemNullWithSelectionStripNotNull() {
+    robot.interact(() -> {
+      tabCell.setSelectionStrip(mockStrip);
+      tabCell.setItem(null);
+    });
+
+    assertEquals("", tabCell.getText());
+    assertEquals(null, tabCell.getGraphic());
+
+    verify(mockStrip, times(1)).getSelectedItem();
+    verify(mockStrip, times(1)).selectedItemProperty();
+    verify(mockModule, never()).getWorkbench();
+    verify(mockBench, never()).getTabFactory();
+    verify(mockFactory, never()).call(mockBench);
+    verify(mockTab, never()).setModule(mockModule);
+    verify(mockProperty, times(1)).addListener((WeakInvalidationListener) any());
+  }
+
 }
