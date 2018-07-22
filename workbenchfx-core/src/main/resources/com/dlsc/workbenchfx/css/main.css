@@ -98,18 +98,20 @@
     -fx-padding: 1.5em;
     -fx-alignment: center center; }
     #content-view #home #tile-pane .pagination .page .tile-page .tile-control {
-      -fx-graphic-text-gap: .5em;
-      -fx-padding: 2em;
-      -fx-pref-width: 14em;
-      -fx-pref-height: 7.875em;
+      -fx-pref-width: 12em;
+      -fx-pref-height: 6.75em;
       -fx-background-color: -surface-color;
       -fx-effect: -drop-shadow-1;
       -fx-border-width: 0;
       -fx-border-radius: 0.357em;
       -fx-background-radius: 0.357em;
       -fx-background-insets: 0; }
-      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .glyph-icon, #content-view #home #tile-pane .pagination .page .tile-page .tile-control .text {
+      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .glyph-icon {
         -fx-fill: -on-surface-color; }
+      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .label {
+        -fx-padding: .25em 0 0 0; }
+        #content-view #home #tile-pane .pagination .page .tile-page .tile-control .label .text {
+          -fx-fill: -on-surface-color; }
       #content-view #home #tile-pane .pagination .page .tile-page .tile-control:hover {
         -fx-effect: -drop-shadow-2;
         -fx-cursor: hand; }

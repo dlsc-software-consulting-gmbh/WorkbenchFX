@@ -10,12 +10,9 @@
             -fx-alignment: center center;
 
             & .tile-control {
-              -fx-graphic-text-gap: .5em;
-              -fx-padding: 2em;
-              -fx-pref-width: 14em;
-              -fx-pref-height: 7.875em; //factor 1.778
-              //-fx-pref-width: 16em;
-              //-fx-pref-height: 9em;
+              -fx-pref-width: 12em;
+              -fx-pref-height: 6.75em; //factor 1.778
+
               -fx-background-color: -surface-color;
               -fx-effect: -drop-shadow-1;
               -fx-border-width: 0;
@@ -25,9 +22,17 @@
 
               -fx-background-insets: 0; //needed to remove the focused border on bottom
 
-              & .glyph-icon,
-              & .text {
+              & .glyph-icon {
+                // icon
                 -fx-fill: -on-surface-color;
+              }
+
+              & .label {
+                // text-label
+                -fx-padding: .25em 0 0 0;
+                & .text {
+                  -fx-fill: -on-surface-color;
+                }
               }
 
               &:hover {
