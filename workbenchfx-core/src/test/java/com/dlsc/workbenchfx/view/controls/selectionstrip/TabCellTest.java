@@ -66,12 +66,12 @@ public class TabCellTest extends ApplicationTest {
     assertEquals(mockTab, tabCell.getGraphic());
 
     verify(mockStrip, times(2)).getSelectedItem();
-    verify(mockStrip, times(1)).selectedItemProperty();
-    verify(mockModule, times(1)).getWorkbench();
-    verify(mockBench, times(1)).getTabFactory();
-    verify(mockFactory, times(1)).call(mockBench);
-    verify(mockTab, times(1)).setModule(mockModule);
-    verify(mockProperty, times(1)).addListener((WeakInvalidationListener) any());
+    verify(mockStrip).selectedItemProperty();
+    verify(mockModule).getWorkbench();
+    verify(mockBench).getTabFactory();
+    verify(mockFactory).call(mockBench);
+    verify(mockTab).setModule(mockModule);
+    verify(mockProperty).addListener((WeakInvalidationListener) any());
   }
 
   @Test
@@ -84,13 +84,13 @@ public class TabCellTest extends ApplicationTest {
     assertEquals("", tabCell.getText());
     assertEquals(null, tabCell.getGraphic());
 
-    verify(mockStrip, times(1)).getSelectedItem();
-    verify(mockStrip, times(1)).selectedItemProperty();
+    verify(mockStrip).getSelectedItem();
+    verify(mockStrip).selectedItemProperty();
     verify(mockModule, never()).getWorkbench();
     verify(mockBench, never()).getTabFactory();
     verify(mockFactory, never()).call(mockBench);
     verify(mockTab, never()).setModule(mockModule);
-    verify(mockProperty, times(1)).addListener((WeakInvalidationListener) any());
+    verify(mockProperty).addListener((WeakInvalidationListener) any());
   }
 
   @Test
@@ -112,4 +112,32 @@ public class TabCellTest extends ApplicationTest {
     verify(mockProperty, never()).addListener((WeakInvalidationListener) any());
   }
 
+//  @Test
+//  void testSettingItemNotNullSelectionStripNotNullWorkbenchNull() {
+//    when(mockModule.getWorkbench()).thenReturn(null); // Simulating a workbench which is null
+//
+//    robot.interact(() -> {
+//      Exception exception = null;
+//
+//      tabCell.setSelectionStrip(mockStrip);
+//      try {
+//        tabCell.setItem(mockModule);
+//        fail("Should throw a NullpointerException");
+//      } catch (Exception e) {
+//        assertTrue(e instanceof NullPointerException);
+//      }
+//    });
+//
+//    assertEquals("", tabCell.getText());
+//    assertNull(tabCell.getGraphic());
+//
+//    verify(mockStrip, times(2)).getSelectedItem();
+//    verify(mockStrip).selectedItemProperty();
+//
+//    verify(mockModule).getWorkbench();
+//    verify(mockBench, never()).getTabFactory();
+//    verify(mockFactory, never()).call(mockBench);
+//    verify(mockTab, never()).setModule(mockModule);
+//    verify(mockProperty).addListener((WeakInvalidationListener) any());
+//  }
 }
