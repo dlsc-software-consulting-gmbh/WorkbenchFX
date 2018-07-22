@@ -10,6 +10,7 @@
             -fx-alignment: center center;
 
             & .tile-control {
+              -fx-padding: 1em;
               -fx-pref-width: 12em;
               -fx-pref-height: 6.75em; //factor 1.778
 
