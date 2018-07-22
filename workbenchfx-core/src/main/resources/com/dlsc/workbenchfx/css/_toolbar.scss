@@ -209,6 +209,7 @@
     & #add-button {
       -fx-padding: 0;
       -fx-pref-width: $pref-size;
+      -fx-min-height: $pref-size;
 
       & #add-icon {
         -fx-padding: 0;

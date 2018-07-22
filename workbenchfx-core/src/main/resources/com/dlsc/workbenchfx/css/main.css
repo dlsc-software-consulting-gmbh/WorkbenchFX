@@ -242,7 +242,8 @@
         -fx-background-insets: 1.1111111111em 0.3296703297em 1.1111111111em 0.4201680672em; }
     #toolbar #bottom-box #add-button {
       -fx-padding: 0;
-      -fx-pref-width: 3em; }
+      -fx-pref-width: 3em;
+      -fx-min-height: 3em; }
       #toolbar #bottom-box #add-button #add-icon {
         -fx-padding: 0;
         -fx-background-color: -on-primary-color;
