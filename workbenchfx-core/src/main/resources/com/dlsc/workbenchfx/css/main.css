@@ -50,7 +50,7 @@
   src: url("../fonts/Roboto-ThinItalic.ttf"); }
 #toolbar #top-box .context-menu, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu {
   -fx-background-color: -surface-color;
-  -fx-background-radius: 5px;
+  -fx-background-radius: 0.357em;
   -fx-effect: -drop-shadow-3;
   -fx-padding: .5em 0 .5em 0; }
   #toolbar #top-box .context-menu .menu-item, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item {
@@ -105,8 +105,8 @@
       -fx-background-color: -surface-color;
       -fx-effect: -drop-shadow-1;
       -fx-border-width: 0;
-      -fx-border-radius: 5px;
-      -fx-background-radius: 5px;
+      -fx-border-radius: 0.357em;
+      -fx-background-radius: 0.357em;
       -fx-background-insets: 0; }
       #content-view #home #tile-pane .pagination .page .tile-page .tile-control .glyph-icon, #content-view #home #tile-pane .pagination .page .tile-page .tile-control .text {
         -fx-fill: -on-surface-color; }
@@ -136,7 +136,7 @@
     -fx-graphic-text-gap: .5em;
     -fx-pref-height: 3em;
     -fx-background-color: -primary-color;
-    -fx-background-radius: 3px;
+    -fx-background-radius: 0.2142em;
     -fx-border-width: 0;
     -fx-background-insets: 0; }
     #toolbar .button .glyph-icon {
@@ -156,7 +156,7 @@
     #toolbar #top-box .dropdown {
       -fx-pref-height: 3em;
       -fx-background-color: -primary-color;
-      -fx-background-radius: 3px;
+      -fx-background-radius: 0.2142em;
       -fx-border-width: 0;
       -fx-background-insets: 0; }
       #toolbar #top-box .dropdown .label {
@@ -217,8 +217,8 @@
                 -fx-fill: -error-color; }
         #toolbar #bottom-box .selection-strip .strip-cell:selected {
           -fx-background-color: -background-color;
-          -fx-background-radius: 5px 5px 0 0;
-          -fx-border-radius: 5px 5px 0 0;
+          -fx-background-radius: 0.357em 0.357em 0 0;
+          -fx-border-radius: 0.357em 0.357em 0 0;
           -fx-cursor: inherit;
           -fx-background-insets: 0 0 0 -1px; }
           #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control {
@@ -252,11 +252,11 @@
         -fx-max-height: 1.125em;
         -fx-shape: "M11 0H9V9H0V11H9V20H11V11H20V9H11V0Z"; }
       #toolbar #bottom-box #add-button:pressed {
-        -fx-background-radius: 5px 5px 0 0; }
+        -fx-background-radius: 0.357em 0.357em 0 0; }
     #toolbar #bottom-box .active-add-button {
       -fx-background-color: -background-color;
-      -fx-background-radius: 5px 5px 0 0;
-      -fx-border-radius: 5px 5px 0 0;
+      -fx-background-radius: 0.357em 0.357em 0 0;
+      -fx-border-radius: 0.357em 0.357em 0 0;
       -fx-background-insets: 0 -1px 0 -1px; }
       #toolbar #bottom-box .active-add-button #add-icon {
         -fx-background-color: -on-background-color !important; }
@@ -293,7 +293,7 @@
       -fx-pref-width: 2.25em;
       -fx-pref-height: 2.25em;
       -fx-background-color: transparent;
-      -fx-background-radius: 3px;
+      -fx-background-radius: 0.2142em;
       -fx-border-width: 0;
       -fx-background-insets: 0; }
       .navigation-drawer .drawer-box .header .button .glyph-icon {
@@ -313,7 +313,7 @@
           -fx-graphic-text-gap: 1.5em;
           -fx-pref-height: 3em;
           -fx-border-width: 0;
-          -fx-background-radius: 5px;
+          -fx-background-radius: 0.357em;
           -fx-padding: 0 1em 0 1em;
           -fx-alignment: CENTER_LEFT !important; }
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:focused {
