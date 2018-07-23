@@ -59,7 +59,8 @@ public class Workbench extends Control {
   public static final String STYLE_CLASS_ACTIVE_HOME = "active-home";
 
   // Custom Controls
-  private ObjectProperty<NavigationDrawer> navigationDrawer = new SimpleObjectProperty<>();
+  private ObjectProperty<NavigationDrawer> navigationDrawer =
+      new SimpleObjectProperty<>(new NavigationDrawer());
 
   // Lists
   private final ObservableSet<Node> toolbarControlsRight =
@@ -106,14 +107,14 @@ public class Workbench extends Control {
    * require a module whose attributes are used to create the Nodes.
    */
   private final ObjectProperty<Callback<Workbench, Tab>> tabFactory =
-      new SimpleObjectProperty<>(this, "tabFactory");
+      new SimpleObjectProperty<>(this, "tabFactory", Tab::new);
   private final ObjectProperty<Callback<Workbench, Tile>> tileFactory =
-      new SimpleObjectProperty<>(this, "tileFactory");
+      new SimpleObjectProperty<>(this, "tileFactory", Tile::new);
   private final ObjectProperty<Callback<Workbench, Page>> pageFactory =
-      new SimpleObjectProperty<>(this, "pageFactory");
+      new SimpleObjectProperty<>(this, "pageFactory", Page::new);
 
   // Properties
-  private final IntegerProperty modulesPerPage = new SimpleIntegerProperty();
+  private final IntegerProperty modulesPerPage = new SimpleIntegerProperty(9);
   private final IntegerProperty amountOfPages = new SimpleIntegerProperty();
 
   /**
@@ -275,6 +276,19 @@ public class Workbench extends Control {
     }
   }
 
+  /**
+   * TODO.
+   */
+  public Workbench() {
+    initBindings();
+    initListeners();
+    setupCleanup();
+  }
+
+  /**
+   * TODO.
+   * @param builder TODO
+   */
   private Workbench(WorkbenchBuilder builder) {
     setModulesPerPage(builder.modulesPerPage);
     initBindings();
@@ -282,6 +296,7 @@ public class Workbench extends Control {
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initModules(builder);
+    initListeners();
     setupCleanup();
   }
 
@@ -329,9 +344,10 @@ public class Workbench extends Control {
 
   private void initModules(WorkbenchBuilder builder) {
     WorkbenchModule[] modules = builder.modules;
-
     this.modules.addAll(modules);
+  }
 
+  private void initListeners() {
     // handle changes of the active module
     activeModule.addListener((observable, oldModule, newModule) -> {
       LOGGER.trace("Module Listener - Old Module: " + oldModule);
