@@ -1,5 +1,6 @@
 package uk.co.senapt.desktop.shell;
 
+import java.util.Objects;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -9,8 +10,6 @@ import javafx.scene.control.Skin;
 import uk.co.senapt.desktop.shell.model.PropertyDefinition;
 import uk.co.senapt.desktop.shell.model.PropertySearchItem;
 import uk.co.senapt.desktop.shell.skins.PropertySearchViewSkin;
-
-import java.util.Objects;
 
 public class PropertySearchView extends Control {
 

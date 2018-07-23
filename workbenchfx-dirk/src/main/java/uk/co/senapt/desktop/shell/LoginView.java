@@ -3,10 +3,9 @@ package uk.co.senapt.desktop.shell;
 import com.google.inject.Inject;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
-import uk.co.senapt.desktop.shell.skins.LoginViewSkin;
-
 import javax.inject.Provider;
 import javax.inject.Singleton;
+import uk.co.senapt.desktop.shell.skins.LoginViewSkin;
 
 @Singleton
 public class LoginView extends Control {

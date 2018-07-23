@@ -1,5 +1,7 @@
 package uk.co.senapt.desktop.shell;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -10,9 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
-
-import java.util.concurrent.Callable;
-import java.util.concurrent.CompletableFuture;
 
 public final class ShellDialog<T> {
 

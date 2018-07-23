@@ -1,5 +1,6 @@
 package uk.co.senapt.desktop.shell.skins;
 
+import java.util.Set;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -25,8 +26,6 @@ import javafx.scene.layout.Region;
 import javafx.util.Duration;
 import uk.co.senapt.desktop.shell.HorizontalMenu;
 import uk.co.senapt.desktop.shell.PrettyListView;
-
-import java.util.Set;
 
 /**
  * Created by gdiaz on 10/10/2017.

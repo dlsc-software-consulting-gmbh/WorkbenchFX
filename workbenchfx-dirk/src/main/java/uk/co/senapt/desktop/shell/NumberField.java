@@ -1,14 +1,13 @@
 package uk.co.senapt.desktop.shell;
 
+import java.text.NumberFormat;
+import java.text.ParsePosition;
+import java.util.function.UnaryOperator;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.NumberStringConverter;
 import org.controlsfx.control.textfield.CustomTextField;
-
-import java.text.NumberFormat;
-import java.text.ParsePosition;
-import java.util.function.UnaryOperator;
 
 public abstract class NumberField<T extends Number> extends CustomTextField {
 

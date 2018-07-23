@@ -299,16 +299,6 @@ public class Workbench extends Control {
     return new WorkbenchSkin(this);
   }
 
-  /**
-   * Creates a builder for {@link Workbench}.
-   *
-   * @param modules which should be loaded for the application
-   * @return builder object
-   */
-  public static WorkbenchBuilder builder(WorkbenchModule... modules) {
-    return new WorkbenchBuilder(modules);
-  }
-
   private void initBindings() {
     amountOfPages.bind(
         Bindings.createIntegerBinding(

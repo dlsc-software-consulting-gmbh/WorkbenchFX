@@ -1,13 +1,12 @@
 package uk.co.senapt.desktop.shell;
 
+import java.util.Objects;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-
-import java.util.Objects;
 
 /**
  * Created by lemmi on 29.08.17.

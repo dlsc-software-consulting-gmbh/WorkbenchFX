@@ -4,6 +4,17 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.prefs.Preferences;
+import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -46,18 +57,6 @@ import uk.co.senapt.desktop.shell.preferences.EffectsPreferencesView;
 import uk.co.senapt.desktop.shell.preferences.PreferenceView;
 import uk.co.senapt.desktop.shell.skins.ShellSkin;
 import uk.co.senapt.desktop.shell.util.LoggingDomain;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.prefs.Preferences;
-import java.util.stream.Collectors;
 
 /**
  * Created by lemmi on 11.08.17.

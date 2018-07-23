@@ -3,9 +3,8 @@ package uk.co.senapt.desktop.shell.preferences;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
-import uk.co.senapt.desktop.shell.Shell;
-
 import javax.inject.Inject;
+import uk.co.senapt.desktop.shell.Shell;
 
 public class EffectsPreferencesView extends VBox {
 

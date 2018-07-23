@@ -1,5 +1,7 @@
 package uk.co.senapt.desktop.shell;
 
+import static java.util.Collections.singletonList;
+
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
 import javafx.animation.Interpolator;
@@ -8,8 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
-
-import static java.util.Collections.singletonList;
 
 
 public class FavoritesButton extends AnimatedNodesList {

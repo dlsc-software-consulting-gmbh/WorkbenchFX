@@ -7,7 +7,6 @@ import com.dlsc.workbenchfx.custom.controls.CustomTab;
 import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
-import com.dlsc.workbenchfx.custom.pokemon.PokemonModule;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DialogTestModule;
 import com.dlsc.workbenchfx.custom.test.DropdownTestModule;

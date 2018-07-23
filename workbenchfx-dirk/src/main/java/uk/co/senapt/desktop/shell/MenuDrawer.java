@@ -1,5 +1,6 @@
 package uk.co.senapt.desktop.shell;
 
+import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
@@ -7,8 +8,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
 import uk.co.senapt.desktop.shell.skins.MenuDrawerSkin;
-
-import java.util.Objects;
 
 
 /**
