@@ -294,11 +294,6 @@ public class Workbench extends Control {
     pageFactory.set(builder.pageFactory);
   }
 
-  @Override
-  protected Skin<?> createDefaultSkin() {
-    return new WorkbenchSkin(this);
-  }
-
   private void initBindings() {
     amountOfPages.bind(
         Bindings.createIntegerBinding(
