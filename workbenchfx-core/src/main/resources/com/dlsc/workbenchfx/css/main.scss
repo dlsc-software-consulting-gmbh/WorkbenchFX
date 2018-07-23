@@ -8,8 +8,8 @@ $darken-percentage: -10%;
 //$text-color: darken($primary-color, 60%);
 
 // Color schema with a light -text-color and a dark -prim-color
-$text-color: hsl(202, 98%, 99%);
-$primary-color: darken($text-color, 60%);
+$primary-color: rgb(46, 120, 231);
+$text-color: lighten($primary-color, 99%);
 
 $text-color-transparent: transparentize($text-color, .2);
 $custom-color-1: blue;
@@ -51,6 +51,7 @@ $custom-color-5: pink;
 @import "contentView";
 @import "home";
 @import "toolbar";
+@import "tabBar";
 @import "module";
 @import "workbench";
 @import "dropdown";

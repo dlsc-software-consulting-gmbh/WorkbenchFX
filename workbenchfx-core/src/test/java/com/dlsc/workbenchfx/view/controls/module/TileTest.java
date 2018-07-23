@@ -55,7 +55,11 @@ class TileTest extends ApplicationTest {
 
     for (int i = 0; i < mockModules.length; i++) {
       mockModules[i] = createMockModule(
-          moduleNodes[i], moduleIcons[i], true, "Module " + i
+          moduleNodes[i],
+          moduleIcons[i],
+          true,
+          "Module " + i,
+          mockBench
       );
     }
 

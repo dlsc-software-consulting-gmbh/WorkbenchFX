@@ -5,10 +5,9 @@ import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
-import com.dlsc.workbenchfx.view.controls.module.Tab;
+import com.dlsc.workbenchfx.view.controls.selectionstrip.TabCell;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
@@ -23,20 +22,17 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class ToolbarPresenter extends Presenter {
+
   private static final Logger LOGGER =
       LogManager.getLogger(ToolbarPresenter.class.getName());
   private final Workbench model;
   private final ToolbarView view;
 
   // Strong reference to prevent garbage collection
-  private final ObservableList<WorkbenchModule> openModules;
   private final ObservableList<MenuItem> navigationDrawerItems;
   private final ObservableSet<Node> toolbarControlsLeft;
   private final ObservableSet<Node> toolbarControlsRight;
-
-  // Strings for detection of listener-type in the toolbar
-  private final String leftToolbarSide = "LEFT_TOOLBAR_SIDE";
-  private final String rightToolbarSide = "RIGHT_TOOLBAR_SIDE";
+  private final ObservableList<WorkbenchModule> openModules;
 
   /**
    * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
@@ -44,10 +40,10 @@ public class ToolbarPresenter extends Presenter {
   public ToolbarPresenter(Workbench model, ToolbarView view) {
     this.model = model;
     this.view = view;
-    openModules = model.getOpenModules();
     navigationDrawerItems = model.getNavigationDrawerItems();
     toolbarControlsLeft = model.getToolbarControlsLeft();
     toolbarControlsRight = model.getToolbarControlsRight();
+    openModules = model.getOpenModules();
     init();
   }
 
@@ -56,6 +52,8 @@ public class ToolbarPresenter extends Presenter {
    */
   @Override
   public void initializeViewParts() {
+    view.tabBar.setCellFactory(tab -> new TabCell());
+
     toolbarControlsLeft.stream().forEachOrdered(view::addToolbarControlLeft);
     toolbarControlsRight.stream().forEachOrdered(view::addToolbarControlRight);
 
@@ -96,28 +94,6 @@ public class ToolbarPresenter extends Presenter {
         change -> view.removeToolbarControlRight(change.getElementRemoved())
     );
 
-    // When the List of the currently open modules is changed, the view is updated.
-    openModules.addListener((ListChangeListener<? super WorkbenchModule>) c -> {
-      while (c.next()) {
-        if (c.wasRemoved()) {
-          for (WorkbenchModule module : c.getRemoved()) {
-            LOGGER.debug("Module " + module + " closed");
-            view.removeTab(c.getFrom());
-          }
-        }
-        if (c.wasAdded()) {
-          for (WorkbenchModule module : c.getAddedSubList()) {
-            LOGGER.debug("Module " + module + " opened");
-            // create tab control
-            Tab tabControl = model.getTabFactory().call(model);
-            tabControl.setModule(module);
-            view.addTab(tabControl);
-            tabControl.requestFocus();
-          }
-        }
-      }
-    });
-
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       if (Objects.isNull(oldModule)) {
         // Home is the old value
@@ -144,6 +120,9 @@ public class ToolbarPresenter extends Presenter {
    */
   @Override
   public void setupBindings() {
+    // Binds content of the SelectionStrip to the Workbench content
+    view.tabBar.itemsProperty().bindContent(openModules);
+    view.tabBar.selectedItemProperty().bindBidirectional(model.activeModuleProperty());
   }
 
 }

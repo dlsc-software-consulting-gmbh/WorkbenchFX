@@ -31,6 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.fxmisc.cssfx.CSSFX;
 
 public class CustomDemo extends Application {
 
@@ -52,6 +53,11 @@ public class CustomDemo extends Application {
     primaryStage.setHeight(700);
     primaryStage.show();
     primaryStage.centerOnScreen();
+
+    // TODO: Remove before publishing
+    System.setProperty("cssfx.log", "true");
+    System.setProperty("cssfx.log.level", "DEBUG");
+    CSSFX.start(); // Live reloading of css
   }
 
   private Workbench initWorkbench() {
@@ -101,16 +107,16 @@ public class CustomDemo extends Application {
     // WorkbenchFX
     workbench =
         Workbench.builder(
-                new CalendarModule(),
-                new NotesModule(),
-                new CustomerModule(),
-                new PreferencesModule(),
-                new WidgetsTestModule(),
-                new DropdownTestModule(),
-                new NavigationDrawerTestModule(),
-                new InterruptClosingTestModule(),
-                new InterruptClosing2TestModule(),
-                new DialogTestModule())
+            new CalendarModule(),
+            new NotesModule(),
+            new CustomerModule(),
+            new PreferencesModule(),
+            new WidgetsTestModule(),
+            new DropdownTestModule(),
+            new NavigationDrawerTestModule(),
+            new InterruptClosingTestModule(),
+            new InterruptClosing2TestModule(),
+            new DialogTestModule())
             .toolbarLeft(addPreferences, removePreferences, showDialogButton)
             .toolbarRight(
                 Dropdown.of(
@@ -144,10 +150,12 @@ public class CustomDemo extends Application {
     showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
     addPreferences.setOnAction(event -> workbench.getModules().add(preferencesModule));
     removePreferences.setOnAction(event -> workbench.getModules().remove(preferencesModule));
-    showDialogButton.setOnAction(event -> workbench.showConfirmationDialog("Reset settings?", "This will reset your device to its default factory settings.", null));
+    showDialogButton.setOnAction(event -> workbench.showConfirmationDialog("Reset settings?",
+        "This will reset your device to its default factory settings.", null));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
-    //workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+//    workbench.getStylesheets()
+//        .add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 
     workbench
         .getStylesheets()

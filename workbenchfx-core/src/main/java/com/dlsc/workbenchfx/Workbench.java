@@ -20,10 +20,12 @@ import java.util.function.Consumer;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,6 +51,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class Workbench extends Control {
+
   private static final Logger LOGGER =
       LogManager.getLogger(Workbench.class.getName());
 
@@ -78,13 +81,16 @@ public class Workbench extends Control {
   /**
    * List of all modules.
    */
-  private final ObservableList<WorkbenchModule> modules = FXCollections.observableArrayList();
+  private final ListProperty<WorkbenchModule> modules = new SimpleListProperty<>(this, "modules",
+      FXCollections.observableArrayList());
 
   /**
    * List of all currently open modules. Open modules are being displayed as open tabs in the
    * application.
    */
-  private final ObservableList<WorkbenchModule> openModules = FXCollections.observableArrayList();
+  private final ListProperty<WorkbenchModule> openModules = new SimpleListProperty<>(this,
+      "modules",
+      FXCollections.observableArrayList());
 
   /**
    * Currently active module. Active module is the module, which is currently being displayed in the
@@ -276,7 +282,6 @@ public class Workbench extends Control {
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initModules(builder);
-
     setupCleanup();
   }
 
@@ -514,16 +519,28 @@ public class Workbench extends Control {
     }
   }
 
+  /**
+   * Returns an unmodifiableObservableList of the currently open modules.
+   */
   public ObservableList<WorkbenchModule> getOpenModules() {
     return FXCollections.unmodifiableObservableList(openModules);
+  }
+
+  private ListProperty<WorkbenchModule> openModulesProperty() {
+    return openModules;
   }
 
   /**
    * Returns a list of the currently loaded modules.
    *
+   * @return the list of all loaded modules
    * @implNote Use this method to add or remove modules at runtime.
    */
   public ObservableList<WorkbenchModule> getModules() {
+    return modules.get();
+  }
+
+  private ListProperty<WorkbenchModule> modulesProperty() {
     return modules;
   }
 
@@ -531,7 +548,7 @@ public class Workbench extends Control {
     return activeModule.get();
   }
 
-  public ReadOnlyObjectProperty<WorkbenchModule> activeModuleProperty() {
+  public ObjectProperty<WorkbenchModule> activeModuleProperty() {
     return activeModule;
   }
 
@@ -614,8 +631,8 @@ public class Workbench extends Control {
   /**
    * Shows an error dialog in the view with a stacktrace of the {@code exception}.
    *
-   * @param title     of the dialog
-   * @param message   of the dialog
+   * @param title of the dialog
+   * @param message of the dialog
    * @param exception of which the stacktrace should be shown
    * @param onResult  the action to perform when a button of the dialog was pressed, providing the
    *                  {@link ButtonType} that was pressed
