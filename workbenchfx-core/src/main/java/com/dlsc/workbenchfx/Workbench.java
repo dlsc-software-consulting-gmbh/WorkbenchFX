@@ -530,7 +530,7 @@ public class Workbench extends Control {
     return FXCollections.unmodifiableObservableList(openModules);
   }
 
-  public ListProperty<WorkbenchModule> openModulesProperty() {
+  private ListProperty<WorkbenchModule> openModulesProperty() {
     return openModules;
   }
 

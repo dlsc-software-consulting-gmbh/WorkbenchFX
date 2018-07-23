@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.view;
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.TabCell;
 import java.util.Objects;
@@ -21,6 +22,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class ToolbarPresenter extends Presenter {
+
   private static final Logger LOGGER =
       LogManager.getLogger(ToolbarPresenter.class.getName());
   private final Workbench model;
@@ -30,6 +32,7 @@ public class ToolbarPresenter extends Presenter {
   private final ObservableList<MenuItem> navigationDrawerItems;
   private final ObservableSet<Node> toolbarControlsLeft;
   private final ObservableSet<Node> toolbarControlsRight;
+  private final ObservableList<WorkbenchModule> openModules;
 
   /**
    * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
@@ -40,6 +43,7 @@ public class ToolbarPresenter extends Presenter {
     navigationDrawerItems = model.getNavigationDrawerItems();
     toolbarControlsLeft = model.getToolbarControlsLeft();
     toolbarControlsRight = model.getToolbarControlsRight();
+    openModules = model.getOpenModules();
     init();
   }
 
@@ -117,7 +121,7 @@ public class ToolbarPresenter extends Presenter {
   @Override
   public void setupBindings() {
     // Binds content of the SelectionStrip to the Workbench content
-    view.tabBar.itemsProperty().bindContent(model.openModulesProperty());
+    view.tabBar.itemsProperty().bindContent(openModules);
     view.tabBar.selectedItemProperty().bindBidirectional(model.activeModuleProperty());
   }
 
