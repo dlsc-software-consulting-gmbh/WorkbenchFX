@@ -77,6 +77,8 @@ public class ToolbarView extends VBox implements View {
     menuBtn.setId("menu-button");
 
     tabBar = new SelectionStrip<>();
+    // Reset default sizing from the selectionStrip constructor
+    tabBar.setPrefSize(0, 0);
     tabBar.setId("tab-bar");
 
     toolbarControlLeftBox = new HBox();
