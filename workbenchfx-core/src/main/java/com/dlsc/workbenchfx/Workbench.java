@@ -277,7 +277,8 @@ public class Workbench extends Control {
   }
 
   /**
-   * TODO.
+   * Default constructor for use with Scene Builder.
+   * For use without FXML, use {@link Workbench#builder(WorkbenchModule...)} instead.
    */
   public Workbench() {
     initBindings();
@@ -286,8 +287,9 @@ public class Workbench extends Control {
   }
 
   /**
-   * TODO.
-   * @param builder TODO
+   * Constructor for WorkbenchFX by using the {@link WorkbenchBuilder}.
+   *
+   * @param builder to use for the setup
    */
   private Workbench(WorkbenchBuilder builder) {
     setModulesPerPage(builder.modulesPerPage);
