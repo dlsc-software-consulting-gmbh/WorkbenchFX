@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.module;
+package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.Workbench;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -7,6 +7,8 @@ import java.util.Objects;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the base for a module, to be displayed in WorkbenchFX.
@@ -15,6 +17,9 @@ import javafx.scene.image.ImageView;
  * @author Marco Sanfratello
  */
 public abstract class WorkbenchModule {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(WorkbenchModule.class.getName());
 
   private Workbench workbench;
   private String name;
@@ -43,25 +48,14 @@ public abstract class WorkbenchModule {
     this.imgIcon = icon;
   }
 
-  /**
-   * Returns the name of this module.
-   */
-  public String getName() {
-    return Objects.isNull(name) ? "" : name;
-  }
-
-  /**
-   * Returns the icon of this module as a {@link Node}.
-   */
-  public Node getIcon() {
-    return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
-  }
-
   // Lifecycle
+
   /**
    * Gets called when the module is being opened from the overview for the first time.
    *
    * @param workbench the calling workbench object
+   * @implSpec the implementor of this method <b>must</b> call {@code super(Workbench)} to ensure
+   *           correct working order.
    */
   public void init(Workbench workbench) {
     this.workbench = workbench;
@@ -96,10 +90,13 @@ public abstract class WorkbenchModule {
    *           being the currently active and displayed module.
    *           When calling destroy() on Module 1: If true is returned, Module 2 will be removed
    *           and Module 1 will be set as the active module. If false is returned, Module 2 will
-   *           not be removed and kept as the active module. When implementing a closing dialog,
-   *           make sure to switch to this module first, so the user can see it, even if this
-   *           module is being closed in its deactivated state, by calling:
-   *           {@code getWorkbench().openModule(this)} before opening the dialog.
+   *           not be removed and Module 1 will be set as the new active module, to enable the
+   *           user to react to the interrupted closing of the module.
+   * @implSpec To implement an asynchronous, controlled closing of a module, execute the immediate
+   *           action (e.g. open a dialog) and define the asynchronous behavior in advance to call
+   *           {@link #close()} (e.g. define pressing "Yes" on the dialog to call {@link #close()}).
+   *           Then <b>return {@code false}</b>, which prevents this module from immediately getting
+   *           closed and causes this {@link Module} to get opened, so the user can react.
    */
   public boolean destroy() {
     return true;
@@ -111,10 +108,13 @@ public abstract class WorkbenchModule {
 
   /**
    * Closes this module.
-   * @return true if closing was successful
+   *
+   * @implNote Warning! This will <b>definitely</b> close this module!
+   *           It will <b>not</b> call {@link #destroy()} before closing it. If you need to clean up
+   *           before closing the module, call {@link #destroy()} before calling {@link #close()}.
    */
-  public final boolean close() {
-    return getWorkbench().closeModule(this);
+  public final void close() {
+    getWorkbench().completeModuleCloseable(this);
   }
 
   /**
@@ -123,5 +123,19 @@ public abstract class WorkbenchModule {
   @Override
   public String toString() {
     return name;
+  }
+
+  /**
+   * Returns the name of this module.
+   */
+  public String getName() {
+    return Objects.isNull(name) ? "" : name;
+  }
+
+  /**
+   * Returns the icon of this module as a {@link Node}.
+   */
+  public Node getIcon() {
+    return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
   }
 }

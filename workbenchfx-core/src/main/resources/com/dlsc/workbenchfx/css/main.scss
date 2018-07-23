@@ -8,8 +8,8 @@ $darken-percentage: -10%;
 //$text-color: darken($primary-color, 60%);
 
 // Color schema with a light -text-color and a dark -prim-color
-$text-color: hsl(202, 98%, 99%);
-$primary-color: darken($text-color, 60%);
+$primary-color: rgb(46, 120, 231);
+$text-color: lighten($primary-color, 99%);
 
 $text-color-transparent: transparentize($text-color, .2);
 $custom-color-1: blue;
@@ -18,7 +18,7 @@ $custom-color-3: green;
 $custom-color-4: purple;
 $custom-color-5: pink;
 
-.root {
+* {
   -prim-color: $primary-color;
   -prim-color-hover: lighten($primary-color, 5%);
   -danger-color: #ed5a5a;
@@ -28,9 +28,15 @@ $custom-color-5: pink;
   -text-color-transparent: $text-color-transparent;
   -inverted-text-color: invert($text-color);
 
+  -drop-shadow-1: dropshadow(gaussian, rgba(0, 0, 0, .26), 10, 0.12, -1, 2);
+  -drop-shadow-2: dropshadow(gaussian, rgba(0, 0, 0, .26), 15, 0.16, -1, 4);
+  -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, .26), 20, 0.19, -1, 6);
+
+  -shadow: dropshadow(gaussian, rgba(0, 0, 0, .1), 6, 0.2, 0, 0);
+
   -icons-color: -text-color;
+  -fx-font-family: "Roboto", sans-serif;
   -fx-font-size: 14px;
-  -fx-font-family: Roboto, sans-serif;
 }
 
 // Default styling of icons. This enables changing the icons styles later on
@@ -40,10 +46,12 @@ $custom-color-5: pink;
   -fx-font-size: 1.5em !important;
 }
 
+@import "fonts";
 @import "includes";
 @import "contentView";
 @import "home";
 @import "toolbar";
+@import "tabBar";
 @import "module";
 @import "workbench";
 @import "dropdown";
@@ -51,3 +59,4 @@ $custom-color-5: pink;
 @import "navigationDrawer";
 @import "glassPane";
 @import "activeTools";
+@import "dialog";

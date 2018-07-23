@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx;
 
+import static com.dlsc.workbenchfx.Workbench.WorkbenchBuilder;
 import static com.dlsc.workbenchfx.testing.MockFactory.createMockModule;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -8,37 +9,54 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.testing.MockDialogControl;
+import com.dlsc.workbenchfx.testing.MockNavigationDrawer;
 import com.dlsc.workbenchfx.testing.MockPage;
 import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.Optional;
+import java.util.function.Consumer;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -81,8 +99,22 @@ class WorkbenchTest extends ApplicationTest {
   private Dropdown dropdownLeft;
   private Dropdown dropdownRight;
 
+  private MockNavigationDrawer navigationDrawer;
+  private MockDialogControl dialogControl;
+
+  @Mock
+  private WorkbenchDialog mockDialog;
+
+  @Mock
+  private Consumer<ButtonType> mockOnResult;
+
+  private ObservableList<ButtonType> buttonTypes =
+      FXCollections.observableArrayList(ButtonType.PREVIOUS, ButtonType.NEXT);
+
   @Override
   public void start(Stage stage) {
+    MockitoAnnotations.initMocks(this);
+
     robot = new FxRobot();
 
     for (int i = 0; i < moduleNodes.length; i++) {
@@ -90,7 +122,9 @@ class WorkbenchTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = createMockModule(moduleNodes[i], null, true, "Module " + i);
+      mockModules[i] = createMockModule(
+          moduleNodes[i], null, true, "Module " + i, workbench
+      );
     }
 
     FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
@@ -108,6 +142,15 @@ class WorkbenchTest extends ApplicationTest {
     dropdownLeft = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
     dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
 
+    // Setup WorkbenchDialog Mock
+    when(mockDialog.getButtonTypes()).thenReturn(buttonTypes);
+    when(mockDialog.getOnResult()).thenReturn(mockOnResult);
+
+    navigationDrawer = new MockNavigationDrawer();
+    dialogControl = new MockDialogControl();
+    when(mockDialog.getDialogControl()).thenReturn(dialogControl);
+    dialogControl.setDialog(mockDialog);
+
     workbench = Workbench.builder(
         mockModules[FIRST_INDEX],
         mockModules[SECOND_INDEX],
@@ -115,14 +158,18 @@ class WorkbenchTest extends ApplicationTest {
         .tabFactory(MockTab::new)
         .tileFactory(MockTile::new)
         .pageFactory(MockPage::new)
+        .navigationDrawer(navigationDrawer)
         .navigationDrawerItems(menuItem)
         .toolbarLeft(dropdownLeft)
         .toolbarRight(dropdownRight)
         .build();
 
     first = mockModules[FIRST_INDEX];
+    when(first.getWorkbench()).thenReturn(workbench);
     second = mockModules[SECOND_INDEX];
+    when(second.getWorkbench()).thenReturn(workbench);
     last = mockModules[LAST_INDEX];
+    when(last.getWorkbench()).thenReturn(workbench);
 
     overlays = workbench.getOverlays();
     blockingOverlaysShown = workbench.getBlockingOverlaysShown();
@@ -144,6 +191,22 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void testCtor() {
     robot.interact(() -> {
+      assertEquals(mockModules.length, workbench.getModules().size());
+      for (int i = 0; i < mockModules.length; i++) {
+        assertSame(mockModules[i], workbench.getModules().get(i));
+      }
+
+      assertEquals(0, workbench.getOpenModules().size());
+
+      assertNull(workbench.activeModuleViewProperty().get());
+    });
+  }
+
+  @Test
+  void testDefaultCtor() {
+    robot.interact(() -> {
+      Workbench defaultBench = new Workbench();
+      defaultBench.getModules().addAll(first, second, last);
       assertEquals(mockModules.length, workbench.getModules().size());
       for (int i = 0; i < mockModules.length; i++) {
         assertSame(mockModules[i], workbench.getModules().get(i));
@@ -275,6 +338,9 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(first)
       inOrder.verify(first).destroy();
+      inOrder.verify(second).getWorkbench();
+      inOrder.verify(second).getName();
+      inOrder.verify(second).getIcon();
       inOrder.verifyNoMoreInteractions();
     });
   }
@@ -375,6 +441,9 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(first).activate();
       // Call: workbench.closeModule(second)
       inOrder.verify(second).destroy();
+      inOrder.verify(first).getWorkbench();
+      inOrder.verify(first).getName();
+      inOrder.verify(first).getIcon();
       inOrder.verifyNoMoreInteractions();
     });
   }
@@ -465,8 +534,8 @@ class WorkbenchTest extends ApplicationTest {
       workbench.openModule(second);
       workbench.closeModule(first);
 
-      assertSame(second, workbench.getActiveModule());
-      assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
+      assertSame(first, workbench.getActiveModule());
+      assertSame(moduleNodes[FIRST_INDEX], workbench.getActiveModuleView());
       assertEquals(2, workbench.getOpenModules().size());
 
       InOrder inOrder = inOrder(first, second);
@@ -480,7 +549,9 @@ class WorkbenchTest extends ApplicationTest {
       // Call: workbench.closeModule(second)
       // destroy second
       inOrder.verify(first).destroy();
-      // notice destroy() was unsuccessful, keep focus on second
+      // notice destroy() was unsuccessful, switch focus to first
+      inOrder.verify(second).deactivate();
+      inOrder.verify(first).activate();
       inOrder.verifyNoMoreInteractions();
     });
   }
@@ -494,16 +565,15 @@ class WorkbenchTest extends ApplicationTest {
     // open two modules, close first (inactive) module
     // destroy() on first module will return false, so the module shouldn't get closed
     when(first.destroy()).then(invocation -> {
-      robot.interact(() -> {
-        workbench.openModule(first);
-      });
-      // dialog opens, user confirms closing module
-      return true;
+      // dialog opens
+      return false;
     });
     robot.interact(() -> {
       workbench.openModule(first);
       workbench.openModule(second);
       workbench.closeModule(first);
+      // user confirms yes on dialog: WorkbenchModule#close()
+      simulateModuleClose(first);
 
       assertSame(second, workbench.getActiveModule());
       assertSame(moduleNodes[SECOND_INDEX], workbench.getActiveModuleView());
@@ -520,13 +590,20 @@ class WorkbenchTest extends ApplicationTest {
       // Call: workbench.closeModule(first)
       // attempt to destroy first
       inOrder.verify(first).destroy();
-      // destroy() opens itself: workbench.openModule(first)
+      // destroy() returns false, closeModule() opens first module
       inOrder.verify(second).deactivate();
       inOrder.verify(first).activate();
       // destroy() returns true, switch to second
       inOrder.verify(second).activate();
       inOrder.verifyNoMoreInteractions();
     });
+  }
+
+  /**
+   * Internal testing method which simulates a call to {@link WorkbenchModule#close()}.
+   */
+  private void simulateModuleClose(WorkbenchModule module) {
+    workbench.completeModuleCloseable(module);
   }
 
   /**
@@ -612,6 +689,9 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(last).activate();
       // Call: workbench.closeModule(second)
       inOrder.verify(second).destroy();
+      inOrder.verify(last).getWorkbench();
+      inOrder.verify(last).getName();
+      inOrder.verify(last).getIcon();
       inOrder.verifyNoMoreInteractions();
     });
   }
@@ -1062,7 +1142,13 @@ class WorkbenchTest extends ApplicationTest {
       ObservableList<WorkbenchModule> modules = workbench.getModules();
       int currentSize = modules.size();
       String mockModuleName = "Mock Module";
-      WorkbenchModule mockModule = createMockModule(new Label(), null, true, mockModuleName);
+      WorkbenchModule mockModule = createMockModule(
+          new Label(),
+          null,
+          true,
+          mockModuleName,
+          workbench
+      );
 
       assertTrue(workbench.getModules().add(mockModule));
 
@@ -1089,8 +1175,8 @@ class WorkbenchTest extends ApplicationTest {
 
   /**
    * Test for {@link Workbench#setupCleanup()}.
-   * Simulates all modules returning {@code true} when {@link WorkbenchModule#destroy()} is being
-   * called on them during the cleanup.
+   * Simulates all modules returning {@code true} when
+   * {@link WorkbenchModule#destroy()} is being called on them during the cleanup.
    */
   @Test
   void closeStageSuccess() {
@@ -1126,8 +1212,8 @@ class WorkbenchTest extends ApplicationTest {
   /**
    * Test for {@link Workbench#setupCleanup()}.
    * Simulates the first (inactive) module returning {@code false} and the second (active) module
-   * returning {@code true}, when {@link WorkbenchModule#destroy()} is being called on them during
-   * cleanup.
+   * returning {@code true}, when {@link WorkbenchModule#destroy()} is being called
+   * on them during cleanup.
    */
   @Test
   void closeStageFailFirstModule() {
@@ -1154,6 +1240,9 @@ class WorkbenchTest extends ApplicationTest {
       // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
       // Implicit Call: workbench.closeModule(first)
       inOrder.verify(first).destroy(); // returns false
+      // Implicit Call: workbench.openModule(first) -> set focus on module that couldn't be closed
+      inOrder.verify(second).deactivate();
+      inOrder.verify(first).activate();
       // closing should be interrupted
       inOrder.verifyNoMoreInteractions();
 
@@ -1203,13 +1292,142 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   /**
+   * Test for {@link Workbench#setupCleanup()}.
+   * Simulates a special case that caused in bug scenarios to have 2x {@code thenRun} set on
+   * {@code moduleCloseable} in {@code stage.setOnCloseRequest}, which lead to 2 dialogs being open
+   * instead of one, after the first module has been closed.
+   */
+  @Test
+  void closeStageSpecial1() {
+    robot.interact(() -> {
+      // Given: 2 Modules open, destroy() on both opens a dialog and returns false.
+      //        Pressing yes on the dialog calls WorkbenchModule#close(), pressing no leaves the
+      //        module open.
+      workbench.openModule(first);
+      workbench.openModule(second);
+      when(first.destroy()).then(invocationOnMock -> {
+        workbench.showDialog(WorkbenchDialog.builder("1", "", WorkbenchDialog.Type.CONFIRMATION)
+            .blocking(true).onResult(buttonType -> {
+              if (ButtonType.YES.equals(buttonType)) {
+                simulateModuleClose(first);
+              }
+            }).build());
+        return false;
+      });
+      when(second.destroy()).then(invocationOnMock -> {
+        workbench.showDialog(WorkbenchDialog.builder("2", "", WorkbenchDialog.Type.CONFIRMATION)
+            .blocking(true).onResult(buttonType -> {
+              if (ButtonType.YES.equals(buttonType)) {
+                simulateModuleClose(second);
+              }
+            }).build());
+        return false;
+      });
+      assertTrue(isStageOpen());
+
+      // When: Close stage, press No, Close Stage, press yes.
+      closeStage();
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      simulateDialogButtonClick(ButtonType.NO);
+      assertSame(0, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      closeStage();
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      simulateDialogButtonClick(ButtonType.YES);
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(1, workbench.getOpenModules().size());
+
+      // Then: Only second module is open and 1 dialog is open (closing of second module)
+      assertEquals(second, workbench.getOpenModules().get(0));
+      assertEquals("2", getShowingDialogControl().getDialog().getTitle());
+
+      // When: Press yes
+      simulateDialogButtonClick(ButtonType.YES);
+
+      // Then: No modules and dialogs are open, stage is closed.
+      assertSame(0, workbench.getBlockingOverlaysShown().size());
+      assertSame(0, workbench.getOpenModules().size());
+      assertFalse(isStageOpen());
+    });
+  }
+
+  /**
+   * Test for {@link Workbench#setupCleanup()}.
+   * Simulates a special case that caused in bug scenarios for the stage closing process to go on,
+   * even though a tab was closed and not the stage itself.
+   */
+  @Test
+  void closeStageSpecial2() {
+    robot.interact(() -> {
+      // Given: 2 Modules open, destroy() on both opens a dialog and returns false.
+      //        Pressing yes on the dialog calls WorkbenchModule#close(), pressing no leaves the
+      //        module open.
+      workbench.openModule(first);
+      workbench.openModule(second);
+      when(first.destroy()).then(invocationOnMock -> {
+        workbench.showDialog(WorkbenchDialog.builder("1", "", WorkbenchDialog.Type.CONFIRMATION)
+            .blocking(true).onResult(buttonType -> {
+              if (ButtonType.YES.equals(buttonType)) {
+                simulateModuleClose(first);
+              }
+            }).build());
+        return false;
+      });
+      when(second.destroy()).then(invocationOnMock -> {
+        workbench.showDialog(WorkbenchDialog.builder("2", "", WorkbenchDialog.Type.CONFIRMATION)
+            .blocking(true).onResult(buttonType -> {
+              if (ButtonType.YES.equals(buttonType)) {
+                simulateModuleClose(second);
+              }
+            }).build());
+        return false;
+      });
+      assertTrue(isStageOpen());
+
+      // When: Close stage, press No, Close Tab, Press Yes
+      closeStage();
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      simulateDialogButtonClick(ButtonType.NO);
+      assertSame(0, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      workbench.closeModule(first); // simulate tab closing
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(2, workbench.getOpenModules().size());
+
+      simulateDialogButtonClick(ButtonType.YES);
+      assertSame(0, workbench.getBlockingOverlaysShown().size());
+      assertSame(1, workbench.getOpenModules().size());
+
+      // Then: Only second module is open and no dialogs are open (stage closing is interrupted)
+      assertEquals(second, workbench.getOpenModules().get(0));
+      assertTrue(isStageOpen());
+    });
+  }
+
+  /**
+   * Internal utility method for testing.
+   * Determines whether the current stage is open or was closed.
+   */
+  private boolean isStageOpen() {
+    return robot.listTargetWindows().size() == 1;
+  }
+
+  /**
    * Internal utility method for testing.
    * Simulates closing the stage, which fires a close request to test logic
    * inside of {@link Stage#setOnCloseRequest(EventHandler)}.
    * Using {@link FxRobot#closeCurrentWindow()} would be better, but it only works on Windows
    * because of its implementation, so this approach was chosen as a workaround.
    * @see <a href="https://github.com/TestFX/TestFX/issues/447>
-   *   closeCurrentWindow() doesn't work headless</a>
+   * closeCurrentWindow() doesn't work headless</a>
    */
   private void closeStage() {
     Stage stage = ((Stage) workbench.getScene().getWindow());
@@ -1219,5 +1437,194 @@ class WorkbenchTest extends ApplicationTest {
             WindowEvent.WINDOW_CLOSE_REQUEST
         )
     );
+  }
+
+  @Test
+  void initNavigationDrawer() {
+    // verify no NPE is thrown by the listener when setting a null control
+    workbench.setNavigationDrawer(null);
+  }
+
+  @Test
+  @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane")
+  void showDialogNonBlockingCloseGlassPane() {
+    robot.interact(() -> {
+      assertDialogNotShown();
+
+      WorkbenchDialog result = workbench.showDialog(mockDialog);
+
+      assertDialogShown(result, false);
+      verify(mockDialog, atLeastOnce()).getButtonTypes();
+      verify(mockOnResult, never()).accept(any()); // no result yet
+
+      // hiding by GlassPane click
+      simulateGlassPaneClick(dialogControl);
+
+      verify(mockOnResult).accept(ButtonType.CANCEL);
+      assertDialogNotShown();
+    });
+  }
+
+  @Test
+  @DisplayName("Show non-blocking dialog and close by clicking on one of the dialog buttons")
+  void showDialogNonBlockingCloseButton() {
+    robot.interact(() -> {
+      assertDialogNotShown();
+
+      WorkbenchDialog result = workbench.showDialog(mockDialog);
+
+      assertDialogShown(result, false);
+      verify(mockDialog, atLeastOnce()).getButtonTypes();
+      verify(mockOnResult, never()).accept(any()); // no result yet
+
+      // hiding by button press
+      ButtonType toPress = buttonTypes.get(0);
+      simulateDialogButtonClick(dialogControl, toPress);
+
+      verify(mockOnResult).accept(toPress);
+      assertDialogNotShown();
+    });
+  }
+
+  @Test
+  @DisplayName("Show blocking dialog and try to close by clicking on the GlassPane")
+  void showDialogBlockingCloseGlassPane() {
+    robot.interact(() -> {
+      when(mockDialog.isBlocking()).thenReturn(true);
+
+      assertDialogNotShown();
+
+      WorkbenchDialog result = workbench.showDialog(mockDialog);
+
+      verify(mockDialog).isBlocking(); // call showOverlay(...) inside showDialog()
+      verify(mockDialog, atLeastOnce()).getButtonTypes();
+      assertDialogShown(result, true);
+
+      // try hiding by clicking on GlassPane
+      simulateGlassPaneClick(dialogControl); // simulates a click on GlassPane
+
+      verify(mockDialog, never()).getOnResult();
+      verify(mockOnResult, never()).accept(any());
+      verifyNoMoreInteractions(mockDialog);
+      verifyNoMoreInteractions(mockOnResult);
+      // verify dialog hasn't been hidden
+      assertDialogShown(result, true);
+    });
+  }
+
+  @Test
+  @DisplayName("Show blocking dialog and close by clicking on one of the dialog buttons")
+  void showDialogBlockingCloseButton() {
+    robot.interact(() -> {
+      when(mockDialog.isBlocking()).thenReturn(true);
+
+      assertDialogNotShown();
+
+      WorkbenchDialog result = workbench.showDialog(mockDialog);
+
+      assertDialogShown(result, true);
+      verify(mockDialog).isBlocking(); // call showOverlay(...) inside showDialog()
+      verify(mockDialog, atLeastOnce()).getButtonTypes();
+      verify(mockDialog, atLeastOnce()).getDialogControl();
+      verify(mockDialog, never()).getOnResult();
+      verify(mockOnResult, never()).accept(any());
+      ObservableList<Button> buttons = dialogControl.getButtons();
+      assertSame(buttonTypes.size(), buttons.size());
+
+      // hiding by button press
+      ButtonType toPress = buttonTypes.get(0);
+      simulateDialogButtonClick(dialogControl, toPress);
+
+      verify(mockDialog).getOnResult();
+      verify(mockDialog, atLeastOnce()).getDialogControl();
+      verify(mockOnResult).accept(toPress);
+      verifyNoMoreInteractions(mockDialog);
+      verifyNoMoreInteractions(mockOnResult);
+      assertDialogNotShown();
+    });
+  }
+
+  private void assertDialogShown(WorkbenchDialog result, boolean blocking) {
+    verify(result).getDialogControl();
+    assertSame(mockDialog, result);
+    assertSame(1, workbench.getOverlays().size());
+    assertSame(dialogControl, workbench.getOverlays().keySet().stream().findAny().get());
+    assertSame(workbench, dialogControl.getWorkbench());
+    if (blocking) {
+      assertSame(1, workbench.getBlockingOverlaysShown().size());
+      assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+    } else {
+      assertSame(0, workbench.getBlockingOverlaysShown().size());
+      assertSame(1, workbench.getNonBlockingOverlaysShown().size());
+    }
+  }
+
+  private void assertDialogNotShown() {
+    assertSame(null, dialogControl.getWorkbench());
+    assertSame(0, workbench.getBlockingOverlaysShown().size());
+    assertSame(0, workbench.getNonBlockingOverlaysShown().size());
+  }
+
+  /**
+   * Internal testing method that will simulate a click on a {@link GlassPane} of
+   * an {@code overlayNode}.
+   *
+   * @param overlayNode of which the GlassPane should be clicked
+   */
+  private void simulateGlassPaneClick(Node overlayNode) {
+    GlassPane glassPane = workbench.getOverlays().get(overlayNode);
+    glassPane.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0,
+        MouseButton.PRIMARY, 1,
+        false, false, false, false, true, false, false, false, false, false,
+        null)
+    );
+  }
+
+  /**
+   * Internal testing method that will simulate a click on the {@link Button} of
+   * {@link ButtonType} of the {@code dialog}.
+   *
+   * @param dialog of which the button is to be pressed
+   * @param press the {@link ButtonType} of the {@link Button} that should be pressed
+   */
+  private void simulateDialogButtonClick(WorkbenchDialog dialog, ButtonType press) {
+    Optional<Button> button = dialog.getButton(press);
+    button.get().fire();
+  }
+
+  /**
+   * Internal testing method that will simulate a click on the {@link Button} of
+   * {@link ButtonType} of the {@code dialog}.
+   *
+   * @param dialog of which the button is to be pressed
+   * @param press the {@link ButtonType} of the {@link Button} that should be pressed
+   */
+  private void simulateDialogButtonClick(DialogControl dialog, ButtonType press) {
+    Optional<Button> button = dialog.getButton(press);
+    button.get().fire();
+  }
+
+  /**
+   * Internal testing method that will simulate a click on the {@link Button} of
+   * {@link ButtonType} of the currently shown dialog, assuming only one overlay is shown, which
+   * is a dialog.
+   *
+   * @param press the {@link ButtonType} of the {@link Button} that should be pressed
+   */
+  private void simulateDialogButtonClick(ButtonType press) {
+    DialogControl showingDialogControl = getShowingDialogControl();
+    simulateDialogButtonClick(showingDialogControl, press);
+  }
+
+  /**
+   * Internal testing method which returns the currently shown DialogControl.
+   */
+  private DialogControl getShowingDialogControl() {
+    if (workbench.getNonBlockingOverlaysShown().size() == 1) {
+      return (DialogControl) workbench.getNonBlockingOverlaysShown().stream().findAny().get();
+    } else if (workbench.getBlockingOverlaysShown().size() == 1) {
+      return (DialogControl) workbench.getBlockingOverlaysShown().stream().findAny().get();
+    }
+    return null;
   }
 }

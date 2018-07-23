@@ -14,6 +14,9 @@ public class ContentPresenter extends Presenter {
 
   /**
    * Creates a new {@link ContentPresenter} object for a corresponding {@link ContentView}.
+   *
+   * @param model the workbench, holding all data
+   * @param view the corresponding {@link ContentView}
    */
   public ContentPresenter(Workbench model, ContentView view) {
     this.model = model;

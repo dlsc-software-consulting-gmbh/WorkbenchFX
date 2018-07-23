@@ -1,8 +1,9 @@
 package com.dlsc.workbenchfx.custom.calendar;
 
-import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import javafx.scene.Node;
 
 public class CalendarModule extends WorkbenchModule {
@@ -35,10 +36,8 @@ public class CalendarModule extends WorkbenchModule {
    */
   @Override
   public boolean destroy() {
-    if (calendarView != null) {
-      calendarView.stopClock();
-      calendarView = null;
-    }
+    calendarView.stopClock();
+    calendarView = null;
     return true;
   }
 }

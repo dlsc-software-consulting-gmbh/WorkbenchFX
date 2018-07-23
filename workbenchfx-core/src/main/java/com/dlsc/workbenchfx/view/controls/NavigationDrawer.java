@@ -59,7 +59,7 @@ public class NavigationDrawer extends Control {
     this.workbench.set(workbench);
   }
 
-  public ObjectProperty<Workbench> workbenchProperty() {
+  private ObjectProperty<Workbench> workbenchProperty() {
     return workbench;
   }
 }

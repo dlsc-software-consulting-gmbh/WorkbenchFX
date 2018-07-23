@@ -1,10 +1,11 @@
 package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.custom.overlay.CustomDialog;
-import com.dlsc.workbenchfx.module.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 
 public class InterruptClosingTestModule extends WorkbenchModule {
@@ -28,21 +29,23 @@ public class InterruptClosingTestModule extends WorkbenchModule {
 
   @Override
   public boolean destroy() {
-    if (!closePossible) {
-      getWorkbench().openModule(this);
-      getWorkbench().showOverlay(new CustomDialog(getWorkbench(), this), true);
-      return false;
-    } else {
-      return true;
-    }
+    System.out.println("DESTROY CALLED ON 1");
 
+    getWorkbench().showDialog(WorkbenchDialog.builder("Confirmation",
+        "Are you sure you want to close this module without saving?",
+        WorkbenchDialog.Type.CONFIRMATION)
+        .blocking(true)
+        .onResult(buttonType -> {
+          if (ButtonType.YES.equals(buttonType)) {
+            System.out.println("Pressed: YES");
+            close();
+          }
+        })
+        .build());
+
+    return false;
   }
 
-  public boolean isClosePossible() {
-    return closePossible;
-  }
 
-  public void setClosePossible(boolean closePossible) {
-    this.closePossible = closePossible;
-  }
+
 }

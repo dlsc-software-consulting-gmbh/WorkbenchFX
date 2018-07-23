@@ -24,6 +24,10 @@ public class WorkbenchView extends StackPane implements View {
 
   /**
    * Displays all of the view parts, representing the master view.
+   *
+   * @param toolbarView the {@link ToolbarView} to be shown
+   * @param homeView the {@link HomeView} to be shown
+   * @param contentView the {@link ContentView} to be shown
    */
   public WorkbenchView(
       ToolbarView toolbarView,
@@ -65,7 +69,7 @@ public class WorkbenchView extends StackPane implements View {
    * Stacks the {@code overlay} on top of the current view, together with its {@code glassPane} in
    * the background and makes the {@code glassPane} hide, whenever the overlay is hidden.
    *
-   * @param overlay to be stacked on top of the view
+   * @param overlay   to be stacked on top of the view
    * @param glassPane to be added in the background of the {@code overlay}
    */
   public void addOverlay(Node overlay, GlassPane glassPane) {
@@ -79,7 +83,8 @@ public class WorkbenchView extends StackPane implements View {
   /**
    * Removes the {@code overlay} from the scene graph and removes the bindings created with the call
    * to {@link WorkbenchView#addOverlay(Node, GlassPane)}.
-   * @param overlay to be removed from the scene graph
+   *
+   * @param overlay   to be removed from the scene graph
    * @param glassPane the {@code overlay}'s corresponding {@link GlassPane}
    */
   public void removeOverlay(Node overlay, GlassPane glassPane) {
