@@ -123,7 +123,7 @@ class WorkbenchTest extends ApplicationTest {
 
     for (int i = 0; i < mockModules.length; i++) {
       mockModules[i] = createMockModule(
-          moduleNodes[i], null, true, "Module " + i
+          moduleNodes[i], null, true, "Module " + i, workbench
       );
     }
 
@@ -165,8 +165,11 @@ class WorkbenchTest extends ApplicationTest {
         .build();
 
     first = mockModules[FIRST_INDEX];
+    when(first.getWorkbench()).thenReturn(workbench);
     second = mockModules[SECOND_INDEX];
+    when(second.getWorkbench()).thenReturn(workbench);
     last = mockModules[LAST_INDEX];
+    when(last.getWorkbench()).thenReturn(workbench);
 
     overlays = workbench.getOverlays();
     blockingOverlaysShown = workbench.getBlockingOverlaysShown();
@@ -319,6 +322,9 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(first)
       inOrder.verify(first).destroy();
+      inOrder.verify(second).getWorkbench();
+      inOrder.verify(second).getName();
+      inOrder.verify(second).getIcon();
       inOrder.verifyNoMoreInteractions();
     });
   }
@@ -419,6 +425,9 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(first).activate();
       // Call: workbench.closeModule(second)
       inOrder.verify(second).destroy();
+      inOrder.verify(first).getWorkbench();
+      inOrder.verify(first).getName();
+      inOrder.verify(first).getIcon();
       inOrder.verifyNoMoreInteractions();
     });
   }
@@ -664,6 +673,9 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(last).activate();
       // Call: workbench.closeModule(second)
       inOrder.verify(second).destroy();
+      inOrder.verify(last).getWorkbench();
+      inOrder.verify(last).getName();
+      inOrder.verify(last).getIcon();
       inOrder.verifyNoMoreInteractions();
     });
   }
@@ -1115,7 +1127,12 @@ class WorkbenchTest extends ApplicationTest {
       int currentSize = modules.size();
       String mockModuleName = "Mock Module";
       WorkbenchModule mockModule = createMockModule(
-          new Label(), null, true, mockModuleName);
+          new Label(),
+          null,
+          true,
+          mockModuleName,
+          workbench
+      );
 
       assertTrue(workbench.getModules().add(mockModule));
 

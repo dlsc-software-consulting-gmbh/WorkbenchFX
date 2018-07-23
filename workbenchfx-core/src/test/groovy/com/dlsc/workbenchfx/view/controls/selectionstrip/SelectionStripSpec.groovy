@@ -1,20 +1,28 @@
 package com.dlsc.workbenchfx.view.controls.selectionstrip
 
 import com.dlsc.workbenchfx.model.WorkbenchModule
+import com.dlsc.workbenchfx.testing.MockSelectionStrip
 import javafx.scene.Scene
 import javafx.stage.Stage
 import javafx.util.Callback
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
+import spock.lang.Shared
+import spock.lang.Unroll
 
 class SelectionStripSpec extends ApplicationSpec {
 
     private SelectionStrip<WorkbenchModule> selectionStrip
     private FxRobot robot
 
+    @Shared
+    private WorkbenchModule workbenchModule = Mock()
+    @Shared
+    private WorkbenchModule workbenchModule2 = Mock()
+
     @Override
     void start(Stage stage) throws Exception {
-        selectionStrip = new SelectionStrip<>()
+        selectionStrip = new MockSelectionStrip()
         robot = new FxRobot()
 
         Scene scene = new Scene(selectionStrip, 100, 100)
@@ -26,8 +34,7 @@ class SelectionStripSpec extends ApplicationSpec {
         given: "String of styleclass which shall be set"
         String styleClass = "selection-strip"
 
-        when: "the cell is created"
-        selectionStrip = new SelectionStrip<>()
+        when: "selectionStrip was initialized"
 
         then: "styleclass must be set"
         selectionStrip.getStyleClass().contains(styleClass)
@@ -38,8 +45,7 @@ class SelectionStripSpec extends ApplicationSpec {
         double prefWidth = 400;
         double prefHeight = 50;
 
-        when: "the cell is created"
-        selectionStrip = new SelectionStrip<>()
+        when: "selectionStrip was initialized"
 
         then: "max and min must be set"
         prefWidth == selectionStrip.getPrefWidth()
@@ -47,95 +53,47 @@ class SelectionStripSpec extends ApplicationSpec {
     }
 
     def "set a cell factory"() {
-        when: "initial setup"
-        selectionStrip = new SelectionStrip<>()
+        when: "selectionStrip was initialized"
 
         then: "cellfactory is instance of StripCell"
+        null != selectionStrip.getCellFactory()
         selectionStrip.getCellFactory() instanceof Callback<SelectionStrip, StripCell<WorkbenchModule>>
     }
 
-    def "tests if setting an item sets them active the correct way"() {
-        given: "WorkbenchModule-mocks as items"
-        WorkbenchModule workbenchModule = Mock()
-        WorkbenchModule workbenchModule2 = Mock()
-        int size = selectionStrip.getItems().size()
-
-        when: "adding null as parameter"
+    @Unroll
+    def "tests selected-item listener: autoScrolling: '#autoScrolling' and selectedItem adding: '#selectedItem' => autoscrolledModule: '#autoscrolledModule'"(
+            boolean autoScrolling,
+            WorkbenchModule selectedItem,
+            WorkbenchModule autoscrolledModule
+    ) {
+        given:
         robot.interact {
-            selectionStrip.getItems().add(null)
+            selectionStrip.setAutoScrolling(autoScrolling)
+            selectionStrip.setSelectedItem(selectedItem)
         }
 
-        then: "the active module is null and the size of the list is 0"
-        robot.interact {
-            Objects.isNull(selectionStrip.getSelectedItem())
-            size == selectionStrip.getItems().size()
-        }
+        expect:
+        autoscrolledModule == selectionStrip.getProperties().get("scroll.to");
 
-        when: "adding a module"
-        robot.interact {
-            selectionStrip.getItems().add(workbenchModule)
-        }
-
-        then: "the active module is the one hand over"
-        robot.interact {
-            workbenchModule == selectionStrip.getSelectedItem()
-            size == selectionStrip.getItems().size()
-        }
-
-        when: "setting another Module"
-        robot.interact {
-            selectionStrip.getItems().add(workbenchModule2)
-        }
-
-        then: "the active module should change to the second one"
-        robot.interact {
-            workbenchModule == selectionStrip.getSelectedItem()
-            size + 1 == selectionStrip.getItems().size()
-        }
-
-        when: "setting the second module again"
-        robot.interact {
-            selectionStrip.getItems().add(workbenchModule2)
-        }
-
-        then: "it will be added and the active module should change to the second one"
-        robot.interact {
-            workbenchModule2 == selectionStrip.getSelectedItem()
-            size + 2 == selectionStrip.getItems().size()
-        }
+        where:
+        autoScrolling | selectedItem    || autoscrolledModule
+        true          | null            || null
+        true          | workbenchModule || workbenchModule
+        false         | null            || null
+        false         | workbenchModule || null
     }
 
-    def "bla"() {
-        given: ""
-        WorkbenchModule workbenchModule = Mock()
-        WorkbenchModule workbenchModule2 = Mock()
+    def "scroll-to method"(WorkbenchModule moduleToBeScrolled, WorkbenchModule expectedModule) {
+        given: "when calling scrollTo with the given module"
+        selectionStrip.scrollTo(moduleToBeScrolled)
 
-        when: ""
-        boolean areSame = workbenchModule.equals(workbenchModule2)
+        expect: "it should be stored in the properties map with the key 'scroll.to'"
+        expectedModule == selectionStrip.getProperties().get("scroll.to");
 
-        then: ""
-        1 * workbenchModule.equals(_) >> true
-        areSame
+        where:
+        moduleToBeScrolled || expectedModule
+        null               || null
+        workbenchModule    || workbenchModule
     }
 
-    def "bla2"() {
-        given: ""
-        SelectionStrip<WorkbenchModule> selectionStrip = Mock()
-        WorkbenchModule workbenchModule = Mock()
-
-        when: ""
-        WorkbenchModule module = selectionStrip.getSelectedItem()
-
-        then: ""
-        1 * selectionStrip.getSelectedItem() >> workbenchModule
-        workbenchModule == module
-    }
-
-    /*
-    wurde selectedItem aufgerufen?
-    wurde isAutoscrolling aufgerufen?
-    wurde scrollto aufgerufen?
-    wurde getSelectedItem aufgerufen?
-    requestLayout -> evtl.mock of parent?
-     */
 }

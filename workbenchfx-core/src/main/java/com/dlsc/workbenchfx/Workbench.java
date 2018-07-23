@@ -307,6 +307,11 @@ public class Workbench extends Control {
     );
   }
 
+  @Override
+  protected Skin<?> createDefaultSkin() {
+    return new WorkbenchSkin(this);
+  }
+
   private void initToolbarControls(WorkbenchBuilder builder) {
     if (builder.toolbarControlsLeft != null) {
       toolbarControlsLeft.addAll(List.of(builder.toolbarControlsLeft));
@@ -524,14 +529,12 @@ public class Workbench extends Control {
 
   /**
    * Returns an unmodifiableObservableList of the currently open modules.
-   *
-   * @return the list of open modules
    */
   public ObservableList<WorkbenchModule> getOpenModules() {
     return FXCollections.unmodifiableObservableList(openModules);
   }
 
-  public ListProperty<WorkbenchModule> openModulesProperty() {
+  private ListProperty<WorkbenchModule> openModulesProperty() {
     return openModules;
   }
 
@@ -545,7 +548,7 @@ public class Workbench extends Control {
     return modules.get();
   }
 
-  public ListProperty<WorkbenchModule> modulesProperty() {
+  private ListProperty<WorkbenchModule> modulesProperty() {
     return modules;
   }
 
@@ -747,7 +750,7 @@ public class Workbench extends Control {
   /**
    * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background.
    *
-   * @param overlay to be shown
+   * @param overlay  to be shown
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
