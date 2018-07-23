@@ -540,7 +540,7 @@ public class Workbench extends Control {
     return modules.get();
   }
 
-  public ListProperty<WorkbenchModule> modulesProperty() {
+  private ListProperty<WorkbenchModule> modulesProperty() {
     return modules;
   }
 
