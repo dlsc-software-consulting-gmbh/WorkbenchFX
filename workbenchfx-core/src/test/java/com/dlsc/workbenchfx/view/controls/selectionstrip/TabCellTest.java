@@ -74,30 +74,6 @@ public class TabCellTest extends ApplicationTest {
     verify(mockProperty).addListener((WeakInvalidationListener) any());
   }
 
-//  @Test
-//  void testSettingItemNotNullWithSelectionStripNull() {
-//    robot.interact(() -> {
-//      tabCell.setSelectionStrip(null);
-//      try {
-//        tabCell.setItem(mockModule);
-//        fail("Should throw a NullpointerException");
-//      } catch (Exception e) {
-//        assertTrue(e instanceof NullPointerException);
-//      }
-//    });
-//
-//    assertEquals("", tabCell.getText());
-//    assertEquals(mockTab, tabCell.getGraphic());
-//
-//    verify(mockStrip, never()).getSelectedItem();
-//    verify(mockStrip, never()).selectedItemProperty();
-//    verify(mockModule).getWorkbench();
-//    verify(mockBench).getTabFactory();
-//    verify(mockFactory).call(mockBench);
-//    verify(mockTab).setModule(mockModule);
-//    verify(mockProperty, never()).addListener((WeakInvalidationListener) any());
-//  }
-
   @Test
   void testSettingItemNullWithSelectionStripNotNull() {
     robot.interact(() -> {
@@ -135,33 +111,4 @@ public class TabCellTest extends ApplicationTest {
     verify(mockTab, never()).setModule(mockModule);
     verify(mockProperty, never()).addListener((WeakInvalidationListener) any());
   }
-
-//  @Test
-//  void testSettingItemNotNullSelectionStripNotNullWorkbenchNull() {
-//    when(mockModule.getWorkbench()).thenReturn(null); // Simulating a workbench which is null
-//
-//    robot.interact(() -> {
-//      Exception exception = null;
-//
-//      tabCell.setSelectionStrip(mockStrip);
-//      try {
-//        tabCell.setItem(mockModule);
-//        fail("Should throw a NullpointerException");
-//      } catch (Exception e) {
-//        assertTrue(e instanceof NullPointerException);
-//      }
-//    });
-//
-//    assertEquals("", tabCell.getText());
-//    assertNull(tabCell.getGraphic());
-//
-//    verify(mockStrip, times(2)).getSelectedItem();
-//    verify(mockStrip).selectedItemProperty();
-//
-//    verify(mockModule).getWorkbench();
-//    verify(mockBench, never()).getTabFactory();
-//    verify(mockFactory, never()).call(mockBench);
-//    verify(mockTab, never()).setModule(mockModule);
-//    verify(mockProperty).addListener((WeakInvalidationListener) any());
-//  }
 }
