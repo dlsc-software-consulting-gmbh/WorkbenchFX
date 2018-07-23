@@ -83,16 +83,16 @@ class StripCellSpec extends ApplicationSpec {
 
     def "test selectionStripListener"() {
         given: "selectionstrip was set"
-        SelectionStrip<WorkbenchModule> mockStrip = new MockSelectionStrip()
+        SelectionStrip<WorkbenchModule> mockSelectionStrip2 = new MockSelectionStrip()
         robot.interact {
-            mockStrip.setSelectedItem(mockModule)
+            mockSelectionStrip2.setSelectedItem(mockModule)
             stripCell.setSelectionStrip(mockSelectionStrip)
             stripCell.setItem(mockModule)
         }
 
         when: "a new selectionStrip with the same module is set"
         robot.interact {
-            stripCell.setSelectionStrip(mockStrip)
+            stripCell.setSelectionStrip(mockSelectionStrip2)
         }
 
         then: "the selectionStripProperty listener triggers and executes updateSelection()"
