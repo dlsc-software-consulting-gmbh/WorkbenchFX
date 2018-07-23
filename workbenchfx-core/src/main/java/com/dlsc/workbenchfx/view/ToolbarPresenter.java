@@ -36,6 +36,9 @@ public class ToolbarPresenter extends Presenter {
 
   /**
    * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
+   *
+   * @param model the workbench, holding all data
+   * @param view the corresponding {@link ToolbarView}
    */
   public ToolbarPresenter(Workbench model, ToolbarView view) {
     this.model = model;
