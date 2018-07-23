@@ -1,0 +1,72 @@
+#workbench #toolbar #bottom-box .selection-strip .scroller {
+  -fx-padding: 0;
+  -fx-background-insets: 0;
+  -fx-pref-width: 0.5em;
+  -fx-pref-height: 0.859em;
+  -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z"; }
+
+#workbench #toolbar #bottom-box .selection-strip {
+  -fx-background-color: -primary-color; }
+  #workbench #toolbar #bottom-box .selection-strip .strip-cell {
+    -fx-padding: 0;
+    -fx-max-width: 18em; }
+    #workbench #toolbar #bottom-box .selection-strip .strip-cell:hover {
+      -fx-cursor: hand; }
+    #workbench #toolbar #bottom-box .selection-strip .strip-cell:pressed {
+      -fx-background-color: -primary-color; }
+    #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control {
+      -fx-max-height: .111em;
+      -fx-alignment: center;
+      -fx-border-width: 0 1px 0 1px;
+      -fx-border-color: transparent -on-primary-color transparent transparent;
+      -fx-padding: 0 .25em 0 1.25em; }
+      #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-icon {
+        -fx-fill: -on-primary-color;
+        -fx-font-size: 1.25em !important; }
+      #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl {
+        -fx-max-width: 13em;
+        -fx-padding: 0 0 0 .35em; }
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl .text {
+          -fx-fill: -on-primary-color; }
+      #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn {
+        -fx-background-color: none;
+        -fx-min-width: 0;
+        -fx-padding: .111em 1em .111em 1em; }
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn .glyph-icon {
+          -fx-fill: -on-primary-color;
+          -fx-font-size: .75em !important; }
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn:hover {
+          -fx-cursor: hand; }
+          #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn:hover .glyph-icon {
+            -fx-fill: -error-color; }
+    #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected {
+      -fx-background-color: -background-color;
+      -fx-background-radius: 0.357em 0.357em 0 0;
+      -fx-border-radius: 0.357em 0.357em 0 0;
+      -fx-cursor: inherit;
+      -fx-background-insets: 0 0 0 -1px; }
+      #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control {
+        -fx-border-color: transparent; }
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-icon, #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-name-lbl .text {
+          -fx-fill: -on-background-color; }
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-btn .glyph-icon {
+          -fx-fill: -on-background-color; }
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-btn:hover .glyph-icon {
+          -fx-fill: -error-color; }
+  #workbench #toolbar #bottom-box .selection-strip .first-child {
+   /**
+  * Remove the insets which were set in the :selected section.
+  * Otherwise the end of the SelectionStrip would cut off the side.
+  */
+    -fx-background-insets: 0 !important; }
+  #workbench #toolbar #bottom-box .selection-strip .fader.left {
+    -fx-background-color: linear-gradient(from 25 0 to 80 0, -primary-color, transparent); }
+  #workbench #toolbar #bottom-box .selection-strip .fader.right {
+    -fx-background-color: linear-gradient(from 0 0 to 55 0, transparent, -primary-color); }
+  #workbench #toolbar #bottom-box .selection-strip .scroller {
+    -fx-background-color: -on-primary-color;
+    -fx-pref-width: 1.2em;
+    -fx-pref-height: 3em;
+    -fx-background-insets: 1.1111111111em 0.3296703297em 1.1111111111em 0.4201680672em; }
+
+/*# sourceMappingURL=selection-strip.css.map */

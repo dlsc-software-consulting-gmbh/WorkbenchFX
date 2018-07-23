@@ -3,7 +3,6 @@ package com.dlsc.workbenchfx.view;
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.SelectionStrip;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -37,11 +36,8 @@ public class ToolbarView extends VBox implements View {
 
   /**
    * Creates a new {@link ToolbarView} for the Workbench.
-   *
-   * @param tabBar the Control which is used to create and display the {@link Tab}s
    */
-  public ToolbarView(SelectionStrip<WorkbenchModule> tabBar) {
-    this.tabBar = tabBar;
+  public ToolbarView() {
     init();
   }
 
@@ -69,6 +65,7 @@ public class ToolbarView extends VBox implements View {
 
     addIconPane = new StackPane();
     addIconPane.setId("add-icon");
+
     addBtn = new Button("", addIconPane);
     addBtn.setId("add-button");
     addBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_HOME);
@@ -79,6 +76,7 @@ public class ToolbarView extends VBox implements View {
     menuBtn = new Button("", menuIconView);
     menuBtn.setId("menu-button");
 
+    tabBar = new SelectionStrip<>();
     tabBar.setId("tab-bar");
 
     toolbarControlLeftBox = new HBox();

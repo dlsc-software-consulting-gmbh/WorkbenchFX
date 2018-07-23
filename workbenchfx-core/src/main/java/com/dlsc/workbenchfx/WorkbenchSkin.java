@@ -56,11 +56,7 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   }
 
   private void initViews(Workbench model) {
-    tabBar = new SelectionStrip<>();
-    // Adding our styles: Needed to override/add custom styling
-    tabBar.getStylesheets().add(getSkinnable().getUserAgentStylesheet());
-
-    toolbarView = new ToolbarView(tabBar);
+    toolbarView = new ToolbarView();
     toolbarPresenter = new ToolbarPresenter(model, toolbarView);
 
     homeView = new HomeView();

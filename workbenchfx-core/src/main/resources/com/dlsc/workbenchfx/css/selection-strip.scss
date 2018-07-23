@@ -1,0 +1,125 @@
+@import "constants";
+@import "includes";
+
+#workbench #toolbar #bottom-box .selection-strip {
+  -fx-background-color: -primary-color;
+
+  $tab-width: $pref-size*6;
+  & .strip-cell {
+    -fx-padding: 0;
+    -fx-max-width: $tab-width;
+
+    &:hover {
+      -fx-cursor: hand;
+    }
+    &:pressed {
+      -fx-background-color: -primary-color;
+    }
+
+    & .tab-control {
+      -fx-max-height: .111em;
+
+      -fx-alignment: center;
+
+      -fx-border-width: 0 $border 0 $border;
+      -fx-border-color: transparent -on-primary-color transparent transparent;
+
+      -fx-padding: 0 .25em 0 1.25em;
+
+      & .tab-icon {
+        -fx-fill: -on-primary-color;
+        -fx-font-size: 1.25em !important;
+      }
+
+      & .tab-name-lbl {
+        -fx-max-width: ($tab-width - 5);
+        -fx-padding: 0 0 0 .35em;
+        & .text {
+          -fx-fill: -on-primary-color;
+        }
+      }
+
+      & .close-btn {
+        -fx-background-color: none;
+        -fx-min-width: 0;
+        -fx-padding: .111em 1em .111em 1em;
+
+        & .glyph-icon {
+          -fx-fill: -on-primary-color;
+          -fx-font-size: .75em !important;
+        }
+
+        &:hover {
+          -fx-cursor: hand;
+          & .glyph-icon {
+            -fx-fill: -error-color;
+          }
+        }
+      }
+    }
+
+    &:selected {
+      -fx-background-color: -background-color;
+      -fx-background-radius: $radius $radius 0 0;
+      -fx-border-radius: $radius $radius 0 0;
+      -fx-cursor: inherit;
+      -fx-background-insets: 0 0 0 $border*-1; // Needed to remove the border of the tab
+
+      & .tab-control {
+        -fx-border-color: transparent;
+
+        & .tab-icon,
+        & .tab-name-lbl .text {
+          -fx-fill: -on-background-color;
+        }
+
+        & .close-btn {
+          & .glyph-icon {
+            -fx-fill: -on-background-color;
+          }
+          &:hover {
+            & .glyph-icon {
+              -fx-fill: -error-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  & .first-child {
+    /**
+   * Remove the insets which were set in the :selected section.
+   * Otherwise the end of the SelectionStrip would cut off the side.
+   */
+    -fx-background-insets: 0 !important;
+  }
+
+  & .fader {
+    &.left {
+      -fx-background-color: linear-gradient(from 25 0 to 80 0, -primary-color, transparent);
+    }
+
+    &.right {
+      -fx-background-color: linear-gradient(from 0 0 to 55 0, transparent, -primary-color);
+    }
+  }
+
+  .scroller {
+    -fx-background-color: -on-primary-color;
+    @extend %arrow-shape;
+
+    // Increase the click-area of the arrow to maintain a good usability
+    -fx-pref-width: $pref-size/2.5;
+    -fx-pref-height: $pref-size;
+    -fx-background-insets: $pref-size/2.7 $pref-size/9.1 $pref-size/2.7 $pref-size/7.14;
+
+    &.left {
+
+    }
+
+    &.right {
+
+    }
+  }
+}

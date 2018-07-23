@@ -53,6 +53,9 @@ public class ToolbarPresenter extends Presenter {
   @Override
   public void initializeViewParts() {
     view.tabBar.setCellFactory(tab -> new TabCell());
+    view.tabBar.getStylesheets().add(
+        ToolbarPresenter.class.getResource("../css/selection-strip.css").toExternalForm()
+    );
 
     toolbarControlsLeft.stream().forEachOrdered(view::addToolbarControlLeft);
     toolbarControlsRight.stream().forEachOrdered(view::addToolbarControlRight);
