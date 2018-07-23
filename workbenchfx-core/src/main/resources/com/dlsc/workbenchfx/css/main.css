@@ -48,37 +48,7 @@
   src: url("../fonts/Roboto-Thin.ttf"); }
 @font-face {
   src: url("../fonts/Roboto-ThinItalic.ttf"); }
-#toolbar #top-box .context-menu, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu {
-  -fx-background-color: -surface-color;
-  -fx-background-radius: 0.357em;
-  -fx-effect: -drop-shadow-3;
-  -fx-padding: .5em 0 .5em 0; }
-  #toolbar #top-box .context-menu .menu-item, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item {
-    -fx-background-radius: 0;
-    -fx-padding: .75em 1.25em .75em 1.25em; }
-    #toolbar #top-box .context-menu .menu-item .glyph-icon, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .glyph-icon {
-      -fx-font-size: 1.25em !important;
-      -fx-fill: -on-surface-color; }
-    #toolbar #top-box .context-menu .menu-item .label, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .label {
-      -fx-padding: 0 2em 0 .25em; }
-      #toolbar #top-box .context-menu .menu-item .label .text, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .label .text {
-        -fx-fill: -on-surface-color; }
-    #toolbar #top-box .context-menu .menu-item .right-container > .arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .right-container > .arrow {
-      -fx-background-color: -on-surface-color; }
-    #toolbar #top-box .context-menu .menu-item:focused, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item:focused {
-      -fx-background-color: rgba(0, 0, 0, 0.075); }
-  #toolbar #top-box .context-menu > .scroll-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow {
-    -fx-padding: 1em; }
-    #toolbar #top-box .context-menu > .scroll-arrow:hover, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow:hover {
-      -fx-background-color: rgba(0, 0, 0, 0.075); }
-    #toolbar #top-box .context-menu > .scroll-arrow .menu-up-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow .menu-up-arrow {
-      -fx-background-color: -on-surface-color;
-      -fx-rotate: -90; }
-    #toolbar #top-box .context-menu > .scroll-arrow .menu-down-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow .menu-down-arrow {
-      -fx-background-color: -on-surface-color;
-      -fx-rotate: 90; }
-
-#toolbar #top-box .context-menu > .scroll-arrow .menu-up-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow .menu-up-arrow, #toolbar #top-box .context-menu > .scroll-arrow .menu-down-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow .menu-down-arrow, #toolbar #bottom-box .selection-strip .scroller, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
+#toolbar #bottom-box .selection-strip .scroller, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
   -fx-padding: 0;
   -fx-background-insets: 0;
   -fx-pref-width: 0.5em;

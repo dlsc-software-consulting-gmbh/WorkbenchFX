@@ -1,0 +1,8 @@
+$radius: 0.357em; // 0.357em == 5px, when default size: 14px
+
+@import "includes";
+
+.navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container,
+#toolbar #top-box {
+  @extend %context-menu;
+}

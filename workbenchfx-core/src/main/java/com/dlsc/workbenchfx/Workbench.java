@@ -284,8 +284,7 @@ public class Workbench extends Control {
     initModules(builder);
     setupCleanup();
 
-    Platform.runLater(() -> getScene().getStylesheets()
-        .add(Workbench.class.getResource("css/main.css").toExternalForm()));
+    getStylesheets().add(Workbench.class.getResource("css/context-menu.css").toExternalForm());
   }
 
   private void initFactories(WorkbenchBuilder builder) {

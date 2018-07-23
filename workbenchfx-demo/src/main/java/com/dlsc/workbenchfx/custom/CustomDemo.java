@@ -156,8 +156,7 @@ public class CustomDemo extends Application {
         "This will reset your device to its default factory settings.", null));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
-    workbench.getStylesheets()//.add(CustomDemo.class.getResource("customTheme.css").toExternalForm());workbench.getStylesheets()
-        .add(CustomDemo.class.getResource("pokemon/pokemon.css").toExternalForm());
+//    workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 
     workbench
         .getStylesheets()

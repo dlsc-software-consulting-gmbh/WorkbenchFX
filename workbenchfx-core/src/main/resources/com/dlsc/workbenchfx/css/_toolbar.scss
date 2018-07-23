@@ -75,7 +75,9 @@
       }
     }
 
-    @extend %context-menu;
+    // @extend %context-menu;
+    // The extention of the context-menu can be found in the context-menu.css file.
+    // It is set in the constructor of the Workbench.
   }
 
   & #bottom-box {
