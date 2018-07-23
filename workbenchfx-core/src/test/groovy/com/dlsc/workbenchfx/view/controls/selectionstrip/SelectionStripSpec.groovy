@@ -56,6 +56,7 @@ class SelectionStripSpec extends ApplicationSpec {
         when: "selectionStrip was initialized"
 
         then: "cellfactory is instance of StripCell"
+        null != selectionStrip.getCellFactory()
         selectionStrip.getCellFactory() instanceof Callback<SelectionStrip, StripCell<WorkbenchModule>>
     }
 
