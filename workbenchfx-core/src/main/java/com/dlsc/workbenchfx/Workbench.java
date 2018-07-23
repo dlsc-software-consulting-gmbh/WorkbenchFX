@@ -747,6 +747,7 @@ public class Workbench extends Control {
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
    *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide it.
+   * @return TODO
    */
   public boolean showOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("showOverlay");
