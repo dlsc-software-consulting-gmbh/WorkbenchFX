@@ -15,6 +15,9 @@ public class HomePresenter extends Presenter {
 
   /**
    * Creates a new {@link HomePresenter} object for a corresponding {@link HomeView}.
+   *
+   * @param model the workbench, holding all data
+   * @param view the corresponding {@link HomeView}
    */
   public HomePresenter(Workbench model, HomeView view) {
     this.model = model;

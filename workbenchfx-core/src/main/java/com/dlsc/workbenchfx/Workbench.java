@@ -775,6 +775,7 @@ public class Workbench extends Control {
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
    *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide it.
+   * @return true if the overlay is not being shown already
    */
   public boolean showOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("showOverlay");
@@ -799,6 +800,7 @@ public class Workbench extends Control {
    *           remove it from the scene graph entirely.
    *           If keeping the {@code overlay} loaded hidden in the scene graph is not possible due
    *           to performance reasons, call {@link Workbench#clearOverlays()} after this method.
+   * @return true if the overlay was showing and is now hidden
    */
   public boolean hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");
