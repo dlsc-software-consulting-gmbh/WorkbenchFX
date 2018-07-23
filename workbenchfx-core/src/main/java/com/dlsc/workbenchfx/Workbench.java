@@ -521,8 +521,6 @@ public class Workbench extends Control {
 
   /**
    * Returns an unmodifiableObservableList of the currently open modules.
-   *
-   * @return the list of open modules
    */
   public ObservableList<WorkbenchModule> getOpenModules() {
     return FXCollections.unmodifiableObservableList(openModules);
