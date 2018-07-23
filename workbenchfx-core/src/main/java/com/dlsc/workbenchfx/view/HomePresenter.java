@@ -57,7 +57,7 @@ public class HomePresenter extends Presenter {
    */
   @Override
   public void setupBindings() {
-
+    view.pagination.pageCountProperty().bind(model.amountOfPagesProperty());
   }
 
 }

@@ -18,7 +18,7 @@ $custom-color-3: green;
 $custom-color-4: purple;
 $custom-color-5: pink;
 
-.root {
+* {
   -prim-color: $primary-color;
   -prim-color-hover: lighten($primary-color, 5%);
   -danger-color: #ed5a5a;
