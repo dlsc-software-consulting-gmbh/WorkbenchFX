@@ -117,7 +117,7 @@ public class ToolbarPresenter extends Presenter {
   @Override
   public void setupBindings() {
     // Binds content of the SelectionStrip to the Workbench content
-    view.tabBar.itemsProperty().bindContentBidirectional(model.openModulesProperty());
+    view.tabBar.itemsProperty().bindContent(model.openModulesProperty());
     view.tabBar.selectedItemProperty().bindBidirectional(model.activeModuleProperty());
   }
 
