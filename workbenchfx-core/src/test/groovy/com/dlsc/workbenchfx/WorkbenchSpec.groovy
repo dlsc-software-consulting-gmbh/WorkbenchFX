@@ -1,9 +1,12 @@
 package com.dlsc.workbenchfx
 
+import com.dlsc.workbenchfx.model.WorkbenchDialog
 import com.dlsc.workbenchfx.model.WorkbenchModule
 import com.dlsc.workbenchfx.testing.*
 import com.dlsc.workbenchfx.view.controls.Dropdown
 import com.dlsc.workbenchfx.view.controls.GlassPane
+import com.dlsc.workbenchfx.view.controls.dialog.DialogErrorContent
+import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.ObservableList
@@ -11,6 +14,7 @@ import javafx.collections.ObservableMap
 import javafx.collections.ObservableSet
 import javafx.scene.Node
 import javafx.scene.Scene
+import javafx.scene.control.ButtonType
 import javafx.scene.control.Label
 import javafx.scene.control.MenuItem
 import javafx.scene.image.Image
@@ -20,6 +24,8 @@ import org.spockframework.util.ExceptionUtil
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
 import spock.lang.Unroll
+
+import java.util.function.Consumer
 
 import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type
 
@@ -36,6 +42,7 @@ class WorkbenchSpec extends ApplicationSpec {
     private static final String MESSAGE = "Message of a Dialog"
     private static final String DETAILS = "Details of a Dialog"
     private static final Exception EXCEPTION = new Exception()
+    private static final Consumer<ButtonType> ON_RESULT = { buttonType ->  }
 
     Workbench workbench
 
@@ -67,6 +74,8 @@ class WorkbenchSpec extends ApplicationSpec {
 
     private MockNavigationDrawer navigationDrawer
     private MockDialogControl dialogControl
+
+
 
     @Override
     void start(Stage stage) {
@@ -106,7 +115,6 @@ class WorkbenchSpec extends ApplicationSpec {
                 .tabFactory { workbench -> new MockTab(workbench) }
                 .tileFactory { workbench -> new MockTile(workbench) }
                 .pageFactory({ workbench -> new MockPage(workbench) })
-                .dialogControl(dialogControl)
                 .navigationDrawer(navigationDrawer)
                 .navigationDrawerItems(menuItem)
                 .toolbarLeft(dropdownLeft)
@@ -136,28 +144,32 @@ class WorkbenchSpec extends ApplicationSpec {
 
     def "Test #methodName(#arguments)"() {
         given:
-        def result
+        WorkbenchDialog dialog
         robot.interact {
-            result = workbench."$methodName"(arguments)
+            dialog = workbench."$methodName"(arguments)
         }
-        def currentDialog = workbench.getDialog()
 
         expect:
-        type == currentDialog.getType()
-        TITLE == currentDialog.getTitle()
-        MESSAGE == ((Label) currentDialog.getContent()).getText()
-        exception == currentDialog.getException()
-        details == currentDialog.getDetails()
-        result == currentDialog.getResult()
+        type == dialog.getType()
+        TITLE == dialog.getTitle()
+        if (type == Type.ERROR) {
+            assert MESSAGE == ((DialogMessageContent) ((DialogErrorContent) dialog.getContent()).getMessage()).getMessage()
+            assert details == ((DialogErrorContent) dialog.getContent()).getDetails()
+        } else {
+            assert MESSAGE == ((DialogMessageContent) dialog.getContent()).getMessage()
+        }
+        exception == dialog.getException()
+        details == dialog.getDetails()
+        ON_RESULT == dialog.getOnResult()
 
         where:
-        methodName               | arguments                   || type              | exception | details
-        "showErrorDialog"        | [TITLE, MESSAGE]            || Type.ERROR        | null      | ""
-        "showErrorDialog"        | [TITLE, MESSAGE, DETAILS]   || Type.ERROR        | null      | DETAILS
-        "showErrorDialog"        | [TITLE, MESSAGE, EXCEPTION] || Type.ERROR        | EXCEPTION | ExceptionUtil.printStackTrace(exception)
-        "showWarningDialog"      | [TITLE, MESSAGE]            || Type.WARNING      | null      | ""
-        "showConfirmationDialog" | [TITLE, MESSAGE]            || Type.CONFIRMATION | null      | ""
-        "showInformationDialog"  | [TITLE, MESSAGE]            || Type.INFORMATION  | null      | ""
+        methodName               | arguments                              || type              | exception | details
+        "showErrorDialog"        | [TITLE, MESSAGE, ON_RESULT]            || Type.ERROR        | null      | ""
+        "showErrorDialog"        | [TITLE, MESSAGE, DETAILS, ON_RESULT]   || Type.ERROR        | null      | DETAILS
+        "showErrorDialog"        | [TITLE, MESSAGE, EXCEPTION, ON_RESULT] || Type.ERROR        | EXCEPTION | ExceptionUtil.printStackTrace(exception)
+        "showWarningDialog"      | [TITLE, MESSAGE, ON_RESULT]            || Type.WARNING      | null      | ""
+        "showConfirmationDialog" | [TITLE, MESSAGE, ON_RESULT]            || Type.CONFIRMATION | null      | ""
+        "showInformationDialog"  | [TITLE, MESSAGE, ON_RESULT]            || Type.INFORMATION  | null      | ""
     }
 
     /**
