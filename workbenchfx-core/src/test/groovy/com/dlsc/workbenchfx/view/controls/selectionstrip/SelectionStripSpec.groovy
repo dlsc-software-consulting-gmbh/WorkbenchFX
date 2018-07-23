@@ -82,4 +82,18 @@ class SelectionStripSpec extends ApplicationSpec {
         false         | null            || null
         false         | workbenchModule || null
     }
+
+    def "scroll-to method"(WorkbenchModule moduleToBeScrolled, WorkbenchModule expectedModule) {
+        given: "when calling scrollTo with the given module"
+        selectionStrip.scrollTo(moduleToBeScrolled)
+
+        expect: "it should be stored in the properties map with the key 'scroll.to'"
+        expectedModule == selectionStrip.getProperties().get("scroll.to");
+
+        where:
+        moduleToBeScrolled || expectedModule
+        null               || null
+        workbenchModule    || workbenchModule
+    }
+
 }
