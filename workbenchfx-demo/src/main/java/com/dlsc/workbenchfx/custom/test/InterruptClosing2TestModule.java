@@ -8,12 +8,12 @@ import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 
-public class InterruptClosingTestModule extends WorkbenchModule {
+public class InterruptClosing2TestModule extends WorkbenchModule {
 
   boolean closePossible;
 
-  public InterruptClosingTestModule() {
-    super("Interrupt Close", FontAwesomeIcon.QUESTION);
+  public InterruptClosing2TestModule() {
+    super("Interrupt Close 2", FontAwesomeIcon.QUESTION);
   }
 
   @Override
@@ -24,12 +24,12 @@ public class InterruptClosingTestModule extends WorkbenchModule {
 
   @Override
   public Node activate() {
-    return new Label("This module will open up a dialog when trying to close it.");
+    return new Label("This module 2 will open up a dialog when trying to close it.");
   }
 
   @Override
   public boolean destroy() {
-    System.out.println("DESTROY CALLED ON 1");
+    System.out.println("DESTROY CALLED ON 2");
 
     getWorkbench().showDialog(WorkbenchDialog.builder("Confirmation",
         "Are you sure you want to close this module without saving?",
@@ -45,7 +45,4 @@ public class InterruptClosingTestModule extends WorkbenchModule {
 
     return false;
   }
-
-
-
 }

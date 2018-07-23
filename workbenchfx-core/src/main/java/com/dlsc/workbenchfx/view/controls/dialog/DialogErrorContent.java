@@ -15,14 +15,20 @@ import javafx.scene.layout.VBox;
  */
 public class DialogErrorContent extends VBox {
 
+  private Node message;
+  private String details;
+
   /**
-   * Creates a control which shows the details of an exception or error to be used as the content
-   * of a {@link WorkbenchDialog}.
+   * Creates a control which shows the details of an exception or error to be used as the content of
+   * a {@link WorkbenchDialog}.
    *
    * @param message the {@link Node} containing the standard dialog message
    * @param details about the error or exception
    */
   public DialogErrorContent(Node message, String details) {
+    this.message = message;
+    this.details = details;
+
     getStyleClass().add("container");
 
     // add message to the dialog content
@@ -45,4 +51,11 @@ public class DialogErrorContent extends VBox {
 
   }
 
+  public Node getMessage() {
+    return message;
+  }
+
+  public String getDetails() {
+    return details;
+  }
 }

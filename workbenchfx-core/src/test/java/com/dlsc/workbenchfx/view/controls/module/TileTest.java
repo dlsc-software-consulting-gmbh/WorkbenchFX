@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.testing.MockTile;
+import java.util.concurrent.CompletableFuture;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -16,6 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -34,8 +37,13 @@ class TileTest extends ApplicationTest {
 
   private MockTile tile;
 
+  @Mock
+  private CompletableFuture<Boolean> mockModuleCloseable;
+
   @Override
   public void start(Stage stage) {
+    MockitoAnnotations.initMocks(this);
+
     robot = new FxRobot();
 
     mockBench = mock(Workbench.class);
@@ -69,12 +77,12 @@ class TileTest extends ApplicationTest {
   @Test
   void testModuleListener() {
     assertEquals("Module 0", tile.getName());
-    assertEquals("Module Icon 0", ((Label)tile.getIcon()).getText());
+    assertEquals("Module Icon 0", ((Label) tile.getIcon()).getText());
 
     // change to module 1
     tile.setModule(mockModules[1]);
     assertEquals("Module 1", tile.getName());
-    assertEquals("Module Icon 1", ((Label)tile.getIcon()).getText());
+    assertEquals("Module Icon 1", ((Label) tile.getIcon()).getText());
   }
 
   @Test
