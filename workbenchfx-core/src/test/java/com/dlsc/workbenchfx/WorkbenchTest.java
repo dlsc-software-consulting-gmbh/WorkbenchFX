@@ -290,6 +290,7 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(first).init(workbench);
       inOrder.verify(first).activate();
       // Call: workbench.closeModule(first)
+      inOrder.verify(first).deactivate();
       inOrder.verify(first).destroy();
       inOrder.verifyNoMoreInteractions();
     });
@@ -321,6 +322,7 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).init(workbench);
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(first)
+      inOrder.verify(first, never()).deactivate();
       inOrder.verify(first).destroy();
       inOrder.verify(second).getWorkbench();
       inOrder.verify(second).getName();
@@ -358,6 +360,7 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).deactivate();
       inOrder.verify(first).activate();
       // Call: workbench.closeModule(first)
+      inOrder.verify(first).deactivate();
       inOrder.verify(first).destroy();
       inOrder.verify(second).activate();
       inOrder.verifyNoMoreInteractions();
@@ -389,6 +392,7 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).init(workbench);
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(second)
+      inOrder.verify(second).deactivate();
       inOrder.verify(second).destroy();
       inOrder.verify(first).activate();
       inOrder.verifyNoMoreInteractions();
@@ -424,6 +428,7 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).deactivate();
       inOrder.verify(first).activate();
       // Call: workbench.closeModule(second)
+      inOrder.verify(second, never()).deactivate();
       inOrder.verify(second).destroy();
       inOrder.verify(first).getWorkbench();
       inOrder.verify(first).getName();
@@ -466,6 +471,7 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(last).deactivate();
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(second)
+      inOrder.verify(second).deactivate();
       inOrder.verify(second).destroy();
       inOrder.verify(first).activate();
       inOrder.verifyNoMoreInteractions();
@@ -499,8 +505,10 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(second)
       // destroy second
+      inOrder.verify(second).deactivate();
       inOrder.verify(second).destroy();
       // notice destroy() was unsuccessful, keep focus on second
+      inOrder.verify(second).activate();
       inOrder.verifyNoMoreInteractions();
     });
   }
@@ -532,6 +540,7 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(second)
       // destroy second
+      inOrder.verify(first, never()).deactivate();
       inOrder.verify(first).destroy();
       // notice destroy() was unsuccessful, switch focus to first
       inOrder.verify(second).deactivate();
@@ -573,11 +582,13 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(first)
       // attempt to destroy first
+      inOrder.verify(first, never()).deactivate();
       inOrder.verify(first).destroy();
       // destroy() returns false, closeModule() opens first module
       inOrder.verify(second).deactivate();
       inOrder.verify(first).activate();
       // destroy() returns true, switch to second
+      inOrder.verify(first).deactivate();
       inOrder.verify(second).activate();
       inOrder.verifyNoMoreInteractions();
     });
@@ -599,9 +610,6 @@ class WorkbenchTest extends ApplicationTest {
     // open two modules, close first (inactive) module
     // destroy() on first module will return false, so the module shouldn't get closed
     when(first.destroy()).then(invocation -> {
-      robot.interact(() -> {
-        workbench.openModule(first);
-      });
       // dialog opens, user confirms NOT closing module
       return false;
     });
@@ -625,8 +633,9 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(first)
       // attempt to destroy first
+      inOrder.verify(first, never()).deactivate();
       inOrder.verify(first).destroy();
-      // destroy() opens itself: workbench.openModule(first)
+      // destroy() returns false, switch open module to first
       inOrder.verify(second).deactivate();
       inOrder.verify(first).activate();
       // destroy() returns false, first stays the active module
@@ -672,6 +681,7 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(last).init(workbench);
       inOrder.verify(last).activate();
       // Call: workbench.closeModule(second)
+      inOrder.verify(second, never()).deactivate();
       inOrder.verify(second).destroy();
       inOrder.verify(last).getWorkbench();
       inOrder.verify(last).getName();
@@ -1183,8 +1193,10 @@ class WorkbenchTest extends ApplicationTest {
 
       // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
       // Implicit Call: workbench.closeModule(first)
+      inOrder.verify(first, never()).deactivate();
       inOrder.verify(first).destroy();
       // Implicit Call: workbench.closeModule(second)
+      inOrder.verify(second).deactivate();
       inOrder.verify(second).destroy();
 
       inOrder.verifyNoMoreInteractions();
@@ -1223,6 +1235,7 @@ class WorkbenchTest extends ApplicationTest {
 
       // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
       // Implicit Call: workbench.closeModule(first)
+      inOrder.verify(first, never()).deactivate();
       inOrder.verify(first).destroy(); // returns false
       // Implicit Call: workbench.openModule(first) -> set focus on module that couldn't be closed
       inOrder.verify(second).deactivate();
@@ -1264,9 +1277,13 @@ class WorkbenchTest extends ApplicationTest {
 
       // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
       // Implicit Call: workbench.closeModule(first)
+      inOrder.verify(first, never()).deactivate();
       inOrder.verify(first).destroy(); // returns true
       // Implicit Call: workbench.closeModule(second)
+      inOrder.verify(second).deactivate();
       inOrder.verify(second).destroy(); // returns false
+      // second should stay as the active module
+      inOrder.verify(second).activate();
       // closing should be interrupted
       inOrder.verifyNoMoreInteractions();
 
