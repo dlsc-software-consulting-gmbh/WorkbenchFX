@@ -32,12 +32,16 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
@@ -66,13 +70,14 @@ public class Workbench extends Control {
       DEFAULT_PAGE_FACTORY = Page::new;
   private static final int DEFAULT_MODULES_PER_PAGE = 9;
   private static final NavigationDrawer DEFAULT_NAVIGATION_DRAWER = new NavigationDrawer();
+  private static final int MAX_PERCENT = 100;
 
   // Custom Controls
   private ObjectProperty<NavigationDrawer> navigationDrawer =
       new SimpleObjectProperty<>(DEFAULT_NAVIGATION_DRAWER);
 
   // Lists
-  private final ObservableSet<Node> toolbarControlsRight =
+private final ObservableSet<Node> toolbarControlsRight =
       FXCollections.observableSet(new LinkedHashSet<>());
   private final ObservableSet<Node> toolbarControlsLeft =
       FXCollections.observableSet(new LinkedHashSet<>());
@@ -356,6 +361,7 @@ public class Workbench extends Control {
 
   private void initModules(WorkbenchBuilder builder) {
     WorkbenchModule[] modules = builder.modules;
+
     this.modules.addAll(modules);
   }
 
@@ -851,6 +857,46 @@ public class Workbench extends Control {
       LOGGER.trace("moduleCloseable -  thenRun triggered: " + this);
       closeModule(module);
     });
+  }
+
+  public void showDrawer(Region drawer, Side side, int percentage) {
+    Pos position;
+    switch (side) {
+      case TOP:
+        position = Pos.TOP_LEFT;
+        drawer.minWidthProperty().bind(widthProperty());
+        drawer.prefWidthProperty().bind(widthProperty());
+        drawer.maxWidthProperty().bind(widthProperty());
+        drawer.maxHeightProperty().bind(heightProperty().multiply((double)percentage/MAX_PERCENT));
+        break;
+      case RIGHT:
+        position = Pos.TOP_RIGHT;
+        drawer.minHeightProperty().bind(widthProperty());
+        drawer.prefHeightProperty().bind(widthProperty());
+        drawer.maxHeightProperty().bind(widthProperty());
+        drawer.maxWidthProperty().bind(widthProperty().multiply((double)percentage/MAX_PERCENT));
+        break;
+      case BOTTOM:
+        position = Pos.BOTTOM_LEFT;
+        drawer.minWidthProperty().bind(widthProperty());
+        drawer.prefWidthProperty().bind(widthProperty());
+        drawer.maxWidthProperty().bind(widthProperty());
+        drawer.maxHeightProperty().bind(heightProperty().multiply((double)percentage/MAX_PERCENT));
+        break;
+      default: // LEFT
+        position = Pos.TOP_LEFT;
+        drawer.minHeightProperty().bind(widthProperty());
+        drawer.prefHeightProperty().bind(widthProperty());
+        drawer.maxHeightProperty().bind(widthProperty());
+        drawer.maxWidthProperty().bind(widthProperty().multiply((double)percentage/MAX_PERCENT));
+        break;
+    }
+    StackPane.setAlignment(drawer, position);
+    showOverlay(drawer, false);
+  }
+
+  public void showDrawer(Region drawer, Side side) {
+    showDrawer(drawer, side, 90);
   }
 
   public void showNavigationDrawer() {
