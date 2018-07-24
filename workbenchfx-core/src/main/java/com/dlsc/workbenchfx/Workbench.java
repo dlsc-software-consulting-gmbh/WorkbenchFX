@@ -463,6 +463,7 @@ public class Workbench extends Control {
       newActive = openModules.get(i - 1);
       LOGGER.trace("closeModule - Next active: Previous Module - " + newActive);
     }
+    module.deactivate();
     /*
       If module has previously been closed and can now safely be closed, calling destroy() is not
       necessary anymore, simply remove the module
