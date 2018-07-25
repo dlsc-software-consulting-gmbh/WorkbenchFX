@@ -907,7 +907,7 @@ private final ObservableSet<Node> toolbarControlsRight =
     }
     StackPane.setAlignment(drawer, position);
     drawer.getStyleClass().add("drawer");
-    showOverlay(drawer, false);
+    setDrawerShown(drawer);
   }
 
   /**
