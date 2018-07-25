@@ -89,7 +89,7 @@
           }
 
           & .menu-button {
-            //  // styles only for menus
+            // styles only for menus
             & .label {
               & .glyph-icon,
               & .text {
@@ -98,7 +98,7 @@
             }
 
             & .arrow-button {
-              -fx-padding: 0;
+              -fx-padding: 0 0 0 .5em;
               -fx-background-insets: 0;
 
               & .arrow {
