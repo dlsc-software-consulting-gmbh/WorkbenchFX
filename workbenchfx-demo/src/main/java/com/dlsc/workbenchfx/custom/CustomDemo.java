@@ -3,7 +3,6 @@ package com.dlsc.workbenchfx.custom;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
 import com.dlsc.workbenchfx.custom.controls.CustomPage;
-import com.dlsc.workbenchfx.custom.controls.CustomTab;
 import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
@@ -139,7 +138,7 @@ public class CustomDemo extends Application {
                     new CustomMenuItem(new Label("Content 2"))))
             .modulesPerPage(4)
             .pageFactory(CustomPage::new)
-            .tabFactory(CustomTab::new)
+//            .tabFactory(CustomTab::new)
 //            .tileFactory(CustomTile::new)
 //            .navigationDrawer(new CustomNavigationDrawer())
             .navigationDrawerItems(

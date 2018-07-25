@@ -5,6 +5,29 @@
   -fx-pref-height: 0.859em;
   -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z"; }
 
+#workbench #toolbar #bottom-box .selection-strip .icon {
+  -fx-background-color: transparent;
+  -icon-size: 40px;
+  -fx-max-width: -icon-size;
+  -fx-max-height: -icon-size;
+  -fx-min-width: -icon-size;
+  -fx-min-height: -icon-size;
+  -fx-pref-width: -icon-size;
+  -fx-pref-height: -icon-size; }
+  #workbench #toolbar #bottom-box .selection-strip .icon .shape {
+    -shape-size: 16px;
+    -fx-max-width: -shape-size;
+    -fx-max-height: -shape-size;
+    -fx-min-width: -shape-size;
+    -fx-pref-height: -shape-size;
+    -fx-pref-width: -shape-size; }
+
+#workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn .close-icon .shape:hover {
+  -fx-shape: "M 12 2 C 6.47 2 2 6.47 2 12 C 2 17.53 6.47 22 12 22 C 17.53 22 22 17.53 22 12 C 22 6.47 17.53 2 12 2 Z M 17 15.59 L 15.59 17 L 12 13.41 L 8.41 17 L 7 15.59 L 10.59 12 L 7 8.41 L 8.41 7 L 12 10.59 L 15.59 7 L 17 8.41 L 13.41 12 L 17 15.59 Z"; }
+
+#workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn .close-icon .shape {
+  -fx-shape: "M 19 6.41 L 17.59 5 L 12 10.59 L 6.41 5 L 5 6.41 L 10.59 12 L 5 17.59 L 6.41 19 L 12 13.41 L 17.59 19 L 19 17.59 L 13.41 12 Z"; }
+
 #workbench #toolbar #bottom-box .selection-strip {
   -fx-background-color: -primary-color; }
   #workbench #toolbar #bottom-box .selection-strip .strip-cell {
@@ -29,16 +52,16 @@
         #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl .text {
           -fx-fill: -on-primary-color; }
       #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn {
-        -fx-background-color: none;
-        -fx-min-width: 0;
-        -fx-padding: .111em 1em .111em 1em; }
-        #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn .glyph-icon {
-          -fx-fill: -on-primary-color;
-          -fx-font-size: .75em !important; }
-        #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn:hover {
-          -fx-cursor: hand; }
-          #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn:hover .glyph-icon {
-            -fx-fill: -error-color; }
+        -fx-padding: 0;
+        -fx-pref-width: 3em;
+        -fx-min-height: 3em;
+        -fx-background-color: transparent; }
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn .close-icon .shape {
+          -fx-background-color: -on-primary-color;
+          -fx-background-insets: 4px; }
+          #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn .close-icon .shape:hover {
+            -fx-cursor: hand;
+            -fx-background-insets: 0; }
     #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected {
       -fx-background-color: -background-color;
       -fx-background-radius: 0.357em 0.357em 0 0;
@@ -49,10 +72,10 @@
         -fx-border-color: transparent; }
         #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-icon, #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-name-lbl .text {
           -fx-fill: -on-background-color; }
-        #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-btn .glyph-icon {
-          -fx-fill: -on-background-color; }
-        #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-btn:hover .glyph-icon {
-          -fx-fill: -error-color; }
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-btn .close-icon .shape {
+          -fx-background-color: -on-background-color; }
+          #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-btn .close-icon .shape:hover {
+            -fx-background-color: -error-color; }
   #workbench #toolbar #bottom-box .selection-strip .first-child {
    /**
   * Remove the insets which were set in the :selected section.

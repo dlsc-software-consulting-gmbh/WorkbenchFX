@@ -2,6 +2,8 @@
 @import "includes";
 
 #workbench #toolbar #bottom-box .selection-strip {
+  @extend %icon-base; // All icons in the selectionStrip are targeted
+
   -fx-background-color: -primary-color;
 
   $tab-width: $pref-size*6;
@@ -40,19 +42,22 @@
       }
 
       & .close-btn {
-        -fx-background-color: none;
-        -fx-min-width: 0;
-        -fx-padding: .111em 1em .111em 1em;
+        -fx-padding: 0;
+        -fx-pref-width: $pref-size;
+        -fx-min-height: $pref-size;
+        -fx-background-color: transparent;
 
-        & .glyph-icon {
-          -fx-fill: -on-primary-color;
-          -fx-font-size: .75em !important;
-        }
+        & .close-icon {
+          & .shape {
+            -fx-background-color: -on-primary-color;
+            @extend %close-icon;
+            -fx-background-insets: 4px; // Make close icon smaller, so that it fits when hovering
 
-        &:hover {
-          -fx-cursor: hand;
-          & .glyph-icon {
-            -fx-fill: -error-color;
+            &:hover {
+              -fx-cursor: hand;
+              @extend %cancel-icon;
+              -fx-background-insets: 0; // Reset the insets to fit on hovering
+            }
           }
         }
       }
@@ -73,13 +78,12 @@
           -fx-fill: -on-background-color;
         }
 
-        & .close-btn {
-          & .glyph-icon {
-            -fx-fill: -on-background-color;
-          }
-          &:hover {
-            & .glyph-icon {
-              -fx-fill: -error-color;
+        & .close-btn .close-icon {
+          & .shape {
+            -fx-background-color: -on-background-color;
+
+            &:hover {
+              -fx-background-color: -error-color;
             }
           }
         }
