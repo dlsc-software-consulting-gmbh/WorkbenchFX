@@ -864,29 +864,21 @@ private final ObservableSet<Node> toolbarControlsRight =
     switch (side) {
       case TOP:
         position = Pos.TOP_LEFT;
-        drawer.minWidthProperty().bind(widthProperty());
-        drawer.prefWidthProperty().bind(widthProperty());
         drawer.maxWidthProperty().bind(widthProperty());
         drawer.maxHeightProperty().bind(heightProperty().multiply((double)percentage/MAX_PERCENT));
         break;
       case RIGHT:
         position = Pos.TOP_RIGHT;
-        drawer.minHeightProperty().bind(widthProperty());
-        drawer.prefHeightProperty().bind(widthProperty());
         drawer.maxHeightProperty().bind(widthProperty());
         drawer.maxWidthProperty().bind(widthProperty().multiply((double)percentage/MAX_PERCENT));
         break;
       case BOTTOM:
         position = Pos.BOTTOM_LEFT;
-        drawer.minWidthProperty().bind(widthProperty());
-        drawer.prefWidthProperty().bind(widthProperty());
         drawer.maxWidthProperty().bind(widthProperty());
         drawer.maxHeightProperty().bind(heightProperty().multiply((double)percentage/MAX_PERCENT));
         break;
       default: // LEFT
         position = Pos.TOP_LEFT;
-        drawer.minHeightProperty().bind(widthProperty());
-        drawer.prefHeightProperty().bind(widthProperty());
         drawer.maxHeightProperty().bind(widthProperty());
         drawer.maxWidthProperty().bind(widthProperty().multiply((double)percentage/MAX_PERCENT));
         break;
