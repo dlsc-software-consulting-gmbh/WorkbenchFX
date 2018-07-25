@@ -859,6 +859,15 @@ private final ObservableSet<Node> toolbarControlsRight =
     });
   }
 
+  /**
+   * Shows the {@code drawer} on the defined {@code side} in the {@link Workbench}, ensuring the
+   * {@code drawer} doesn't cover more than the specified {@code percentage}.
+   *
+   * @param drawer to be shown
+   * @param side of the workbench, on which the {@code drawer} should be positioned
+   * @param percentage value between 0 and 100, defining how much <b>maximum</b> coverage the drawer
+   *                   should have
+   */
   public void showDrawer(Region drawer, Side side, int percentage) {
     Pos position;
     switch (side) {
@@ -888,6 +897,15 @@ private final ObservableSet<Node> toolbarControlsRight =
     showOverlay(drawer, false);
   }
 
+  /**
+   * Shows the {@code drawer} on the defined {@code side} in the {@link Workbench}.
+   *
+   * @param drawer to be shown
+   * @param side of the workbench, on which the {@code drawer} should be positioned
+   * @implNote Allows the implementor to specify the size of the drawer. However, it will take up a
+   *           maximum of 90% of the screen, to allow the user to still close the drawer by closing
+   *           it using the {@link GlassPane}.
+   */
   public void showDrawer(Region drawer, Side side) {
     showDrawer(drawer, side, 90);
   }
