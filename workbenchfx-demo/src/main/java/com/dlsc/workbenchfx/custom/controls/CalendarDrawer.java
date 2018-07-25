@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx.custom.controls;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -31,7 +32,7 @@ public class CalendarDrawer extends VBox {
   Label friendsLbl = new Label("Friends");
 
   public CalendarDrawer() {
-    //setAlignment(Pos.CENTER);
+    setAlignment(Pos.CENTER);
 
     userIcon = new FontAwesomeIconView(FontAwesomeIcon.USER_CIRCLE);
     userIcon.setStyle("-fx-fill: black");
@@ -55,6 +56,8 @@ public class CalendarDrawer extends VBox {
         });
 
     getChildren().addAll(userBox, calendarGrid);
+
+    setPadding(new Insets(20));
   }
 
 }
