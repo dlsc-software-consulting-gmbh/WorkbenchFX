@@ -98,7 +98,7 @@ public class DrawerTestModule extends WorkbenchModule {
     calendarBottomBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.BOTTOM));
 
     calendarLeftPercentBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.LEFT, 33));
-    calendarRightBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.RIGHT, 33));
+    calendarRightPercentBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.RIGHT, 33));
     calendarTopPercentBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.TOP, 33));
     calendarBottomPercentBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.BOTTOM, 33));
   }
