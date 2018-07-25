@@ -5,11 +5,12 @@
   -fx-background-color: -primary-color;
 
   & #top-box {
-    -fx-max-height: $pref-size;
-    -fx-padding: .35em;
-
-    & #toolbar-control-right-box,
+    & #toolbar-control-right-box {
+      -fx-alignment: CENTER_RIGHT;
+      -fx-spacing: .25em;
+    }
     & #toolbar-control-left-box {
+      -fx-alignment: CENTER_LEFT;
       -fx-spacing: .25em;
     }
 
@@ -80,6 +81,8 @@
     // It is set in the initializeViewParts() method of the ToolbarPresenter.
 
     & #add-button {
+      -fx-background-insets: 0;
+
       & .shape {
         -fx-background-color: -on-primary-color;
         @extend %add-icon;

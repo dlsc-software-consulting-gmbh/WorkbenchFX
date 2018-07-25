@@ -81,15 +81,16 @@
 
 %button-base {
   & .button {
+    -fx-background-insets: .35em; // Prevent getting to the border
+    -fx-padding: 0 1em 0 1em;
     -fx-graphic-text-gap: .5em;
     -fx-pref-height: $pref-size;
     -fx-background-color: -primary-color;
     -fx-background-radius: $radius*.6;
     -fx-border-width: 0;
-    -fx-background-insets: 0; //needed to remove the focused border on bottom
 
     & .glyph-icon {
-      -fx-font-size: 1.25em !important;
+      -fx-font-size: 1.143em !important; // equals 16px when root 14px
       -fx-fill: -on-primary-color;
     }
 
