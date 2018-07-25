@@ -13,12 +13,12 @@ import javafx.scene.layout.VBox;
 /**
  * Created by François Martin on 24.07.18.
  */
-public class CustomDrawer extends VBox implements MapComponentInitializedListener {
+public class MapDrawer extends VBox implements MapComponentInitializedListener {
 
   private GoogleMapView mapView;
   private GoogleMap map;
 
-  public CustomDrawer() {
+  public MapDrawer() {
     // initialize map for dialog
     mapView = new GoogleMapView();
     mapView.addMapInializedListener(this);
