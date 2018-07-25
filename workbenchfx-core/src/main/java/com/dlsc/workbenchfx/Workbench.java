@@ -926,7 +926,8 @@ private final ObservableSet<Node> toolbarControlsRight =
   }
 
   /**
-   * TODO.
+   * Hides the currently displayed drawer that was previously shown using
+   * {@link #showDrawer(Region, Side)} or {@link #showDrawer(Region, Side, int)}.
    */
   public void hideDrawer() {
     setDrawerShown(null);
