@@ -45,7 +45,7 @@ $on-error-color: #FFFFFF;
 .glyph-icon {
   -fx-text-fill: -on-primary-color;
   -fx-fill: -icons-color;
-  -fx-font-size: 1.5em !important;
+  -fx-font-size: 1.143em !important; // equals 16px when root 14px
 }
 
 @import "constants";

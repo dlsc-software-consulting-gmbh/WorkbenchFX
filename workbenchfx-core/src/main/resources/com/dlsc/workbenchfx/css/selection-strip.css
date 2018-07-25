@@ -48,8 +48,7 @@
       -fx-border-color: transparent -on-primary-color transparent transparent;
       -fx-padding: 0 .5em 0 1em; }
       #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-icon {
-        -fx-fill: -on-primary-color;
-        -fx-font-size: 1.143em !important; }
+        -fx-fill: -on-primary-color; }
       #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl {
         -fx-max-width: 12.142em;
         -fx-padding: 0 .5em 0 .5em; }

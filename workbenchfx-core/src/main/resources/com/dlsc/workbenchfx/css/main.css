@@ -22,7 +22,7 @@
 .glyph-icon {
   -fx-text-fill: -on-primary-color;
   -fx-fill: -icons-color;
-  -fx-font-size: 1.5em !important; }
+  -fx-font-size: 1.143em !important; }
 
 @font-face {
   src: url("../fonts/Roboto-Black.ttf"); }
@@ -64,7 +64,6 @@
   -fx-background-radius: 0.2142em;
   -fx-border-width: 0; }
   #toolbar #top-box .dropdown .label .glyph-icon {
-    -fx-font-size: 1.143em !important;
     -fx-fill: -on-primary-color; }
   #toolbar #top-box .dropdown .label .text {
     -fx-fill: -on-primary-color; }
@@ -100,7 +99,6 @@
   -fx-background-radius: 0.2142em;
   -fx-border-width: 0; }
   #toolbar .button .glyph-icon {
-    -fx-font-size: 1.143em !important;
     -fx-fill: -on-primary-color; }
   #toolbar .button .text {
     -fx-fill: -on-primary-color; }
@@ -151,7 +149,7 @@
     -fx-padding: 1.5em;
     -fx-alignment: center center; }
     #content-view #home #tile-pane .pagination .page .tile-page .tile-control {
-      -fx-padding: 1em;
+      -fx-padding: 1.5em;
       -fx-pref-width: 12em;
       -fx-pref-height: 6.75em;
       -fx-background-color: -surface-color;
@@ -163,7 +161,7 @@
       #content-view #home #tile-pane .pagination .page .tile-page .tile-control .glyph-icon {
         -fx-fill: -on-surface-color; }
       #content-view #home #tile-pane .pagination .page .tile-page .tile-control .label {
-        -fx-padding: .25em 0 0 0; }
+        -fx-padding: .5em 0 0 0; }
         #content-view #home #tile-pane .pagination .page .tile-page .tile-control .label .text {
           -fx-fill: -on-surface-color; }
       #content-view #home #tile-pane .pagination .page .tile-page .tile-control:hover {

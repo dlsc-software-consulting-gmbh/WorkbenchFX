@@ -91,7 +91,6 @@
 
     & .label {
       & .glyph-icon {
-        -fx-font-size: 1.143em !important; // equals 16px when root 14px
         -fx-fill: -on-primary-color;
       }
       & .image-view {
@@ -149,7 +148,6 @@
     -fx-border-width: 0;
 
     & .glyph-icon {
-      -fx-font-size: 1.143em !important; // equals 16px when root 14px
       -fx-fill: -on-primary-color;
     }
 
