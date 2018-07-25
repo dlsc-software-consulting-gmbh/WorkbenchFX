@@ -30,7 +30,6 @@ public class TabSkin extends SkinBase<Tab> {
 
   private HBox controlBox;
   private StackPane closeIconShape;
-  private StackPane closeIconPane;
   private Button closeBtn;
 
   private Label nameLbl;
@@ -65,9 +64,8 @@ public class TabSkin extends SkinBase<Tab> {
   private void initializeParts() {
     closeIconShape = new StackPane();
     closeIconShape.getStyleClass().add("shape");
-    closeIconPane = new StackPane(closeIconShape);
-    closeIconPane.getStyleClass().addAll("icon", "close-icon");
-    closeBtn = new Button("", closeIconPane);
+    closeBtn = new Button("", closeIconShape);
+    closeBtn.getStyleClass().addAll("icon", "close-icon");
 
     nameLbl = new Label();
     controlBox = new HBox();

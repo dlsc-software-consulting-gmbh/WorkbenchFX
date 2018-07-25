@@ -19,45 +19,39 @@
     }
 
     & .tab-control {
-      -fx-max-height: .111em;
-
+      -fx-max-height: 0; // To keep the height to the size of the close-icon --> for the border
       -fx-alignment: center;
 
       -fx-border-width: 0 $border 0 $border;
       -fx-border-color: transparent -on-primary-color transparent transparent;
 
-      -fx-padding: 0 .25em 0 1.25em;
+      -fx-padding: 0 .5em 0 1em;
 
       & .tab-icon {
         -fx-fill: -on-primary-color;
-        -fx-font-size: 1.25em !important;
+        -fx-font-size: 1.143em !important;
       }
 
       & .tab-name-lbl {
         -fx-max-width: ($tab-width - 5);
-        -fx-padding: 0 0 0 .35em;
+        -fx-padding: 0 .5em 0 .5em;
         & .text {
           -fx-fill: -on-primary-color;
         }
       }
 
-      & .close-btn {
-        -fx-padding: 0;
-        -fx-pref-width: $pref-size;
-        -fx-min-height: $pref-size;
-        -fx-background-color: transparent;
+      & .close-icon {
+        -icon-size: 1.857em;
 
-        & .close-icon {
-          & .shape {
-            -fx-background-color: -on-primary-color;
-            @extend %close-icon;
-            -fx-background-insets: 4px; // Make close icon smaller, so that it fits when hovering
+        & .shape {
+          -fx-background-color: -on-primary-color;
+          @extend %close-icon;
+          -shape-size: .571em; // Make close icon smaller, so that it fits when hovering
 
-            &:hover {
-              -fx-cursor: hand;
-              @extend %cancel-icon;
-              -fx-background-insets: 0; // Reset the insets to fit on hovering
-            }
+          &:hover {
+            -fx-cursor: hand;
+            @extend %cancel-icon;
+            -shape-size: 1.143em; // Reset the insets to fit on hovering
           }
         }
       }
@@ -78,7 +72,7 @@
           -fx-fill: -on-background-color;
         }
 
-        & .close-btn .close-icon {
+        & .close-icon {
           & .shape {
             -fx-background-color: -on-background-color;
 

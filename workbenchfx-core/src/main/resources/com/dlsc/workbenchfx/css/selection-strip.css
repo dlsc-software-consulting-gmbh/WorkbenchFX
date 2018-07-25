@@ -22,46 +22,43 @@
     -fx-pref-height: -shape-size;
     -fx-pref-width: -shape-size; }
 
-#workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn .close-icon .shape:hover {
+#workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon .shape:hover {
   -fx-shape: "M 12 2 C 6.47 2 2 6.47 2 12 C 2 17.53 6.47 22 12 22 C 17.53 22 22 17.53 22 12 C 22 6.47 17.53 2 12 2 Z M 17 15.59 L 15.59 17 L 12 13.41 L 8.41 17 L 7 15.59 L 10.59 12 L 7 8.41 L 8.41 7 L 12 10.59 L 15.59 7 L 17 8.41 L 13.41 12 L 17 15.59 Z"; }
 
-#workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn .close-icon .shape {
+#workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon .shape {
   -fx-shape: "M 19 6.41 L 17.59 5 L 12 10.59 L 6.41 5 L 5 6.41 L 10.59 12 L 5 17.59 L 6.41 19 L 12 13.41 L 17.59 19 L 19 17.59 L 13.41 12 Z"; }
 
 #workbench #toolbar #bottom-box .selection-strip {
   -fx-background-color: -primary-color; }
   #workbench #toolbar #bottom-box .selection-strip .strip-cell {
     -fx-padding: 0;
-    -fx-max-width: 18em; }
+    -fx-max-width: 17.142em; }
     #workbench #toolbar #bottom-box .selection-strip .strip-cell:hover {
       -fx-cursor: hand; }
     #workbench #toolbar #bottom-box .selection-strip .strip-cell:pressed {
       -fx-background-color: -primary-color; }
     #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control {
-      -fx-max-height: .111em;
+      -fx-max-height: 0;
       -fx-alignment: center;
       -fx-border-width: 0 1px 0 1px;
       -fx-border-color: transparent -on-primary-color transparent transparent;
-      -fx-padding: 0 .25em 0 1.25em; }
+      -fx-padding: 0 .5em 0 1em; }
       #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-icon {
         -fx-fill: -on-primary-color;
-        -fx-font-size: 1.25em !important; }
+        -fx-font-size: 1.143em !important; }
       #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl {
-        -fx-max-width: 13em;
-        -fx-padding: 0 0 0 .35em; }
+        -fx-max-width: 12.142em;
+        -fx-padding: 0 .5em 0 .5em; }
         #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl .text {
           -fx-fill: -on-primary-color; }
-      #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn {
-        -fx-padding: 0;
-        -fx-pref-width: 3em;
-        -fx-min-height: 3em;
-        -fx-background-color: transparent; }
-        #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn .close-icon .shape {
+      #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon {
+        -icon-size: 1.857em; }
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon .shape {
           -fx-background-color: -on-primary-color;
-          -fx-background-insets: 4px; }
-          #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-btn .close-icon .shape:hover {
+          -shape-size: .571em; }
+          #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon .shape:hover {
             -fx-cursor: hand;
-            -fx-background-insets: 0; }
+            -shape-size: 1.143em; }
     #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected {
       -fx-background-color: -background-color;
       -fx-background-radius: 0.357em 0.357em 0 0;
@@ -72,9 +69,9 @@
         -fx-border-color: transparent; }
         #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-icon, #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-name-lbl .text {
           -fx-fill: -on-background-color; }
-        #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-btn .close-icon .shape {
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-icon .shape {
           -fx-background-color: -on-background-color; }
-          #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-btn .close-icon .shape:hover {
+          #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-icon .shape:hover {
             -fx-background-color: -error-color; }
   #workbench #toolbar #bottom-box .selection-strip .first-child {
    /**
@@ -88,8 +85,8 @@
     -fx-background-color: linear-gradient(from 0 0 to 55 0, transparent, -primary-color); }
   #workbench #toolbar #bottom-box .selection-strip .scroller {
     -fx-background-color: -on-primary-color;
-    -fx-pref-width: 1.2em;
-    -fx-pref-height: 3em;
-    -fx-background-insets: 1.1111111111em 0.3296703297em 1.1111111111em 0.4201680672em; }
+    -fx-pref-width: 1.1428em;
+    -fx-pref-height: 2.857em;
+    -fx-background-insets: 1.0581481481em 0.313956044em 1.0581481481em 0.400140056em; }
 
 /*# sourceMappingURL=selection-strip.css.map */

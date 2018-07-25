@@ -127,7 +127,7 @@
   -fx-background-color: -primary-color; }
   #toolbar .button {
     -fx-graphic-text-gap: .5em;
-    -fx-pref-height: 3em;
+    -fx-pref-height: 2.857em;
     -fx-background-color: -primary-color;
     -fx-background-radius: 0.2142em;
     -fx-border-width: 0;
@@ -142,12 +142,12 @@
     #toolbar .button:pressed {
       -fx-background-color: -primary-variant-color; }
   #toolbar #top-box {
-    -fx-max-height: 3em;
+    -fx-max-height: 2.857em;
     -fx-padding: .35em; }
     #toolbar #top-box #toolbar-control-right-box, #toolbar #top-box #toolbar-control-left-box {
       -fx-spacing: .25em; }
     #toolbar #top-box .dropdown {
-      -fx-pref-height: 3em;
+      -fx-pref-height: 2.857em;
       -fx-background-color: -primary-color;
       -fx-background-radius: 0.2142em;
       -fx-border-width: 0;
@@ -168,12 +168,12 @@
         -fx-background-color: -primary-variant-color;
         -fx-cursor: inherit !important; }
   #toolbar #bottom-box {
-    -fx-pref-height: 3em;
+    -fx-pref-height: 2.857em;
     -fx-padding: 0 .42em 0 .35em; }
     #toolbar #bottom-box #add-button {
       -fx-padding: 0;
-      -fx-pref-width: 3em;
-      -fx-min-height: 3em; }
+      -fx-pref-width: 2.857em;
+      -fx-min-height: 2.857em; }
       #toolbar #bottom-box #add-button #add-icon .shape {
         -fx-background-color: -on-primary-color; }
       #toolbar #bottom-box #add-button:pressed {
@@ -209,14 +209,14 @@
   .navigation-drawer .drawer-box .header {
     -fx-background-color: -surface-color;
     -fx-effect: -shadow;
-    -fx-min-height: 6em;
+    -fx-min-height: 5.714em;
     -fx-padding: .35em; }
     .navigation-drawer .drawer-box .header .separator .line {
       -fx-border-color: -on-surface-color;
       -fx-border-width: 1; }
     .navigation-drawer .drawer-box .header .button {
-      -fx-pref-width: 2.25em;
-      -fx-pref-height: 2.25em;
+      -fx-pref-width: 2.14275em;
+      -fx-pref-height: 2.14275em;
       -fx-background-color: transparent;
       -fx-background-radius: 0.2142em;
       -fx-border-width: 0;
@@ -236,7 +236,7 @@
         -fx-padding: 1.5em 1em 1.5em 1em; }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item {
           -fx-graphic-text-gap: 1.5em;
-          -fx-pref-height: 3em;
+          -fx-pref-height: 2.857em;
           -fx-border-width: 0;
           -fx-background-radius: 0.357em;
           -fx-padding: 0 1em 0 1em;
