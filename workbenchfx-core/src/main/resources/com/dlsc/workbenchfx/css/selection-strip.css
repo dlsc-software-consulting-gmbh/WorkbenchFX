@@ -8,22 +8,29 @@
   -fx-pref-width: -icon-size;
   -fx-pref-height: -icon-size; }
   #workbench #toolbar #bottom-box .selection-strip .icon .shape {
-    -shape-size: 16px;
-    -fx-max-width: -shape-size;
-    -fx-max-height: -shape-size;
-    -fx-min-width: -shape-size;
-    -fx-min-height: -shape-size;
-    -fx-pref-height: -shape-size;
-    -fx-pref-width: -shape-size; }
+    -shape-width: 16px;
+    -shape-height: 16px;
+    -fx-max-width: -shape-width;
+    -fx-max-height: -shape-height;
+    -fx-min-width: -shape-width;
+    -fx-min-height: -shape-height;
+    -fx-pref-width: -shape-width;
+    -fx-pref-height: -shape-height; }
 
-#workbench #toolbar #bottom-box .selection-strip .scroller.left, #workbench #toolbar #bottom-box .selection-strip .scroller.right {
-  -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z"; }
+#workbench #toolbar #bottom-box .selection-strip .scroller {
+  -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z";
+  -shape-width: 4.167px;
+  -shape-height: 8.333px; }
 
 #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon .shape:hover {
-  -fx-shape: "M 12 2 C 6.47 2 2 6.47 2 12 C 2 17.53 6.47 22 12 22 C 17.53 22 22 17.53 22 12 C 22 6.47 17.53 2 12 2 Z M 17 15.59 L 15.59 17 L 12 13.41 L 8.41 17 L 7 15.59 L 10.59 12 L 7 8.41 L 8.41 7 L 12 10.59 L 15.59 7 L 17 8.41 L 13.41 12 L 17 15.59 Z"; }
+  -fx-shape: "M 12 2 C 6.47 2 2 6.47 2 12 C 2 17.53 6.47 22 12 22 C 17.53 22 22 17.53 22 12 C 22 6.47 17.53 2 12 2 Z M 17 15.59 L 15.59 17 L 12 13.41 L 8.41 17 L 7 15.59 L 10.59 12 L 7 8.41 L 8.41 7 L 12 10.59 L 15.59 7 L 17 8.41 L 13.41 12 L 17 15.59 Z";
+  -shape-width: 16.667px;
+  -shape-height: 16.667px; }
 
 #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon .shape {
-  -fx-shape: "M 19 6.41 L 17.59 5 L 12 10.59 L 6.41 5 L 5 6.41 L 10.59 12 L 5 17.59 L 6.41 19 L 12 13.41 L 17.59 19 L 19 17.59 L 13.41 12 Z"; }
+  -fx-shape: "M 19 6.41 L 17.59 5 L 12 10.59 L 6.41 5 L 5 6.41 L 10.59 12 L 5 17.59 L 6.41 19 L 12 13.41 L 17.59 19 L 19 17.59 L 13.41 12 Z";
+  -shape-width: 11.667px;
+  -shape-height: 11.667px; }
 
 #workbench #toolbar #bottom-box .selection-strip {
   -fx-background-color: -primary-color; }
@@ -52,10 +59,12 @@
         -icon-size: 1.857em; }
         #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon .shape {
           -fx-background-color: -on-primary-color;
-          -shape-size: .571em; }
+          -shape-width: 8px;
+          -shape-height: 8px; }
           #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon .shape:hover {
             -fx-cursor: hand;
-            -shape-size: 1.143em; }
+            -shape-width: 16.667px;
+            -shape-height: 16.667px; }
     #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected {
       -fx-background-color: -background-color;
       -fx-background-radius: 0.357em 0.357em 0 0;
@@ -82,9 +91,16 @@
     -fx-background-color: linear-gradient(from 0 0 to 55 0, transparent, -primary-color); }
   #workbench #toolbar #bottom-box .selection-strip .scroller {
     -fx-background-color: -on-primary-color;
-    -fx-pref-width: 1.4285em;
-    -fx-pref-height: 2.857em;
-    -fx-background-insets: 1em 0.5em 1em 0.5em; }
+    -fx-padding: 0;
+    -shape-width: 1.4285em;
+    -shape-height: 2.857em;
+    -fx-max-width: -shape-width;
+    -fx-max-height: -shape-height;
+    -fx-min-width: -shape-width;
+    -fx-min-height: -shape-height;
+    -fx-pref-width: -shape-width;
+    -fx-pref-height: -shape-height;
+    -fx-background-insets: 1.131037213em 0.5654066891em 1.131037213em 0.5654066891em; }
     #workbench #toolbar #bottom-box .selection-strip .scroller.left {
       -fx-rotate: 180; }
 

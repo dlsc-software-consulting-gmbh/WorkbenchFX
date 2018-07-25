@@ -65,16 +65,19 @@
   -fx-pref-width: -icon-size;
   -fx-pref-height: -icon-size; }
   #toolbar .icon .shape {
-    -shape-size: 16px;
-    -fx-max-width: -shape-size;
-    -fx-max-height: -shape-size;
-    -fx-min-width: -shape-size;
-    -fx-min-height: -shape-size;
-    -fx-pref-height: -shape-size;
-    -fx-pref-width: -shape-size; }
+    -shape-width: 16px;
+    -shape-height: 16px;
+    -fx-max-width: -shape-width;
+    -fx-max-height: -shape-height;
+    -fx-min-width: -shape-width;
+    -fx-min-height: -shape-height;
+    -fx-pref-width: -shape-width;
+    -fx-pref-height: -shape-height; }
 
 #toolbar #bottom-box #add-button .shape {
-  -fx-shape: "M 19 13 L 13 13 L 13 19 L 11 19 L 11 13 L 5 13 L 5 11 L 11 11 L 11 5 L 13 5 L 13 11 L 19 11 L 19 13 Z"; }
+  -fx-shape: "M 19 13 L 13 13 L 13 19 L 11 19 L 11 13 L 5 13 L 5 11 L 11 11 L 11 5 L 13 5 L 13 11 L 19 11 L 19 13 Z";
+  -shape-width: 11.667px;
+  -shape-height: 11.667px; }
 
 #workbench {
   -fx-background-color: -background-color; }

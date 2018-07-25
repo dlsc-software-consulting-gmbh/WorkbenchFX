@@ -46,12 +46,14 @@
         & .shape {
           -fx-background-color: -on-primary-color;
           @extend %close-icon;
-          -shape-size: .571em; // Make close icon smaller, so that it fits when hovering
+          -shape-width: 8px; // Make close icon smaller, so that it fits when hovering
+          -shape-height: 8px; // Make close icon smaller, so that it fits when hovering
 
           &:hover {
             -fx-cursor: hand;
             @extend %cancel-icon;
-            -shape-size: 1.143em; // Reset the insets to fit on hovering
+            -shape-width: 16.667px; // Reset the insets to fit on hovering
+            -shape-height: 16.667px; // Reset the insets to fit on hovering
           }
         }
       }
@@ -105,18 +107,29 @@
 
   .scroller {
     -fx-background-color: -on-primary-color;
-    -fx-pref-width: $pref-size*.5;
-    -fx-pref-height: $pref-size;
-    $size: 1em;
-    -fx-background-insets: $size $size/2 $size $size/2;
+
+    @extend %arrow-right-icon;
+
+    // Adjustments in order to make whole area of arrows clickable
+    -fx-padding: 0;
+    -shape-width: $pref-size/2;
+    -shape-height: $pref-size;
+
+    -fx-max-width: -shape-width;
+    -fx-max-height: -shape-height;
+    -fx-min-width: -shape-width;
+    -fx-min-height: -shape-height;
+    -fx-pref-width: -shape-width;
+    -fx-pref-height: -shape-height;
+
+    -fx-background-insets: $pref-size/2.526 $pref-size/5.053 $pref-size/2.526 $pref-size/5.053;
 
     &.left {
-      @extend %arrow-right-icon;
       -fx-rotate: 180;
     }
 
     &.right {
-      @extend %arrow-right-icon;
+
     }
   }
 }
