@@ -92,11 +92,7 @@
     // It is set in the initializeViewParts() method of the ToolbarPresenter.
 
     & #add-button {
-      -fx-padding: 0;
-      -fx-pref-width: $pref-size;
-      -fx-min-height: $pref-size;
-
-      & #add-icon .shape {
+      & .shape {
         -fx-background-color: -on-primary-color;
         @extend %add-icon;
       }
@@ -112,7 +108,7 @@
       -fx-border-radius: $radius $radius 0 0;
       -fx-background-insets: 0 $border*-1 0 $border*-1;
 
-      & #add-icon .shape {
+      & .shape {
         -fx-background-color: -on-background-color !important;
       }
 

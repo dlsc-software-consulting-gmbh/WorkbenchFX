@@ -72,7 +72,7 @@
     -fx-pref-height: -shape-size;
     -fx-pref-width: -shape-size; }
 
-#toolbar #bottom-box #add-button #add-icon .shape {
+#toolbar #bottom-box #add-button .shape {
   -fx-shape: "M 19 13 L 13 13 L 13 19 L 11 19 L 11 13 L 5 13 L 5 11 L 11 11 L 11 5 L 13 5 L 13 11 L 19 11 L 19 13 Z"; }
 
 #workbench {
@@ -170,20 +170,16 @@
   #toolbar #bottom-box {
     -fx-pref-height: 2.857em;
     -fx-padding: 0 .42em 0 .35em; }
-    #toolbar #bottom-box #add-button {
-      -fx-padding: 0;
-      -fx-pref-width: 2.857em;
-      -fx-min-height: 2.857em; }
-      #toolbar #bottom-box #add-button #add-icon .shape {
-        -fx-background-color: -on-primary-color; }
-      #toolbar #bottom-box #add-button:pressed {
-        -fx-background-radius: 0.357em 0.357em 0 0; }
+    #toolbar #bottom-box #add-button .shape {
+      -fx-background-color: -on-primary-color; }
+    #toolbar #bottom-box #add-button:pressed {
+      -fx-background-radius: 0.357em 0.357em 0 0; }
     #toolbar #bottom-box .active-add-button {
       -fx-background-color: -background-color;
       -fx-background-radius: 0.357em 0.357em 0 0;
       -fx-border-radius: 0.357em 0.357em 0 0;
       -fx-background-insets: 0 -1px 0 -1px; }
-      #toolbar #bottom-box .active-add-button #add-icon .shape {
+      #toolbar #bottom-box .active-add-button .shape {
         -fx-background-color: -on-background-color !important; }
       #toolbar #bottom-box .active-add-button:hover {
         -fx-cursor: inherit; }
