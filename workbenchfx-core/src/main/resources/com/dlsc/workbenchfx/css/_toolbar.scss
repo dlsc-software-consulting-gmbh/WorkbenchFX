@@ -1,32 +1,8 @@
 #toolbar {
   @extend %icon-base; // All icons in the toolbar are targeted
+  @extend %button-base;
 
   -fx-background-color: -primary-color;
-
-  & .button {
-    -fx-graphic-text-gap: .5em;
-    -fx-pref-height: $pref-size;
-    -fx-background-color: -primary-color;
-    -fx-background-radius: $radius*.6;
-    -fx-border-width: 0;
-    -fx-background-insets: 0; //needed to remove the focused border on bottom
-
-    & .glyph-icon {
-      -fx-font-size: 1.25em !important;
-      -fx-fill: -on-primary-color;
-    }
-
-    & .text {
-      -fx-fill: -on-primary-color;
-    }
-
-    &:hover {
-      -fx-cursor: hand;
-    }
-    &:pressed {
-      -fx-background-color: -primary-variant-color;
-    }
-  }
 
   & #top-box {
     -fx-max-height: $pref-size;
@@ -35,6 +11,18 @@
     & #toolbar-control-right-box,
     & #toolbar-control-left-box {
       -fx-spacing: .25em;
+    }
+
+    & #menu-button {
+      & .shape {
+        -fx-background-color: -on-primary-color;
+        @extend %menu-icon;
+      }
+
+      &:pressed {
+        -fx-background-color: -primary-variant-color;
+        -fx-background-radius: $radius*.6;
+      }
     }
 
     & .dropdown {

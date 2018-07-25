@@ -79,6 +79,33 @@
   //-fx-scale-shape: true;
 }
 
+%button-base {
+  & .button {
+    -fx-graphic-text-gap: .5em;
+    -fx-pref-height: $pref-size;
+    -fx-background-color: -primary-color;
+    -fx-background-radius: $radius*.6;
+    -fx-border-width: 0;
+    -fx-background-insets: 0; //needed to remove the focused border on bottom
+
+    & .glyph-icon {
+      -fx-font-size: 1.25em !important;
+      -fx-fill: -on-primary-color;
+    }
+
+    & .text {
+      -fx-fill: -on-primary-color;
+    }
+
+    &:hover {
+      -fx-cursor: hand;
+    }
+    &:pressed {
+      -fx-background-color: -primary-variant-color;
+    }
+  }
+}
+
 // Base format of an icon: two StackPanes into each other.
 %icon-base {
   & .icon {

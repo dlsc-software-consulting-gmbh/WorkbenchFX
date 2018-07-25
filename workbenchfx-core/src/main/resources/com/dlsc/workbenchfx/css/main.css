@@ -55,6 +55,23 @@
   -fx-pref-height: 0.859em;
   -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z"; }
 
+#toolbar .button {
+  -fx-graphic-text-gap: .5em;
+  -fx-pref-height: 2.857em;
+  -fx-background-color: -primary-color;
+  -fx-background-radius: 0.2142em;
+  -fx-border-width: 0;
+  -fx-background-insets: 0; }
+  #toolbar .button .glyph-icon {
+    -fx-font-size: 1.25em !important;
+    -fx-fill: -on-primary-color; }
+  #toolbar .button .text {
+    -fx-fill: -on-primary-color; }
+  #toolbar .button:hover {
+    -fx-cursor: hand; }
+  #toolbar .button:pressed {
+    -fx-background-color: -primary-variant-color; }
+
 #toolbar .icon {
   -fx-background-color: transparent;
   -icon-size: 40px;
@@ -78,6 +95,11 @@
   -fx-shape: "M 19 13 L 13 13 L 13 19 L 11 19 L 11 13 L 5 13 L 5 11 L 11 11 L 11 5 L 13 5 L 13 11 L 19 11 L 19 13 Z";
   -shape-width: 11.667px;
   -shape-height: 11.667px; }
+
+#toolbar #top-box #menu-button .shape {
+  -fx-shape: "M 3 18 L 21 18 L 21 16 L 3 16 L 3 18 Z M 3 13 L 21 13 L 21 11 L 3 11 L 3 13 Z M 3 6 L 3 8 L 21 8 L 21 6 L 3 6 Z";
+  -shape-width: 15px;
+  -shape-height: 10px; }
 
 #workbench {
   -fx-background-color: -background-color; }
@@ -129,27 +151,16 @@
 
 #toolbar {
   -fx-background-color: -primary-color; }
-  #toolbar .button {
-    -fx-graphic-text-gap: .5em;
-    -fx-pref-height: 2.857em;
-    -fx-background-color: -primary-color;
-    -fx-background-radius: 0.2142em;
-    -fx-border-width: 0;
-    -fx-background-insets: 0; }
-    #toolbar .button .glyph-icon {
-      -fx-font-size: 1.25em !important;
-      -fx-fill: -on-primary-color; }
-    #toolbar .button .text {
-      -fx-fill: -on-primary-color; }
-    #toolbar .button:hover {
-      -fx-cursor: hand; }
-    #toolbar .button:pressed {
-      -fx-background-color: -primary-variant-color; }
   #toolbar #top-box {
     -fx-max-height: 2.857em;
     -fx-padding: .35em; }
     #toolbar #top-box #toolbar-control-right-box, #toolbar #top-box #toolbar-control-left-box {
       -fx-spacing: .25em; }
+    #toolbar #top-box #menu-button .shape {
+      -fx-background-color: -on-primary-color; }
+    #toolbar #top-box #menu-button:pressed {
+      -fx-background-color: -primary-variant-color;
+      -fx-background-radius: 0.2142em; }
     #toolbar #top-box .dropdown {
       -fx-pref-height: 2.857em;
       -fx-background-color: -primary-color;
