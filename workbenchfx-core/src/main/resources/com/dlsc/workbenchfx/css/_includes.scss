@@ -78,3 +78,65 @@
   //-fx-shape: "M0,-4L4,0L0,4Z";
   //-fx-scale-shape: true;
 }
+
+// Base format of an icon: two StackPanes into each other.
+%icon-base {
+  & .icon {
+    -fx-background-color: transparent;
+    // tablet
+    //-icon-size: 48px;
+    // desktop
+    -icon-size: 40px;
+    -fx-max-width: -icon-size;
+    -fx-max-height: -icon-size;
+    -fx-min-width: -icon-size;
+    -fx-min-height: -icon-size;
+    -fx-pref-width: -icon-size;
+    -fx-pref-height: -icon-size;
+
+    & .shape {
+      // tablet
+      //-shape-size: 20px;
+      // desktop
+      -shape-size: 16px;
+      -fx-max-width: -shape-size;
+      -fx-max-height: -shape-size;
+      -fx-min-width: -shape-size;
+      -fx-pref-height: -shape-size;
+      -fx-pref-width: -shape-size;
+    }
+  }
+}
+
+// --- SVG paths of materialize icons ------------------------------------------
+%add-icon {
+  -fx-shape: "M 19 13 L 13 13 L 13 19 L 11 19 L 11 13 L 5 13 L 5 11 L 11 11 L 11 5 L 13 5 L 13 11 L 19 11 L 19 13 Z";
+}
+
+%arrow-back-icon {
+  -fx-shape: "M 20 11 L 7.83 11 L 13.42 5.41 L 12 4 L 4 12 L 12 20 L 13.41 18.59 L 7.83 13 L 20 13 L 20 11 Z";
+}
+
+%arrow-drop-down-icon {
+  -fx-shape: "M 7 10 L 12 15 L 17 10 Z";
+}
+
+%arrow-drop-up-icon {
+  -fx-shape: "M 7 14 L 12 9 L 17 14 Z";
+}
+
+%arrow-right-icon {
+  -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z";
+}
+
+%cancel-icon {
+  -fx-shape: "M 12 2 C 6.47 2 2 6.47 2 12 C 2 17.53 6.47 22 12 22 C 17.53 22 22 17.53 22 12 C 22 6.47 17.53 2 12 2 Z M 17 15.59 L 15.59 17 L 12 13.41 L 8.41 17 L 7 15.59 L 10.59 12 L 7 8.41 L 8.41 7 L 12 10.59 L 15.59 7 L 17 8.41 L 13.41 12 L 17 15.59 Z";
+}
+
+%close-icon {
+  -fx-shape: "M 19 6.41 L 17.59 5 L 12 10.59 L 6.41 5 L 5 6.41 L 10.59 12 L 5 17.59 L 6.41 19 L 12 13.41 L 17.59 19 L 19 17.59 L 13.41 12 Z";
+}
+
+%menu-icon {
+  -fx-shape: "M 3 18 L 21 18 L 21 16 L 3 16 L 3 18 Z M 3 13 L 21 13 L 21 11 L 3 11 L 3 13 Z M 3 6 L 3 8 L 21 8 L 21 6 L 3 6 Z";
+}
