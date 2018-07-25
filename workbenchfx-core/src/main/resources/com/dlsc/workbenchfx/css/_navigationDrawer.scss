@@ -76,7 +76,6 @@
           & .button {
             // styles only for buttons
             & .glyph-icon {
-              -fx-font-size: 1.25em;
               -fx-fill: -on-surface-color;
             }
 
@@ -90,30 +89,34 @@
           }
 
           & .menu-button {
-            // styles only for menus
-            -fx-padding: .5em .25em .5em 1em;
-
+            //  // styles only for menus
             & .label {
-              -fx-padding: 0 2em 0 0;
-
-              & .glyph-icon {
-                -fx-font-size: 1.5em !important;
-                -fx-fill: -on-surface-color;
-              }
+              & .glyph-icon,
               & .text {
                 -fx-fill: -on-surface-color;
               }
             }
-            & .arrow-button .arrow {
-              -fx-background-color: -on-surface-color;
-              @extend %arrow-shape;
 
-              // Size adjustments after setting the arrow
-              $wid: .25em;
-              $hei: $wid * 1.718; //ratio of the arrow to the right
-              -fx-pref-width: $wid;
-              -fx-pref-height: $hei;
+            & .arrow-button {
+              -fx-padding: 0;
+              -fx-background-insets: 0;
+
+              & .arrow {
+                @extend %arrow-right-icon;
+
+                -shape-width: 4.167px*.8; // Shrink arrow down
+                -shape-height: 8.333px*.8; // Shrink arrow down
+                -fx-max-width: -shape-width;
+                -fx-max-height: -shape-height;
+                -fx-min-width: -shape-width;
+                -fx-min-height: -shape-height;
+                -fx-pref-width: -shape-width;
+                -fx-pref-height: -shape-height;
+
+                -fx-background-color: -on-surface-color;
+              }
             }
+
             &:showing {
               -fx-background-color: -primary-color;
               -fx-cursor: inherit;
@@ -131,6 +134,7 @@
               }
             }
           }
+
           // @extend %context-menu;
           // The extention of the context-menu can be found in the context-menu.css file.
           // It is set in the constructor of the Workbench.

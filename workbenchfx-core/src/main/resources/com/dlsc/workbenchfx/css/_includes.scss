@@ -106,8 +106,11 @@
       -fx-background-insets: 0;
 
       & .arrow {
-        -shape-width: 4.167px*.6; // Shrink arrow down
-        -shape-height: 8.333px*.6; // Shrink arrow down
+        @extend %arrow-right-icon;
+        -fx-rotate: 90;
+
+        -shape-width: 4.167px*.6 !important; // Shrink arrow down
+        -shape-height: 8.333px*.6 !important; // Shrink arrow down
         -fx-max-width: -shape-width;
         -fx-max-height: -shape-height;
         -fx-min-width: -shape-width;
@@ -115,10 +118,7 @@
         -fx-pref-width: -shape-width;
         -fx-pref-height: -shape-height;
 
-        -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z";
-        -fx-rotate: 90;
-
-        -fx-background-color: -on-primary-color;
+        -fx-background-color: -on-primary-color;;
       }
     }
 
@@ -139,6 +139,7 @@
 
 %button-base {
   & .button {
+    -fx-alignment: CENTER_LEFT;
     -fx-background-insets: .35em; // Prevent getting to the border
     -fx-padding: 0 1em 0 1em;
     -fx-graphic-text-gap: .5em;
