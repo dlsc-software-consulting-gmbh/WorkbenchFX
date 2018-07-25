@@ -883,6 +883,8 @@ private final ObservableSet<Node> toolbarControlsRight =
    */
   public void showDrawer(Region drawer, Side side, int percentage) {
     Pos position;
+    drawer.maxWidthProperty().unbind();
+    drawer.maxHeightProperty().unbind();
     switch (side) {
       case TOP:
         position = Pos.TOP_LEFT;
