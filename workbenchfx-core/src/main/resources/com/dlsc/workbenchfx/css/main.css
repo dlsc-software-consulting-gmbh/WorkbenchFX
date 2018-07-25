@@ -275,7 +275,7 @@
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .label .glyph-icon, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .label .text {
           -fx-fill: -on-surface-color; }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button {
-          -fx-padding: 0 0 0 .5em;
+          -fx-padding: 0 0 0 1em;
           -fx-background-insets: 0; }
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
             -shape-width: 3.3336px;

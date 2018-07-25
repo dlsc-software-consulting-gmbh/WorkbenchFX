@@ -7,7 +7,6 @@
     -fx-background-radius: 0;
     -fx-padding: .75em 1.25em .75em 1.25em; }
     .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .glyph-icon, #toolbar #top-box .context-menu .menu-item .glyph-icon {
-      -fx-font-size: 1.25em !important;
       -fx-fill: -on-surface-color; }
     .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .label, #toolbar #top-box .context-menu .menu-item .label {
       -fx-padding: 0 2em 0 .25em; }
