@@ -55,6 +55,26 @@
   -fx-pref-height: 0.859em;
   -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z"; }
 
+#toolbar .icon {
+  -fx-background-color: transparent;
+  -icon-size: 40px;
+  -fx-max-width: -icon-size;
+  -fx-max-height: -icon-size;
+  -fx-min-width: -icon-size;
+  -fx-min-height: -icon-size;
+  -fx-pref-width: -icon-size;
+  -fx-pref-height: -icon-size; }
+  #toolbar .icon .shape {
+    -shape-size: 16px;
+    -fx-max-width: -shape-size;
+    -fx-max-height: -shape-size;
+    -fx-min-width: -shape-size;
+    -fx-pref-height: -shape-size;
+    -fx-pref-width: -shape-size; }
+
+#toolbar #bottom-box #add-button #add-icon .shape {
+  -fx-shape: "M 19 13 L 13 13 L 13 19 L 11 19 L 11 13 L 5 13 L 5 11 L 11 11 L 11 5 L 13 5 L 13 11 L 19 11 L 19 13 Z"; }
+
 #workbench {
   -fx-background-color: -background-color; }
 
@@ -154,14 +174,8 @@
       -fx-padding: 0;
       -fx-pref-width: 3em;
       -fx-min-height: 3em; }
-      #toolbar #bottom-box #add-button #add-icon {
-        -fx-padding: 0;
-        -fx-background-color: -on-primary-color;
-        -fx-pref-width: 1.125em;
-        -fx-max-width: 1.125em;
-        -fx-pref-height: 1.125em;
-        -fx-max-height: 1.125em;
-        -fx-shape: "M11 0H9V9H0V11H9V20H11V11H20V9H11V0Z"; }
+      #toolbar #bottom-box #add-button #add-icon .shape {
+        -fx-background-color: -on-primary-color; }
       #toolbar #bottom-box #add-button:pressed {
         -fx-background-radius: 0.357em 0.357em 0 0; }
     #toolbar #bottom-box .active-add-button {
@@ -169,7 +183,7 @@
       -fx-background-radius: 0.357em 0.357em 0 0;
       -fx-border-radius: 0.357em 0.357em 0 0;
       -fx-background-insets: 0 -1px 0 -1px; }
-      #toolbar #bottom-box .active-add-button #add-icon {
+      #toolbar #bottom-box .active-add-button #add-icon .shape {
         -fx-background-color: -on-background-color !important; }
       #toolbar #bottom-box .active-add-button:hover {
         -fx-cursor: inherit; }

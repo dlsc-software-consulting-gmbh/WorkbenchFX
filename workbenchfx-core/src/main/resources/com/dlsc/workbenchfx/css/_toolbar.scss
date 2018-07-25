@@ -1,4 +1,6 @@
 #toolbar {
+  @extend %icon-base; // All icons in the toolbar are targeted
+
   -fx-background-color: -primary-color;
 
   & .button {
@@ -94,15 +96,11 @@
       -fx-pref-width: $pref-size;
       -fx-min-height: $pref-size;
 
-      & #add-icon {
-        -fx-padding: 0;
+      & #add-icon .shape {
         -fx-background-color: -on-primary-color;
-        -fx-pref-width: 1.125em;
-        -fx-max-width: 1.125em;
-        -fx-pref-height: 1.125em;
-        -fx-max-height: 1.125em;
-        -fx-shape: "M11 0H9V9H0V11H9V20H11V11H20V9H11V0Z";
+        @extend %add-icon;
       }
+
       &:pressed {
         -fx-background-radius: $radius $radius 0 0;
       }
@@ -114,7 +112,7 @@
       -fx-border-radius: $radius $radius 0 0;
       -fx-background-insets: 0 $border*-1 0 $border*-1;
 
-      & #add-icon {
+      & #add-icon .shape {
         -fx-background-color: -on-background-color !important;
       }
 

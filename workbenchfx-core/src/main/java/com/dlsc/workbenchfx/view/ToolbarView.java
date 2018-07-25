@@ -27,7 +27,8 @@ public class ToolbarView extends VBox implements View {
 
   private FontAwesomeIconView homeIconView;
   private FontAwesomeIconView menuIconView;
-  StackPane addIconPane;
+  private StackPane addIconPane;
+  private StackPane addIconShape;
   Button addBtn;
   Button menuBtn;
   SelectionStrip<WorkbenchModule> tabBar;
@@ -63,7 +64,10 @@ public class ToolbarView extends VBox implements View {
     homeIconView.setId("home-icon-view");
     homeIconView.getStyleClass().add("icon-view");
 
-    addIconPane = new StackPane();
+    addIconShape = new StackPane();
+    addIconShape.getStyleClass().add("shape");
+    addIconPane = new StackPane(addIconShape);
+    addIconPane.getStyleClass().add("icon");
     addIconPane.setId("add-icon");
 
     addBtn = new Button("", addIconPane);
