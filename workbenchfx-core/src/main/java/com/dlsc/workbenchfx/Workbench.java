@@ -87,6 +87,8 @@ public class Workbench extends Control {
   private final ObservableSet<Node> nonBlockingOverlaysShown = FXCollections.observableSet();
   private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet();
 
+  private ButtonType dialogDefaultButtonType = ButtonType.CANCEL;
+
   // Modules
   /**
    * List of all modules.
@@ -939,6 +941,17 @@ public class Workbench extends Control {
 
   public ReadOnlyIntegerProperty amountOfPagesProperty() {
     return amountOfPages;
+  }
+
+  /**
+   * Defines the default {@link ButtonType} that is set as result of a {@link WorkbenchDialog} when
+   * the {@link GlassPane} on the outside of a non-blocking dialog has been pressed.
+   *
+   * @param dialogDefaultButtonType {@link ButtonType} that should be set as result of a dialog
+   *                                that was closed by clicking on its {@link GlassPane}
+   */
+  public void setDialogDefaultButtonType(ButtonType dialogDefaultButtonType) {
+    this.dialogDefaultButtonType = dialogDefaultButtonType;
   }
 
   @Override
