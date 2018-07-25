@@ -925,6 +925,13 @@ private final ObservableSet<Node> toolbarControlsRight =
     showDrawer(drawer, side, 90);
   }
 
+  /**
+   * TODO.
+   */
+  public void hideDrawer() {
+    setDrawerShown(null);
+  }
+
   public void showNavigationDrawer() {
     showOverlay(navigationDrawer.get(), false);
   }
