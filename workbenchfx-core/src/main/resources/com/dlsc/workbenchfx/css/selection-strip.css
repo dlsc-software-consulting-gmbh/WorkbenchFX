@@ -1,10 +1,3 @@
-#workbench #toolbar #bottom-box .selection-strip .scroller {
-  -fx-padding: 0;
-  -fx-background-insets: 0;
-  -fx-pref-width: 0.5em;
-  -fx-pref-height: 0.859em;
-  -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z"; }
-
 #workbench #toolbar #bottom-box .selection-strip .icon {
   -fx-background-color: transparent;
   -icon-size: 40px;
@@ -19,8 +12,12 @@
     -fx-max-width: -shape-size;
     -fx-max-height: -shape-size;
     -fx-min-width: -shape-size;
+    -fx-min-height: -shape-size;
     -fx-pref-height: -shape-size;
     -fx-pref-width: -shape-size; }
+
+#workbench #toolbar #bottom-box .selection-strip .scroller.left, #workbench #toolbar #bottom-box .selection-strip .scroller.right {
+  -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z"; }
 
 #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon .shape:hover {
   -fx-shape: "M 12 2 C 6.47 2 2 6.47 2 12 C 2 17.53 6.47 22 12 22 C 17.53 22 22 17.53 22 12 C 22 6.47 17.53 2 12 2 Z M 17 15.59 L 15.59 17 L 12 13.41 L 8.41 17 L 7 15.59 L 10.59 12 L 7 8.41 L 8.41 7 L 12 10.59 L 15.59 7 L 17 8.41 L 13.41 12 L 17 15.59 Z"; }
@@ -85,8 +82,10 @@
     -fx-background-color: linear-gradient(from 0 0 to 55 0, transparent, -primary-color); }
   #workbench #toolbar #bottom-box .selection-strip .scroller {
     -fx-background-color: -on-primary-color;
-    -fx-pref-width: 1.1428em;
+    -fx-pref-width: 1.4285em;
     -fx-pref-height: 2.857em;
-    -fx-background-insets: 1.0581481481em 0.313956044em 1.0581481481em 0.400140056em; }
+    -fx-background-insets: 1em 0.5em 1em 0.5em; }
+    #workbench #toolbar #bottom-box .selection-strip .scroller.left {
+      -fx-rotate: 180; }
 
 /*# sourceMappingURL=selection-strip.css.map */

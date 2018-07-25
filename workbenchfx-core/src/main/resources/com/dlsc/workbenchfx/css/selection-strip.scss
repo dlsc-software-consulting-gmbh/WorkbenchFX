@@ -105,19 +105,18 @@
 
   .scroller {
     -fx-background-color: -on-primary-color;
-    @extend %arrow-shape;
-
-    // Increase the click-area of the arrow to maintain a good usability
-    -fx-pref-width: $pref-size/2.5;
+    -fx-pref-width: $pref-size*.5;
     -fx-pref-height: $pref-size;
-    -fx-background-insets: $pref-size/2.7 $pref-size/9.1 $pref-size/2.7 $pref-size/7.14;
+    $size: 1em;
+    -fx-background-insets: $size $size/2 $size $size/2;
 
     &.left {
-
+      @extend %arrow-right-icon;
+      -fx-rotate: 180;
     }
 
     &.right {
-
+      @extend %arrow-right-icon;
     }
   }
 }
