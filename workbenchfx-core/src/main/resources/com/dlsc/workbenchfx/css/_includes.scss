@@ -79,6 +79,65 @@
   //-fx-scale-shape: true;
 }
 
+%dropdown {
+  & .dropdown {
+    -fx-background-insets: .35em; // Prevent getting to the border
+    -fx-padding: 0 1.25em 0 .5em;
+    -fx-graphic-text-gap: .5em;
+    -fx-pref-height: $pref-size;
+    -fx-background-color: -primary-color;
+    -fx-background-radius: $radius*.6;
+    -fx-border-width: 0;
+
+    & .label {
+      & .glyph-icon {
+        -fx-font-size: 1.143em !important; // equals 16px when root 14px
+        -fx-fill: -on-primary-color;
+      }
+      & .image-view {
+
+      }
+      & .text {
+        -fx-fill: -on-primary-color;
+      }
+    }
+
+    & .arrow-button {
+      -fx-padding: 0;
+      -fx-background-insets: 0;
+
+      & .arrow {
+        -shape-width: 4.167px*.6; // Shrink arrow down
+        -shape-height: 8.333px*.6; // Shrink arrow down
+        -fx-max-width: -shape-width;
+        -fx-max-height: -shape-height;
+        -fx-min-width: -shape-width;
+        -fx-min-height: -shape-height;
+        -fx-pref-width: -shape-width;
+        -fx-pref-height: -shape-height;
+
+        -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z";
+        -fx-rotate: 90;
+
+        -fx-background-color: -on-primary-color;
+      }
+    }
+
+    &:hover {
+      -fx-cursor: hand;
+    }
+
+    &:showing {
+      -fx-background-color: -primary-variant-color;
+      -fx-cursor: inherit !important;
+
+      & .arrow-button .arrow {
+        -fx-rotate: -90;
+      }
+    }
+  }
+}
+
 %button-base {
   & .button {
     -fx-background-insets: .35em; // Prevent getting to the border

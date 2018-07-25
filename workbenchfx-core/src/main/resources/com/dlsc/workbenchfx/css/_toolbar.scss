@@ -7,11 +7,9 @@
   & #top-box {
     & #toolbar-control-right-box {
       -fx-alignment: CENTER_RIGHT;
-      -fx-spacing: .25em;
     }
     & #toolbar-control-left-box {
       -fx-alignment: CENTER_LEFT;
-      -fx-spacing: .25em;
     }
 
     & #menu-button {
@@ -26,45 +24,7 @@
       }
     }
 
-    & .dropdown {
-      -fx-pref-height: $pref-size;
-      -fx-background-color: -primary-color;
-      -fx-background-radius: $radius*.6;
-      -fx-border-width: 0;
-      -fx-background-insets: 0; //needed to remove the focused border on bottom
-
-      & .label {
-        -fx-graphic-text-gap: .5em;
-
-        & .glyph-icon {
-          -fx-font-size: 1.25em !important;
-          -fx-fill: -on-primary-color;
-        }
-        & .image-view {
-
-        }
-        & .text {
-          -fx-fill: -on-primary-color;
-        }
-      }
-
-      & .arrow-button {
-        & .glyph-icon {
-          //angle-down
-          -fx-font-size: .75em !important;
-          -fx-fill: -on-primary-color;
-        }
-      }
-
-      &:hover {
-        -fx-cursor: hand;
-      }
-
-      &:showing {
-        -fx-background-color: -primary-variant-color;
-        -fx-cursor: inherit !important;
-      }
-    }
+    @extend %dropdown;
 
     // @extend %context-menu;
     // The extention of the context-menu can be found in the context-menu.css file.
@@ -73,7 +33,6 @@
 
   & #bottom-box {
     -fx-pref-height: $pref-size;
-
     -fx-padding: 0 .42em 0 .35em;
 
     //.selection-strip {...}
