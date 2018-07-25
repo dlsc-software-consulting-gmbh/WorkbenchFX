@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -20,6 +21,7 @@ import javafx.scene.shape.Rectangle;
 public class CalendarDrawer extends VBox {
 
   private static final int RECT_SIZE = 20;
+  private final Workbench workbench;
   HBox userBox = new HBox();
   FontAwesomeIconView userIcon;
   Label userLbl = new Label("workbenchfx@dlsc.com");
@@ -39,44 +41,55 @@ public class CalendarDrawer extends VBox {
   private final Button calendarRightPercentBtn = new Button("Right Drawer, 33%");
   private final Button calendarTopPercentBtn = new Button("Top Drawer, 33%");
   private final Button calendarBottomPercentBtn = new Button("Bottom Drawer, 33%");
-
+  private final Button hideBtn = new Button("Hide");
 
   public CalendarDrawer(Workbench workbench) {
-    setAlignment(Pos.CENTER);
+    this.workbench = workbench;
 
+    layoutParts();
+    setupEventHandlers();
+  }
+
+  private void layoutParts() {
     userIcon = new FontAwesomeIconView(FontAwesomeIcon.USER_CIRCLE);
     userIcon.setStyle("-fx-fill: black");
     userBox.getChildren().addAll(userIcon, userLbl);
 
     calendarGrid.add(workRect, 0, 0);
-    calendarGrid.add(workLbl,  1, 0);
+    calendarGrid.add(workLbl, 1, 0);
 
     calendarGrid.add(homeRect, 0, 1);
-    calendarGrid.add(homeLbl,  1, 1);
+    calendarGrid.add(homeLbl, 1, 1);
 
     calendarGrid.add(familyRect, 0, 2);
-    calendarGrid.add(familyLbl,  1, 2);
+    calendarGrid.add(familyLbl, 1, 2);
 
     calendarGrid.add(friendsRect, 0, 3);
-    calendarGrid.add(friendsLbl,  1, 3);
+    calendarGrid.add(friendsLbl, 1, 3);
+
+    calendarGrid.getChildren().forEach(node -> {
+      GridPane.setMargin(node, new Insets(10));
+    });
 
     drawerGrid.add(calendarTopPercentBtn, 2, 5);
     drawerGrid.add(calendarRightPercentBtn, 3, 6);
     drawerGrid.add(calendarBottomPercentBtn, 2, 7);
     drawerGrid.add(calendarLeftPercentBtn, 1, 6);
+    drawerGrid.add(hideBtn, 0, 8);
 
-    calendarLeftPercentBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.LEFT, 33));
-    calendarRightPercentBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.RIGHT, 33));
-    calendarTopPercentBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.TOP, 33));
-    calendarBottomPercentBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.BOTTOM, 33));
-
-    calendarGrid.getChildren().forEach(node -> {
-          GridPane.setMargin(node, new Insets(10));
-        });
+    setAlignment(Pos.CENTER);
 
     getChildren().addAll(userBox, calendarGrid, drawerGrid);
 
     setPadding(new Insets(20));
+  }
+
+  private void setupEventHandlers() {
+    calendarLeftPercentBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.LEFT, 33));
+    calendarRightPercentBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.RIGHT, 33));
+    calendarTopPercentBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.TOP, 33));
+    calendarBottomPercentBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.BOTTOM, 33));
+    hideBtn.setOnAction(event -> workbench.hideDrawer());
   }
 
 }
