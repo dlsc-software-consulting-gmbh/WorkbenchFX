@@ -1,7 +1,5 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -37,6 +35,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
   private VBox drawerBox;
   private BorderPane header;
   private PrettyScrollPane scrollPane;
+  private StackPane backIconShape;
   private Button backBtn;
   private ImageView companyLogo;
   private ReadOnlyDoubleProperty workbenchWidth;
@@ -87,10 +86,10 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
     scrollPane = new PrettyScrollPane(menuContainer);
 
-    FontAwesomeIconView backIconView = new FontAwesomeIconView(FontAwesomeIcon.ARROW_LEFT);
-    backIconView.setId("back-icon-view");
-    backIconView.getStyleClass().add("icon-view");
-    backBtn = new Button("", backIconView);
+    backIconShape = new StackPane();
+    backIconShape.getStyleClass().add("shape");
+    backBtn = new Button("", backIconShape);
+    backBtn.getStyleClass().add("icon");
     backBtn.setId("back-button");
 
     companyLogo = new ImageView();

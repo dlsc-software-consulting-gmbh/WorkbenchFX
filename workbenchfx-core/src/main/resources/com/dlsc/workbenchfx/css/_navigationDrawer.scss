@@ -25,32 +25,20 @@
       -fx-background-color: -surface-color; // Needed to gain the drop-shadow below
       -fx-effect: -shadow;
       -fx-min-height: $pref-size * 2;
-      -fx-padding: .35em;
 
       .separator .line {
         -fx-border-color: -on-surface-color;
         -fx-border-width: 1;
       }
 
-      & .button {
-        //back-button
-        -fx-pref-width: $pref-size*.75;
-        -fx-pref-height: $pref-size*.75;
-        -fx-background-color: transparent;
-        -fx-background-radius: $radius*.6;
-        -fx-border-width: 0;
-        -fx-background-insets: 0; //needed to remove the focused border on bottom
+      @extend %icon-base;
+      & #back-button {
+        -fx-background-insets: .35em;
+        & .shape {
+          -fx-background-color: -on-surface-color;
+          @extend %arrow-back-icon;
+        }
 
-        & .glyph-icon {
-          -fx-font-size: 1.25em;
-          -fx-fill: -on-surface-color;
-        }
-        & .logo {
-          //image-view
-        }
-        &:hover {
-          -fx-cursor: hand;
-        }
         &:pressed {
           -fx-background-color: rgba(0, 0, 0, .075);
         }

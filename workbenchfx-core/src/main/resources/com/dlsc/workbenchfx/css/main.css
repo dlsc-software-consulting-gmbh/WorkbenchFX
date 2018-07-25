@@ -107,7 +107,7 @@
   #toolbar .button:pressed {
     -fx-background-color: -primary-variant-color; }
 
-#toolbar .icon {
+#toolbar .icon, .navigation-drawer .drawer-box .header .icon {
   -fx-background-color: transparent;
   -icon-size: 40px;
   -fx-max-width: -icon-size;
@@ -116,7 +116,7 @@
   -fx-min-height: -icon-size;
   -fx-pref-width: -icon-size;
   -fx-pref-height: -icon-size; }
-  #toolbar .icon .shape {
+  #toolbar .icon .shape, .navigation-drawer .drawer-box .header .icon .shape {
     -shape-width: 16px;
     -shape-height: 16px;
     -fx-max-width: -shape-width;
@@ -130,6 +130,11 @@
   -fx-shape: "M 19 13 L 13 13 L 13 19 L 11 19 L 11 13 L 5 13 L 5 11 L 11 11 L 11 5 L 13 5 L 13 11 L 19 11 L 19 13 Z";
   -shape-width: 11.667px;
   -shape-height: 11.667px; }
+
+.navigation-drawer .drawer-box .header #back-button .shape {
+  -fx-shape: "M 20 11 L 7.83 11 L 13.42 5.41 L 12 4 L 4 12 L 12 20 L 13.41 18.59 L 7.83 13 L 20 13 L 20 11 Z";
+  -shape-width: 13.333px;
+  -shape-height: 13.333px; }
 
 #toolbar #top-box #menu-button .shape {
   -fx-shape: "M 3 18 L 21 18 L 21 16 L 3 16 L 3 18 Z M 3 13 L 21 13 L 21 11 L 3 11 L 3 13 Z M 3 6 L 3 8 L 21 8 L 21 6 L 3 6 Z";
@@ -235,24 +240,15 @@
   .navigation-drawer .drawer-box .header {
     -fx-background-color: -surface-color;
     -fx-effect: -shadow;
-    -fx-min-height: 5.714em;
-    -fx-padding: .35em; }
+    -fx-min-height: 5.714em; }
     .navigation-drawer .drawer-box .header .separator .line {
       -fx-border-color: -on-surface-color;
       -fx-border-width: 1; }
-    .navigation-drawer .drawer-box .header .button {
-      -fx-pref-width: 2.14275em;
-      -fx-pref-height: 2.14275em;
-      -fx-background-color: transparent;
-      -fx-background-radius: 0.2142em;
-      -fx-border-width: 0;
-      -fx-background-insets: 0; }
-      .navigation-drawer .drawer-box .header .button .glyph-icon {
-        -fx-font-size: 1.25em;
-        -fx-fill: -on-surface-color; }
-      .navigation-drawer .drawer-box .header .button:hover {
-        -fx-cursor: hand; }
-      .navigation-drawer .drawer-box .header .button:pressed {
+    .navigation-drawer .drawer-box .header #back-button {
+      -fx-background-insets: .35em; }
+      .navigation-drawer .drawer-box .header #back-button .shape {
+        -fx-background-color: -on-surface-color; }
+      .navigation-drawer .drawer-box .header #back-button:pressed {
         -fx-background-color: rgba(0, 0, 0, 0.075); }
   .navigation-drawer .drawer-box .pretty-scroll-pane {
     -fx-background-color: transparent; }
