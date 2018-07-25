@@ -92,6 +92,8 @@ private final ObservableSet<Node> toolbarControlsRight =
   private final ObservableSet<Node> nonBlockingOverlaysShown = FXCollections.observableSet();
   private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet();
 
+  private final ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>();
+
   // Modules
   /**
    * List of all modules.
@@ -398,6 +400,17 @@ private final ObservableSet<Node> toolbarControlsRight =
         activeModuleView.setValue(newModule.activate());
       }
     });
+
+    // handle drawer changes
+    drawerShown.addListener((observable, oldDrawer, newDrawer) -> {
+      if (!Objects.isNull(oldDrawer)) {
+        hideOverlay(oldDrawer);
+      }
+      if (!Objects.isNull(newDrawer)) {
+        showOverlay(newDrawer, false);
+      }
+    });
+
   }
 
   private void setupCleanup() {
@@ -996,6 +1009,18 @@ private final ObservableSet<Node> toolbarControlsRight =
 
   public ReadOnlyIntegerProperty amountOfPagesProperty() {
     return amountOfPages;
+  }
+
+  public Region getDrawerShown() {
+    return drawerShown.get();
+  }
+
+  public ReadOnlyObjectProperty<Region> drawerShownProperty() {
+    return drawerShown;
+  }
+
+  private void setDrawerShown(Region drawerShown) {
+    this.drawerShown.set(drawerShown);
   }
 
   @Override
