@@ -175,7 +175,7 @@ public class Workbench extends Control {
 
     MenuItem[] navigationDrawerItems;
 
-    ButtonType defaultDialogButtonType;
+    ButtonType defaultDialogButtonType = DEFAULT_DIALOG_BUTTON_TYPE;
 
     private WorkbenchBuilder(WorkbenchModule... modules) {
       this.modules = modules;
