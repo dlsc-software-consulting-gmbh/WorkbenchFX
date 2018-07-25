@@ -1466,8 +1466,8 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane - " +
-      "custom cancel ButtonType was defined")
+  @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane - "
+      + "custom cancel ButtonType was defined")
   void showDialogNonBlockingCloseGlassPaneCustom() {
     ButtonType defaultCancelButtonType = ButtonType.FINISH;
     workbench.setDefaultDialogButtonType(defaultCancelButtonType);

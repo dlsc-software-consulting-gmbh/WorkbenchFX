@@ -282,8 +282,8 @@ public class Workbench extends Control {
     }
 
     /**
-     * Defines the default {@link ButtonType} that is set as result of a {@link WorkbenchDialog} when
-     * the {@link GlassPane} on the outside of a non-blocking dialog has been pressed.
+     * Defines the default {@link ButtonType} that is set as result of a {@link WorkbenchDialog}
+     * when the {@link GlassPane} on the outside of a non-blocking dialog has been pressed.
      *
      * @param defaultDialog {@link ButtonType} that should be set as result of a dialog
      *                                that was closed by clicking on its {@link GlassPane}
