@@ -92,15 +92,15 @@ public class DrawerTestModule extends WorkbenchModule {
     bottomPercentBtn.setOnAction(event -> getWorkbench().showDrawer(new MapDrawer(), Side.BOTTOM, 33));
 
     // Calendar
-    calendarLeftBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.LEFT));
-    calendarRightBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.RIGHT));
-    calendarTopBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.TOP));
-    calendarBottomBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.BOTTOM));
+    calendarLeftBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(getWorkbench()), Side.LEFT));
+    calendarRightBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(getWorkbench()), Side.RIGHT));
+    calendarTopBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(getWorkbench()), Side.TOP));
+    calendarBottomBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(getWorkbench()), Side.BOTTOM));
 
-    calendarLeftPercentBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.LEFT, 33));
-    calendarRightPercentBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.RIGHT, 33));
-    calendarTopPercentBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.TOP, 33));
-    calendarBottomPercentBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(), Side.BOTTOM, 33));
+    calendarLeftPercentBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(getWorkbench()), Side.LEFT, 33));
+    calendarRightPercentBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(getWorkbench()), Side.RIGHT, 33));
+    calendarTopPercentBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(getWorkbench()), Side.TOP, 33));
+    calendarBottomPercentBtn.setOnAction(event -> getWorkbench().showDrawer(new CalendarDrawer(getWorkbench()), Side.BOTTOM, 33));
   }
 
   @Override

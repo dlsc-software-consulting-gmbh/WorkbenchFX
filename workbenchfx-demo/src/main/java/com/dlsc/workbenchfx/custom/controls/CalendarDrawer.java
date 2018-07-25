@@ -1,9 +1,12 @@
 package com.dlsc.workbenchfx.custom.controls;
 
+import com.dlsc.workbenchfx.Workbench;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -31,7 +34,14 @@ public class CalendarDrawer extends VBox {
   Rectangle friendsRect = new Rectangle(RECT_SIZE, RECT_SIZE, Color.GREEN);
   Label friendsLbl = new Label("Friends");
 
-  public CalendarDrawer() {
+  GridPane drawerGrid = new GridPane();
+  private final Button calendarLeftPercentBtn = new Button("Left Drawer, 33%");
+  private final Button calendarRightPercentBtn = new Button("Right Drawer, 33%");
+  private final Button calendarTopPercentBtn = new Button("Top Drawer, 33%");
+  private final Button calendarBottomPercentBtn = new Button("Bottom Drawer, 33%");
+
+
+  public CalendarDrawer(Workbench workbench) {
     setAlignment(Pos.CENTER);
 
     userIcon = new FontAwesomeIconView(FontAwesomeIcon.USER_CIRCLE);
@@ -50,12 +60,21 @@ public class CalendarDrawer extends VBox {
     calendarGrid.add(friendsRect, 0, 3);
     calendarGrid.add(friendsLbl,  1, 3);
 
+    drawerGrid.add(calendarTopPercentBtn, 2, 5);
+    drawerGrid.add(calendarRightPercentBtn, 3, 6);
+    drawerGrid.add(calendarBottomPercentBtn, 2, 7);
+    drawerGrid.add(calendarLeftPercentBtn, 1, 6);
+
+    calendarLeftPercentBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.LEFT, 33));
+    calendarRightPercentBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.RIGHT, 33));
+    calendarTopPercentBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.TOP, 33));
+    calendarBottomPercentBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.BOTTOM, 33));
 
     calendarGrid.getChildren().forEach(node -> {
           GridPane.setMargin(node, new Insets(10));
         });
 
-    getChildren().addAll(userBox, calendarGrid);
+    getChildren().addAll(userBox, calendarGrid, drawerGrid);
 
     setPadding(new Insets(20));
   }
