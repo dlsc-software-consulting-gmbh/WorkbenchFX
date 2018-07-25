@@ -1,4 +1,5 @@
 #workbench #toolbar #bottom-box .selection-strip .icon {
+  -fx-alignment: CENTER;
   -fx-background-color: transparent;
   -icon-size: 40px;
   -fx-max-width: -icon-size;

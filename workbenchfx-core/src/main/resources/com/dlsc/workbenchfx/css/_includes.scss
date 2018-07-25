@@ -118,7 +118,7 @@
         -fx-pref-width: -shape-width;
         -fx-pref-height: -shape-height;
 
-        -fx-background-color: -on-primary-color;;
+        -fx-background-color: -on-primary-color;
       }
     }
 
@@ -168,6 +168,7 @@
 // Base format of an icon: two StackPanes into each other.
 %icon-base {
   & .icon {
+    -fx-alignment: CENTER;
     -fx-background-color: transparent;
     // tablet
     //-icon-size: 48px;
