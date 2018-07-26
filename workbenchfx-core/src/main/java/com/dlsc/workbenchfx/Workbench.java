@@ -878,9 +878,9 @@ private final ObservableSet<Node> toolbarControlsRight =
    *
    * @param drawer to be shown
    * @param side of the workbench, on which the {@code drawer} should be positioned
-   * @implNote Allows the implementor to specify the size of the drawer. However, it will take up a
-   *           maximum of 90% of the screen, to allow the user to still close the drawer by closing
-   *           it using the {@link GlassPane}.
+   * @implNote Sizes the drawer according to the computed size of {@code drawer}.
+   *           However, it will take up a maximum of 90% of the screen, to allow the user to still
+   *           close the drawer by clicking on the {@link GlassPane}.
    */
   public void showDrawer(Region drawer, Side side) {
     showDrawer(drawer, side, -1);
