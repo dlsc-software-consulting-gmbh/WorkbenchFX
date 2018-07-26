@@ -86,8 +86,12 @@ public abstract class WorkbenchModule {
    * Gets called when this module is explicitly being closed by the user in the toolbar.
    *
    * @return true if successful
-   * @implNote Assuming Module 1 and Module 2, with both being already initialized and Module 2
-   *           being the currently active and displayed module.
+   * @implNote <b>Lifecycle:</b> When {@link Workbench#closeModule(WorkbenchModule)} is being called
+   *           on an active module, {@link #deactivate()} will be called before {@link #destroy()}
+   *           is called. In case of an inactive module, only {@link #destroy()} will be called.
+   *           <p>
+   *           <b>Return behavior:</b> Assuming Module 1 and Module 2, with both being already
+   *           initialized and Module 2 being the currently active and displayed module.
    *           When calling destroy() on Module 1: If true is returned, Module 2 will be removed
    *           and Module 1 will be set as the active module. If false is returned, Module 2 will
    *           not be removed and Module 1 will be set as the new active module, to enable the
