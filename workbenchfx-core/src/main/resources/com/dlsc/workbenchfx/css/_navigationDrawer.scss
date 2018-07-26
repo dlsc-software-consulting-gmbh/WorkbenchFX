@@ -3,11 +3,11 @@
 
   & .separator:horizontal .line {
     -fx-border-color: rgba(0, 0, 0, .2) transparent transparent transparent;
-    -fx-border-insets: 1 0 0 0;
+    -fx-border-insets: 1px 0 0 0;
   }
 
   & > .scroll-arrow {
-    -fx-padding: px(7);
+    -fx-padding: .5em;
     -fx-background-color: transparent;
     &:hover {
       -fx-background: -fx-selection-bar;
@@ -28,7 +28,7 @@
 
       .separator .line {
         -fx-border-color: -on-surface-color;
-        -fx-border-width: 1;
+        -fx-border-width: 1px;
       }
 
       @extend %icon-base;
@@ -52,16 +52,16 @@
         -fx-background-color: transparent;
 
         & .menu-container {
-          -fx-padding: px(21) px(14) px(21) px(14);
+          -fx-padding: 1.5em 1em 1.5em 1em;
 
           & .menu-item {
             // styles for all items
-            -fx-graphic-text-gap: px(7);
+            -fx-graphic-text-gap: .5em;
 
             -fx-pref-height: px(40);
             -fx-border-width: 0;
             -fx-background-radius: px(5);
-            -fx-padding: 0 px(14) 0 px(14);
+            -fx-padding: 0 1em 0 1em;
 
             &:focused {
               -fx-background-color: transparent;
@@ -99,14 +99,14 @@
             }
 
             & .arrow-button {
-              -fx-padding: 0 0 0 px(21);
+              -fx-padding: 0 0 0 1.5em;
               -fx-background-insets: 0;
 
               & .arrow {
                 @extend %arrow-right-icon;
 
-                -shape-width: 4.167px*.8; // Shrink arrow down
-                -shape-height: 8.333px*.8; // Shrink arrow down
+                -shape-width: px(3.333); // Shrink arrow down
+                -shape-height: px(6.667); // Shrink arrow down
                 -fx-max-width: -shape-width;
                 -fx-max-height: -shape-height;
                 -fx-min-width: -shape-width;
@@ -146,8 +146,8 @@
 }
 
 .scroll-bar {
-  $size: 12;
-  $scroll-pane-padding: 2;
+  $size: px(12);
+  $scroll-pane-padding: px(2);
 
   %zero-size {
     -fx-pref-width: 0 !important;
@@ -161,7 +161,7 @@
 
   .thumb {
     -fx-background-color: rgba(0, 0, 0, .075);
-    -fx-background-radius: 999;
+    -fx-background-radius: px(999);
     -fx-pref-width: $size;
     -fx-pref-height: $size;
   }

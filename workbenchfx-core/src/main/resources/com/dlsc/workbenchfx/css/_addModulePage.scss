@@ -4,16 +4,17 @@
       & .pagination {
         & .page {
           & .tile-page {
-            -fx-vgap: px(42);
-            -fx-hgap: px(42);
-            -fx-padding: px(21);
+            -fx-vgap: 3em;
+            -fx-hgap: 3em;
+            -fx-padding: 1.5em;
             -fx-alignment: CENTER;
 
             & .tile-control {
-              -fx-padding: px(21);
-              $tile-width: 168;
-              -fx-pref-width: px($tile-width);
-              -fx-pref-height: px($tile-width / 1.778);
+              -fx-padding: 1.5em;
+
+              $tile-width: 12em;
+              -fx-pref-width: $tile-width;
+              -fx-pref-height: $tile-width / 1.778;
 
               -fx-background-color: -surface-color;
               -fx-effect: -drop-shadow-1;
@@ -24,14 +25,12 @@
 
               -fx-background-insets: 0; //needed to remove the focused border on bottom
 
-              & .glyph-icon {
-                // icon
+              & .icon .glyph-icon {
                 -fx-fill: -on-surface-color;
               }
 
-              & .label {
-                // text-label
-                -fx-padding: px(7) 0 0 0;
+              & .text-label {
+                -fx-padding: .5em 0 0 0;
                 & .text {
                   -fx-fill: -on-surface-color;
                 }
@@ -57,11 +56,11 @@
         -fx-tooltip-visible: false;
 
         & > .pagination-control > .control-box {
-          -fx-spacing: px(7);
+          -fx-spacing: .5em;
 
           & > .bullet-button {
             -fx-background-radius: 50%;
-            -fx-background-insets: px(7);
+            -fx-background-insets: .5em;
             -fx-background-color: rgba(0, 0, 0, .1);
             &:hover {
               -fx-cursor: hand;

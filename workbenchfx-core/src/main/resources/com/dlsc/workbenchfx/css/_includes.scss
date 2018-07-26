@@ -1,5 +1,5 @@
 @function px($px) {
-  @return 1em / 14 * $px;
+  @return 1em / 14 * $px; // 14 is defined by the default material-style font-size
 }
 
 %context-menu {
@@ -7,18 +7,18 @@
     -fx-background-color: -surface-color;
     -fx-background-radius: px(5);
     -fx-effect: -drop-shadow-3;
-    -fx-padding: px(7) 0 px(7) 0;
+    -fx-padding: .5em 0 .5em 0;
 
     & .menu-item {
       -fx-background-radius: 0;
-      -fx-padding: px(10.5) px(17.5) px(10.5) px(17.5);
+      -fx-padding: .75em 1.25em .75em 1.25em;
 
       & .glyph-icon {
         -fx-fill: -on-surface-color;
       }
 
       & .label {
-        -fx-padding: 0 px(28) 0 px(3.5); // TODO: Find better solution
+        -fx-padding: 0 2em 0 .25em;
 
         & .text {
           -fx-fill: -on-surface-color;
@@ -44,7 +44,7 @@
 
     & > .scroll-arrow {
       // ArrowMenuItem when having a lot of items
-      -fx-padding: px(14);
+      -fx-padding: 1em;
 
       &:hover {
         -fx-background-color: rgba(0, 0, 0, .075);
@@ -77,8 +77,8 @@
 
     & .dropdown {
       -fx-background-insets: 0; // Remove the border from bottom
-      -fx-padding: 0 px(14) 0 px(3.5);
-      -fx-graphic-text-gap: px(7);
+      -fx-padding: 0 1em 0 .25em;
+      -fx-graphic-text-gap: .5em;
       -fx-pref-height: px(34);
       -fx-background-color: -primary-color;
       -fx-background-radius: px(2);
@@ -136,8 +136,8 @@
 %button-base {
   & .button {
     -fx-background-insets: 0; // Remove the border from bottom
-    -fx-padding: 0 px(10.5) 0 px(10.5);
-    -fx-graphic-text-gap: px(7);
+    -fx-padding: 0 .75em 0 .75em;
+    -fx-graphic-text-gap: .5em;
     -fx-pref-height: px(34);
     -fx-background-color: -primary-color;
     -fx-background-radius: px(2);

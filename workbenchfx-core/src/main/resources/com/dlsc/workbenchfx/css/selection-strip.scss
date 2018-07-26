@@ -5,10 +5,9 @@
 
   -fx-background-color: -primary-color;
 
-  $tab-width: px(240);
   & .strip-cell {
     -fx-padding: 0;
-    -fx-max-width: $tab-width;
+    -fx-max-width: 17em;
 
     &:hover {
       -fx-cursor: hand;
@@ -24,15 +23,15 @@
       -fx-border-width: 0 1px 0 1px;
       -fx-border-color: transparent -on-primary-color transparent transparent;
 
-      -fx-padding: 0 px(7) 0 px(14);
+      -fx-padding: 0 .5em 0 1em;
 
       & .tab-icon {
         -fx-fill: -on-primary-color;
       }
 
       & .tab-name-lbl {
-        -fx-max-width: ($tab-width - 5);
-        -fx-padding: 0 px(7) 0 px(7);
+        -fx-max-width: 16.5em; // A little shorter than the max-width of the .strip-cell
+        -fx-padding: 0 .5em 0 .5em;
         & .text {
           -fx-fill: -on-primary-color;
         }
@@ -62,7 +61,7 @@
       -fx-background-radius: px(5) px(5) 0 0;
       -fx-border-radius: px(5) px(5) 0 0;
       -fx-cursor: inherit;
-      -fx-background-insets: 0 0 0 px(-1); // Needed to remove the border of the tab
+      -fx-background-insets: 0 0 0 -1px; // Needed to remove the border of the tab
 
       & .tab-control {
         -fx-border-color: transparent;

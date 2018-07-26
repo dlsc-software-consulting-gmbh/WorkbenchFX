@@ -54,8 +54,8 @@
   -fx-max-height: 2.4285714286em; }
   #toolbar #top-box .toolbar-menu-button .dropdown {
     -fx-background-insets: 0;
-    -fx-padding: 0 1em 0 0.25em;
-    -fx-graphic-text-gap: 0.5em;
+    -fx-padding: 0 1em 0 .25em;
+    -fx-graphic-text-gap: .5em;
     -fx-pref-height: 2.4285714286em;
     -fx-background-color: -primary-color;
     -fx-background-radius: 0.1428571429em;
@@ -88,8 +88,8 @@
 
 #toolbar .button {
   -fx-background-insets: 0;
-  -fx-padding: 0 0.75em 0 0.75em;
-  -fx-graphic-text-gap: 0.5em;
+  -fx-padding: 0 .75em 0 .75em;
+  -fx-graphic-text-gap: .5em;
   -fx-pref-height: 2.4285714286em;
   -fx-background-color: -primary-color;
   -fx-background-radius: 0.1428571429em;
@@ -164,11 +164,11 @@
       -fx-border-radius: 0.3571428571em;
       -fx-background-radius: 0.3571428571em;
       -fx-background-insets: 0; }
-      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .glyph-icon {
+      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .icon .glyph-icon {
         -fx-fill: -on-surface-color; }
-      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .label {
-        -fx-padding: 0.5em 0 0 0; }
-        #content-view #home #tile-pane .pagination .page .tile-page .tile-control .label .text {
+      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .text-label {
+        -fx-padding: .5em 0 0 0; }
+        #content-view #home #tile-pane .pagination .page .tile-page .tile-control .text-label .text {
           -fx-fill: -on-surface-color; }
       #content-view #home #tile-pane .pagination .page .tile-page .tile-control:hover {
         -fx-effect: -drop-shadow-2;
@@ -176,10 +176,10 @@
       #content-view #home #tile-pane .pagination .page .tile-page .tile-control:pressed {
         -fx-effect: -drop-shadow-3; }
   #content-view #home #tile-pane .pagination > .pagination-control > .control-box {
-    -fx-spacing: 0.5em; }
+    -fx-spacing: .5em; }
     #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button {
       -fx-background-radius: 50%;
-      -fx-background-insets: 0.5em;
+      -fx-background-insets: .5em;
       -fx-background-color: rgba(0, 0, 0, 0.1); }
       #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:hover {
         -fx-cursor: hand;
@@ -225,7 +225,7 @@
       -fx-background-color: -background-color;
       -fx-background-radius: 0.3571428571em 0.3571428571em 0 0;
       -fx-border-radius: 0.3571428571em 0.3571428571em 0 0;
-      -fx-background-insets: 0 -0.0714285714em 0 -0.0714285714em; }
+      -fx-background-insets: 0 -1px 0 -1px; }
       #toolbar #bottom-box .active-add-button .shape {
         -fx-background-color: -on-background-color !important; }
       #toolbar #bottom-box .active-add-button:hover {
@@ -239,9 +239,9 @@
   -fx-background-color: -surface-color; }
   .navigation-drawer .separator:horizontal .line {
     -fx-border-color: rgba(0, 0, 0, 0.2) transparent transparent transparent;
-    -fx-border-insets: 1 0 0 0; }
+    -fx-border-insets: 1px 0 0 0; }
   .navigation-drawer > .scroll-arrow {
-    -fx-padding: 0.5em;
+    -fx-padding: .5em;
     -fx-background-color: transparent; }
     .navigation-drawer > .scroll-arrow:hover {
       -fx-background: -fx-selection-bar;
@@ -255,7 +255,7 @@
     -fx-min-height: 5.7142857143em; }
     .navigation-drawer .drawer-box .header .separator .line {
       -fx-border-color: -on-surface-color;
-      -fx-border-width: 1; }
+      -fx-border-width: 1px; }
     .navigation-drawer .drawer-box .header #back-button {
       -fx-background-insets: 0.2142857143em; }
       .navigation-drawer .drawer-box .header #back-button .shape {
@@ -269,7 +269,7 @@
       .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container {
         -fx-padding: 1.5em 1em 1.5em 1em; }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item {
-          -fx-graphic-text-gap: 0.5em;
+          -fx-graphic-text-gap: .5em;
           -fx-pref-height: 2.8571428571em;
           -fx-border-width: 0;
           -fx-background-radius: 0.3571428571em;
@@ -292,8 +292,8 @@
           -fx-padding: 0 0 0 1.5em;
           -fx-background-insets: 0; }
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
-            -shape-width: 3.3336px;
-            -shape-height: 6.6664px;
+            -shape-width: 0.2380714286em;
+            -shape-height: 0.4762142857em;
             -fx-max-width: -shape-width;
             -fx-max-height: -shape-height;
             -fx-min-width: -shape-width;
@@ -312,9 +312,9 @@
             -fx-background-color: -on-primary-color; }
 
 .scroll-bar {
-  -fx-pref-width: 12;
-  -fx-pref-height: 12;
-  -fx-padding: 2;
+  -fx-pref-width: 0.8571428571em;
+  -fx-pref-height: 0.8571428571em;
+  -fx-padding: 0.1428571429em;
   -fx-background-color: transparent; }
   .scroll-bar .increment-button,
   .scroll-bar .increment-arrow,
@@ -324,13 +324,13 @@
     -fx-pref-height: 0 !important; }
   .scroll-bar .thumb {
     -fx-background-color: rgba(0, 0, 0, 0.075);
-    -fx-background-radius: 999;
-    -fx-pref-width: 12;
-    -fx-pref-height: 12; }
+    -fx-background-radius: 71.3571428571em;
+    -fx-pref-width: 0.8571428571em;
+    -fx-pref-height: 0.8571428571em; }
   .scroll-bar:vertical .thumb {
-    -fx-background-insets: 0 2 0 0; }
+    -fx-background-insets: 0 0.1428571429em 0 0; }
   .scroll-bar:horizontal .thumb {
-    -fx-background-insets: 0 0 2 0; }
+    -fx-background-insets: 0 0 0.1428571429em 0; }
 
 .dialog-pane {
   -fx-background-color: -surface-color;

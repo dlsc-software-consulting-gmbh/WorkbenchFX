@@ -36,7 +36,7 @@
   -fx-background-color: -primary-color; }
   #workbench #toolbar #bottom-box .selection-strip .strip-cell {
     -fx-padding: 0;
-    -fx-max-width: 17.1428571429em; }
+    -fx-max-width: 17em; }
     #workbench #toolbar #bottom-box .selection-strip .strip-cell:hover {
       -fx-cursor: hand; }
     #workbench #toolbar #bottom-box .selection-strip .strip-cell:pressed {
@@ -46,12 +46,12 @@
       -fx-alignment: CENTER;
       -fx-border-width: 0 1px 0 1px;
       -fx-border-color: transparent -on-primary-color transparent transparent;
-      -fx-padding: 0 0.5em 0 1em; }
+      -fx-padding: 0 .5em 0 1em; }
       #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-icon {
         -fx-fill: -on-primary-color; }
       #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl {
-        -fx-max-width: 12.1428571429em;
-        -fx-padding: 0 0.5em 0 0.5em; }
+        -fx-max-width: 16.5em;
+        -fx-padding: 0 .5em 0 .5em; }
         #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl .text {
           -fx-fill: -on-primary-color; }
       #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon {
@@ -69,7 +69,7 @@
       -fx-background-radius: 0.3571428571em 0.3571428571em 0 0;
       -fx-border-radius: 0.3571428571em 0.3571428571em 0 0;
       -fx-cursor: inherit;
-      -fx-background-insets: 0 0 0 -0.0714285714em; }
+      -fx-background-insets: 0 0 0 -1px; }
       #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control {
         -fx-border-color: transparent; }
         #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-icon, #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-name-lbl .text {

@@ -67,7 +67,7 @@
       -fx-background-color: -background-color;
       -fx-background-radius: px(5) px(5) 0 0;
       -fx-border-radius: px(5) px(5) 0 0;
-      -fx-background-insets: 0 px(-1) 0 px(-1);
+      -fx-background-insets: 0 -1px 0 -1px; // To remove the nearby tab's white border
 
       & .shape {
         -fx-background-color: -on-background-color !important;

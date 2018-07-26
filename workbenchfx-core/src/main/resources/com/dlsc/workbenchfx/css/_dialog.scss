@@ -7,7 +7,7 @@
     -fx-background-color: transparent;
     -fx-text-fill: -primary-color;
     -fx-padding: px(10) px(15);
-    -font-size: px(17.5);
+    -font-size: 1.25em;
     -fx-font-weight: 700;
     -fx-cursor: hand;
   }
@@ -21,7 +21,7 @@
 
 .dialog-title {
   -fx-padding: px(30) px(30) 0 px(30);
-  -fx-font-size: px(21);
+  -fx-font-size: 1.5em;
   -fx-font-weight: 700;
   -fx-text-fill: -on-surface-color;
 }
@@ -30,7 +30,7 @@
   -fx-padding: px(20) px(30) px(20) px(30);
 
   .label {
-    -fx-font-size: px(16.8);
+    -fx-font-size: 1.2em;
     -fx-font-weight: 600;
     -fx-text-fill: -on-surface-color;
     -fx-opacity: .54;
