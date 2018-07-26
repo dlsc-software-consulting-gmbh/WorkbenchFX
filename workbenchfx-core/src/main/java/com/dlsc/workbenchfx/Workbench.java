@@ -78,7 +78,7 @@ public class Workbench extends Control {
       new SimpleObjectProperty<>(DEFAULT_NAVIGATION_DRAWER);
 
   // Lists
-private final ObservableSet<Node> toolbarControlsRight =
+  private final ObservableSet<Node> toolbarControlsRight =
       FXCollections.observableSet(new LinkedHashSet<>());
   private final ObservableSet<Node> toolbarControlsLeft =
       FXCollections.observableSet(new LinkedHashSet<>());
@@ -138,10 +138,9 @@ private final ObservableSet<Node> toolbarControlsRight =
   /**
    * Will close the module without calling {@link WorkbenchModule#destroy()} if the corresponding
    * {@link CompletableFuture} is completed. If the stage was closed and {@code false} was returned
-   * on {@link WorkbenchModule#destroy()}, it will also
-   * trigger {@link Stage#setOnCloseRequest(EventHandler)}.
-   * Is <b>always</b> completed with {@code true}. This way, there is no need to differentiate
-   * whether it was completed with {@code true} or {@code false}.
+   * on {@link WorkbenchModule#destroy()}, it will also trigger {@link
+   * Stage#setOnCloseRequest(EventHandler)}. Is <b>always</b> completed with {@code true}. This way,
+   * there is no need to differentiate whether it was completed with {@code true} or {@code false}.
    */
   private final Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap =
       new HashMap<>();
@@ -552,8 +551,8 @@ private final ObservableSet<Node> toolbarControlsRight =
    * Calculates the amount of pages of modules (rendered as tiles).
    *
    * @return amount of pages
-   * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}. This
-   *           is repeated until all modules are rendered as tiles.
+   * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}.
+   *           This is repeated until all modules are rendered as tiles.
    */
   private int calculateAmountOfPages() {
     int amountOfModules = getModules().size();
@@ -679,8 +678,8 @@ private final ObservableSet<Node> toolbarControlsRight =
   /**
    * Shows an error dialog in the view with a stacktrace of the {@code exception}.
    *
-   * @param title of the dialog
-   * @param message of the dialog
+   * @param title     of the dialog
+   * @param message   of the dialog
    * @param exception of which the stacktrace should be shown
    * @param onResult  the action to perform when a button of the dialog was pressed, providing the
    *                  {@link ButtonType} that was pressed
@@ -816,11 +815,11 @@ private final ObservableSet<Node> toolbarControlsRight =
    * using {@link Workbench#showOverlay(Node, boolean)}.
    *
    * @param overlay to be hidden
-   * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
-   *           remove it from the scene graph entirely.
-   *           If keeping the {@code overlay} loaded hidden in the scene graph is not possible due
-   *           to performance reasons, call {@link Workbench#clearOverlays()} after this method.
    * @return true if the overlay was showing and is now hidden
+   * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
+   *           remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden
+   *           in the scene graph is not possible due to performance reasons, call {@link
+   *           Workbench#clearOverlays()} after this method.
    */
   public boolean hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");
@@ -877,7 +876,7 @@ private final ObservableSet<Node> toolbarControlsRight =
    * Shows the {@code drawer} on the defined {@code side} in the {@link Workbench}.
    *
    * @param drawer to be shown
-   * @param side of the workbench, on which the {@code drawer} should be positioned
+   * @param side   of the workbench, on which the {@code drawer} should be positioned
    * @implNote Sizes the drawer according to the computed size of {@code drawer}.
    *           However, it will take up a maximum of 90% of the screen, to allow the user to still
    *           close the drawer by clicking on the {@link GlassPane}.
@@ -890,8 +889,8 @@ private final ObservableSet<Node> toolbarControlsRight =
    * Shows the {@code drawer} on the defined {@code side} in the {@link Workbench}, ensuring the
    * {@code drawer} doesn't cover more than the specified {@code percentage}.
    *
-   * @param drawer to be shown
-   * @param side of the workbench, on which the {@code drawer} should be positioned
+   * @param drawer     to be shown
+   * @param side       of the workbench, on which the {@code drawer} should be positioned
    * @param percentage value between 0 and 100, defining how much <b>maximum</b> coverage the drawer
    *                   should have or -1, to have the drawer size according to its computed size
    */
@@ -912,7 +911,8 @@ private final ObservableSet<Node> toolbarControlsRight =
         if (percentage == -1) {
           bindDrawerHeight(drawer);
         } else {
-          drawer.maxHeightProperty().bind(heightProperty().multiply((double)percentage/MAX_PERCENT));
+          drawer.maxHeightProperty().bind(
+              heightProperty().multiply((double) percentage / MAX_PERCENT));
         }
         break;
       case RIGHT:
@@ -921,7 +921,8 @@ private final ObservableSet<Node> toolbarControlsRight =
         if (percentage == -1) {
           bindDrawerWidth(drawer);
         } else {
-          drawer.maxWidthProperty().bind(widthProperty().multiply((double)percentage/MAX_PERCENT));
+          drawer.maxWidthProperty().bind(
+              widthProperty().multiply((double) percentage / MAX_PERCENT));
         }
         break;
       case BOTTOM:
@@ -930,7 +931,8 @@ private final ObservableSet<Node> toolbarControlsRight =
         if (percentage == -1) {
           bindDrawerHeight(drawer);
         } else {
-          drawer.maxHeightProperty().bind(heightProperty().multiply((double)percentage/MAX_PERCENT));
+          drawer.maxHeightProperty().bind(
+              heightProperty().multiply((double) percentage / MAX_PERCENT));
         }
         break;
       default: // LEFT
@@ -939,7 +941,8 @@ private final ObservableSet<Node> toolbarControlsRight =
         if (percentage == -1) {
           bindDrawerWidth(drawer);
         } else {
-          drawer.maxWidthProperty().bind(widthProperty().multiply((double)percentage/MAX_PERCENT));
+          drawer.maxWidthProperty().bind(
+              widthProperty().multiply((double) percentage / MAX_PERCENT));
         }
         break;
     }
