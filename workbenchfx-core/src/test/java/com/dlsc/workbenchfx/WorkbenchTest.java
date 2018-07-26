@@ -205,6 +205,22 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
+  void testDefaultCtor() {
+    robot.interact(() -> {
+      Workbench defaultBench = new Workbench();
+      defaultBench.getModules().addAll(first, second, last);
+      assertEquals(mockModules.length, workbench.getModules().size());
+      for (int i = 0; i < mockModules.length; i++) {
+        assertSame(mockModules[i], workbench.getModules().get(i));
+      }
+
+      assertEquals(0, workbench.getOpenModules().size());
+
+      assertNull(workbench.activeModuleViewProperty().get());
+    });
+  }
+
+  @Test
   void openModule() {
     robot.interact(() -> {
       // Open first
