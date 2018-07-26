@@ -89,7 +89,7 @@ public abstract class WorkbenchModule {
    * @implNote <b>Lifecycle:</b> When {@link Workbench#closeModule(WorkbenchModule)} is being called
    *           on an active module, {@link #deactivate()} will be called before {@link #destroy()}
    *           is called. In case of an inactive module, only {@link #destroy()} will be called.
-   *           <p>
+   *           <br>
    *           <b>Return behavior:</b> Assuming Module 1 and Module 2, with both being already
    *           initialized and Module 2 being the currently active and displayed module.
    *           When calling destroy() on Module 1: If true is returned, Module 2 will be removed
@@ -101,6 +101,21 @@ public abstract class WorkbenchModule {
    *           {@link #close()} (e.g. define pressing "Yes" on the dialog to call {@link #close()}).
    *           Then <b>return {@code false}</b>, which prevents this module from immediately getting
    *           closed and causes this {@link Module} to get opened, so the user can react.
+   *           <br>
+   *           Example:
+   *           <pre class="code"><code class="java">
+   *           getWorkbench().showDialog(WorkbenchDialog.builder("Confirmation", "Close Module?",
+   *                                     WorkbenchDialog.Type.CONFIRMATION)
+   *                         .blocking(true)
+   *                         .onResult(buttonType -> {
+   *                           if (ButtonType.YES.equals(buttonType)) {
+   *                             // yes was pressed
+   *                             close();
+   *                           }
+   *                         }).build()
+   *           );
+   *           return false;
+   *           </code></pre>
    */
   public boolean destroy() {
     return true;
