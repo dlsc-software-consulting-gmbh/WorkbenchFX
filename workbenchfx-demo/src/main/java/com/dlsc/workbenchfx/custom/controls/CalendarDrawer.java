@@ -43,6 +43,9 @@ public class CalendarDrawer extends VBox {
 
   public CalendarDrawer(Workbench workbench) {
     setAlignment(Pos.CENTER);
+    calendarGrid.setAlignment(Pos.CENTER);
+    drawerGrid.setAlignment(Pos.CENTER);
+    userBox.setAlignment(Pos.CENTER);
 
     userIcon = new FontAwesomeIconView(FontAwesomeIcon.USER_CIRCLE);
     userIcon.setStyle("-fx-fill: black");
