@@ -55,7 +55,7 @@ public class Tile extends Control {
       // Sets id with toString of module.
       // Adds 'tile-', replaces spaces with highfins and lowecases letters.
       // eg. Customer Management converts to tile-customer-management
-      setId(WorkbenchUtils.convertToId("tile-" + getName()));
+      setId(WorkbenchUtils.convertToId("tile-" + current.getName()));
     });
   }
 

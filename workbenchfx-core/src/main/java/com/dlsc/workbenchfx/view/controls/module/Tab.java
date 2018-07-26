@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -63,6 +64,11 @@ public class Tab extends Control {
       WorkbenchModule current = getModule();
       name.setValue(current.getName());
       icon.setValue(current.getIcon());
+
+      // Sets id with toString of module.
+      // Adds 'tab-', replaces spaces with highfins and lowecases letters.
+      // eg. Customer Management converts to tab-customer-management
+      setId(WorkbenchUtils.convertToId("tab-" + current.getName()));
     });
   }
 
