@@ -105,11 +105,13 @@ class TabTest extends ApplicationTest {
   void testModuleListener() {
     assertEquals("Module 0", tab.getName());
     assertEquals("Module Icon 0", ((Label) tab.getIcon()).getText());
+    assertEquals("tab-module-0", tab.getId());
 
     // change to module 1
     tab.setModule(mockModules[1]);
     assertEquals("Module 1", tab.getName());
     assertEquals("Module Icon 1", ((Label) tab.getIcon()).getText());
+    assertEquals("tab-module-1", tab.getId());
   }
 
   @Test
