@@ -62,7 +62,6 @@
             -fx-border-width: 0;
             -fx-background-radius: px(5);
             -fx-padding: 0 px(14) 0 px(14);
-            -fx-alignment: CENTER_LEFT !important;
 
             &:focused {
               -fx-background-color: transparent;
@@ -74,6 +73,8 @@
           }
 
           & .button {
+            -fx-alignment: CENTER_LEFT;
+
             // styles only for buttons
             & .glyph-icon {
               -fx-fill: -on-surface-color;

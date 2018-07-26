@@ -1,5 +1,4 @@
 #workbench #toolbar #bottom-box .selection-strip .icon {
-  -fx-alignment: CENTER;
   -fx-background-color: transparent;
   -icon-size: 2.8571428571em;
   -fx-max-width: -icon-size;
@@ -44,7 +43,7 @@
       -fx-background-color: -primary-color; }
     #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control {
       -fx-max-height: 0;
-      -fx-alignment: center;
+      -fx-alignment: CENTER;
       -fx-border-width: 0 1px 0 1px;
       -fx-border-color: transparent -on-primary-color transparent transparent;
       -fx-padding: 0 0.5em 0 1em; }

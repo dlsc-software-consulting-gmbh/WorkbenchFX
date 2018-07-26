@@ -115,8 +115,8 @@
           @extend %arrow-right-icon;
           -fx-rotate: 90;
 
-          -shape-width: 2.5px !important; // Shrink arrow down
-          -shape-height: 5px !important; // Shrink arrow down
+          -shape-width: px(2.5) !important; // Shrink arrow down
+          -shape-height: px(5) !important; // Shrink arrow down
           -fx-max-width: -shape-width;
           -fx-max-height: -shape-height;
           -fx-min-width: -shape-width;
@@ -146,7 +146,6 @@
 
 %button-base {
   & .button {
-    -fx-alignment: CENTER_LEFT;
     -fx-background-insets: 0; // Remove the border from bottom
     -fx-padding: 0 px(10.5) 0 px(10.5);
     -fx-graphic-text-gap: px(7);
@@ -175,7 +174,6 @@
 // Base format of an icon: two StackPanes into each other.
 %icon-base {
   & .icon {
-    -fx-alignment: CENTER;
     -fx-background-color: transparent;
     // tablet
     //-icon-size: 48px;

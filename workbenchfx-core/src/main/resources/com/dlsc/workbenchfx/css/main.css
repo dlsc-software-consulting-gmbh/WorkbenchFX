@@ -69,8 +69,8 @@
       -fx-background-insets: 0; }
       #toolbar #top-box .toolbar-menu-button .dropdown .arrow-button .arrow {
         -fx-rotate: 90;
-        -shape-width: 2.5px !important;
-        -shape-height: 5px !important;
+        -shape-width: 0.1785714286em !important;
+        -shape-height: 0.3571428571em !important;
         -fx-max-width: -shape-width;
         -fx-max-height: -shape-height;
         -fx-min-width: -shape-width;
@@ -87,7 +87,6 @@
         -fx-rotate: -90; }
 
 #toolbar .button {
-  -fx-alignment: CENTER_LEFT;
   -fx-background-insets: 0;
   -fx-padding: 0 0.75em 0 0.75em;
   -fx-graphic-text-gap: 0.5em;
@@ -105,7 +104,6 @@
     -fx-background-color: -primary-variant-color; }
 
 #toolbar .icon, .navigation-drawer .drawer-box .header .icon {
-  -fx-alignment: CENTER;
   -fx-background-color: transparent;
   -icon-size: 2.8571428571em;
   -fx-max-width: -icon-size;
@@ -155,7 +153,7 @@
     -fx-vgap: 3em;
     -fx-hgap: 3em;
     -fx-padding: 1.5em;
-    -fx-alignment: center center; }
+    -fx-alignment: CENTER; }
     #content-view #home #tile-pane .pagination .page .tile-page .tile-control {
       -fx-padding: 1.5em;
       -fx-pref-width: 12em;
@@ -196,15 +194,14 @@
   -fx-background-color: -primary-color; }
   #toolbar #top-box {
     -fx-padding: 0.2142857143em;
-    -fx-min-height: 0;
+    -fx-min-height: 2.8571428571em;
+    -fx-pref-height: 2.8571428571em;
     -fx-max-height: 2.8571428571em; }
     #toolbar #top-box #toolbar-control-left-box {
-      -fx-alignment: CENTER_LEFT;
       -fx-padding: 0 0.2142857143em 0 0.4285714286em;
       -fx-spacing: 0.2142857143em;
       -fx-max-height: 2.4285714286em; }
     #toolbar #top-box #toolbar-control-right-box {
-      -fx-alignment: CENTER_RIGHT;
       -fx-padding: 0 0 0 0.2142857143em;
       -fx-spacing: 0.2142857143em;
       -fx-max-height: 2.4285714286em; }
@@ -276,18 +273,19 @@
           -fx-pref-height: 2.8571428571em;
           -fx-border-width: 0;
           -fx-background-radius: 0.3571428571em;
-          -fx-padding: 0 1em 0 1em;
-          -fx-alignment: CENTER_LEFT !important; }
+          -fx-padding: 0 1em 0 1em; }
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:focused {
             -fx-background-color: transparent; }
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover {
             -fx-cursor: hand; }
-        .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button .glyph-icon {
-          -fx-fill: -on-surface-color; }
-        .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button .text {
-          -fx-fill: -on-surface-color; }
-        .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button:pressed {
-          -fx-background-color: rgba(0, 0, 0, 0.075); }
+        .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button {
+          -fx-alignment: CENTER_LEFT; }
+          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button .glyph-icon {
+            -fx-fill: -on-surface-color; }
+          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button .text {
+            -fx-fill: -on-surface-color; }
+          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button:pressed {
+            -fx-background-color: rgba(0, 0, 0, 0.075); }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .label .glyph-icon, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .label .text {
           -fx-fill: -on-surface-color; }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button {

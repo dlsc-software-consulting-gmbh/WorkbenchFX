@@ -6,18 +6,17 @@
 
   & #top-box {
     -fx-padding: px(3);
-    -fx-min-height: 0;
+    -fx-min-height: px(40);
+    -fx-pref-height: px(40);
     -fx-max-height: px(40);
 
     & #toolbar-control-left-box {
-      -fx-alignment: CENTER_LEFT;
       -fx-padding: 0 px(3) 0 px(6);
       -fx-spacing: px(3);
       -fx-max-height: px(34);
     }
 
     & #toolbar-control-right-box {
-      -fx-alignment: CENTER_RIGHT;
       -fx-padding: 0 0 0 px(3);
       -fx-spacing: px(3);
       -fx-max-height: px(34);

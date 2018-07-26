@@ -19,7 +19,7 @@
 
     & .tab-control {
       -fx-max-height: 0; // To keep the height to the size of the close-icon --> for the border
-      -fx-alignment: center;
+      -fx-alignment: CENTER;
 
       -fx-border-width: 0 1px 0 1px;
       -fx-border-color: transparent -on-primary-color transparent transparent;
