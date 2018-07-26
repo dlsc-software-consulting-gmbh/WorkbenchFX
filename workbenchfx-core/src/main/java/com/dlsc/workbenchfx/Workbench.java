@@ -897,7 +897,7 @@ private final ObservableSet<Node> toolbarControlsRight =
    */
   public void showDrawer(Region drawer, Side side, int percentage) {
     // fail fast
-    if (!Range.open(0, 100).or(number -> number == -1).test(percentage)) {
+    if (!Range.open(0, MAX_PERCENT).or(number -> number == -1).test(percentage)) {
       throw new IllegalArgumentException("Percentage needs to be between 0 and 100 or -1");
     }
     Pos position;
