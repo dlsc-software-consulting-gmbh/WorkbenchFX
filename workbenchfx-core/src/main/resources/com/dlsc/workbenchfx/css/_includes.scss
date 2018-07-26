@@ -7,18 +7,18 @@
     -fx-background-color: -surface-color;
     -fx-background-radius: px(5);
     -fx-effect: -drop-shadow-3;
-    -fx-padding: .5em 0 .5em 0;
+    -fx-padding: px(7) 0 px(7) 0;
 
     & .menu-item {
       -fx-background-radius: 0;
-      -fx-padding: .75em 1.25em .75em 1.25em;
+      -fx-padding: px(10.5) px(17.5) px(10.5) px(17.5);
 
       & .glyph-icon {
         -fx-fill: -on-surface-color;
       }
 
       & .label {
-        -fx-padding: 0 2em 0 .25em; // TODO: Find better solution
+        -fx-padding: 0 px(28) 0 px(3.5); // TODO: Find better solution
 
         & .text {
           -fx-fill: -on-surface-color;
@@ -44,7 +44,7 @@
 
     & > .scroll-arrow {
       // ArrowMenuItem when having a lot of items
-      -fx-padding: 1em;
+      -fx-padding: px(14);
 
       &:hover {
         -fx-background-color: rgba(0, 0, 0, .075);
@@ -69,7 +69,7 @@
   -fx-padding: 0;
   -fx-background-insets: 0;
 
-  $wid: .5em;
+  $wid: px(7);
   $hei: $wid * 1.718; //ratio of the arrow to the right
   -fx-pref-width: $wid;
   -fx-pref-height: $hei;
@@ -87,9 +87,9 @@
     -fx-max-height: px(34);
 
     & .dropdown {
-      -fx-background-insets: 0em; // Remove the border from bottom
-      -fx-padding: 0 1em 0 .25em;
-      -fx-graphic-text-gap: .5em;
+      -fx-background-insets: 0; // Remove the border from bottom
+      -fx-padding: 0 px(14) 0 px(3.5);
+      -fx-graphic-text-gap: px(7);
       -fx-pref-height: px(34);
       -fx-background-color: -primary-color;
       -fx-background-radius: px(2);
@@ -115,8 +115,8 @@
           @extend %arrow-right-icon;
           -fx-rotate: 90;
 
-          -shape-width: 4.167px*.6 !important; // Shrink arrow down
-          -shape-height: 8.333px*.6 !important; // Shrink arrow down
+          -shape-width: 2.5px !important; // Shrink arrow down
+          -shape-height: 5px !important; // Shrink arrow down
           -fx-max-width: -shape-width;
           -fx-max-height: -shape-height;
           -fx-min-width: -shape-width;
@@ -147,9 +147,9 @@
 %button-base {
   & .button {
     -fx-alignment: CENTER_LEFT;
-    -fx-background-insets: 0em; // Remove the border from bottom
-    -fx-padding: 0 .75em 0 .75em;
-    -fx-graphic-text-gap: .5em;
+    -fx-background-insets: 0; // Remove the border from bottom
+    -fx-padding: 0 px(10.5) 0 px(10.5);
+    -fx-graphic-text-gap: px(7);
     -fx-pref-height: px(34);
     -fx-background-color: -primary-color;
     -fx-background-radius: px(2);
@@ -210,46 +210,46 @@
   -fx-shape: "M 19 13 L 13 13 L 13 19 L 11 19 L 11 13 L 5 13 L 5 11 L 11 11 L 11 5 L 13 5 L 13 11 L 19 11 L 19 13 Z";
   //-shape-width: 14px; // -> tablet size
   //-shape-height: 14px; // -> tablet size
-  -shape-width: 11.667px;
-  -shape-height: 11.667px;
+  -shape-width:  px(11.667);
+  -shape-height: px(11.667);
 }
 
 %arrow-back-icon {
   -fx-shape: "M 20 11 L 7.83 11 L 13.42 5.41 L 12 4 L 4 12 L 12 20 L 13.41 18.59 L 7.83 13 L 20 13 L 20 11 Z";
   //-shape-width: 16px; // -> tablet size
   //-shape-height: 16px; // -> tablet size
-  -shape-width: 13.333px;
-  -shape-height: 13.333px;
+  -shape-width:  px(13.333);
+  -shape-height: px(13.333);
 }
 
 %arrow-right-icon {
   -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z";
   //-shape-width: 5px; // -> tablet size
   //-shape-height: 10px; // -> tablet size
-  -shape-width: 4.167px;
-  -shape-height: 8.333px;
+  -shape-width:  px(4.167);
+  -shape-height: px(8.333);
 }
 
 %cancel-icon {
   -fx-shape: "M 12 2 C 6.47 2 2 6.47 2 12 C 2 17.53 6.47 22 12 22 C 17.53 22 22 17.53 22 12 C 22 6.47 17.53 2 12 2 Z M 17 15.59 L 15.59 17 L 12 13.41 L 8.41 17 L 7 15.59 L 10.59 12 L 7 8.41 L 8.41 7 L 12 10.59 L 15.59 7 L 17 8.41 L 13.41 12 L 17 15.59 Z";
   //-shape-width: 20px; // -> tablet size
   //-shape-height: 20px; // -> tablet size
-  -shape-width: 16.667px;
-  -shape-height: 16.667px;
+  -shape-width:  px(16.667);
+  -shape-height: px(16.667);
 }
 
 %close-icon {
   -fx-shape: "M 19 6.41 L 17.59 5 L 12 10.59 L 6.41 5 L 5 6.41 L 10.59 12 L 5 17.59 L 6.41 19 L 12 13.41 L 17.59 19 L 19 17.59 L 13.41 12 Z";
   //-shape-width: 14px; // -> tablet size
   //-shape-height: 14px; // -> tablet size
-  -shape-width: 11.667px;
-  -shape-height: 11.667px;
+  -shape-width:  px(11.667);
+  -shape-height: px(11.667);
 }
 
 %menu-icon {
   -fx-shape: "M 3 18 L 21 18 L 21 16 L 3 16 L 3 18 Z M 3 13 L 21 13 L 21 11 L 3 11 L 3 13 Z M 3 6 L 3 8 L 21 8 L 21 6 L 3 6 Z";
   //-shape-width: 18px; // -> tablet size
   //-shape-height: 12px; // -> tablet size
-  -shape-width: 15px;
-  -shape-height: 10px;
+  -shape-width:  px(15);
+  -shape-height: px(10);
 }

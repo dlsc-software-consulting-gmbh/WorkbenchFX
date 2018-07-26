@@ -4,15 +4,16 @@
       & .pagination {
         & .page {
           & .tile-page {
-            -fx-vgap: 3em;
-            -fx-hgap: 3em;
-            -fx-padding: 1.5em;
+            -fx-vgap: px(42);
+            -fx-hgap: px(42);
+            -fx-padding: px(21);
             -fx-alignment: center center;
 
             & .tile-control {
-              -fx-padding: 1.5em;
-              -fx-pref-width: 12em;
-              -fx-pref-height: 6.75em; //factor 1.778
+              -fx-padding: px(21);
+              $tile-width: 168;
+              -fx-pref-width: px($tile-width);
+              -fx-pref-height: px($tile-width / 1.778);
 
               -fx-background-color: -surface-color;
               -fx-effect: -drop-shadow-1;
@@ -30,7 +31,7 @@
 
               & .label {
                 // text-label
-                -fx-padding: .5em 0 0 0;
+                -fx-padding: px(7) 0 0 0;
                 & .text {
                   -fx-fill: -on-surface-color;
                 }
@@ -56,11 +57,11 @@
         -fx-tooltip-visible: false;
 
         & > .pagination-control > .control-box {
-          -fx-spacing: 0.5em;
+          -fx-spacing: px(7);
 
           & > .bullet-button {
             -fx-background-radius: 50%;
-            -fx-background-insets: 0.5em;
+            -fx-background-insets: px(7);
             -fx-background-color: rgba(0, 0, 0, .1);
             &:hover {
               -fx-cursor: hand;

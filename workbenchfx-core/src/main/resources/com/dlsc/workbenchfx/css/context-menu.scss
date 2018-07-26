@@ -10,19 +10,19 @@
   & .context-menu {
     // Shrinking down everything with factor 0.8
     -fx-background-radius: px(2);
-    -fx-padding: .4em 0 .4em 0;
+    -fx-padding: px(5.6) 0 px(5.6) 0;
 
     & .menu-item {
-      -fx-padding: .6em .65em .6em .65em;
+      -fx-padding: px(8.4) px(9.1) px(8.4) px(9.1);
 
       & .label {
-        -fx-padding: 0 1.6em 0 .2em; // TODO: Find better solution
+        -fx-padding: 0 px(22.4) 0 px(2.8); // TODO: Find better solution
       }
     }
 
     & > .scroll-arrow {
       // ArrowMenuItem when having a lot of items
-      -fx-padding: .8em;
+      -fx-padding: px(11.2);
     }
   }
 }

@@ -7,7 +7,7 @@
   }
 
   & > .scroll-arrow {
-    -fx-padding: .5em;
+    -fx-padding: px(7);
     -fx-background-color: transparent;
     &:hover {
       -fx-background: -fx-selection-bar;
@@ -33,7 +33,7 @@
 
       @extend %icon-base;
       & #back-button {
-        -fx-background-insets: .214em;
+        -fx-background-insets: px(3);
         & .shape {
           -fx-background-color: -on-surface-color;
           @extend %arrow-back-icon;
@@ -52,16 +52,16 @@
         -fx-background-color: transparent;
 
         & .menu-container {
-          -fx-padding: 1.5em 1em 1.5em 1em;
+          -fx-padding: px(21) px(14) px(21) px(14);
 
           & .menu-item {
             // styles for all items
-            -fx-graphic-text-gap: 1.5em;
+            -fx-graphic-text-gap: px(7);
 
             -fx-pref-height: px(40);
             -fx-border-width: 0;
             -fx-background-radius: px(5);
-            -fx-padding: 0 1em 0 1em;
+            -fx-padding: 0 px(14) 0 px(14);
             -fx-alignment: CENTER_LEFT !important;
 
             &:focused {
@@ -98,7 +98,7 @@
             }
 
             & .arrow-button {
-              -fx-padding: 0 0 0 1em;
+              -fx-padding: 0 0 0 px(21);
               -fx-background-insets: 0;
 
               & .arrow {

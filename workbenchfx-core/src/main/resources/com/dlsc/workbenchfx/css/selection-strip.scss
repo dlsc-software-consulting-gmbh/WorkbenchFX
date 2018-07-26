@@ -21,10 +21,10 @@
       -fx-max-height: 0; // To keep the height to the size of the close-icon --> for the border
       -fx-alignment: center;
 
-      -fx-border-width: 0 px(1) 0 px(1);
+      -fx-border-width: 0 1px 0 1px;
       -fx-border-color: transparent -on-primary-color transparent transparent;
 
-      -fx-padding: 0 .5em 0 1em;
+      -fx-padding: 0 px(7) 0 px(14);
 
       & .tab-icon {
         -fx-fill: -on-primary-color;
@@ -32,26 +32,26 @@
 
       & .tab-name-lbl {
         -fx-max-width: ($tab-width - 5);
-        -fx-padding: 0 .5em 0 .5em;
+        -fx-padding: 0 px(7) 0 px(7);
         & .text {
           -fx-fill: -on-primary-color;
         }
       }
 
       & .close-icon {
-        -icon-size: 1.857em;
+        -icon-size: px(26);
 
         & .shape {
           -fx-background-color: -on-primary-color;
           @extend %close-icon;
-          -shape-width: 8px; // Make close icon smaller, so that it fits when hovering
-          -shape-height: 8px; // Make close icon smaller, so that it fits when hovering
+          -shape-width: px(8); // Make close icon smaller, so that it fits when hovering
+          -shape-height: px(8); // Make close icon smaller, so that it fits when hovering
 
           &:hover {
             -fx-cursor: hand;
             @extend %cancel-icon;
-            -shape-width: 16.667px; // Reset the insets to fit on hovering
-            -shape-height: 16.667px; // Reset the insets to fit on hovering
+            -shape-width: px(16.667); // Reset the insets to fit on hovering
+            -shape-height: px(16.667); // Reset the insets to fit on hovering
           }
         }
       }
