@@ -56,7 +56,7 @@ public class Workbench extends Control {
       LogManager.getLogger(Workbench.class.getName());
 
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
-  public static final String STYLE_CLASS_ACTIVE_HOME = "active-add-button";
+  public static final String STYLE_CLASS_ACTIVE_ADD_BUTTON = "active-add-button";
   // Default values as constants
   private static final Callback<Workbench, Tab>
       DEFAULT_TAB_FACTORY = Tab::new;
