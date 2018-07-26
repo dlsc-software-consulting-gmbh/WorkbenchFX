@@ -26,17 +26,19 @@
       -fx-background-color: rgba(0, 0, 0, 0.075); }
     .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow .menu-up-arrow, #toolbar #top-box .context-menu > .scroll-arrow .menu-up-arrow {
       -fx-background-color: -on-surface-color;
-      -fx-rotate: -90; }
+      -fx-rotate: -90;
+      -fx-pref-width: -shape-width;
+      -fx-pref-height: -shape-height; }
     .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow .menu-down-arrow, #toolbar #top-box .context-menu > .scroll-arrow .menu-down-arrow {
       -fx-background-color: -on-surface-color;
-      -fx-rotate: 90; }
+      -fx-rotate: 90;
+      -fx-pref-width: -shape-width;
+      -fx-pref-height: -shape-height; }
 
 .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow .menu-up-arrow, #toolbar #top-box .context-menu > .scroll-arrow .menu-up-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu > .scroll-arrow .menu-down-arrow, #toolbar #top-box .context-menu > .scroll-arrow .menu-down-arrow {
-  -fx-padding: 0;
-  -fx-background-insets: 0;
-  -fx-pref-width: 0.5em;
-  -fx-pref-height: 0.859em;
-  -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z"; }
+  -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z";
+  -shape-width: 0.2976428571em;
+  -shape-height: 0.5952142857em; }
 
 #toolbar #top-box .context-menu {
   -fx-background-radius: 0.1428571429em;
