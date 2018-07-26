@@ -5,21 +5,21 @@
   -fx-background-color: -primary-color;
 
   & #top-box {
-    -fx-padding: .214em .214em 0 .214em;
+    -fx-padding: $px-3;
     -fx-min-height: 0;
     -fx-max-height: $px-40;
 
     & #toolbar-control-left-box {
       -fx-alignment: CENTER_LEFT;
-      -fx-padding: 0 .214em 0 .428em;
-      -fx-spacing: 1em;
+      -fx-padding: 0 $px-3 0 $px-6;
+      -fx-spacing: $px-3;
       -fx-max-height: $px-34;
     }
 
     & #toolbar-control-right-box {
       -fx-alignment: CENTER_RIGHT;
-      -fx-padding: 0 0 0 .214em;
-      -fx-spacing: .428em;
+      -fx-padding: 0 0 0 $px-3;
+      -fx-spacing: $px-3;
       -fx-max-height: $px-34;
     }
 
@@ -45,7 +45,7 @@
 
   & #bottom-box {
     -fx-pref-height: $px-40;
-    -fx-padding: 0 .42em 0 .35em;
+    -fx-padding: 0 $px-2 * 2 0 $px-3;
 
     //.selection-strip {...}
     // The extention of the selection-strip can be found in the selection-strip.css file.

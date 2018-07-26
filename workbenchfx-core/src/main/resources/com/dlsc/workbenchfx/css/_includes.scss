@@ -176,7 +176,7 @@
     // tablet
     //-icon-size: 48px;
     // desktop
-    -icon-size: 40px;
+    -icon-size: $px-40;
     -fx-max-width: -icon-size;
     -fx-max-height: -icon-size;
     -fx-min-width: -icon-size;
@@ -189,8 +189,8 @@
       //-shape-width: 20px;
       //-shape-height: 20px;
       // desktop
-      -shape-width: 16px;
-      -shape-height: 16px;
+      -shape-width: $px-16;
+      -shape-height: $px-16;
       -fx-max-width: -shape-width;
       -fx-max-height: -shape-height;
       -fx-min-width: -shape-width;

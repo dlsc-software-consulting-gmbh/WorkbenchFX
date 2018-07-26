@@ -6,7 +6,7 @@
 
   -fx-background-color: -primary-color;
 
-  $tab-width: $px-40*6;
+  $tab-width: $px-40 * 6;
   & .strip-cell {
     -fx-padding: 0;
     -fx-max-width: $tab-width;

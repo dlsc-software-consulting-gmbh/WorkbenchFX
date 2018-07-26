@@ -1,7 +1,7 @@
 #workbench #toolbar #bottom-box .selection-strip .icon {
   -fx-alignment: CENTER;
   -fx-background-color: transparent;
-  -icon-size: 40px;
+  -icon-size: 2.8571428571em;
   -fx-max-width: -icon-size;
   -fx-max-height: -icon-size;
   -fx-min-width: -icon-size;
@@ -9,8 +9,8 @@
   -fx-pref-width: -icon-size;
   -fx-pref-height: -icon-size; }
   #workbench #toolbar #bottom-box .selection-strip .icon .shape {
-    -shape-width: 16px;
-    -shape-height: 16px;
+    -shape-width: 1.1428571429em;
+    -shape-height: 1.1428571429em;
     -fx-max-width: -shape-width;
     -fx-max-height: -shape-height;
     -fx-min-width: -shape-width;

@@ -107,7 +107,7 @@
 #toolbar .icon, .navigation-drawer .drawer-box .header .icon {
   -fx-alignment: CENTER;
   -fx-background-color: transparent;
-  -icon-size: 40px;
+  -icon-size: 2.8571428571em;
   -fx-max-width: -icon-size;
   -fx-max-height: -icon-size;
   -fx-min-width: -icon-size;
@@ -115,8 +115,8 @@
   -fx-pref-width: -icon-size;
   -fx-pref-height: -icon-size; }
   #toolbar .icon .shape, .navigation-drawer .drawer-box .header .icon .shape {
-    -shape-width: 16px;
-    -shape-height: 16px;
+    -shape-width: 1.1428571429em;
+    -shape-height: 1.1428571429em;
     -fx-max-width: -shape-width;
     -fx-max-height: -shape-height;
     -fx-min-width: -shape-width;
@@ -195,18 +195,18 @@
 #toolbar {
   -fx-background-color: -primary-color; }
   #toolbar #top-box {
-    -fx-padding: .214em .214em 0 .214em;
+    -fx-padding: 0.2142857143em;
     -fx-min-height: 0;
     -fx-max-height: 2.8571428571em; }
     #toolbar #top-box #toolbar-control-left-box {
       -fx-alignment: CENTER_LEFT;
-      -fx-padding: 0 .214em 0 .428em;
-      -fx-spacing: 1em;
+      -fx-padding: 0 0.2142857143em 0 0.4285714286em;
+      -fx-spacing: 0.2142857143em;
       -fx-max-height: 2.4285714286em; }
     #toolbar #top-box #toolbar-control-right-box {
       -fx-alignment: CENTER_RIGHT;
-      -fx-padding: 0 0 0 .214em;
-      -fx-spacing: .428em;
+      -fx-padding: 0 0 0 0.2142857143em;
+      -fx-spacing: 0.2142857143em;
       -fx-max-height: 2.4285714286em; }
     #toolbar #top-box #menu-button {
       -icon-size: 2.4285714286em; }
@@ -217,7 +217,7 @@
         -fx-background-radius: 0.1428571429em; }
   #toolbar #bottom-box {
     -fx-pref-height: 2.8571428571em;
-    -fx-padding: 0 .42em 0 .35em; }
+    -fx-padding: 0 0.2857142857em 0 0.2142857143em; }
     #toolbar #bottom-box #add-button {
       -fx-background-insets: 0; }
       #toolbar #bottom-box #add-button .shape {
