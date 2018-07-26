@@ -500,6 +500,10 @@ public class Workbench extends Control {
       resetModuleCloseable(module);
       // module should or could not be destroyed
       LOGGER.trace("closeModule - Destroy: Fail - " + module);
+      // if the module that has failed to be destroyed is already open, activate it again
+      if (getActiveModule() == module) {
+        module.activate();
+      }
       openModule(module); // set focus to new module
       return false;
     }
