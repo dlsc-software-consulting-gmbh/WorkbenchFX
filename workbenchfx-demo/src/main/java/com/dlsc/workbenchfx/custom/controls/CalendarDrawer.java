@@ -44,12 +44,12 @@ public class CalendarDrawer extends VBox {
   private final Button hideBtn = new Button("Hide");
 
   public CalendarDrawer(Workbench workbench) {
+    this.workbench = workbench;
     layoutParts();
     setupEventHandlers();
   }
 
   private void layoutParts() {
-    this.workbench = workbench;
     calendarGrid.setAlignment(Pos.CENTER);
     drawerGrid.setAlignment(Pos.CENTER);
     userBox.setAlignment(Pos.CENTER);
