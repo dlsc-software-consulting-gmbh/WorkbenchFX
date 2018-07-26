@@ -107,7 +107,7 @@ public abstract class WorkbenchModule {
    *           getWorkbench().showDialog(WorkbenchDialog.builder("Confirmation", "Close Module?",
    *                                     WorkbenchDialog.Type.CONFIRMATION)
    *                         .blocking(true)
-   *                         .onResult(buttonType -> {
+   *                         .onResult(buttonType -&lt; {
    *                           if (ButtonType.YES.equals(buttonType)) {
    *                             // yes was pressed
    *                             close();
@@ -146,6 +146,7 @@ public abstract class WorkbenchModule {
 
   /**
    * Returns the name of this module.
+   * @return the name of this module.
    */
   public String getName() {
     return Objects.isNull(name) ? "" : name;
@@ -153,6 +154,7 @@ public abstract class WorkbenchModule {
 
   /**
    * Returns the icon of this module as a {@link Node}.
+   * @return the icon of this module as a {@link Node}.
    */
   public Node getIcon() {
     return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);

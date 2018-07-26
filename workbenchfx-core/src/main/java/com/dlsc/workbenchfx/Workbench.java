@@ -558,6 +558,7 @@ public class Workbench extends Control {
 
   /**
    * Returns an unmodifiableObservableList of the currently open modules.
+   * @return an unmodifiableObservableList of the currently open modules.
    */
   public ObservableList<WorkbenchModule> getOpenModules() {
     return FXCollections.unmodifiableObservableList(openModules);
@@ -600,6 +601,7 @@ public class Workbench extends Control {
   /**
    * Returns a list of the currently loaded toolbar controls on the left.
    *
+   * @return a list of the currently loaded toolbar controls on the left.
    * @implNote Use this method to add or remove toolbar controls on the left at runtime.
    */
   public ObservableSet<Node> getToolbarControlsLeft() {
@@ -609,6 +611,7 @@ public class Workbench extends Control {
   /**
    * Returns a list of the currently loaded toolbar controls on the right.
    *
+   * @return a list of the currently loaded toolbar controls on the right.
    * @implNote Use this method to add or remove toolbar controls on the right at runtime.
    */
   public ObservableSet<Node> getToolbarControlsRight() {
@@ -771,6 +774,8 @@ public class Workbench extends Control {
   /**
    * Returns a map of all overlays, which have previously been opened, with their corresponding
    * {@link GlassPane}.
+   * @return a map of all overlays, which have previously been opened, with their corresponding
+   *         {@link GlassPane}.
    */
   public ObservableMap<Node, GlassPane> getOverlays() {
     return FXCollections.unmodifiableObservableMap(overlays);
