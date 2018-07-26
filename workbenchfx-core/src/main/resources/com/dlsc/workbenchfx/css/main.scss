@@ -35,6 +35,9 @@ $custom-color-5: pink;
   -shadow: dropshadow(gaussian, rgba(0, 0, 0, .1), 6, 0.2, 0, 0);
 
   -icons-color: -text-color;
+}
+
+.root {
   -fx-font-family: "Roboto", sans-serif;
   -fx-font-size: 14px;
 }
