@@ -86,10 +86,10 @@
                     <failOnError>false</failOnError>
                     <force>true</force>
                     <windowtitle>WorkbenchFX API</windowtitle>
-                    <additionalJOption>-J-Djavafx.javadoc=true
-                    </additionalJOption>
-                    <additionalJOption>-html5
-                    </additionalJOption>
+                    <additionalJOptions>
+                        <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
+                        <additionalJOption>-html5</additionalJOption>
+                    </additionalJOptions>
                     <docfilessubdirs>true</docfilessubdirs>
                     <tags>
                         <tag>
