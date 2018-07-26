@@ -63,12 +63,12 @@ public class ToolbarPresenter extends Presenter {
     toolbarControlsLeft.stream().forEachOrdered(view::addToolbarControlLeft);
     toolbarControlsRight.stream().forEachOrdered(view::addToolbarControlRight);
 
-    // only add the menu button, if there is at least one navigation drawer item
+    view.addBtn.requestFocus();
+
+    // Adds a menuButton if necessary (size of items > 0)
     if (model.getNavigationDrawerItems().size() > 0) {
       view.addMenuButton();
     }
-
-    view.addBtn.requestFocus();
   }
 
   /**
@@ -117,6 +117,15 @@ public class ToolbarPresenter extends Presenter {
         view.removeMenuButton();
       } else {
         view.addMenuButton();
+      }
+    });
+
+    // add ore remove the menu button depending on the amount of navigation drawer items
+    model.getNavigationDrawerItems().addListener((InvalidationListener) c -> {
+      if (model.getNavigationDrawerItems().size() > 0) {
+        view.addMenuButton();
+      } else {
+        view.removeMenuButton();
       }
     });
   }

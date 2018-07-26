@@ -118,7 +118,7 @@ public class ToolbarView extends VBox implements View {
    * Removes the menu button from the toolbar.
    */
   public void removeMenuButton() {
-    getChildren().remove(menuBtn);
+    topBox.getChildren().remove(menuBtn);
   }
 
   /**
