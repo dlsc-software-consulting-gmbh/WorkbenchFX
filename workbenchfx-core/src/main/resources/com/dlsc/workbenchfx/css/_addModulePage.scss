@@ -18,8 +18,8 @@
               -fx-effect: -drop-shadow-1;
               -fx-border-width: 0;
 
-              -fx-border-radius: $px-5;
-              -fx-background-radius: $px-5;
+              -fx-border-radius: px(5);
+              -fx-background-radius: px(5);
 
               -fx-background-insets: 0; //needed to remove the focused border on bottom
 

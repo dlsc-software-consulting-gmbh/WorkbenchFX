@@ -24,7 +24,7 @@
 .glyph-icon {
   -fx-text-fill: -on-primary-color;
   -fx-fill: -icons-color;
-  -fx-font-size: 1.143em !important; }
+  -fx-font-size: 1.1428571429em !important; }
 
 @font-face {
   src: url("../fonts/Roboto-Black.ttf"); }
@@ -335,34 +335,35 @@
     -fx-background-insets: 0 0 2 0; }
 
 .dialog-pane {
-  -fx-background-color: white;
+  -fx-background-color: -surface-color;
   -fx-effect: -drop-shadow-3;
-  -fx-background-radius: 5; }
+  -fx-background-radius: 0.3571428571em; }
   .dialog-pane .button-bar .button {
     -fx-background-color: transparent;
     -fx-text-fill: -primary-color;
-    -fx-padding: 10 15;
+    -fx-padding: 0.7142857143em 1.0714285714em;
     -font-size: 1.25em;
     -fx-font-weight: 700;
     -fx-cursor: hand; }
 
 .dialog-header {
   -fx-padding: 0;
-  -fx-background-color: white;
-  -fx-background-radius: 5; }
+  -fx-background-color: -surface-color;
+  -fx-background-radius: 0.3571428571em; }
 
 .dialog-title {
-  -fx-padding: 30 30 0 30;
+  -fx-padding: 2.1428571429em 2.1428571429em 0 2.1428571429em;
   -fx-font-size: 1.5em;
   -fx-font-weight: 700;
-  -fx-text-fill: black; }
+  -fx-text-fill: -on-surface-color; }
 
 .dialog-content-pane {
-  -fx-padding: 20 30 20 30; }
+  -fx-padding: 1.4285714286em 2.1428571429em 1.4285714286em 2.1428571429em; }
   .dialog-content-pane .label {
     -fx-font-size: 1.2em;
     -fx-font-weight: 600;
-    -fx-text-fill: rgba(0, 0, 0, 0.54); }
+    -fx-text-fill: -on-surface-color;
+    -fx-opacity: .54; }
   .dialog-content-pane .input-container {
     -fx-spacing: 10; }
   .dialog-content-pane .textfield-container {

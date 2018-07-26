@@ -5,26 +5,26 @@
   -fx-background-color: -primary-color;
 
   & #top-box {
-    -fx-padding: $px-3;
+    -fx-padding: px(3);
     -fx-min-height: 0;
-    -fx-max-height: $px-40;
+    -fx-max-height: px(40);
 
     & #toolbar-control-left-box {
       -fx-alignment: CENTER_LEFT;
-      -fx-padding: 0 $px-3 0 $px-6;
-      -fx-spacing: $px-3;
-      -fx-max-height: $px-34;
+      -fx-padding: 0 px(3) 0 px(6);
+      -fx-spacing: px(3);
+      -fx-max-height: px(34);
     }
 
     & #toolbar-control-right-box {
       -fx-alignment: CENTER_RIGHT;
-      -fx-padding: 0 0 0 $px-3;
-      -fx-spacing: $px-3;
-      -fx-max-height: $px-34;
+      -fx-padding: 0 0 0 px(3);
+      -fx-spacing: px(3);
+      -fx-max-height: px(34);
     }
 
     & #menu-button {
-      -icon-size: $px-34;
+      -icon-size: px(34);
       & .shape {
         -fx-background-color: -on-primary-color;
         @extend %menu-icon;
@@ -32,7 +32,7 @@
 
       &:pressed {
         -fx-background-color: -primary-variant-color;
-        -fx-background-radius: $px-2;
+        -fx-background-radius: px(2);
       }
     }
 
@@ -44,8 +44,8 @@
   }
 
   & #bottom-box {
-    -fx-pref-height: $px-40;
-    -fx-padding: 0 $px-2 * 2 0 $px-3;
+    -fx-pref-height: px(40);
+    -fx-padding: 0 px(4) 0 px(3);
 
     //.selection-strip {...}
     // The extention of the selection-strip can be found in the selection-strip.css file.
@@ -60,15 +60,15 @@
       }
 
       &:pressed {
-        -fx-background-radius: $px-5 $px-5 0 0;
+        -fx-background-radius: px(5) px(5) 0 0;
       }
     }
 
     & .active-add-button {
       -fx-background-color: -background-color;
-      -fx-background-radius: $px-5 $px-5 0 0;
-      -fx-border-radius: $px-5 $px-5 0 0;
-      -fx-background-insets: 0 $px-1*-1 0 $px-1*-1;
+      -fx-background-radius: px(5) px(5) 0 0;
+      -fx-border-radius: px(5) px(5) 0 0;
+      -fx-background-insets: 0 px(-1) 0 px(-1);
 
       & .shape {
         -fx-background-color: -on-background-color !important;

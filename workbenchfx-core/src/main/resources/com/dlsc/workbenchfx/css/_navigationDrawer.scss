@@ -24,7 +24,7 @@
     & .header {
       -fx-background-color: -surface-color; // Needed to gain the drop-shadow below
       -fx-effect: -shadow;
-      -fx-min-height: $px-40 * 2;
+      -fx-min-height: px(80);
 
       .separator .line {
         -fx-border-color: -on-surface-color;
@@ -58,9 +58,9 @@
             // styles for all items
             -fx-graphic-text-gap: 1.5em;
 
-            -fx-pref-height: $px-40;
+            -fx-pref-height: px(40);
             -fx-border-width: 0;
-            -fx-background-radius: $px-5;
+            -fx-background-radius: px(5);
             -fx-padding: 0 1em 0 1em;
             -fx-alignment: CENTER_LEFT !important;
 

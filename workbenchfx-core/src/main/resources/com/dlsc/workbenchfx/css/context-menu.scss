@@ -1,4 +1,3 @@
-@import "constants";
 @import "includes";
 
 .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container {
@@ -10,7 +9,7 @@
 
   & .context-menu {
     // Shrinking down everything with factor 0.8
-    -fx-background-radius: $px-2;
+    -fx-background-radius: px(2);
     -fx-padding: .4em 0 .4em 0;
 
     & .menu-item {
