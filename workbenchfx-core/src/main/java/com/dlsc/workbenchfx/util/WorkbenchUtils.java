@@ -70,7 +70,7 @@ public final class WorkbenchUtils {
     return CharMatcher.inRange('a', 'z')
         .or(CharMatcher.inRange('A', 'Z'))
         .or(CharMatcher.inRange('0', '9'))
-        .or(CharMatcher.whitespace())
+        .or(CharMatcher.is(' '))
         .or(CharMatcher.is('-'))
         .retainFrom(name)
         .replace(' ', '-')
