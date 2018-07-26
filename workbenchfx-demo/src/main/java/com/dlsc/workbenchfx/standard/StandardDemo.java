@@ -11,6 +11,9 @@ import javafx.stage.Stage;
 public class StandardDemo extends Application {
 
   public Workbench workbench;
+  private PreferencesModule preferencesModule = new PreferencesModule();
+  private CalendarModule calendarModule = new CalendarModule();
+  private NotesModule notesModule = new NotesModule();
 
   public static void main(String[] args) {
     launch(args);
@@ -26,13 +29,17 @@ public class StandardDemo extends Application {
     primaryStage.setHeight(700);
     primaryStage.show();
     primaryStage.centerOnScreen();
+
+    // open calendar module by default
+    workbench.openModule(calendarModule);
   }
 
   private Workbench initWorkbench() {
-    return workbench = Workbench.builder(
-        new PreferencesModule(),
-        new CalendarModule(),
-        new NotesModule()
+    workbench = Workbench.builder(
+        calendarModule,
+        notesModule,
+        preferencesModule
     ).build();
+    return workbench;
   }
 }

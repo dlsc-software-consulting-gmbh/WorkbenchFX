@@ -25,6 +25,10 @@ public class WorkbenchView extends StackPane implements View {
 
   /**
    * Displays all of the view parts, representing the master view.
+   *
+   * @param toolbarView the {@link ToolbarView} to be shown
+   * @param homeView the {@link HomeView} to be shown
+   * @param contentView the {@link ContentView} to be shown
    */
   public WorkbenchView(
       ToolbarView toolbarView,

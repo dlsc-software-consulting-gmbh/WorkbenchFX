@@ -57,9 +57,19 @@ public class Workbench extends Control {
 
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
   public static final String STYLE_CLASS_ACTIVE_HOME = "active-add-button";
+  // Default values as constants
+  private static final Callback<Workbench, Tab>
+      DEFAULT_TAB_FACTORY = Tab::new;
+  private static final Callback<Workbench, Tile>
+      DEFAULT_TILE_FACTORY = Tile::new;
+  private static final Callback<Workbench, Page>
+      DEFAULT_PAGE_FACTORY = Page::new;
+  private static final int DEFAULT_MODULES_PER_PAGE = 9;
+  private static final NavigationDrawer DEFAULT_NAVIGATION_DRAWER = new NavigationDrawer();
 
   // Custom Controls
-  private ObjectProperty<NavigationDrawer> navigationDrawer = new SimpleObjectProperty<>();
+  private ObjectProperty<NavigationDrawer> navigationDrawer =
+      new SimpleObjectProperty<>(DEFAULT_NAVIGATION_DRAWER);
 
   // Lists
   private final ObservableSet<Node> toolbarControlsRight =
@@ -106,14 +116,15 @@ public class Workbench extends Control {
    * require a module whose attributes are used to create the Nodes.
    */
   private final ObjectProperty<Callback<Workbench, Tab>> tabFactory =
-      new SimpleObjectProperty<>(this, "tabFactory");
+      new SimpleObjectProperty<>(this, "tabFactory", DEFAULT_TAB_FACTORY);
   private final ObjectProperty<Callback<Workbench, Tile>> tileFactory =
-      new SimpleObjectProperty<>(this, "tileFactory");
+      new SimpleObjectProperty<>(this, "tileFactory", DEFAULT_TILE_FACTORY);
   private final ObjectProperty<Callback<Workbench, Page>> pageFactory =
-      new SimpleObjectProperty<>(this, "pageFactory");
+      new SimpleObjectProperty<>(this, "pageFactory", DEFAULT_PAGE_FACTORY);
 
   // Properties
-  private final IntegerProperty modulesPerPage = new SimpleIntegerProperty();
+  private final IntegerProperty modulesPerPage =
+      new SimpleIntegerProperty(DEFAULT_MODULES_PER_PAGE);
   private final IntegerProperty amountOfPages = new SimpleIntegerProperty();
 
   /**
@@ -146,18 +157,18 @@ public class Workbench extends Control {
     final WorkbenchModule[] modules;
 
     // Optional parameters - initialized to default values
-    int modulesPerPage = 9;
+    int modulesPerPage = DEFAULT_MODULES_PER_PAGE;
 
-    Callback<Workbench, Tab> tabFactory = Tab::new;
+    Callback<Workbench, Tab> tabFactory = DEFAULT_TAB_FACTORY;
 
-    Callback<Workbench, Tile> tileFactory = Tile::new;
+    Callback<Workbench, Tile> tileFactory = DEFAULT_TILE_FACTORY;
 
-    Callback<Workbench, Page> pageFactory = Page::new;
+    Callback<Workbench, Page> pageFactory = DEFAULT_PAGE_FACTORY;
 
     Node[] toolbarControlsRight;
     Node[] toolbarControlsLeft;
 
-    NavigationDrawer navigationDrawer = new NavigationDrawer();
+    NavigationDrawer navigationDrawer = DEFAULT_NAVIGATION_DRAWER;
 
     MenuItem[] navigationDrawerItems;
 
@@ -275,6 +286,21 @@ public class Workbench extends Control {
     }
   }
 
+  /**
+   * Default constructor for use with Scene Builder.
+   * For use without FXML, use {@link Workbench#builder(WorkbenchModule...)} instead.
+   */
+  public Workbench() {
+    initBindings();
+    initListeners();
+    setupCleanup();
+  }
+
+  /**
+   * Constructor for WorkbenchFX by using the {@link WorkbenchBuilder}.
+   *
+   * @param builder to use for the setup
+   */
   private Workbench(WorkbenchBuilder builder) {
     setModulesPerPage(builder.modulesPerPage);
     initBindings();
@@ -282,6 +308,7 @@ public class Workbench extends Control {
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initModules(builder);
+    initListeners();
     setupCleanup();
 
     getStylesheets().add(Workbench.class.getResource("css/context-menu.css").toExternalForm());
@@ -331,9 +358,10 @@ public class Workbench extends Control {
 
   private void initModules(WorkbenchBuilder builder) {
     WorkbenchModule[] modules = builder.modules;
-
     this.modules.addAll(modules);
+  }
 
+  private void initListeners() {
     // handle changes of the active module
     activeModule.addListener((observable, oldModule, newModule) -> {
       LOGGER.trace("Module Listener - Old Module: " + oldModule);
@@ -749,6 +777,7 @@ public class Workbench extends Control {
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
    *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide it.
+   * @return true if the overlay is not being shown already
    */
   public boolean showOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("showOverlay");
@@ -773,6 +802,7 @@ public class Workbench extends Control {
    *           remove it from the scene graph entirely.
    *           If keeping the {@code overlay} loaded hidden in the scene graph is not possible due
    *           to performance reasons, call {@link Workbench#clearOverlays()} after this method.
+   * @return true if the overlay was showing and is now hidden
    */
   public boolean hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.dlsc.workbenchfx.Workbench?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+           prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4"
+           fx:controller="com.dlsc.workbenchfx.fxml.Controller">
+    <children>
+        <Workbench fx:id="workbench"/>
+    </children>
+</StackPane>
