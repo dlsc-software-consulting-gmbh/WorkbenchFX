@@ -896,14 +896,15 @@ private final ObservableSet<Node> toolbarControlsRight =
    *                   should have or -1, to have the drawer size according to its computed size
    */
   public void showDrawer(Region drawer, Side side, int percentage) {
+    // fail fast
+    if (!Range.open(0, 100).or(number -> number == -1).test(percentage)) {
+      throw new IllegalArgumentException("Percentage needs to be between 0 and 100 or -1");
+    }
     Pos position;
     drawer.minWidthProperty().unbind();
     drawer.maxWidthProperty().unbind();
     drawer.minHeightProperty().unbind();
     drawer.maxHeightProperty().unbind();
-    if (!Range.open(0, 100).or(number -> number == -1).test(percentage)) {
-      throw new IllegalArgumentException("Percentage needs to be between 0 and 100 or -1");
-    }
     switch (side) {
       case TOP:
         position = Pos.TOP_LEFT;
