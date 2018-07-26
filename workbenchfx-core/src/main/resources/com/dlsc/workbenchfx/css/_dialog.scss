@@ -7,7 +7,7 @@
     -fx-background-color: transparent;
     -fx-text-fill: -primary-color;
     -fx-padding: px(10) px(15);
-    -font-size: 1.25em;
+    -font-size: px(17.5);
     -fx-font-weight: 700;
     -fx-cursor: hand;
   }
@@ -21,7 +21,7 @@
 
 .dialog-title {
   -fx-padding: px(30) px(30) 0 px(30);
-  -fx-font-size: 1.5em;
+  -fx-font-size: px(21);
   -fx-font-weight: 700;
   -fx-text-fill: -on-surface-color;
 }
@@ -30,21 +30,21 @@
   -fx-padding: px(20) px(30) px(20) px(30);
 
   .label {
-    -fx-font-size: 1.2em;
+    -fx-font-size: px(16.8);
     -fx-font-weight: 600;
     -fx-text-fill: -on-surface-color;
     -fx-opacity: .54;
   }
 
   .input-container {
-    -fx-spacing: 10;
+    -fx-spacing: px(10);
   }
 
   .textfield-container {
-    -fx-spacing: 10;
+    -fx-spacing: px(10);
   }
 }
 
 .error-details-titled-pane {
-  -fx-padding: 20 0 0 0;
+  -fx-padding: px(20) 0 0 0;
 }
