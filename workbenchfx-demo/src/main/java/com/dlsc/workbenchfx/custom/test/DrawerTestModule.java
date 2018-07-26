@@ -81,7 +81,10 @@ public class DrawerTestModule extends WorkbenchModule {
 
   private void setupEventHandlers() {
     // Map
-    leftBtn.setOnAction(event -> getWorkbench().showDrawer(new MapDrawer(), Side.LEFT));
+    MapDrawer drawer = new MapDrawer();
+    leftBtn.setOnAction(event -> {
+      getWorkbench().showDrawer(drawer, Side.LEFT);
+    });
     rightBtn.setOnAction(event -> getWorkbench().showDrawer(new MapDrawer(), Side.RIGHT));
     topBtn.setOnAction(event -> getWorkbench().showDrawer(new MapDrawer(), Side.TOP));
     bottomBtn.setOnAction(event -> getWorkbench().showDrawer(new MapDrawer(), Side.BOTTOM));

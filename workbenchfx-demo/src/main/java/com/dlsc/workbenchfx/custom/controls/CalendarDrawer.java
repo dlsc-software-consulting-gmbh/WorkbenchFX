@@ -44,25 +44,28 @@ public class CalendarDrawer extends VBox {
   private final Button hideBtn = new Button("Hide");
 
   public CalendarDrawer(Workbench workbench) {
-    this.workbench = workbench;
-
     layoutParts();
     setupEventHandlers();
   }
 
   private void layoutParts() {
+    this.workbench = workbench;
+    calendarGrid.setAlignment(Pos.CENTER);
+    drawerGrid.setAlignment(Pos.CENTER);
+    userBox.setAlignment(Pos.CENTER);
+
     userIcon = new FontAwesomeIconView(FontAwesomeIcon.USER_CIRCLE);
     userIcon.setStyle("-fx-fill: black");
     userBox.getChildren().addAll(userIcon, userLbl);
 
     calendarGrid.add(workRect, 0, 0);
-    calendarGrid.add(workLbl, 1, 0);
+    calendarGrid.add(workLbl,  1, 0);
 
     calendarGrid.add(homeRect, 0, 1);
-    calendarGrid.add(homeLbl, 1, 1);
+    calendarGrid.add(homeLbl,  1, 1);
 
     calendarGrid.add(familyRect, 0, 2);
-    calendarGrid.add(familyLbl, 1, 2);
+    calendarGrid.add(familyLbl,  1, 2);
 
     calendarGrid.add(friendsRect, 0, 3);
     calendarGrid.add(friendsLbl, 1, 3);
