@@ -138,6 +138,8 @@ public class Workbench extends Control {
   private final Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap =
       new HashMap<>();
 
+
+
   // Builder
 
   /**
@@ -293,6 +295,7 @@ public class Workbench extends Control {
   public Workbench() {
     initBindings();
     initListeners();
+    initNavigationDrawer(getNavigationDrawer());
     setupCleanup();
   }
 
@@ -347,13 +350,12 @@ public class Workbench extends Control {
     if (builder.navigationDrawerItems != null) {
       navigationDrawerItems.addAll(builder.navigationDrawerItems);
     }
-    // when control of navigation drawer changes, pass in the workbench object
-    navigationDrawerProperty().addListener((observable, oldControl, newControl) -> {
-      if (!Objects.isNull(newControl)) {
-        newControl.setWorkbench(this);
-      }
-    });
-    setNavigationDrawer(builder.navigationDrawer);
+    initNavigationDrawer(builder.navigationDrawer);
+  }
+
+  private void initNavigationDrawer(NavigationDrawer navigationDrawer) {
+    setNavigationDrawer(navigationDrawer);
+    navigationDrawer.setWorkbench(this);
   }
 
   private void initModules(WorkbenchBuilder builder) {
@@ -394,6 +396,15 @@ public class Workbench extends Control {
         activeModuleView.setValue(newModule.activate());
       }
     });
+
+    // when control of navigation drawer changes, pass in the workbench object
+    navigationDrawerProperty().addListener((observable, oldControl, newControl) -> {
+          LOGGER.trace("NavigationDrawer has been set");
+          if (!Objects.isNull(newControl)) {
+            LOGGER.trace("NavigationDrawer - Setting Workbench");
+            newControl.setWorkbench(this);
+          }
+        });
   }
 
   private void setupCleanup() {
