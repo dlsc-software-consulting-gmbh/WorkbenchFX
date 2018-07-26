@@ -10,6 +10,7 @@ import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
+import com.google.common.collect.Range;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -873,46 +874,6 @@ private final ObservableSet<Node> toolbarControlsRight =
   }
 
   /**
-   * Shows the {@code drawer} on the defined {@code side} in the {@link Workbench}, ensuring the
-   * {@code drawer} doesn't cover more than the specified {@code percentage}.
-   *
-   * @param drawer to be shown
-   * @param side of the workbench, on which the {@code drawer} should be positioned
-   * @param percentage value between 0 and 100, defining how much <b>maximum</b> coverage the drawer
-   *                   should have
-   */
-  public void showDrawer(Region drawer, Side side, int percentage) {
-    Pos position;
-    drawer.maxWidthProperty().unbind();
-    drawer.maxHeightProperty().unbind();
-    switch (side) {
-      case TOP:
-        position = Pos.TOP_LEFT;
-        drawer.maxWidthProperty().bind(widthProperty());
-        drawer.maxHeightProperty().bind(heightProperty().multiply((double)percentage/MAX_PERCENT));
-        break;
-      case RIGHT:
-        position = Pos.TOP_RIGHT;
-        drawer.maxHeightProperty().bind(widthProperty());
-        drawer.maxWidthProperty().bind(widthProperty().multiply((double)percentage/MAX_PERCENT));
-        break;
-      case BOTTOM:
-        position = Pos.BOTTOM_LEFT;
-        drawer.maxWidthProperty().bind(widthProperty());
-        drawer.maxHeightProperty().bind(heightProperty().multiply((double)percentage/MAX_PERCENT));
-        break;
-      default: // LEFT
-        position = Pos.TOP_LEFT;
-        drawer.maxHeightProperty().bind(widthProperty());
-        drawer.maxWidthProperty().bind(widthProperty().multiply((double)percentage/MAX_PERCENT));
-        break;
-    }
-    StackPane.setAlignment(drawer, position);
-    drawer.getStyleClass().add("drawer");
-    setDrawerShown(drawer);
-  }
-
-  /**
    * Shows the {@code drawer} on the defined {@code side} in the {@link Workbench}.
    *
    * @param drawer to be shown
@@ -922,7 +883,98 @@ private final ObservableSet<Node> toolbarControlsRight =
    *           it using the {@link GlassPane}.
    */
   public void showDrawer(Region drawer, Side side) {
-    showDrawer(drawer, side, 90);
+    showDrawer(drawer, side, -1);
+  }
+
+  /**
+   * Shows the {@code drawer} on the defined {@code side} in the {@link Workbench}, ensuring the
+   * {@code drawer} doesn't cover more than the specified {@code percentage}.
+   *
+   * @param drawer to be shown
+   * @param side of the workbench, on which the {@code drawer} should be positioned
+   * @param percentage value between 0 and 100, defining how much <b>maximum</b> coverage the drawer
+   *                   should have or -1, to have the drawer size according to its computed size
+   */
+  public void showDrawer(Region drawer, Side side, int percentage) {
+    Pos position;
+    drawer.minWidthProperty().unbind();
+    drawer.maxWidthProperty().unbind();
+    drawer.minHeightProperty().unbind();
+    drawer.maxHeightProperty().unbind();
+    if (!Range.open(0, 100).or(number -> number == -1).test(percentage)) {
+      throw new IllegalArgumentException("Percentage needs to be between 0 and 100 or -1");
+    }
+    switch (side) {
+      case TOP:
+        position = Pos.TOP_LEFT;
+        drawer.minWidthProperty().bind(widthProperty());
+        if (percentage == -1) {
+          bindDrawerHeight(drawer);
+        } else {
+          drawer.maxHeightProperty().bind(heightProperty().multiply((double)percentage/MAX_PERCENT));
+        }
+        break;
+      case RIGHT:
+        position = Pos.TOP_RIGHT;
+        drawer.minHeightProperty().bind(heightProperty());
+        if (percentage == -1) {
+          bindDrawerWidth(drawer);
+        } else {
+          drawer.maxWidthProperty().bind(widthProperty().multiply((double)percentage/MAX_PERCENT));
+        }
+        break;
+      case BOTTOM:
+        position = Pos.BOTTOM_LEFT;
+        drawer.minWidthProperty().bind(widthProperty());
+        if (percentage == -1) {
+          bindDrawerHeight(drawer);
+        } else {
+          drawer.maxHeightProperty().bind(heightProperty().multiply((double)percentage/MAX_PERCENT));
+        }
+        break;
+      default: // LEFT
+        position = Pos.TOP_LEFT;
+        drawer.minHeightProperty().bind(heightProperty());
+        if (percentage == -1) {
+          bindDrawerWidth(drawer);
+        } else {
+          drawer.maxWidthProperty().bind(widthProperty().multiply((double)percentage/MAX_PERCENT));
+        }
+        break;
+    }
+    StackPane.setAlignment(drawer, position);
+    drawer.getStyleClass().add("drawer");
+    setDrawerShown(drawer);
+  }
+
+  private void bindDrawerWidth(Region drawer) {
+    drawer.setMinWidth(0); // make sure minWidth isn't larger than maxWidth
+    drawer.maxWidthProperty().bind(
+        Bindings.createDoubleBinding(
+            () -> {
+              double computedWidth = drawer.prefWidth(-1);
+              // calculate the width the drawer can take up without being so large that it can't be
+              // hidden anymore by clicking on the GlassPane (GlassPane covers minimum of 10%)
+              double maxDrawerWidth = widthProperty().get() * 0.9;
+              return Math.min(computedWidth, maxDrawerWidth);
+            }, drawer.maxWidthProperty(), widthProperty()
+        )
+    );
+  }
+
+  private void bindDrawerHeight(Region drawer) {
+    drawer.setMinHeight(0); // make sure minHeight isn't larger than maxHeight
+    drawer.maxHeightProperty().bind(
+        Bindings.createDoubleBinding(
+            () -> {
+              double computedHeight = drawer.prefHeight(-1);
+              // calculate the height the drawer can take up without being so large that it can't be
+              // hidden anymore by clicking on the GlassPane (GlassPane covers minimum of 10%)
+              double maxDrawerHeight = heightProperty().get() * 0.9;
+              return Math.min(computedHeight, maxDrawerHeight);
+            }, drawer.maxHeightProperty(), heightProperty()
+        )
+    );
   }
 
   /**
