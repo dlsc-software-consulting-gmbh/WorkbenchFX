@@ -23,7 +23,7 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   private static final Logger LOGGER =
       LogManager.getLogger(DropdownSkin.class.getName());
 
-  private static final double RESIZING_FACTOR = 0.4d;
+  private static final double RESIZING_FACTOR = 0.47d;
   private final String standardStyle = "dropdown";
 
   private final MenuButton menuButton;

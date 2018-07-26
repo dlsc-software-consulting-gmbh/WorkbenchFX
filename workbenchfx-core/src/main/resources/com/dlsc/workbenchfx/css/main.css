@@ -1,4 +1,4 @@
-.root {
+* {
   -primary-color: #6200EE;
   -primary-variant-color: #3700B3;
   -secondary-color: #03DAC6;
@@ -15,7 +15,9 @@
   -drop-shadow-2: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 15, 0.16, -1, 4);
   -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 20, 0.19, -1, 6);
   -shadow: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.2, 0, 0);
-  -icons-color: -on-primary-color;
+  -icons-color: -on-primary-color; }
+
+.root {
   -fx-font-family: "Roboto", sans-serif;
   -fx-font-size: 14px; }
 
@@ -48,48 +50,50 @@
   src: url("../fonts/Roboto-Thin.ttf"); }
 @font-face {
   src: url("../fonts/Roboto-ThinItalic.ttf"); }
-#toolbar #top-box .dropdown {
-  -fx-background-insets: .35em;
-  -fx-padding: 0 1.25em 0 .5em;
-  -fx-graphic-text-gap: .5em;
-  -fx-pref-height: 2.857em;
-  -fx-background-color: -primary-color;
-  -fx-background-radius: 0.2142em;
-  -fx-border-width: 0; }
-  #toolbar #top-box .dropdown .label .glyph-icon {
-    -fx-fill: -on-primary-color; }
-  #toolbar #top-box .dropdown .label .text {
-    -fx-fill: -on-primary-color; }
-  #toolbar #top-box .dropdown .arrow-button {
-    -fx-padding: 0;
-    -fx-background-insets: 0; }
-    #toolbar #top-box .dropdown .arrow-button .arrow {
-      -fx-rotate: 90;
-      -shape-width: 2.5002px !important;
-      -shape-height: 4.9998px !important;
-      -fx-max-width: -shape-width;
-      -fx-max-height: -shape-height;
-      -fx-min-width: -shape-width;
-      -fx-min-height: -shape-height;
-      -fx-pref-width: -shape-width;
-      -fx-pref-height: -shape-height;
-      -fx-background-color: -on-primary-color; }
-  #toolbar #top-box .dropdown:hover {
-    -fx-cursor: hand; }
-  #toolbar #top-box .dropdown:showing {
-    -fx-background-color: -primary-variant-color;
-    -fx-cursor: inherit !important; }
-    #toolbar #top-box .dropdown:showing .arrow-button .arrow {
-      -fx-rotate: -90; }
+#toolbar #top-box .toolbar-menu-button {
+  -fx-max-height: 2.4285714286em; }
+  #toolbar #top-box .toolbar-menu-button .dropdown {
+    -fx-background-insets: 0em;
+    -fx-padding: 0 1em 0 .25em;
+    -fx-graphic-text-gap: .5em;
+    -fx-pref-height: 2.4285714286em;
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 0.1428571429em;
+    -fx-border-width: 0; }
+    #toolbar #top-box .toolbar-menu-button .dropdown .label .glyph-icon {
+      -fx-fill: -on-primary-color; }
+    #toolbar #top-box .toolbar-menu-button .dropdown .label .text {
+      -fx-fill: -on-primary-color; }
+    #toolbar #top-box .toolbar-menu-button .dropdown .arrow-button {
+      -fx-padding: 0;
+      -fx-background-insets: 0; }
+      #toolbar #top-box .toolbar-menu-button .dropdown .arrow-button .arrow {
+        -fx-rotate: 90;
+        -shape-width: 2.5002px !important;
+        -shape-height: 4.9998px !important;
+        -fx-max-width: -shape-width;
+        -fx-max-height: -shape-height;
+        -fx-min-width: -shape-width;
+        -fx-min-height: -shape-height;
+        -fx-pref-width: -shape-width;
+        -fx-pref-height: -shape-height;
+        -fx-background-color: -on-primary-color; }
+    #toolbar #top-box .toolbar-menu-button .dropdown:hover {
+      -fx-cursor: hand; }
+    #toolbar #top-box .toolbar-menu-button .dropdown:showing {
+      -fx-background-color: -primary-variant-color;
+      -fx-cursor: inherit !important; }
+      #toolbar #top-box .toolbar-menu-button .dropdown:showing .arrow-button .arrow {
+        -fx-rotate: -90; }
 
 #toolbar .button {
   -fx-alignment: CENTER_LEFT;
-  -fx-background-insets: .35em;
-  -fx-padding: 0 1em 0 1em;
+  -fx-background-insets: 0em;
+  -fx-padding: 0 .75em 0 .75em;
   -fx-graphic-text-gap: .5em;
-  -fx-pref-height: 2.857em;
+  -fx-pref-height: 2.4285714286em;
   -fx-background-color: -primary-color;
-  -fx-background-radius: 0.2142em;
+  -fx-background-radius: 0.1428571429em;
   -fx-border-width: 0; }
   #toolbar .button .glyph-icon {
     -fx-fill: -on-primary-color; }
@@ -130,7 +134,7 @@
   -shape-width: 13.333px;
   -shape-height: 13.333px; }
 
-#toolbar #top-box .dropdown .arrow-button .arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
+#toolbar #top-box .toolbar-menu-button .dropdown .arrow-button .arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
   -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z";
   -shape-width: 4.167px;
   -shape-height: 8.333px; }
@@ -159,8 +163,8 @@
       -fx-background-color: -surface-color;
       -fx-effect: -drop-shadow-1;
       -fx-border-width: 0;
-      -fx-border-radius: 0.357em;
-      -fx-background-radius: 0.357em;
+      -fx-border-radius: 0.3571428571em;
+      -fx-background-radius: 0.3571428571em;
       -fx-background-insets: 0; }
       #content-view #home #tile-pane .pagination .page .tile-page .tile-control .glyph-icon {
         -fx-fill: -on-surface-color; }
@@ -190,29 +194,41 @@
 
 #toolbar {
   -fx-background-color: -primary-color; }
-  #toolbar #top-box #toolbar-control-right-box {
-    -fx-alignment: CENTER_RIGHT; }
-  #toolbar #top-box #toolbar-control-left-box {
-    -fx-alignment: CENTER_LEFT; }
-  #toolbar #top-box #menu-button .shape {
-    -fx-background-color: -on-primary-color; }
-  #toolbar #top-box #menu-button:pressed {
-    -fx-background-color: -primary-variant-color;
-    -fx-background-radius: 0.2142em; }
+  #toolbar #top-box {
+    -fx-padding: .214em .214em 0 .214em;
+    -fx-min-height: 0;
+    -fx-max-height: 2.8571428571em; }
+    #toolbar #top-box #toolbar-control-left-box {
+      -fx-alignment: CENTER_LEFT;
+      -fx-padding: 0 .214em 0 .428em;
+      -fx-spacing: 1em;
+      -fx-max-height: 2.4285714286em; }
+    #toolbar #top-box #toolbar-control-right-box {
+      -fx-alignment: CENTER_RIGHT;
+      -fx-padding: 0 0 0 .214em;
+      -fx-spacing: .428em;
+      -fx-max-height: 2.4285714286em; }
+    #toolbar #top-box #menu-button {
+      -icon-size: 2.4285714286em; }
+      #toolbar #top-box #menu-button .shape {
+        -fx-background-color: -on-primary-color; }
+      #toolbar #top-box #menu-button:pressed {
+        -fx-background-color: -primary-variant-color;
+        -fx-background-radius: 0.1428571429em; }
   #toolbar #bottom-box {
-    -fx-pref-height: 2.857em;
+    -fx-pref-height: 2.8571428571em;
     -fx-padding: 0 .42em 0 .35em; }
     #toolbar #bottom-box #add-button {
       -fx-background-insets: 0; }
       #toolbar #bottom-box #add-button .shape {
         -fx-background-color: -on-primary-color; }
       #toolbar #bottom-box #add-button:pressed {
-        -fx-background-radius: 0.357em 0.357em 0 0; }
+        -fx-background-radius: 0.3571428571em 0.3571428571em 0 0; }
     #toolbar #bottom-box .active-add-button {
       -fx-background-color: -background-color;
-      -fx-background-radius: 0.357em 0.357em 0 0;
-      -fx-border-radius: 0.357em 0.357em 0 0;
-      -fx-background-insets: 0 -1px 0 -1px; }
+      -fx-background-radius: 0.3571428571em 0.3571428571em 0 0;
+      -fx-border-radius: 0.3571428571em 0.3571428571em 0 0;
+      -fx-background-insets: 0 -0.0714285714em 0 -0.0714285714em; }
       #toolbar #bottom-box .active-add-button .shape {
         -fx-background-color: -on-background-color !important; }
       #toolbar #bottom-box .active-add-button:hover {
@@ -239,12 +255,12 @@
   .navigation-drawer .drawer-box .header {
     -fx-background-color: -surface-color;
     -fx-effect: -shadow;
-    -fx-min-height: 5.714em; }
+    -fx-min-height: 5.7142857143em; }
     .navigation-drawer .drawer-box .header .separator .line {
       -fx-border-color: -on-surface-color;
       -fx-border-width: 1; }
     .navigation-drawer .drawer-box .header #back-button {
-      -fx-background-insets: .35em; }
+      -fx-background-insets: .214em; }
       .navigation-drawer .drawer-box .header #back-button .shape {
         -fx-background-color: -on-surface-color; }
       .navigation-drawer .drawer-box .header #back-button:pressed {
@@ -257,9 +273,9 @@
         -fx-padding: 1.5em 1em 1.5em 1em; }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item {
           -fx-graphic-text-gap: 1.5em;
-          -fx-pref-height: 2.857em;
+          -fx-pref-height: 2.8571428571em;
           -fx-border-width: 0;
-          -fx-background-radius: 0.357em;
+          -fx-background-radius: 0.3571428571em;
           -fx-padding: 0 1em 0 1em;
           -fx-alignment: CENTER_LEFT !important; }
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:focused {

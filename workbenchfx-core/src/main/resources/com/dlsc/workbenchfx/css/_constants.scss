@@ -1,4 +1,9 @@
-$border: 1px;
-$pref-size: 2.857em; // 2.857em == 40px, when default size: 14px
-$darken-percentage: -10%;
-$radius: 0.357em; // 0.357em == 5px, when default size: 14px
+$px-1:  1em / 14;
+$px-2:  1em / 14 *  2;
+$px-3:  1em / 14 *  3;
+$px-5:  1em / 14 *  5;
+$px-14: 1em;
+$px-16: 1em / 14 * 16;
+$px-30: 1em / 14 * 30;
+$px-34: 1em / 14 * 34;
+$px-40: 1em / 14 * 40;

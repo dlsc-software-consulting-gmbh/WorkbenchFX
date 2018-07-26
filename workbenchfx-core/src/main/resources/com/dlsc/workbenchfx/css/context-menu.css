@@ -1,6 +1,6 @@
 .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu, #toolbar #top-box .context-menu {
   -fx-background-color: -surface-color;
-  -fx-background-radius: 0.357em;
+  -fx-background-radius: 0.3571428571em;
   -fx-effect: -drop-shadow-3;
   -fx-padding: .5em 0 .5em 0; }
   .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item, #toolbar #top-box .context-menu .menu-item {
@@ -39,7 +39,7 @@
   -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z"; }
 
 #toolbar #top-box .context-menu {
-  -fx-background-radius: 0.357em;
+  -fx-background-radius: 0.1428571429em;
   -fx-padding: .4em 0 .4em 0; }
   #toolbar #top-box .context-menu .menu-item {
     -fx-padding: .6em .65em .6em .65em; }

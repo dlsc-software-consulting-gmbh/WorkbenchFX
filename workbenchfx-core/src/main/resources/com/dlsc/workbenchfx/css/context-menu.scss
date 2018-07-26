@@ -10,7 +10,7 @@
 
   & .context-menu {
     // Shrinking down everything with factor 0.8
-    -fx-background-radius: $radius;
+    -fx-background-radius: $px-2;
     -fx-padding: .4em 0 .4em 0;
 
     & .menu-item {

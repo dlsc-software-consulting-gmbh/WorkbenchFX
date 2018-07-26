@@ -6,7 +6,7 @@
 
   -fx-background-color: -primary-color;
 
-  $tab-width: $pref-size*6;
+  $tab-width: $px-40*6;
   & .strip-cell {
     -fx-padding: 0;
     -fx-max-width: $tab-width;
@@ -22,7 +22,7 @@
       -fx-max-height: 0; // To keep the height to the size of the close-icon --> for the border
       -fx-alignment: center;
 
-      -fx-border-width: 0 $border 0 $border;
+      -fx-border-width: 0 $px-1 0 $px-1;
       -fx-border-color: transparent -on-primary-color transparent transparent;
 
       -fx-padding: 0 .5em 0 1em;
@@ -60,10 +60,10 @@
 
     &:selected {
       -fx-background-color: -background-color;
-      -fx-background-radius: $radius $radius 0 0;
-      -fx-border-radius: $radius $radius 0 0;
+      -fx-background-radius: $px-5 $px-5 0 0;
+      -fx-border-radius: $px-5 $px-5 0 0;
       -fx-cursor: inherit;
-      -fx-background-insets: 0 0 0 $border*-1; // Needed to remove the border of the tab
+      -fx-background-insets: 0 0 0 $px-1*-1; // Needed to remove the border of the tab
 
       & .tab-control {
         -fx-border-color: transparent;
@@ -111,8 +111,8 @@
 
     // Adjustments in order to make whole area of arrows clickable
     -fx-padding: 0;
-    -shape-width: $pref-size/2;
-    -shape-height: $pref-size;
+    -shape-width: $px-40/2;
+    -shape-height: $px-40;
 
     -fx-max-width: -shape-width;
     -fx-max-height: -shape-height;
@@ -121,7 +121,7 @@
     -fx-pref-width: -shape-width;
     -fx-pref-height: -shape-height;
 
-    -fx-background-insets: $pref-size/2.526 $pref-size/5.053 $pref-size/2.526 $pref-size/5.053;
+    -fx-background-insets: $px-40/2.526 $px-40/5.053 $px-40/2.526 $px-40/5.053;
 
     &.left {
       -fx-rotate: 180;

@@ -1,7 +1,7 @@
 %context-menu {
   .context-menu {
     -fx-background-color: -surface-color;
-    -fx-background-radius: $radius;
+    -fx-background-radius: $px-5;
     -fx-effect: -drop-shadow-3;
     -fx-padding: .5em 0 .5em 0;
 
@@ -79,58 +79,62 @@
 }
 
 %dropdown {
-  & .dropdown {
-    -fx-background-insets: .35em; // Prevent getting to the border
-    -fx-padding: 0 1.25em 0 .5em;
-    -fx-graphic-text-gap: .5em;
-    -fx-pref-height: $pref-size;
-    -fx-background-color: -primary-color;
-    -fx-background-radius: $radius*.6;
-    -fx-border-width: 0;
+  & .toolbar-menu-button {
+    -fx-max-height: $px-34;
 
-    & .label {
-      & .glyph-icon {
-        -fx-fill: -on-primary-color;
+    & .dropdown {
+      -fx-background-insets: 0em; // Remove the border from bottom
+      -fx-padding: 0 1em 0 .25em;
+      -fx-graphic-text-gap: .5em;
+      -fx-pref-height: $px-34;
+      -fx-background-color: -primary-color;
+      -fx-background-radius: $px-2;
+      -fx-border-width: 0;
+
+      & .label {
+        & .glyph-icon {
+          -fx-fill: -on-primary-color;
+        }
+        & .image-view {
+
+        }
+        & .text {
+          -fx-fill: -on-primary-color;
+        }
       }
-      & .image-view {
 
+      & .arrow-button {
+        -fx-padding: 0;
+        -fx-background-insets: 0;
+
+        & .arrow {
+          @extend %arrow-right-icon;
+          -fx-rotate: 90;
+
+          -shape-width: 4.167px*.6 !important; // Shrink arrow down
+          -shape-height: 8.333px*.6 !important; // Shrink arrow down
+          -fx-max-width: -shape-width;
+          -fx-max-height: -shape-height;
+          -fx-min-width: -shape-width;
+          -fx-min-height: -shape-height;
+          -fx-pref-width: -shape-width;
+          -fx-pref-height: -shape-height;
+
+          -fx-background-color: -on-primary-color;
+        }
       }
-      & .text {
-        -fx-fill: -on-primary-color;
+
+      &:hover {
+        -fx-cursor: hand;
       }
-    }
 
-    & .arrow-button {
-      -fx-padding: 0;
-      -fx-background-insets: 0;
+      &:showing {
+        -fx-background-color: -primary-variant-color;
+        -fx-cursor: inherit !important;
 
-      & .arrow {
-        @extend %arrow-right-icon;
-        -fx-rotate: 90;
-
-        -shape-width: 4.167px*.6 !important; // Shrink arrow down
-        -shape-height: 8.333px*.6 !important; // Shrink arrow down
-        -fx-max-width: -shape-width;
-        -fx-max-height: -shape-height;
-        -fx-min-width: -shape-width;
-        -fx-min-height: -shape-height;
-        -fx-pref-width: -shape-width;
-        -fx-pref-height: -shape-height;
-
-        -fx-background-color: -on-primary-color;
-      }
-    }
-
-    &:hover {
-      -fx-cursor: hand;
-    }
-
-    &:showing {
-      -fx-background-color: -primary-variant-color;
-      -fx-cursor: inherit !important;
-
-      & .arrow-button .arrow {
-        -fx-rotate: -90;
+        & .arrow-button .arrow {
+          -fx-rotate: -90;
+        }
       }
     }
   }
@@ -139,12 +143,12 @@
 %button-base {
   & .button {
     -fx-alignment: CENTER_LEFT;
-    -fx-background-insets: .35em; // Prevent getting to the border
-    -fx-padding: 0 1em 0 1em;
+    -fx-background-insets: 0em; // Remove the border from bottom
+    -fx-padding: 0 .75em 0 .75em;
     -fx-graphic-text-gap: .5em;
-    -fx-pref-height: $pref-size;
+    -fx-pref-height: $px-34;
     -fx-background-color: -primary-color;
-    -fx-background-radius: $radius*.6;
+    -fx-background-radius: $px-2;
     -fx-border-width: 0;
 
     & .glyph-icon {
