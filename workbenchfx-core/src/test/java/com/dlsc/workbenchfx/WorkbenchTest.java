@@ -147,6 +147,7 @@ class WorkbenchTest extends ApplicationTest {
     // Setup WorkbenchDialog Mock
     when(mockDialog.getButtonTypes()).thenReturn(buttonTypes);
     when(mockDialog.getOnResult()).thenReturn(mockOnResult);
+    when(mockDialog.getCancelDialogButtonType()).thenReturn(ButtonType.CANCEL);
 
     navigationDrawer = new MockNavigationDrawer();
     dialogControl = new MockDialogControl();
@@ -1500,8 +1501,8 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane")
-  void showDialogNonBlockingCloseGlassPane() {
+  @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane - default")
+  void showDialogNonBlockingCloseGlassPaneDefault() {
     robot.interact(() -> {
       assertDialogNotShown();
 
@@ -1515,6 +1516,30 @@ class WorkbenchTest extends ApplicationTest {
       simulateGlassPaneClick(dialogControl);
 
       verify(mockOnResult).accept(ButtonType.CANCEL);
+      assertDialogNotShown();
+    });
+  }
+
+  @Test
+  @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane - "
+      + "custom cancel ButtonType was defined")
+  void showDialogNonBlockingCloseGlassPaneCustom() {
+    ButtonType cancelButtonType = ButtonType.FINISH;
+    when(mockDialog.getCancelDialogButtonType()).thenReturn(cancelButtonType);
+    robot.interact(() -> {
+      assertDialogNotShown();
+
+      WorkbenchDialog result = workbench.showDialog(mockDialog);
+
+      assertDialogShown(result, false);
+      verify(mockDialog, atLeastOnce()).getButtonTypes();
+      verify(mockOnResult, never()).accept(any()); // no result yet
+
+      // hiding by GlassPane click
+      simulateGlassPaneClick(dialogControl);
+
+      verify(mockDialog).getCancelDialogButtonType();
+      verify(mockOnResult).accept(cancelButtonType);
       assertDialogNotShown();
     });
   }
