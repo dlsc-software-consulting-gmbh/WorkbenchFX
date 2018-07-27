@@ -24,6 +24,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -56,6 +57,13 @@ public class DialogControl extends Control {
   private Button cancelButton;
 
   private InvalidationListener dialogChangedListener;
+  private InvalidationListener blockingChangedListener;
+  private EventHandler<KeyEvent> escapeConsumeHandler = event -> {
+    if (KeyCode.ESCAPE.equals(event.getCode())) {
+      LOGGER.trace("ESC was pressed on a blocking dialog, consuming event");
+      event.consume();
+    }
+  };
 
   /**
    * Creates a dialog control.
@@ -74,12 +82,24 @@ public class DialogControl extends Control {
       buttonNodes.clear(); // force re-creation of buttons
       updateButtons(getDialog());
     };
+    blockingChangedListener = observable -> {
+      if (getDialog().isBlocking()) {
+        LOGGER.trace("Added escapeConsumeHandler");
+        addEventFilter(KeyEvent.ANY, escapeConsumeHandler);
+      } else {
+        LOGGER.trace("Removed escapeConsumeHandler");
+        removeEventFilter(KeyEvent.ANY, escapeConsumeHandler);
+      }
+    };
     dialog.addListener((observable, oldDialog, newDialog) -> {
       if (!Objects.isNull(oldDialog)) {
         oldDialog.getButtonTypes().removeListener(dialogChangedListener);
+        oldDialog.blockingProperty().removeListener(blockingChangedListener);
       }
       if (!Objects.isNull(newDialog)) {
         newDialog.getButtonTypes().addListener(dialogChangedListener);
+        newDialog.blockingProperty().addListener(blockingChangedListener);
+        blockingChangedListener.invalidated(null); // initially trigger
       }
     });
     dialog.addListener(dialogChangedListener);
@@ -104,6 +124,12 @@ public class DialogControl extends Control {
         showingProperty.bind(Bindings.isNotNull(workbenchProperty()));
       }
     });
+
+    // initially consume escape events when dialog is blocking
+    if (!Objects.isNull(getDialog()) && getDialog().isBlocking()) {
+      LOGGER.trace("Added escapeConsumeHandler");
+      addEventFilter(KeyEvent.ANY, escapeConsumeHandler);
+    }
   }
 
   private void updateButtons(WorkbenchDialog dialog) {
