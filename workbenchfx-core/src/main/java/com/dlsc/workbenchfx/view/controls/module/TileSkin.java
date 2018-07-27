@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.view.controls.MultilineLabel;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.VBox;
@@ -49,7 +48,7 @@ public class TileSkin extends SkinBase<Tile> {
         icon,
         textLbl
     );
-    contentBox.setAlignment(Pos.CENTER);
+//    contentBox.setAlignment(Pos.CENTER);
     getChildren().add(contentBox);
   }
 

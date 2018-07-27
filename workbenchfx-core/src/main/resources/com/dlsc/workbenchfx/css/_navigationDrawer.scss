@@ -141,42 +141,42 @@
           // It is set in the constructor of the Workbench.
         }
       }
+
+      & .scroll-bar {
+        $size: px(14);
+        $scroll-pane-padding: px(2);
+
+        %zero-size {
+          -fx-pref-width: 0;
+          -fx-pref-height: 0;
+        }
+
+        -fx-pref-width: $size;
+        -fx-pref-height: $size;
+        -fx-padding: $scroll-pane-padding;
+        -fx-background-color: transparent;
+
+        & .thumb {
+          -fx-background-color: rgba(0, 0, 0, .075);
+          -fx-background-radius: px(999);
+          -fx-pref-width: $size;
+          -fx-pref-height: $size;
+        }
+
+        & .increment-button,
+        & .increment-arrow,
+        & .decrement-button,
+        & .decrement-arrow {
+          @extend %zero-size;
+        }
+
+        &:vertical .thumb {
+          -fx-background-insets: $scroll-pane-padding*5 $scroll-pane-padding $scroll-pane-padding*5 0;
+        }
+        &:horizontal .thumb {
+          -fx-background-insets: 0 $scroll-pane-padding*5 $scroll-pane-padding $scroll-pane-padding*5;
+        }
+      }
     }
-  }
-}
-
-.scroll-bar {
-  $size: px(12);
-  $scroll-pane-padding: px(2);
-
-  %zero-size {
-    -fx-pref-width: 0 !important;
-    -fx-pref-height: 0 !important;
-  }
-
-  -fx-pref-width: $size;
-  -fx-pref-height: $size;
-  -fx-padding: $scroll-pane-padding;
-  -fx-background-color: transparent;
-
-  .thumb {
-    -fx-background-color: rgba(0, 0, 0, .075);
-    -fx-background-radius: px(999);
-    -fx-pref-width: $size;
-    -fx-pref-height: $size;
-  }
-
-  .increment-button,
-  .increment-arrow,
-  .decrement-button,
-  .decrement-arrow {
-    @extend %zero-size;
-  }
-
-  &:vertical .thumb {
-    -fx-background-insets: 0 $scroll-pane-padding 0 0;
-  }
-  &:horizontal .thumb {
-    -fx-background-insets: 0 0 $scroll-pane-padding 0;
   }
 }

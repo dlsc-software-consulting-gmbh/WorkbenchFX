@@ -315,27 +315,23 @@
             -fx-fill: -on-primary-color; }
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button:showing .arrow-button .arrow {
             -fx-background-color: -on-primary-color; }
-
-.scroll-bar {
-  -fx-pref-width: 0.8571428571em;
-  -fx-pref-height: 0.8571428571em;
-  -fx-padding: 0.1428571429em;
-  -fx-background-color: transparent; }
-  .scroll-bar .increment-button,
-  .scroll-bar .increment-arrow,
-  .scroll-bar .decrement-button,
-  .scroll-bar .decrement-arrow {
-    -fx-pref-width: 0 !important;
-    -fx-pref-height: 0 !important; }
-  .scroll-bar .thumb {
-    -fx-background-color: rgba(0, 0, 0, 0.075);
-    -fx-background-radius: 71.3571428571em;
-    -fx-pref-width: 0.8571428571em;
-    -fx-pref-height: 0.8571428571em; }
-  .scroll-bar:vertical .thumb {
-    -fx-background-insets: 0 0.1428571429em 0 0; }
-  .scroll-bar:horizontal .thumb {
-    -fx-background-insets: 0 0 0.1428571429em 0; }
+    .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar {
+      -fx-pref-width: 1em;
+      -fx-pref-height: 1em;
+      -fx-padding: 0.1428571429em;
+      -fx-background-color: transparent; }
+      .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .increment-button, .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .increment-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .decrement-button, .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .decrement-arrow {
+        -fx-pref-width: 0;
+        -fx-pref-height: 0; }
+      .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .thumb {
+        -fx-background-color: rgba(0, 0, 0, 0.075);
+        -fx-background-radius: 71.3571428571em;
+        -fx-pref-width: 1em;
+        -fx-pref-height: 1em; }
+      .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar:vertical .thumb {
+        -fx-background-insets: 0.7142857143em 0.1428571429em 0.7142857143em 0; }
+      .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar:horizontal .thumb {
+        -fx-background-insets: 0 0.7142857143em 0.1428571429em 0.7142857143em; }
 
 .dialog-pane {
   -fx-background-color: -surface-color;

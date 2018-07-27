@@ -3,7 +3,6 @@ package com.dlsc.workbenchfx.view.controls;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
@@ -105,14 +104,10 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
     menuContainer.setFillWidth(true);
 
-    BorderPane.setAlignment(backBtn, Pos.CENTER_LEFT);
-
     header.setTop(backBtn);
     header.setCenter(companyLogo);
 
     getChildren().add(drawerBox);
-
-    StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
   }
 
   private void setupEventHandlers() {
