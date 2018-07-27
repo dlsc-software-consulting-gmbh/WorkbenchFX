@@ -24,7 +24,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -57,7 +56,6 @@ public class DialogControl extends Control {
   private Button cancelButton;
 
   private InvalidationListener dialogChangedListener;
-  private EventHandler<KeyEvent> escapeHandler;
 
   /**
    * Creates a dialog control.
@@ -164,12 +162,11 @@ public class DialogControl extends Control {
       buttons.get(0).setDefaultButton(true);
     }
     if (Objects.isNull(cancelButton)) {
-      escapeHandler = event -> {
+      setOnKeyReleased(event -> {
         if (KeyCode.ESCAPE.equals(event.getCode())) {
           completeDialog(ButtonType.CANCEL); // TODO: refactor after branch is merged
         }
-      };
-      setOnKeyReleased(escapeHandler);
+      });
     }
   }
 
