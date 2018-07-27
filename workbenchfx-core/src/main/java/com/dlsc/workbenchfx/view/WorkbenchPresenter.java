@@ -153,7 +153,7 @@ public class WorkbenchPresenter extends Presenter {
           if (overlay instanceof DialogControl) {
             LOGGER.trace("GlassPane was clicked, hiding dialog");
             WorkbenchDialog dialog = ((DialogControl) overlay).getDialog();
-            dialog.getOnResult().accept(model.getCancelDialogButtonType());
+            dialog.getOnResult().accept(dialog.getCancelDialogButtonType());
             model.hideDialog(dialog);
           } else {
             model.hideOverlay(overlay);
