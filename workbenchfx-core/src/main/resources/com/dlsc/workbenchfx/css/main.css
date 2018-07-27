@@ -338,6 +338,28 @@
   -fx-background-color: -surface-color;
   -fx-effect: -drop-shadow-3;
   -fx-background-radius: 0.3571428571em; }
+  .dialog-pane .dialog-header {
+    -fx-padding: 0;
+    -fx-background-color: -surface-color;
+    -fx-background-radius: 0.3571428571em; }
+    .dialog-pane .dialog-header .dialog-title {
+      -fx-padding: 2.1428571429em 2.1428571429em 0 2.1428571429em;
+      -fx-font-size: 1.5em;
+      -fx-font-weight: 700;
+      -fx-text-fill: -on-surface-color; }
+  .dialog-pane .dialog-content-pane {
+    -fx-padding: 1.4285714286em 2.1428571429em 1.4285714286em 2.1428571429em; }
+    .dialog-pane .dialog-content-pane .label {
+      -fx-font-size: 1.2em;
+      -fx-font-weight: 600;
+      -fx-text-fill: -on-surface-color;
+      -fx-opacity: .54; }
+    .dialog-pane .dialog-content-pane .input-container {
+      -fx-spacing: 0.7142857143em; }
+    .dialog-pane .dialog-content-pane .textfield-container {
+      -fx-spacing: 0.7142857143em; }
+    .dialog-pane .dialog-content-pane .error-details-titled-pane {
+      -fx-padding: 1.4285714286em 0 0 0; }
   .dialog-pane .button-bar .button {
     -fx-background-color: transparent;
     -fx-text-fill: -primary-color;
@@ -345,31 +367,5 @@
     -font-size: 1.25em;
     -fx-font-weight: 700;
     -fx-cursor: hand; }
-
-.dialog-header {
-  -fx-padding: 0;
-  -fx-background-color: -surface-color;
-  -fx-background-radius: 0.3571428571em; }
-
-.dialog-title {
-  -fx-padding: 2.1428571429em 2.1428571429em 0 2.1428571429em;
-  -fx-font-size: 1.5em;
-  -fx-font-weight: 700;
-  -fx-text-fill: -on-surface-color; }
-
-.dialog-content-pane {
-  -fx-padding: 1.4285714286em 2.1428571429em 1.4285714286em 2.1428571429em; }
-  .dialog-content-pane .label {
-    -fx-font-size: 1.2em;
-    -fx-font-weight: 600;
-    -fx-text-fill: -on-surface-color;
-    -fx-opacity: .54; }
-  .dialog-content-pane .input-container {
-    -fx-spacing: 0.7142857143em; }
-  .dialog-content-pane .textfield-container {
-    -fx-spacing: 0.7142857143em; }
-
-.error-details-titled-pane {
-  -fx-padding: 1.4285714286em 0 0 0; }
 
 /*# sourceMappingURL=main.css.map */

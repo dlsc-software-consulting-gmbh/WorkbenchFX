@@ -6,7 +6,6 @@ import java.util.Objects;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
@@ -82,7 +81,6 @@ public class DialogSkin extends SkinBase<DialogControl> {
 
     VBox.setVgrow(dialogContentPane, Priority.ALWAYS);
 
-    dialogHeader.setAlignment(Pos.CENTER_LEFT);
     dialogHeader.getChildren().setAll(dialogTitle);
 
     dialogTitle.setMaxWidth(Double.MAX_VALUE);
