@@ -40,6 +40,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -52,6 +53,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.junit.jupiter.api.DisplayName;
@@ -1734,20 +1736,40 @@ class WorkbenchTest extends ApplicationTest {
   @DisplayName("Test for Workbench#showDrawer(Region,Side)")
   void showDrawer() {
     robot.interact(() -> {
-      //TODO
-      // null check
-      assertThrows(NullPointerException.class, () -> workbench.showDrawer(drawer, null, 0));
-      assertThrows(NullPointerException.class, () -> workbench.showDrawer(null, Side.LEFT, 0));
+      // initial
+      assertEquals(null, StackPane.getAlignment(drawer));
+      assertFalse(drawer.minWidthProperty().isBound());
+      assertFalse(drawer.minHeightProperty().isBound());
+      assertFalse(drawer.maxWidthProperty().isBound());
+      assertFalse(drawer.maxHeightProperty().isBound());
 
-      // Percentage range
-      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MIN_VALUE));
-      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, -2));
-      workbench.showDrawer(drawer, Side.LEFT, -1); // valid
-      workbench.showDrawer(drawer, Side.LEFT, 0); // valid
-      workbench.showDrawer(drawer, Side.LEFT, 1); // valid
-      workbench.showDrawer(drawer, Side.LEFT, 100); // valid
-      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, 101));
-      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MAX_VALUE));
+      // given
+      int percentageHalf = 50;
+
+      // when: top
+      workbench.showDrawer(drawer, Side.TOP, percentageHalf);
+      // then:
+      assertEquals(Pos.TOP_LEFT, StackPane.getAlignment(drawer));
+      assertTrue(drawer.minWidthProperty().isBound());
+
+      // when: right
+      workbench.showDrawer(drawer, Side.RIGHT, percentageHalf);
+      // then:
+      assertEquals(Pos.TOP_RIGHT, StackPane.getAlignment(drawer));
+      assertTrue(drawer.minHeightProperty().isBound());
+
+      // when: bottom
+      workbench.showDrawer(drawer, Side.BOTTOM, percentageHalf);
+      // then:
+      assertEquals(Pos.BOTTOM_LEFT, StackPane.getAlignment(drawer));
+      assertTrue(drawer.minWidthProperty().isBound());
+
+      // when: left
+      workbench.showDrawer(drawer, Side.LEFT, percentageHalf);
+      // then:
+      assertEquals(Pos.TOP_LEFT, StackPane.getAlignment(drawer));
+      assertTrue(drawer.minHeightProperty().isBound());
+
     });
   }
 

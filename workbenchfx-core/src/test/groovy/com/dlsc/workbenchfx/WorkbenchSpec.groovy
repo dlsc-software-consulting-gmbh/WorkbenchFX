@@ -12,6 +12,8 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.ObservableList
 import javafx.collections.ObservableMap
 import javafx.collections.ObservableSet
+import javafx.geometry.Pos
+import javafx.geometry.Side
 import javafx.scene.Node
 import javafx.scene.Scene
 import javafx.scene.control.ButtonType
@@ -19,6 +21,8 @@ import javafx.scene.control.Label
 import javafx.scene.control.MenuItem
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.scene.layout.Pane
+import javafx.scene.layout.StackPane
 import javafx.stage.Stage
 import org.spockframework.util.ExceptionUtil
 import org.testfx.api.FxRobot
@@ -75,7 +79,7 @@ class WorkbenchSpec extends ApplicationSpec {
     private MockNavigationDrawer navigationDrawer
     private MockDialogControl dialogControl
 
-
+    private static final int PERCENTAGE_HALF = 50
 
     @Override
     void start(Stage stage) {
@@ -170,6 +174,33 @@ class WorkbenchSpec extends ApplicationSpec {
         "showWarningDialog"      | [TITLE, MESSAGE, ON_RESULT]            || Type.WARNING      | null      | ""
         "showConfirmationDialog" | [TITLE, MESSAGE, ON_RESULT]            || Type.CONFIRMATION | null      | ""
         "showInformationDialog"  | [TITLE, MESSAGE, ON_RESULT]            || Type.INFORMATION  | null      | ""
+    }
+
+    @Unroll
+    def "Test"() {
+        given:
+        null == StackPane.getAlignment(drawer)
+        !drawer.minWidthProperty().isBound()
+        !drawer.minHeightProperty().isBound()
+        !drawer.maxWidthProperty().isBound()
+        !drawer.maxHeightProperty().isBound()
+        robot.interact {
+            workbench."showDrawer"(arguments)
+        }
+
+        expect:
+        position == StackPane.getAlignment(drawer)
+        minWidthBound == drawer.minWidthProperty().isBound()
+        maxWidthBound == drawer.minHeightProperty().isBound()
+        minHeightBound == drawer.maxWidthProperty().isBound()
+        maxHeightBound == drawer.maxHeightProperty().isBound()
+
+        where:
+        drawer     | arguments                              || position        | minWidthBound | maxWidthBound | minHeightBound | maxHeightBound
+        new Pane() | [drawer, Side.TOP, PERCENTAGE_HALF]    || Pos.TOP_LEFT    | true          | false         | false          | false
+        new Pane() | [drawer, Side.RIGHT, PERCENTAGE_HALF]  || Pos.TOP_RIGHT   | false         | false         | true           | false
+        new Pane() | [drawer, Side.BOTTOM, PERCENTAGE_HALF] || Pos.BOTTOM_LEFT | true          | false         | false          | false
+        new Pane() | [drawer, Side.LEFT, PERCENTAGE_HALF]   || Pos.TOP_LEFT    | false         | false         | true           | false
     }
 
     /**
