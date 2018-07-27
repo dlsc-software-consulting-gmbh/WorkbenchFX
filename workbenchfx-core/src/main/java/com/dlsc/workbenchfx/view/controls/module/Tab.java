@@ -62,7 +62,8 @@ public class Tab extends Control {
   private void setupModuleListeners() {
     module.addListener(observable -> {
       WorkbenchModule current = getModule();
-      name.setValue(current.getName());
+      // Replace any occurence of \n with space
+      name.setValue(current.getName().replace("\n", " "));
       icon.setValue(current.getIcon());
 
       // Sets id with toString of module.
