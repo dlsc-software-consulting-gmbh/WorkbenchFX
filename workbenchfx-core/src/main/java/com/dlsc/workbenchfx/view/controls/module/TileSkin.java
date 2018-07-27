@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
+import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
@@ -19,7 +20,7 @@ public class TileSkin extends SkinBase<Tile> {
 
   private VBox contentBox;
   private Label icon;
-  private Label textLbl;
+  private DialogMessageContent textLbl;
 
   /**
    * Creates a new {@link TileSkin} object for a corresponding {@link Tile}.
@@ -39,7 +40,7 @@ public class TileSkin extends SkinBase<Tile> {
     icon.getStyleClass().add("icon");
     contentBox = new VBox();
     contentBox.getStyleClass().add("tile-control");
-    textLbl = new Label(getSkinnable().getName());
+    textLbl = new DialogMessageContent(getSkinnable().getName());
     textLbl.getStyleClass().add("text-label");
   }
 
