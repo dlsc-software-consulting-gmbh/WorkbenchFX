@@ -195,6 +195,11 @@ public class DialogControl extends Control {
           completeDialog(getDialog().getCancelDialogButtonType());
         }
       });
+    } else {
+      LOGGER.trace("Cancel button present");
+      setOnKeyReleased(event -> {
+        // do nothing, reset previously set event handler since it's being handled by the buttons
+      });
     }
   }
 
