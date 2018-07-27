@@ -76,7 +76,7 @@ public class NavigationDrawer extends Control {
     return workbench.get().widthProperty();
   }
 
-  private Workbench getWorkbench() {
+  public Workbench getWorkbench() {
     return workbench.get();
   }
 
