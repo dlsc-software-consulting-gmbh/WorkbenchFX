@@ -6,7 +6,7 @@ import com.dlsc.workbenchfx.view.controls.module.Tab;
 
 public class TabCell extends StripCell<WorkbenchModule> {
 
-  private final String firstChild = "first-child";
+  private static final String FIRST_CHILD = "first-child";
 
   /**
    * Constructs a new {@link TabCell}.
@@ -27,7 +27,7 @@ public class TabCell extends StripCell<WorkbenchModule> {
         Otherwise the SelectionStrip's end would cut off the side.
        */
       if (getSelectionStrip().getItems().get(0).equals(getItem())) {
-        getStyleClass().add(firstChild);
+        getStyleClass().add(FIRST_CHILD);
       }
     });
   }
