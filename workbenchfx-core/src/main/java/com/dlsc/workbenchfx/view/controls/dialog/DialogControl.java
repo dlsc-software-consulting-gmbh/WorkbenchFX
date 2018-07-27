@@ -56,7 +56,9 @@ public class DialogControl extends Control {
   private final ObservableList<Button> buttons = FXCollections.observableArrayList();
   private final Map<ButtonType, Button> buttonNodes = new WeakHashMap<>();
   private Button defaultButton;
+  private ButtonType defaultButtonType;
   private Button cancelButton;
+  private ButtonType cancelButtonType;
 
   private InvalidationListener dialogChangedListener;
   private InvalidationListener blockingChangedListener;
@@ -138,7 +140,9 @@ public class DialogControl extends Control {
 
     buttons.clear();
     cancelButton = null;
+    cancelButtonType = null;
     defaultButton = null;
+    defaultButtonType = null;
     buttonNodes.clear();
 
     if (Objects.isNull(dialog)) {
@@ -157,11 +161,13 @@ public class DialogControl extends Control {
       button.setDefaultButton(isFirstDefaultButton);
       if (isFirstDefaultButton) {
         defaultButton = button;
+        defaultButtonType = cmd;
       }
       boolean isCancelButton = buttonType != null && buttonType.isCancelButton();
       button.setCancelButton(isCancelButton);
       if (isCancelButton) {
         cancelButton = button;
+        cancelButtonType = cmd;
       }
       button.setOnAction(evt -> {
         completeDialog(cmd);
@@ -370,12 +376,20 @@ public class DialogControl extends Control {
     this.showingProperty.set(showing);
   }
 
-  public Button getDefaultButton() {
+  private Button getDefaultButton() {
     return defaultButton;
   }
 
-  public Button getCancelButton() {
+  private Button getCancelButton() {
     return cancelButton;
+  }
+
+  private ButtonType getDefaultButtonType() {
+    return defaultButtonType;
+  }
+
+  public ButtonType getCancelButtonType() {
+    return cancelButtonType;
   }
 
   @Override
