@@ -164,7 +164,7 @@ public class DialogControl extends Control {
     if (Objects.isNull(cancelButton)) {
       setOnKeyReleased(event -> {
         if (KeyCode.ESCAPE.equals(event.getCode())) {
-          completeDialog(ButtonType.CANCEL); // TODO: refactor after branch is merged
+          completeDialog(getDialog().getCancelDialogButtonType());
         }
       });
     }
