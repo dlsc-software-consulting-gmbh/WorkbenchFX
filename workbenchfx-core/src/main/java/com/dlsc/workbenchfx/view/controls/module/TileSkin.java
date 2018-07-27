@@ -48,7 +48,6 @@ public class TileSkin extends SkinBase<Tile> {
         icon,
         textLbl
     );
-//    contentBox.setAlignment(Pos.CENTER);
     getChildren().add(contentBox);
   }
 

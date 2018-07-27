@@ -159,6 +159,7 @@
     -fx-alignment: CENTER; }
     #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control {
       -fx-padding: 1.5em;
+      -fx-alignment: CENTER;
       -fx-pref-width: 14em;
       -fx-pref-height: 7.874015748em;
       -fx-background-color: -surface-color;

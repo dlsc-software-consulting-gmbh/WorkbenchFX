@@ -11,6 +11,7 @@
 
             & .tile-control {
               -fx-padding: 1.5em;
+              -fx-alignment: CENTER;
 
               $tile-width: 14em;
               -fx-pref-width: $tile-width;
