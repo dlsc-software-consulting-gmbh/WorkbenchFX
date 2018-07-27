@@ -119,15 +119,6 @@ public class ToolbarPresenter extends Presenter {
         view.addMenuButton();
       }
     });
-
-    // add ore remove the menu button depending on the amount of navigation drawer items
-    model.getNavigationDrawerItems().addListener((InvalidationListener) c -> {
-      if (model.getNavigationDrawerItems().size() > 0) {
-        view.addMenuButton();
-      } else {
-        view.removeMenuButton();
-      }
-    });
   }
 
   /**

@@ -109,7 +109,7 @@ public class ToolbarView extends VBox implements View {
    * Shows a menu button in the front of the toolbar.
    */
   public void addMenuButton() {
-    if (!getChildren().contains(menuBtn)) {
+    if (!topBox.getChildren().contains(menuBtn)) {
       topBox.getChildren().add(0, menuBtn);
     }
   }
