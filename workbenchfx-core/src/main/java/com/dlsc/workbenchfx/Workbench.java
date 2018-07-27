@@ -504,6 +504,11 @@ public class Workbench extends Control {
       newActive = openModules.get(i - 1);
       LOGGER.trace("closeModule - Next active: Previous Module - " + newActive);
     }
+    // if the currently active module is the one that is being closed, deactivate first
+    if (oldActive == module) {
+      LOGGER.trace("closeModule - " + module + " was deactivated");
+      module.deactivate();
+    }
     /*
       If module has previously been closed and can now safely be closed, calling destroy() is not
       necessary anymore, simply remove the module
@@ -536,6 +541,10 @@ public class Workbench extends Control {
       resetModuleCloseable(module);
       // module should or could not be destroyed
       LOGGER.trace("closeModule - Destroy: Fail - " + module);
+      // if the module that has failed to be destroyed is already open, activate it again
+      if (getActiveModule() == module) {
+        module.activate();
+      }
       openModule(module); // set focus to new module
       return false;
     }
@@ -562,6 +571,7 @@ public class Workbench extends Control {
 
   /**
    * Returns an unmodifiableObservableList of the currently open modules.
+   * @return an unmodifiableObservableList of the currently open modules.
    */
   public ObservableList<WorkbenchModule> getOpenModules() {
     return FXCollections.unmodifiableObservableList(openModules);
@@ -604,6 +614,7 @@ public class Workbench extends Control {
   /**
    * Returns a list of the currently loaded toolbar controls on the left.
    *
+   * @return a list of the currently loaded toolbar controls on the left.
    * @implNote Use this method to add or remove toolbar controls on the left at runtime.
    */
   public ObservableSet<Node> getToolbarControlsLeft() {
@@ -613,6 +624,7 @@ public class Workbench extends Control {
   /**
    * Returns a list of the currently loaded toolbar controls on the right.
    *
+   * @return a list of the currently loaded toolbar controls on the right.
    * @implNote Use this method to add or remove toolbar controls on the right at runtime.
    */
   public ObservableSet<Node> getToolbarControlsRight() {
@@ -775,6 +787,8 @@ public class Workbench extends Control {
   /**
    * Returns a map of all overlays, which have previously been opened, with their corresponding
    * {@link GlassPane}.
+   * @return a map of all overlays, which have previously been opened, with their corresponding
+   *         {@link GlassPane}.
    */
   public ObservableMap<Node, GlassPane> getOverlays() {
     return FXCollections.unmodifiableObservableMap(overlays);
