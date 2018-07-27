@@ -40,6 +40,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.event.EventHandler;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -50,6 +51,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.junit.jupiter.api.DisplayName;
@@ -112,6 +114,8 @@ class WorkbenchTest extends ApplicationTest {
 
   private ObservableList<ButtonType> buttonTypes =
       FXCollections.observableArrayList(ButtonType.PREVIOUS, ButtonType.NEXT);
+
+  private Pane drawer = new Pane();
 
   @Override
   public void start(Stage stage) {
@@ -1705,5 +1709,25 @@ class WorkbenchTest extends ApplicationTest {
       return (DialogControl) workbench.getBlockingOverlaysShown().stream().findAny().get();
     }
     return null;
+  }
+
+  @Test
+  void showDrawerInputValidation() {
+    robot.interact(() -> {
+      // null check
+      assertThrows(NullPointerException.class, () -> workbench.showDrawer(drawer, null, 0));
+      assertThrows(NullPointerException.class, () -> workbench.showDrawer(null, Side.LEFT, 0));
+
+      // Percentage range
+      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MIN_VALUE));
+      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, -2));
+      workbench.showDrawer(drawer, Side.LEFT, -1); // valid
+      workbench.showDrawer(drawer, Side.LEFT, 0); // valid
+      workbench.showDrawer(drawer, Side.LEFT, 1); // valid
+      workbench.showDrawer(drawer, Side.LEFT, 100); // valid
+      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, 101));
+      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MAX_VALUE));
+    });
+
   }
 }
