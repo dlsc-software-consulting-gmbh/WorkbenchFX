@@ -1714,6 +1714,7 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void showDrawerInputValidation() {
     robot.interact(() -> {
+      //TODO
       // null check
       assertThrows(NullPointerException.class, () -> workbench.showDrawer(drawer, null, 0));
       assertThrows(NullPointerException.class, () -> workbench.showDrawer(null, Side.LEFT, 0));
@@ -1728,6 +1729,46 @@ class WorkbenchTest extends ApplicationTest {
       assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, 101));
       assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MAX_VALUE));
     });
+  }
 
+  @Test
+  @DisplayName("Test for Workbench#showDrawer(Region,Side)")
+  void showDrawer() {
+    robot.interact(() -> {
+      //TODO
+      // null check
+      assertThrows(NullPointerException.class, () -> workbench.showDrawer(drawer, null, 0));
+      assertThrows(NullPointerException.class, () -> workbench.showDrawer(null, Side.LEFT, 0));
+
+      // Percentage range
+      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MIN_VALUE));
+      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, -2));
+      workbench.showDrawer(drawer, Side.LEFT, -1); // valid
+      workbench.showDrawer(drawer, Side.LEFT, 0); // valid
+      workbench.showDrawer(drawer, Side.LEFT, 1); // valid
+      workbench.showDrawer(drawer, Side.LEFT, 100); // valid
+      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, 101));
+      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MAX_VALUE));
+    });
+  }
+
+  @Test
+  @DisplayName("Test for Workbench#showDrawer(Region,Side,int)")
+  void showDrawerPercentage() {
+    robot.interact(() -> {
+      // null check
+      assertThrows(NullPointerException.class, () -> workbench.showDrawer(drawer, null, 0));
+      assertThrows(NullPointerException.class, () -> workbench.showDrawer(null, Side.LEFT, 0));
+
+      // Percentage range
+      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MIN_VALUE));
+      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, -2));
+      workbench.showDrawer(drawer, Side.LEFT, -1); // valid
+      workbench.showDrawer(drawer, Side.LEFT, 0); // valid
+      workbench.showDrawer(drawer, Side.LEFT, 1); // valid
+      workbench.showDrawer(drawer, Side.LEFT, 100); // valid
+      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, 101));
+      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MAX_VALUE));
+    });
   }
 }
