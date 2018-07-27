@@ -119,7 +119,7 @@ public class CustomDemo extends Application {
             new InterruptClosingTestModule(),
             new InterruptClosing2TestModule(),
             new DialogTestModule(),
-            new DrawerTestModule().
+            new DrawerTestModule(),
             new LifecycleTestModule()
         )
             .toolbarLeft(addPreferences, removePreferences, showDialogButton)
