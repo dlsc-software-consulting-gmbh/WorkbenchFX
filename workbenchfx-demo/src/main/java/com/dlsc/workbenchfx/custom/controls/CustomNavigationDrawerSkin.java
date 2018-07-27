@@ -28,7 +28,7 @@ import javafx.scene.layout.VBox;
 public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer> {
 
   private VBox menuContainer;
-  private CustomNavigationDrawer customNavigationDrawer;
+  private CustomNavigationDrawer navigationDrawer;
   private VBox drawerBox;
   private BorderPane header;
   private PrettyScrollPane scrollPane;
@@ -39,32 +39,26 @@ public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer>
   /**
    * Creates the skin for the {@link CustomNavigationDrawer} control.
    *
-   * @param customNavigationDrawer to create this skin for
+   * @param navigationDrawer to create this skin for
    */
-  public CustomNavigationDrawerSkin(CustomNavigationDrawer customNavigationDrawer) {
-    super(customNavigationDrawer);
-    this.customNavigationDrawer = customNavigationDrawer;
+  public CustomNavigationDrawerSkin(CustomNavigationDrawer navigationDrawer) {
+    super(navigationDrawer);
+    this.navigationDrawer = navigationDrawer;
 
     initializeSelf();
     initializeParts();
     layoutParts();
-    setupBindings();
     setupEventHandlers();
     setupValueChangedListeners();
 
     buildMenu();
   }
 
-  private void setupBindings() {
-    workbenchWidth = customNavigationDrawer.workbenchWidthProperty(); // strong reference to avoid GC
-    customNavigationDrawer.maxWidthProperty().bind(workbenchWidth.multiply(.5));
-  }
-
   /**
    * Initializes the skin.
    */
   private void initializeSelf() {
-    customNavigationDrawer.getStyleClass().add("navigation-drawer");
+    navigationDrawer.getStyleClass().add("navigation-drawer");
   }
 
   /**
@@ -107,15 +101,15 @@ public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer>
 
     getChildren().add(drawerBox);
 
-    StackPane.setAlignment(customNavigationDrawer, Pos.TOP_LEFT);
+    StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
   }
 
   private void setupEventHandlers() {
-    backBtn.setOnAction(evt -> customNavigationDrawer.hide());
+    backBtn.setOnAction(evt -> navigationDrawer.hide());
   }
 
   private void setupValueChangedListeners() {
-    customNavigationDrawer.getItems().addListener((Observable it) -> buildMenu());
+    navigationDrawer.getItems().addListener((Observable it) -> buildMenu());
   }
 
   private void buildMenu() {

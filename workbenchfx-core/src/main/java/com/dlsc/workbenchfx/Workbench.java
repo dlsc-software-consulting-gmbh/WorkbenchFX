@@ -974,11 +974,11 @@ public class Workbench extends Control {
   }
 
   public void showNavigationDrawer() {
-    showOverlay(navigationDrawer.get(), false);
+    showDrawer(navigationDrawer.get(), Side.LEFT);
   }
 
   public void hideNavigationDrawer() {
-    hideOverlay(navigationDrawer.get());
+    hideDrawer();
   }
 
   public ObjectProperty<NavigationDrawer> navigationDrawerProperty() {
