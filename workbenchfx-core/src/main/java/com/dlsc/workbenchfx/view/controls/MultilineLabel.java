@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.view.controls.dialog;
+package com.dlsc.workbenchfx.view.controls;
 
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import javafx.scene.control.Label;
@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class DialogMessageContent extends Label {
+public class MultilineLabel extends Label {
 
   String message;
 
@@ -21,7 +21,7 @@ public class DialogMessageContent extends Label {
    *
    * @param message of the dialog
    */
-  public DialogMessageContent(String message) {
+  public MultilineLabel(String message) {
     this.message = message;
     setText(message);
     setWrapText(true); // makes sure long text doesn't get cut off at the end of a dialog
