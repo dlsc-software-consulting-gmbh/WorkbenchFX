@@ -23,6 +23,8 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -51,8 +53,11 @@ public class DialogControl extends Control {
 
   private final ObservableList<Button> buttons = FXCollections.observableArrayList();
   private final Map<ButtonType, Button> buttonNodes = new WeakHashMap<>();
+  private Button defaultButton;
+  private Button cancelButton;
 
   private InvalidationListener dialogChangedListener;
+  private EventHandler<KeyEvent> escapeHandler;
 
   /**
    * Creates a dialog control.
@@ -107,6 +112,9 @@ public class DialogControl extends Control {
     LOGGER.trace("Updating buttons");
 
     buttons.clear();
+    cancelButton = null;
+    defaultButton = null;
+    buttonNodes.clear();
 
     if (Objects.isNull(dialog)) {
       return;
@@ -119,13 +127,19 @@ public class DialogControl extends Control {
       // keep only first default button
       ButtonBar.ButtonData buttonType = cmd.getButtonData();
 
-      button.setDefaultButton(
-          !hasDefault && buttonType != null && buttonType.isDefaultButton()
-      );
-      button.setCancelButton(buttonType != null && buttonType.isCancelButton());
+      boolean isFirstDefaultButton =
+          !hasDefault && buttonType != null && buttonType.isDefaultButton();
+      button.setDefaultButton(isFirstDefaultButton);
+      if (isFirstDefaultButton) {
+        defaultButton = button;
+      }
+      boolean isCancelButton = buttonType != null && buttonType.isCancelButton();
+      button.setCancelButton(isCancelButton);
+      if (isCancelButton) {
+        cancelButton = button;
+      }
       button.setOnAction(evt -> {
-        getDialog().getOnResult().accept(cmd);
-        hide();
+        completeDialog(cmd);
       });
 
       hasDefault |= buttonType != null && buttonType.isDefaultButton();
@@ -133,6 +147,29 @@ public class DialogControl extends Control {
       buttons.add(button);
 
       LOGGER.trace("updateButtons finished");
+    }
+
+    updateKeyboardBehavior();
+  }
+
+  private void completeDialog(ButtonType cmd) {
+    getDialog().getOnResult().accept(cmd);
+    hide();
+  }
+
+  private void updateKeyboardBehavior() {
+    // if there is no default button, but there is only one button present
+    if (Objects.isNull(defaultButton) && buttons.size() == 1) {
+      // set the button as the default button
+      buttons.get(0).setDefaultButton(true);
+    }
+    if (Objects.isNull(cancelButton)) {
+      escapeHandler = event -> {
+        if (KeyCode.ESCAPE.equals(event.getCode())) {
+          completeDialog(ButtonType.CANCEL); // TODO: refactor after branch is merged
+        }
+      };
+      setOnKeyReleased(escapeHandler);
     }
   }
 
@@ -149,6 +186,8 @@ public class DialogControl extends Control {
       getOnHidden().handle(new Event(this, this, Event.ANY));
     }
   }
+
+
 
   private Button createButton(ButtonType buttonType) {
     LOGGER.trace("Create Button: " + buttonType.getText());
