@@ -19,7 +19,7 @@ public class WorkbenchView extends StackPane implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchView.class.getName());
   final ToolbarView toolbarView;
-  final HomeView homeView;
+  final AddModuleView addModuleView;
   final ContentView contentView;
   VBox viewBox;
 
@@ -27,15 +27,15 @@ public class WorkbenchView extends StackPane implements View {
    * Displays all of the view parts, representing the master view.
    *
    * @param toolbarView the {@link ToolbarView} to be shown
-   * @param homeView the {@link HomeView} to be shown
+   * @param addModuleView the {@link AddModuleView} to be shown
    * @param contentView the {@link ContentView} to be shown
    */
   public WorkbenchView(
       ToolbarView toolbarView,
-      HomeView homeView,
+      AddModuleView addModuleView,
       ContentView contentView) {
     this.toolbarView = toolbarView;
-    this.homeView = homeView;
+    this.addModuleView = addModuleView;
     this.contentView = contentView;
     init();
   }

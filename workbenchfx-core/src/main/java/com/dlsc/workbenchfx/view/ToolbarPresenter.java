@@ -63,7 +63,7 @@ public class ToolbarPresenter extends Presenter {
     toolbarControlsLeft.stream().forEachOrdered(view::addToolbarControlLeft);
     toolbarControlsRight.stream().forEachOrdered(view::addToolbarControlRight);
 
-    view.addBtn.requestFocus();
+    view.addModuleBtn.requestFocus();
 
     // Adds a menuButton if necessary (size of items > 0)
     if (model.getNavigationDrawerItems().size() > 0) {
@@ -77,7 +77,7 @@ public class ToolbarPresenter extends Presenter {
   @Override
   public void setupEventHandlers() {
     // When the home button is clicked, the view changes
-    view.addBtn.setOnAction(event -> model.openHomeScreen());
+    view.addModuleBtn.setOnAction(event -> model.openHomeScreen());
     // When the menu button is clicked, the navigation drawer gets shown
     view.menuBtn.setOnAction(event -> model.showNavigationDrawer());
   }
@@ -103,11 +103,11 @@ public class ToolbarPresenter extends Presenter {
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       if (Objects.isNull(oldModule)) {
         // Home is the old value
-        view.addBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_ADD_BUTTON);
+        view.addModuleBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_ADD_BUTTON);
       }
       if (Objects.isNull(newModule)) {
         // Home is the new value
-        view.addBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
+        view.addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
       }
     });
 

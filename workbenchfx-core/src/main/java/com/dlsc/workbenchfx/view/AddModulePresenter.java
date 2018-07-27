@@ -4,22 +4,22 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 
 /**
- * Represents the presenter of the corresponding {@link HomeView}.
+ * Represents the presenter of the corresponding {@link AddModuleView}.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class HomePresenter extends Presenter {
+public class AddModulePresenter extends Presenter {
   private final Workbench model;
-  private final HomeView view;
+  private final AddModuleView view;
 
   /**
-   * Creates a new {@link HomePresenter} object for a corresponding {@link HomeView}.
+   * Creates a new {@link AddModulePresenter} object for a corresponding {@link AddModuleView}.
    *
    * @param model the workbench, holding all data
-   * @param view the corresponding {@link HomeView}
+   * @param view the corresponding {@link AddModuleView}
    */
-  public HomePresenter(Workbench model, HomeView view) {
+  public AddModulePresenter(Workbench model, AddModuleView view) {
     this.model = model;
     this.view = view;
     init();

@@ -145,16 +145,16 @@
 #workbench {
   -fx-background-color: -background-color; }
 
-#content-view #home #tile-pane .pagination {
+#content-view #add-module-view #tile-pane .pagination {
   -fx-arrows-visible: false;
   -fx-page-information-visible: false;
   -fx-tooltip-visible: false; }
-  #content-view #home #tile-pane .pagination .page .tile-page {
+  #content-view #add-module-view #tile-pane .pagination .page .tile-page {
     -fx-vgap: 3em;
     -fx-hgap: 3em;
     -fx-padding: 1.5em;
     -fx-alignment: CENTER; }
-    #content-view #home #tile-pane .pagination .page .tile-page .tile-control {
+    #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control {
       -fx-padding: 1.5em;
       -fx-pref-width: 12em;
       -fx-pref-height: 6.7491563555em;
@@ -164,29 +164,29 @@
       -fx-border-radius: 0.3571428571em;
       -fx-background-radius: 0.3571428571em;
       -fx-background-insets: 0; }
-      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .icon .glyph-icon {
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .icon .glyph-icon {
         -fx-fill: -on-surface-color; }
-      #content-view #home #tile-pane .pagination .page .tile-page .tile-control .text-label {
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-label {
         -fx-padding: .5em 0 0 0; }
-        #content-view #home #tile-pane .pagination .page .tile-page .tile-control .text-label .text {
+        #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-label .text {
           -fx-fill: -on-surface-color; }
-      #content-view #home #tile-pane .pagination .page .tile-page .tile-control:hover {
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control:hover {
         -fx-effect: -drop-shadow-2;
         -fx-cursor: hand; }
-      #content-view #home #tile-pane .pagination .page .tile-page .tile-control:pressed {
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control:pressed {
         -fx-effect: -drop-shadow-3; }
-  #content-view #home #tile-pane .pagination > .pagination-control > .control-box {
+  #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box {
     -fx-spacing: .5em; }
-    #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button {
+    #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button {
       -fx-background-radius: 50%;
       -fx-background-insets: .5em;
       -fx-background-color: rgba(0, 0, 0, 0.1); }
-      #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:hover {
+      #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:hover {
         -fx-cursor: hand;
         -fx-background-color: rgba(0, 0, 0, 0.2); }
-      #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected {
+      #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected {
         -fx-background-color: -primary-color; }
-        #content-view #home #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
+        #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
           -fx-cursor: hand;
           -fx-background-color: -primary-variant-color; }
 

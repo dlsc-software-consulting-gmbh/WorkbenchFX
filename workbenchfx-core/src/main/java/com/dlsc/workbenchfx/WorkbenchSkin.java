@@ -1,10 +1,10 @@
 package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.view.AddModulePresenter;
+import com.dlsc.workbenchfx.view.AddModuleView;
 import com.dlsc.workbenchfx.view.ContentPresenter;
 import com.dlsc.workbenchfx.view.ContentView;
-import com.dlsc.workbenchfx.view.HomePresenter;
-import com.dlsc.workbenchfx.view.HomeView;
 import com.dlsc.workbenchfx.view.ToolbarPresenter;
 import com.dlsc.workbenchfx.view.ToolbarView;
 import com.dlsc.workbenchfx.view.WorkbenchPresenter;
@@ -32,8 +32,8 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
   private ToolbarView toolbarView;
   private ToolbarPresenter toolbarPresenter;
 
-  private HomeView homeView;
-  private HomePresenter homePresenter;
+  private AddModuleView addModuleView;
+  private AddModulePresenter addModulePresenter;
 
   private ContentView contentView;
   private ContentPresenter contentPresenter;
@@ -59,13 +59,13 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
     toolbarView = new ToolbarView();
     toolbarPresenter = new ToolbarPresenter(model, toolbarView);
 
-    homeView = new HomeView();
-    homePresenter = new HomePresenter(model, homeView);
+    addModuleView = new AddModuleView();
+    addModulePresenter = new AddModulePresenter(model, addModuleView);
 
     contentView = new ContentView();
     contentPresenter = new ContentPresenter(model, contentView);
 
-    workbenchView = new WorkbenchView(toolbarView, homeView, contentView);
+    workbenchView = new WorkbenchView(toolbarView, addModuleView, contentView);
     workbenchPresenter = new WorkbenchPresenter(model, workbenchView);
   }
 

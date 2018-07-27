@@ -24,7 +24,7 @@ public class ToolbarView extends VBox implements View {
   private HBox bottomBox;
 
   private StackPane addIconShape;
-  Button addBtn;
+  Button addModuleBtn;
   private StackPane menuIconShape;
   Button menuBtn;
   SelectionStrip<WorkbenchModule> tabBar;
@@ -58,10 +58,10 @@ public class ToolbarView extends VBox implements View {
 
     addIconShape = new StackPane();
     addIconShape.getStyleClass().add("shape");
-    addBtn = new Button("", addIconShape);
-    addBtn.getStyleClass().add("icon");
-    addBtn.setId("add-button");
-    addBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
+    addModuleBtn = new Button("", addIconShape);
+    addModuleBtn.getStyleClass().add("icon");
+    addModuleBtn.setId("add-button");
+    addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
 
     menuIconShape = new StackPane();
     menuIconShape.getStyleClass().add("shape");
@@ -94,7 +94,7 @@ public class ToolbarView extends VBox implements View {
 
     bottomBox.getChildren().addAll(
         tabBar,
-        addBtn
+        addModuleBtn
     );
     HBox.setHgrow(tabBar, Priority.ALWAYS);
 
@@ -102,7 +102,7 @@ public class ToolbarView extends VBox implements View {
         topBox,
         bottomBox
     );
-    Platform.runLater(() -> addBtn.requestFocus());
+    Platform.runLater(() -> addModuleBtn.requestFocus());
   }
 
   /**
