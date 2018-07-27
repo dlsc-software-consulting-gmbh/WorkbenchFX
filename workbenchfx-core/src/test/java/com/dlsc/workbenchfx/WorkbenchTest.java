@@ -1470,11 +1470,11 @@ class WorkbenchTest extends ApplicationTest {
       + "custom cancel ButtonType was defined")
   void showDialogNonBlockingCloseGlassPaneCustom() {
     ButtonType cancelButtonType = ButtonType.FINISH;
-    workbench.setCancelDialogButtonType(cancelButtonType);
     robot.interact(() -> {
       assertDialogNotShown();
 
       WorkbenchDialog result = workbench.showDialog(mockDialog);
+      result.setCancelDialogButtonType(cancelButtonType);
 
       assertDialogShown(result, false);
       verify(mockDialog, atLeastOnce()).getButtonTypes();
