@@ -370,6 +370,14 @@ public class DialogControl extends Control {
     this.showingProperty.set(showing);
   }
 
+  public Button getDefaultButton() {
+    return defaultButton;
+  }
+
+  public Button getCancelButton() {
+    return cancelButton;
+  }
+
   @Override
   protected Skin<?> createDefaultSkin() {
     return new DialogSkin(this);
