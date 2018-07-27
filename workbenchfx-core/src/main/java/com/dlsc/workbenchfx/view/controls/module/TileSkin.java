@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.VBox;
@@ -19,8 +18,8 @@ public class TileSkin extends SkinBase<Tile> {
   private static final Logger LOGGER = LogManager.getLogger(TileSkin.class.getName());
 
   private VBox contentBox;
+  private Label icon;
   private Label textLbl;
-  private Node icon;
 
   /**
    * Creates a new {@link TileSkin} object for a corresponding {@link Tile}.
@@ -33,16 +32,15 @@ public class TileSkin extends SkinBase<Tile> {
     initializeParts();
     layoutParts();
     setupBindings();
-    setupValueChangedListeners();
   }
 
   private void initializeParts() {
+    icon = new Label();
+    icon.getStyleClass().add("icon");
     contentBox = new VBox();
     contentBox.getStyleClass().add("tile-control");
     textLbl = new Label(getSkinnable().getName());
     textLbl.getStyleClass().add("text-label");
-    icon = getSkinnable().getIcon();
-    icon.getStyleClass().add("icon");
   }
 
   private void layoutParts() {
@@ -55,10 +53,8 @@ public class TileSkin extends SkinBase<Tile> {
   }
 
   private void setupBindings() {
+    icon.graphicProperty().bind(getSkinnable().iconProperty());
     textLbl.textProperty().bind(getSkinnable().nameProperty());
   }
 
-  private void setupValueChangedListeners() {
-    getSkinnable().iconProperty().addListener(observable -> icon = getSkinnable().getIcon());
-  }
 }
