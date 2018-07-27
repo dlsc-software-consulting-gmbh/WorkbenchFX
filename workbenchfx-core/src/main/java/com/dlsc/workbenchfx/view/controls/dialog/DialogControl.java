@@ -79,7 +79,6 @@ public class DialogControl extends Control {
   private void setupChangeListeners() {
     // update buttons whenever dialog, buttonTypes, workbench, or buttonTextUppercase changes
     dialogChangedListener = observable -> {
-      buttonNodes.clear(); // force re-creation of buttons
       updateButtons(getDialog());
     };
     blockingChangedListener = observable -> {
