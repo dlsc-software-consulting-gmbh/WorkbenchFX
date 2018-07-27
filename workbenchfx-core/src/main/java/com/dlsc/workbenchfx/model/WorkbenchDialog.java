@@ -24,6 +24,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.input.KeyCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -566,6 +567,12 @@ public final class WorkbenchDialog {
 
   /**
    * Defines the action to perform when a button of the dialog was pressed.
+   * The resulting {@link ButtonType} usually reflects the {@link Button} which was pressed in the
+   * dialog. If the dialog is non-blocking and has been closed by either a click on
+   * the {@link GlassPane} or by pressing {@link KeyCode#ESCAPE}, it will either be
+   * the {@link ButtonType} of the {@link Button} which has {@link Button#isCancelButton()}, or
+   * if there is none, the {@link ButtonType} defined with
+   * {@link #setCancelDialogButtonType(ButtonType)}, which is {@link ButtonType#CANCEL} by default.
    *
    * @param onResult action to be performed
    * @implNote If {@code onResult} is null, an empty consumer will be set instead, to avoid
