@@ -146,7 +146,6 @@ public final class WorkbenchDialog {
     DialogControl dialogControl = new DialogControl();
     EventHandler<Event> onShown = null;
     EventHandler<Event> onHidden = null;
-    ButtonType cancelDialogButtonType = CANCEL_DIALOG_BUTTON_TYPE;
 
     private WorkbenchDialogBuilder(String title, Node content, ButtonType... buttonTypes) {
       this.title = title;
@@ -286,20 +285,6 @@ public final class WorkbenchDialog {
     }
 
     /**
-     * Defines the default {@link ButtonType} that is set as result of a {@link WorkbenchDialog}
-     * when the {@link GlassPane} on the outside of a non-blocking dialog or {@link KeyCode#ESCAPE}
-     * has been pressed  and there is no {@link Button} on the dialog which
-     * has {@link Button#isCancelButton()}.
-     *
-     * @param cancelDialog {@link ButtonType} that should be set as result of a dialog
-     * @return builder for chaining
-     */
-    public WorkbenchDialogBuilder cancelDialogButtonType(ButtonType cancelDialog) {
-      this.cancelDialogButtonType = cancelDialog;
-      return this;
-    }
-
-    /**
      * Builds and fully initializes a {@link WorkbenchDialog} object.
      *
      * @return the {@link WorkbenchDialog} object
@@ -349,8 +334,6 @@ public final class WorkbenchDialog {
     dialogControlProperty().addListener((observable, oldDialogControl, newDialogControl) -> {
       newDialogControl.setDialog(this);
     });
-
-    setCancelDialogButtonType(builder.cancelDialogButtonType);
   }
 
   private void initType(Type type) {
@@ -569,11 +552,11 @@ public final class WorkbenchDialog {
   /**
    * Defines the action to perform when a button of the dialog was pressed.
    * The resulting {@link ButtonType} usually reflects the {@link Button} which was pressed in the
-   * dialog. If the dialog is non-blocking and has been closed by either a click on
-   * the {@link GlassPane} or by pressing {@link KeyCode#ESCAPE}, it will either be
-   * the {@link ButtonType} of the {@link Button} which has {@link Button#isCancelButton()}, or
-   * if there is none, the {@link ButtonType} defined with
-   * {@link #setCancelDialogButtonType(ButtonType)}, which is {@link ButtonType#CANCEL} by default.
+   * dialog.<br>
+   * If the dialog is non-blocking and has been closed by pressing on the {@link GlassPane} or
+   * {@link KeyCode#ESCAPE}, the result will be the {@link ButtonType} of
+   * {@link Button#isCancelButton()} in the dialog.<br>
+   * If there is no {@link Button#isCancelButton()}, the result will be {@link ButtonType#CANCEL}.
    *
    * @param onResult action to be performed
    * @implNote If {@code onResult} is null, an empty consumer will be set instead, to avoid
@@ -625,23 +608,5 @@ public final class WorkbenchDialog {
    */
   public final boolean isShowing() {
     return showingProperty().get();
-  }
-
-  // Define the default cancel ButtonType
-
-  /**
-   * Defines the default {@link ButtonType} that is set as result of a {@link WorkbenchDialog}
-   * when the {@link GlassPane} on the outside of a non-blocking dialog or {@link KeyCode#ESCAPE}
-   * has been pressed  and there is no {@link Button} on the dialog which
-   * has {@link Button#isCancelButton()}.
-   *
-   * @param cancelDialogButtonType {@link ButtonType} that should be set as result of a dialog
-   */
-  public void setCancelDialogButtonType(ButtonType cancelDialogButtonType) {
-    this.cancelDialogButtonType = cancelDialogButtonType;
-  }
-
-  public ButtonType getCancelDialogButtonType() {
-    return cancelDialogButtonType;
   }
 }

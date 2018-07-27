@@ -62,12 +62,7 @@ public class DialogControl extends Control {
 
   private InvalidationListener dialogChangedListener;
   private InvalidationListener blockingChangedListener;
-  private EventHandler<KeyEvent> escapeConsumeHandler = event -> {
-    if (KeyCode.ESCAPE.equals(event.getCode())) {
-      LOGGER.trace("ESC was pressed on a blocking dialog, consuming event");
-      event.consume();
-    }
-  };
+  private EventHandler<KeyEvent> escapeConsumeHandler;
 
   /**
    * Creates a dialog control.
@@ -84,6 +79,12 @@ public class DialogControl extends Control {
     // update buttons whenever dialog, buttonTypes, workbench, or buttonTextUppercase changes
     dialogChangedListener = observable -> {
       updateButtons(getDialog());
+    };
+    escapeConsumeHandler = event -> {
+      if (KeyCode.ESCAPE.equals(event.getCode())) {
+        LOGGER.trace("ESC was pressed on a blocking dialog, consuming event");
+        event.consume();
+      }
     };
     blockingChangedListener = observable -> {
       if (getDialog().isBlocking()) {
@@ -108,6 +109,12 @@ public class DialogControl extends Control {
     dialog.addListener(dialogChangedListener);
     buttonTextUppercase.addListener(dialogChangedListener);
 
+    // initially consume escape events when dialog is blocking
+    if (!Objects.isNull(getDialog()) && getDialog().isBlocking()) {
+      LOGGER.trace("Added escapeConsumeHandler");
+      addEventFilter(KeyEvent.ANY, escapeConsumeHandler);
+    }
+
     // fire events depending on the dialog being shown or not
     showingProperty.addListener((observable, oldShowing, newShowing) -> {
       LOGGER.trace("Dialog Showing Listener - old: " + oldShowing + " new: " + newShowing);
@@ -128,11 +135,6 @@ public class DialogControl extends Control {
       }
     });
 
-    // initially consume escape events when dialog is blocking
-    if (!Objects.isNull(getDialog()) && getDialog().isBlocking()) {
-      LOGGER.trace("Added escapeConsumeHandler");
-      addEventFilter(KeyEvent.ANY, escapeConsumeHandler);
-    }
   }
 
   private void updateButtons(WorkbenchDialog dialog) {
@@ -196,7 +198,7 @@ public class DialogControl extends Control {
       buttons.get(0).setDefaultButton(true);
     }
     if (Objects.isNull(cancelButton)) {
-      LOGGER.trace("No cancel button, setting cancelDialogButtonType as cancel");
+      LOGGER.trace("No cancel button, setting ButtonType.CANCEL as cancel");
       // focus the dialog if none of the buttons are focused by the ButtonBar or the ButtonBar has
       // been made invisible, since onKeyReleased event only triggers, if the node or any of its
       // children are focused
@@ -209,7 +211,7 @@ public class DialogControl extends Control {
       setOnKeyReleased(event -> {
         if (KeyCode.ESCAPE.equals(event.getCode())) {
           LOGGER.trace("ESC was pressed, closing dialog");
-          completeDialog(getDialog().getCancelDialogButtonType());
+          completeDialog(ButtonType.CANCEL);
         }
       });
     } else {

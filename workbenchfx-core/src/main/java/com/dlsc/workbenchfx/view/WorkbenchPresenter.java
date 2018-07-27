@@ -158,7 +158,7 @@ public class WorkbenchPresenter extends Presenter {
             ButtonType cancelButtonType = dialog.getDialogControl().getCancelButtonType();
             // if not available, send the defined cancelDialogButtonType
             if (Objects.isNull(cancelButtonType)) {
-              cancelButtonType = dialog.getCancelDialogButtonType();
+              cancelButtonType = ButtonType.CANCEL;
             }
             dialog.getOnResult().accept(cancelButtonType);
             model.hideDialog(dialog);
