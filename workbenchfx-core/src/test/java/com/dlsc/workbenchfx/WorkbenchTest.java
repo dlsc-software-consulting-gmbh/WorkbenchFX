@@ -1469,8 +1469,8 @@ class WorkbenchTest extends ApplicationTest {
   @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane - "
       + "custom cancel ButtonType was defined")
   void showDialogNonBlockingCloseGlassPaneCustom() {
-    ButtonType defaultCancelButtonType = ButtonType.FINISH;
-    workbench.setDefaultDialogButtonType(defaultCancelButtonType);
+    ButtonType cancelButtonType = ButtonType.FINISH;
+    workbench.setCancelDialogButtonType(cancelButtonType);
     robot.interact(() -> {
       assertDialogNotShown();
 
@@ -1483,7 +1483,7 @@ class WorkbenchTest extends ApplicationTest {
       // hiding by GlassPane click
       simulateGlassPaneClick(dialogControl);
 
-      verify(mockOnResult).accept(defaultCancelButtonType);
+      verify(mockOnResult).accept(cancelButtonType);
       assertDialogNotShown();
     });
   }

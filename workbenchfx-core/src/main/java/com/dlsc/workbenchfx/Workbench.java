@@ -66,7 +66,7 @@ public class Workbench extends Control {
       DEFAULT_PAGE_FACTORY = Page::new;
   private static final int DEFAULT_MODULES_PER_PAGE = 9;
   private static final NavigationDrawer DEFAULT_NAVIGATION_DRAWER = new NavigationDrawer();
-  private static final ButtonType DEFAULT_DIALOG_BUTTON_TYPE = ButtonType.CANCEL;
+  private static final ButtonType CANCEL_DIALOG_BUTTON_TYPE = ButtonType.CANCEL;
 
   // Custom Controls
   private ObjectProperty<NavigationDrawer> navigationDrawer =
@@ -88,7 +88,7 @@ public class Workbench extends Control {
   private final ObservableSet<Node> nonBlockingOverlaysShown = FXCollections.observableSet();
   private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet();
 
-  private ButtonType defaultDialogButtonType = DEFAULT_DIALOG_BUTTON_TYPE;
+  private ButtonType cancelDialogButtonType = CANCEL_DIALOG_BUTTON_TYPE;
 
   // Modules
   /**
@@ -175,7 +175,7 @@ public class Workbench extends Control {
 
     MenuItem[] navigationDrawerItems;
 
-    ButtonType defaultDialogButtonType = DEFAULT_DIALOG_BUTTON_TYPE;
+    ButtonType cancelDialogButtonType = CANCEL_DIALOG_BUTTON_TYPE;
 
     private WorkbenchBuilder(WorkbenchModule... modules) {
       this.modules = modules;
@@ -285,11 +285,11 @@ public class Workbench extends Control {
      * Defines the default {@link ButtonType} that is set as result of a {@link WorkbenchDialog}
      * when the {@link GlassPane} on the outside of a non-blocking dialog has been pressed.
      *
-     * @param defaultDialog {@link ButtonType} that should be set as result of a dialog
+     * @param cancelDialog {@link ButtonType} that should be set as result of a dialog
      *                                that was closed by clicking on its {@link GlassPane}
      */
-    public void defaultDialogButtonType(ButtonType defaultDialog) {
-      this.defaultDialogButtonType = defaultDialog;
+    public void cancelDialogButtonType(ButtonType cancelDialog) {
+      this.cancelDialogButtonType = cancelDialog;
     }
 
     /**
@@ -319,7 +319,7 @@ public class Workbench extends Control {
    */
   private Workbench(WorkbenchBuilder builder) {
     setModulesPerPage(builder.modulesPerPage);
-    setDefaultDialogButtonType(builder.defaultDialogButtonType);
+    setCancelDialogButtonType(builder.cancelDialogButtonType);
     initBindings();
     initFactories(builder);
     initToolbarControls(builder);
@@ -962,15 +962,15 @@ public class Workbench extends Control {
    * Defines the default {@link ButtonType} that is set as result of a {@link WorkbenchDialog} when
    * the {@link GlassPane} on the outside of a non-blocking dialog has been pressed.
    *
-   * @param defaultDialogButtonType {@link ButtonType} that should be set as result of a dialog
+   * @param cancelDialogButtonType {@link ButtonType} that should be set as result of a dialog
    *                                that was closed by clicking on its {@link GlassPane}
    */
-  public void setDefaultDialogButtonType(ButtonType defaultDialogButtonType) {
-    this.defaultDialogButtonType = defaultDialogButtonType;
+  public void setCancelDialogButtonType(ButtonType cancelDialogButtonType) {
+    this.cancelDialogButtonType = cancelDialogButtonType;
   }
 
-  public ButtonType getDefaultDialogButtonType() {
-    return defaultDialogButtonType;
+  public ButtonType getCancelDialogButtonType() {
+    return cancelDialogButtonType;
   }
 
   @Override

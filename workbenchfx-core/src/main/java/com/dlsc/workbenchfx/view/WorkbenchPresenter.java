@@ -10,7 +10,6 @@ import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
-import javafx.scene.control.ButtonType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -154,7 +153,7 @@ public class WorkbenchPresenter extends Presenter {
           if (overlay instanceof DialogControl) {
             LOGGER.trace("GlassPane was clicked, hiding dialog");
             WorkbenchDialog dialog = ((DialogControl) overlay).getDialog();
-            dialog.getOnResult().accept(model.getDefaultDialogButtonType());
+            dialog.getOnResult().accept(model.getCancelDialogButtonType());
             model.hideDialog(dialog);
           } else {
             model.hideOverlay(overlay);
