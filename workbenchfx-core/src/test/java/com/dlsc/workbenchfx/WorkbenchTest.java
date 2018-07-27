@@ -1714,7 +1714,6 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void showDrawerInputValidation() {
     robot.interact(() -> {
-      //TODO
       // null check
       assertThrows(NullPointerException.class, () -> workbench.showDrawer(drawer, null, 0));
       assertThrows(NullPointerException.class, () -> workbench.showDrawer(null, Side.LEFT, 0));
@@ -1756,6 +1755,7 @@ class WorkbenchTest extends ApplicationTest {
   @DisplayName("Test for Workbench#showDrawer(Region,Side,int)")
   void showDrawerPercentage() {
     robot.interact(() -> {
+      //TODO
       // null check
       assertThrows(NullPointerException.class, () -> workbench.showDrawer(drawer, null, 0));
       assertThrows(NullPointerException.class, () -> workbench.showDrawer(null, Side.LEFT, 0));
