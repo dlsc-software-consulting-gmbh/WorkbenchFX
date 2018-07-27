@@ -906,7 +906,9 @@ public class Workbench extends Control {
     drawer.maxHeightProperty().unbind();
     switch (side) {
       case TOP:
-        position = Pos.TOP_LEFT;
+        // fall through to BOTTOM
+      case BOTTOM:
+        position = side == Side.TOP ? Pos.TOP_LEFT : Pos.BOTTOM_LEFT;
         drawer.minWidthProperty().bind(widthProperty());
         if (percentage == -1) {
           bindDrawerHeight(drawer);
@@ -916,27 +918,9 @@ public class Workbench extends Control {
         }
         break;
       case RIGHT:
-        position = Pos.TOP_RIGHT;
-        drawer.minHeightProperty().bind(heightProperty());
-        if (percentage == -1) {
-          bindDrawerWidth(drawer);
-        } else {
-          drawer.maxWidthProperty().bind(
-              widthProperty().multiply((double) percentage / MAX_PERCENT));
-        }
-        break;
-      case BOTTOM:
-        position = Pos.BOTTOM_LEFT;
-        drawer.minWidthProperty().bind(widthProperty());
-        if (percentage == -1) {
-          bindDrawerHeight(drawer);
-        } else {
-          drawer.maxHeightProperty().bind(
-              heightProperty().multiply((double) percentage / MAX_PERCENT));
-        }
-        break;
+        // fall through to LEFT
       default: // LEFT
-        position = Pos.TOP_LEFT;
+        position = side == Side.LEFT ? Pos.TOP_LEFT : Pos.TOP_RIGHT;
         drawer.minHeightProperty().bind(heightProperty());
         if (percentage == -1) {
           bindDrawerWidth(drawer);
