@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
@@ -56,6 +57,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -274,7 +276,9 @@ class WorkbenchTest extends ApplicationTest {
       inOrder = inOrder(second);
       inOrder.verify(second).init(workbench);
       inOrder.verify(second).activate();
-      inOrder.verifyNoMoreInteractions();
+
+      ignoreModuleGetters(first, second, last);
+      verifyNoMoreInteractions(first, second, last);
     });
   }
 
@@ -307,8 +311,11 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(first).init(workbench);
       inOrder.verify(first).activate();
       // Call: workbench.closeModule(first)
+      inOrder.verify(first).deactivate();
       inOrder.verify(first).destroy();
-      inOrder.verifyNoMoreInteractions();
+
+      ignoreModuleGetters(first);
+      verifyNoMoreInteractions(first);
     });
   }
 
@@ -338,11 +345,11 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).init(workbench);
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(first)
+      inOrder.verify(first, never()).deactivate();
       inOrder.verify(first).destroy();
-      inOrder.verify(second).getWorkbench();
-      inOrder.verify(second).getName();
-      inOrder.verify(second).getIcon();
-      inOrder.verifyNoMoreInteractions();
+
+      ignoreModuleGetters(first, second);
+      verifyNoMoreInteractions(first, second);
     });
   }
 
@@ -375,9 +382,12 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).deactivate();
       inOrder.verify(first).activate();
       // Call: workbench.closeModule(first)
+      inOrder.verify(first).deactivate();
       inOrder.verify(first).destroy();
       inOrder.verify(second).activate();
-      inOrder.verifyNoMoreInteractions();
+
+      ignoreModuleGetters(first, second);
+      verifyNoMoreInteractions(first, second);
     });
   }
 
@@ -406,9 +416,12 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).init(workbench);
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(second)
+      inOrder.verify(second).deactivate();
       inOrder.verify(second).destroy();
       inOrder.verify(first).activate();
-      inOrder.verifyNoMoreInteractions();
+
+      ignoreModuleGetters(first, second);
+      verifyNoMoreInteractions(first, second);
     });
   }
 
@@ -441,11 +454,11 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).deactivate();
       inOrder.verify(first).activate();
       // Call: workbench.closeModule(second)
+      inOrder.verify(second, never()).deactivate();
       inOrder.verify(second).destroy();
-      inOrder.verify(first).getWorkbench();
-      inOrder.verify(first).getName();
-      inOrder.verify(first).getIcon();
-      inOrder.verifyNoMoreInteractions();
+
+      ignoreModuleGetters(first, second);
+      verifyNoMoreInteractions(first, second);
     });
   }
 
@@ -483,9 +496,12 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(last).deactivate();
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(second)
+      inOrder.verify(second).deactivate();
       inOrder.verify(second).destroy();
       inOrder.verify(first).activate();
-      inOrder.verifyNoMoreInteractions();
+
+      ignoreModuleGetters(first, second);
+      verifyNoMoreInteractions(first, second);
     });
   }
 
@@ -516,9 +532,13 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(second)
       // destroy second
+      inOrder.verify(second).deactivate();
       inOrder.verify(second).destroy();
       // notice destroy() was unsuccessful, keep focus on second
-      inOrder.verifyNoMoreInteractions();
+      inOrder.verify(second).activate();
+
+      ignoreModuleGetters(first, second);
+      verifyNoMoreInteractions(first, second);
     });
   }
 
@@ -549,11 +569,14 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(second)
       // destroy second
+      inOrder.verify(first, never()).deactivate();
       inOrder.verify(first).destroy();
       // notice destroy() was unsuccessful, switch focus to first
       inOrder.verify(second).deactivate();
       inOrder.verify(first).activate();
-      inOrder.verifyNoMoreInteractions();
+
+      ignoreModuleGetters(first, second);
+      verifyNoMoreInteractions(first, second);
     });
   }
 
@@ -594,10 +617,27 @@ class WorkbenchTest extends ApplicationTest {
       // destroy() returns false, closeModule() opens first module
       inOrder.verify(second).deactivate();
       inOrder.verify(first).activate();
-      // destroy() returns true, switch to second
+      // WorkbenchModule#close(), switch to second
+      inOrder.verify(first).deactivate();
       inOrder.verify(second).activate();
-      inOrder.verifyNoMoreInteractions();
+
+      ignoreModuleGetters(first, second);
+      verifyNoMoreInteractions(first, second);
     });
+  }
+
+  /**
+   * Internal testing utility method.
+   * Ignores calls to the getters of {@link WorkbenchModule}, which enables to safely call
+   * {@link Mockito#verifyNoMoreInteractions} during lifecycle order verification tests without
+   * having to make assumptions about how many times the getters have been called as well.
+   */
+  private void ignoreModuleGetters(WorkbenchModule... modules) {
+    for (WorkbenchModule module : modules) {
+      verify(module, atLeast(0)).getIcon();
+      verify(module, atLeast(0)).getName();
+      verify(module, atLeast(0)).getWorkbench();
+    }
   }
 
   /**
@@ -616,9 +656,6 @@ class WorkbenchTest extends ApplicationTest {
     // open two modules, close first (inactive) module
     // destroy() on first module will return false, so the module shouldn't get closed
     when(first.destroy()).then(invocation -> {
-      robot.interact(() -> {
-        workbench.openModule(first);
-      });
       // dialog opens, user confirms NOT closing module
       return false;
     });
@@ -642,12 +679,14 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(second).activate();
       // Call: workbench.closeModule(first)
       // attempt to destroy first
+      inOrder.verify(first, never()).deactivate();
       inOrder.verify(first).destroy();
-      // destroy() opens itself: workbench.openModule(first)
+      // destroy() returns false, switch open module to first
       inOrder.verify(second).deactivate();
       inOrder.verify(first).activate();
       // destroy() returns false, first stays the active module
-      inOrder.verifyNoMoreInteractions();
+      ignoreModuleGetters(first, second);
+      verifyNoMoreInteractions(first, second);
     });
   }
 
@@ -689,11 +728,14 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(last).init(workbench);
       inOrder.verify(last).activate();
       // Call: workbench.closeModule(second)
+      inOrder.verify(second, never()).deactivate();
       inOrder.verify(second).destroy();
       inOrder.verify(last).getWorkbench();
       inOrder.verify(last).getName();
       inOrder.verify(last).getIcon();
-      inOrder.verifyNoMoreInteractions();
+
+      ignoreModuleGetters(first, second, last);
+      verifyNoMoreInteractions(first, second, last);
     });
   }
 
@@ -1200,11 +1242,14 @@ class WorkbenchTest extends ApplicationTest {
 
       // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
       // Implicit Call: workbench.closeModule(first)
+      inOrder.verify(first, never()).deactivate();
       inOrder.verify(first).destroy();
       // Implicit Call: workbench.closeModule(second)
+      inOrder.verify(second).deactivate();
       inOrder.verify(second).destroy();
 
-      inOrder.verifyNoMoreInteractions();
+      ignoreModuleGetters(first, second);
+      verifyNoMoreInteractions(first, second);
 
       assertEquals(0, workbench.getOpenModules().size());
     });
@@ -1240,12 +1285,15 @@ class WorkbenchTest extends ApplicationTest {
 
       // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
       // Implicit Call: workbench.closeModule(first)
+      inOrder.verify(first, never()).deactivate();
       inOrder.verify(first).destroy(); // returns false
       // Implicit Call: workbench.openModule(first) -> set focus on module that couldn't be closed
       inOrder.verify(second).deactivate();
       inOrder.verify(first).activate();
       // closing should be interrupted
-      inOrder.verifyNoMoreInteractions();
+
+      ignoreModuleGetters(first, second);
+      verifyNoMoreInteractions(first, second);
 
       assertEquals(2, workbench.getOpenModules().size());
     });
@@ -1281,11 +1329,17 @@ class WorkbenchTest extends ApplicationTest {
 
       // Effects caused by "Workbench#setupCleanup" -> setOnCloseRequest
       // Implicit Call: workbench.closeModule(first)
+      inOrder.verify(first, never()).deactivate();
       inOrder.verify(first).destroy(); // returns true
       // Implicit Call: workbench.closeModule(second)
+      inOrder.verify(second).deactivate();
       inOrder.verify(second).destroy(); // returns false
+      // second should stay as the active module
+      inOrder.verify(second).activate();
       // closing should be interrupted
-      inOrder.verifyNoMoreInteractions();
+
+      ignoreModuleGetters(first, second);
+      verifyNoMoreInteractions(first, second);
 
       assertEquals(1, workbench.getOpenModules().size());
       assertEquals(second, workbench.getOpenModules().get(0));

@@ -86,10 +86,28 @@
                     <failOnError>false</failOnError>
                     <force>true</force>
                     <windowtitle>WorkbenchFX API</windowtitle>
-                    <additionalJOption>-J-Djavafx.javadoc=true
-                    </additionalJOption>
-                    <failOnError>false</failOnError>
+                    <additionalJOptions>
+                        <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
+                        <additionalJOption>-html5</additionalJOption>
+                    </additionalJOptions>
                     <docfilessubdirs>true</docfilessubdirs>
+                    <tags>
+                        <tag>
+                            <name>apiNote</name>
+                            <placement>a</placement>
+                            <head>API Note:</head>
+                        </tag>
+                        <tag>
+                            <name>implSpec</name>
+                            <placement>a</placement>
+                            <head>Implementation Requirements:</head>
+                        </tag>
+                        <tag>
+                            <name>implNote</name>
+                            <placement>a</placement>
+                            <head>Implementation Note:</head>
+                        </tag>
+                    </tags>
                 </configuration>
                 <executions>
                     <execution>
