@@ -159,11 +159,14 @@ public class DialogControl extends Control {
     // if there is no default button, but there is only one button present
     if (Objects.isNull(defaultButton) && buttons.size() == 1) {
       // set the button as the default button
+      LOGGER.trace("updateKeyboardBehavior - No default button, setting button as default");
       buttons.get(0).setDefaultButton(true);
     }
     if (Objects.isNull(cancelButton)) {
+      LOGGER.trace("No cancel button, setting cancelDialogButtonType as cancel");
       setOnKeyReleased(event -> {
         if (KeyCode.ESCAPE.equals(event.getCode())) {
+          LOGGER.trace("ESC was pressed, closing dialog");
           completeDialog(getDialog().getCancelDialogButtonType());
         }
       });
