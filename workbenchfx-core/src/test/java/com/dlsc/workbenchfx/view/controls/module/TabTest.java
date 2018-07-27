@@ -115,6 +115,19 @@ class TabTest extends ApplicationTest {
   }
 
   @Test
+  void testAddingNewLineAsName() {
+    WorkbenchModule mockModule = createMockModule(
+        new Label(""),
+        new Label(""),
+        true,
+        "Name\nwith\nbreaks", // A name with newlines which should be replaced with ' '
+        mockBench
+    );
+    tab.setModule(mockModule);
+    assertEquals("Name with breaks", tab.getName());
+  }
+
+  @Test
   void close() {
     // initial module
     tab.close();
