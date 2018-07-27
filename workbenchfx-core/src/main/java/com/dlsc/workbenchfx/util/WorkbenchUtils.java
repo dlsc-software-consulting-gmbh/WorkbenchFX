@@ -61,10 +61,13 @@ public final class WorkbenchUtils {
   }
 
   /**
-   * TODO
+   * Converts a given String into one that can be used in css.
+   * Accepts only characters that match 'a' to 'z', 'A' to 'Z', '0' to '9', ' ' and '-'.
+   * All uppercase letters are converted into lowercase and spaces are replaced by '-'.
    *
-   * @param name TODO
-   * @return TODO
+   * @param name the {@link String} to be converted into an css id
+   * @return     the converted {@link String} with only the allowed characters,
+   *             characters in lowercase and whitespaces replaced by '-'
    */
   public static String convertToId(String name) {
     return CharMatcher.inRange('a', 'z')

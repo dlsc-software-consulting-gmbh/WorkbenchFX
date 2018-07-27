@@ -179,7 +179,8 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     button.getStyleClass().addAll(item.getStyleClass());
     button.setOnAction(item.getOnAction());
-//     Only in cases ALWAYS and SOMETIMES: hide previously hovered button
+
+    // Only in cases ALWAYS and SOMETIMES: hide previously hovered button
     if (!getSkinnable().getMenuHoverBehaviour().equals(Priority.NEVER)) {
       button.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Button
         if (!touchIsUsed) {

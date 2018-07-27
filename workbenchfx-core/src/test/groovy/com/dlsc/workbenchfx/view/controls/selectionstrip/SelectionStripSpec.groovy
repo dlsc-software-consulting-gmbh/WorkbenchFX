@@ -95,5 +95,4 @@ class SelectionStripSpec extends ApplicationSpec {
         null               || null
         workbenchModule    || workbenchModule
     }
-
 }

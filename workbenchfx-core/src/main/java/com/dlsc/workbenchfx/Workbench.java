@@ -399,12 +399,12 @@ public class Workbench extends Control {
 
     // when control of navigation drawer changes, pass in the workbench object
     navigationDrawerProperty().addListener((observable, oldControl, newControl) -> {
-          LOGGER.trace("NavigationDrawer has been set");
-          if (!Objects.isNull(newControl)) {
-            LOGGER.trace("NavigationDrawer - Setting Workbench");
-            newControl.setWorkbench(this);
-          }
-        });
+      LOGGER.trace("NavigationDrawer has been set");
+      if (!Objects.isNull(newControl)) {
+        LOGGER.trace("NavigationDrawer - Setting Workbench");
+        newControl.setWorkbench(this);
+      }
+    });
   }
 
   private void setupCleanup() {
