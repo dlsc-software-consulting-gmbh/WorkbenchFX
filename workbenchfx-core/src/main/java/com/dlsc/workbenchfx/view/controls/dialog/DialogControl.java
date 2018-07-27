@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.WeakHashMap;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -18,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -189,6 +191,15 @@ public class DialogControl extends Control {
     }
     if (Objects.isNull(cancelButton)) {
       LOGGER.trace("No cancel button, setting cancelDialogButtonType as cancel");
+      // focus the dialog if none of the buttons are focused by the ButtonBar or the ButtonBar has
+      // been made invisible, since onKeyReleased event only triggers, if the node or any of its
+      // children are focused
+      Platform.runLater(() -> {
+            if (!buttons.stream().anyMatch(Node::isFocused)) {
+              requestFocus();
+            }
+          }
+      );
       setOnKeyReleased(event -> {
         if (KeyCode.ESCAPE.equals(event.getCode())) {
           LOGGER.trace("ESC was pressed, closing dialog");
