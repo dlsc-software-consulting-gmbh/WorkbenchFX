@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.view.controls.GlassPane;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -64,9 +63,6 @@ public class WorkbenchView extends StackPane implements View {
     viewBox.getChildren().addAll(toolbarView, contentView);
     getChildren().addAll(viewBox);
     VBox.setVgrow(contentView, Priority.ALWAYS);
-    // Fix resizing behaviour -> resizing to top-left
-    setMinSize(0, 0);
-    setAlignment(Pos.TOP_LEFT);
   }
 
   /**

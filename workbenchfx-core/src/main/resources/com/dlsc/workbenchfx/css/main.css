@@ -143,7 +143,10 @@
   -shape-height: 0.7142857143em; }
 
 #workbench {
-  -fx-background-color: -background-color; }
+  -fx-background-color: -background-color;
+  -fx-min-width: 0;
+  -fx-min-height: 0;
+  -fx-alignment: TOP_LEFT; }
 
 #content-view #add-module-view #tile-pane .pagination {
   -fx-arrows-visible: false;
