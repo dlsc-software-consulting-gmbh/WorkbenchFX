@@ -290,9 +290,11 @@ public final class WorkbenchDialog {
      *
      * @param cancelDialog {@link ButtonType} that should be set as result of a dialog
      *                                that was closed by clicking on its {@link GlassPane}
+     * @return builder for chaining
      */
-    public void cancelDialogButtonType(ButtonType cancelDialog) {
+    public WorkbenchDialogBuilder cancelDialogButtonType(ButtonType cancelDialog) {
       this.cancelDialogButtonType = cancelDialog;
+      return this;
     }
 
     /**
