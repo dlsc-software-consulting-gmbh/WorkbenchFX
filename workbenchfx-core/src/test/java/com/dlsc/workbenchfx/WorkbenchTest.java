@@ -145,6 +145,7 @@ class WorkbenchTest extends ApplicationTest {
     // Setup WorkbenchDialog Mock
     when(mockDialog.getButtonTypes()).thenReturn(buttonTypes);
     when(mockDialog.getOnResult()).thenReturn(mockOnResult);
+    when(mockDialog.getCancelDialogButtonType()).thenReturn(ButtonType.CANCEL);
 
     navigationDrawer = new MockNavigationDrawer();
     dialogControl = new MockDialogControl();
