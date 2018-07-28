@@ -158,7 +158,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
           return;
         }
         // When ALWAYS, then trigger immediately. Else check if clicked before (case: SOMETIMES)
-        if (!Priority.ALWAYS.equals(getSkinnable().getMenuHoverBehaviour())
+        if (Priority.ALWAYS.equals(getSkinnable().getMenuHoverBehaviour())
             || (hoveredBtn != null && hoveredBtn.isShowing())) {
           menuButton.show(); // Shows the context-menu
           if (hoveredBtn != null && hoveredBtn != menuButton) {

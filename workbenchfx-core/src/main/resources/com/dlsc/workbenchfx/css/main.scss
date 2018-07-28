@@ -14,6 +14,8 @@ $on-background-color: #000000;
 $on-surface-color: #000000;
 $on-error-color: #FFFFFF;
 
+// Since the JavaFX SceneBuilder cannot perform setting variables in the .root selector,
+// we put them in the * selector
 * {
   -primary-color: $primary-color;
   -primary-variant-color: $primary-variant-color;
@@ -35,10 +37,10 @@ $on-error-color: #FFFFFF;
   -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, .26), 20, 0.19, -1, 6);
 
   -shadow: dropshadow(gaussian, rgba(0, 0, 0, .1), 6, 0.2, 0, 0);
-
-  -icons-color: -on-primary-color; // TODO: how to handle this?
 }
 
+// Since the JavaFX SceneBuilder cannot perform setting font styles in the * selector,
+// we put them in the .root selector
 .root {
   -fx-font-family: "Roboto", sans-serif;
   -fx-font-size: 14px;
@@ -47,7 +49,7 @@ $on-error-color: #FFFFFF;
 // Default styling of icons. This enables changing the icons styles later on
 .glyph-icon {
   -fx-text-fill: -on-primary-color;
-  -fx-fill: -icons-color;
+  -fx-fill: -on-primary-color;
   -fx-font-size: 1em / 14 * 16 !important; // equals 16px when root 14px
 }
 

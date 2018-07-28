@@ -1,5 +1,5 @@
 @function px($px) {
-  @return 1em / 14 * $px; // 14 is defined by the default material-style font-size
+  @return 1em / 14 * $px; // 14px is defined by the default material design font-size
 }
 
 %context-menu {
@@ -192,7 +192,9 @@
   }
 }
 
-// --- SVG paths of materialize icons ------------------------------------------
+// ----- SVG paths of material design icons ---------------------------------------------------- //
+// ----- Designs available at: ----------------------------------------------------------------- //
+// ----- https://material.io/tools/icons/?icon=vertical_split&style=baseline ------------------- //
 %add-icon {
   -fx-shape: "M 19 13 L 13 13 L 13 19 L 11 19 L 11 13 L 5 13 L 5 11 L 11 11 L 11 5 L 13 5 L 13 11 L 19 11 L 19 13 Z";
   //-shape-width: 14px; // -> tablet size

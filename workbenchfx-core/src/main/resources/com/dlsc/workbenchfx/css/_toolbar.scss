@@ -38,8 +38,7 @@
     @extend %dropdown;
 
     // @extend %context-menu;
-    // The extention of the context-menu can be found in the context-menu.css file.
-    // It is set in the constructor of the Workbench.
+    // The CSS for the context menu can be found in the context-menu.css file.
   }
 
   & #bottom-box {
@@ -47,8 +46,7 @@
     -fx-padding: 0 px(4) 0 px(3);
 
     //.selection-strip {...}
-    // The extention of the selection-strip can be found in the selection-strip.css file.
-    // It is set in the initializeViewParts() method of the ToolbarPresenter.
+    // The CSS for the context menu can be found in the selection-strip.css file.
 
     & #add-button {
       -fx-background-insets: 0;

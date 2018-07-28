@@ -24,13 +24,13 @@ public class NavigationDrawer extends Control {
 
   private ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>();
 
-  private ObjectProperty<Priority> menuHoverBehaviour = new SimpleObjectProperty<>();
+  private ObjectProperty<Priority> menuHoverBehaviour = new SimpleObjectProperty<>(Priority.ALWAYS);
 
   /**
    * Creates a navigation drawer control.
    */
   public NavigationDrawer() {
-    setMenuHoverBehaviour(Priority.ALWAYS);
+
   }
 
   public final void hide() {
@@ -49,7 +49,7 @@ public class NavigationDrawer extends Control {
 
   /**
    * Defines the showing behaviour of the {@link MenuItem}s when hovering over them.
-   * The default value is set in the constructor to ALWAYS.
+   * The default value is set to ALWAYS.
    * ALWAYS:    Triggers whenever the mouse hovers over a {@link MenuItem}
    * SOMETIMES: Requires one initial click on a {@link MenuItem} to open.
    *            After that, hovering over other Items shows their submenus automatically
