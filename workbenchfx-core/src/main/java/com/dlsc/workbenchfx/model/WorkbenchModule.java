@@ -3,7 +3,10 @@ package com.dlsc.workbenchfx.model;
 import com.dlsc.workbenchfx.Workbench;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +28,12 @@ public abstract class WorkbenchModule {
   private String name;
   private FontAwesomeIcon faIcon;
   private Image imgIcon;
+
+  // Lists
+  private final ObservableSet<Node> toolbarControlsLeft =
+      FXCollections.observableSet(new LinkedHashSet<>());
+  private final ObservableSet<Node> toolbarControlsRight =
+      FXCollections.observableSet(new LinkedHashSet<>());
 
   /**
    * Super constructor to be called by the implementing class.
@@ -158,5 +167,21 @@ public abstract class WorkbenchModule {
    */
   public Node getIcon() {
     return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
+  }
+
+  /**
+   * TODO: Javadoc
+   * @return TODO: Javadoc
+   */
+  public ObservableSet<Node> getToolbarControlsLeft() {
+    return toolbarControlsLeft;
+  }
+
+  /**
+   * TODO: Javadoc
+   * @return TODO: Javadoc
+   */
+  public ObservableSet<Node> getToolbarControlsRight() {
+    return toolbarControlsRight;
   }
 }
