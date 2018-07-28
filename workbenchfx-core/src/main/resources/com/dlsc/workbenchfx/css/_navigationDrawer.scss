@@ -72,7 +72,20 @@
             }
 
             &:hover {
+              -fx-background-color: rgba(0, 0, 0, .075);
               -fx-cursor: hand;
+
+              & .label {
+                & .glyph-icon {
+                  -fx-fill: -on-surface-color;
+                }
+                & .text {
+                  -fx-fill: -on-surface-color;
+                }
+              }
+              & .arrow-button .arrow {
+                -fx-background-color: -on-surface-color;
+              }
             }
           }
 
@@ -89,7 +102,7 @@
             }
 
             &:pressed {
-              -fx-background-color: rgba(0, 0, 0, .075);
+              -fx-background-color: rgba(0, 0, 0, .1);
             }
           }
 
@@ -138,6 +151,24 @@
                 -fx-background-color: -on-primary-color;
               }
             }
+
+            &:hover {
+              -fx-background-color: rgba(0, 0, 0, .075);
+              -fx-cursor: hand;
+
+              & .label {
+                & .glyph-icon {
+                  -fx-fill: -on-surface-color;
+                }
+                & .text {
+                  -fx-fill: -on-surface-color;
+                }
+              }
+              & .arrow-button .arrow {
+                -fx-background-color: -on-surface-color;
+              }
+            }
+
           }
 
           // @extend %context-menu;

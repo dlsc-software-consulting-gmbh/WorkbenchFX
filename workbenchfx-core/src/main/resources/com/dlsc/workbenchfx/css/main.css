@@ -285,7 +285,14 @@
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:focused {
             -fx-background-color: transparent; }
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover {
+            -fx-background-color: rgba(0, 0, 0, 0.075);
             -fx-cursor: hand; }
+            .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover .label .glyph-icon {
+              -fx-fill: -on-surface-color; }
+            .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover .label .text {
+              -fx-fill: -on-surface-color; }
+            .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover .arrow-button .arrow {
+              -fx-background-color: -on-surface-color; }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button {
           -fx-alignment: CENTER_LEFT; }
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button .glyph-icon {
@@ -293,7 +300,7 @@
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button .text {
             -fx-fill: -on-surface-color; }
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button:pressed {
-            -fx-background-color: rgba(0, 0, 0, 0.075); }
+            -fx-background-color: rgba(0, 0, 0, 0.1); }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .label .glyph-icon, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .label .text {
           -fx-fill: -on-surface-color; }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button {
@@ -318,6 +325,15 @@
             -fx-fill: -on-primary-color; }
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button:showing .arrow-button .arrow {
             -fx-background-color: -on-primary-color; }
+        .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button:hover {
+          -fx-background-color: rgba(0, 0, 0, 0.075);
+          -fx-cursor: hand; }
+          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button:hover .label .glyph-icon {
+            -fx-fill: -on-surface-color; }
+          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button:hover .label .text {
+            -fx-fill: -on-surface-color; }
+          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button:hover .arrow-button .arrow {
+            -fx-background-color: -on-surface-color; }
     .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar {
       -fx-pref-width: 1em;
       -fx-pref-height: 1em;
