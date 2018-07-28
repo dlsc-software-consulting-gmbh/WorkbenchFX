@@ -13,6 +13,7 @@ import com.dlsc.workbenchfx.custom.test.InterruptClosing2TestModule;
 import com.dlsc.workbenchfx.custom.test.InterruptClosingTestModule;
 import com.dlsc.workbenchfx.custom.test.LifecycleTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
+import com.dlsc.workbenchfx.custom.test.ToolbarTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -109,6 +110,7 @@ public class CustomDemo extends Application {
             new NotesModule(),
             new CustomerModule(),
             new PreferencesModule(),
+            new ToolbarTestModule(),
             new WidgetsTestModule(),
             new DropdownTestModule(),
             new NavigationDrawerTestModule(),
