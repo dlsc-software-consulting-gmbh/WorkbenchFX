@@ -20,12 +20,12 @@ import javafx.scene.layout.VBox;
  */
 public class ToolbarView extends VBox implements View {
 
-  private HBox topBox;
-  private HBox bottomBox;
+  HBox topBox;
+  HBox bottomBox;
 
-  private StackPane addIconShape;
+  StackPane addIconShape;
   Button addModuleBtn;
-  private StackPane menuIconShape;
+  StackPane menuIconShape;
   Button menuBtn;
   SelectionStrip<WorkbenchModule> tabBar;
   HBox toolbarControlLeftBox;
@@ -86,22 +86,13 @@ public class ToolbarView extends VBox implements View {
    */
   @Override
   public void layoutParts() {
-    topBox.getChildren().addAll(
-        toolbarControlLeftBox,
-        toolbarControlRightBox
-    );
+    topBox.getChildren().addAll(toolbarControlLeftBox, toolbarControlRightBox);
     HBox.setHgrow(toolbarControlLeftBox, Priority.ALWAYS);
 
-    bottomBox.getChildren().addAll(
-        tabBar,
-        addModuleBtn
-    );
+    bottomBox.getChildren().addAll(tabBar, addModuleBtn);
     HBox.setHgrow(tabBar, Priority.ALWAYS);
 
-    getChildren().addAll(
-        topBox,
-        bottomBox
-    );
+    getChildren().addAll(topBox, bottomBox);
     Platform.runLater(() -> addModuleBtn.requestFocus());
   }
 

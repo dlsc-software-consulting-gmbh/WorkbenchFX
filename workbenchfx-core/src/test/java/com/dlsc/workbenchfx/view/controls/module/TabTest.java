@@ -125,6 +125,7 @@ class TabTest extends ApplicationTest {
     );
     tab.setModule(mockModule);
     assertEquals("Name with breaks", tab.getName());
+    assertEquals("tab-namewithbreaks", tab.getId());
   }
 
   @Test

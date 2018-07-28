@@ -170,11 +170,11 @@
       -fx-background-insets: 0; }
       #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .icon .glyph-icon {
         -fx-fill: -on-surface-color; }
-      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-label {
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-lbl {
         -fx-padding: .5em 0 0 0;
         -fx-alignment: CENTER;
         -fx-text-alignment: CENTER; }
-        #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-label .text {
+        #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-lbl .text {
           -fx-fill: -on-surface-color; }
       #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control:hover {
         -fx-effect: -drop-shadow-2;
@@ -268,6 +268,8 @@
         -fx-background-color: -on-surface-color; }
       .navigation-drawer .drawer-box .header #back-button:pressed {
         -fx-background-color: rgba(0, 0, 0, 0.075); }
+      .navigation-drawer .drawer-box .header #back-button:hover {
+        -fx-cursor: hand; }
   .navigation-drawer .drawer-box .pretty-scroll-pane {
     -fx-background-color: transparent; }
     .navigation-drawer .drawer-box .pretty-scroll-pane .viewport {
