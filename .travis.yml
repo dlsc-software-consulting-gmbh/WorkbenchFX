@@ -35,6 +35,7 @@ deploy:
     - workbenchfx-core/target/*core*
     - workbenchfx-demo/target/*demo*
     - target/generated-docs/**/*
+  skip_cleanup: true
   before_deploy: 'mvn -pl "!workbenchfx-dirk" install -DskipTests'
   on:
     repo: FHNW-IP5-IP6/WorkbenchFX
