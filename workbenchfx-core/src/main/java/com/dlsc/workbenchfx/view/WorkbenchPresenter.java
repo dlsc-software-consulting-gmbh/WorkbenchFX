@@ -4,12 +4,15 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import java.util.Objects;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +23,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class WorkbenchPresenter extends Presenter {
+
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchPresenter.class.getName());
 
@@ -34,7 +38,7 @@ public class WorkbenchPresenter extends Presenter {
    * Constructs a new {@link WorkbenchPresenter} for the {@link WorkbenchView}.
    *
    * @param model the model of WorkbenchFX
-   * @param view  corresponding view to this presenter
+   * @param view corresponding view to this presenter
    */
   public WorkbenchPresenter(Workbench model, WorkbenchView view) {
     this.model = model;
@@ -66,12 +70,36 @@ public class WorkbenchPresenter extends Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
+
     // When the active module changes, the new view is set to the home screen if null.
-    model.activeModuleViewProperty().addListener(
-        (observable, oldModuleView, newModuleView) -> view.contentView.setContent(
-            Objects.isNull(newModuleView) ? view.addModuleView : newModuleView
-        )
-    );
+    model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
+      if (Objects.isNull(newModule)) {
+        view.contentView.setContent(view.addModuleView);
+      } else {
+        ToolbarControl toolbarControl = new ToolbarControl();
+        Node activeModuleView = model.getActiveModuleView();
+
+        VBox contentBox = new VBox(
+            toolbarControl,
+            activeModuleView
+        );
+        VBox.setVgrow(activeModuleView, Priority.ALWAYS);
+        view.contentView.setContent(contentBox);
+      }
+    });
+
+
+    // When the active module changes, the new view is set to the home screen if null.
+//    model.activeModuleViewProperty().addListener((observable, oldModuleView, newModuleView) -> {
+//      Node newContent = null;
+//      if (Objects.isNull(newModuleView)) {
+//        newContent = view.addModuleView;
+//      } else {
+//        if ()
+//        newContent = newModuleView;
+//      }
+//      view.contentView.setContent(newContent);
+//    });
 
     overlays.addListener((MapChangeListener<Node, GlassPane>) c -> {
       LOGGER.trace("Listener overlays fired");
@@ -100,7 +128,7 @@ public class WorkbenchPresenter extends Presenter {
   /**
    * Adds an {@code overlay} together with the {@code glassPane} to the view.
    *
-   * @param overlay   to be added
+   * @param overlay to be added
    * @param glassPane to be added
    */
   public void addOverlay(Node overlay, GlassPane glassPane) {
@@ -111,7 +139,7 @@ public class WorkbenchPresenter extends Presenter {
   /**
    * Removes an {@code overlay} together with the {@code glassPane} from the view.
    *
-   * @param overlay   to be removed
+   * @param overlay to be removed
    * @param glassPane to be removed
    */
   public void removeOverlay(Node overlay, GlassPane glassPane) {
@@ -125,7 +153,7 @@ public class WorkbenchPresenter extends Presenter {
   /**
    * Makes the {@code overlay} visible, along with its {@code glassPane}.
    *
-   * @param overlay  to be shown
+   * @param overlay to be shown
    * @param blocking if false, will make {@code overlay} hide, if its {@code glassPane} was clicked
    */
   public void showOverlay(Node overlay, boolean blocking) {
@@ -135,7 +163,7 @@ public class WorkbenchPresenter extends Presenter {
   /**
    * Makes the {@code overlay} visible, along with its {@code glassPane}.
    *
-   * @param overlay   to be shown
+   * @param overlay to be shown
    * @param glassPane the {@code overlay}'s corresponding {@link GlassPane}
    * @param blocking if false, will make {@code overlay} hide, if its {@code glassPane} was clicked
    */
