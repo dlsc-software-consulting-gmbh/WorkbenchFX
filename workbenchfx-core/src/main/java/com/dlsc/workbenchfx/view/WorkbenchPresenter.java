@@ -147,18 +147,23 @@ public class WorkbenchPresenter extends Presenter {
       glassPane.setOnMouseClicked(event -> {
         // check if overlay is really not blocking, is needed to avoid false-positives
         if (overlaysShown.contains(overlay)) {
-          LOGGER.trace("GlassPane was clicked, hiding overlay");
 
-          // if the overlay is a dialog
-          if (overlay instanceof DialogControl) {
+          if (overlay == model.getDrawerShown()) {
+            // if the overlay is the drawer that is currently being shown
+            LOGGER.trace("GlassPane was clicked, hiding drawer");
+            model.hideDrawer();
+          } else if (overlay instanceof DialogControl) {
+            // if the overlay is a dialog
             LOGGER.trace("GlassPane was clicked, hiding dialog");
             WorkbenchDialog dialog = ((DialogControl) overlay).getDialog();
             dialog.getOnResult().accept(dialog.getCancelDialogButtonType());
             model.hideDialog(dialog);
           } else {
+            LOGGER.trace("GlassPane was clicked, hiding overlay");
             model.hideOverlay(overlay);
           }
         }
+
       });
     }
   }

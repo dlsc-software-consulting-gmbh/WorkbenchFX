@@ -11,6 +11,7 @@ import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DialogTestModule;
+import com.dlsc.workbenchfx.custom.test.DrawerTestModule;
 import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.custom.test.InterruptClosing2TestModule;
 import com.dlsc.workbenchfx.custom.test.InterruptClosingTestModule;
@@ -112,6 +113,7 @@ public class CustomDemo extends Application {
             new InterruptClosingTestModule(),
             new InterruptClosing2TestModule(),
             new DialogTestModule(),
+            new DrawerTestModule(),
             new LifecycleTestModule()
         )
             .toolbarLeft(

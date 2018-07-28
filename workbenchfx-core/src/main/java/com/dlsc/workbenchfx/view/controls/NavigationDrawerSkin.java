@@ -52,16 +52,10 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     initializeSelf();
     initializeParts();
     layoutParts();
-    setupBindings();
     setupEventHandlers();
     setupValueChangedListeners();
 
     buildMenu();
-  }
-
-  private void setupBindings() {
-    workbenchWidth = navigationDrawer.workbenchWidthProperty(); // strong reference to avoid GC
-    navigationDrawer.maxWidthProperty().bind(workbenchWidth.multiply(.333));
   }
 
   /**

@@ -4,6 +4,7 @@ import com.dlsc.workbenchfx.view.controls.PrettyScrollPane;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
@@ -54,16 +55,10 @@ public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer>
     initializeSelf();
     initializeParts();
     layoutParts();
-    setupBindings();
     setupEventHandlers();
     setupValueChangedListeners();
 
     buildMenu();
-  }
-
-  private void setupBindings() {
-    workbenchWidth = navigationDrawer.workbenchWidthProperty(); // strong reference to avoid GC
-    navigationDrawer.maxWidthProperty().bind(workbenchWidth.multiply(.333));
   }
 
   /**

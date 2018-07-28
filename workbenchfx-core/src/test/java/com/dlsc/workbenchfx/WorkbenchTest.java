@@ -41,6 +41,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -51,6 +53,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.junit.jupiter.api.DisplayName;
@@ -113,6 +118,8 @@ class WorkbenchTest extends ApplicationTest {
 
   private ObservableList<ButtonType> buttonTypes =
       FXCollections.observableArrayList(ButtonType.PREVIOUS, ButtonType.NEXT);
+
+  private Pane drawer = new Pane();
 
   @Override
   public void start(Stage stage) {
@@ -1011,6 +1018,25 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
+  @Test
+  @DisplayName("Show non-blocking overlay and close by clicking on the GlassPane")
+  void hideOverlayNonBlockingGlassPane() {
+    robot.interact(() -> {
+      workbench.showOverlay(overlay1, false);
+
+      // hiding by GlassPane click
+      simulateGlassPaneClick(overlay1);
+
+      assertEquals(1, overlays.size()); // still loaded
+      assertEquals(0, blockingOverlaysShown.size()); // none shown
+      assertEquals(0, overlaysShown.size());
+      assertFalse(overlay1.isVisible()); // overlay1 is invisible
+      GlassPane glassPane = overlays.get(overlay1);
+      assertTrue(glassPane.isHide());
+      assertTrue(glassPane.hideProperty().isBound());
+    });
+  }
+
   /**
    * Precondition: showOverlay tests pass.
    */
@@ -1728,4 +1754,115 @@ class WorkbenchTest extends ApplicationTest {
     }
     return null;
   }
+
+  /**
+   * Internal testing method which returns the currently shown overlay.
+   */
+  private Node getShowingOverlay() {
+    if (workbench.getNonBlockingOverlaysShown().size() == 1) {
+      return workbench.getNonBlockingOverlaysShown().stream().findAny().get();
+    } else if (workbench.getBlockingOverlaysShown().size() == 1) {
+      return workbench.getBlockingOverlaysShown().stream().findAny().get();
+    }
+    return null;
+  }
+
+  @Test
+  void showDrawerInputValidation() {
+    robot.interact(() -> {
+      // null check
+      assertThrows(NullPointerException.class, () -> workbench.showDrawer(drawer, null, 0));
+      assertThrows(NullPointerException.class, () -> workbench.showDrawer(null, Side.LEFT, 0));
+
+      // Percentage range
+      assertThrows(IllegalArgumentException.class,
+          () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MIN_VALUE));
+      assertThrows(IllegalArgumentException.class,
+          () -> workbench.showDrawer(drawer, Side.LEFT, -2));
+      workbench.showDrawer(drawer, Side.LEFT, -1); // valid
+      workbench.showDrawer(drawer, Side.LEFT, 0); // valid
+      workbench.showDrawer(drawer, Side.LEFT, 1); // valid
+      workbench.showDrawer(drawer, Side.LEFT, 100); // valid
+      assertThrows(IllegalArgumentException.class,
+          () -> workbench.showDrawer(drawer, Side.LEFT, 101));
+      assertThrows(IllegalArgumentException.class,
+          () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MAX_VALUE));
+    });
+  }
+
+  @Test
+  @DisplayName("Tests if only one drawer can be displayed at the same time")
+  void showDrawerOnlyOne() {
+    robot.interact(() -> {
+      // given
+      VBox drawer1 = new VBox();
+      VBox drawer2 = new VBox();
+      VBox drawer3 = new VBox();
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertTrue(workbench.getNonBlockingOverlaysShown().isEmpty());
+      assertNull(workbench.getDrawerShown());
+
+      // when: showing two different drawers subsequently on the same side
+      workbench.showDrawer(drawer1, Side.LEFT);
+      workbench.showDrawer(drawer2, Side.LEFT);
+
+      // then: only second one is showing
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertSame(1, workbench.getNonBlockingOverlaysShown().size());
+      assertNotNull(workbench.getDrawerShown());
+      assertSame(drawer2, getShowingOverlay());
+      assertSame(drawer2, workbench.getDrawerShown());
+
+      // when: showing drawer on a different side while another drawer is currently showing
+      workbench.showDrawer(drawer3, Side.BOTTOM);
+
+      // then: only new drawer is showing
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertSame(1, workbench.getNonBlockingOverlaysShown().size());
+      assertNotNull(workbench.getDrawerShown());
+      assertSame(drawer3, getShowingOverlay());
+      assertSame(drawer3, workbench.getDrawerShown());
+      assertSame(Pos.BOTTOM_LEFT, StackPane.getAlignment(drawer3)); // verify correct position
+    });
+  }
+
+  @Test
+  void hideDrawerGlassPaneClick() {
+    robot.interact(() -> {
+      // given
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertTrue(workbench.getNonBlockingOverlaysShown().isEmpty());
+      assertNull(workbench.getDrawerShown());
+      workbench.showDrawer(drawer, Side.LEFT);
+
+      // when:
+      simulateGlassPaneClick(drawer);
+
+      // then: drawer is hidden
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertTrue(workbench.getNonBlockingOverlaysShown().isEmpty());
+      assertNull(workbench.getDrawerShown());
+    });
+  }
+
+  @Test
+  void hideDrawer() {
+    robot.interact(() -> {
+      // given
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertTrue(workbench.getNonBlockingOverlaysShown().isEmpty());
+      assertNull(workbench.getDrawerShown());
+      workbench.showDrawer(drawer, Side.LEFT);
+
+      // when:
+      workbench.hideDrawer();
+
+      // then: drawer is hidden
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertTrue(workbench.getNonBlockingOverlaysShown().isEmpty());
+      assertNull(workbench.getDrawerShown());
+    });
+  }
+
+
 }
