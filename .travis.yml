@@ -4,6 +4,11 @@ sudo: false   # Linux OS: run in container
 
 jdk: oraclejdk9
 
+addons:
+  apt:
+    packages:
+    - p7zip-full
+
 env:
   global:
     - CODECOV_TOKEN=127975b3-f83a-48d5-8594-69981bfbab1a
