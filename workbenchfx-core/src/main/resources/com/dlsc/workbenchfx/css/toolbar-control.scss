@@ -8,6 +8,9 @@
     & .text {
       -fx-fill: -on-background-color;
     }
+    &:pressed {
+      -fx-background-color: rgba(0, 0, 0, .075);
+    }
   }
 
   -fx-background-color: -background-color;
@@ -40,6 +43,9 @@
     }
     & .arrow-button .arrow {
       -fx-background-color: -on-background-color;
+    }
+    &:showing {
+      -fx-background-color: rgba(0, 0, 0, .075);
     }
   }
 

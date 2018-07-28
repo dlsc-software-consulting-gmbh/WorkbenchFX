@@ -122,7 +122,7 @@
       }
 
       &:showing {
-        -fx-background-color: rgba(0, 0, 0, .075);
+        -fx-background-color: -primary-variant-color;
         -fx-cursor: inherit !important;
 
         & .arrow-button .arrow {
@@ -155,7 +155,7 @@
       -fx-cursor: hand;
     }
     &:pressed {
-      -fx-background-color: rgba(0, 0, 0, .075);
+      -fx-background-color: -primary-variant-color;
     }
   }
 }

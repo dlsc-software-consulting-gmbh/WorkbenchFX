@@ -81,7 +81,7 @@
     #toolbar #top-box .toolbar-menu-button .dropdown:hover {
       -fx-cursor: hand; }
     #toolbar #top-box .toolbar-menu-button .dropdown:showing {
-      -fx-background-color: rgba(0, 0, 0, 0.075);
+      -fx-background-color: -primary-variant-color;
       -fx-cursor: inherit !important; }
       #toolbar #top-box .toolbar-menu-button .dropdown:showing .arrow-button .arrow {
         -fx-rotate: -90; }
@@ -101,7 +101,7 @@
   #toolbar .button:hover {
     -fx-cursor: hand; }
   #toolbar .button:pressed {
-    -fx-background-color: rgba(0, 0, 0, 0.075); }
+    -fx-background-color: -primary-variant-color; }
 
 #toolbar .icon, .navigation-drawer .drawer-box .header .icon {
   -fx-background-color: transparent;

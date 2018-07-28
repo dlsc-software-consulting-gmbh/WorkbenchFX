@@ -29,7 +29,8 @@ public class ToolbarTestModule extends WorkbenchModule {
   );
   private int contentIndex = 1;
 
-  private final VBox contentBox = new VBox();
+  private final VBox contentBox = new VBox(
+      new Label("Module to test the modules toolbar.\nUse the dropdown to add content."));
 
   public ToolbarTestModule() {
     super("Toolbar TestModule", FontAwesomeIcon.QUESTION);
@@ -51,7 +52,7 @@ public class ToolbarTestModule extends WorkbenchModule {
       if (--contentIndex < 1) {
         contentIndex = 1;
       } else {
-        contentBox.getChildren().remove(contentIndex-1);
+        contentBox.getChildren().remove(contentIndex);
       }
     });
 

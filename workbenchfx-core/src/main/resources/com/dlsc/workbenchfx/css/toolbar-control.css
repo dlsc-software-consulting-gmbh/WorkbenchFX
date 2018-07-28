@@ -29,7 +29,7 @@
     .root #workbench #content-view .toolbar-control .toolbar-menu-button .dropdown:hover {
       -fx-cursor: hand; }
     .root #workbench #content-view .toolbar-control .toolbar-menu-button .dropdown:showing {
-      -fx-background-color: rgba(0, 0, 0, 0.075);
+      -fx-background-color: -primary-variant-color;
       -fx-cursor: inherit !important; }
       .root #workbench #content-view .toolbar-control .toolbar-menu-button .dropdown:showing .arrow-button .arrow {
         -fx-rotate: -90; }
@@ -49,7 +49,7 @@
   .root #workbench #content-view .toolbar-control .button:hover {
     -fx-cursor: hand; }
   .root #workbench #content-view .toolbar-control .button:pressed {
-    -fx-background-color: rgba(0, 0, 0, 0.075); }
+    -fx-background-color: -primary-variant-color; }
 
 .root #workbench #content-view .toolbar-control .icon {
   -fx-background-color: transparent;
@@ -84,6 +84,8 @@
   -fx-max-height: 2.8571428571em; }
   .root #workbench #content-view .toolbar-control .button .glyph-icon, .root #workbench #content-view .toolbar-control .button .text {
     -fx-fill: -on-background-color; }
+  .root #workbench #content-view .toolbar-control .button:pressed {
+    -fx-background-color: rgba(0, 0, 0, 0.075); }
   .root #workbench #content-view .toolbar-control .toolbar-control-left-box {
     -fx-padding: 0 0.2142857143em 0 0;
     -fx-spacing: 0.2142857143em;
@@ -96,5 +98,7 @@
     -fx-fill: -on-background-color; }
   .root #workbench #content-view .toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow {
     -fx-background-color: -on-background-color; }
+  .root #workbench #content-view .toolbar-control .toolbar-menu-button .dropdown:showing {
+    -fx-background-color: rgba(0, 0, 0, 0.075); }
 
 /*# sourceMappingURL=toolbar-control.css.map */
