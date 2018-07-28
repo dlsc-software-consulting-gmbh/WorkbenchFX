@@ -136,23 +136,6 @@
             }
 
             &:showing {
-              -fx-background-color: -primary-color;
-              -fx-cursor: inherit;
-
-              & .label {
-                & .glyph-icon {
-                  -fx-fill: -on-primary-color;
-                }
-                & .text {
-                  -fx-fill: -on-primary-color;
-                }
-              }
-              & .arrow-button .arrow {
-                -fx-background-color: -on-primary-color;
-              }
-            }
-
-            &:hover {
               -fx-background-color: rgba(0, 0, 0, .075);
               -fx-cursor: hand;
 
