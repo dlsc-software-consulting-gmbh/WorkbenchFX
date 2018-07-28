@@ -1,8 +1,8 @@
 import com.dlsc.workbenchfx.model.WorkbenchDialog
 import com.dlsc.workbenchfx.model.WorkbenchDialog.Type
 import com.dlsc.workbenchfx.testing.MockDialogControl
+import com.dlsc.workbenchfx.view.controls.MultilineLabel
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl
-import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent
 import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.scene.Scene
@@ -56,7 +56,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
 
         then:
         TITLE == dialog.getTitle()
-        dialog.getContent() instanceof DialogMessageContent
+        dialog.getContent() instanceof MultilineLabel
         TYPE == dialog.getType()
         TYPE.name().toLowerCase() == dialog.getStyleClass().get(0)
     }
@@ -67,7 +67,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
 
         then:
         TITLE == dialog.getTitle()
-        dialog.getContent() instanceof DialogMessageContent
+        dialog.getContent() instanceof MultilineLabel
         null == dialog.getType()
         0 == dialog.getStyleClass().size()
         BUTTON_TYPES.length == dialog.getButtonTypes().size()

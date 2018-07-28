@@ -1,17 +1,16 @@
 package com.dlsc.workbenchfx.view;
 
-import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
+import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_ADD_BUTTON;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.SelectionStrip;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 /**
  * Represents the toolbar which is being shown at the top of the window.
@@ -19,11 +18,14 @@ import javafx.scene.layout.Priority;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ToolbarView extends HBox implements View {
+public class ToolbarView extends VBox implements View {
 
-  private FontAwesomeIconView homeIconView;
-  private FontAwesomeIconView menuIconView;
-  Button homeBtn;
+  HBox topBox;
+  HBox bottomBox;
+
+  StackPane addIconShape;
+  Button addModuleBtn;
+  StackPane menuIconShape;
   Button menuBtn;
   SelectionStrip<WorkbenchModule> tabBar;
   HBox toolbarControlLeftBox;
@@ -31,11 +33,8 @@ public class ToolbarView extends HBox implements View {
 
   /**
    * Creates a new {@link ToolbarView} for the Workbench.
-   *
-   * @param tabBar the Control which is used to create and display the {@link Tab}s
    */
-  public ToolbarView(SelectionStrip<WorkbenchModule> tabBar) {
-    this.tabBar = tabBar;
+  public ToolbarView() {
     init();
   }
 
@@ -52,19 +51,27 @@ public class ToolbarView extends HBox implements View {
    */
   @Override
   public void initializeParts() {
-    homeIconView = new FontAwesomeIconView(FontAwesomeIcon.HOME);
-    homeIconView.setId("home-icon-view");
-    homeIconView.getStyleClass().add("icon-view");
-    homeBtn = new Button("", homeIconView);
-    homeBtn.setId("home-button");
-    homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_HOME);
+    topBox = new HBox();
+    topBox.setId("top-box");
+    bottomBox = new HBox();
+    bottomBox.setId("bottom-box");
 
-    menuIconView = new FontAwesomeIconView(FontAwesomeIcon.BARS);
-    menuIconView.setId("menu-icon-view");
-    menuIconView.getStyleClass().add("icon-view");
-    menuBtn = new Button("", menuIconView);
+    addIconShape = new StackPane();
+    addIconShape.getStyleClass().add("shape");
+    addModuleBtn = new Button("", addIconShape);
+    addModuleBtn.getStyleClass().add("icon");
+    addModuleBtn.setId("add-button");
+    addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
+
+    menuIconShape = new StackPane();
+    menuIconShape.getStyleClass().add("shape");
+    menuBtn = new Button("", menuIconShape);
+    menuBtn.getStyleClass().add("icon");
     menuBtn.setId("menu-button");
 
+    tabBar = new SelectionStrip<>();
+    // Reset default sizing from the selectionStrip constructor
+    tabBar.setPrefSize(0, 0);
     tabBar.setId("tab-bar");
 
     toolbarControlLeftBox = new HBox();
@@ -79,17 +86,22 @@ public class ToolbarView extends HBox implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().addAll(toolbarControlLeftBox, homeBtn, tabBar, toolbarControlRightBox);
-    setHgrow(tabBar, Priority.ALWAYS);
-    Platform.runLater(() -> homeBtn.requestFocus());
+    topBox.getChildren().addAll(toolbarControlLeftBox, toolbarControlRightBox);
+    HBox.setHgrow(toolbarControlLeftBox, Priority.ALWAYS);
+
+    bottomBox.getChildren().addAll(tabBar, addModuleBtn);
+    HBox.setHgrow(tabBar, Priority.ALWAYS);
+
+    getChildren().addAll(topBox, bottomBox);
+    Platform.runLater(() -> addModuleBtn.requestFocus());
   }
 
   /**
    * Shows a menu button in the front of the toolbar.
    */
   public void addMenuButton() {
-    if (!getChildren().contains(menuBtn)) {
-      getChildren().add(0, menuBtn);
+    if (!topBox.getChildren().contains(menuBtn)) {
+      topBox.getChildren().add(0, menuBtn);
     }
   }
 
@@ -97,7 +109,7 @@ public class ToolbarView extends HBox implements View {
    * Removes the menu button from the toolbar.
    */
   public void removeMenuButton() {
-    getChildren().remove(menuBtn);
+    topBox.getChildren().remove(menuBtn);
   }
 
   /**
