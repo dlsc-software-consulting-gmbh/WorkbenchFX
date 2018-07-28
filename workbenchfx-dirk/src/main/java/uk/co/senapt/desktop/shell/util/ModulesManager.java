@@ -1,11 +1,12 @@
 package uk.co.senapt.desktop.shell.util;
 
 import com.google.inject.Singleton;
+import uk.co.senapt.desktop.shell.ShellModule;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ServiceLoader;
-import uk.co.senapt.desktop.shell.ShellModule;
 
 /**
  * Created by lemmi on 25.04.17.

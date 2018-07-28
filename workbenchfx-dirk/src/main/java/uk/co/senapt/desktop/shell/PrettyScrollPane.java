@@ -1,6 +1,5 @@
 package uk.co.senapt.desktop.shell;
 
-import java.util.Set;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
@@ -10,6 +9,8 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
+
+import java.util.Set;
 
 /**
  * Created by lemmi on 23.08.17.

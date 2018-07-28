@@ -5,10 +5,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import uk.co.senapt.desktop.shell.Shell;
 import uk.co.senapt.desktop.shell.skins.PreferenceViewSkin;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 @Singleton
 public class PreferenceView extends Control {

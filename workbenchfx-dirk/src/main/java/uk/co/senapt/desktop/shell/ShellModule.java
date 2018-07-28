@@ -1,11 +1,12 @@
 package uk.co.senapt.desktop.shell;
 
 import com.google.inject.Module;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
 
 /**
  * Created by lemmi on 18.08.17.

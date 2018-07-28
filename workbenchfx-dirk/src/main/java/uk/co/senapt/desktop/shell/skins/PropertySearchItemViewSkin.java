@@ -1,6 +1,5 @@
 package uk.co.senapt.desktop.shell.skins;
 
-import java.util.List;
 import javafx.beans.binding.Bindings;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
@@ -10,6 +9,8 @@ import javafx.scene.layout.HBox;
 import uk.co.senapt.desktop.shell.PropertySearchItemView;
 import uk.co.senapt.desktop.shell.model.PropertyDefinition;
 import uk.co.senapt.desktop.shell.model.SearchOperator;
+
+import java.util.List;
 
 public class PropertySearchItemViewSkin extends SkinBase<PropertySearchItemView> {
 

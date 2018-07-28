@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
+
 import javax.inject.Provider;
 
 public class Category extends TreeItem<Category> {

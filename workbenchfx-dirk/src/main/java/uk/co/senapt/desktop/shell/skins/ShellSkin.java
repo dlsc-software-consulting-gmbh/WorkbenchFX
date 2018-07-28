@@ -1,12 +1,6 @@
 package uk.co.senapt.desktop.shell.skins;
 
 import com.calendarfx.view.YearMonthView;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Map;
-import java.util.WeakHashMap;
-import java.util.function.Supplier;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -59,6 +53,13 @@ import uk.co.senapt.desktop.shell.ShellDialog;
 import uk.co.senapt.desktop.shell.ShellModule;
 import uk.co.senapt.desktop.shell.UserAvatar;
 import uk.co.senapt.desktop.shell.model.User;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.function.Supplier;
 
 /**
  * Created by lemmi on 11.08.17.
