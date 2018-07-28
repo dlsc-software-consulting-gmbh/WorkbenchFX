@@ -11,6 +11,7 @@
   }
 
   -fx-background-color: -background-color;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .075), 2, 0, 0, 2);
 
   -fx-padding: px(3);
   -fx-min-height: px(40);

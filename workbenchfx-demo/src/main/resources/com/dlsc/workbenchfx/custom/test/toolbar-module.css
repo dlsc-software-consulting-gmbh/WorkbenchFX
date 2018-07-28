@@ -1,8 +1,10 @@
 .toolbar-module {
-  -fx-background-color: #666666;
+  /*-fx-background-color: white;*/
+  -fx-background-color: #333;
   -fx-alignment: CENTER;
 }
 
 .toolbar-module .label {
+  /*-fx-text-fill: #333;*/
   -fx-text-fill: white;
 }
