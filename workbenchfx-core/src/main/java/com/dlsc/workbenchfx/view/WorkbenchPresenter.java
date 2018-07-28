@@ -80,29 +80,26 @@ public class WorkbenchPresenter extends Presenter {
       if (Objects.isNull(newModule)) {
         view.contentView.setContent(view.addModuleView);
       } else {
-        Node activeModuleView = model.getActiveModuleView();
-
         WorkbenchUtils.addSetListener(
             newModule.getToolbarControlsLeft(),
-            c -> moduleToolbarControl.getToolbarControlLeftBox().getChildren()
-                .add(c.getElementAdded()),
-            c -> moduleToolbarControl.getToolbarControlLeftBox().getChildren()
-                .remove(c.getElementRemoved())
+            change -> moduleToolbarControl.addToolbarControlLeft(change.getElementAdded()),
+            change -> moduleToolbarControl.removeToolbarControlLeft(change.getElementRemoved())
         );
 
         WorkbenchUtils.addSetListener(
             newModule.getToolbarControlsRight(),
-            c -> moduleToolbarControl.getToolbarControlRightBox().getChildren()
-                .add(c.getElementAdded()),
-            c -> moduleToolbarControl.getToolbarControlRightBox().getChildren()
-                .remove(c.getElementRemoved())
+            change -> moduleToolbarControl.addToolbarControlRight(change.getElementAdded()),
+            c -> moduleToolbarControl.removeToolbarControlRight(c.getElementRemoved())
         );
 
-        moduleToolbarControl.getToolbarControlLeftBox().getChildren()
-            .setAll(newModule.getToolbarControlsLeft());
-        moduleToolbarControl.getToolbarControlRightBox().getChildren()
-            .setAll(newModule.getToolbarControlsRight());
+        newModule.getToolbarControlsLeft().stream().forEachOrdered(
+            moduleToolbarControl::addToolbarControlLeft
+        );
+        newModule.getToolbarControlsRight().stream().forEachOrdered(
+            moduleToolbarControl::addToolbarControlRight
+        );
 
+        Node activeModuleView = model.getActiveModuleView();
         VBox.setVgrow(activeModuleView, Priority.ALWAYS);
         view.contentView.setContent(activeModuleView);
         view.contentView.addToolbar();

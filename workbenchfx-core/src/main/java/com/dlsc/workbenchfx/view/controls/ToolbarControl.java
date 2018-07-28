@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view.controls;
 
+import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
@@ -40,19 +41,20 @@ public class ToolbarControl extends HBox {
     HBox.setHgrow(toolbarControlLeftBox, Priority.ALWAYS);
   }
 
-  public HBox getToolbarControlLeftBox() {
-    return toolbarControlLeftBox;
+  public void addToolbarControlLeft(Node toolbarControl) {
+    toolbarControlLeftBox.getChildren().add(toolbarControl);
   }
 
-  public void setToolbarControlLeftBox(HBox toolbarControlLeftBox) {
-    this.toolbarControlLeftBox = toolbarControlLeftBox;
+  public void removeToolbarControlLeft(Node toolbarControl) {
+    toolbarControlLeftBox.getChildren().remove(toolbarControl);
   }
 
-  public HBox getToolbarControlRightBox() {
-    return toolbarControlRightBox;
+  public void addToolbarControlRight(Node toolbarControl) {
+    toolbarControlRightBox.getChildren().add(toolbarControl);
   }
 
-  public void setToolbarControlRightBox(HBox toolbarControlRightBox) {
-    this.toolbarControlRightBox = toolbarControlRightBox;
+  public void removeToolbarControlRight(Node toolbarControl) {
+    toolbarControlRightBox.getChildren().remove(toolbarControl);
   }
+
 }
