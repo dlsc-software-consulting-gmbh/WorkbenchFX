@@ -1002,6 +1002,25 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
+  @Test
+  @DisplayName("Show non-blocking overlay and close by clicking on the GlassPane")
+  void hideOverlayNonBlockingGlassPane() {
+    robot.interact(() -> {
+      workbench.showOverlay(overlay1, false);
+
+      // hiding by GlassPane click
+      simulateGlassPaneClick(overlay1);
+
+      assertEquals(1, overlays.size()); // still loaded
+      assertEquals(0, blockingOverlaysShown.size()); // none shown
+      assertEquals(0, overlaysShown.size());
+      assertFalse(overlay1.isVisible()); // overlay1 is invisible
+      GlassPane glassPane = overlays.get(overlay1);
+      assertTrue(glassPane.isHide());
+      assertTrue(glassPane.hideProperty().isBound());
+    });
+  }
+
   /**
    * Precondition: showOverlay tests pass.
    */
