@@ -1773,9 +1773,9 @@ class WorkbenchTest extends ApplicationTest {
 
       // then: only second one is showing
       assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
-      assertSame(1,workbench.getNonBlockingOverlaysShown().size());
+      assertSame(1, workbench.getNonBlockingOverlaysShown().size());
       assertNotNull(workbench.getDrawerShown());
-      assertSame(drawer2 ,getShowingOverlay());
+      assertSame(drawer2, getShowingOverlay());
       assertSame(drawer2, workbench.getDrawerShown());
 
       // when: showing drawer on a different side while another drawer is currently showing
@@ -1783,12 +1783,51 @@ class WorkbenchTest extends ApplicationTest {
 
       // then: only new drawer is showing
       assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
-      assertSame(1,workbench.getNonBlockingOverlaysShown().size());
+      assertSame(1, workbench.getNonBlockingOverlaysShown().size());
       assertNotNull(workbench.getDrawerShown());
-      assertSame(drawer3 ,getShowingOverlay());
+      assertSame(drawer3, getShowingOverlay());
       assertSame(drawer3, workbench.getDrawerShown());
       assertSame(Pos.BOTTOM_LEFT, StackPane.getAlignment(drawer3)); // verify correct position
     });
   }
+
+  @Test
+  void hideDrawerGlassPaneClick() {
+    robot.interact(() -> {
+      // given
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertTrue(workbench.getNonBlockingOverlaysShown().isEmpty());
+      assertNull(workbench.getDrawerShown());
+      workbench.showDrawer(drawer, Side.LEFT);
+
+      // when:
+      simulateGlassPaneClick(drawer);
+
+      // then: drawer is hidden
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertTrue(workbench.getNonBlockingOverlaysShown().isEmpty());
+      assertNull(workbench.getDrawerShown());
+    });
+  }
+
+  @Test
+  void hideDrawer() {
+    robot.interact(() -> {
+      // given
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertTrue(workbench.getNonBlockingOverlaysShown().isEmpty());
+      assertNull(workbench.getDrawerShown());
+      workbench.showDrawer(drawer, Side.LEFT);
+
+      // when:
+      workbench.hideDrawer();
+
+      // then: drawer is hidden
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertTrue(workbench.getNonBlockingOverlaysShown().isEmpty());
+      assertNull(workbench.getDrawerShown());
+    });
+  }
+
 
 }
