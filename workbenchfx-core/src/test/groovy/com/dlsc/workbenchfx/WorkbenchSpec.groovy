@@ -193,6 +193,7 @@ class WorkbenchSpec extends ApplicationSpec {
         !drawer.maxHeightProperty().isBound()
         workbench.getBlockingOverlaysShown().isEmpty()
         workbench.getNonBlockingOverlaysShown().isEmpty()
+        drawer.getStyleClass().isEmpty()
         null == workbench.getDrawerShown()
         robot.interact {
             workbench."showDrawer"(arguments)
@@ -209,6 +210,8 @@ class WorkbenchSpec extends ApplicationSpec {
         workbench.getBlockingOverlaysShown().isEmpty()
         1 == workbench.getNonBlockingOverlaysShown().size()
         drawer == workbench.getDrawerShown()
+        1 == drawer.getStyleClass().size()
+        "drawer" == drawer.getStyleClass().get(0)
 
         where:
         drawer                  | arguments                              || position        | width                    | height                   | minWidthBound | maxWidthBound | minHeightBound | maxHeightBound
