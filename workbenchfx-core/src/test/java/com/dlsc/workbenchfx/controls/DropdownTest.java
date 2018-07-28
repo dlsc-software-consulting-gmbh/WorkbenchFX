@@ -1,10 +1,8 @@
 package com.dlsc.workbenchfx.controls;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -79,15 +77,6 @@ class DropdownTest extends ApplicationTest {
 
     dropdown = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
     assertEquals(dropdownImageView, dropdown.getIcon());
-  }
-
-  @Test
-  void invertDropdown() {
-    assertFalse(dropdown.getInverted());
-    dropdown.invertStyle();
-    assertTrue(dropdown.getInverted());
-    dropdown.invertStyle();
-    assertFalse(dropdown.getInverted());
   }
 
   @Test

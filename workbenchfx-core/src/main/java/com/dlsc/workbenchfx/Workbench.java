@@ -56,7 +56,7 @@ public class Workbench extends Control {
       LogManager.getLogger(Workbench.class.getName());
 
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
-  public static final String STYLE_CLASS_ACTIVE_HOME = "active-home";
+  public static final String STYLE_CLASS_ACTIVE_ADD_BUTTON = "active-add-button";
   // Default values as constants
   private static final Callback<Workbench, Tab>
       DEFAULT_TAB_FACTORY = Tab::new;
@@ -137,6 +137,8 @@ public class Workbench extends Control {
    */
   private final Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap =
       new HashMap<>();
+
+
 
   // Builder
 
@@ -293,6 +295,7 @@ public class Workbench extends Control {
   public Workbench() {
     initBindings();
     initListeners();
+    initNavigationDrawer(getNavigationDrawer());
     setupCleanup();
   }
 
@@ -310,6 +313,8 @@ public class Workbench extends Control {
     initModules(builder);
     initListeners();
     setupCleanup();
+
+    getStylesheets().add(Workbench.class.getResource("css/context-menu.css").toExternalForm());
   }
 
   private void initFactories(WorkbenchBuilder builder) {
@@ -345,13 +350,12 @@ public class Workbench extends Control {
     if (builder.navigationDrawerItems != null) {
       navigationDrawerItems.addAll(builder.navigationDrawerItems);
     }
-    // when control of navigation drawer changes, pass in the workbench object
-    navigationDrawerProperty().addListener((observable, oldControl, newControl) -> {
-      if (!Objects.isNull(newControl)) {
-        newControl.setWorkbench(this);
-      }
-    });
-    setNavigationDrawer(builder.navigationDrawer);
+    initNavigationDrawer(builder.navigationDrawer);
+  }
+
+  private void initNavigationDrawer(NavigationDrawer navigationDrawer) {
+    setNavigationDrawer(navigationDrawer);
+    navigationDrawer.setWorkbench(this);
   }
 
   private void initModules(WorkbenchBuilder builder) {
@@ -390,6 +394,15 @@ public class Workbench extends Control {
         }
         LOGGER.trace("Active Module Listener - Activating module - " + newModule);
         activeModuleView.setValue(newModule.activate());
+      }
+    });
+
+    // when control of navigation drawer changes, pass in the workbench object
+    navigationDrawerProperty().addListener((observable, oldControl, newControl) -> {
+      LOGGER.trace("NavigationDrawer has been set");
+      if (!Objects.isNull(newControl)) {
+        LOGGER.trace("NavigationDrawer - Setting Workbench");
+        newControl.setWorkbench(this);
       }
     });
   }
@@ -635,7 +648,7 @@ public class Workbench extends Control {
    * Shows a {@link WorkbenchDialog} in the view.
    *
    * @param dialog to be shown
-   * @return the {@link WorkbenchDialog}, which will be shown
+   * @return  the {@link WorkbenchDialog}, which will be shown
    * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
    *           the result will be {@link ButtonType#CANCEL}.
    *           All dialogs are non-blocking by default. If you want to change this behavior, use

@@ -29,6 +29,7 @@ import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -218,6 +219,27 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(0, workbench.getOpenModules().size());
 
       assertNull(workbench.activeModuleViewProperty().get());
+
+      // Tests if initNavigationDrawer() in the defaultCtor was called and this Workbench was set.
+      NavigationDrawer defaultDrawer = defaultBench.getNavigationDrawer();
+      assertNotNull(defaultDrawer.getWorkbench());
+      assertSame(defaultBench, defaultDrawer.getWorkbench());
+    });
+  }
+
+  @Test
+  void testNavigationDrawerPropertyListener() {
+    robot.interact(() -> {
+      Workbench defaultBench = new Workbench();
+      assertEquals(0, defaultBench.getNavigationDrawerItems().size());
+
+      // Tests if listener triggers when setting a new NavigationDrawer
+      MockNavigationDrawer mockNavigationDrawer = new MockNavigationDrawer();
+      assertNull(mockNavigationDrawer.getWorkbench());
+      defaultBench.setNavigationDrawer(mockNavigationDrawer);
+      assertNotNull(mockNavigationDrawer.getWorkbench());
+      assertEquals(defaultBench, mockNavigationDrawer.getWorkbench());
+      assertEquals(0, defaultBench.getNavigationDrawerItems().size());
     });
   }
 

@@ -105,11 +105,27 @@ class TabTest extends ApplicationTest {
   void testModuleListener() {
     assertEquals("Module 0", tab.getName());
     assertEquals("Module Icon 0", ((Label) tab.getIcon()).getText());
+    assertEquals("tab-module-0", tab.getId());
 
     // change to module 1
     tab.setModule(mockModules[1]);
     assertEquals("Module 1", tab.getName());
     assertEquals("Module Icon 1", ((Label) tab.getIcon()).getText());
+    assertEquals("tab-module-1", tab.getId());
+  }
+
+  @Test
+  void testAddingNewLineAsName() {
+    WorkbenchModule mockModule = createMockModule(
+        new Label(""),
+        new Label(""),
+        true,
+        "Name\nwith\nbreaks", // A name with newlines which should be replaced with ' '
+        mockBench
+    );
+    tab.setModule(mockModule);
+    assertEquals("Name with breaks", tab.getName());
+    assertEquals("tab-namewithbreaks", tab.getId());
   }
 
   @Test

@@ -1,0 +1,132 @@
+@import "includes";
+
+#workbench #toolbar #bottom-box .selection-strip {
+  @extend %icon-base; // All icons in the selectionStrip are targeted
+
+  -fx-background-color: -primary-color;
+
+  & .strip-cell {
+    -fx-padding: 0;
+    -fx-max-width: 17em;
+
+    &:hover {
+      -fx-cursor: hand;
+    }
+    &:pressed {
+      -fx-background-color: -primary-color;
+    }
+
+    & .tab-control {
+      -fx-max-height: 0; // To keep the height to the size of the close-icon --> for the border
+      -fx-alignment: CENTER;
+
+      -fx-border-width: 0 1px 0 1px;
+      -fx-border-color: transparent -on-primary-color transparent transparent;
+
+      -fx-padding: 0 .5em 0 1em;
+
+      & .tab-icon {
+        -fx-fill: -on-primary-color;
+      }
+
+      & .tab-name-lbl {
+        -fx-max-width: 16.5em; // A little shorter than the max-width of the .strip-cell
+        -fx-padding: 0 .5em 0 .5em;
+        & .text {
+          -fx-fill: -on-primary-color;
+        }
+      }
+
+      & .close-icon {
+        -icon-size: px(26);
+
+        & .shape {
+          -fx-background-color: -on-primary-color;
+          @extend %close-icon;
+          -shape-width: px(8); // Make close icon smaller, so that it fits when hovering
+          -shape-height: px(8); // Make close icon smaller, so that it fits when hovering
+
+          &:hover {
+            -fx-cursor: hand;
+            @extend %cancel-icon;
+            -shape-width: px(16.667); // Reset the insets to fit on hovering
+            -shape-height: px(16.667); // Reset the insets to fit on hovering
+          }
+        }
+      }
+    }
+
+    &:selected {
+      -fx-background-color: -background-color;
+      -fx-background-radius: px(5) px(5) 0 0;
+      -fx-border-radius: px(5) px(5) 0 0;
+      -fx-cursor: inherit;
+      -fx-background-insets: 0 0 0 -1px; // Needed to remove the border of the tab
+
+      & .tab-control {
+        -fx-border-color: transparent;
+
+        & .tab-icon,
+        & .tab-name-lbl .text {
+          -fx-fill: -on-background-color;
+        }
+
+        & .close-icon {
+          & .shape {
+            -fx-background-color: -on-background-color;
+
+            &:hover {
+              -fx-background-color: -error-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  & .first-child {
+    /**
+   * Remove the insets which were set in the :selected section.
+   * Otherwise the end of the SelectionStrip would cut off the side.
+   */
+    -fx-background-insets: 0 !important;
+  }
+
+  & .fader {
+    &.left {
+      -fx-background-color: linear-gradient(from 25 0 to 80 0, -primary-color, transparent);
+    }
+
+    &.right {
+      -fx-background-color: linear-gradient(from 0 0 to 55 0, transparent, -primary-color);
+    }
+  }
+
+  .scroller {
+    -fx-background-color: -on-primary-color;
+
+    @extend %arrow-right-icon;
+
+    // Adjustments in order to make whole area of arrows clickable
+    -fx-padding: 0;
+    -shape-width: px(20);
+    -shape-height: px(40);
+
+    -fx-max-width: -shape-width;
+    -fx-max-height: -shape-height;
+    -fx-min-width: -shape-width;
+    -fx-min-height: -shape-height;
+    -fx-pref-width: -shape-width;
+    -fx-pref-height: -shape-height;
+
+    -fx-background-insets: px(15.832) px(7.916) px(15.832) px(7.916);
+
+    &.left {
+      -fx-rotate: 180;
+    }
+
+    &.right {
+
+    }
+  }
+}

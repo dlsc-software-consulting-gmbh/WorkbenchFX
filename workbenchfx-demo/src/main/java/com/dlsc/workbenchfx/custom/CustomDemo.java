@@ -114,12 +114,16 @@ public class CustomDemo extends Application {
             new DialogTestModule(),
             new LifecycleTestModule()
         )
-            .toolbarLeft(addPreferences, removePreferences, showDialogButton)
-            .toolbarRight(
+            .toolbarLeft(
+                addPreferences,
+                removePreferences,
                 Dropdown.of(
                     new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                     new CustomMenuItem(new Label("Content 1")),
-                    new CustomMenuItem(new Label("Content 2"))),
+                    new CustomMenuItem(new Label("Content 2")))
+            )
+            .toolbarRight(
+                showDialogButton,
                 Dropdown.of(
                     new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
                     new Menu(
@@ -151,8 +155,7 @@ public class CustomDemo extends Application {
         "This will reset your device to its default factory settings.", null));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
-//    workbench.getStylesheets()
-//        .add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+//    workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 
     workbench
         .getStylesheets()

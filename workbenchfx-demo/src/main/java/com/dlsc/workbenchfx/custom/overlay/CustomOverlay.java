@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 
 public class CustomOverlay extends BorderPane {
 
@@ -15,6 +16,7 @@ public class CustomOverlay extends BorderPane {
   private final boolean blocking;
 
   public CustomOverlay(Workbench workbench, boolean blocking) {
+    StackPane.setAlignment(this, Pos.CENTER);
     Objects.requireNonNull(workbench);
     this.workbench = workbench;
     this.blocking = blocking;

@@ -1,7 +1,5 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -26,7 +24,6 @@ public class Dropdown extends Control {
   private final String text;
   private final Node icon;
   private final ObservableList<MenuItem> menuItems = FXCollections.observableArrayList();
-  private final BooleanProperty inverted = new SimpleBooleanProperty();
 
   private Dropdown(String text, Node icon, MenuItem... menuItems) {
     this.text = text;
@@ -53,10 +50,6 @@ public class Dropdown extends Control {
     return new DropdownSkin(this);
   }
 
-  public void invertStyle() {
-    setInverted(!getInverted());
-  }
-
   public Node getIcon() {
     return icon;
   }
@@ -67,17 +60,5 @@ public class Dropdown extends Control {
 
   public ObservableList<MenuItem> getItems() {
     return menuItems;
-  }
-
-  public boolean getInverted() {
-    return inverted.get();
-  }
-
-  public void setInverted(boolean inverted) {
-    this.inverted.set(inverted);
-  }
-
-  public BooleanProperty invertedProperty() {
-    return inverted;
   }
 }

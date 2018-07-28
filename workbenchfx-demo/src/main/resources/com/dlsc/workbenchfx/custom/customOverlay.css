@@ -1,5 +1,5 @@
 .custom-overlay {
-  -fx-background-color: -prim-color;
+  -fx-background-color: -primary-color;
   -fx-min-width: 300px;
   -fx-max-width: 300px;
   -fx-min-height: 300px;
@@ -7,7 +7,7 @@
 }
 
 .custom-overlay .label {
-  -fx-text-fill: -text-color;
+  -fx-text-fill: -on-primary-color;
 }
 
 .custom-overlay .button {
@@ -18,6 +18,10 @@
   -fx-cursor: hand;
 }
 
+.custom-overlay .button .glyph-icon {
+  -fx-font-size: 1.25em !important;
+}
+
 .custom-overlay .button:hover .glyph-icon {
-  -fx-fill: -danger-color;
+  -fx-fill: -error-color;
 }

@@ -1,49 +1,50 @@
 .dialog-pane {
-  -fx-background-color: white;
+  -fx-background-color: -surface-color;
   -fx-effect: -drop-shadow-3;
-  -fx-background-radius: 5;
+  -fx-background-radius: px(5);
 
-  .button-bar .button {
+  & .dialog-header {
+    -fx-padding: 0;
+    -fx-background-color: -surface-color;
+    -fx-background-radius: px(5);
+
+    & .dialog-title {
+      -fx-padding: px(30) px(30) 0 px(30);
+      -fx-font-size: 1.5em;
+      -fx-font-weight: 700;
+      -fx-text-fill: -on-surface-color;
+    }
+  }
+
+  & .dialog-content-pane {
+    -fx-padding: px(20) px(30) px(20) px(30);
+
+    & .label {
+      -fx-font-size: 1.2em;
+      -fx-font-weight: 600;
+      -fx-text-fill: -on-surface-color;
+      -fx-opacity: .54;
+    }
+
+    & .input-container {
+      -fx-spacing: px(10);
+    }
+
+    & .textfield-container {
+      -fx-spacing: px(10);
+    }
+
+    & .error-details-titled-pane {
+      -fx-padding: px(20) 0 0 0;
+    }
+  }
+
+  & .button-bar .button {
     -fx-background-color: transparent;
-    -fx-text-fill: -prim-color;
-    -fx-padding: 10 15;
+    -fx-text-fill: -primary-color;
+    -fx-padding: px(10) px(15);
     -font-size: 1.25em;
     -fx-font-weight: 700;
     -fx-cursor: hand;
   }
-}
-
-.dialog-header {
-  -fx-padding: 0;
-  -fx-background-color: white;
-  -fx-background-radius: 5;
-}
-
-.dialog-title {
-  -fx-padding: 30 30 0 30;
-  -fx-font-size: 1.5em;
-  -fx-font-weight: 700;
-  -fx-text-fill: rgba(0, 0, 0, 1);
-}
-
-.dialog-content-pane {
-  -fx-padding: 20 30 20 30;
-
-  .label {
-    -fx-font-size: 1.2em;
-    -fx-font-weight: 600;
-    -fx-text-fill: rgba(0, 0, 0, .54);
-  }
-
-  .input-container {
-    -fx-spacing: 10;
-  }
-
-  .textfield-container {
-    -fx-spacing: 10;
-  }
-}
-
-.error-details-titled-pane {
-  -fx-padding: 20 0 0 0;
 }
