@@ -8,6 +8,7 @@ addons:
   apt:
     packages:
     - p7zip-full
+    - oracle-java9-installer
 
 env:
   global:
