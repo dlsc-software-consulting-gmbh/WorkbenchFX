@@ -21,7 +21,7 @@
         -fx-padding: 0 2em 0 .25em;
 
         & .text {
-          -fx-fill: -on-surface-color;
+          -fx-fill: -on-surface-color !important;
         }
       }
 
@@ -80,7 +80,7 @@
       -fx-padding: 0 1em 0 .25em;
       -fx-graphic-text-gap: .5em;
       -fx-pref-height: px(34);
-      -fx-background-color: -primary-color;
+      -fx-background-color: transparent;
       -fx-background-radius: px(2);
       -fx-border-width: 0;
 
@@ -122,7 +122,7 @@
       }
 
       &:showing {
-        -fx-background-color: -primary-variant-color;
+        -fx-background-color: rgba(0, 0, 0, .075);
         -fx-cursor: inherit !important;
 
         & .arrow-button .arrow {
@@ -139,7 +139,7 @@
     -fx-padding: 0 .75em 0 .75em;
     -fx-graphic-text-gap: .5em;
     -fx-pref-height: px(34);
-    -fx-background-color: -primary-color;
+    -fx-background-color: transparent;
     -fx-background-radius: px(2);
     -fx-border-width: 0;
 
@@ -155,7 +155,7 @@
       -fx-cursor: hand;
     }
     &:pressed {
-      -fx-background-color: -primary-variant-color;
+      -fx-background-color: rgba(0, 0, 0, .075);
     }
   }
 }

@@ -21,6 +21,10 @@ public class ToolbarControl extends HBox {
   public ToolbarControl() {
     initializeParts();
     layoutParts();
+
+    getStylesheets().add(
+        ToolbarControl.class.getResource("../../css/toolbar-control.css").toExternalForm()
+    );
   }
 
   private void initializeParts() {

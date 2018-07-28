@@ -3,12 +3,12 @@
   -primary-variant-color: #3700B3;
   -secondary-color: #03DAC6;
   -secondary-variant-color: #018786;
-  -background-color: #FFFFFF;
+  -background-color: #fff5ad;
   -surface-color: #FFFFFF;
   -error-color: #B00020;
   -on-primary-color: #FFFFFF;
   -on-secondary-color: #000000;
-  -on-background-color: #000000;
+  -on-background-color: #a2665b;
   -on-surface-color: #000000;
   -on-error-color: #FFFFFF;
   -drop-shadow-1: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 10, 0.12, -1, 2);
@@ -57,7 +57,7 @@
     -fx-padding: 0 1em 0 .25em;
     -fx-graphic-text-gap: .5em;
     -fx-pref-height: 2.4285714286em;
-    -fx-background-color: -primary-color;
+    -fx-background-color: transparent;
     -fx-background-radius: 0.1428571429em;
     -fx-border-width: 0; }
     #toolbar #top-box .toolbar-menu-button .dropdown .label .glyph-icon {
@@ -81,7 +81,7 @@
     #toolbar #top-box .toolbar-menu-button .dropdown:hover {
       -fx-cursor: hand; }
     #toolbar #top-box .toolbar-menu-button .dropdown:showing {
-      -fx-background-color: -primary-variant-color;
+      -fx-background-color: rgba(0, 0, 0, 0.075);
       -fx-cursor: inherit !important; }
       #toolbar #top-box .toolbar-menu-button .dropdown:showing .arrow-button .arrow {
         -fx-rotate: -90; }
@@ -91,7 +91,7 @@
   -fx-padding: 0 .75em 0 .75em;
   -fx-graphic-text-gap: .5em;
   -fx-pref-height: 2.4285714286em;
-  -fx-background-color: -primary-color;
+  -fx-background-color: transparent;
   -fx-background-radius: 0.1428571429em;
   -fx-border-width: 0; }
   #toolbar .button .glyph-icon {
@@ -101,7 +101,7 @@
   #toolbar .button:hover {
     -fx-cursor: hand; }
   #toolbar .button:pressed {
-    -fx-background-color: -primary-variant-color; }
+    -fx-background-color: rgba(0, 0, 0, 0.075); }
 
 #toolbar .icon, .navigation-drawer .drawer-box .header .icon {
   -fx-background-color: transparent;

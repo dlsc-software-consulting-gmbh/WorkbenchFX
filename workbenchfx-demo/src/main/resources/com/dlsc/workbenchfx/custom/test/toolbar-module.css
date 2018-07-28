@@ -1,3 +1,8 @@
 .toolbar-module {
-  -fx-background-color: orange;
+  -fx-background-color: #666666;
+  -fx-alignment: CENTER;
+}
+
+.toolbar-module .label {
+  -fx-text-fill: white;
 }
