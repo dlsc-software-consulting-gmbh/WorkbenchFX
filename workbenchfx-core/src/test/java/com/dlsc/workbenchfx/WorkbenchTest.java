@@ -228,6 +228,19 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
+  void testNavigationDrawerPropertyListener() {
+    robot.interact(() -> {
+      Workbench defaultBench = new Workbench();
+      // Tests if listener triggers when setting a new NavigationDrawer
+      MockNavigationDrawer mockNavigationDrawer = new MockNavigationDrawer();
+      assertNull(mockNavigationDrawer.getWorkbench());
+      defaultBench.setNavigationDrawer(mockNavigationDrawer);
+      assertNotNull(mockNavigationDrawer.getWorkbench());
+      assertEquals(defaultBench, mockNavigationDrawer.getWorkbench());
+    });
+  }
+
+  @Test
   void openModule() {
     robot.interact(() -> {
       // Open first
