@@ -1,7 +1,8 @@
 package com.dlsc.workbenchfx.view;
 
+import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import javafx.scene.Node;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 /**
  * Displays the content of the currently active {@link Module}.
@@ -9,7 +10,10 @@ import javafx.scene.layout.StackPane;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ContentView extends StackPane implements View {
+public class ContentView extends VBox implements View {
+
+  ToolbarControl moduleToolbarControl;
+
   /**
    * Creates a new {@link ContentView}.
    */
@@ -30,7 +34,7 @@ public class ContentView extends StackPane implements View {
    */
   @Override
   public void initializeParts() {
-
+    moduleToolbarControl = new ToolbarControl();
   }
 
   /**
@@ -42,13 +46,18 @@ public class ContentView extends StackPane implements View {
   }
 
   /**
-   * Replaces the current displayed Node with a new one.
-   * This is called when a new module is selected and displayed.
+   * Replaces the current displayed Node with a new one. This is called when a new module is
+   * selected and displayed.
    *
    * @param node the module content as a Node
    */
   public void setContent(Node node) {
-    getChildren().clear();
-    getChildren().add(node);
+    getChildren().setAll(node);
+  }
+
+  void addToolbar() {
+    if (!getChildren().contains(moduleToolbarControl)) {
+      getChildren().add(0, moduleToolbarControl);
+    }
   }
 }

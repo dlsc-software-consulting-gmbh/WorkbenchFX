@@ -33,6 +33,7 @@ public class WorkbenchPresenter extends Presenter {
   private final ObservableMap<Node, GlassPane> overlays;
   private final ObservableSet<Node> overlaysShown;
   private final ObservableSet<Node> blockingOverlaysShown;
+  private final ToolbarControl moduleToolbarControl;
 
   /**
    * Constructs a new {@link WorkbenchPresenter} for the {@link WorkbenchView}.
@@ -43,9 +44,11 @@ public class WorkbenchPresenter extends Presenter {
   public WorkbenchPresenter(Workbench model, WorkbenchView view) {
     this.model = model;
     this.view = view;
-    overlays = model.getOverlays();
-    overlaysShown = model.getNonBlockingOverlaysShown();
-    blockingOverlaysShown = model.getBlockingOverlaysShown();
+    this.moduleToolbarControl = view.contentView.moduleToolbarControl;
+    this.overlays = model.getOverlays();
+    this.overlaysShown = model.getNonBlockingOverlaysShown();
+    this.blockingOverlaysShown = model.getBlockingOverlaysShown();
+
     init();
   }
 
@@ -55,6 +58,7 @@ public class WorkbenchPresenter extends Presenter {
   @Override
   public void initializeViewParts() {
     view.contentView.setContent(view.addModuleView);
+    LOGGER.trace("ADDMODULEVIEW WASS SET");
   }
 
   /**
@@ -76,47 +80,34 @@ public class WorkbenchPresenter extends Presenter {
       if (Objects.isNull(newModule)) {
         view.contentView.setContent(view.addModuleView);
       } else {
-        ToolbarControl toolbarControl = new ToolbarControl();
         Node activeModuleView = model.getActiveModuleView();
 
         WorkbenchUtils.addSetListener(
-            model.getToolbarControlsLeft(),
-            c -> toolbarControl.getToolbarControlLeftBox().getChildren().add(c.getElementAdded()), // Added
-            c -> toolbarControl.getToolbarControlLeftBox().getChildren().remove(c.getElementRemoved())  // Removed
+            newModule.getToolbarControlsLeft(),
+            c -> moduleToolbarControl.getToolbarControlLeftBox().getChildren()
+                .add(c.getElementAdded()),
+            c -> moduleToolbarControl.getToolbarControlLeftBox().getChildren()
+                .remove(c.getElementRemoved())
         );
 
         WorkbenchUtils.addSetListener(
-            model.getToolbarControlsRight(),
-            c -> toolbarControl.getToolbarControlLeftBox().getChildren().add(c.getElementAdded()), // Added
-            c -> toolbarControl.getToolbarControlLeftBox().getChildren().remove(c.getElementRemoved())  // Removed
+            newModule.getToolbarControlsRight(),
+            c -> moduleToolbarControl.getToolbarControlRightBox().getChildren()
+                .add(c.getElementAdded()),
+            c -> moduleToolbarControl.getToolbarControlRightBox().getChildren()
+                .remove(c.getElementRemoved())
         );
 
-        toolbarControl.getToolbarControlLeftBox().getChildren()
+        moduleToolbarControl.getToolbarControlLeftBox().getChildren()
             .setAll(newModule.getToolbarControlsLeft());
-        toolbarControl.getToolbarControlRightBox().getChildren()
+        moduleToolbarControl.getToolbarControlRightBox().getChildren()
             .setAll(newModule.getToolbarControlsRight());
 
-        VBox contentBox = new VBox(
-            toolbarControl,
-            activeModuleView
-        );
         VBox.setVgrow(activeModuleView, Priority.ALWAYS);
-        view.contentView.setContent(contentBox);
+        view.contentView.setContent(activeModuleView);
+        view.contentView.addToolbar();
       }
     });
-
-
-    // When the active module changes, the new view is set to the home screen if null.
-//    model.activeModuleViewProperty().addListener((observable, oldModuleView, newModuleView) -> {
-//      Node newContent = null;
-//      if (Objects.isNull(newModuleView)) {
-//        newContent = view.addModuleView;
-//      } else {
-//        if ()
-//        newContent = newModuleView;
-//      }
-//      view.contentView.setContent(newContent);
-//    });
 
     overlays.addListener((MapChangeListener<Node, GlassPane>) c -> {
       LOGGER.trace("Listener overlays fired");
