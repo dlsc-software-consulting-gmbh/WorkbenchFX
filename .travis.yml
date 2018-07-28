@@ -25,6 +25,8 @@ script: mvn -pl "!workbenchfx-dirk" test -B
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
+before_deploy:
+  - ./before_deploy.sh
 deploy:
   provider: releases
   api_key:
@@ -36,8 +38,6 @@ deploy:
     - workbenchfx-demo/target/*demo*
     - documentation.zip
   skip_cleanup: true
-  before_deploy:
-    - ./before_deploy.sh
   on:
     repo: FHNW-IP5-IP6/WorkbenchFX
     tags: true
