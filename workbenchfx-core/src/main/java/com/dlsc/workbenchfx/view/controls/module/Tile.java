@@ -16,8 +16,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the standard control used to display {@link WorkbenchModule}s as tiles in the home
- * screen.
+ * Represents the standard control used to display {@link WorkbenchModule}s as tiles
+ * in the add module screen screen.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -53,7 +53,7 @@ public class Tile extends Control {
       icon.setValue(current.getIcon());
 
       // Sets id with toString of module.
-      // Adds 'tile-', replaces spaces with highfins and lowecases letters.
+      // Adds 'tab-', replaces spaces with hyphens and sets letters to lowercase.
       // eg. Customer Management converts to tile-customer-management
       setId(WorkbenchUtils.convertToId("tile-" + current.getName()));
     });

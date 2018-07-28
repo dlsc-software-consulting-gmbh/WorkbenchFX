@@ -1,11 +1,12 @@
 package uk.co.senapt.desktop.shell;
 
-import java.util.Set;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
+
+import java.util.Set;
 
 public class PrettyListView<T> extends ListView<T> {
 

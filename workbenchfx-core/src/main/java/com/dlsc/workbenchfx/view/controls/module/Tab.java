@@ -67,7 +67,7 @@ public class Tab extends Control {
       icon.setValue(current.getIcon());
 
       // Sets id with toString of module.
-      // Adds 'tab-', replaces spaces with highfins and lowecases letters.
+      // Adds 'tab-', replaces spaces with hyphens and sets letters to lowercase.
       // eg. Customer Management converts to tab-customer-management
       setId(WorkbenchUtils.convertToId("tab-" + current.getName()));
     });

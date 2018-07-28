@@ -126,7 +126,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
   }
 
   private MenuButton hoveredBtn;
-  private boolean touchIsUsed = false;
+  private boolean isTouchUsed = false;
 
   private MenuButton buildSubmenu(MenuItem item) {
     Menu menu = (Menu) item;
@@ -142,17 +142,17 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     // To determine if a TOUCH_RELEASED event happens.
     // The MOUSE_ENTERED results in an unexpected behaviour on touch events.
     // Event filter triggers before the handler.
-    menuButton.addEventFilter(TouchEvent.TOUCH_RELEASED, e -> touchIsUsed = true);
+    menuButton.addEventFilter(TouchEvent.TOUCH_RELEASED, e -> isTouchUsed = true);
 
     // Only when ALWAYS or SOMETIMES
-    if (!getSkinnable().getMenuHoverBehaviour().equals(Priority.NEVER)) {
+    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehaviour())) {
       menuButton.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Menu
-        if (touchIsUsed) {
-          touchIsUsed = false;
+        if (isTouchUsed) {
+          isTouchUsed = false;
           return;
         }
         // When ALWAYS, then trigger immediately. Else check if clicked before (case: SOMETIMES)
-        if (getSkinnable().getMenuHoverBehaviour().equals(Priority.ALWAYS)
+        if (Priority.ALWAYS.equals(getSkinnable().getMenuHoverBehaviour())
             || (hoveredBtn != null && hoveredBtn.isShowing())) {
           menuButton.show(); // Shows the context-menu
           if (hoveredBtn != null && hoveredBtn != menuButton) {
@@ -175,9 +175,9 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     button.setOnAction(item.getOnAction());
 
     // Only in cases ALWAYS and SOMETIMES: hide previously hovered button
-    if (!getSkinnable().getMenuHoverBehaviour().equals(Priority.NEVER)) {
+    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehaviour())) {
       button.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Button
-        if (!touchIsUsed) {
+        if (!isTouchUsed) {
           if (hoveredBtn != null) {
             hoveredBtn.hide(); // Hides the previously hovered Button if not null
           }

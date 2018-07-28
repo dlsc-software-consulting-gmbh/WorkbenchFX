@@ -10,10 +10,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+//import uk.co.senapt.desktop.shell.ModulesManager;
 import uk.co.senapt.desktop.shell.Shell;
 import uk.co.senapt.desktop.shell.model.Favorite;
-
-//import uk.co.senapt.desktop.shell.ModulesManager;
 
 /**
  * @author user

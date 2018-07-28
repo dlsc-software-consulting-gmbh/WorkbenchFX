@@ -85,6 +85,12 @@ class TileTest extends ApplicationTest {
     assertEquals("Module 1", tile.getName());
     assertEquals("Module Icon 1", ((Label) tile.getIcon()).getText());
     assertEquals("tile-module-1", tile.getId());
+
+    tile.setModule(createMockModule(new Label("node"), new Label("icon"), true,
+        "Name\nwith\nbreaks", mockBench));
+    assertEquals("Name\nwith\nbreaks", tile.getName());
+    assertEquals("icon", ((Label) tile.getIcon()).getText());
+    assertEquals("tile-namewithbreaks", tile.getId());
   }
 
   @Test

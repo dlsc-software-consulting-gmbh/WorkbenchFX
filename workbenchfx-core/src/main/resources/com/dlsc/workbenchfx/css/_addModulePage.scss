@@ -13,9 +13,10 @@
               -fx-padding: 1.5em;
               -fx-alignment: CENTER;
 
-              $tile-width: 14em;
+              $tile-width: 12.5em;
+              $golden-ratio: 1.61803398875;
               -fx-pref-width: $tile-width;
-              -fx-pref-height: $tile-width / 1.778;
+              -fx-pref-height: $tile-width / $golden-ratio;
 
               -fx-background-color: -surface-color;
               -fx-effect: -drop-shadow-1;
@@ -30,7 +31,7 @@
                 -fx-fill: -on-surface-color;
               }
 
-              & .text-label {
+              & .text-lbl {
                 -fx-padding: .5em 0 0 0;
                 -fx-alignment: CENTER;
                 -fx-text-alignment: CENTER;

@@ -1,9 +1,5 @@
 package uk.co.senapt.desktop.shell.skins;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
@@ -16,6 +12,11 @@ import uk.co.senapt.desktop.shell.PropertySearchView;
 import uk.co.senapt.desktop.shell.TabPane;
 import uk.co.senapt.desktop.shell.model.PropertyDefinition;
 import uk.co.senapt.desktop.shell.model.PropertySearchItem;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PropertySearchViewSkin extends SkinBase<PropertySearchView> {
 

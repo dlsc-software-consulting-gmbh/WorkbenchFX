@@ -9,7 +9,7 @@ import javafx.scene.Node;
 
 /**
  * Provides utility methods to do general transformations between different model objects of
- * WorkbenchFX or or lists or maps of them.
+ * WorkbenchFX and or lists and maps of them.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -49,8 +49,8 @@ public final class WorkbenchUtils {
    * @param <T> type of the {@link ObservableSet}
    */
   public static <T> void addSetListener(ObservableSet<T> set,
-      Consumer<SetChangeListener.Change<? extends T>> added,
-      Consumer<SetChangeListener.Change<? extends T>> removed) {
+                                        Consumer<SetChangeListener.Change<? extends T>> added,
+                                        Consumer<SetChangeListener.Change<? extends T>> removed) {
     set.addListener((SetChangeListener<? super T>) c -> {
       if (c.wasAdded()) {
         added.accept(c);
@@ -63,7 +63,7 @@ public final class WorkbenchUtils {
   /**
    * Converts a given String into one that can be used in css.
    * Accepts only characters that match 'a' to 'z', 'A' to 'Z', '0' to '9', ' ' and '-'.
-   * All uppercase letters are converted into lowercase and spaces are replaced by '-'.
+   * All uppercase letters are converted into a lowercase and spaces are replaced by '-'.
    *
    * @param name the {@link String} to be converted into an css id
    * @return     the converted {@link String} with only the allowed characters,

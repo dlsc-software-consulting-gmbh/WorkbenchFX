@@ -17,7 +17,6 @@ import javafx.scene.layout.GridPane;
 public class DropdownTestModule extends WorkbenchModule {
   private int itemsCount = 1;
 
-//  private final Button invertBtn = new Button("Invert Style");
   private final Button addMenuBtn = new Button("Add new Dropdown");
   private final Button addItemBtn = new Button("Add MenuItem to Dropdown");
   private final Button addLotItemBtn = new Button("Add 100 MenuItems to Dropdown");

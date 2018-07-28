@@ -57,7 +57,7 @@ public class ToolbarPresenter extends Presenter {
   public void initializeViewParts() {
     view.tabBar.setCellFactory(tab -> new TabCell());
     view.tabBar.getStylesheets().add(
-        ToolbarPresenter.class.getResource("../css/selection-strip.css").toExternalForm()
+        Workbench.class.getResource("css/selection-strip.css").toExternalForm()
     );
 
     toolbarControlsLeft.stream().forEachOrdered(view::addToolbarControlLeft);
