@@ -368,4 +368,7 @@
     -fx-font-weight: 700;
     -fx-cursor: hand; }
 
+.drawer {
+  -fx-background-color: -surface-color; }
+
 /*# sourceMappingURL=main.css.map */
