@@ -31,12 +31,15 @@ deploy:
     secure: VNCxklOYn6kDXNNaBOh/mPKo7X9RQ0FSWDeyAcTVZLhry8Q9srGkf8tqmuYRDJIdBlDGmjNEU93Rin+RwL10IIQoduIozTMmpB+Di1YfkTLNe4LZo/2WHLgViwDRauHJ+dECSSG3zFEZndzsndyqINkw9zLfD4I136L5Vue27foTLNiRSp0J2qWw5Frnyq5dKzX9Y/JEVdVa5s7SHAFvukjeHE5gW0HUtF+gfghw7fnawUyAKJJkpc/Nr11ij8vD9/ifZuzEJkKiQ2nSvKT082btD+tIHhh6jRKed8kCEOR+uJxFc93ZXFLH2GsUvKMgUrKdeGXfGbMET2+7K6KmOvjP73a79Z911QwBEDsek34ldO7vVIG9NUD7L58W15nB/gJhH5COGfP3C/iO5M4+fvaddvJ+tYz/JtNDkHFiUqlrjnptFloWEgJqaVfnLnL1v05JYvKYutbBWL9uTRC8UAMlMJkK4tu0Yc1HyQWp2I69klgWYMHbrQhONDTlgE0clkLhA5kIjFXnbxul6M6IaWogPbAXkFZA+CH9Y1kj3znJo9U6txiBvnAznm/Sk0I9g/+zq3Xa/yEO3SN+b8iKX21iXrOsBe7bsJQoVvAnlJ8NEvPwRwgo+TzDzAWiCNx310WonbNnIw0MFqw3A8X4OwVbFvzRfkmjnlgztvx41HY=
   file_glob: true
   file:
-    - workbenchfx-core/target/site/**/*
+    - javadoc.zip
     - workbenchfx-core/target/*core*
     - workbenchfx-demo/target/*demo*
-    - target/generated-docs/**/*
+    - documentation.zip
   skip_cleanup: true
-  before_deploy: 'mvn -pl "!workbenchfx-dirk" install -DskipTests'
+  before_deploy:
+    - 'mvn -pl "!workbenchfx-dirk" install -DskipTests'
+    - zip -r ${TRAVIS_BUILD_DIR}/javadoc.zip ${TRAVIS_BUILD_DIR}/workbenchfx-core/target/site
+    - zip -r ${TRAVIS_BUILD_DIR}/documentation.zip ${TRAVIS_BUILD_DIR}/target/generated-docs
   on:
     repo: FHNW-IP5-IP6/WorkbenchFX
     tags: true
