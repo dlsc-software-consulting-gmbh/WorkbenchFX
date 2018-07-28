@@ -21,8 +21,8 @@ import javafx.scene.control.Label
 import javafx.scene.control.MenuItem
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
-import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
+import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import org.spockframework.util.ExceptionUtil
 import org.testfx.api.FxRobot
@@ -36,22 +36,24 @@ import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type
 @Unroll
 class WorkbenchSpec extends ApplicationSpec {
 
-    private static final int SIZE = 3
+
+    private static final int MODULE_AMOUNT = 3
 
     private static final int FIRST_INDEX = 0
     private static final int SECOND_INDEX = 1
-    private static final int LAST_INDEX = SIZE - 1
+    private static final int LAST_INDEX = MODULE_AMOUNT - 1
 
     private static final String TITLE = "Title of a Dialog"
     private static final String MESSAGE = "Message of a Dialog"
     private static final String DETAILS = "Details of a Dialog"
     private static final Exception EXCEPTION = new Exception()
     private static final Consumer<ButtonType> ON_RESULT = { buttonType ->  }
+    public static final int SIZE = 100
 
     Workbench workbench
 
-    WorkbenchModule[] mockModules = new WorkbenchModule[SIZE]
-    Node[] moduleNodes = new Node[SIZE]
+    WorkbenchModule[] mockModules = new WorkbenchModule[MODULE_AMOUNT]
+    Node[] moduleNodes = new Node[MODULE_AMOUNT]
 
     WorkbenchModule first
     WorkbenchModule second
@@ -141,7 +143,7 @@ class WorkbenchSpec extends ApplicationSpec {
 
         navigationDrawerItems = workbench.getNavigationDrawerItems()
 
-        Scene scene = new Scene(workbench, 100, 100)
+        Scene scene = new Scene(workbench, SIZE, SIZE)
         stage.setScene(scene)
         stage.show()
     }
@@ -190,17 +192,19 @@ class WorkbenchSpec extends ApplicationSpec {
 
         expect:
         position == StackPane.getAlignment(drawer)
+        width == drawer.getWidth()
+        height == drawer.getHeight()
         minWidthBound == drawer.minWidthProperty().isBound()
         maxWidthBound == drawer.minHeightProperty().isBound()
         minHeightBound == drawer.maxWidthProperty().isBound()
         maxHeightBound == drawer.maxHeightProperty().isBound()
 
         where:
-        drawer     | arguments                              || position        | minWidthBound | maxWidthBound | minHeightBound | maxHeightBound
-        new Pane() | [drawer, Side.TOP, PERCENTAGE_HALF]    || Pos.TOP_LEFT    | true          | false         | false          | true
-        new Pane() | [drawer, Side.RIGHT, PERCENTAGE_HALF]  || Pos.TOP_RIGHT   | false         | true          | true           | false
-        new Pane() | [drawer, Side.BOTTOM, PERCENTAGE_HALF] || Pos.BOTTOM_LEFT | true          | false         | false          | true
-        new Pane() | [drawer, Side.LEFT, PERCENTAGE_HALF]   || Pos.TOP_LEFT    | false         | true          | true           | false
+        drawer     | arguments                              || position        | width    | height   | minWidthBound | maxWidthBound | minHeightBound | maxHeightBound
+        new VBox() | [drawer, Side.TOP, PERCENTAGE_HALF]    || Pos.TOP_LEFT    | SIZE     | SIZE / 2 | true          | false         | false          | true
+        new VBox() | [drawer, Side.RIGHT, PERCENTAGE_HALF]  || Pos.TOP_RIGHT   | SIZE / 2 | SIZE     | false         | true          | true           | false
+        new VBox() | [drawer, Side.BOTTOM, PERCENTAGE_HALF] || Pos.BOTTOM_LEFT | SIZE     | SIZE / 2 | true          | false         | false          | true
+        new VBox() | [drawer, Side.LEFT, PERCENTAGE_HALF]   || Pos.TOP_LEFT    | SIZE / 2 | SIZE     | false         | true          | true           | false
 
         showDrawerCall = "showDrawer" + arguments.toString().replace('[','(').replace(']',')')
     }
