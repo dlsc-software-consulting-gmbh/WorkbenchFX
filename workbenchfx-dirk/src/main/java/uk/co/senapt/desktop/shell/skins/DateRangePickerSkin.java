@@ -1,5 +1,7 @@
 package uk.co.senapt.desktop.shell.skins;
 
+import java.time.LocalDate;
+import java.time.format.FormatStyle;
 import javafx.geometry.Bounds;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
@@ -14,9 +16,6 @@ import javafx.util.StringConverter;
 import javafx.util.converter.LocalDateStringConverter;
 import uk.co.senapt.desktop.shell.DateRangePicker;
 import uk.co.senapt.desktop.shell.model.LocalDateRange;
-
-import java.time.LocalDate;
-import java.time.format.FormatStyle;
 
 public class DateRangePickerSkin extends SkinBase<DateRangePicker> {
 

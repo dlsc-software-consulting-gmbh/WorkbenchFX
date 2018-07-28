@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -15,13 +16,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the standard control used to display {@link WorkbenchModule}s as tiles in the
- * home screen.
+ * Represents the standard control used to display {@link WorkbenchModule}s as tiles in the home
+ * screen.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
 public class Tile extends Control {
+
   private static final Logger LOGGER = LogManager.getLogger(Tile.class.getName());
 
   private final Workbench workbench;
@@ -41,6 +43,7 @@ public class Tile extends Control {
     name = new SimpleStringProperty();
     icon = new SimpleObjectProperty<>();
     setupModuleListeners();
+    setupEventHandlers();
   }
 
   private void setupModuleListeners() {
@@ -48,7 +51,16 @@ public class Tile extends Control {
       WorkbenchModule current = getModule();
       name.setValue(current.getName());
       icon.setValue(current.getIcon());
+
+      // Sets id with toString of module.
+      // Adds 'tile-', replaces spaces with highfins and lowecases letters.
+      // eg. Customer Management converts to tile-customer-management
+      setId(WorkbenchUtils.convertToId("tile-" + current.getName()));
     });
+  }
+
+  private void setupEventHandlers() {
+    setOnMouseClicked(event -> open());
   }
 
   /**

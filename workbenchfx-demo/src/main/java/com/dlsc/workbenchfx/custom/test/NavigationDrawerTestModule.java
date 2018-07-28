@@ -4,7 +4,6 @@ import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -59,12 +58,7 @@ public class NavigationDrawerTestModule extends WorkbenchModule {
   }
 
   private void removeAllItems() {
-    ObservableList<MenuItem> navigationDrawerItems = getWorkbench().getNavigationDrawerItems();
-    MenuItem[] menuItems = new MenuItem[navigationDrawerItems.size()];
-    for (int i = 0; i < navigationDrawerItems.size();  ++i) {
-      menuItems[i] = navigationDrawerItems.get(i);
-    }
-    getWorkbench().getNavigationDrawerItems().remove(menuItems);
+    getWorkbench().getNavigationDrawerItems().clear();
   }
 
   private void addItems(int items) {

@@ -1,5 +1,7 @@
 package uk.co.senapt.desktop.shell.skins;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.Observable;
 import javafx.css.PseudoClass;
 import javafx.scene.Node;
@@ -11,9 +13,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import uk.co.senapt.desktop.shell.Tab;
 import uk.co.senapt.desktop.shell.TabPane;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TabPaneSkin extends SkinBase<TabPane> {
 

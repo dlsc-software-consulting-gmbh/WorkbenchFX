@@ -1,3 +1,7 @@
 #workbench {
-
+  -fx-background-color: -background-color;
+  // Fix resizing behaviour -> resizing to top-left
+  -fx-min-width: 0;
+  -fx-min-height: 0;
+  -fx-alignment: TOP_LEFT;
 }

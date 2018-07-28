@@ -1,19 +1,14 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.Objects;
-import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
-import javafx.scene.control.skin.MenuButtonSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,17 +23,12 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   private static final Logger LOGGER =
       LogManager.getLogger(DropdownSkin.class.getName());
 
-  private final Dropdown dropdown;
-
-  private static final int ARROW_NODE_INDEX = 1;
-  private static final double HALF_DROPDOWN_SIZE = 0.5d;
+  private static final double RESIZING_FACTOR = 0.47d;
   private final String standardStyle = "dropdown";
-  private final String invertedStyle = "dropdown-inverted";
 
   private final MenuButton menuButton;
   private final Node icon;
   private final ObservableList<MenuItem> menuItems;
-  private StackPane arrowButtonPane;
 
   /**
    * Creates a new {@link DropdownSkin} object for a corresponding {@link Dropdown}.
@@ -47,8 +37,6 @@ public class DropdownSkin extends SkinBase<Dropdown> {
    */
   public DropdownSkin(Dropdown dropdown) {
     super(dropdown);
-    this.dropdown = dropdown;
-
     menuButton = new MenuButton();
     menuButton.getStyleClass().add(standardStyle);
 
@@ -71,7 +59,6 @@ public class DropdownSkin extends SkinBase<Dropdown> {
 
     getChildren().add(menuButton);
 
-    replaceArrowIcon();
     setupBindings();
     setupListeners();
   }
@@ -86,22 +73,6 @@ public class DropdownSkin extends SkinBase<Dropdown> {
     return imageView.getImage();
   }
 
-  /**
-   * Replaces the default arrow icon of the {@code menuButton} with a custom fontawesome icon.
-   */
-  private void replaceArrowIcon() {
-    Platform.runLater(() -> {
-      arrowButtonPane =
-          (StackPane) ((MenuButtonSkin) menuButton.getSkin()).getChildren().get(
-              ARROW_NODE_INDEX);
-      // Removes the old arrow
-      arrowButtonPane.getChildren().clear();
-      FontAwesomeIconView angleDown = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_DOWN);
-      angleDown.getStyleClass().add("angle-down");
-      arrowButtonPane.getChildren().add(angleDown);
-    });
-  }
-
   private void setupBindings() {
     if (icon instanceof ImageView) {
       ImageView imageView = ((ImageView) icon);
@@ -109,12 +80,13 @@ public class DropdownSkin extends SkinBase<Dropdown> {
       double ratio = getImage(imageView).getWidth() / getImage(imageView).getHeight();
 
       // Binds the dimensions of the ImageView to the dropdown's height.
-      // Resizes the image with a HALF_DROPDOWN_SIZE in order to fit in the Dropdown.
+      // Resizes the image with a RESIZING_FACTOR in order to fit in the Dropdown
+      // and reach a size of 16px.
       imageView.fitHeightProperty().bind(
-          menuButton.prefHeightProperty().multiply(HALF_DROPDOWN_SIZE)
+          menuButton.prefHeightProperty().multiply(RESIZING_FACTOR)
       );
       imageView.fitWidthProperty().bind(
-          menuButton.prefHeightProperty().multiply(HALF_DROPDOWN_SIZE).multiply(ratio)
+          menuButton.prefHeightProperty().multiply(RESIZING_FACTOR).multiply(ratio)
       );
     }
   }
@@ -142,29 +114,6 @@ public class DropdownSkin extends SkinBase<Dropdown> {
             menuButton.getItems().addAll(menuItem);
           }
         }
-      }
-    });
-
-    // Changes orientation of the icon when the menu-items are showing
-    menuButton.showingProperty().addListener((observable, oldValue, newValue) -> {
-      if (newValue) {
-        ((FontAwesomeIconView) arrowButtonPane.getChildren().get(0))
-            .setIcon(FontAwesomeIcon.ANGLE_UP);
-      } else {
-        ((FontAwesomeIconView) arrowButtonPane.getChildren().get(0))
-            .setIcon(FontAwesomeIcon.ANGLE_DOWN);
-      }
-    });
-
-    // Changes the styleClass either from dropdown to dropdown-inverted.
-    // In the css, the style is applied.
-    dropdown.invertedProperty().addListener((observable, oldIsInverted, newIsInverted) -> {
-      if (newIsInverted) {
-        menuButton.getStyleClass().remove(standardStyle);
-        menuButton.getStyleClass().add(invertedStyle);
-      } else {
-        menuButton.getStyleClass().remove(invertedStyle);
-        menuButton.getStyleClass().add(standardStyle);
       }
     });
   }

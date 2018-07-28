@@ -2,8 +2,8 @@ package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.MultilineLabel;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
-import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent;
 import com.google.common.base.Strings;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -94,7 +94,7 @@ public final class WorkbenchDialog {
    * @return builder object
    */
   public static WorkbenchDialogBuilder builder(String title, String message, Type type) {
-    return new WorkbenchDialogBuilder(title, new DialogMessageContent(message), type);
+    return new WorkbenchDialogBuilder(title, new MultilineLabel(message), type);
   }
 
   /**
@@ -120,7 +120,7 @@ public final class WorkbenchDialog {
    */
   public static WorkbenchDialogBuilder builder(
       String title, String message, ButtonType... buttonTypes) {
-    return new WorkbenchDialogBuilder(title, new DialogMessageContent(message), buttonTypes);
+    return new WorkbenchDialogBuilder(title, new MultilineLabel(message), buttonTypes);
   }
 
   // Builder

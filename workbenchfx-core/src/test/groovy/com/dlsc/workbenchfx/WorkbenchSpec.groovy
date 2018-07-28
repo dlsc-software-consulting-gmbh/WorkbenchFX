@@ -5,8 +5,8 @@ import com.dlsc.workbenchfx.model.WorkbenchModule
 import com.dlsc.workbenchfx.testing.*
 import com.dlsc.workbenchfx.view.controls.Dropdown
 import com.dlsc.workbenchfx.view.controls.GlassPane
+import com.dlsc.workbenchfx.view.controls.MultilineLabel
 import com.dlsc.workbenchfx.view.controls.dialog.DialogErrorContent
-import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.ObservableList
@@ -157,10 +157,10 @@ class WorkbenchSpec extends ApplicationSpec {
         type == dialog.getType()
         TITLE == dialog.getTitle()
         if (type == Type.ERROR) {
-            assert MESSAGE == ((DialogMessageContent) ((DialogErrorContent) dialog.getContent()).getMessage()).getMessage()
+            assert MESSAGE == ((MultilineLabel) ((DialogErrorContent) dialog.getContent()).getMessage()).getMessage()
             assert details == ((DialogErrorContent) dialog.getContent()).getDetails()
         } else {
-            assert MESSAGE == ((DialogMessageContent) dialog.getContent()).getMessage()
+            assert MESSAGE == ((MultilineLabel) dialog.getContent()).getMessage()
         }
         exception == dialog.getException()
         details == dialog.getDetails()

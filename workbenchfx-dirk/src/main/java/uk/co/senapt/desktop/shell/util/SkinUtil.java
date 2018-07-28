@@ -1,6 +1,7 @@
 package uk.co.senapt.desktop.shell.util;
 
 import com.google.common.base.Preconditions;
+import java.io.IOException;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
@@ -8,8 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Skin;
-
-import java.io.IOException;
 
 /**
  * Created by gdiaz on 12/09/2017.

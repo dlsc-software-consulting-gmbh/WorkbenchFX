@@ -4,7 +4,6 @@ import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
 
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
@@ -13,7 +12,6 @@ import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +24,7 @@ import javafx.scene.layout.GridPane;
 import org.controlsfx.control.CheckListView;
 
 public class DialogTestModule extends WorkbenchModule implements MapComponentInitializedListener {
+
   private int itemsCount = 1;
 
   private final Button confirmBtn = new Button("Confirmation Dialog");
@@ -118,21 +117,37 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
   }
 
   private void setupEventHandlers() {
-    confirmBtn.setOnAction(event -> getWorkbench().showConfirmationDialog("Continue without saving?", "Are you sure you want to continue without saving your document?", null));
-    errorBtn.setOnAction(event -> getWorkbench().showErrorDialog("Button click failed!", "During the click of this button, something went horribly wrong.", null));
-    errorExceptionBtn.setOnAction(event -> getWorkbench().showErrorDialog("Button click failed!", "During the click of this button, something went horribly wrong. Please forward the content below to anyone but the WorkbenchFX developers to track down the issue:", exception, null));
-    errorDetailsBtn.setOnAction(event -> getWorkbench().showErrorDialog("Button click failed!", "During the click of this button, something went horribly wrong.", "Details about this exception are not present.", null));
-    warningBtn.setOnAction(event -> getWorkbench().showWarningDialog("Reset settings?", "This will reset your device to its default factory settings.", null));
-    informationBtn.setOnAction(event -> getWorkbench().showInformationDialog("Everything is fine", "You can relax, nothing wrong here.", null));
-    longTitleBtn.setOnAction(event -> getWorkbench().showInformationDialog("Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot.", "You can relax, nothing wrong here.", null));
-    longMessageBtn.setOnAction(event -> getWorkbench().showInformationDialog("Everything is fine", "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot.", null));
-    longTitleMessageBtn.setOnAction(event -> getWorkbench().showInformationDialog("In 2004, Bennett ruled that John Graham could be extradited to the United States for trial for the 1975 murder of Anna Mae Aquash, one of the most prominent members of the American Indian Movement. In 2007, she began proceedings on the Basi-Virk Affair where the Minister of Finance's politically appointed assistant was charged with the sale of benefits related to the province's sale of BC Rail, the publicly owned railway. The scandal came to public attention when news media filmed the RCMP conducting a search warrant inside the BC Legislature building.", "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot.", null));
+    confirmBtn.setOnAction(event -> getWorkbench()
+        .showConfirmationDialog("Continue without saving?",
+            "Are you sure you want to continue without saving your document?", null));
+    errorBtn.setOnAction(event -> getWorkbench().showErrorDialog("Button click failed!",
+        "During the click of this button, something went horribly wrong.", null));
+    errorExceptionBtn.setOnAction(event -> getWorkbench().showErrorDialog("Button click failed!",
+        "During the click of this button, something went horribly wrong. Please forward the content below to anyone but the WorkbenchFX developers to track down the issue:",
+        exception, null));
+    errorDetailsBtn.setOnAction(event -> getWorkbench().showErrorDialog("Button click failed!",
+        "During the click of this button, something went horribly wrong.",
+        "Details about this exception are not present.", null));
+    warningBtn.setOnAction(event -> getWorkbench().showWarningDialog("Reset settings?",
+        "This will reset your device to its default factory settings.", null));
+    informationBtn.setOnAction(event -> getWorkbench()
+        .showInformationDialog("Everything is fine", "You can relax, nothing wrong here.", null));
+    longTitleBtn.setOnAction(event -> getWorkbench().showInformationDialog(
+        "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot.",
+        "You can relax, nothing wrong here.", null));
+    longMessageBtn.setOnAction(event -> getWorkbench().showInformationDialog("Everything is fine",
+        "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot.", null));
+    longTitleMessageBtn.setOnAction(event -> getWorkbench().showInformationDialog(
+        "In 2004, Bennett ruled that John Graham could be extradited to the United States for trial for the 1975 murder of Anna Mae Aquash, one of the most prominent members of the American Indian Movement. In 2007, she began proceedings on the Basi-Virk Affair where the Minister of Finance's politically appointed assistant was charged with the sale of benefits related to the province's sale of BC Rail, the publicly owned railway. The scandal came to public attention when news media filmed the RCMP conducting a search warrant inside the BC Legislature building.",
+        "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot.", null));
     customSmallBtn.setOnAction(event -> {
       getWorkbench().showDialog(
           favoriteLibrariesDialog
       );
     });
-    customFullBtn.setOnAction(event -> getWorkbench().showDialog(WorkbenchDialog.builder("Map Overview (blocking)", mapView, ButtonType.CLOSE).blocking(true).build()));
+    customFullBtn.setOnAction(event -> getWorkbench().showDialog(
+        WorkbenchDialog.builder("Map Overview (blocking)", mapView, ButtonType.CLOSE).blocking(true)
+            .build()));
     customFullMaxBtn.setOnAction(event -> {
       getWorkbench().showDialog(WorkbenchDialog.builder("Map Overview", mapView, ButtonType.FINISH)
           .maximized(true)
@@ -141,7 +156,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
       );
     });
     noButtonsBtn.setOnAction(event -> {
-      getWorkbench().showDialog(WorkbenchDialog.builder("This dialog has no buttons", "Click outside of the dialog to close it.", Type.INFORMATION)
+      getWorkbench().showDialog( WorkbenchDialog.builder("This dialog has no buttons","Click outside of the dialog to close it.", Type.INFORMATION)
           .showButtonsBar(false)
           .onResult(buttonType -> System.err.println("Dialog result: " + buttonType))
           .build()
@@ -178,11 +193,11 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     //Add a marker to the map
     MarkerOptions markerOptions = new MarkerOptions();
 
-    markerOptions.position( new LatLong(47.4814072, 8.2116446) )
+    markerOptions.position(new LatLong(47.4814072, 8.2116446))
         .visible(Boolean.TRUE)
         .title("FHNW");
 
-    Marker marker = new Marker( markerOptions );
+    Marker marker = new Marker(markerOptions);
 
     map.addMarker(marker);
 

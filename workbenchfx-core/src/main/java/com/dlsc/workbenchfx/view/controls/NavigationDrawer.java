@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
+import javafx.scene.layout.Priority;
 
 /**
  * Represents the standard control to be used for the navigation drawer in WorkbenchFX. Is shown in
@@ -23,11 +24,13 @@ public class NavigationDrawer extends Control {
 
   private ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>();
 
+  private ObjectProperty<Priority> menuHoverBehaviour = new SimpleObjectProperty<>();
+
   /**
    * Creates a navigation drawer control.
    */
   public NavigationDrawer() {
-
+    setMenuHoverBehaviour(Priority.ALWAYS);
   }
 
   public final void hide() {
@@ -37,6 +40,28 @@ public class NavigationDrawer extends Control {
   @Override
   protected Skin<?> createDefaultSkin() {
     return new NavigationDrawerSkin(this);
+  }
+
+
+  public Priority getMenuHoverBehaviour() {
+    return menuHoverBehaviour.get();
+  }
+
+  /**
+   * Defines the showing behaviour of the {@link MenuItem}s when hovering over them.
+   * The default value is set in the constructor to ALWAYS.
+   * ALWAYS:    Triggers whenever the mouse hovers over a {@link MenuItem}
+   * SOMETIMES: Requires one initial click on a {@link MenuItem} to open.
+   *            After that, hovering over other Items shows their submenus automatically
+   * NEVER:     No hover behaviour on the {@link MenuItem}s
+   * @defaultValue Priority.ALWAYS
+   */
+  public ObjectProperty<Priority> menuHoverBehaviourProperty() {
+    return menuHoverBehaviour;
+  }
+
+  public void setMenuHoverBehaviour(Priority menuHoverBehaviour) {
+    this.menuHoverBehaviour.set(menuHoverBehaviour);
   }
 
   public final ObservableList<MenuItem> getItems() {
@@ -51,7 +76,7 @@ public class NavigationDrawer extends Control {
     return workbench.get().widthProperty();
   }
 
-  private Workbench getWorkbench() {
+  public Workbench getWorkbench() {
     return workbench.get();
   }
 

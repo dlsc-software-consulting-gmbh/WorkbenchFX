@@ -1,43 +1,81 @@
 #toolbar {
-  -fx-background-color: -prim-color;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 4, 0, 0, 3);
+  @extend %icon-base; // All icons in the toolbar are targeted
+  @extend %button-base;
 
-  #menu-button {
-    @extend %button-inverted;
+  -fx-background-color: -primary-color;
 
-    & #menu-icon-view {
+  & #top-box {
+    -fx-padding: px(3);
+    -fx-min-height: px(40);
+    -fx-pref-height: px(40);
+    -fx-max-height: px(40);
 
+    & #toolbar-control-left-box {
+      -fx-padding: 0 px(3) 0 px(6);
+      -fx-spacing: px(3);
+      -fx-max-height: px(34);
     }
 
-    &:focused {
-
+    & #toolbar-control-right-box {
+      -fx-padding: 0 0 0 px(3);
+      -fx-spacing: px(3);
+      -fx-max-height: px(34);
     }
+
+    & #menu-button {
+      -icon-size: px(34);
+      & .shape {
+        -fx-background-color: -on-primary-color;
+        @extend %menu-icon;
+      }
+
+      &:pressed {
+        -fx-background-color: -primary-variant-color;
+        -fx-background-radius: px(2);
+      }
+    }
+
+    @extend %dropdown;
+
+    // @extend %context-menu;
+    // The extention of the context-menu can be found in the context-menu.css file.
+    // It is set in the constructor of the Workbench.
   }
 
-  & #toolbar-control-left-box {
-    & .button {
-      @extend %button;
+  & #bottom-box {
+    -fx-pref-height: px(40);
+    -fx-padding: 0 px(4) 0 px(3);
+
+    //.selection-strip {...}
+    // The extention of the selection-strip can be found in the selection-strip.css file.
+    // It is set in the initializeViewParts() method of the ToolbarPresenter.
+
+    & #add-button {
+      -fx-background-insets: 0;
+
+      & .shape {
+        -fx-background-color: -on-primary-color;
+        @extend %add-icon;
+      }
+
+      &:pressed {
+        -fx-background-radius: px(5) px(5) 0 0;
+      }
     }
-    & .button-inverted {
-      @extend %button-inverted;
-    }
-  }
 
-  & #home-button {
-    @extend %button;
+    & .active-add-button {
+      -fx-background-color: -background-color;
+      -fx-background-radius: px(5) px(5) 0 0;
+      -fx-border-radius: px(5) px(5) 0 0;
+      -fx-background-insets: 0 -1px 0 -1px; // To remove the nearby tab's white border
 
-    & #home-icon-view {
+      & .shape {
+        -fx-background-color: -on-background-color !important;
+      }
 
-    }
-  }
-
-  & #tab-box {
-
-  }
-
-  & #toolbar-control-right-box {
-    & .button {
-      @extend %button;
+      &:hover {
+        -fx-cursor: inherit;
+      }
     }
   }
 }

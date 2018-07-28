@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
-import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_HOME;
+import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_ADD_BUTTON;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
@@ -56,16 +56,19 @@ public class ToolbarPresenter extends Presenter {
   @Override
   public void initializeViewParts() {
     view.tabBar.setCellFactory(tab -> new TabCell());
+    view.tabBar.getStylesheets().add(
+        ToolbarPresenter.class.getResource("../css/selection-strip.css").toExternalForm()
+    );
 
     toolbarControlsLeft.stream().forEachOrdered(view::addToolbarControlLeft);
     toolbarControlsRight.stream().forEachOrdered(view::addToolbarControlRight);
 
-    // only add the menu button, if there is at least one navigation drawer item
+    view.addModuleBtn.requestFocus();
+
+    // Adds a menuButton if necessary (size of items > 0)
     if (model.getNavigationDrawerItems().size() > 0) {
       view.addMenuButton();
     }
-
-    view.homeBtn.requestFocus();
   }
 
   /**
@@ -74,7 +77,7 @@ public class ToolbarPresenter extends Presenter {
   @Override
   public void setupEventHandlers() {
     // When the home button is clicked, the view changes
-    view.homeBtn.setOnAction(event -> model.openHomeScreen());
+    view.addModuleBtn.setOnAction(event -> model.openHomeScreen());
     // When the menu button is clicked, the navigation drawer gets shown
     view.menuBtn.setOnAction(event -> model.showNavigationDrawer());
   }
@@ -100,11 +103,11 @@ public class ToolbarPresenter extends Presenter {
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       if (Objects.isNull(oldModule)) {
         // Home is the old value
-        view.homeBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_HOME);
+        view.addModuleBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_ADD_BUTTON);
       }
       if (Objects.isNull(newModule)) {
         // Home is the new value
-        view.homeBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_HOME);
+        view.addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
       }
     });
 

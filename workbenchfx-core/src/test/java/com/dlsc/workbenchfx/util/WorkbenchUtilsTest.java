@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
@@ -65,5 +66,23 @@ public class WorkbenchUtilsTest {
     );
     observableSet.remove(test);
     verify(mock).run();
+  }
+
+  @Test
+  void convertToId() {
+    String [] toBeConverted = {
+        "", "abc", "françois", "aeiouäöü", "üüü", "aB0 -", "My Pokémon Module", "+''--12a?`bcTTT",
+        "\\hello", "+*ç%&/()=", "hello\nworld", "ﯠﯡﯢﯦﯞﯫﯭﻠﻦ", "\u0044DDD", "Hello\tWorld",
+        "Rhøthgar's Modul", "\u0126\u0117\u013C\u013C\u00F8\u005F\u0057\u006F\u0072\u006C\u0064"
+    };
+    String [] expectedIds   = {
+        "", "abc", "franois",  "aeiou",    "",    "ab0--", "my-pokmon-module",  "--12abcttt",
+        "hello",   "",          "helloworld",   "",          "dddd",      "helloworld",
+        "rhthgars-modul",   "world"
+    };
+
+    for (int i = 0; i < toBeConverted.length; i++) {
+      assertEquals(expectedIds[i], WorkbenchUtils.convertToId(toBeConverted[i]));
+    }
   }
 }

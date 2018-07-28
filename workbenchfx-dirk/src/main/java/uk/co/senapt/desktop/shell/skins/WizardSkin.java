@@ -2,6 +2,8 @@ package uk.co.senapt.desktop.shell.skins;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -21,9 +23,6 @@ import javafx.scene.text.Text;
 import uk.co.senapt.desktop.shell.PrettyScrollPane;
 import uk.co.senapt.desktop.shell.Wizard;
 import uk.co.senapt.desktop.shell.WizardStep;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by gdiaz on 25/09/2017.
