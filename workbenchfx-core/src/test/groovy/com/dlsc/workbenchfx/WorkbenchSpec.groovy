@@ -193,6 +193,7 @@ class WorkbenchSpec extends ApplicationSpec {
         !drawer.maxHeightProperty().isBound()
         workbench.getBlockingOverlaysShown().isEmpty()
         workbench.getNonBlockingOverlaysShown().isEmpty()
+        null == workbench.getDrawerShown()
         robot.interact {
             workbench."showDrawer"(arguments)
         }
