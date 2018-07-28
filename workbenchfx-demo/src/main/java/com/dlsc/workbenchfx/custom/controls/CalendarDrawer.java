@@ -88,7 +88,6 @@ public class CalendarDrawer extends VBox {
       int height = 30;
       button.setMaxSize(width, height);
       button.setPrefSize(width, height);
-//      button.setMinSize(width, height);
     });
 
     setAlignment(Pos.CENTER);
