@@ -42,6 +42,10 @@
         &:pressed {
           -fx-background-color: rgba(0, 0, 0, .075);
         }
+
+        &:hover {
+          -fx-cursor: hand;
+        }
       }
     }
 
@@ -63,82 +67,62 @@
             -fx-background-radius: px(5);
             -fx-padding: 0 1em 0 1em;
 
+            & .glyph-icon,
+            & .text {
+              -fx-fill: -on-surface-color;
+            }
+
             &:focused {
               -fx-background-color: transparent;
             }
 
-            &:hover {
+            &:hover,
+            &:showing {
+              -fx-background-color: rgba(0, 0, 0, .075);
               -fx-cursor: hand;
+
+              & .label {
+                & .glyph-icon,
+                & .text {
+                  -fx-fill: -on-surface-color;
+                }
+              }
+              & .arrow-button .arrow {
+                -fx-background-color: -on-surface-color;
+              }
             }
           }
 
           & .button {
             -fx-alignment: CENTER_LEFT;
 
-            // styles only for buttons
-            & .glyph-icon {
-              -fx-fill: -on-surface-color;
-            }
-
-            & .text {
-              -fx-fill: -on-surface-color;
-            }
-
             &:pressed {
-              -fx-background-color: rgba(0, 0, 0, .075);
+              -fx-background-color: rgba(0, 0, 0, .1);
             }
           }
 
-          & .menu-button {
-            // styles only for menus
-            & .label {
-              & .glyph-icon,
-              & .text {
-                -fx-fill: -on-surface-color;
-              }
-            }
+          & .menu-button .arrow-button {
+            -fx-padding: 0 0 0 1.5em;
+            -fx-background-insets: 0;
 
-            & .arrow-button {
-              -fx-padding: 0 0 0 1.5em;
-              -fx-background-insets: 0;
+            & .arrow {
+              @extend %arrow-right-icon;
 
-              & .arrow {
-                @extend %arrow-right-icon;
+              -shape-width: px(3.333); // Shrink arrow down
+              -shape-height: px(6.667); // Shrink arrow down
+              -fx-max-width: -shape-width;
+              -fx-max-height: -shape-height;
+              -fx-min-width: -shape-width;
+              -fx-min-height: -shape-height;
+              -fx-pref-width: -shape-width;
+              -fx-pref-height: -shape-height;
 
-                -shape-width: px(3.333); // Shrink arrow down
-                -shape-height: px(6.667); // Shrink arrow down
-                -fx-max-width: -shape-width;
-                -fx-max-height: -shape-height;
-                -fx-min-width: -shape-width;
-                -fx-min-height: -shape-height;
-                -fx-pref-width: -shape-width;
-                -fx-pref-height: -shape-height;
-
-                -fx-background-color: -on-surface-color;
-              }
-            }
-
-            &:showing {
-              -fx-background-color: -primary-color;
-              -fx-cursor: inherit;
-
-              & .label {
-                & .glyph-icon {
-                  -fx-fill: -on-primary-color;
-                }
-                & .text {
-                  -fx-fill: -on-primary-color;
-                }
-              }
-              & .arrow-button .arrow {
-                -fx-background-color: -on-primary-color;
-              }
+              -fx-background-color: -on-surface-color;
             }
           }
 
           // @extend %context-menu;
-          // The extention of the context-menu can be found in the context-menu.css file.
-          // It is set in the constructor of the Workbench.
+          // The CSS for the context menu can be found in the context-menu.css file.
         }
       }
 

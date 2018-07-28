@@ -10,6 +10,7 @@ import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
+import com.google.common.collect.Range;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -32,12 +33,16 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
@@ -66,6 +71,7 @@ public class Workbench extends Control {
       DEFAULT_PAGE_FACTORY = Page::new;
   private static final int DEFAULT_MODULES_PER_PAGE = 9;
   private static final NavigationDrawer DEFAULT_NAVIGATION_DRAWER = new NavigationDrawer();
+  private static final int MAX_PERCENT = 100;
 
   // Custom Controls
   private ObjectProperty<NavigationDrawer> navigationDrawer =
@@ -86,6 +92,8 @@ public class Workbench extends Control {
   private final ObservableMap<Node, GlassPane> overlays = FXCollections.observableHashMap();
   private final ObservableSet<Node> nonBlockingOverlaysShown = FXCollections.observableSet();
   private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet();
+
+  private final ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>();
 
   // Modules
   /**
@@ -130,10 +138,9 @@ public class Workbench extends Control {
   /**
    * Will close the module without calling {@link WorkbenchModule#destroy()} if the corresponding
    * {@link CompletableFuture} is completed. If the stage was closed and {@code false} was returned
-   * on {@link WorkbenchModule#destroy()}, it will also
-   * trigger {@link Stage#setOnCloseRequest(EventHandler)}.
-   * Is <b>always</b> completed with {@code true}. This way, there is no need to differentiate
-   * whether it was completed with {@code true} or {@code false}.
+   * on {@link WorkbenchModule#destroy()}, it will also trigger {@link
+   * Stage#setOnCloseRequest(EventHandler)}. Is <b>always</b> completed with {@code true}. This way,
+   * there is no need to differentiate whether it was completed with {@code true} or {@code false}.
    */
   private final Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap =
       new HashMap<>();
@@ -360,6 +367,7 @@ public class Workbench extends Control {
 
   private void initModules(WorkbenchBuilder builder) {
     WorkbenchModule[] modules = builder.modules;
+
     this.modules.addAll(modules);
   }
 
@@ -396,6 +404,17 @@ public class Workbench extends Control {
         activeModuleView.setValue(newModule.activate());
       }
     });
+
+    // handle drawer changes
+    drawerShown.addListener((observable, oldDrawer, newDrawer) -> {
+      if (!Objects.isNull(oldDrawer)) {
+        hideOverlay(oldDrawer);
+      }
+      if (!Objects.isNull(newDrawer)) {
+        showOverlay(newDrawer, false);
+      }
+    });
+
 
     // when control of navigation drawer changes, pass in the workbench object
     navigationDrawerProperty().addListener((observable, oldControl, newControl) -> {
@@ -554,8 +573,8 @@ public class Workbench extends Control {
    * Calculates the amount of pages of modules (rendered as tiles).
    *
    * @return amount of pages
-   * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}. This
-   *           is repeated until all modules are rendered as tiles.
+   * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}.
+   *           This is repeated until all modules are rendered as tiles.
    */
   private int calculateAmountOfPages() {
     int amountOfModules = getModules().size();
@@ -684,8 +703,8 @@ public class Workbench extends Control {
   /**
    * Shows an error dialog in the view with a stacktrace of the {@code exception}.
    *
-   * @param title of the dialog
-   * @param message of the dialog
+   * @param title     of the dialog
+   * @param message   of the dialog
    * @param exception of which the stacktrace should be shown
    * @param onResult  the action to perform when a button of the dialog was pressed, providing the
    *                  {@link ButtonType} that was pressed
@@ -823,11 +842,11 @@ public class Workbench extends Control {
    * using {@link Workbench#showOverlay(Node, boolean)}.
    *
    * @param overlay to be hidden
-   * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
-   *           remove it from the scene graph entirely.
-   *           If keeping the {@code overlay} loaded hidden in the scene graph is not possible due
-   *           to performance reasons, call {@link Workbench#clearOverlays()} after this method.
    * @return true if the overlay was showing and is now hidden
+   * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
+   *           remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden
+   *           in the scene graph is not possible due to performance reasons, call {@link
+   *           Workbench#clearOverlays()} after this method.
    */
   public boolean hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");
@@ -880,12 +899,113 @@ public class Workbench extends Control {
     });
   }
 
+  /**
+   * Shows the {@code drawer} on the defined {@code side} in the {@link Workbench}.
+   *
+   * @param drawer to be shown
+   * @param side   of the workbench, on which the {@code drawer} should be positioned
+   * @implNote Sizes the drawer according to the computed size of {@code drawer}.
+   *           However, it will take up a maximum of 90% of the screen, to allow the user to still
+   *           close the drawer by clicking on the {@link GlassPane}.
+   */
+  public void showDrawer(Region drawer, Side side) {
+    showDrawer(drawer, side, -1);
+  }
+
+  /**
+   * Shows the {@code drawer} on the defined {@code side} in the {@link Workbench}, ensuring the
+   * {@code drawer} doesn't cover more than the specified {@code percentage}.
+   *
+   * @param drawer     to be shown
+   * @param side       of the workbench, on which the {@code drawer} should be positioned
+   * @param percentage value between 0 and 100, defining how much <b>maximum</b> coverage the drawer
+   *                   should have or -1, to have the drawer size according to its computed size
+   */
+  public void showDrawer(Region drawer, Side side, int percentage) {
+    // fail fast
+    if (!Range.closed(0, MAX_PERCENT).or(number -> number == -1).test(percentage)) {
+      throw new IllegalArgumentException("Percentage needs to be between 0 and 100 or -1");
+    }
+    Pos position;
+    drawer.minWidthProperty().unbind();
+    drawer.maxWidthProperty().unbind();
+    drawer.minHeightProperty().unbind();
+    drawer.maxHeightProperty().unbind();
+    switch (side) {
+      case TOP:
+        // fall through to BOTTOM
+      case BOTTOM:
+        position = side == Side.TOP ? Pos.TOP_LEFT : Pos.BOTTOM_LEFT;
+        drawer.minWidthProperty().bind(widthProperty());
+        if (percentage == -1) {
+          bindDrawerHeight(drawer);
+        } else {
+          drawer.maxHeightProperty().bind(
+              heightProperty().multiply((double) percentage / MAX_PERCENT));
+        }
+        break;
+      case RIGHT:
+        // fall through to LEFT
+      default: // LEFT
+        position = side == Side.LEFT ? Pos.TOP_LEFT : Pos.TOP_RIGHT;
+        drawer.minHeightProperty().bind(heightProperty());
+        if (percentage == -1) {
+          bindDrawerWidth(drawer);
+        } else {
+          drawer.maxWidthProperty().bind(
+              widthProperty().multiply((double) percentage / MAX_PERCENT));
+        }
+        break;
+    }
+    StackPane.setAlignment(drawer, position);
+    drawer.getStyleClass().add("drawer");
+    setDrawerShown(drawer);
+  }
+
+  private void bindDrawerWidth(Region drawer) {
+    drawer.setMinWidth(0); // make sure minWidth isn't larger than maxWidth
+    drawer.maxWidthProperty().bind(
+        Bindings.createDoubleBinding(
+            () -> {
+              double computedWidth = drawer.prefWidth(-1);
+              // calculate the width the drawer can take up without being so large that it can't be
+              // hidden anymore by clicking on the GlassPane (GlassPane covers minimum of 10%)
+              double maxDrawerWidth = widthProperty().get() * 0.9;
+              return Math.min(computedWidth, maxDrawerWidth);
+            }, drawer.maxWidthProperty(), widthProperty()
+        )
+    );
+  }
+
+  private void bindDrawerHeight(Region drawer) {
+    drawer.setMinHeight(0); // make sure minHeight isn't larger than maxHeight
+    drawer.maxHeightProperty().bind(
+        Bindings.createDoubleBinding(
+            () -> {
+              double computedHeight = drawer.prefHeight(-1);
+              // calculate the height the drawer can take up without being so large that it can't be
+              // hidden anymore by clicking on the GlassPane (GlassPane covers minimum of 10%)
+              double maxDrawerHeight = heightProperty().get() * 0.9;
+              return Math.min(computedHeight, maxDrawerHeight);
+            }, drawer.maxHeightProperty(), heightProperty()
+        )
+    );
+  }
+
+  /**
+   * Hides the currently displayed drawer that was previously shown using
+   * {@link #showDrawer(Region, Side)} or {@link #showDrawer(Region, Side, int)}.
+   */
+  public void hideDrawer() {
+    setDrawerShown(null);
+  }
+
   public void showNavigationDrawer() {
-    showOverlay(navigationDrawer.get(), false);
+    showDrawer(navigationDrawer.get(), Side.LEFT);
   }
 
   public void hideNavigationDrawer() {
-    hideOverlay(navigationDrawer.get());
+    hideDrawer();
   }
 
   public ObjectProperty<NavigationDrawer> navigationDrawerProperty() {
@@ -966,6 +1086,18 @@ public class Workbench extends Control {
 
   public ReadOnlyIntegerProperty amountOfPagesProperty() {
     return amountOfPages;
+  }
+
+  public Region getDrawerShown() {
+    return drawerShown.get();
+  }
+
+  public ReadOnlyObjectProperty<Region> drawerShownProperty() {
+    return drawerShown;
+  }
+
+  private void setDrawerShown(Region drawerShown) {
+    this.drawerShown.set(drawerShown);
   }
 
   @Override

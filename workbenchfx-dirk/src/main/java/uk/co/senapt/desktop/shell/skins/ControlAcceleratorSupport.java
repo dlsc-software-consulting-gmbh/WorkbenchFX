@@ -24,8 +24,6 @@
  */
 package uk.co.senapt.desktop.shell.skins;
 
-import java.util.List;
-import java.util.Map;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -45,6 +43,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumnBase;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.KeyCombination;
+
+import java.util.List;
+import java.util.Map;
 
 public class ControlAcceleratorSupport {
 

@@ -2,12 +2,16 @@ package com.dlsc.workbenchfx.custom;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
+import com.dlsc.workbenchfx.custom.controls.CustomNavigationDrawer;
 import com.dlsc.workbenchfx.custom.controls.CustomPage;
+import com.dlsc.workbenchfx.custom.controls.CustomTab;
+import com.dlsc.workbenchfx.custom.controls.CustomTile;
 import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DialogTestModule;
+import com.dlsc.workbenchfx.custom.test.DrawerTestModule;
 import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.custom.test.InterruptClosing2TestModule;
 import com.dlsc.workbenchfx.custom.test.InterruptClosingTestModule;
@@ -30,7 +34,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.fxmisc.cssfx.CSSFX;
 
 public class CustomDemo extends Application {
 
@@ -52,11 +55,6 @@ public class CustomDemo extends Application {
     primaryStage.setHeight(700);
     primaryStage.show();
     primaryStage.centerOnScreen();
-
-    // TODO: Remove before publishing
-    System.setProperty("cssfx.log", "true");
-    System.setProperty("cssfx.log.level", "DEBUG");
-    CSSFX.start(); // Live reloading of css
   }
 
   private Workbench initWorkbench() {
@@ -117,6 +115,7 @@ public class CustomDemo extends Application {
             new InterruptClosingTestModule(),
             new InterruptClosing2TestModule(),
             new DialogTestModule(),
+            new DrawerTestModule(),
             new LifecycleTestModule()
         )
             .toolbarLeft(
@@ -143,9 +142,9 @@ public class CustomDemo extends Application {
                     new CustomMenuItem(new Label("Content 2"))))
             .modulesPerPage(4)
             .pageFactory(CustomPage::new)
-//            .tabFactory(CustomTab::new)
-//            .tileFactory(CustomTile::new)
-//            .navigationDrawer(new CustomNavigationDrawer())
+            .tabFactory(CustomTab::new)
+            .tileFactory(CustomTile::new)
+            .navigationDrawer(new CustomNavigationDrawer())
             .navigationDrawerItems(
                 menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
             .build();

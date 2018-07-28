@@ -40,7 +40,7 @@ public class TileSkin extends SkinBase<Tile> {
     contentBox = new VBox();
     contentBox.getStyleClass().add("tile-control");
     textLbl = new MultilineLabel(getSkinnable().getName());
-    textLbl.getStyleClass().add("text-label");
+    textLbl.getStyleClass().add("text-lbl");
   }
 
   private void layoutParts() {

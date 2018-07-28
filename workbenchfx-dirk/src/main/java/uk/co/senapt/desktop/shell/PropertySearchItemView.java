@@ -1,8 +1,5 @@
 package uk.co.senapt.desktop.shell;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
@@ -27,6 +24,10 @@ import uk.co.senapt.desktop.shell.model.PropertySearchItem;
 import uk.co.senapt.desktop.shell.model.PropertyType;
 import uk.co.senapt.desktop.shell.model.SearchOperator;
 import uk.co.senapt.desktop.shell.skins.PropertySearchItemViewSkin;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PropertySearchItemView extends Control {
 

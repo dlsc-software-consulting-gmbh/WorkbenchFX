@@ -14,8 +14,7 @@
   -drop-shadow-1: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 10, 0.12, -1, 2);
   -drop-shadow-2: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 15, 0.16, -1, 4);
   -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 20, 0.19, -1, 6);
-  -shadow: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.2, 0, 0);
-  -icons-color: -on-primary-color; }
+  -shadow: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.2, 0, 0); }
 
 .root {
   -fx-font-family: "Roboto", sans-serif;
@@ -23,7 +22,7 @@
 
 .glyph-icon {
   -fx-text-fill: -on-primary-color;
-  -fx-fill: -icons-color;
+  -fx-fill: -on-primary-color;
   -fx-font-size: 1.1428571429em !important; }
 
 @font-face {
@@ -81,8 +80,7 @@
     #toolbar #top-box .toolbar-menu-button .dropdown:hover {
       -fx-cursor: hand; }
     #toolbar #top-box .toolbar-menu-button .dropdown:showing {
-      -fx-background-color: -primary-variant-color;
-      -fx-cursor: inherit !important; }
+      -fx-background-color: -primary-variant-color; }
       #toolbar #top-box .toolbar-menu-button .dropdown:showing .arrow-button .arrow {
         -fx-rotate: -90; }
 
@@ -160,8 +158,8 @@
     #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control {
       -fx-padding: 1.5em;
       -fx-alignment: CENTER;
-      -fx-pref-width: 14em;
-      -fx-pref-height: 7.874015748em;
+      -fx-pref-width: 12.5em;
+      -fx-pref-height: 7.7254248594em;
       -fx-background-color: -surface-color;
       -fx-effect: -drop-shadow-1;
       -fx-border-width: 0;
@@ -170,11 +168,11 @@
       -fx-background-insets: 0; }
       #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .icon .glyph-icon {
         -fx-fill: -on-surface-color; }
-      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-label {
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-lbl {
         -fx-padding: .5em 0 0 0;
         -fx-alignment: CENTER;
         -fx-text-alignment: CENTER; }
-        #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-label .text {
+        #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-lbl .text {
           -fx-fill: -on-surface-color; }
       #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control:hover {
         -fx-effect: -drop-shadow-2;
@@ -268,6 +266,8 @@
         -fx-background-color: -on-surface-color; }
       .navigation-drawer .drawer-box .header #back-button:pressed {
         -fx-background-color: rgba(0, 0, 0, 0.075); }
+      .navigation-drawer .drawer-box .header #back-button:hover {
+        -fx-cursor: hand; }
   .navigation-drawer .drawer-box .pretty-scroll-pane {
     -fx-background-color: transparent; }
     .navigation-drawer .drawer-box .pretty-scroll-pane .viewport {
@@ -280,20 +280,21 @@
           -fx-border-width: 0;
           -fx-background-radius: 0.3571428571em;
           -fx-padding: 0 1em 0 1em; }
+          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item .glyph-icon, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item .text {
+            -fx-fill: -on-surface-color; }
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:focused {
             -fx-background-color: transparent; }
-          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover {
+          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:showing {
+            -fx-background-color: rgba(0, 0, 0, 0.075);
             -fx-cursor: hand; }
+            .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover .label .glyph-icon, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover .label .text, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:showing .label .glyph-icon, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:showing .label .text {
+              -fx-fill: -on-surface-color; }
+            .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover .arrow-button .arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:showing .arrow-button .arrow {
+              -fx-background-color: -on-surface-color; }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button {
           -fx-alignment: CENTER_LEFT; }
-          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button .glyph-icon {
-            -fx-fill: -on-surface-color; }
-          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button .text {
-            -fx-fill: -on-surface-color; }
           .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button:pressed {
-            -fx-background-color: rgba(0, 0, 0, 0.075); }
-        .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .label .glyph-icon, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .label .text {
-          -fx-fill: -on-surface-color; }
+            -fx-background-color: rgba(0, 0, 0, 0.1); }
         .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button {
           -fx-padding: 0 0 0 1.5em;
           -fx-background-insets: 0; }
@@ -307,15 +308,6 @@
             -fx-pref-width: -shape-width;
             -fx-pref-height: -shape-height;
             -fx-background-color: -on-surface-color; }
-        .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button:showing {
-          -fx-background-color: -primary-color;
-          -fx-cursor: inherit; }
-          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button:showing .label .glyph-icon {
-            -fx-fill: -on-primary-color; }
-          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button:showing .label .text {
-            -fx-fill: -on-primary-color; }
-          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button:showing .arrow-button .arrow {
-            -fx-background-color: -on-primary-color; }
     .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar {
       -fx-pref-width: 1em;
       -fx-pref-height: 1em;
@@ -367,5 +359,8 @@
     -font-size: 1.25em;
     -fx-font-weight: 700;
     -fx-cursor: hand; }
+
+.drawer {
+  -fx-background-color: -surface-color; }
 
 /*# sourceMappingURL=main.css.map */

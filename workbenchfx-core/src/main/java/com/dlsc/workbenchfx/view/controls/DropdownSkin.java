@@ -24,7 +24,7 @@ public class DropdownSkin extends SkinBase<Dropdown> {
       LogManager.getLogger(DropdownSkin.class.getName());
 
   private static final double RESIZING_FACTOR = 0.47d;
-  private final String standardStyle = "dropdown";
+  private static final String STANDARD_STYLE = "dropdown";
 
   private final MenuButton menuButton;
   private final Node icon;
@@ -38,7 +38,7 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   public DropdownSkin(Dropdown dropdown) {
     super(dropdown);
     menuButton = new MenuButton();
-    menuButton.getStyleClass().add(standardStyle);
+    menuButton.getStyleClass().add(STANDARD_STYLE);
 
     String text = dropdown.getText();
     if (!Objects.isNull(text)) {
