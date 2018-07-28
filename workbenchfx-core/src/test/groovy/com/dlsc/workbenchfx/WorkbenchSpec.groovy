@@ -207,6 +207,7 @@ class WorkbenchSpec extends ApplicationSpec {
         maxHeightBound == drawer.maxHeightProperty().isBound()
         workbench.getBlockingOverlaysShown().isEmpty()
         1 == workbench.getNonBlockingOverlaysShown().size()
+        drawer == workbench.getDrawerShown()
 
         where:
         drawer                  | arguments                              || position        | width                    | height                   | minWidthBound | maxWidthBound | minHeightBound | maxHeightBound
