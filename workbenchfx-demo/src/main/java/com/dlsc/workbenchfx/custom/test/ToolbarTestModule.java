@@ -8,8 +8,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ToolbarTestModule extends WorkbenchModule {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(ToolbarTestModule.class.getName());
 
   private final Button minusBtn =
       new Button("", new FontAwesomeIconView(FontAwesomeIcon.MINUS));
@@ -25,8 +30,16 @@ public class ToolbarTestModule extends WorkbenchModule {
   public ToolbarTestModule() {
     super("Toolbar TestModule", FontAwesomeIcon.QUESTION);
 
-    minusBtn.setOnAction(evt -> {});
-    plusBtn.setOnAction(evt -> {});
+    minusBtn.setOnAction(evt -> {
+      LOGGER.trace("getToolbarControlsRight().size() = " + getToolbarControlsRight().size());
+      getToolbarControlsRight().remove(userIconBtn);
+      LOGGER.trace("getToolbarControlsRight().size() = " + getToolbarControlsRight().size());
+    });
+    plusBtn.setOnAction(evt -> {
+      LOGGER.trace("getToolbarControlsRight().size() = " + getToolbarControlsRight().size());
+      getToolbarControlsRight().add(userIconBtn);
+      LOGGER.trace("getToolbarControlsRight().size() = " + getToolbarControlsRight().size());
+    });
     userIconBtn.setOnAction(evt -> {});
 
     getToolbarControlsLeft().add(minusBtn);
