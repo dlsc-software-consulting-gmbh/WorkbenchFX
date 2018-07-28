@@ -4,6 +4,7 @@ import com.dlsc.workbenchfx.view.controls.PrettyScrollPane;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
@@ -104,8 +105,6 @@ public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer>
     header.setCenter(companyLogo);
 
     getChildren().add(drawerBox);
-
-    StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
   }
 
   private void setupEventHandlers() {
