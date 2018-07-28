@@ -27,6 +27,7 @@ import javafx.stage.Stage
 import org.spockframework.util.ExceptionUtil
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
+import spock.lang.Shared
 import spock.lang.Unroll
 
 import java.util.function.Consumer
@@ -38,6 +39,8 @@ class WorkbenchSpec extends ApplicationSpec {
 
 
     private static final int MODULE_AMOUNT = 3
+
+    private static final double DRAWER_MAX_FACTOR = 0.9
 
     private static final int FIRST_INDEX = 0
     private static final int SECOND_INDEX = 1
@@ -68,7 +71,7 @@ class WorkbenchSpec extends ApplicationSpec {
     private MenuItem menuItem
     private ObservableList<MenuItem> navigationDrawerItems
 
-    private FxRobot robot
+    @Shared private FxRobot robot = new FxRobot()
 
     // Dropdown items
     private String dropdownText
@@ -83,10 +86,12 @@ class WorkbenchSpec extends ApplicationSpec {
 
     private static final int PERCENTAGE_HALF = 50
 
+    @Shared Label drawerFillLabel
+
     @Override
     void start(Stage stage) {
-
-        robot = new FxRobot()
+        drawerFillLabel = new Label()
+        drawerFillLabel.setMinSize(SIZE, SIZE)
 
         for (int i = 0; i < moduleNodes.length; i++) {
             moduleNodes[i] = new Label("Module Content")
@@ -200,13 +205,41 @@ class WorkbenchSpec extends ApplicationSpec {
         maxHeightBound == drawer.maxHeightProperty().isBound()
 
         where:
-        drawer     | arguments                              || position        | width    | height   | minWidthBound | maxWidthBound | minHeightBound | maxHeightBound
-        new VBox() | [drawer, Side.TOP, PERCENTAGE_HALF]    || Pos.TOP_LEFT    | SIZE     | SIZE / 2 | true          | false         | false          | true
-        new VBox() | [drawer, Side.RIGHT, PERCENTAGE_HALF]  || Pos.TOP_RIGHT   | SIZE / 2 | SIZE     | false         | true          | true           | false
-        new VBox() | [drawer, Side.BOTTOM, PERCENTAGE_HALF] || Pos.BOTTOM_LEFT | SIZE     | SIZE / 2 | true          | false         | false          | true
-        new VBox() | [drawer, Side.LEFT, PERCENTAGE_HALF]   || Pos.TOP_LEFT    | SIZE / 2 | SIZE     | false         | true          | true           | false
+        drawer                  | arguments                              || position        | width                    | height                   | minWidthBound | maxWidthBound | minHeightBound | maxHeightBound
+        new VBox()              | [drawer, Side.TOP]                     || Pos.TOP_LEFT    | SIZE                     | drawer.prefHeight(-1)    | true          | false         | false          | true
+        new VBox()              | [drawer, Side.RIGHT]                   || Pos.TOP_RIGHT   | drawer.prefWidth(-1)     | SIZE                     | false         | true          | true           | false
+        new VBox()              | [drawer, Side.BOTTOM]                  || Pos.BOTTOM_LEFT | SIZE                     | drawer.prefHeight(-1)    | true          | false         | false          | true
+        new VBox()              | [drawer, Side.LEFT]                    || Pos.TOP_LEFT    | drawer.prefWidth(-1)     | SIZE                     | false         | true          | true           | false
+        createFullCoverDrawer() | [drawer, Side.TOP]                     || Pos.TOP_LEFT    | SIZE                     | SIZE * DRAWER_MAX_FACTOR | true          | false         | false          | true
+        createFullCoverDrawer() | [drawer, Side.RIGHT]                   || Pos.TOP_RIGHT   | SIZE * DRAWER_MAX_FACTOR | SIZE                     | false         | true          | true           | false
+        createFullCoverDrawer() | [drawer, Side.BOTTOM]                  || Pos.BOTTOM_LEFT | SIZE                     | SIZE * DRAWER_MAX_FACTOR | true          | false         | false          | true
+        createFullCoverDrawer() | [drawer, Side.LEFT]                    || Pos.TOP_LEFT    | SIZE * DRAWER_MAX_FACTOR | SIZE                     | false         | true          | true           | false
+        new VBox()              | [drawer, Side.TOP, -1]                 || Pos.TOP_LEFT    | SIZE                     | drawer.prefHeight(-1)    | true          | false         | false          | true
+        new VBox()              | [drawer, Side.RIGHT, -1]               || Pos.TOP_RIGHT   | drawer.prefWidth(-1)     | SIZE                     | false         | true          | true           | false
+        new VBox()              | [drawer, Side.BOTTOM, -1]              || Pos.BOTTOM_LEFT | SIZE                     | drawer.prefHeight(-1)    | true          | false         | false          | true
+        new VBox()              | [drawer, Side.LEFT, -1]                || Pos.TOP_LEFT    | drawer.prefWidth(-1)     | SIZE                     | false         | true          | true           | false
+        createFullCoverDrawer() | [drawer, Side.TOP, -1]                 || Pos.TOP_LEFT    | SIZE                     | SIZE * DRAWER_MAX_FACTOR | true          | false         | false          | true
+        createFullCoverDrawer() | [drawer, Side.RIGHT, -1]               || Pos.TOP_RIGHT   | SIZE * DRAWER_MAX_FACTOR | SIZE                     | false         | true          | true           | false
+        createFullCoverDrawer() | [drawer, Side.BOTTOM, -1]              || Pos.BOTTOM_LEFT | SIZE                     | SIZE * DRAWER_MAX_FACTOR | true          | false         | false          | true
+        createFullCoverDrawer() | [drawer, Side.LEFT, -1]                || Pos.TOP_LEFT    | SIZE * DRAWER_MAX_FACTOR | SIZE                     | false         | true          | true           | false
+        new VBox()              | [drawer, Side.TOP, PERCENTAGE_HALF]    || Pos.TOP_LEFT    | SIZE                     | SIZE / 2                 | true          | false         | false          | true
+        new VBox()              | [drawer, Side.RIGHT, PERCENTAGE_HALF]  || Pos.TOP_RIGHT   | SIZE / 2                 | SIZE                     | false         | true          | true           | false
+        new VBox()              | [drawer, Side.BOTTOM, PERCENTAGE_HALF] || Pos.BOTTOM_LEFT | SIZE                     | SIZE / 2                 | true          | false         | false          | true
+        new VBox()              | [drawer, Side.LEFT, PERCENTAGE_HALF]   || Pos.TOP_LEFT    | SIZE / 2                 | SIZE                     | false         | true          | true           | false
 
         showDrawerCall = "showDrawer" + arguments.toString().replace('[','(').replace(']',')')
+    }
+
+    /**
+     * Creates a drawer that contains elements that are the same size as the width of the workbench itself.
+     * This is to test if the drawer's size is limited to 90% of the workbench width, so it is still possible to click the glasspane
+     */
+    def createFullCoverDrawer() {
+        VBox drawer = new VBox()
+        VBox drawer2 = new VBox()
+        drawer2.setMinSize(SIZE, SIZE)
+        drawer.getChildren().add(drawer2)
+        return drawer
     }
 
     /**
