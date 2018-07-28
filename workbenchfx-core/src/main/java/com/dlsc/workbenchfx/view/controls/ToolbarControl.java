@@ -39,4 +39,20 @@ public class ToolbarControl extends HBox {
     );
     HBox.setHgrow(toolbarControlLeftBox, Priority.ALWAYS);
   }
+
+  public HBox getToolbarControlLeftBox() {
+    return toolbarControlLeftBox;
+  }
+
+  public void setToolbarControlLeftBox(HBox toolbarControlLeftBox) {
+    this.toolbarControlLeftBox = toolbarControlLeftBox;
+  }
+
+  public HBox getToolbarControlRightBox() {
+    return toolbarControlRightBox;
+  }
+
+  public void setToolbarControlRightBox(HBox toolbarControlRightBox) {
+    this.toolbarControlRightBox = toolbarControlRightBox;
+  }
 }

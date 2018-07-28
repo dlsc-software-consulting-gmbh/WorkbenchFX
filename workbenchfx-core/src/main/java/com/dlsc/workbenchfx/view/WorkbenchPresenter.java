@@ -79,6 +79,23 @@ public class WorkbenchPresenter extends Presenter {
         ToolbarControl toolbarControl = new ToolbarControl();
         Node activeModuleView = model.getActiveModuleView();
 
+        WorkbenchUtils.addSetListener(
+            model.getToolbarControlsLeft(),
+            c -> toolbarControl.getToolbarControlLeftBox().getChildren().add(c.getElementAdded()), // Added
+            c -> toolbarControl.getToolbarControlLeftBox().getChildren().remove(c.getElementRemoved())  // Removed
+        );
+
+        WorkbenchUtils.addSetListener(
+            model.getToolbarControlsRight(),
+            c -> toolbarControl.getToolbarControlLeftBox().getChildren().add(c.getElementAdded()), // Added
+            c -> toolbarControl.getToolbarControlLeftBox().getChildren().remove(c.getElementRemoved())  // Removed
+        );
+
+        toolbarControl.getToolbarControlLeftBox().getChildren()
+            .setAll(newModule.getToolbarControlsLeft());
+        toolbarControl.getToolbarControlRightBox().getChildren()
+            .setAll(newModule.getToolbarControlsRight());
+
         VBox contentBox = new VBox(
             toolbarControl,
             activeModuleView
