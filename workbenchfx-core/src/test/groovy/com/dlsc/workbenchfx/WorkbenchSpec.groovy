@@ -177,7 +177,7 @@ class WorkbenchSpec extends ApplicationSpec {
     }
 
     @Unroll
-    def "Test"() {
+    def "Test #showDrawerCall"() {
         given:
         null == StackPane.getAlignment(drawer)
         !drawer.minWidthProperty().isBound()
@@ -197,10 +197,12 @@ class WorkbenchSpec extends ApplicationSpec {
 
         where:
         drawer     | arguments                              || position        | minWidthBound | maxWidthBound | minHeightBound | maxHeightBound
-        new Pane() | [drawer, Side.TOP, PERCENTAGE_HALF]    || Pos.TOP_LEFT    | true          | false         | false          | false
-        new Pane() | [drawer, Side.RIGHT, PERCENTAGE_HALF]  || Pos.TOP_RIGHT   | false         | false         | true           | false
-        new Pane() | [drawer, Side.BOTTOM, PERCENTAGE_HALF] || Pos.BOTTOM_LEFT | true          | false         | false          | false
-        new Pane() | [drawer, Side.LEFT, PERCENTAGE_HALF]   || Pos.TOP_LEFT    | false         | false         | true           | false
+        new Pane() | [drawer, Side.TOP, PERCENTAGE_HALF]    || Pos.TOP_LEFT    | true          | false         | false          | true
+        new Pane() | [drawer, Side.RIGHT, PERCENTAGE_HALF]  || Pos.TOP_RIGHT   | false         | true          | true           | false
+        new Pane() | [drawer, Side.BOTTOM, PERCENTAGE_HALF] || Pos.BOTTOM_LEFT | true          | false         | false          | true
+        new Pane() | [drawer, Side.LEFT, PERCENTAGE_HALF]   || Pos.TOP_LEFT    | false         | true          | true           | false
+
+        showDrawerCall = "showDrawer" + arguments.toString().replace('[','(').replace(']',')')
     }
 
     /**
