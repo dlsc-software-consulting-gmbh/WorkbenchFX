@@ -55,6 +55,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.junit.jupiter.api.DisplayName;
@@ -1719,6 +1720,18 @@ class WorkbenchTest extends ApplicationTest {
     return null;
   }
 
+  /**
+   * Internal testing method which returns the currently shown overlay.
+   */
+  private Node getShowingOverlay() {
+    if (workbench.getNonBlockingOverlaysShown().size() == 1) {
+      return workbench.getNonBlockingOverlaysShown().stream().findAny().get();
+    } else if (workbench.getBlockingOverlaysShown().size() == 1) {
+      return workbench.getBlockingOverlaysShown().stream().findAny().get();
+    }
+    return null;
+  }
+
   @Test
   void showDrawerInputValidation() {
     robot.interact(() -> {
@@ -1727,14 +1740,54 @@ class WorkbenchTest extends ApplicationTest {
       assertThrows(NullPointerException.class, () -> workbench.showDrawer(null, Side.LEFT, 0));
 
       // Percentage range
-      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MIN_VALUE));
-      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, -2));
+      assertThrows(IllegalArgumentException.class,
+          () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MIN_VALUE));
+      assertThrows(IllegalArgumentException.class,
+          () -> workbench.showDrawer(drawer, Side.LEFT, -2));
       workbench.showDrawer(drawer, Side.LEFT, -1); // valid
       workbench.showDrawer(drawer, Side.LEFT, 0); // valid
       workbench.showDrawer(drawer, Side.LEFT, 1); // valid
       workbench.showDrawer(drawer, Side.LEFT, 100); // valid
-      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, 101));
-      assertThrows(IllegalArgumentException.class, () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MAX_VALUE));
+      assertThrows(IllegalArgumentException.class,
+          () -> workbench.showDrawer(drawer, Side.LEFT, 101));
+      assertThrows(IllegalArgumentException.class,
+          () -> workbench.showDrawer(drawer, Side.LEFT, Integer.MAX_VALUE));
+    });
+  }
+
+  @Test
+  @DisplayName("Tests if only one drawer can be displayed at the same time")
+  void showDrawerOnlyOne() {
+    robot.interact(() -> {
+      // given
+      VBox drawer1 = new VBox();
+      VBox drawer2 = new VBox();
+      VBox drawer3 = new VBox();
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertTrue(workbench.getNonBlockingOverlaysShown().isEmpty());
+      assertNull(workbench.getDrawerShown());
+
+      // when: showing two different drawers subsequently on the same side
+      workbench.showDrawer(drawer1, Side.LEFT);
+      workbench.showDrawer(drawer2, Side.LEFT);
+
+      // then: only second one is showing
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertSame(1,workbench.getNonBlockingOverlaysShown().size());
+      assertNotNull(workbench.getDrawerShown());
+      assertSame(drawer2 ,getShowingOverlay());
+      assertSame(drawer2, workbench.getDrawerShown());
+
+      // when: showing drawer on a different side while another drawer is currently showing
+      workbench.showDrawer(drawer3, Side.BOTTOM);
+
+      // then: only new drawer is showing
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertSame(1,workbench.getNonBlockingOverlaysShown().size());
+      assertNotNull(workbench.getDrawerShown());
+      assertSame(drawer3 ,getShowingOverlay());
+      assertSame(drawer3, workbench.getDrawerShown());
+      assertSame(Pos.BOTTOM_LEFT, StackPane.getAlignment(drawer3)); // verify correct position
     });
   }
 
