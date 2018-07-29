@@ -170,16 +170,24 @@ public abstract class WorkbenchModule {
   }
 
   /**
-   * TODO: Javadoc
-   * @return TODO: Javadoc
+   * Returns an {@link ObservableSet} which stores the toolbar items of the module.
+   * If it's not empty, the {@link Workbench} creates a pre styled toolbar
+   * and adds the stored items on it's left side.
+   *
+   * @return the {@link ObservableSet} of items which are displayed on the left side of the
+   *         automatically generated toolbar
    */
   public ObservableSet<Node> getToolbarControlsLeft() {
     return toolbarControlsLeft;
   }
 
   /**
-   * TODO: Javadoc
-   * @return TODO: Javadoc
+   * Returns an {@link ObservableSet} which stores the toolbar items of the module.
+   * If it's not empty, the {@link Workbench} creates a pre styled toolbar
+   * and adds the stored items on it's right side.
+   *
+   * @return the {@link ObservableSet} of items which are displayed on the right side of the
+   *         automatically generated toolbar
    */
   public ObservableSet<Node> getToolbarControlsRight() {
     return toolbarControlsRight;

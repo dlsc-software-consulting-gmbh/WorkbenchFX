@@ -24,8 +24,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class WorkbenchPresenter extends Presenter {
 
-  private static final Logger LOGGER =
-      LogManager.getLogger(WorkbenchPresenter.class.getName());
+  private static final Logger LOGGER = LogManager.getLogger(WorkbenchPresenter.class.getName());
 
   private Workbench model;
   private WorkbenchView view;
@@ -58,7 +57,6 @@ public class WorkbenchPresenter extends Presenter {
   @Override
   public void initializeViewParts() {
     view.contentView.setContent(view.addModuleView);
-    LOGGER.trace("ADDMODULEVIEW WASS SET");
   }
 
   /**
@@ -75,40 +73,43 @@ public class WorkbenchPresenter extends Presenter {
   @Override
   public void setupValueChangedListeners() {
 
-    // When the active module changes, the new view is set to the add module screen if null.
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
+      // When the active module changes, the new view is set to the add module screen if null.
       if (Objects.isNull(newModule)) {
         view.contentView.removeToolbar();
         view.contentView.setContent(view.addModuleView);
       } else {
+        // Add a listener to the module's toolbar items on the left
         WorkbenchUtils.addSetListener(
             newModule.getToolbarControlsLeft(),
-            change -> {
+            change -> { // On added, add it to the toolbar and put it into view
               moduleToolbarControl.addToolbarControlLeft(change.getElementAdded());
               view.contentView.addToolbar();
             },
-            change -> {
+            change -> { // On removed, remove it from the toolbar
               moduleToolbarControl.removeToolbarControlLeft(change.getElementRemoved());
-              if (moduleToolbarControl.isEmpty()) {
+              if (moduleToolbarControl.isEmpty()) { // If it's empty, remove it from the view
                 view.contentView.removeToolbar();
               }
             }
         );
 
+        // Add a listener to the module's toolbar items on the right
         WorkbenchUtils.addSetListener(
             newModule.getToolbarControlsRight(),
-            change -> {
+            change -> { // On added, add it to the toolbar and put it into view
               moduleToolbarControl.addToolbarControlRight(change.getElementAdded());
               view.contentView.addToolbar();
             },
-            change -> {
+            change -> { // On removed, remove it from the toolbar
               moduleToolbarControl.removeToolbarControlRight(change.getElementRemoved());
-              if (moduleToolbarControl.isEmpty()) {
+              if (moduleToolbarControl.isEmpty()) { // If it's empty, remove it from the view
                 view.contentView.removeToolbar();
               }
             }
         );
 
+        // Add all items initially to the toolbar
         newModule.getToolbarControlsLeft().stream().forEachOrdered(
             moduleToolbarControl::addToolbarControlLeft
         );
@@ -119,7 +120,9 @@ public class WorkbenchPresenter extends Presenter {
         Node activeModuleView = model.getActiveModuleView();
         VBox.setVgrow(activeModuleView, Priority.ALWAYS);
         view.contentView.setContent(activeModuleView);
-        view.contentView.addToolbar();
+        if (!moduleToolbarControl.isEmpty()) { // If it's not empty, add it to the view
+          view.contentView.addToolbar();
+        }
       }
     });
 

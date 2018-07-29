@@ -6,7 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 /**
- * TODO: create description
+ * Represents a toolbar, which displays all toolbar items of a
+ * {@link com.dlsc.workbenchfx.model.WorkbenchModule}.
+ * It consists of two areas to display the items: The left and the right toolbarControlBox.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -17,7 +19,7 @@ public class ToolbarControl extends HBox {
   private HBox toolbarControlRightBox;
 
   /**
-   * TODO: create description
+   * Creates an empty {@link ToolbarControl} object and fully initializes it.
    */
   public ToolbarControl() {
     initializeParts();
@@ -38,7 +40,7 @@ public class ToolbarControl extends HBox {
     toolbarControlRightBox.getStyleClass().add("toolbar-control-right-box");
   }
 
-  public void layoutParts() {
+  private void layoutParts() {
     getChildren().addAll(
         toolbarControlLeftBox,
         toolbarControlRightBox
@@ -67,7 +69,7 @@ public class ToolbarControl extends HBox {
    * @return whether the {@link ToolbarControl} is empty or not
    */
   public boolean isEmpty() {
-    return toolbarControlLeftBox.getChildren().isEmpty() &&
-        toolbarControlRightBox.getChildren().isEmpty();
+    return toolbarControlLeftBox.getChildren().isEmpty()
+        && toolbarControlRightBox.getChildren().isEmpty();
   }
 }
