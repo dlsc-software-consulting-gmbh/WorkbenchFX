@@ -72,4 +72,12 @@ public class ToolbarControl extends HBox {
     return toolbarControlLeftBox.getChildren().isEmpty()
         && toolbarControlRightBox.getChildren().isEmpty();
   }
+
+  /**
+   * Clears the {@link ToolbarControl}'s items
+   */
+  public void clear() {
+    toolbarControlLeftBox.getChildren().clear();
+    toolbarControlRightBox.getChildren().clear();
+  }
 }
