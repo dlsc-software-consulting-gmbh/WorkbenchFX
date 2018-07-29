@@ -11,6 +11,7 @@ import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
 import com.google.common.collect.Range;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -345,11 +346,11 @@ public class Workbench extends Control {
 
   private void initToolbarControls(WorkbenchBuilder builder) {
     if (builder.toolbarControlsLeft != null) {
-      toolbarControlsLeft.addAll(List.of(builder.toolbarControlsLeft));
+      toolbarControlsLeft.addAll(Arrays.asList(builder.toolbarControlsLeft));
     }
 
     if (builder.toolbarControlsRight != null) {
-      toolbarControlsRight.addAll(List.of(builder.toolbarControlsRight));
+      toolbarControlsRight.addAll(Arrays.asList(builder.toolbarControlsRight));
     }
   }
 
