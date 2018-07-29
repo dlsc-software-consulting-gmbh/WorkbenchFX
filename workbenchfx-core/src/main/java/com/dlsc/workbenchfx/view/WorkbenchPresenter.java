@@ -97,8 +97,16 @@ public class WorkbenchPresenter extends Presenter {
 
         WorkbenchUtils.addSetListener(
             newModule.getToolbarControlsRight(),
-            change -> moduleToolbarControl.addToolbarControlRight(change.getElementAdded()),
-            c -> moduleToolbarControl.removeToolbarControlRight(c.getElementRemoved())
+            change -> {
+              moduleToolbarControl.addToolbarControlRight(change.getElementAdded());
+              view.contentView.addToolbar();
+            },
+            change -> {
+              moduleToolbarControl.removeToolbarControlRight(change.getElementRemoved());
+              if (moduleToolbarControl.isEmpty()) {
+                view.contentView.removeToolbar();
+              }
+            }
         );
 
         newModule.getToolbarControlsLeft().stream().forEachOrdered(
