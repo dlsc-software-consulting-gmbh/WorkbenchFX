@@ -109,6 +109,7 @@ public class CustomDemo extends Application {
             new CustomerModule(),
             new PreferencesModule(),
             new ToolbarTestModule(),
+            new ToolbarTestModule(),
             new WidgetsTestModule(),
             new DropdownTestModule(),
             new NavigationDrawerTestModule(),

@@ -12,6 +12,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,7 +39,6 @@ public class ToolbarTestModule extends WorkbenchModule {
 
   public ToolbarTestModule() {
     super("Toolbar TestModule", FontAwesomeIcon.QUESTION);
-
     addToolbarItems();
     setupStyling();
     layoutParts();
@@ -56,6 +56,8 @@ public class ToolbarTestModule extends WorkbenchModule {
     contentBox.getStylesheets().add(
         ToolbarTestModule.class.getResource("toolbar-module.css").toExternalForm()
     );
+    contentBox.setStyle("-fx-background-color: " + getRandomColor() + ";");
+
     contentBox.setAlignment(Pos.CENTER);
     topBox.setAlignment(Pos.CENTER);
     VBox.setVgrow(topBox, Priority.ALWAYS);
@@ -107,5 +109,13 @@ public class ToolbarTestModule extends WorkbenchModule {
   private void removeToolbarItems() {
     getToolbarControlsLeft().clear();
     getToolbarControlsRight().clear();
+  }
+
+  private String getRandomColor() {
+    return "#" + Color.color(
+        Math.random() * .5 + .5,
+        Math.random() * .5 + .5,
+        Math.random() * .5 + .5
+    ).toString().substring(2, 8);
   }
 }
