@@ -4,10 +4,13 @@ import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,10 +20,10 @@ public class ToolbarTestModule extends WorkbenchModule {
   private static final Logger LOGGER =
       LogManager.getLogger(ToolbarTestModule.class.getName());
 
-  private final Button minusBtn =
-      new Button("", new FontAwesomeIconView(FontAwesomeIcon.MINUS));
-  private final Button plusBtn =
-      new Button("", new FontAwesomeIconView(FontAwesomeIcon.PLUS));
+  private final Button removeItemsBtn = new Button("REMOVE ALL ITEMS FROM THE TOOLBAR");
+  private final Button addItemsBtn = new Button("ADD ALL ITEMS TO THE TOOLBAR");
+  private final Button remBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.MINUS));
+  private final Button addBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.PLUS));
   private final MenuItem addContentItem = new MenuItem("Add Content");
   private final MenuItem removeContentItem = new MenuItem("Remove Content");
   private final Dropdown addContentDropdown = Dropdown.of(
@@ -29,45 +32,80 @@ public class ToolbarTestModule extends WorkbenchModule {
   );
   private int contentIndex = 1;
 
-  private final VBox contentBox = new VBox(
-      new Label("Module to test the modules toolbar.\nUse the dropdown to add content."));
+  private final VBox contentBox = new VBox();
+  private final VBox topBox = new VBox();
+  private final HBox bottomBox = new HBox();
 
   public ToolbarTestModule() {
     super("Toolbar TestModule", FontAwesomeIcon.QUESTION);
 
-    minusBtn.setOnAction(evt -> {
-      LOGGER.trace("getToolbarControlsRight().size() = " + getToolbarControlsRight().size());
-      getToolbarControlsRight().remove(addContentDropdown);
-      LOGGER.trace("getToolbarControlsRight().size() = " + getToolbarControlsRight().size());
-    });
-    plusBtn.setOnAction(evt -> {
-      LOGGER.trace("getToolbarControlsRight().size() = " + getToolbarControlsRight().size());
-      getToolbarControlsRight().add(addContentDropdown);
-      LOGGER.trace("getToolbarControlsRight().size() = " + getToolbarControlsRight().size());
-    });
-    addContentItem.setOnAction(evt ->
-        contentBox.getChildren().add(new Label("Content " + contentIndex++))
-    );
-    removeContentItem.setOnAction(evt -> {
-      if (--contentIndex < 1) {
-        contentIndex = 1;
-      } else {
-        contentBox.getChildren().remove(contentIndex);
-      }
-    });
+    addToolbarItems();
+    setupStyling();
+    layoutParts();
+    setupEventHandlers();
+  }
 
-    getToolbarControlsLeft().add(minusBtn);
-    getToolbarControlsLeft().add(plusBtn);
+  private void addToolbarItems() {
+    getToolbarControlsLeft().add(remBtn);
+    getToolbarControlsLeft().add(addBtn);
     getToolbarControlsRight().add(addContentDropdown);
+  }
 
+  private void setupStyling() {
     contentBox.getStyleClass().add("toolbar-module");
     contentBox.getStylesheets().add(
         ToolbarTestModule.class.getResource("toolbar-module.css").toExternalForm()
     );
+    contentBox.setAlignment(Pos.CENTER);
+    topBox.setAlignment(Pos.CENTER);
+    VBox.setVgrow(topBox, Priority.ALWAYS);
+    bottomBox.setAlignment(Pos.CENTER);
+    bottomBox.setMinHeight(100);
+    bottomBox.setSpacing(25);
+  }
+
+  private void layoutParts() {
+    topBox.getChildren().addAll(
+        new Label("Module to test the modules toolbar."),
+        new Label("Use the dropdown to add content."),
+        addItemsBtn, removeItemsBtn
+    );
+
+    contentBox.getChildren().addAll(topBox, bottomBox);
+  }
+
+  private void setupEventHandlers() {
+    remBtn.setOnAction(evt -> {
+      getToolbarControlsRight().remove(addContentDropdown);
+    });
+
+    addBtn.setOnAction(evt -> {
+      getToolbarControlsRight().add(addContentDropdown);
+    });
+
+    addContentItem.setOnAction(evt ->
+        bottomBox.getChildren().add(new Label("Content " + contentIndex++))
+    );
+
+    removeContentItem.setOnAction(evt -> {
+      if (--contentIndex < 1) {
+        contentIndex = 1;
+      } else {
+        bottomBox.getChildren().remove(contentIndex);
+      }
+    });
+
+    addItemsBtn.setOnAction(evt -> addToolbarItems());
+    removeItemsBtn.setOnAction(evt -> removeToolbarItems());
   }
 
   @Override
   public Node activate() {
     return contentBox;
+  }
+
+  private void removeToolbarItems() {
+    getToolbarControlsLeft().clear();
+    getToolbarControlsRight().clear();
   }
 }
