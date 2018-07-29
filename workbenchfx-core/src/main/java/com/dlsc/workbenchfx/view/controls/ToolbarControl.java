@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view.controls;
 
+import com.dlsc.workbenchfx.Workbench;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -21,13 +22,13 @@ public class ToolbarControl extends HBox {
   public ToolbarControl() {
     initializeParts();
     layoutParts();
-
-    getStylesheets().add(
-        ToolbarControl.class.getResource("../../css/toolbar-control.css").toExternalForm()
-    );
   }
 
   private void initializeParts() {
+    getStylesheets().add(
+        Workbench.class.getResource("css/toolbar-control.css").toExternalForm()
+    );
+
     getStyleClass().add("toolbar-control");
 
     toolbarControlLeftBox = new HBox();
@@ -61,4 +62,12 @@ public class ToolbarControl extends HBox {
     toolbarControlRightBox.getChildren().remove(toolbarControl);
   }
 
+  /**
+   * Returns whether the {@link ToolbarControl} is empty or not.
+   * @return whether the {@link ToolbarControl} is empty or not
+   */
+  public boolean isEmpty() {
+    return toolbarControlLeftBox.getChildren().isEmpty() &&
+        toolbarControlRightBox.getChildren().isEmpty();
+  }
 }

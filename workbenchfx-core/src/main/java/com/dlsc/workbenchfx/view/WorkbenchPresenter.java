@@ -78,12 +78,21 @@ public class WorkbenchPresenter extends Presenter {
     // When the active module changes, the new view is set to the add module screen if null.
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       if (Objects.isNull(newModule)) {
+        view.contentView.removeToolbar();
         view.contentView.setContent(view.addModuleView);
       } else {
         WorkbenchUtils.addSetListener(
             newModule.getToolbarControlsLeft(),
-            change -> moduleToolbarControl.addToolbarControlLeft(change.getElementAdded()),
-            change -> moduleToolbarControl.removeToolbarControlLeft(change.getElementRemoved())
+            change -> {
+              moduleToolbarControl.addToolbarControlLeft(change.getElementAdded());
+              view.contentView.addToolbar();
+            },
+            change -> {
+              moduleToolbarControl.removeToolbarControlLeft(change.getElementRemoved());
+              if (moduleToolbarControl.isEmpty()) {
+                view.contentView.removeToolbar();
+              }
+            }
         );
 
         WorkbenchUtils.addSetListener(

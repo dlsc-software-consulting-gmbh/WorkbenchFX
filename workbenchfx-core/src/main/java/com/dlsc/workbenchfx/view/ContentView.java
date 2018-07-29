@@ -61,4 +61,8 @@ public class ContentView extends BorderPane implements View {
   void addToolbar() {
     setTop(moduleToolbarControl);
   }
+
+  void removeToolbar() {
+    setTop(null);
+  }
 }

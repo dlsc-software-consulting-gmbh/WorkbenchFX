@@ -29,8 +29,7 @@
     .root #workbench #content-view .toolbar-control .toolbar-menu-button .dropdown:hover {
       -fx-cursor: hand; }
     .root #workbench #content-view .toolbar-control .toolbar-menu-button .dropdown:showing {
-      -fx-background-color: -primary-variant-color;
-      -fx-cursor: inherit !important; }
+      -fx-background-color: -primary-variant-color; }
       .root #workbench #content-view .toolbar-control .toolbar-menu-button .dropdown:showing .arrow-button .arrow {
         -fx-rotate: -90; }
 
