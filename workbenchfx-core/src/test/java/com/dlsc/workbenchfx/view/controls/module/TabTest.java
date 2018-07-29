@@ -61,11 +61,8 @@ class TabTest extends ApplicationTest {
 
     for (int i = 0; i < mockModules.length; i++) {
       mockModules[i] = createMockModule(
-          moduleNodes[i],
-          moduleIcons[i],
-          true,
-          "Module " + i,
-          mockBench
+          moduleNodes[i], moduleIcons[i], true, "Module " + i, mockBench,
+          FXCollections.observableSet(), FXCollections.observableSet()
       );
     }
 
@@ -117,11 +114,9 @@ class TabTest extends ApplicationTest {
   @Test
   void testAddingNewLineAsName() {
     WorkbenchModule mockModule = createMockModule(
-        new Label(""),
-        new Label(""),
-        true,
+        new Label(""), new Label(""),true,
         "Name\nwith\nbreaks", // A name with newlines which should be replaced with ' '
-        mockBench
+        mockBench, FXCollections.observableSet(), FXCollections.observableSet()
     );
     tab.setModule(mockModule);
     assertEquals("Name with breaks", tab.getName());
