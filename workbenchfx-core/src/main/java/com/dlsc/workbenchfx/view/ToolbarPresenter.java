@@ -4,7 +4,6 @@ import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_ADD_BUTTON;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.TabCell;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
@@ -60,14 +59,15 @@ public class ToolbarPresenter extends Presenter {
         Workbench.class.getResource("css/selection-strip.css").toExternalForm()
     );
 
-    toolbarControlsLeft.stream().forEachOrdered(view::addToolbarControlLeft);
-    toolbarControlsRight.stream().forEachOrdered(view::addToolbarControlRight);
-
     view.addModuleBtn.requestFocus();
 
     // Adds a menuButton if necessary (size of items > 0)
     if (model.getNavigationDrawerItems().size() > 0) {
-      view.addMenuButton();
+      if (view.getToolbarControl().isEmpty()) {
+        // Put the button below into the bottomBox
+      } else {
+        // Put it into the first position of toolbaritemsleft
+      }
     }
   }
 
@@ -87,19 +87,6 @@ public class ToolbarPresenter extends Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-    // When the List of the currently open toolbarControlsLeft is changed, the view is updated.
-    WorkbenchUtils.addSetListener(
-        toolbarControlsLeft,
-        change -> view.addToolbarControlLeft(change.getElementAdded()),
-        change -> view.removeToolbarControlLeft(change.getElementRemoved())
-    );
-    // When the List of the currently open toolbarControlsRight is changed, the view is updated.
-    WorkbenchUtils.addSetListener(
-        toolbarControlsRight,
-        change -> view.addToolbarControlRight(change.getElementAdded()),
-        change -> view.removeToolbarControlRight(change.getElementRemoved())
-    );
-
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       if (Objects.isNull(oldModule)) {
         // Home is the old value
@@ -114,9 +101,9 @@ public class ToolbarPresenter extends Presenter {
     // makes sure the menu button is only being displayed if there are navigation drawer items
     navigationDrawerItems.addListener((InvalidationListener) observable -> {
       if (navigationDrawerItems.size() == 0) {
-        view.removeMenuButton();
+//        view.removeMenuButton();
       } else {
-        view.addMenuButton();
+//        view.addMenuButton();
       }
     });
   }
@@ -129,6 +116,10 @@ public class ToolbarPresenter extends Presenter {
     // Binds content of the SelectionStrip to the Workbench content
     view.tabBar.itemsProperty().bindContent(openModules);
     view.tabBar.selectedItemProperty().bindBidirectional(model.activeModuleProperty());
+
+    // Bind items from toolbar to the ones of the workbench
+    view.getToolbarControl().toolbarControlsLeftProperty().bindContent(toolbarControlsLeft);
+    view.getToolbarControl().toolbarControlsRightProperty().bindContent(toolbarControlsRight);
   }
 
 }
