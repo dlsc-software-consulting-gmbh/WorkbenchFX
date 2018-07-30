@@ -3,8 +3,6 @@ package com.dlsc.workbenchfx.custom.controls;
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -14,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,14 +23,14 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class CustomTabSkin extends SkinBase<CustomTab> {
-  private static final Logger LOGGER = LogManager.getLogger(
-      CustomTabSkin.class.getName());
+
+  private static final Logger LOGGER = LogManager.getLogger(CustomTabSkin.class.getName());
 
   private final ReadOnlyObjectProperty<WorkbenchModule> module;
 
   private HBox controlBox;
+  private StackPane closeIconShape;
   private Button closeBtn;
-  private FontAwesomeIconView closeIconView;
 
   private Label nameLbl;
 
@@ -63,21 +62,20 @@ public class CustomTabSkin extends SkinBase<CustomTab> {
   }
 
   private void initializeParts() {
-    closeIconView = new FontAwesomeIconView(FontAwesomeIcon.CLOSE);
-    this.closeBtn = new Button("", closeIconView);
+    closeIconShape = new StackPane();
+    closeIconShape.getStyleClass().add("shape");
+    closeBtn = new Button("", closeIconShape);
+    closeBtn.getStyleClass().addAll("icon", "close-icon");
 
     nameLbl = new Label();
     controlBox = new HBox();
   }
 
   private void layoutParts() {
-    Label iconPlaceholder = new Label();
+    Label iconPlaceholder = new Label(); // Will be replaced in the listener
     controlBox.getChildren().addAll(iconPlaceholder, nameLbl, closeBtn);
 
     nameLbl.getStyleClass().add("tab-name-lbl");
-
-    closeBtn.getStyleClass().add("close-btn");
-    closeIconView.setStyleClass("close-icon-view");
 
     controlBox.getStyleClass().add("tab-control");
     controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
@@ -87,9 +85,8 @@ public class CustomTabSkin extends SkinBase<CustomTab> {
     nameLbl.textProperty().bind(name);
   }
 
-  private void setupEventHandlers(){
+  private void setupEventHandlers() {
     closeBtn.setOnAction(e -> getSkinnable().close());
-    controlBox.setOnMouseClicked(e -> getSkinnable().open());
   }
 
   private void setupValueChangedListeners() {
@@ -114,6 +111,9 @@ public class CustomTabSkin extends SkinBase<CustomTab> {
     });
   }
 
+  /**
+   * Replaces the Icon when calling setModule().
+   */
   private void updateIcon() {
     Node iconNode = icon.get();
     ObservableList<Node> children = controlBox.getChildren();

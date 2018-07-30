@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -26,6 +27,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class Tab extends Control {
+
   private static final Logger LOGGER = LogManager.getLogger(Tab.class.getName());
 
   private final Workbench workbench;
@@ -50,13 +52,24 @@ public class Tab extends Control {
     activeTab = new SimpleBooleanProperty();
     setupModuleListeners();
     setupActiveTabListener();
+    setupEventHandlers();
+  }
+
+  private void setupEventHandlers() {
+    setOnMouseClicked(e -> open());
   }
 
   private void setupModuleListeners() {
     module.addListener(observable -> {
       WorkbenchModule current = getModule();
-      name.setValue(current.getName());
+      // Replace any occurence of \n with space
+      name.setValue(current.getName().replace("\n", " "));
       icon.setValue(current.getIcon());
+
+      // Sets id with toString of module.
+      // Adds 'tab-', replaces spaces with hyphens and sets letters to lowercase.
+      // eg. Customer Management converts to tab-customer-management
+      setId(WorkbenchUtils.convertToId("tab-" + current.getName()));
     });
   }
 

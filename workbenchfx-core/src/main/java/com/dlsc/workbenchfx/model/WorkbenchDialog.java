@@ -2,8 +2,8 @@ package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.MultilineLabel;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
-import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent;
 import com.google.common.base.Strings;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -38,7 +38,10 @@ public final class WorkbenchDialog {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchDialog.class.getName());
 
+  private static final ButtonType CANCEL_DIALOG_BUTTON_TYPE = ButtonType.CANCEL;
+
   private Type type;
+  private ButtonType cancelDialogButtonType;
 
   private final StringProperty title = new SimpleStringProperty(this, "title");
   private final StringProperty details = new SimpleStringProperty(this, "details", "");
@@ -91,7 +94,7 @@ public final class WorkbenchDialog {
    * @return builder object
    */
   public static WorkbenchDialogBuilder builder(String title, String message, Type type) {
-    return new WorkbenchDialogBuilder(title, new DialogMessageContent(message), type);
+    return new WorkbenchDialogBuilder(title, new MultilineLabel(message), type);
   }
 
   /**
@@ -117,7 +120,7 @@ public final class WorkbenchDialog {
    */
   public static WorkbenchDialogBuilder builder(
       String title, String message, ButtonType... buttonTypes) {
-    return new WorkbenchDialogBuilder(title, new DialogMessageContent(message), buttonTypes);
+    return new WorkbenchDialogBuilder(title, new MultilineLabel(message), buttonTypes);
   }
 
   // Builder
@@ -142,6 +145,7 @@ public final class WorkbenchDialog {
     DialogControl dialogControl = new DialogControl();
     EventHandler<Event> onShown = null;
     EventHandler<Event> onHidden = null;
+    ButtonType cancelDialogButtonType = CANCEL_DIALOG_BUTTON_TYPE;
 
     private WorkbenchDialogBuilder(String title, Node content, ButtonType... buttonTypes) {
       this.title = title;
@@ -281,6 +285,19 @@ public final class WorkbenchDialog {
     }
 
     /**
+     * Defines the default {@link ButtonType} that is set as result of a {@link WorkbenchDialog}
+     * when the {@link GlassPane} on the outside of a non-blocking dialog has been pressed.
+     *
+     * @param cancelDialog {@link ButtonType} that should be set as result of a dialog
+     *                                that was closed by clicking on its {@link GlassPane}
+     * @return builder for chaining
+     */
+    public WorkbenchDialogBuilder cancelDialogButtonType(ButtonType cancelDialog) {
+      this.cancelDialogButtonType = cancelDialog;
+      return this;
+    }
+
+    /**
      * Builds and fully initializes a {@link WorkbenchDialog} object.
      *
      * @return the {@link WorkbenchDialog} object
@@ -331,6 +348,7 @@ public final class WorkbenchDialog {
       newDialogControl.setDialog(this);
     });
 
+    setCancelDialogButtonType(builder.cancelDialogButtonType);
   }
 
   private void initType(Type type) {
@@ -572,6 +590,7 @@ public final class WorkbenchDialog {
    * The root node of the dialog, the {@link DialogControl} contains all visual elements shown in
    * the dialog. As such, it is possible to completely adjust the display of the dialog by modifying
    * the existing dialog control or creating a new one.
+   * @return the {@code dialogControl} of this {@link WorkbenchDialog}
    */
   public ObjectProperty<DialogControl> dialogControlProperty() {
     return dialogControl;
@@ -580,6 +599,8 @@ public final class WorkbenchDialog {
   public void setDialogControl(DialogControl dialogControl) {
     this.dialogControl.set(dialogControl);
   }
+
+  // Is this dialog showing or not?
 
   /**
    * Represents whether the dialog is currently showing.
@@ -596,5 +617,22 @@ public final class WorkbenchDialog {
    */
   public final boolean isShowing() {
     return showingProperty().get();
+  }
+
+  // Define the ButtonType which should be used for onResult when GlassPane is clicked
+
+  /**
+   * Defines the default {@link ButtonType} that is set as result of a {@link WorkbenchDialog} when
+   * the {@link GlassPane} on the outside of a non-blocking dialog has been pressed.
+   *
+   * @param cancelDialogButtonType {@link ButtonType} that should be set as result of a dialog
+   *                                that was closed by clicking on its {@link GlassPane}
+   */
+  public void setCancelDialogButtonType(ButtonType cancelDialogButtonType) {
+    this.cancelDialogButtonType = cancelDialogButtonType;
+  }
+
+  public ButtonType getCancelDialogButtonType() {
+    return cancelDialogButtonType;
   }
 }

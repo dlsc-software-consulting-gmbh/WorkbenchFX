@@ -1,11 +1,14 @@
 package com.dlsc.workbenchfx.view.controls.selectionstrip;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.Workbench;
@@ -13,6 +16,7 @@ import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.property.ObjectProperty;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -31,6 +35,8 @@ public class TabCellTest extends ApplicationTest {
   private ObjectProperty<WorkbenchModule> mockProperty;
 
   private TabCell tabCell;
+  private final String firstChild = "first-child";
+  private ObservableList<WorkbenchModule> mockList;
 
   @Override
   public void start(Stage stage) {
@@ -41,11 +47,14 @@ public class TabCellTest extends ApplicationTest {
     mockFactory = mock(Callback.class);
     mockTab = mock(Tab.class);
     mockProperty = mock(ObjectProperty.class);
+    mockList = mock(ObservableList.class);
 
     tabCell = new TabCell();
 
     when(mockStrip.getSelectedItem()).thenReturn(mockModule);
     when(mockStrip.selectedItemProperty()).thenReturn(mockProperty);
+    when(mockStrip.getItems()).thenReturn(mockList);
+    when(mockList.get(0)).thenReturn(mockModule);
     when(mockModule.getWorkbench()).thenReturn(mockBench);
     when(mockBench.getTabFactory()).thenReturn(mockFactory);
     when(mockFactory.call(mockBench)).thenReturn(mockTab);
@@ -64,6 +73,7 @@ public class TabCellTest extends ApplicationTest {
 
     assertEquals("", tabCell.getText());
     assertEquals(mockTab, tabCell.getGraphic());
+    assertTrue(tabCell.getStyleClass().contains(firstChild));
 
     verify(mockStrip, times(2)).getSelectedItem();
     verify(mockStrip).selectedItemProperty();
@@ -72,6 +82,8 @@ public class TabCellTest extends ApplicationTest {
     verify(mockFactory).call(mockBench);
     verify(mockTab).setModule(mockModule);
     verify(mockProperty).addListener((WeakInvalidationListener) any());
+    verify(mockStrip).getItems();
+    verify(mockList).get(0);
   }
 
   @Test
@@ -82,15 +94,13 @@ public class TabCellTest extends ApplicationTest {
     });
 
     assertEquals("", tabCell.getText());
-    assertEquals(null, tabCell.getGraphic());
+    assertNull(tabCell.getGraphic());
+    assertFalse(tabCell.getStyleClass().contains(firstChild));
 
     verify(mockStrip).getSelectedItem();
     verify(mockStrip).selectedItemProperty();
-    verify(mockModule, never()).getWorkbench();
-    verify(mockBench, never()).getTabFactory();
-    verify(mockFactory, never()).call(mockBench);
-    verify(mockTab, never()).setModule(mockModule);
     verify(mockProperty).addListener((WeakInvalidationListener) any());
+    verifyNoMoreInteractions(mockModule, mockBench, mockFactory, mockTab, mockStrip, mockList);
   }
 
   @Test
@@ -101,14 +111,11 @@ public class TabCellTest extends ApplicationTest {
     });
 
     assertEquals("", tabCell.getText());
-    assertEquals(null, tabCell.getGraphic());
+    assertNull(tabCell.getGraphic());
+    assertFalse(tabCell.getStyleClass().contains(firstChild));
 
-    verify(mockStrip, never()).getSelectedItem();
-    verify(mockStrip, never()).selectedItemProperty();
-    verify(mockModule, never()).getWorkbench();
-    verify(mockBench, never()).getTabFactory();
-    verify(mockFactory, never()).call(mockBench);
-    verify(mockTab, never()).setModule(mockModule);
-    verify(mockProperty, never()).addListener((WeakInvalidationListener) any());
+    verifyNoMoreInteractions(
+        mockStrip, mockModule, mockBench, mockFactory, mockTab, mockProperty, mockStrip, mockList
+    );
   }
 }

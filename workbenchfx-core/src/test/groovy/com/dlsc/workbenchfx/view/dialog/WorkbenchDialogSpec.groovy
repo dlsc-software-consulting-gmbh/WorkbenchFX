@@ -1,8 +1,8 @@
 import com.dlsc.workbenchfx.model.WorkbenchDialog
 import com.dlsc.workbenchfx.model.WorkbenchDialog.Type
 import com.dlsc.workbenchfx.testing.MockDialogControl
+import com.dlsc.workbenchfx.view.controls.MultilineLabel
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl
-import com.dlsc.workbenchfx.view.controls.dialog.DialogMessageContent
 import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.scene.Scene
@@ -56,7 +56,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
 
         then:
         TITLE == dialog.getTitle()
-        dialog.getContent() instanceof DialogMessageContent
+        dialog.getContent() instanceof MultilineLabel
         TYPE == dialog.getType()
         TYPE.name().toLowerCase() == dialog.getStyleClass().get(0)
     }
@@ -67,7 +67,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
 
         then:
         TITLE == dialog.getTitle()
-        dialog.getContent() instanceof DialogMessageContent
+        dialog.getContent() instanceof MultilineLabel
         null == dialog.getType()
         0 == dialog.getStyleClass().size()
         BUTTON_TYPES.length == dialog.getButtonTypes().size()
@@ -115,6 +115,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         EventHandler<Event> onHidden = { event -> }
         EventHandler<Event> onShown = { event -> }
         DialogControl dialogControl = new MockDialogControl()
+        ButtonType cancelDialogButtonType = ButtonType.FINISH
 
         when: "Optional parameters are specified"
         dialog = WorkbenchDialog.builder(TITLE, content, TYPE)
@@ -128,6 +129,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
                 .onHidden(onHidden)
                 .onShown(onShown)
                 .dialogControl(dialogControl)
+                .cancelDialogButtonType(cancelDialogButtonType)
                 .build()
 
         then: "Specified optional parameters are correctly set"
@@ -141,6 +143,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         onHidden == dialog.getOnHidden()
         onShown == dialog.getOnShown()
         dialogControl == dialog.getDialogControl()
+        cancelDialogButtonType == dialog.getCancelDialogButtonType()
     }
 
     def "Initialization of a Dialog with Type #type has exactly the ButtonTypes #buttonTypes"(
