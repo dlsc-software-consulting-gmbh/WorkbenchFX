@@ -1,6 +1,8 @@
 package com.dlsc.workbenchfx.view.controls;
 
 import com.dlsc.workbenchfx.Workbench;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -38,6 +40,9 @@ public class ToolbarControl extends HBox {
 
     toolbarControlRightBox = new HBox();
     toolbarControlRightBox.getStyleClass().add("toolbar-control-right-box");
+
+    ObservableSet<Node> objects = FXCollections.observableSet();
+    toolbarControlLeftBox.getChildren().setAll(objects);
   }
 
   private void layoutParts() {

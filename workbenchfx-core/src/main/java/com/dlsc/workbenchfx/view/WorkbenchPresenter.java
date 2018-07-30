@@ -4,15 +4,11 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
-import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
-import java.util.Objects;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,7 +28,6 @@ public class WorkbenchPresenter extends Presenter {
   private final ObservableMap<Node, GlassPane> overlays;
   private final ObservableSet<Node> overlaysShown;
   private final ObservableSet<Node> blockingOverlaysShown;
-  private final ToolbarControl moduleToolbarControl;
 
   /**
    * Constructs a new {@link WorkbenchPresenter} for the {@link WorkbenchView}.
@@ -43,7 +38,6 @@ public class WorkbenchPresenter extends Presenter {
   public WorkbenchPresenter(Workbench model, WorkbenchView view) {
     this.model = model;
     this.view = view;
-    this.moduleToolbarControl = view.contentView.moduleToolbarControl;
     this.overlays = model.getOverlays();
     this.overlaysShown = model.getNonBlockingOverlaysShown();
     this.blockingOverlaysShown = model.getBlockingOverlaysShown();
@@ -56,7 +50,7 @@ public class WorkbenchPresenter extends Presenter {
    */
   @Override
   public void initializeViewParts() {
-    view.contentView.setContent(view.addModuleView);
+
   }
 
   /**
@@ -72,64 +66,6 @@ public class WorkbenchPresenter extends Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-
-    model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
-      view.contentView.removeToolbar();
-
-      // When the active module changes, the new view is set to the add module screen if null.
-      if (Objects.isNull(newModule)) {
-        view.contentView.setContent(view.addModuleView);
-      } else {
-        // Add a listener to the module's toolbar items on the left
-        WorkbenchUtils.addSetListener(
-            newModule.getToolbarControlsLeft(),
-            change -> { // On added, add it to the toolbar and put it into view
-              moduleToolbarControl.addToolbarControlLeft(change.getElementAdded());
-              view.contentView.addToolbar();
-            },
-            change -> { // On removed, remove it from the toolbar
-              moduleToolbarControl.removeToolbarControlLeft(change.getElementRemoved());
-              if (moduleToolbarControl.isEmpty()) { // If it's empty, remove it from the view
-                view.contentView.removeToolbar();
-              }
-            }
-        );
-
-        // Add a listener to the module's toolbar items on the right
-        WorkbenchUtils.addSetListener(
-            newModule.getToolbarControlsRight(),
-            change -> { // On added, add it to the toolbar and put it into view
-              moduleToolbarControl.addToolbarControlRight(change.getElementAdded());
-              view.contentView.addToolbar();
-            },
-            change -> { // On removed, remove it from the toolbar
-              moduleToolbarControl.removeToolbarControlRight(change.getElementRemoved());
-              if (moduleToolbarControl.isEmpty()) { // If it's empty, remove it from the view
-                view.contentView.removeToolbar();
-              }
-            }
-        );
-
-        // Clear the toolbar's items from last module's items
-        moduleToolbarControl.clear();
-
-        // Add all items initially to the toolbar
-        newModule.getToolbarControlsLeft().stream().forEachOrdered(
-            moduleToolbarControl::addToolbarControlLeft
-        );
-        newModule.getToolbarControlsRight().stream().forEachOrdered(
-            moduleToolbarControl::addToolbarControlRight
-        );
-
-        Node activeModuleView = model.getActiveModuleView();
-        VBox.setVgrow(activeModuleView, Priority.ALWAYS);
-        view.contentView.setContent(activeModuleView);
-        if (!moduleToolbarControl.isEmpty()) { // If it's not empty, add it to the view
-          view.contentView.addToolbar();
-        }
-      }
-    });
-
     overlays.addListener((MapChangeListener<Node, GlassPane>) c -> {
       LOGGER.trace("Listener overlays fired");
       if (c.wasAdded()) {

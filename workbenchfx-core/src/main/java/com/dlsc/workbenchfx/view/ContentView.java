@@ -16,11 +16,13 @@ public class ContentView extends BorderPane implements View {
 
   private static final Logger LOGGER = LogManager.getLogger(ContentView.class.getName());
   ToolbarControl moduleToolbarControl;
+  private AddModuleView addModuleView;
 
   /**
    * Creates a new {@link ContentView}.
    */
-  public ContentView() {
+  public ContentView(AddModuleView addModuleView) {
+    this.addModuleView = addModuleView;
     init();
   }
 
@@ -64,5 +66,9 @@ public class ContentView extends BorderPane implements View {
 
   void removeToolbar() {
     setTop(null);
+  }
+
+  void setAddModuleView() {
+    setCenter(addModuleView);
   }
 }
