@@ -61,15 +61,15 @@
         -fx-tooltip-visible: false;
 
         & > .pagination-control > .control-box {
-          -fx-spacing: .5em;
+          -fx-spacing: .25em;
 
           & > .bullet-button {
             -fx-background-radius: 50%;
-            -fx-background-insets: .5em;
-            -fx-background-color: rgba(0, 0, 0, .1);
+            -fx-background-insets: .55em;
+            -fx-background-color: rgba(0, 0, 0, .075);
             &:hover {
               -fx-cursor: hand;
-              -fx-background-color: rgba(0, 0, 0, .2);
+              -fx-background-color: rgba(0, 0, 0, .1);
             }
             &:selected {
               -fx-background-color: -primary-color;
