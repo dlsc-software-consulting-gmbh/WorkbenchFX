@@ -346,6 +346,12 @@
             <version>4.0.13-alpha</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>openjfx-monocle</artifactId>
+            <version>jdk-9+181</version> <!-- 8u76-b04 for Java 8 -->
+            <scope>test</scope>
+        </dependency>
         <!-- Testing Utilities -->
         <dependency>
             <groupId>org.mockito</groupId>
