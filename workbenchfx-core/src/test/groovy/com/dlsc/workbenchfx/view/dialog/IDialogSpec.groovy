@@ -79,7 +79,8 @@ class IDialogSpec extends ApplicationSpec {
 
         when: "Key is pressed"
         interact {
-            push(keyPress)
+            press(keyPress)
+            release(keyPress)
         }
 
         then:
