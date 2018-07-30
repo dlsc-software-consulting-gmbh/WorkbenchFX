@@ -1611,6 +1611,7 @@ class WorkbenchTest extends ApplicationTest {
       // try hiding by clicking on GlassPane
       simulateGlassPaneClick(dialogControl); // simulates a click on GlassPane
 
+      verify(mockDialog, atLeast(0)).blockingProperty(); // ignore calls
       verify(mockDialog, never()).getOnResult();
       verify(mockOnResult, never()).accept(any());
       verifyNoMoreInteractions(mockDialog);
@@ -1643,6 +1644,7 @@ class WorkbenchTest extends ApplicationTest {
       ButtonType toPress = buttonTypes.get(0);
       simulateDialogButtonClick(dialogControl, toPress);
 
+      verify(mockDialog, atLeast(0)).blockingProperty(); // ignore calls
       verify(mockDialog).getOnResult();
       verify(mockDialog, atLeastOnce()).getDialogControl();
       verify(mockOnResult).accept(toPress);
