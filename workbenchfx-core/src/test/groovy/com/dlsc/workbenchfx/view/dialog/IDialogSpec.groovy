@@ -12,6 +12,8 @@ import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
 import spock.lang.Unroll
 
+import java.util.function.Consumer
+
 @Unroll
 /**
  * Integration test for dialog related logic.
@@ -27,6 +29,7 @@ class IDialogSpec extends ApplicationSpec {
 
     private EventHandler<Event> mockShownHandler
     private EventHandler<Event> mockHiddenHandler
+    private Consumer<ButtonType> mockOnResultHandler
 
     private Stage stage
 
@@ -38,6 +41,7 @@ class IDialogSpec extends ApplicationSpec {
 
         mockShownHandler = Mock()
         mockHiddenHandler = Mock()
+        mockOnResultHandler = Mock()
 
         workbench = new Workbench()
 
@@ -54,6 +58,7 @@ class IDialogSpec extends ApplicationSpec {
                     .blocking(blocking)
                     .onShown(mockShownHandler)
                     .onHidden(mockHiddenHandler)
+                    .onResult(mockOnResultHandler)
                     .build()
             workbench.showDialog(dialog)
             1 * mockShownHandler.handle((Event)_)
@@ -65,13 +70,16 @@ class IDialogSpec extends ApplicationSpec {
 
         then:
         dialogHidden == (amountDialogShowing() == 0)
-        1 * mockHiddenHandler.handle((Event)_)
-        // TODO: compare result
+        1 * mockHiddenHandler.handle((Event) _)
+        1 * mockOnResultHandler.accept(_) >> { arguments ->
+            ButtonType buttonType = arguments[0] // capture ButtonType that was set as result
+            assert result == buttonType
+        }
 
         where:
         blocking | buttonTypes                        | keyPress       || dialogHidden | result
-        false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ENTER  || true         | ButtonType.CANCEL
-        false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ESCAPE || true         | ButtonType.OK
+        false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ENTER  || true         | ButtonType.OK
+        false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ESCAPE || true         | ButtonType.CANCEL
     }
 
     def amountDialogShowing() {
