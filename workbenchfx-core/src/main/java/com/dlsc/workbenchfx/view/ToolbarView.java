@@ -86,24 +86,7 @@ public class ToolbarView extends VBox implements View {
     Platform.runLater(() -> addModuleBtn.requestFocus());
   }
 
-//  /**
-//   * Shows a menu button in the front of the toolbar.
-//   */
-//  public void addMenuButton() {
-//    if (!topBox.getChildren().contains(menuBtn)) {
-//      topBox.getChildren().add(0, menuBtn);
-//    }
-//  }
-//
-//  /**
-//   * Removes the menu button from the toolbar.
-//   */
-//  public void removeMenuButton() {
-//    topBox.getChildren().remove(menuBtn);
-//  }
-
-
-  public ToolbarControl getToolbarControl() {
+  ToolbarControl getToolbarControl() {
     return toolbarControl;
   }
 }

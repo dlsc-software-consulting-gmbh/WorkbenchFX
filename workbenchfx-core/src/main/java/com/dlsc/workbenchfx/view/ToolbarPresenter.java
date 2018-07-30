@@ -63,10 +63,12 @@ public class ToolbarPresenter extends Presenter {
 
     // Adds a menuButton if necessary (size of items > 0)
     if (model.getNavigationDrawerItems().size() > 0) {
-      if (view.getToolbarControl().isEmpty()) {
+      if (toolbarControlsLeft.size() + toolbarControlsRight.size() == 0) {
         // Put the button below into the bottomBox
+        view.bottomBox.getChildren().add(0, view.menuBtn);
       } else {
         // Put it into the first position of toolbaritemsleft
+        toolbarControlsLeft.add(0, view.menuBtn);
       }
     }
   }
@@ -89,11 +91,11 @@ public class ToolbarPresenter extends Presenter {
   public void setupValueChangedListeners() {
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       if (Objects.isNull(oldModule)) {
-        // Home is the old value
+        // AddModuleView is the old value
         view.addModuleBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_ADD_BUTTON);
       }
       if (Objects.isNull(newModule)) {
-        // Home is the new value
+        // AddModuleView is the new value
         view.addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
       }
     });
@@ -101,9 +103,15 @@ public class ToolbarPresenter extends Presenter {
     // makes sure the menu button is only being displayed if there are navigation drawer items
     navigationDrawerItems.addListener((InvalidationListener) observable -> {
       if (navigationDrawerItems.size() == 0) {
-//        view.removeMenuButton();
+        // Remove menuBtn
+        view.bottomBox.getChildren().remove(view.menuBtn);
+        toolbarControlsLeft.remove(view.menuBtn);
+      } else if (toolbarControlsLeft.size() + toolbarControlsRight.size() == 0) {
+        // Put the button below into the bottomBox
+        view.bottomBox.getChildren().add(0, view.menuBtn);
       } else {
-//        view.addMenuButton();
+        // Put it into the first position of toolbaritemsleft
+        toolbarControlsLeft.add(0, view.menuBtn);
       }
     });
   }
