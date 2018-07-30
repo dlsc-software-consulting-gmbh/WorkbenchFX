@@ -66,16 +66,17 @@ public class ToolbarPresenter extends Presenter {
   }
 
   private void setMenuBtn() {
-    if (navigationDrawerItems.size() == 0) {
-      // Remove menuBtn
-      view.bottomBox.getChildren().remove(view.menuBtn);
-      toolbarControlsLeft.remove(view.menuBtn);
-    } else if (toolbarControlsLeft.size() + toolbarControlsRight.size() == 0) {
-      // Put the button below into the bottomBox
-      view.bottomBox.getChildren().add(0, view.menuBtn);
-    } else {
-      // Put it into the first position of toolbaritemsleft
-      toolbarControlsLeft.add(0, view.menuBtn);
+    view.bottomBox.getChildren().remove(view.menuBtn);
+    toolbarControlsLeft.remove(view.menuBtn);
+
+    if (navigationDrawerItems.size() != 0) {
+      if (toolbarControlsLeft.size() + toolbarControlsRight.size() == 0) {
+        // Put the button below into the bottomBox
+        view.bottomBox.getChildren().add(0, view.menuBtn);
+      } else {
+        // Put it into the first position of toolbaritemsleft
+        toolbarControlsLeft.add(0, view.menuBtn);
+      }
     }
   }
 
