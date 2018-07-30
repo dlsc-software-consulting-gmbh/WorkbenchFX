@@ -35,7 +35,9 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.Optional;
 import java.util.function.Consumer;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -121,6 +123,8 @@ class WorkbenchTest extends ApplicationTest {
 
   private Pane drawer = new Pane();
 
+  private BooleanProperty blocking;
+
   @Override
   public void start(Stage stage) {
     MockitoAnnotations.initMocks(this);
@@ -153,8 +157,10 @@ class WorkbenchTest extends ApplicationTest {
     dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
 
     // Setup WorkbenchDialog Mock
+    blocking = new SimpleBooleanProperty();
     when(mockDialog.getButtonTypes()).thenReturn(buttonTypes);
     when(mockDialog.getOnResult()).thenReturn(mockOnResult);
+    when(mockDialog.blockingProperty()).thenReturn(blocking);
 
     navigationDrawer = new MockNavigationDrawer();
     dialogControl = new MockDialogControl();
@@ -1598,7 +1604,7 @@ class WorkbenchTest extends ApplicationTest {
 
       WorkbenchDialog result = workbench.showDialog(mockDialog);
 
-      verify(mockDialog).isBlocking(); // call showOverlay(...) inside showDialog()
+      verify(mockDialog, atLeastOnce()).isBlocking(); // call showOverlay(...) inside showDialog()
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       assertDialogShown(result, true);
 
@@ -1625,7 +1631,7 @@ class WorkbenchTest extends ApplicationTest {
       WorkbenchDialog result = workbench.showDialog(mockDialog);
 
       assertDialogShown(result, true);
-      verify(mockDialog).isBlocking(); // call showOverlay(...) inside showDialog()
+      verify(mockDialog, atLeastOnce()).isBlocking(); // call showOverlay(...) inside showDialog()
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       verify(mockDialog, atLeastOnce()).getDialogControl();
       verify(mockDialog, never()).getOnResult();
