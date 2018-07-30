@@ -1,8 +1,8 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SetProperty;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import org.apache.logging.log4j.LogManager;
@@ -64,6 +64,7 @@ public class ContentView extends BorderPane implements View {
 
   /**
    * Displays the {@link ToolbarControl} based on the given parameter.
+   *
    * @param show true if the {@link ToolbarControl} should be displayed, false if not
    */
   void showToolbar(boolean show) {
@@ -74,11 +75,15 @@ public class ContentView extends BorderPane implements View {
     setCenter(addModuleView);
   }
 
-  void setModuleInToolbar(WorkbenchModule workbenchModule) {
-    toolbarControl.setModule(workbenchModule);
-  }
-
   BooleanProperty toolbarEmptyProperty() {
     return toolbarControl.emptyProperty();
+  }
+
+  SetProperty<Node> toolbarControlsLeft() {
+    return toolbarControl.toolbarControlsLeftProperty();
+  }
+
+  SetProperty<Node> toolbarControlsRight() {
+    return toolbarControl.toolbarControlsRightProperty();
   }
 }

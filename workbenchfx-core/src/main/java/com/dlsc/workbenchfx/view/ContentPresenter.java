@@ -63,7 +63,14 @@ public class ContentPresenter extends Presenter {
         VBox.setVgrow(activeModuleView, Priority.ALWAYS);
 
         // Setting the new chosen module in the toolbar -> the content of the toolbar changes
-        view.setModuleInToolbar(newModule);
+        // Unbind Modules, which were set before
+        view.toolbarControlsLeft().unbind();
+        view.toolbarControlsRight().unbind();
+
+        // Bind new Module
+        view.toolbarControlsLeft().bindContent(newModule.getToolbarControlsLeft());
+        view.toolbarControlsRight().bindContent(newModule.getToolbarControlsRight());
+
         if (!view.toolbarEmptyProperty().get()) {
           view.showToolbar(true); // Initially add the toolbar, if its not empty
         }

@@ -84,22 +84,6 @@ public class ToolbarControl extends HBox {
     toolbarControlRightBox.getChildren().addListener(emptyListener);
   }
 
-  /**
-   * Sets a {@link WorkbenchModule} and binds this Controls Sets to the Modules toolbar items.
-   * @param workbenchModule whose toolbar items will be displayed in the Control
-   */
-  public void setModule(WorkbenchModule workbenchModule) {
-    this.workbenchModule = workbenchModule;
-
-    // Unbind Modules, which were set before
-    toolbarControlsLeft.unbind();
-    toolbarControlsRight.unbind();
-
-    // Bind new Module
-    toolbarControlsLeft.bindContent(workbenchModule.getToolbarControlsLeft());
-    toolbarControlsRight.bindContent(workbenchModule.getToolbarControlsRight());
-  }
-
   public boolean isEmpty() {
     return empty.get();
   }
@@ -110,5 +94,29 @@ public class ToolbarControl extends HBox {
 
   public void setEmpty(boolean empty) {
     this.empty.set(empty);
+  }
+
+  public ObservableSet<Node> getToolbarControlsLeft() {
+    return toolbarControlsLeft.get();
+  }
+
+  public SetProperty<Node> toolbarControlsLeftProperty() {
+    return toolbarControlsLeft;
+  }
+
+  public void setToolbarControlsLeft(ObservableSet<Node> toolbarControlsLeft) {
+    this.toolbarControlsLeft.set(toolbarControlsLeft);
+  }
+
+  public ObservableSet<Node> getToolbarControlsRight() {
+    return toolbarControlsRight.get();
+  }
+
+  public SetProperty<Node> toolbarControlsRightProperty() {
+    return toolbarControlsRight;
+  }
+
+  public void setToolbarControlsRight(ObservableSet<Node> toolbarControlsRight) {
+    this.toolbarControlsRight.set(toolbarControlsRight);
   }
 }
