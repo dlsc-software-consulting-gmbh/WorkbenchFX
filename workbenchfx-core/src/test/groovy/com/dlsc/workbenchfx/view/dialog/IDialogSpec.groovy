@@ -141,7 +141,9 @@ class IDialogSpec extends ApplicationSpec {
         }
 
         when: "GlassPane is clicked"
-        simulateGlassPaneClick(dialog.getDialogControl())
+        interact {
+            simulateGlassPaneClick(dialog.getDialogControl())
+        }
 
         then:
         dialogHidden == (amountDialogShowing() == 0)
