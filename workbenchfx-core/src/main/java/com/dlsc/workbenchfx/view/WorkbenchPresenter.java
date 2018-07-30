@@ -51,7 +51,7 @@ public class WorkbenchPresenter extends Presenter {
    */
   @Override
   public void initializeViewParts() {
-    view.contentView.setContent(view.homeView);
+    view.contentView.setContent(view.addModuleView);
   }
 
   /**
@@ -67,9 +67,9 @@ public class WorkbenchPresenter extends Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-    // When the active module changes, the new view is set to the home screen if null.
+    // When the active module changes, the new view is set to the add module screen if null.
     model.activeModuleViewProperty().addListener((observable, oldModule, newModule) ->
-        view.contentView.setContent(Objects.isNull(newModule) ? view.homeView : newModule)
+        view.contentView.setContent(Objects.isNull(newModule) ? view.addModuleView : newModule)
     );
 
     overlays.addListener((MapChangeListener<Node, GlassPane>) c -> {
@@ -148,10 +148,13 @@ public class WorkbenchPresenter extends Presenter {
       glassPane.setOnMouseClicked(event -> {
         // check if overlay is really not blocking, is needed to avoid false-positives
         if (overlaysShown.contains(overlay)) {
-          LOGGER.trace("GlassPane was clicked, hiding overlay");
 
-          // if the overlay is a dialog
-          if (overlay instanceof DialogControl) {
+          if (overlay == model.getDrawerShown()) {
+            // if the overlay is the drawer that is currently being shown
+            LOGGER.trace("GlassPane was clicked, hiding drawer");
+            model.hideDrawer();
+          } else if (overlay instanceof DialogControl) {
+            // if the overlay is a dialog
             LOGGER.trace("GlassPane was clicked, hiding dialog");
             WorkbenchDialog dialog = ((DialogControl) overlay).getDialog();
             // send cancel button type as result of the dialog if availble
@@ -163,9 +166,11 @@ public class WorkbenchPresenter extends Presenter {
             dialog.getOnResult().accept(cancelButtonType);
             model.hideDialog(dialog);
           } else {
+            LOGGER.trace("GlassPane was clicked, hiding overlay");
             model.hideOverlay(overlay);
           }
         }
+
       });
     }
   }

@@ -1,7 +1,9 @@
 package com.dlsc.workbenchfx.custom.controls;
 
-import javafx.scene.control.Button;
+import com.dlsc.workbenchfx.view.controls.MultilineLabel;
+import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
+import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,9 +14,12 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class CustomTileSkin extends SkinBase<CustomTile> {
+
   private static final Logger LOGGER = LogManager.getLogger(CustomTileSkin.class.getName());
 
-  private Button button;
+  private VBox contentBox;
+  private Label icon;
+  private MultilineLabel textLbl;
 
   /**
    * Creates a new {@link CustomTileSkin} object for a corresponding {@link CustomTile}.
@@ -27,29 +32,27 @@ public class CustomTileSkin extends SkinBase<CustomTile> {
     initializeParts();
     layoutParts();
     setupBindings();
-    setupEventHandlers();
-    setupValueChangedListeners();
   }
 
   private void initializeParts() {
-    button = new Button();
-    button.getStyleClass().add("tile-control");
+    icon = new Label();
+    icon.getStyleClass().add("icon");
+    contentBox = new VBox();
+    contentBox.getStyleClass().add("tile-control");
+    textLbl = new MultilineLabel(getSkinnable().getName());
+    textLbl.getStyleClass().add("text-lbl");
   }
 
   private void layoutParts() {
-    getChildren().add(button);
+    contentBox.getChildren().addAll(
+        icon,
+        textLbl
+    );
+    getChildren().add(contentBox);
   }
 
   private void setupBindings() {
-    button.textProperty().bind(getSkinnable().nameProperty());
-    button.graphicProperty().bind(getSkinnable().iconProperty());
-  }
-
-  private void setupEventHandlers(){
-    button.setOnAction(e -> getSkinnable().open());
-  }
-
-  private void setupValueChangedListeners() {
-
+    icon.graphicProperty().bind(getSkinnable().iconProperty());
+    textLbl.textProperty().bind(getSkinnable().nameProperty());
   }
 }

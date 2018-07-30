@@ -1,17 +1,12 @@
 .navigation-drawer {
-  -fx-background-insets: 0;
-  -fx-background-radius: 0;
-  -fx-padding: 0;
+  -fx-background-color: -surface-color;
 
-  -fx-background-color: -text-color;
-  -fx-effect: null;
-
-  .separator:horizontal .line {
-    -fx-border-color: derive(-text-color, -30%) transparent transparent transparent;
-    -fx-border-insets: 1 0 0 0;
+  & .separator:horizontal .line {
+    -fx-border-color: rgba(0, 0, 0, .2) transparent transparent transparent;
+    -fx-border-insets: 1px 0 0 0;
   }
 
-  > .scroll-arrow {
+  & > .scroll-arrow {
     -fx-padding: .5em;
     -fx-background-color: transparent;
     &:hover {
@@ -21,54 +16,151 @@
     }
   }
 
-  :show-mnemonics > .mnemonic-underline {
+  &:show-mnemonics > .mnemonic-underline {
     -fx-stroke: -fx-text-fill;
   }
 
-  @extend %menu-item;
-  @extend %context-menu;
+  & .drawer-box {
+    & .header {
+      -fx-background-color: -surface-color; // Needed to gain the drop-shadow below
+      -fx-effect: -shadow;
+      -fx-min-height: px(80);
 
-  .menu-button > .label {
-    -fx-graphic-text-gap: 1em;
-  }
+      .separator .line {
+        -fx-border-color: -on-surface-color;
+        -fx-border-width: 1px;
+      }
 
-  .button {
-    -fx-graphic-text-gap: 1em;
-  }
+      @extend %icon-base;
+      & #back-button {
+        -fx-background-insets: px(3);
+        & .shape {
+          -fx-background-color: -on-surface-color;
+          @extend %arrow-back-icon;
+        }
 
-  .menu-container {
+        &:pressed {
+          -fx-background-color: rgba(0, 0, 0, .075);
+        }
 
-  }
-
-  #back-button {
-    @extend %button;
-
-    & #menu-icon-view {
-
+        &:hover {
+          -fx-cursor: hand;
+        }
+      }
     }
 
-    & #back-icon-view {
+    & .pretty-scroll-pane {
+      -fx-background-color: transparent;
 
-    }
-  }
+      & .viewport {
+        -fx-background-color: transparent;
 
-  .logo {
-    @include margin(20, 0, 0, 0);
-    -fx-alignment: center-left;
-  }
+        & .menu-container {
+          -fx-padding: 1.5em 1em 1.5em 1em;
 
-  .drawer-box {
+          & .menu-item {
+            // styles for all items
+            -fx-graphic-text-gap: .5em;
 
-  }
+            -fx-pref-height: px(40);
+            -fx-border-width: 0;
+            -fx-background-radius: px(5);
+            -fx-padding: 0 1em 0 1em;
 
-  .header {
-    -fx-spacing: 25;
-    -fx-alignment: center;
-    -fx-background-color: -prim-color;
+            & .glyph-icon,
+            & .text {
+              -fx-fill: -on-surface-color;
+            }
 
-    .separator .line {
-      -fx-border-color: -text-color;
-      -fx-border-width: 1;
+            &:focused {
+              -fx-background-color: transparent;
+            }
+
+            &:hover,
+            &:showing {
+              -fx-background-color: rgba(0, 0, 0, .075);
+              -fx-cursor: hand;
+
+              & .label {
+                & .glyph-icon,
+                & .text {
+                  -fx-fill: -on-surface-color;
+                }
+              }
+              & .arrow-button .arrow {
+                -fx-background-color: -on-surface-color;
+              }
+            }
+          }
+
+          & .button {
+            -fx-alignment: CENTER_LEFT;
+
+            &:pressed {
+              -fx-background-color: rgba(0, 0, 0, .1);
+            }
+          }
+
+          & .menu-button .arrow-button {
+            -fx-padding: 0 0 0 1.5em;
+            -fx-background-insets: 0;
+
+            & .arrow {
+              @extend %arrow-right-icon;
+
+              -shape-width: px(3.333); // Shrink arrow down
+              -shape-height: px(6.667); // Shrink arrow down
+              -fx-max-width: -shape-width;
+              -fx-max-height: -shape-height;
+              -fx-min-width: -shape-width;
+              -fx-min-height: -shape-height;
+              -fx-pref-width: -shape-width;
+              -fx-pref-height: -shape-height;
+
+              -fx-background-color: -on-surface-color;
+            }
+          }
+
+          // @extend %context-menu;
+          // The CSS for the context menu can be found in the context-menu.css file.
+        }
+      }
+
+      & .scroll-bar {
+        $size: px(14);
+        $scroll-pane-padding: px(2);
+
+        %zero-size {
+          -fx-pref-width: 0;
+          -fx-pref-height: 0;
+        }
+
+        -fx-pref-width: $size;
+        -fx-pref-height: $size;
+        -fx-padding: $scroll-pane-padding;
+        -fx-background-color: transparent;
+
+        & .thumb {
+          -fx-background-color: rgba(0, 0, 0, .075);
+          -fx-background-radius: px(999);
+          -fx-pref-width: $size;
+          -fx-pref-height: $size;
+        }
+
+        & .increment-button,
+        & .increment-arrow,
+        & .decrement-button,
+        & .decrement-arrow {
+          @extend %zero-size;
+        }
+
+        &:vertical .thumb {
+          -fx-background-insets: $scroll-pane-padding*5 $scroll-pane-padding $scroll-pane-padding*5 0;
+        }
+        &:horizontal .thumb {
+          -fx-background-insets: 0 $scroll-pane-padding*5 $scroll-pane-padding $scroll-pane-padding*5;
+        }
+      }
     }
   }
 }

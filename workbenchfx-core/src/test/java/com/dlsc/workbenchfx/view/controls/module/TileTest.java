@@ -78,11 +78,19 @@ class TileTest extends ApplicationTest {
   void testModuleListener() {
     assertEquals("Module 0", tile.getName());
     assertEquals("Module Icon 0", ((Label) tile.getIcon()).getText());
+    assertEquals("tile-module-0", tile.getId());
 
     // change to module 1
     tile.setModule(mockModules[1]);
     assertEquals("Module 1", tile.getName());
     assertEquals("Module Icon 1", ((Label) tile.getIcon()).getText());
+    assertEquals("tile-module-1", tile.getId());
+
+    tile.setModule(createMockModule(new Label("node"), new Label("icon"), true,
+        "Name\nwith\nbreaks", mockBench));
+    assertEquals("Name\nwith\nbreaks", tile.getName());
+    assertEquals("icon", ((Label) tile.getIcon()).getText());
+    assertEquals("tile-namewithbreaks", tile.getId());
   }
 
   @Test

@@ -10,14 +10,14 @@ import javafx.scene.layout.StackPane;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class HomeView extends StackPane implements View {
+public class AddModuleView extends StackPane implements View {
   AnchorPane tilePane;
   Pagination pagination;
 
   /**
-   * Creates a new {@link HomeView}.
+   * Creates a new {@link AddModuleView}.
    */
-  public HomeView() {
+  public AddModuleView() {
     init();
   }
 
@@ -26,7 +26,7 @@ public class HomeView extends StackPane implements View {
    */
   @Override
   public void initializeSelf() {
-    setId("home");
+    setId("add-module-view");
   }
 
   /**

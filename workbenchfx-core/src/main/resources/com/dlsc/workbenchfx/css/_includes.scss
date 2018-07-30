@@ -1,189 +1,243 @@
-// Sets a margin for all sides of the element
-@mixin margin-all($margin) {
-  -fx-padding: $margin;
-  -fx-border-insets: $margin;
-  -fx-background-insets: $margin;
-}
-
-// Sets a margin for each side of the element. Order: Top, Right, Bottom, Left
-@mixin margin($margin-top, $margin-right, $margin-bottom, $margin-left) {
-  -fx-padding: $margin-top $margin-right $margin-bottom $margin-left;
-  -fx-border-insets: $margin-top $margin-right $margin-bottom $margin-left;
-  -fx-background-insets: $margin-top $margin-right $margin-bottom $margin-left;
-}
-
-//Initiating the basic behaviour of any item in the toolbar
-%toolbar-setup {
-  -fx-pref-height: $pref-size;
-  -fx-background-color: -prim-color;
-  -fx-padding: .5em;
-  -fx-spacing: .5em;
-  -fx-alignment: center center;
-  -fx-background-radius: 0;
-  -fx-border-radius: 0;
-  -fx-background-insets: 0;
-  -fx-text-fill: -text-color;
-
-  -fx-border-width: 0;
-  -fx-border-color: -prim-color;
-
-  &:focused {
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
-  }
-
-  &:hover {
-    -fx-cursor: hand;
-  }
-
-  & .label {
-    -fx-text-fill: -text-color;
-  }
-}
-
-%menu-item {
-  & .menu-item {
-    -fx-padding: 1em 1.5em 1em 1.5em;
-    -fx-alignment: center-left;
-    -fx-background-radius: 0;
-    -fx-background-color: -text-color;
-    -fx-text-fill: -prim-color;
-    -icons-color: -prim-color;
-
-    // Hovering in the global menu
-    &:hover {
-      -fx-cursor: hand;
-      -fx-background-color: derive(-text-color, $darken-percentage);
-
-      & .label {
-        -fx-text-fill: -prim-color;
-      }
-    }
-
-    &:focused {
-      // Also active when hovering through the submenus
-      -fx-background-color: derive(-text-color, $darken-percentage);
-      -fx-text-fill: -prim-color;
-      & .label, > .label {
-        -fx-text-fill: -prim-color;
-      }
-    }
-
-    & > .graphic-container {
-      -fx-padding: 0 0.5em 0 0.5em;
-    }
-
-    & > .label {
-      -icons-color: -prim-color;
-      -fx-text-fill: -prim-color;
-    }
-
-    & > .arrow-button {
-      & > .arrow {
-        -fx-background-color: -prim-color;
-      }
-    }
-  }
+@function px($px) {
+  @return 1em / 14 * $px; // 14px is defined by the default material design font-size
 }
 
 %context-menu {
-  // When any Submenu opens
-  & .context-menu {
-    -fx-background-color: -text-color;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 15, .3, 2, 4);
+  .context-menu {
+    -fx-background-color: -surface-color;
+    -fx-background-radius: px(5);
+    -fx-effect: -drop-shadow-3;
+    -fx-padding: .5em 0 .5em 0;
 
-    // ArrowMenuItem
-    & > .scroll-arrow {
-      -fx-padding: .75em;
-      -fx-background-color: -prim-color;
+    & .menu-item {
+      -fx-background-radius: 0;
+      -fx-padding: .75em 1.25em .75em 1.25em;
+
+      & .glyph-icon {
+        -fx-fill: -on-surface-color;
+      }
+
+      & .label {
+        -fx-padding: 0 2em 0 .25em;
+
+        & .text {
+          -fx-fill: -on-surface-color;
+        }
+      }
+
+      & .right-container > .arrow {
+        -fx-background-color: -on-surface-color;
+      }
+
+      &:focused {
+        -fx-background-color: rgba(0, 0, 0, .075);
+      }
 
       &:hover {
-        -fx-background-color: derive(-prim-color, $darken-percentage);
+        -fx-cursor: hand;
+      }
+    }
+
+    & .menu:hover {
+      -fx-cursor: inherit;
+    }
+
+    & > .scroll-arrow {
+      // ArrowMenuItem when having a lot of items
+      -fx-padding: 1em;
+
+      &:hover {
+        -fx-background-color: rgba(0, 0, 0, .075);
       }
 
       & .menu-up-arrow {
-        -fx-background-color: -text-color;
+        -fx-background-color: -on-surface-color;
+        @extend %arrow-right-icon;
+        -fx-rotate: -90;
+
+        -fx-pref-width: -shape-width;
+        -fx-pref-height: -shape-height;
       }
 
       & .menu-down-arrow {
-        -fx-background-color: -text-color;
+        -fx-background-color: -on-surface-color;
+        @extend %arrow-right-icon;
+        -fx-rotate: 90;
+
+        -fx-pref-width: -shape-width;
+        -fx-pref-height: -shape-height;
       }
     }
+  }
+}
 
-    .menu {
-      &:hover > .right-container > .arrow {
-        -fx-background-color: -prim-color;
-      }
-      &:focused > .right-container > .arrow {
-        -fx-background-color: -prim-color;
+%dropdown {
+  & .toolbar-menu-button {
+    -fx-max-height: px(34);
+
+    & .dropdown {
+      -fx-background-insets: 0; // Remove the border from bottom
+      -fx-padding: 0 1em 0 .25em;
+      -fx-graphic-text-gap: .5em;
+      -fx-pref-height: px(34);
+      -fx-background-color: -primary-color;
+      -fx-background-radius: px(2);
+      -fx-border-width: 0;
+
+      & .label {
+        & .glyph-icon {
+          -fx-fill: -on-primary-color;
+        }
+        & .image-view {
+
+        }
+        & .text {
+          -fx-fill: -on-primary-color;
+        }
       }
 
-      & > .right-container > .arrow {
-        // Default color of the arrow
-        -fx-background-color: -prim-color;
+      & .arrow-button {
+        -fx-padding: 0;
+        -fx-background-insets: 0;
+
+        & .arrow {
+          @extend %arrow-right-icon;
+          -fx-rotate: 90;
+
+          -shape-width: px(2.5) !important; // Shrink arrow down
+          -shape-height: px(5) !important; // Shrink arrow down
+          -fx-max-width: -shape-width;
+          -fx-max-height: -shape-height;
+          -fx-min-width: -shape-width;
+          -fx-min-height: -shape-height;
+          -fx-pref-width: -shape-width;
+          -fx-pref-height: -shape-height;
+
+          -fx-background-color: -on-primary-color;
+        }
+      }
+
+      &:hover {
+        -fx-cursor: hand;
+      }
+
+      &:showing {
+        -fx-background-color: -primary-variant-color;
+
+        & .arrow-button .arrow {
+          -fx-rotate: -90;
+        }
       }
     }
+  }
+}
 
-    & .menu-item {
-      -icons-color: -prim-color;
+%button-base {
+  & .button {
+    -fx-background-insets: 0; // Remove the border from bottom
+    -fx-padding: 0 .75em 0 .75em;
+    -fx-graphic-text-gap: .5em;
+    -fx-pref-height: px(34);
+    -fx-background-color: -primary-color;
+    -fx-background-radius: px(2);
+    -fx-border-width: 0;
 
-      & > .label {
-        -fx-text-fill: -prim-color;
-      }
+    & .glyph-icon {
+      -fx-fill: -on-primary-color;
+    }
+
+    & .text {
+      -fx-fill: -on-primary-color;
     }
 
     &:hover {
       -fx-cursor: hand;
     }
+    &:pressed {
+      -fx-background-color: -primary-variant-color;
+    }
   }
 }
 
-%button {
-  @extend %toolbar-setup;
-  -fx-min-width: $pref-size;
-  -fx-text-fill: -text-color;
+// Base format of an icon: two StackPanes into each other.
+%icon-base {
+  & .icon {
+    -fx-background-color: transparent;
+    // tablet
+    //-icon-size: 48px;
+    // desktop
+    -icon-size: px(40);
+    -fx-max-width: -icon-size;
+    -fx-max-height: -icon-size;
+    -fx-min-width: -icon-size;
+    -fx-min-height: -icon-size;
+    -fx-pref-width: -icon-size;
+    -fx-pref-height: -icon-size;
 
-  & > .label {
-    -fx-min-width: null;
-    -fx-text-fill: -text-color;
-  }
-
-  &:hover {
-    -fx-background-color: derive(-prim-color, $darken-percentage);
-  }
-
-  &:pressed {
-    -fx-background-color: derive(-prim-color, $darken-percentage);
+    & .shape {
+      // tablet
+      //-shape-width: 20px;
+      //-shape-height: 20px;
+      // desktop
+      -shape-width: px(16);
+      -shape-height: px(16);
+      -fx-max-width: -shape-width;
+      -fx-max-height: -shape-height;
+      -fx-min-width: -shape-width;
+      -fx-min-height: -shape-height;
+      -fx-pref-width: -shape-width;
+      -fx-pref-height: -shape-height;
+    }
   }
 }
 
-%button-inverted {
-  @extend %button;
-  -fx-background-color: -text-color;
-  -fx-text-fill: -prim-color;
+// ----- SVG paths of material design icons ---------------------------------------------------- //
+// ----- Designs available at: ----------------------------------------------------------------- //
+// ----- https://material.io/tools/icons/?icon=vertical_split&style=baseline ------------------- //
+%add-icon {
+  -fx-shape: "M 19 13 L 13 13 L 13 19 L 11 19 L 11 13 L 5 13 L 5 11 L 11 11 L 11 5 L 13 5 L 13 11 L 19 11 L 19 13 Z";
+  //-shape-width: 14px; // -> tablet size
+  //-shape-height: 14px; // -> tablet size
+  -shape-width: px(11.667);
+  -shape-height: px(11.667);
+}
 
-  & .glyph-icon {
-    -fx-fill: -prim-color;
-  }
+%arrow-back-icon {
+  -fx-shape: "M 20 11 L 7.83 11 L 13.42 5.41 L 12 4 L 4 12 L 12 20 L 13.41 18.59 L 7.83 13 L 20 13 L 20 11 Z";
+  //-shape-width: 16px; // -> tablet size
+  //-shape-height: 16px; // -> tablet size
+  -shape-width: px(13.333);
+  -shape-height: px(13.333);
+}
 
-  & > .label {
-    -fx-text-fill: -prim-color;
-  }
+%arrow-right-icon {
+  -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z";
+  //-shape-width: 5px; // -> tablet size
+  //-shape-height: 10px; // -> tablet size
+  -shape-width: px(4.167);
+  -shape-height: px(8.333);
+}
 
-  &:hover {
-    -fx-background-color: -prim-color;
-    -fx-text-fill: -text-color;
+%cancel-icon {
+  -fx-shape: "M 12 2 C 6.47 2 2 6.47 2 12 C 2 17.53 6.47 22 12 22 C 17.53 22 22 17.53 22 12 C 22 6.47 17.53 2 12 2 Z M 17 15.59 L 15.59 17 L 12 13.41 L 8.41 17 L 7 15.59 L 10.59 12 L 7 8.41 L 8.41 7 L 12 10.59 L 15.59 7 L 17 8.41 L 13.41 12 L 17 15.59 Z";
+  //-shape-width: 20px; // -> tablet size
+  //-shape-height: 20px; // -> tablet size
+  -shape-width: px(16.667);
+  -shape-height: px(16.667);
+}
 
-    & .glyph-icon {
-      -fx-fill: -text-color;
-    }
+%close-icon {
+  -fx-shape: "M 19 6.41 L 17.59 5 L 12 10.59 L 6.41 5 L 5 6.41 L 10.59 12 L 5 17.59 L 6.41 19 L 12 13.41 L 17.59 19 L 19 17.59 L 13.41 12 Z";
+  //-shape-width: 14px; // -> tablet size
+  //-shape-height: 14px; // -> tablet size
+  -shape-width: px(11.667);
+  -shape-height: px(11.667);
+}
 
-    & > .label {
-      -fx-text-fill: -text-color;
-    }
-  }
-
-  &:pressed {
-    -fx-background-color: derive(-prim-color, $darken-percentage);
-  }
+%menu-icon {
+  -fx-shape: "M 3 18 L 21 18 L 21 16 L 3 16 L 3 18 Z M 3 13 L 21 13 L 21 11 L 3 11 L 3 13 Z M 3 6 L 3 8 L 21 8 L 21 6 L 3 6 Z";
+  //-shape-width: 18px; // -> tablet size
+  //-shape-height: 12px; // -> tablet size
+  -shape-width: px(15);
+  -shape-height: px(10);
 }
