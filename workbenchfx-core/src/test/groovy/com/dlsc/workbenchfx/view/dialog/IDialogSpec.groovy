@@ -78,7 +78,9 @@ class IDialogSpec extends ApplicationSpec {
         }
 
         when: "Key is pressed"
-        push(keyPress)
+        interact {
+            push(keyPress)
+        }
 
         then:
         dialogHidden == (amountDialogShowing() == 0)
