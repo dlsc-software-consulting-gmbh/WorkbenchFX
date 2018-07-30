@@ -5,10 +5,13 @@ import com.dlsc.workbenchfx.model.WorkbenchModule;
 import java.util.LinkedHashSet;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
@@ -29,9 +32,8 @@ public class ToolbarControl extends HBox {
   private WorkbenchModule workbenchModule;
 
   // The content of the two HBoxes listens to the two Sets and will be set on change.
-  private final SetProperty<Node> toolbarControlsLeft = new SimpleSetProperty<>(this,
-      "toolbarControlsLeft",
-      FXCollections.observableSet(new LinkedHashSet<>()));
+  private final ListProperty<Node> toolbarControlsLeft = new SimpleListProperty<>(this,
+      "toolbarControlsLeft", FXCollections.observableArrayList());
   private final SetProperty<Node> toolbarControlsRight = new SimpleSetProperty<>(this,
       "toolbarControlsRight",
       FXCollections.observableSet(new LinkedHashSet<>()));
@@ -96,15 +98,15 @@ public class ToolbarControl extends HBox {
     this.empty.set(empty);
   }
 
-  public ObservableSet<Node> getToolbarControlsLeft() {
+  public ObservableList<Node> getToolbarControlsLeft() {
     return toolbarControlsLeft.get();
   }
 
-  public SetProperty<Node> toolbarControlsLeftProperty() {
+  public ListProperty<Node> toolbarControlsLeftProperty() {
     return toolbarControlsLeft;
   }
 
-  public void setToolbarControlsLeft(ObservableSet<Node> toolbarControlsLeft) {
+  public void setToolbarControlsLeft(ObservableList<Node> toolbarControlsLeft) {
     this.toolbarControlsLeft.set(toolbarControlsLeft);
   }
 

@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.SetProperty;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
@@ -79,7 +80,7 @@ public class ContentView extends BorderPane implements View {
     return toolbarControl.emptyProperty();
   }
 
-  SetProperty<Node> toolbarControlsLeft() {
+  ListProperty<Node> toolbarControlsLeft() {
     return toolbarControl.toolbarControlsLeftProperty();
   }
 

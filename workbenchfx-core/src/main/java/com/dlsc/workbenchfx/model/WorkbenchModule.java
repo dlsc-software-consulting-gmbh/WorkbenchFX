@@ -6,6 +6,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -30,8 +31,8 @@ public abstract class WorkbenchModule {
   private Image imgIcon;
 
   // The sets which store the toolbar icons which are displayed in the modules toolbar
-  private final ObservableSet<Node> toolbarControlsLeft =
-      FXCollections.observableSet(new LinkedHashSet<>());
+  private final ObservableList<Node> toolbarControlsLeft =
+      FXCollections.observableArrayList();
   private final ObservableSet<Node> toolbarControlsRight =
       FXCollections.observableSet(new LinkedHashSet<>());
 
@@ -177,7 +178,7 @@ public abstract class WorkbenchModule {
    * @return the {@link ObservableSet} of items which are displayed on the left side of the
    *         automatically generated toolbar
    */
-  public ObservableSet<Node> getToolbarControlsLeft() {
+  public ObservableList<Node> getToolbarControlsLeft() {
     return toolbarControlsLeft;
   }
 

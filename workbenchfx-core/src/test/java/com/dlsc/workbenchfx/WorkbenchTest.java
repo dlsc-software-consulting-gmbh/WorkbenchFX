@@ -134,7 +134,7 @@ class WorkbenchTest extends ApplicationTest {
     for (int i = 0; i < mockModules.length; i++) {
       mockModules[i] = createMockModule(
           moduleNodes[i], null, true, "Module " + i, workbench,
-          FXCollections.observableSet(), FXCollections.observableSet()
+          FXCollections.observableArrayList(), FXCollections.observableSet()
       );
     }
 
@@ -1236,7 +1236,7 @@ class WorkbenchTest extends ApplicationTest {
       String mockModuleName = "Mock Module";
       WorkbenchModule mockModule = createMockModule(
           new Label(),null,true, mockModuleName, workbench,
-          FXCollections.observableSet(), FXCollections.observableSet()
+          FXCollections.observableArrayList(), FXCollections.observableSet()
       );
 
       assertTrue(workbench.getModules().add(mockModule));

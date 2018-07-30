@@ -29,7 +29,7 @@ public class ToolbarPresenter extends Presenter {
 
   // Strong reference to prevent garbage collection
   private final ObservableList<MenuItem> navigationDrawerItems;
-  private final ObservableSet<Node> toolbarControlsLeft;
+  private final ObservableList<Node> toolbarControlsLeft;
   private final ObservableSet<Node> toolbarControlsRight;
   private final ObservableList<WorkbenchModule> openModules;
 
