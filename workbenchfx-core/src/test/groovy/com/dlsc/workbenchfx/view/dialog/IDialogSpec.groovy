@@ -14,6 +14,7 @@ import org.testfx.framework.spock.ApplicationSpec
 import spock.lang.Unroll
 
 import java.util.function.Consumer
+import java.util.stream.Collectors
 
 @Unroll
 /**
@@ -57,7 +58,7 @@ class IDialogSpec extends ApplicationSpec {
         FxToolkit.hideStage()
     }
 
-    def "Test behavior of dialogs when pressing the Escape or Enter key"() {
+    def "When pressing #keyPress on a #isBlocking dialog with #buttonsUsed #buttonsBarShown then #isDialogHidden #withResult"() {
         given:
         1 * mockShownHandler.handle((Event) _)
         WorkbenchDialog dialog
@@ -111,6 +112,13 @@ class IDialogSpec extends ApplicationSpec {
         true     | [ButtonType.OK]                    | KeyCode.ESCAPE | false          || false        | _
         true     | []                                 | KeyCode.ENTER  | true           || false        | _
         true     | []                                 | KeyCode.ESCAPE | true           || false        | _
+
+        isBlocking = blocking ? "blocking" : "non-blocking"
+        buttonsBarShown = showButtonsBar ? "" : "with no buttons showing,"
+        isDialogHidden = dialogHidden ? "the dialog gets hidden" : "the dialog stays visible"
+        prettyButtonTypes = buttonTypes.stream().map{ it -> it.getText() }.collect(Collectors.joining(" and "))
+        buttonsUsed = buttonTypes.size() == 0 ? "no buttons," : prettyButtonTypes + ","
+        withResult = result == _ ? "" : "with " + result.getText()
     }
 
     def amountDialogShowing() {
