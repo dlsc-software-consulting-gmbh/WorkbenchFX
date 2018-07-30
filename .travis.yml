@@ -2,8 +2,6 @@ language: java
 
 sudo: false   # Linux OS: run in container
 
-os: linux
-dist: trusty
 jdk: oraclejdk9
 
 addons:
@@ -28,7 +26,7 @@ cache:
   directories:
   - $HOME/.m2
 
-script: mvn -pl "!workbenchfx-dirk" test -B
+script: mvn -pl "!workbenchfx-dirk" clean test -B
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
