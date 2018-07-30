@@ -2,11 +2,15 @@ package com.dlsc.workbenchfx.view.dialog
 
 import com.dlsc.workbenchfx.Workbench
 import com.dlsc.workbenchfx.model.WorkbenchDialog
+import com.dlsc.workbenchfx.view.controls.GlassPane
 import javafx.event.Event
 import javafx.event.EventHandler
+import javafx.scene.Node
 import javafx.scene.Scene
 import javafx.scene.control.ButtonType
 import javafx.scene.input.KeyCode
+import javafx.scene.input.MouseButton
+import javafx.scene.input.MouseEvent
 import javafx.stage.Stage
 import org.testfx.api.FxRobot
 import org.testfx.api.FxToolkit
@@ -119,6 +123,72 @@ class IDialogSpec extends ApplicationSpec {
         prettyButtonTypes = buttonTypes.stream().map{ it -> it.getText() }.collect(Collectors.joining(" and "))
         buttonsUsed = buttonTypes.size() == 0 ? "no buttons," : prettyButtonTypes + ","
         withResult = result == _ ? "" : "with " + result.getText()
+    }
+
+    def "When clicking on the GlassPane of a #isBlocking dialog with #buttonsUsed #buttonsBarShown then #isDialogHidden #withResult"() {
+        given:
+        1 * mockShownHandler.handle((Event) _)
+        WorkbenchDialog dialog
+        interact {
+            dialog = WorkbenchDialog.builder(TITLE, MESSAGE, buttonTypes as ButtonType[])
+                    .blocking(blocking)
+                    .onShown(mockShownHandler)
+                    .onHidden(mockHiddenHandler)
+                    .onResult(mockOnResultHandler)
+                    .showButtonsBar(showButtonsBar)
+                    .build()
+            workbench.showDialog(dialog)
+        }
+
+        when: "GlassPane is clicked"
+        simulateGlassPaneClick(dialog.getDialogControl())
+
+        then:
+        dialogHidden == (amountDialogShowing() == 0)
+        if (dialogHidden) {
+            1 * mockHiddenHandler.handle((Event) _)
+            1 * mockOnResultHandler.accept(_) >> { arguments ->
+                ButtonType buttonType = arguments[0] // capture ButtonType that was set as result
+                assert result == buttonType
+            }
+        }
+
+        where:
+        blocking | buttonTypes                        | showButtonsBar || dialogHidden | result
+        false    | [ButtonType.OK, ButtonType.CANCEL] | true           || true         | ButtonType.CANCEL
+        false    | [ButtonType.CLOSE]                 | true           || true         | ButtonType.CLOSE
+        false    | [ButtonType.YES, ButtonType.NO]    | true           || true         | ButtonType.NO
+        false    | [ButtonType.OK]                    | true           || true         | ButtonType.CANCEL
+        false    | [ButtonType.OK]                    | false          || true         | ButtonType.CANCEL
+        false    | []                                 | true           || true         | ButtonType.CANCEL
+        true     | [ButtonType.OK, ButtonType.CANCEL] | true           || false        | _
+        true     | [ButtonType.CLOSE]                 | true           || false        | _
+        true     | [ButtonType.YES, ButtonType.NO]    | true           || false        | _
+        true     | [ButtonType.OK]                    | true           || false        | _
+        true     | [ButtonType.OK]                    | false          || false        | _
+        true     | []                                 | true           || false        | _
+
+        isBlocking = blocking ? "blocking" : "non-blocking"
+        buttonsBarShown = showButtonsBar ? "" : "with no buttons showing,"
+        isDialogHidden = dialogHidden ? "the dialog gets hidden" : "the dialog stays visible"
+        prettyButtonTypes = buttonTypes.stream().map{ it -> it.getText() }.collect(Collectors.joining(" and "))
+        buttonsUsed = buttonTypes.size() == 0 ? "no buttons," : prettyButtonTypes + ","
+        withResult = result == _ ? "" : "with " + result.getText()
+    }
+
+    /**
+     * Internal testing method that will simulate a click on a {@link com.dlsc.workbenchfx.view.controls.GlassPane} of
+     * an {@code overlayNode}.
+     *
+     * @param overlayNode of which the GlassPane should be clicked
+     */
+    def simulateGlassPaneClick(Node overlayNode) {
+        GlassPane glassPane = workbench.getOverlays().get(overlayNode);
+        glassPane.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0,
+                MouseButton.PRIMARY, 1,
+                false, false, false, false, true, false, false, false, false, false,
+                null)
+        );
     }
 
     def amountDialogShowing() {
