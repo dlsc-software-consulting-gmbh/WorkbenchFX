@@ -51,7 +51,7 @@ public class ContentPresenter extends Presenter {
   @Override
   public void setupValueChangedListeners() {
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
-      view.removeToolbar(); // Remove toolbar
+      view.showToolbar(false); // Remove toolbar
 
       if (Objects.isNull(newModule)) {
         // The active module is null -> therefore setting the addModuleView
@@ -65,17 +65,13 @@ public class ContentPresenter extends Presenter {
         // Setting the new chosen module in the toolbar -> the content of the toolbar changes
         view.setModuleInToolbar(newModule);
         if (!view.toolbarEmptyProperty().get()) {
-          view.addToolbar(); // Initially add the toolbar, if its not empty
+          view.showToolbar(true); // Initially add the toolbar, if its not empty
         }
 
         // Adding the listener -> add/remove the toolbar when empty
-        view.toolbarEmptyProperty().addListener((observable1, wasEmpty, isEmpty) -> {
-          if (!isEmpty) {
-            view.addToolbar();
-          } else {
-            view.removeToolbar();
-          }
-        });
+        view.toolbarEmptyProperty().addListener(
+            (observable1, wasEmpty, isEmpty) -> view.showToolbar(!isEmpty)
+        );
       }
     });
   }

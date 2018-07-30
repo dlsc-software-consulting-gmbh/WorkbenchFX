@@ -62,12 +62,12 @@ public class ContentView extends BorderPane implements View {
     setCenter(node);
   }
 
-  void addToolbar() {
-    setTop(toolbarControl);
-  }
-
-  void removeToolbar() {
-    setTop(null);
+  /**
+   * Displays the {@link ToolbarControl} based on the given parameter.
+   * @param show true if the {@link ToolbarControl} should be displayed, false if not
+   */
+  void showToolbar(boolean show) {
+    setTop(show ? toolbarControl : null);
   }
 
   void setAddModuleView() {
