@@ -99,6 +99,18 @@ class IDialogSpec extends ApplicationSpec {
         false    | [ButtonType.OK]                    | KeyCode.ESCAPE | false          || true         | ButtonType.CANCEL
         false    | []                                 | KeyCode.ENTER  | true           || false        | _
         false    | []                                 | KeyCode.ESCAPE | true           || true         | ButtonType.CANCEL
+        true     | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ENTER  | true           || true         | ButtonType.OK
+        true     | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ESCAPE | true           || false        | _
+        true     | [ButtonType.CLOSE]                 | KeyCode.ENTER  | true           || true         | ButtonType.CLOSE
+        true     | [ButtonType.CLOSE]                 | KeyCode.ESCAPE | true           || false        | _
+        true     | [ButtonType.YES, ButtonType.NO]    | KeyCode.ENTER  | true           || true         | ButtonType.YES
+        true     | [ButtonType.YES, ButtonType.NO]    | KeyCode.ESCAPE | true           || false        | _
+        true     | [ButtonType.OK]                    | KeyCode.ENTER  | true           || true         | ButtonType.OK
+        true     | [ButtonType.OK]                    | KeyCode.ESCAPE | true           || false        | _
+        true     | [ButtonType.OK]                    | KeyCode.ENTER  | false          || false        | _
+        true     | [ButtonType.OK]                    | KeyCode.ESCAPE | false          || false        | _
+        true     | []                                 | KeyCode.ENTER  | true           || false        | _
+        true     | []                                 | KeyCode.ESCAPE | true           || false        | _
     }
 
     def amountDialogShowing() {
