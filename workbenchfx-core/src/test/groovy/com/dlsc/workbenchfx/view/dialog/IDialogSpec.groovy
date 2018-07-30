@@ -7,9 +7,9 @@ import javafx.event.EventHandler
 import javafx.scene.Scene
 import javafx.scene.control.ButtonType
 import javafx.scene.input.KeyCode
-import javafx.scene.input.KeyEvent
 import javafx.stage.Stage
 import org.testfx.api.FxRobot
+import org.testfx.api.FxToolkit
 import org.testfx.framework.spock.ApplicationSpec
 import spock.lang.Unroll
 
@@ -28,21 +28,22 @@ class IDialogSpec extends ApplicationSpec {
     private FxRobot robot
     private Workbench workbench
 
-    private EventHandler<Event> mockShownHandler
-    private EventHandler<Event> mockHiddenHandler
-    private Consumer<ButtonType> mockOnResultHandler
+    private EventHandler<Event> mockShownHandler = Mock()
+    private EventHandler<Event> mockHiddenHandler = Mock()
+    private Consumer<ButtonType> mockOnResultHandler = Mock()
 
     private Stage stage
+
+    @Override
+    void init() throws Exception {
+        FxToolkit.registerStage { new Stage() }
+    }
 
     @Override
     void start(Stage stage) {
         this.stage = stage
 
         robot = new FxRobot()
-
-        mockShownHandler = Mock()
-        mockHiddenHandler = Mock()
-        mockOnResultHandler = Mock()
 
         workbench = new Workbench()
 
@@ -51,10 +52,16 @@ class IDialogSpec extends ApplicationSpec {
         stage.show()
     }
 
+    @Override
+    void stop() throws Exception {
+        FxToolkit.hideStage()
+    }
+
     def "Test behavior of dialogs when pressing the Escape or Enter key"() {
         given:
+        1 * mockShownHandler.handle((Event) _)
         WorkbenchDialog dialog
-        robot.interact {
+        interact {
             dialog = WorkbenchDialog.builder(TITLE, MESSAGE, buttonTypes as ButtonType[])
                     .blocking(blocking)
                     .onShown(mockShownHandler)
@@ -62,22 +69,18 @@ class IDialogSpec extends ApplicationSpec {
                     .onResult(mockOnResultHandler)
                     .build()
             workbench.showDialog(dialog)
-            1 * mockShownHandler.handle((Event)_)
-            0 * mockHiddenHandler.handle((Event)_)
         }
 
         when: "Key is pressed"
-        KeyEvent press = new KeyEvent(workbench, workbench, KeyEvent.KEY_TYPED, "", "", keyPress, false, false, false, false);
-        workbench.fireEvent(press);
-
+        push(keyPress)
 
         then:
         dialogHidden == (amountDialogShowing() == 0)
         if (dialogHidden) {
-            1 * mockHiddenHandler.handle((Event) _)
-            1 * mockOnResultHandler.accept(_) >> { arguments ->
-                ButtonType buttonType = arguments[0] // capture ButtonType that was set as result
-                assert result == buttonType
+                1 * mockHiddenHandler.handle((Event) _)
+                1 * mockOnResultHandler.accept(_) >> { arguments ->
+                    ButtonType buttonType = arguments[0] // capture ButtonType that was set as result
+                    assert result == buttonType
             }
         }
 
@@ -91,8 +94,8 @@ class IDialogSpec extends ApplicationSpec {
         false    | [ButtonType.YES, ButtonType.NO]    | KeyCode.ESCAPE || true         | ButtonType.NO
         false    | [ButtonType.OK]                    | KeyCode.ENTER  || true         | ButtonType.OK
         false    | [ButtonType.OK]                    | KeyCode.ESCAPE || true         | ButtonType.CANCEL
-        false    | []                                 | KeyCode.ENTER  || false        | ButtonType.OK
-        false    | []                                 | KeyCode.ESCAPE || true        | ButtonType.CANCEL
+        false    | []                                 | KeyCode.ENTER  || false        | _
+        false    | []                                 | KeyCode.ESCAPE || true         | ButtonType.CANCEL
     }
 
     def amountDialogShowing() {
