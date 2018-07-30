@@ -1,6 +1,8 @@
 package com.dlsc.workbenchfx.view;
 
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarControl;
+import javafx.beans.property.BooleanProperty;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import org.apache.logging.log4j.LogManager;
@@ -15,8 +17,8 @@ import org.apache.logging.log4j.Logger;
 public class ContentView extends BorderPane implements View {
 
   private static final Logger LOGGER = LogManager.getLogger(ContentView.class.getName());
-  ToolbarControl moduleToolbarControl;
-  private AddModuleView addModuleView;
+  ToolbarControl toolbarControl;
+  AddModuleView addModuleView;
 
   /**
    * Creates a new {@link ContentView}.
@@ -39,7 +41,7 @@ public class ContentView extends BorderPane implements View {
    */
   @Override
   public void initializeParts() {
-    moduleToolbarControl = new ToolbarControl();
+    toolbarControl = new ToolbarControl();
   }
 
   /**
@@ -61,7 +63,7 @@ public class ContentView extends BorderPane implements View {
   }
 
   void addToolbar() {
-    setTop(moduleToolbarControl);
+    setTop(toolbarControl);
   }
 
   void removeToolbar() {
@@ -70,5 +72,13 @@ public class ContentView extends BorderPane implements View {
 
   void setAddModuleView() {
     setCenter(addModuleView);
+  }
+
+  void setModuleInToolbar(WorkbenchModule workbenchModule) {
+    toolbarControl.setModule(workbenchModule);
+  }
+
+  BooleanProperty toolbarEmptyProperty() {
+    return toolbarControl.emptyProperty();
   }
 }

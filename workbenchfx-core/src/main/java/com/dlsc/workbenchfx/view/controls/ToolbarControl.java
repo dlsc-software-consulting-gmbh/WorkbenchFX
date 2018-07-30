@@ -3,7 +3,9 @@ package com.dlsc.workbenchfx.view.controls;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import javafx.beans.InvalidationListener;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SetProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
@@ -33,6 +35,13 @@ public class ToolbarControl extends HBox {
       "toolbarControlsRight",
       FXCollections.observableSet());
 
+  private final InvalidationListener emptyListener = observable -> setEmpty(
+      toolbarControlLeftBox.getChildren().isEmpty()
+          && toolbarControlRightBox.getChildren().isEmpty()
+  );
+
+  private final BooleanProperty empty = new SimpleBooleanProperty(true);
+
   /**
    * Creates an empty {@link ToolbarControl} object and fully initializes it.
    */
@@ -55,8 +64,8 @@ public class ToolbarControl extends HBox {
     toolbarControlRightBox = new HBox();
     toolbarControlRightBox.getStyleClass().add("toolbar-control-right-box");
 
-    ObservableSet<Node> objects = FXCollections.observableSet();
-    toolbarControlLeftBox.getChildren().setAll(objects);
+    ObservableSet<Node> toolbarItems = FXCollections.observableSet();
+    toolbarControlLeftBox.getChildren().setAll(toolbarItems);
   }
 
   private void layoutParts() {
@@ -69,6 +78,8 @@ public class ToolbarControl extends HBox {
         toolbarControlLeftBox.getChildren().setAll(toolbarControlsLeft));
     toolbarControlsRight.addListener((InvalidationListener) c ->
         toolbarControlRightBox.getChildren().setAll(toolbarControlsRight));
+    toolbarControlLeftBox.getChildren().addListener(emptyListener);
+    toolbarControlRightBox.getChildren().addListener(emptyListener);
   }
 
   /**
@@ -87,13 +98,15 @@ public class ToolbarControl extends HBox {
     toolbarControlsRight.bindContent(workbenchModule.getToolbarControlsRight());
   }
 
-  /**
-   * Returns whether the {@link ToolbarControl} is empty or not.
-   *
-   * @return whether the {@link ToolbarControl} is empty or not
-   */
   public boolean isEmpty() {
-    return toolbarControlLeftBox.getChildren().isEmpty()
-        && toolbarControlRightBox.getChildren().isEmpty();
+    return empty.get();
+  }
+
+  public BooleanProperty emptyProperty() {
+    return empty;
+  }
+
+  public void setEmpty(boolean empty) {
+    this.empty.set(empty);
   }
 }
