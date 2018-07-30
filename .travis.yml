@@ -2,26 +2,9 @@ language: java
 
 sudo: false   # Linux OS: run in container
 
+os: linux
+dist: trusty
 jdk: oraclejdk9
-
-matrix:
-  include:
-  # Headed Linux
-  - os: linux
-    dist: trusty
-    jdk: oraclejdk8
-  # Headless Linux
-  - os: linux
-    dist: trusty
-    jdk: oraclejdk8
-    env:
-    - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=2500"
-  # Headless macOS
-  - os: osx
-    osx_image: xcode9
-    env:
-    - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=2500"
-  # Headed macOS is not currently possible on Travis.
 
 addons:
   apt:
