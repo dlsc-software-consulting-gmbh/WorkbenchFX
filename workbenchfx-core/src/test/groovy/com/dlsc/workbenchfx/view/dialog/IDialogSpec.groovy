@@ -6,6 +6,7 @@ import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.scene.Scene
 import javafx.scene.control.ButtonType
+import javafx.scene.input.KeyCode
 import javafx.stage.Stage
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
@@ -47,19 +48,34 @@ class IDialogSpec extends ApplicationSpec {
 
     def "Test"() {
         given:
-        WorkbenchDialog dialog = WorkbenchDialog.builder(TITLE, MESSAGE, buttonTypes)
-                .blocking(blocking)
-                .onShown(mockShownHandler)
-                .onHidden(mockHiddenHandler)
-                .build()
-        workbench.showDialog(dialog)
+        WorkbenchDialog dialog
+        robot.interact {
+            dialog = WorkbenchDialog.builder(TITLE, MESSAGE, buttonTypes as ButtonType[])
+                    .blocking(blocking)
+                    .onShown(mockShownHandler)
+                    .onHidden(mockHiddenHandler)
+                    .build()
+            workbench.showDialog(dialog)
+            1 * mockShownHandler.handle((Event)_)
+            0 * mockHiddenHandler.handle((Event)_)
+        }
 
-        expect:
+        when: "Key is pressed"
+        robot.press(keyPress)
 
+        then:
+        dialogHidden == (amountDialogShowing() == 0)
+        1 * mockHiddenHandler.handle((Event)_)
+        // TODO: compare result
 
         where:
-        blocking | buttonTypes                        || escCloseable | escResult         | enterCloseable | enterResult
-        false    | [ButtonType.OK, ButtonType.CANCEL] || true         | ButtonType.CANCEL | true           | ButtonType.OK
+        blocking | buttonTypes                        | keyPress       || dialogHidden | result
+        false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ENTER  || true         | ButtonType.CANCEL
+        false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ESCAPE || true         | ButtonType.OK
+    }
+
+    def amountDialogShowing() {
+        return workbench.getBlockingOverlaysShown().size() + workbench.getNonBlockingOverlaysShown().size()
     }
 
 }
