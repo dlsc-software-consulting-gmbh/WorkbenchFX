@@ -62,14 +62,20 @@ public class ToolbarPresenter extends Presenter {
     view.addModuleBtn.requestFocus();
 
     // Adds a menuButton if necessary (size of items > 0)
-    if (model.getNavigationDrawerItems().size() > 0) {
-      if (toolbarControlsLeft.size() + toolbarControlsRight.size() == 0) {
-        // Put the button below into the bottomBox
-        view.bottomBox.getChildren().add(0, view.menuBtn);
-      } else {
-        // Put it into the first position of toolbaritemsleft
-        toolbarControlsLeft.add(0, view.menuBtn);
-      }
+    setMenuBtn();
+  }
+
+  private void setMenuBtn() {
+    if (navigationDrawerItems.size() == 0) {
+      // Remove menuBtn
+      view.bottomBox.getChildren().remove(view.menuBtn);
+      toolbarControlsLeft.remove(view.menuBtn);
+    } else if (toolbarControlsLeft.size() + toolbarControlsRight.size() == 0) {
+      // Put the button below into the bottomBox
+      view.bottomBox.getChildren().add(0, view.menuBtn);
+    } else {
+      // Put it into the first position of toolbaritemsleft
+      toolbarControlsLeft.add(0, view.menuBtn);
     }
   }
 
@@ -101,19 +107,9 @@ public class ToolbarPresenter extends Presenter {
     });
 
     // makes sure the menu button is only being displayed if there are navigation drawer items
-    navigationDrawerItems.addListener((InvalidationListener) observable -> {
-      if (navigationDrawerItems.size() == 0) {
-        // Remove menuBtn
-        view.bottomBox.getChildren().remove(view.menuBtn);
-        toolbarControlsLeft.remove(view.menuBtn);
-      } else if (toolbarControlsLeft.size() + toolbarControlsRight.size() == 0) {
-        // Put the button below into the bottomBox
-        view.bottomBox.getChildren().add(0, view.menuBtn);
-      } else {
-        // Put it into the first position of toolbaritemsleft
-        toolbarControlsLeft.add(0, view.menuBtn);
-      }
-    });
+    navigationDrawerItems.addListener((InvalidationListener) observable -> setMenuBtn());
+
+    view.getToolbarControl().emptyProperty().addListener((observable) -> setMenuBtn());
   }
 
   /**
