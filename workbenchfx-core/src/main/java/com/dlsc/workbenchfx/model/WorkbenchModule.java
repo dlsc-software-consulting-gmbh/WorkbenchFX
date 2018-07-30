@@ -29,7 +29,7 @@ public abstract class WorkbenchModule {
   private FontAwesomeIcon faIcon;
   private Image imgIcon;
 
-  // Lists
+  // The sets which store the toolbar icons which are displayed in the modules toolbar
   private final ObservableSet<Node> toolbarControlsLeft =
       FXCollections.observableSet(new LinkedHashSet<>());
   private final ObservableSet<Node> toolbarControlsRight =

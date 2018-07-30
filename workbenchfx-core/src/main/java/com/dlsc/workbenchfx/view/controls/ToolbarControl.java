@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view.controls;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import java.util.LinkedHashSet;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SetProperty;
@@ -30,10 +31,10 @@ public class ToolbarControl extends HBox {
   // The content of the two HBoxes listens to the two Sets and will be set on change.
   private final SetProperty<Node> toolbarControlsLeft = new SimpleSetProperty<>(this,
       "toolbarControlsLeft",
-      FXCollections.observableSet());
+      FXCollections.observableSet(new LinkedHashSet<>()));
   private final SetProperty<Node> toolbarControlsRight = new SimpleSetProperty<>(this,
       "toolbarControlsRight",
-      FXCollections.observableSet());
+      FXCollections.observableSet(new LinkedHashSet<>()));
 
   private final InvalidationListener emptyListener = observable -> setEmpty(
       toolbarControlLeftBox.getChildren().isEmpty()
@@ -78,6 +79,7 @@ public class ToolbarControl extends HBox {
         toolbarControlLeftBox.getChildren().setAll(toolbarControlsLeft));
     toolbarControlsRight.addListener((InvalidationListener) c ->
         toolbarControlRightBox.getChildren().setAll(toolbarControlsRight));
+
     toolbarControlLeftBox.getChildren().addListener(emptyListener);
     toolbarControlRightBox.getChildren().addListener(emptyListener);
   }
