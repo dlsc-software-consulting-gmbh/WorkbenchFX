@@ -115,7 +115,6 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         EventHandler<Event> onHidden = { event -> }
         EventHandler<Event> onShown = { event -> }
         DialogControl dialogControl = new MockDialogControl()
-        ButtonType cancelDialogButtonType = ButtonType.FINISH
 
         when: "Optional parameters are specified"
         dialog = WorkbenchDialog.builder(TITLE, content, TYPE)
