@@ -7,6 +7,7 @@ import javafx.event.EventHandler
 import javafx.scene.Scene
 import javafx.scene.control.ButtonType
 import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyEvent
 import javafx.stage.Stage
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
@@ -50,7 +51,7 @@ class IDialogSpec extends ApplicationSpec {
         stage.show()
     }
 
-    def "Test"() {
+    def "Test behavior of dialogs when pressing the Escape or Enter key"() {
         given:
         WorkbenchDialog dialog
         robot.interact {
@@ -66,20 +67,32 @@ class IDialogSpec extends ApplicationSpec {
         }
 
         when: "Key is pressed"
-        robot.press(keyPress)
+        KeyEvent press = new KeyEvent(workbench, workbench, KeyEvent.KEY_TYPED, "", "", keyPress, false, false, false, false);
+        workbench.fireEvent(press);
+
 
         then:
         dialogHidden == (amountDialogShowing() == 0)
-        1 * mockHiddenHandler.handle((Event) _)
-        1 * mockOnResultHandler.accept(_) >> { arguments ->
-            ButtonType buttonType = arguments[0] // capture ButtonType that was set as result
-            assert result == buttonType
+        if (dialogHidden) {
+            1 * mockHiddenHandler.handle((Event) _)
+            1 * mockOnResultHandler.accept(_) >> { arguments ->
+                ButtonType buttonType = arguments[0] // capture ButtonType that was set as result
+                assert result == buttonType
+            }
         }
 
         where:
         blocking | buttonTypes                        | keyPress       || dialogHidden | result
         false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ENTER  || true         | ButtonType.OK
         false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ESCAPE || true         | ButtonType.CANCEL
+        false    | [ButtonType.CLOSE]                 | KeyCode.ENTER  || true         | ButtonType.CLOSE
+        false    | [ButtonType.CLOSE]                 | KeyCode.ESCAPE || true         | ButtonType.CLOSE
+        false    | [ButtonType.YES, ButtonType.NO]    | KeyCode.ENTER  || true         | ButtonType.YES
+        false    | [ButtonType.YES, ButtonType.NO]    | KeyCode.ESCAPE || true         | ButtonType.NO
+        false    | [ButtonType.OK]                    | KeyCode.ENTER  || true         | ButtonType.OK
+        false    | [ButtonType.OK]                    | KeyCode.ESCAPE || true         | ButtonType.CANCEL
+        false    | []                                 | KeyCode.ENTER  || false        | ButtonType.OK
+        false    | []                                 | KeyCode.ESCAPE || true        | ButtonType.CANCEL
     }
 
     def amountDialogShowing() {
