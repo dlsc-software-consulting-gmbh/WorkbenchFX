@@ -13,7 +13,6 @@ import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import javafx.stage.Stage
 import org.testfx.api.FxRobot
-import org.testfx.api.FxToolkit
 import org.testfx.framework.spock.ApplicationSpec
 
 import java.util.function.Consumer
@@ -31,16 +30,11 @@ class IDialogSpec extends ApplicationSpec {
     private FxRobot robot
     private Workbench workbench
 
-    private EventHandler<Event> mockShownHandler = Mock()
-    private EventHandler<Event> mockHiddenHandler = Mock()
-    private Consumer<ButtonType> mockOnResultHandler = Mock()
+    private EventHandler<Event> mockShownHandler
+    private EventHandler<Event> mockHiddenHandler
+    private Consumer<ButtonType> mockOnResultHandler
 
     private Stage stage
-
-    @Override
-    void init() throws Exception {
-        FxToolkit.registerStage { new Stage() }
-    }
 
     @Override
     void start(Stage stage) {
@@ -55,16 +49,13 @@ class IDialogSpec extends ApplicationSpec {
         stage.show()
     }
 
-    @Override
-    void stop() throws Exception {
-        FxToolkit.hideStage()
-    }
-
     def "When pressing #keyPress on a #isBlocking dialog with #buttonsUsed #buttonsBarShown then #isDialogHidden #withResult"() {
         given:
-        1 * mockShownHandler.handle((Event) _)
         WorkbenchDialog dialog
         interact {
+            mockShownHandler = Mock()
+            mockHiddenHandler = Mock()
+            mockOnResultHandler = Mock()
             dialog = WorkbenchDialog.builder(TITLE, MESSAGE, buttonTypes as ButtonType[])
                     .blocking(blocking)
                     .onShown(mockShownHandler)
@@ -73,12 +64,12 @@ class IDialogSpec extends ApplicationSpec {
                     .showButtonsBar(showButtonsBar)
                     .build()
             workbench.showDialog(dialog)
+            1 * mockShownHandler.handle((Event) _)
         }
 
         when: "Key is pressed"
         interact {
-            press(keyPress)
-            release(keyPress)
+            push(keyPress)
         }
 
         then:
@@ -128,9 +119,11 @@ class IDialogSpec extends ApplicationSpec {
 
     def "When clicking on the GlassPane of a #isBlocking dialog with #buttonsUsed #buttonsBarShown then #isDialogHidden #withResult"() {
         given:
-        1 * mockShownHandler.handle((Event) _)
         WorkbenchDialog dialog
         interact {
+            mockShownHandler = Mock()
+            mockHiddenHandler = Mock()
+            mockOnResultHandler = Mock()
             dialog = WorkbenchDialog.builder(TITLE, MESSAGE, buttonTypes as ButtonType[])
                     .blocking(blocking)
                     .onShown(mockShownHandler)
@@ -139,6 +132,7 @@ class IDialogSpec extends ApplicationSpec {
                     .showButtonsBar(showButtonsBar)
                     .build()
             workbench.showDialog(dialog)
+            1 * mockShownHandler.handle((Event) _)
         }
 
         when: "GlassPane is clicked"
