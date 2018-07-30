@@ -53,19 +53,27 @@ public class ContentPresenter extends Presenter {
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       view.removeToolbar(); // Remove toolbar
 
-      // When the active module changes, the new view is set to the add module screen if null.
       if (Objects.isNull(newModule)) {
+        // The active module is null -> therefore setting the addModuleView
         view.setAddModuleView();
       } else {
+        // The active Module is !null -> therefore setting the chosen view
         Node activeModuleView = model.getActiveModuleView();
         view.setContent(activeModuleView);
         VBox.setVgrow(activeModuleView, Priority.ALWAYS);
 
+        // Setting the new chosen module in the toolbar -> the content of the toolbar changes
         view.setModuleInToolbar(newModule);
-        // Adding the listener
+        if (!view.toolbarEmptyProperty().get()) {
+          view.addToolbar(); // Initially add the toolbar, if its not empty
+        }
+
+        // Adding the listener -> add/remove the toolbar when empty
         view.toolbarEmptyProperty().addListener((observable1, wasEmpty, isEmpty) -> {
           if (!isEmpty) {
             view.addToolbar();
+          } else {
+            view.removeToolbar();
           }
         });
       }
