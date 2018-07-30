@@ -67,6 +67,7 @@ class IDialogSpec extends ApplicationSpec {
                     .onShown(mockShownHandler)
                     .onHidden(mockHiddenHandler)
                     .onResult(mockOnResultHandler)
+                    .showButtonsBar(showButtonsBar)
                     .build()
             workbench.showDialog(dialog)
         }
@@ -85,17 +86,19 @@ class IDialogSpec extends ApplicationSpec {
         }
 
         where:
-        blocking | buttonTypes                        | keyPress       || dialogHidden | result
-        false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ENTER  || true         | ButtonType.OK
-        false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ESCAPE || true         | ButtonType.CANCEL
-        false    | [ButtonType.CLOSE]                 | KeyCode.ENTER  || true         | ButtonType.CLOSE
-        false    | [ButtonType.CLOSE]                 | KeyCode.ESCAPE || true         | ButtonType.CLOSE
-        false    | [ButtonType.YES, ButtonType.NO]    | KeyCode.ENTER  || true         | ButtonType.YES
-        false    | [ButtonType.YES, ButtonType.NO]    | KeyCode.ESCAPE || true         | ButtonType.NO
-        false    | [ButtonType.OK]                    | KeyCode.ENTER  || true         | ButtonType.OK
-        false    | [ButtonType.OK]                    | KeyCode.ESCAPE || true         | ButtonType.CANCEL
-        false    | []                                 | KeyCode.ENTER  || false        | _
-        false    | []                                 | KeyCode.ESCAPE || true         | ButtonType.CANCEL
+        blocking | buttonTypes                        | keyPress       | showButtonsBar || dialogHidden | result
+        false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ENTER  | true           || true         | ButtonType.OK
+        false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ESCAPE | true           || true         | ButtonType.CANCEL
+        false    | [ButtonType.CLOSE]                 | KeyCode.ENTER  | true           || true         | ButtonType.CLOSE
+        false    | [ButtonType.CLOSE]                 | KeyCode.ESCAPE | true           || true         | ButtonType.CLOSE
+        false    | [ButtonType.YES, ButtonType.NO]    | KeyCode.ENTER  | true           || true         | ButtonType.YES
+        false    | [ButtonType.YES, ButtonType.NO]    | KeyCode.ESCAPE | true           || true         | ButtonType.NO
+        false    | [ButtonType.OK]                    | KeyCode.ENTER  | true           || true         | ButtonType.OK
+        false    | [ButtonType.OK]                    | KeyCode.ESCAPE | true           || true         | ButtonType.CANCEL
+        false    | [ButtonType.OK]                    | KeyCode.ENTER  | false          || false        | _
+        false    | [ButtonType.OK]                    | KeyCode.ESCAPE | false          || true         | ButtonType.CANCEL
+        false    | []                                 | KeyCode.ENTER  | true           || false        | _
+        false    | []                                 | KeyCode.ESCAPE | true           || true         | ButtonType.CANCEL
     }
 
     def amountDialogShowing() {
