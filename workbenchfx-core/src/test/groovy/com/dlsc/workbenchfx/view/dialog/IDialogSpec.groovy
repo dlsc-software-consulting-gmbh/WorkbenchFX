@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent
 import javafx.stage.Stage
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
+import spock.lang.Unroll
 
 import java.util.function.Consumer
 import java.util.stream.Collectors
@@ -21,6 +22,7 @@ import java.util.stream.Collectors
 /**
  * Integration test for dialog related logic.
  */
+@Unroll
 class IDialogSpec extends ApplicationSpec {
     private static final String TITLE = "Dialog Test Title"
     private static final String MESSAGE = "Dialog Test Message"
