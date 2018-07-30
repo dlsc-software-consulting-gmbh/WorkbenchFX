@@ -15,12 +15,10 @@ import javafx.stage.Stage
 import org.testfx.api.FxRobot
 import org.testfx.api.FxToolkit
 import org.testfx.framework.spock.ApplicationSpec
-import spock.lang.Unroll
 
 import java.util.function.Consumer
 import java.util.stream.Collectors
 
-@Unroll
 /**
  * Integration test for dialog related logic.
  */
