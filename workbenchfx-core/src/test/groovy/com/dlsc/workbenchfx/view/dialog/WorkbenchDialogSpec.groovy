@@ -129,7 +129,6 @@ class WorkbenchDialogSpec extends ApplicationSpec {
                 .onHidden(onHidden)
                 .onShown(onShown)
                 .dialogControl(dialogControl)
-                .cancelDialogButtonType(cancelDialogButtonType)
                 .build()
 
         then: "Specified optional parameters are correctly set"
@@ -143,7 +142,6 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         onHidden == dialog.getOnHidden()
         onShown == dialog.getOnShown()
         dialogControl == dialog.getDialogControl()
-        cancelDialogButtonType == dialog.getCancelDialogButtonType()
     }
 
     def "Initialization of a Dialog with Type #type has exactly the ButtonTypes #buttonTypes"(
