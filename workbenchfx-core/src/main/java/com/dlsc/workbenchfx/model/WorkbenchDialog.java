@@ -39,10 +39,7 @@ public final class WorkbenchDialog {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchDialog.class.getName());
 
-  private static final ButtonType CANCEL_DIALOG_BUTTON_TYPE = ButtonType.CANCEL;
-
   private Type type;
-  private ButtonType cancelDialogButtonType;
 
   private final StringProperty title = new SimpleStringProperty(this, "title");
   private final StringProperty details = new SimpleStringProperty(this, "details", "");
@@ -402,6 +399,9 @@ public final class WorkbenchDialog {
    * WorkbenchDialog#buttonTypes}, {@link DialogControl#buttonTextUppercaseProperty()} or {@link
    * DialogControl#workbenchProperty()} changes, the dialog will be rebuilt and upon completion, an
    * event will be fired.
+   *
+   * @param value the {@link EventHandler} which will be invoked after the dialog has been
+   *              fully initialized and is being shown
    */
   public final void setOnShown(EventHandler<Event> value) {
     getDialogControl().setOnShown(value);

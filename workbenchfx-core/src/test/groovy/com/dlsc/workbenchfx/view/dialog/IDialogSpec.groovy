@@ -12,7 +12,6 @@ import javafx.scene.input.KeyCode
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import javafx.stage.Stage
-import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
 import spock.lang.Unroll
 
@@ -26,10 +25,7 @@ import java.util.stream.Collectors
 class IDialogSpec extends ApplicationSpec {
     private static final String TITLE = "Dialog Test Title"
     private static final String MESSAGE = "Dialog Test Message"
-    private static final ButtonType[] BUTTON_TYPES =
-            [ButtonType.PREVIOUS, ButtonType.NEXT] as ButtonType[]
 
-    private FxRobot robot
     private Workbench workbench
 
     private EventHandler<Event> mockShownHandler
@@ -41,8 +37,6 @@ class IDialogSpec extends ApplicationSpec {
     @Override
     void start(Stage stage) {
         this.stage = stage
-
-        robot = new FxRobot()
 
         workbench = new Workbench()
 

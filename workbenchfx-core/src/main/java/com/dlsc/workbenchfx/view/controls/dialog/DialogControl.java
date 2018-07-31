@@ -128,7 +128,6 @@ public class DialogControl extends Control {
         showingProperty.bind(Bindings.isNotNull(workbenchProperty()));
       }
     });
-
   }
 
   private void updateButtons(WorkbenchDialog dialog) {
@@ -166,9 +165,7 @@ public class DialogControl extends Control {
         cancelButton = button;
         cancelButtonType = cmd;
       }
-      button.setOnAction(evt -> {
-        completeDialog(cmd);
-      });
+      button.setOnAction(evt -> completeDialog(cmd));
 
       hasDefault |= buttonType != null && buttonType.isDefaultButton();
 
@@ -198,11 +195,10 @@ public class DialogControl extends Control {
       // been made invisible, since onKeyReleased event only triggers, if the node or any of its
       // children are focused
       Platform.runLater(() -> {
-            if (!buttons.stream().anyMatch(Node::isFocused)) {
-              requestFocus();
-            }
-          }
-      );
+        if (!buttons.stream().anyMatch(Node::isFocused)) {
+          requestFocus();
+        }
+      });
       setOnKeyReleased(event -> {
         if (KeyCode.ESCAPE.equals(event.getCode())) {
           LOGGER.trace("ESC was pressed, closing dialog");
@@ -230,8 +226,6 @@ public class DialogControl extends Control {
       getOnHidden().handle(new Event(this, this, Event.ANY));
     }
   }
-
-
 
   private Button createButton(ButtonType buttonType) {
     LOGGER.trace("Create Button: " + buttonType.getText());

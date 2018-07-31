@@ -157,7 +157,7 @@ public class WorkbenchPresenter extends Presenter {
             // if the overlay is a dialog
             LOGGER.trace("GlassPane was clicked, hiding dialog");
             WorkbenchDialog dialog = ((DialogControl) overlay).getDialog();
-            // send cancel button type as result of the dialog if availble
+            // send cancel button type as result of the dialog if available
             ButtonType cancelButtonType = dialog.getDialogControl().getCancelButtonType();
             // if not available, send the defined cancelDialogButtonType
             if (Objects.isNull(cancelButtonType)) {
