@@ -109,12 +109,6 @@ public class DialogControl extends Control {
     dialog.addListener(dialogChangedListener);
     buttonTextUppercase.addListener(dialogChangedListener);
 
-    // initially consume escape events when dialog is blocking
-    if (!Objects.isNull(getDialog()) && getDialog().isBlocking()) {
-      LOGGER.trace("Added escapeConsumeHandler");
-      addEventFilter(KeyEvent.ANY, escapeConsumeHandler);
-    }
-
     // fire events depending on the dialog being shown or not
     showingProperty.addListener((observable, oldShowing, newShowing) -> {
       LOGGER.trace("Dialog Showing Listener - old: " + oldShowing + " new: " + newShowing);
