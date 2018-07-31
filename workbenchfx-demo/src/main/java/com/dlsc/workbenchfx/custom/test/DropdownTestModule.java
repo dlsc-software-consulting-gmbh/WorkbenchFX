@@ -69,10 +69,8 @@ public class DropdownTestModule extends WorkbenchModule {
     removeLotItemBtn.setOnAction(event -> removeItems(100));
 
     removeAllItmsBtn.setOnAction(event -> {
-      getWorkbench().getToolbarControlsLeft().remove(1);
+      getWorkbench().getToolbarControlsLeft().clear();
       getWorkbench().getToolbarControlsRight().clear();
-      LOGGER.trace("getWorkbench().getToolbarControlsLeft().size() = " + getWorkbench()
-          .getToolbarControlsLeft().size());
     });
   }
 
