@@ -870,16 +870,6 @@ public class Workbench extends Control {
   private TranslateTransition slideIn(Region overlay) {
     TranslateTransition open = new TranslateTransition(new Duration(1000), overlay);
     open.setToX(0);
-    open.setOnFinished(event -> {
-      if (((TranslateTransition)event.getSource()).getToX() != 0) {
-        overlay.setVisible(false);
-        LOGGER.trace("Finished end - Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
-            overlay.getTranslateX());
-      } else {
-        LOGGER.trace("Finished start - Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
-            overlay.getTranslateX());
-      }
-    });
     return open;
   }
   private TranslateTransition slideOut(Region overlay) {
