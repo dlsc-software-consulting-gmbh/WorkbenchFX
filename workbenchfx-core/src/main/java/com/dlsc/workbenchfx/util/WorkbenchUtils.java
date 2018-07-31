@@ -118,6 +118,7 @@ public final class WorkbenchUtils {
 
   /**
    * Checks if a is divisible by b
+   *
    * @param a number
    * @param b number
    * @return true, if a is divisible by b without remainder
