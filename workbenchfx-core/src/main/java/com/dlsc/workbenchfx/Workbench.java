@@ -875,7 +875,9 @@ public class Workbench extends Control {
         overlay.widthProperty().addListener(observable -> {
           if (overlay.getWidth() > 0) {
             overlay.setTranslateX(-(overlay.getWidth()));
-            getAnimatedOverlaysStart().get(overlay).play();
+            TranslateTransition animation = getAnimatedOverlaysStart().get(overlay);
+            animation.setToX(0);
+            animation.play();
           }
         });
         break;
@@ -883,7 +885,9 @@ public class Workbench extends Control {
         overlay.widthProperty().addListener(observable -> {
           if (overlay.getWidth() > 0) {
             overlay.setTranslateX(getWidth());
-            getAnimatedOverlaysStart().get(overlay).play();
+            TranslateTransition animation = getAnimatedOverlaysStart().get(overlay);
+            animation.setToX(0);
+            animation.play();
           }
         });
         break;
@@ -893,20 +897,6 @@ public class Workbench extends Control {
 
   private TranslateTransition slideIn(Region overlay, Side side) {
     TranslateTransition open = new TranslateTransition(new Duration(1000), overlay);
-    switch (side) {
-      case LEFT:
-        open.setToX(0);
-        break;
-      case RIGHT:
-        open.toXProperty().bind(widthProperty().subtract(overlay.widthProperty()));
-        break;
-      case TOP:
-        open.setToX(0);
-        break;
-      case BOTTOM:
-        open.toXProperty().bind(widthProperty().subtract(overlay.widthProperty()));
-        break;
-    }
     return open;
   }
   private TranslateTransition slideOut(Region overlay, Side side) {
