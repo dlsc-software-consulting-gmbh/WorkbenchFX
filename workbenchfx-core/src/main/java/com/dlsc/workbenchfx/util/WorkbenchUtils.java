@@ -84,7 +84,8 @@ public final class WorkbenchUtils {
    * Calculates from the amount of modules per page how many columns of modules there should be
    * in a row.
    *
-   * @param modulesPerPage how many modules are shown in a page
+   * @param modulesPerPage how many modules are shown in a page, <b>maximum of 12</b> to get
+   *                       reliable calculations
    * @return the amount of columns per row
    */
   public static int calculateColumnsPerRow(int modulesPerPage) {
