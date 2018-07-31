@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx.custom.controls;
 
-import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.PrettyScrollPane;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
@@ -33,7 +32,7 @@ public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer>
       LogManager.getLogger(CustomNavigationDrawerSkin.class.getName());
 
   private VBox menuContainer;
-  private NavigationDrawer navigationDrawer;
+  private CustomNavigationDrawer navigationDrawer;
   private VBox drawerBox;
   private BorderPane header;
   private PrettyScrollPane scrollPane;
@@ -42,7 +41,7 @@ public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer>
   private Label companyLogo;
 
   /**
-   * Creates the skin for the {@link NavigationDrawer} control.
+   * Creates the skin for the {@link CustomNavigationDrawer} control.
    *
    * @param navigationDrawer to create this skin for
    */
