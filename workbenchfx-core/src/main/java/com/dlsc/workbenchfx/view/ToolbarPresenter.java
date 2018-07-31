@@ -7,6 +7,7 @@ import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.TabCell;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
+import javafx.beans.property.BooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
@@ -32,6 +33,8 @@ public class ToolbarPresenter extends Presenter {
   private final ObservableList<Node> toolbarControlsLeft;
   private final ObservableSet<Node> toolbarControlsRight;
   private final ObservableList<WorkbenchModule> openModules;
+  private BooleanProperty emptyProperty;
+  private InvalidationListener invalidationListener = (observable) -> setMenuBtn();
 
   /**
    * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
@@ -46,7 +49,10 @@ public class ToolbarPresenter extends Presenter {
     toolbarControlsLeft = model.getToolbarControlsLeft();
     toolbarControlsRight = model.getToolbarControlsRight();
     openModules = model.getOpenModules();
+    emptyProperty = view.getToolbarControl().emptyProperty();
     init();
+    LOGGER.trace("Adds initially a menuButton if necessary (size of items > 0)");
+    setMenuBtn();
   }
 
   /**
@@ -60,17 +66,15 @@ public class ToolbarPresenter extends Presenter {
     );
 
     view.addModuleBtn.requestFocus();
-
-    LOGGER.trace("Adds initially a menuButton if necessary (size of items > 0)");
-    setMenuBtn();
   }
 
   private void setMenuBtn() {
+    LOGGER.trace("setMenuBtn() called");
     view.bottomBox.getChildren().remove(view.menuBtn);
     view.topBox.getChildren().remove(view.menuBtn);
 
     if (navigationDrawerItems.size() != 0) {
-      if (toolbarControlsLeft.size() + toolbarControlsRight.size() == 0) {
+      if (view.toolbarControl.isEmpty()) {
         LOGGER.trace("Put the button below into the bottomBox");
         view.bottomBox.getChildren().add(0, view.menuBtn);
       } else {
@@ -109,9 +113,7 @@ public class ToolbarPresenter extends Presenter {
 
     // makes sure the menu button is only being displayed if there are navigation drawer items
     navigationDrawerItems.addListener((InvalidationListener) observable -> setMenuBtn());
-    view.getToolbarControl().emptyProperty().addListener((observable) -> {
-      setMenuBtn();
-    });
+//    emptyProperty.addListener(invalidationListener);
   }
 
   /**
@@ -126,6 +128,11 @@ public class ToolbarPresenter extends Presenter {
     // Bind items from toolbar to the ones of the workbench
     view.getToolbarControl().toolbarControlsLeftProperty().bindContent(toolbarControlsLeft);
     view.getToolbarControl().toolbarControlsRightProperty().bindContent(toolbarControlsRight);
-  }
 
+    view.toolbarControl.emptyProperty().addListener(observable -> {
+//      System.out.println("view.toolbarControl.emptyProperty().get() = " + view.toolbarControl.emptyProperty().get());
+      setMenuBtn();
+    });
+
+  }
 }

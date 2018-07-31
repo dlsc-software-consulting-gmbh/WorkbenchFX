@@ -4,6 +4,8 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import java.util.LinkedHashSet;
 import javafx.beans.InvalidationListener;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SetProperty;
@@ -16,6 +18,8 @@ import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Represents a toolbar, which displays all toolbar items of a {@link
@@ -26,6 +30,7 @@ import javafx.scene.layout.Priority;
  * @author Marco Sanfratello
  */
 public class ToolbarControl extends HBox {
+  private static final Logger LOGGER = LogManager.getLogger(ToolbarControl.class.getName());
 
   private HBox toolbarControlLeftBox;
   private HBox toolbarControlRightBox;
@@ -38,12 +43,18 @@ public class ToolbarControl extends HBox {
       "toolbarControlsRight",
       FXCollections.observableSet(new LinkedHashSet<>()));
 
-  private final InvalidationListener emptyListener = observable -> setEmpty(
-      toolbarControlLeftBox.getChildren().isEmpty()
-          && toolbarControlRightBox.getChildren().isEmpty()
-  );
-
   private final BooleanProperty empty = new SimpleBooleanProperty(true);
+
+  private InvalidationListener leftBoxListener = c -> {
+          toolbarControlLeftBox.getChildren().setAll(toolbarControlsLeft);
+//          LOGGER.trace("isEmpty() = " + isEmpty());
+        };
+  private InvalidationListener rightBoxListener = c -> {
+          toolbarControlRightBox.getChildren().setAll(toolbarControlsRight);
+//          LOGGER.trace("isEmpty() = " + isEmpty());
+        };
+  private BooleanBinding booleanBinding = Bindings.isEmpty(toolbarControlsLeft).and(Bindings.isEmpty(toolbarControlsRight));
+
 
   /**
    * Creates an empty {@link ToolbarControl} object and fully initializes it.
@@ -52,6 +63,7 @@ public class ToolbarControl extends HBox {
     initializeParts();
     layoutParts();
     setupListeners();
+    setupBindings();
   }
 
   private void initializeParts() {
@@ -77,13 +89,15 @@ public class ToolbarControl extends HBox {
   }
 
   private void setupListeners() {
-    toolbarControlsLeft.addListener((InvalidationListener) c ->
-        toolbarControlLeftBox.getChildren().setAll(toolbarControlsLeft));
-    toolbarControlsRight.addListener((InvalidationListener) c ->
-        toolbarControlRightBox.getChildren().setAll(toolbarControlsRight));
+    toolbarControlsLeft.addListener(leftBoxListener);
+    toolbarControlsRight.addListener(rightBoxListener);
+//    empty.addListener(observable -> {
+//      LOGGER.trace("empty.get() = " + empty.get());
+//    });
+  }
 
-    toolbarControlLeftBox.getChildren().addListener(emptyListener);
-    toolbarControlRightBox.getChildren().addListener(emptyListener);
+  private void setupBindings() {
+    empty.bind(booleanBinding);
   }
 
   public boolean isEmpty() {
