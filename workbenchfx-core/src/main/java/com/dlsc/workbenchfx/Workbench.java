@@ -939,11 +939,11 @@ public class Workbench extends Control {
   }
 
   private TranslateTransition slideIn(Region overlay, Side side) {
-    TranslateTransition open = new TranslateTransition(new Duration(1000), overlay);
+    TranslateTransition open = new TranslateTransition(new Duration(200), overlay);
     return open;
   }
   private TranslateTransition slideOut(Region overlay, Side side) {
-    TranslateTransition close = new TranslateTransition(new Duration(1000), overlay);
+    TranslateTransition close = new TranslateTransition(new Duration(200), overlay);
     close.setOnFinished(event -> {
         overlay.setVisible(false);
       LOGGER.trace("Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
