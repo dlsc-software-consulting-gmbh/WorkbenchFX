@@ -92,27 +92,37 @@ public final class WorkbenchUtils {
     if (modulesPerPage <= 3) {
       return modulesPerPage;
     }
-    if (modulesPerPage % 2 == 0) {
+    if (divisibleBy(modulesPerPage, 2)) {
       return modulesPerPage / 2;
     }
-    if (modulesPerPage % 3 == 0) {
+    if (divisibleBy(modulesPerPage, 3)) {
       return modulesPerPage / 3;
     }
     if (modulesPerPage < 10) {
-      if ((modulesPerPage + 1) % 2 == 0) {
+      if (divisibleBy(modulesPerPage + 1, 2)) {
         return (modulesPerPage + 1) / 2;
       }
-      if ((modulesPerPage + 1) % 3 == 0) {
+      if (divisibleBy(modulesPerPage + 1, 3)) {
         return (modulesPerPage + 1) / 3;
       }
     } else {
-      if ((modulesPerPage + 1) % 3 == 0) {
+      if (divisibleBy(modulesPerPage + 1, 3)) {
         return (modulesPerPage + 1) / 3;
       }
-      if ((modulesPerPage + 1) % 2 == 0) {
+      if (divisibleBy(modulesPerPage + 1, 2)) {
         return (modulesPerPage + 1) / 2;
       }
     }
     return (modulesPerPage / 4) + 1;
+  }
+
+  /**
+   * Checks if a is divisible by b
+   * @param a number
+   * @param b number
+   * @return true, if a is divisible by b without remainder
+   */
+  public static boolean divisibleBy(int a, int b) {
+    return a % b == 0;
   }
 }
