@@ -1,17 +1,16 @@
 package com.dlsc.workbenchfx.custom.controls;
 
+import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.PrettyScrollPane;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.BorderPane;
@@ -30,21 +29,20 @@ import org.apache.logging.log4j.Logger;
  */
 public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer> {
 
-  private static final Logger LOGGER = LogManager
-      .getLogger(CustomNavigationDrawerSkin.class.getName());
+  private static final Logger LOGGER =
+      LogManager.getLogger(CustomNavigationDrawerSkin.class.getName());
 
   private VBox menuContainer;
-  private CustomNavigationDrawer navigationDrawer;
+  private NavigationDrawer navigationDrawer;
   private VBox drawerBox;
   private BorderPane header;
   private PrettyScrollPane scrollPane;
   private StackPane backIconShape;
   private Button backBtn;
-  private ImageView companyLogo;
-  private ReadOnlyDoubleProperty workbenchWidth;
+  private Label companyLogo;
 
   /**
-   * Creates the skin for the {@link CustomNavigationDrawer} control.
+   * Creates the skin for the {@link NavigationDrawer} control.
    *
    * @param navigationDrawer to create this skin for
    */
@@ -89,7 +87,7 @@ public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer>
     backBtn.getStyleClass().add("icon");
     backBtn.setId("back-button");
 
-    companyLogo = new ImageView();
+    companyLogo = new Label("");
     companyLogo.getStyleClass().add("logo");
   }
 

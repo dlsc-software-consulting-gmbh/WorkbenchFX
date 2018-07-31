@@ -2,7 +2,6 @@ package com.dlsc.workbenchfx.view.controls;
 
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,7 +15,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -39,8 +37,6 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
   private StackPane backIconShape;
   private Button backBtn;
   private Label companyLogo;
-  private ReadOnlyDoubleProperty workbenchWidth;
-  final double rem = Math.rint(new Text("").getLayoutBounds().getHeight());
 
   /**
    * Creates the skin for the {@link NavigationDrawer} control.
