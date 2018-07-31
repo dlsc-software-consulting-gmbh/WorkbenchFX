@@ -134,7 +134,7 @@ public class CustomDemo extends Application {
                     new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
-            .modulesPerPage(4)
+            .modulesPerPage(9)
             //.pageFactory(CustomPage::new)
             //.tabFactory(CustomTab::new)
             //.tileFactory(CustomTile::new)
