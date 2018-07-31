@@ -6,11 +6,14 @@ import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import java.util.Objects;
+import javafx.animation.Animation;
+import javafx.animation.TranslateTransition;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -140,11 +143,22 @@ public class WorkbenchPresenter extends Presenter {
    */
   private void showOverlay(Node overlay, GlassPane glassPane, boolean blocking) {
     LOGGER.trace("showOverlay - Blocking: " + blocking);
-    view.showOverlay(overlay);
-
-    if (!Objects.isNull(model.getAnimatedOverlays().get(overlay))) {
-      model.getAnimatedOverlays().get(overlay).play();
+    TranslateTransition animation = model.getAnimatedOverlaysStart().get(overlay);
+    if (!Objects.isNull(animation)) {
+      Region animatedOverlay = (Region) overlay;
+      if (animatedOverlay.getWidth() == 0) {
+        animatedOverlay.widthProperty().addListener(observable -> {
+          if (animatedOverlay.getWidth() > 0) {
+            animatedOverlay.setTranslateX(-(animatedOverlay.getWidth()));
+            animation.play();
+            model.getAnimatedOverlaysEnd().put(animatedOverlay, model.slideOut(animatedOverlay));
+          }
+        });
+      } else {
+        animation.play();
+      }
     }
+    view.showOverlay(overlay);
 
     // if overlay is not blocking, make the overlay hide when the glass pane is clicked
     if (!blocking) {
@@ -185,8 +199,9 @@ public class WorkbenchPresenter extends Presenter {
    * @param overlay to be hidden
    */
   public void hideOverlay(Node overlay) {
-    if (!Objects.isNull(model.getAnimatedOverlays().get(overlay))) {
-      model.getAnimatedOverlays().get(overlay).play();
+    TranslateTransition animation = model.getAnimatedOverlaysEnd().get(overlay);
+    if (!Objects.isNull(animation)) {
+      animation.play();
     } else {
       view.hideOverlay(overlay);
     }

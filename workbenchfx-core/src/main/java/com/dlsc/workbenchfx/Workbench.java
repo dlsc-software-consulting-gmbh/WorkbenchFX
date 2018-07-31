@@ -97,7 +97,9 @@ public class Workbench extends Control {
   /**
    * Map containing all overlays which are animated, with their corresponding {@link Animation}.
    */
-  private final ObservableMap<Region, Animation> animatedOverlays =
+  private final ObservableMap<Region, TranslateTransition> animatedOverlaysStart =
+      FXCollections.observableHashMap();
+  private final ObservableMap<Region, TranslateTransition> animatedOverlaysEnd =
       FXCollections.observableHashMap();
   private final ObservableSet<Node> nonBlockingOverlaysShown = FXCollections.observableSet();
   private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet();
@@ -858,26 +860,17 @@ public class Workbench extends Control {
    */
   public boolean showOverlay(Region overlay, boolean blocking, Side side) {
     LOGGER.trace("showOverlay - animated");
-    if (!animatedOverlays.containsKey(overlay)) {
-      animatedOverlays.put(overlay, slideIn(overlay));
-      overlay.widthProperty().addListener(observable -> {
-        if (overlay.isVisible() && overlay.getWidth() > 0) {
-          LOGGER.trace("playing animation: " + overlay.getWidth());
-          overlay.setTranslateX(-(overlay.getWidth()));
-          TranslateTransition animation = (TranslateTransition)getAnimatedOverlays().get(overlay);
-          animation.setFromX(-(overlay.getWidth()));
-          animation.play();
-        }
-      });
+    if (!animatedOverlaysStart.containsKey(overlay)) {
+      animatedOverlaysStart.put(overlay, slideIn(overlay));
     }
     return showOverlay(overlay, blocking);
   }
 
-  private Animation slideIn(Region overlay) {
-    TranslateTransition openNav = new TranslateTransition(new Duration(1000), overlay);
-    openNav.setToX(0);
-    openNav.setOnFinished(event -> {
-      if (openNav.getToX() != 0) {
+  private TranslateTransition slideIn(Region overlay) {
+    TranslateTransition open = new TranslateTransition(new Duration(1000), overlay);
+    open.setToX(0);
+    open.setOnFinished(event -> {
+      if (((TranslateTransition)event.getSource()).getToX() != 0) {
         overlay.setVisible(false);
         LOGGER.trace("Finished end - Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
             overlay.getTranslateX());
@@ -886,7 +879,17 @@ public class Workbench extends Control {
             overlay.getTranslateX());
       }
     });
-    return openNav;
+    return open;
+  }
+  public TranslateTransition slideOut(Region overlay) {
+    TranslateTransition close = new TranslateTransition(new Duration(1000), overlay);
+    close.setToX(-(overlay.getWidth()));
+    close.setOnFinished(event -> {
+        overlay.setVisible(false);
+      LOGGER.trace("Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
+          overlay.getTranslateX());
+    });
+    return close;
   }
 
   /**
@@ -1152,8 +1155,12 @@ public class Workbench extends Control {
     this.drawerShown.set(drawerShown);
   }
 
-  public ObservableMap<Region, Animation> getAnimatedOverlays() {
-    return FXCollections.unmodifiableObservableMap(animatedOverlays);
+  public ObservableMap<Region, TranslateTransition> getAnimatedOverlaysStart() {
+    return animatedOverlaysStart;
+  }
+
+  public ObservableMap<Region, TranslateTransition> getAnimatedOverlaysEnd() {
+    return animatedOverlaysEnd;
   }
 
   @Override
