@@ -1,13 +1,12 @@
 package com.dlsc.workbenchfx.view.controls;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.model.WorkbenchModule;
 import java.util.LinkedHashSet;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -22,9 +21,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents a toolbar, which displays all toolbar items of a {@link
- * com.dlsc.workbenchfx.model.WorkbenchModule}. It consists of two areas to display the items: The
- * left and the right toolbarControlBox.
+ * Represents a toolbar, which displays all toolbar items stored in the representative Lists.
+ * It consists of two areas to display the items: The left and the right toolbarControlBox.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -34,9 +32,8 @@ public class ToolbarControl extends HBox {
 
   private HBox toolbarControlLeftBox;
   private HBox toolbarControlRightBox;
-  private WorkbenchModule workbenchModule;
 
-  // The content of the two HBoxes listens to the two Sets and will be set on change.
+  // The content of the two HBoxes listens to the two Lists and will be set on change.
   private final ListProperty<Node> toolbarControlsLeft = new SimpleListProperty<>(this,
       "toolbarControlsLeft", FXCollections.observableArrayList());
   private final SetProperty<Node> toolbarControlsRight = new SimpleSetProperty<>(this,
@@ -44,17 +41,6 @@ public class ToolbarControl extends HBox {
       FXCollections.observableSet(new LinkedHashSet<>()));
 
   private final BooleanProperty empty = new SimpleBooleanProperty(true);
-
-  private InvalidationListener leftBoxListener = c -> {
-          toolbarControlLeftBox.getChildren().setAll(toolbarControlsLeft);
-//          LOGGER.trace("isEmpty() = " + isEmpty());
-        };
-  private InvalidationListener rightBoxListener = c -> {
-          toolbarControlRightBox.getChildren().setAll(toolbarControlsRight);
-//          LOGGER.trace("isEmpty() = " + isEmpty());
-        };
-  private BooleanBinding booleanBinding = Bindings.isEmpty(toolbarControlsLeft).and(Bindings.isEmpty(toolbarControlsRight));
-
 
   /**
    * Creates an empty {@link ToolbarControl} object and fully initializes it.
@@ -89,27 +75,30 @@ public class ToolbarControl extends HBox {
   }
 
   private void setupListeners() {
-    toolbarControlsLeft.addListener(leftBoxListener);
-    toolbarControlsRight.addListener(rightBoxListener);
-//    empty.addListener(observable -> {
-//      LOGGER.trace("empty.get() = " + empty.get());
-//    });
+    toolbarControlsLeft.addListener((InvalidationListener) change ->
+        toolbarControlLeftBox.getChildren().setAll(toolbarControlsLeft));
+    toolbarControlsRight.addListener((InvalidationListener) change ->
+        toolbarControlRightBox.getChildren().setAll(toolbarControlsRight));
   }
 
   private void setupBindings() {
-    empty.bind(booleanBinding);
+    empty.bind(Bindings.isEmpty(toolbarControlsLeft).and(Bindings.isEmpty(toolbarControlsRight)));
   }
 
+  /**
+   * Returns whether the toolbar is empty or not.
+   * @return whether the toolbar is empty or not
+   */
   public boolean isEmpty() {
     return empty.get();
   }
 
-  public BooleanProperty emptyProperty() {
+  /**
+   * Returns whether the toolbar is empty or not.
+   * @return whether the toolbar is empty or not
+   */
+  public ReadOnlyBooleanProperty emptyProperty() {
     return empty;
-  }
-
-  public void setEmpty(boolean empty) {
-    this.empty.set(empty);
   }
 
   public ObservableList<Node> getToolbarControlsLeft() {

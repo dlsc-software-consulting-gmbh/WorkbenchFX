@@ -108,7 +108,7 @@ public class ToolbarPresenter extends Presenter {
 
     // makes sure the menu button is only being displayed if there are navigation drawer items
     navigationDrawerItems.addListener((InvalidationListener) observable -> setMenuBtn());
-    // when the toolbarControls emptyProperty changes, check teh menuBtns position
+    // when the toolbarControls emptyProperty changes, check the menuBtns position
     view.toolbarControl.emptyProperty().addListener(observable -> setMenuBtn());
   }
 
