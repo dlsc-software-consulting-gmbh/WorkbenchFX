@@ -123,7 +123,7 @@ public class CustomDemo extends Application {
             .toolbarRight(
                 showDialogButton,
                 Dropdown.of(
-                    new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
+                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new Menu(
                         "Submenus",
                         new FontAwesomeIconView(FontAwesomeIcon.PLUS),
@@ -131,7 +131,7 @@ public class CustomDemo extends Application {
                         new CustomMenuItem(new Label("CustomMenuItem"), false))),
                 Dropdown.of(
                     "Text",
-                    new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
+                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
             .modulesPerPage(4)

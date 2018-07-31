@@ -2,7 +2,7 @@
   -fx-background-color: -surface-color;
 
   & .logo {
-    -fx-padding: 0 1em;
+    -fx-padding: px(11) 1em 1em 1em; // 11px -> 14px - 3px from border from back-button
   }
 
   & .separator:horizontal .line {
