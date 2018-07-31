@@ -1,0 +1,19 @@
+* {
+  -text-color: rgba(100%,100%,100%,0.7);
+  -primary-color: #2c3649;
+  -primary-variant-color: #293244;
+  -secondary-color: #02ABF5;
+  -secondary-variant-color: #005fa3;
+  -background-color: #202530;
+  -surface-color: #2e3540;
+  -error-color: #B00020;
+  -on-primary-color: -text-color;
+  -on-secondary-color: -text-color;
+  -on-background-color: #02ABF5;
+  -on-surface-color: -text-color;
+  -on-error-color: #FFFFFF;
+}
+
+.logo {
+  -fx-graphic: url("logo.png");
+}
