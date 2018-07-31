@@ -85,31 +85,33 @@ class IDialogSpec extends ApplicationSpec {
         }
 
         where:
-        blocking | buttonTypes                        | keyPress       | showButtonsBar || dialogHidden | result
-        false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ENTER  | true           || true         | ButtonType.OK
-        false    | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ESCAPE | true           || true         | ButtonType.CANCEL
-        false    | [ButtonType.CLOSE]                 | KeyCode.ENTER  | true           || true         | ButtonType.CLOSE
-        false    | [ButtonType.CLOSE]                 | KeyCode.ESCAPE | true           || true         | ButtonType.CLOSE
-        false    | [ButtonType.YES, ButtonType.NO]    | KeyCode.ENTER  | true           || true         | ButtonType.YES
-        false    | [ButtonType.YES, ButtonType.NO]    | KeyCode.ESCAPE | true           || true         | ButtonType.NO
-        false    | [ButtonType.OK]                    | KeyCode.ENTER  | true           || true         | ButtonType.OK
-        false    | [ButtonType.OK]                    | KeyCode.ESCAPE | true           || true         | ButtonType.CANCEL
-        false    | [ButtonType.OK]                    | KeyCode.ENTER  | false          || false        | _
-        false    | [ButtonType.OK]                    | KeyCode.ESCAPE | false          || true         | ButtonType.CANCEL
-        false    | []                                 | KeyCode.ENTER  | true           || false        | _
-        false    | []                                 | KeyCode.ESCAPE | true           || true         | ButtonType.CANCEL
-        true     | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ENTER  | true           || true         | ButtonType.OK
-        true     | [ButtonType.OK, ButtonType.CANCEL] | KeyCode.ESCAPE | true           || false        | _
-        true     | [ButtonType.CLOSE]                 | KeyCode.ENTER  | true           || true         | ButtonType.CLOSE
-        true     | [ButtonType.CLOSE]                 | KeyCode.ESCAPE | true           || false        | _
-        true     | [ButtonType.YES, ButtonType.NO]    | KeyCode.ENTER  | true           || true         | ButtonType.YES
-        true     | [ButtonType.YES, ButtonType.NO]    | KeyCode.ESCAPE | true           || false        | _
-        true     | [ButtonType.OK]                    | KeyCode.ENTER  | true           || true         | ButtonType.OK
-        true     | [ButtonType.OK]                    | KeyCode.ESCAPE | true           || false        | _
-        true     | [ButtonType.OK]                    | KeyCode.ENTER  | false          || false        | _
-        true     | [ButtonType.OK]                    | KeyCode.ESCAPE | false          || false        | _
-        true     | []                                 | KeyCode.ENTER  | true           || false        | _
-        true     | []                                 | KeyCode.ESCAPE | true           || false        | _
+        blocking | buttonTypes                                                             | keyPress       | showButtonsBar || dialogHidden | result
+        false    | [ButtonType.OK, ButtonType.CANCEL]                                      | KeyCode.ENTER  | true           || true         | ButtonType.OK
+        false    | [ButtonType.OK, ButtonType.CANCEL]                                      | KeyCode.ESCAPE | true           || true         | ButtonType.CANCEL
+        false    | [ButtonType.CLOSE]                                                      | KeyCode.ENTER  | true           || true         | ButtonType.CLOSE
+        false    | [ButtonType.CLOSE]                                                      | KeyCode.ESCAPE | true           || true         | ButtonType.CLOSE
+        false    | [ButtonType.YES, ButtonType.NO]                                         | KeyCode.ENTER  | true           || true         | ButtonType.YES
+        false    | [ButtonType.YES, ButtonType.NO]                                         | KeyCode.ESCAPE | true           || true         | ButtonType.NO
+        false    | [ButtonType.OK]                                                         | KeyCode.ENTER  | true           || true         | ButtonType.OK
+        false    | [ButtonType.OK]                                                         | KeyCode.ESCAPE | true           || true         | ButtonType.CANCEL
+        false    | [ButtonType.OK]                                                         | KeyCode.ENTER  | false          || false        | _
+        false    | [ButtonType.OK]                                                         | KeyCode.ESCAPE | false          || true         | ButtonType.CANCEL
+        false    | []                                                                      | KeyCode.ENTER  | true           || false        | _
+        false    | []                                                                      | KeyCode.ESCAPE | true           || true         | ButtonType.CANCEL
+        true     | [ButtonType.OK, ButtonType.CANCEL]                                      | KeyCode.ENTER  | true           || true         | ButtonType.OK
+        true     | [ButtonType.OK, ButtonType.CANCEL]                                      | KeyCode.ESCAPE | true           || false        | _
+        true     | [ButtonType.CLOSE]                                                      | KeyCode.ENTER  | true           || true         | ButtonType.CLOSE
+        true     | [ButtonType.CLOSE]                                                      | KeyCode.ESCAPE | true           || false        | _
+        true     | [ButtonType.YES, ButtonType.NO]                                         | KeyCode.ENTER  | true           || true         | ButtonType.YES
+        true     | [ButtonType.YES, ButtonType.NO]                                         | KeyCode.ESCAPE | true           || false        | _
+        true     | [ButtonType.OK]                                                         | KeyCode.ENTER  | true           || true         | ButtonType.OK
+        true     | [ButtonType.OK]                                                         | KeyCode.ESCAPE | true           || false        | _
+        true     | [ButtonType.OK]                                                         | KeyCode.ENTER  | false          || false        | _
+        true     | [ButtonType.OK]                                                         | KeyCode.ESCAPE | false          || false        | _
+        true     | []                                                                      | KeyCode.ENTER  | true           || false        | _
+        true     | []                                                                      | KeyCode.ESCAPE | true           || false        | _
+        false    | [ButtonType.FINISH, ButtonType.CANCEL, ButtonType.OK, ButtonType.CLOSE] | KeyCode.ENTER  | true           || true         | ButtonType.FINISH
+        false    | [ButtonType.FINISH, ButtonType.CANCEL, ButtonType.OK, ButtonType.CLOSE] | KeyCode.ESCAPE | true           || true         | ButtonType.CLOSE
 
         isBlocking = blocking ? "blocking" : "non-blocking"
         buttonsBarShown = showButtonsBar ? "" : "with no buttons showing,"
