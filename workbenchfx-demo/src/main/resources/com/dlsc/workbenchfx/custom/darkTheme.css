@@ -1,6 +1,6 @@
 * {
-  -text-color: rgba(100%,100%,100%,0.7);
-  -fx-fill: -text-color;
+  -fx-light-text-color: rgba(100%,100%,100%,0.7);
+  -fx-base: #2c3649;
 
   -primary-color: #2c3649;
   -primary-variant-color: #293244;
@@ -9,11 +9,15 @@
   -background-color: #202530;
   -surface-color: #2e3540;
   -error-color: #B00020;
-  -on-primary-color: -text-color;
-  -on-secondary-color: -text-color;
+  -on-primary-color: -fx-light-text-color;
+  -on-secondary-color: -fx-light-text-color;
   -on-background-color: #02ABF5;
-  -on-surface-color: -text-color;
+  -on-surface-color: -fx-light-text-color;
   -on-error-color: #FFFFFF;
+}
+
+#user-icon {
+  -fx-fill: -fx-light-text-color !important;
 }
 
 .logo {
