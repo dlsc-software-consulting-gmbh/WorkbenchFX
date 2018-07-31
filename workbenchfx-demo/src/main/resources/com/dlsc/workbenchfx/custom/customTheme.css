@@ -1,13 +1,13 @@
 * {
   -primary-color: #6200EE;
-  -primary-variant-color: #0400ba;
-  -secondary-color: #d479ff;
-  -secondary-variant-color: #6709cb;
+  -primary-variant-color: #3700b3;
+  -secondary-color: #6300ff;
+  -secondary-variant-color: #1e005f;
   -background-color: #FFFFFF;
   -surface-color: #FFFFFF;
   -error-color: #B00020;
   -on-primary-color: #FFFFFF;
-  -on-secondary-color: #000000;
+  -on-secondary-color: #FFFFFF;
   -on-background-color: #000000;
   -on-surface-color: #000000;
   -on-error-color: #FFFFFF;
