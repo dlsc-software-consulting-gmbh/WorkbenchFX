@@ -98,7 +98,19 @@ public final class WorkbenchUtils {
       return modulesPerPage/3;
     }
     if (modulesPerPage < 10) {
-      return (modulesPerPage/2)+1;
+      if ((modulesPerPage + 1) % 2 == 0) {
+        return (modulesPerPage + 1) / 2;
+      }
+      if ((modulesPerPage + 1) % 3 == 0) {
+        return (modulesPerPage + 1) / 3;
+      }
+    } else {
+      if ((modulesPerPage + 1) % 3 == 0) {
+        return (modulesPerPage + 1) / 3;
+      }
+      if ((modulesPerPage + 1) % 2 == 0) {
+        return (modulesPerPage + 1) / 2;
+      }
     }
     return (modulesPerPage/4)+1;
   }
