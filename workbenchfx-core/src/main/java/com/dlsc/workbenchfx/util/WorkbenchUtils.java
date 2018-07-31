@@ -84,22 +84,10 @@ public final class WorkbenchUtils {
    * Calculates from the amount of modules per page how many columns of modules there should be
    * in a row.
    *
-   * @param modulesPerPage how many modules are shown in a page, <b>maximum of 12</b> to get
-   *                       reliable calculations
+   * @param modulesPerPage how many modules are shown in a page, a maximum of 9 is recommended
    * @return the amount of columns per row
    */
   public static int calculateColumnsPerRow(int modulesPerPage) {
     return modulesPerPage <= 3 ? modulesPerPage : (int) Math.ceil(Math.sqrt(modulesPerPage));
-  }
-
-  /**
-   * Checks if a is divisible by b.
-   *
-   * @param a number
-   * @param b number
-   * @return true, if a is divisible by b without remainder
-   */
-  public static boolean divisibleBy(int a, int b) {
-    return a % b == 0;
   }
 }
