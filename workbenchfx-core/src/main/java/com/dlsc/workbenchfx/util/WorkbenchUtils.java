@@ -102,18 +102,8 @@ public final class WorkbenchUtils {
       if (divisibleBy(modulesPerPage + 1, 2)) {
         return (modulesPerPage + 1) / 2;
       }
-      if (divisibleBy(modulesPerPage + 1, 3)) {
-        return (modulesPerPage + 1) / 3;
-      }
-    } else {
-      if (divisibleBy(modulesPerPage + 1, 3)) {
-        return (modulesPerPage + 1) / 3;
-      }
-      if (divisibleBy(modulesPerPage + 1, 2)) {
-        return (modulesPerPage + 1) / 2;
-      }
     }
-    return (modulesPerPage / 4) + 1;
+    return (modulesPerPage + 1) / 3;
   }
 
   /**
