@@ -874,20 +874,28 @@ public class Workbench extends Control {
       case LEFT:
         overlay.widthProperty().addListener(observable -> {
           if (overlay.getWidth() > 0) {
-            overlay.setTranslateX(-(overlay.getWidth()));
-            TranslateTransition animation = getAnimatedOverlaysStart().get(overlay);
-            animation.setToX(0);
-            animation.play();
+            overlay.setTranslateX(-(overlay.getWidth())); // initial position
+            TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
+            TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
+            start.setToX(0);
+            if (!end.toXProperty().isBound()) {
+              end.toXProperty().bind(overlay.widthProperty().negate());
+            }
+            start.play();
           }
         });
         break;
       case RIGHT:
         overlay.widthProperty().addListener(observable -> {
           if (overlay.getWidth() > 0) {
-            overlay.setTranslateX(getWidth());
-            TranslateTransition animation = getAnimatedOverlaysStart().get(overlay);
-            animation.setToX(0);
-            animation.play();
+            overlay.setTranslateX(getWidth());  // initial position
+            TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
+            TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
+            start.setToX(0);
+            if (!end.toXProperty().isBound()) {
+              end.toXProperty().bind(widthProperty());
+            }
+            start.play();
           }
         });
         break;
@@ -901,8 +909,6 @@ public class Workbench extends Control {
   }
   private TranslateTransition slideOut(Region overlay, Side side) {
     TranslateTransition close = new TranslateTransition(new Duration(1000), overlay);
-
-    close.toXProperty().bind(overlay.widthProperty().negate());
     close.setOnFinished(event -> {
         overlay.setVisible(false);
       LOGGER.trace("Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
