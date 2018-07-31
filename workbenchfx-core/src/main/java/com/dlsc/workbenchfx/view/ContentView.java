@@ -1,9 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.view.controls.ToolbarControl;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SetProperty;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import org.apache.logging.log4j.LogManager;
@@ -59,7 +56,7 @@ public class ContentView extends BorderPane implements View {
    *
    * @param node the module content as a Node
    */
-  public void setContent(Node node) {
+  void setContent(Node node) {
     setCenter(node);
   }
 
@@ -74,17 +71,5 @@ public class ContentView extends BorderPane implements View {
 
   void setAddModuleView() {
     setCenter(addModuleView);
-  }
-
-  BooleanProperty toolbarEmptyProperty() {
-    return toolbarControl.emptyProperty();
-  }
-
-  ListProperty<Node> toolbarControlsLeft() {
-    return toolbarControl.toolbarControlsLeftProperty();
-  }
-
-  SetProperty<Node> toolbarControlsRight() {
-    return toolbarControl.toolbarControlsRightProperty();
   }
 }

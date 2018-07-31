@@ -64,19 +64,20 @@ public class ContentPresenter extends Presenter {
 
         // Setting the new chosen module in the toolbar -> the content of the toolbar changes
         // Unbind Modules, which were set before
-        view.toolbarControlsLeft().unbind();
-        view.toolbarControlsRight().unbind();
+        view.toolbarControl.toolbarControlsLeftProperty().unbind();
+        view.toolbarControl.toolbarControlsRightProperty().unbind();
 
         // Bind new Module
-        view.toolbarControlsLeft().bindContent(newModule.getToolbarControlsLeft());
-        view.toolbarControlsRight().bindContent(newModule.getToolbarControlsRight());
+        view.toolbarControl.toolbarControlsLeftProperty()
+            .bindContent(newModule.getToolbarControlsLeft());
+        view.toolbarControl.toolbarControlsRightProperty()
+            .bindContent(newModule.getToolbarControlsRight());
 
-        if (!view.toolbarEmptyProperty().get()) {
-          view.showToolbar(true); // Initially add the toolbar, if its not empty
-        }
+        // Initially add the toolbar, if its not empty
+        view.showToolbar(!view.toolbarControl.isEmpty());
 
         // Adding the listener -> add/remove the toolbar when empty
-        view.toolbarEmptyProperty().addListener(
+        view.toolbarControl.emptyProperty().addListener(
             (observable1, wasEmpty, isEmpty) -> view.showToolbar(!isEmpty)
         );
       }
