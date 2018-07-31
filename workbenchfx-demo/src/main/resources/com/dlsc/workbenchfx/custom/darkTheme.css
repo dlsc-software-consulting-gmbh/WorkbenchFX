@@ -1,5 +1,7 @@
 * {
   -text-color: rgba(100%,100%,100%,0.7);
+  -fx-fill: -text-color;
+
   -primary-color: #2c3649;
   -primary-variant-color: #293244;
   -secondary-color: #02ABF5;
