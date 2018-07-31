@@ -241,6 +241,8 @@
 
 .navigation-drawer {
   -fx-background-color: -surface-color; }
+  .navigation-drawer .logo {
+    -fx-padding: 0 1em; }
   .navigation-drawer .separator:horizontal .line {
     -fx-border-color: rgba(0, 0, 0, 0.2) transparent transparent transparent;
     -fx-border-insets: 1px 0 0 0; }

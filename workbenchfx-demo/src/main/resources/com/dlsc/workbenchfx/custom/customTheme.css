@@ -14,5 +14,5 @@
 }
 
 .logo {
-    -fx-image: url("workbenchfx-logo.png");
+  -fx-graphic: url("logo.png");
 }

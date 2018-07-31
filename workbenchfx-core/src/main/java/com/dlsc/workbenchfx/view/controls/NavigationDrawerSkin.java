@@ -5,17 +5,18 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,8 +38,9 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
   private PrettyScrollPane scrollPane;
   private StackPane backIconShape;
   private Button backBtn;
-  private ImageView companyLogo;
+  private Label companyLogo;
   private ReadOnlyDoubleProperty workbenchWidth;
+  final double rem = Math.rint(new Text("").getLayoutBounds().getHeight());
 
   /**
    * Creates the skin for the {@link NavigationDrawer} control.
@@ -86,12 +88,8 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     backBtn.getStyleClass().add("icon");
     backBtn.setId("back-button");
 
-    companyLogo = new ImageView();
+    companyLogo = new Label("");
     companyLogo.getStyleClass().add("logo");
-    companyLogo.setPreserveRatio(true);
-    // TODO: why does downscaling an image in javafx make it pixelated?
-    companyLogo.fitWidthProperty().bind(navigationDrawer.drawerWidthProperty().divide(1.5));
-
   }
 
   /**
