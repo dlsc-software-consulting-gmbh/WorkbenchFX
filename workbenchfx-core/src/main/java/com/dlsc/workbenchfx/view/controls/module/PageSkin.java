@@ -54,11 +54,12 @@ public class PageSkin extends SkinBase<Page> {
     int column = 0;
     int row = 0;
 
+    final int columnsPerRow = WorkbenchUtils.calculateColumnsPerRow(tiles.size());
     for (Tile tile : tiles) {
       tilePane.add(tile, column, row);
       column++;
 
-      if (column == WorkbenchUtils.calculateColumnsPerRow(tiles.size())) {
+      if (column == columnsPerRow) {
         column = 0;
         row++;
       }
