@@ -35,7 +35,9 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.Optional;
 import java.util.function.Consumer;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -121,6 +123,8 @@ class WorkbenchTest extends ApplicationTest {
 
   private Pane drawer = new Pane();
 
+  private BooleanProperty blocking;
+
   @Override
   public void start(Stage stage) {
     MockitoAnnotations.initMocks(this);
@@ -153,9 +157,10 @@ class WorkbenchTest extends ApplicationTest {
     dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
 
     // Setup WorkbenchDialog Mock
+    blocking = new SimpleBooleanProperty();
     when(mockDialog.getButtonTypes()).thenReturn(buttonTypes);
     when(mockDialog.getOnResult()).thenReturn(mockOnResult);
-    when(mockDialog.getCancelDialogButtonType()).thenReturn(ButtonType.CANCEL);
+    when(mockDialog.blockingProperty()).thenReturn(blocking);
 
     navigationDrawer = new MockNavigationDrawer();
     dialogControl = new MockDialogControl();
@@ -1549,7 +1554,7 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane - default")
+  @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane")
   void showDialogNonBlockingCloseGlassPaneDefault() {
     robot.interact(() -> {
       assertDialogNotShown();
@@ -1564,30 +1569,6 @@ class WorkbenchTest extends ApplicationTest {
       simulateGlassPaneClick(dialogControl);
 
       verify(mockOnResult).accept(ButtonType.CANCEL);
-      assertDialogNotShown();
-    });
-  }
-
-  @Test
-  @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane - "
-      + "custom cancel ButtonType was defined")
-  void showDialogNonBlockingCloseGlassPaneCustom() {
-    ButtonType cancelButtonType = ButtonType.FINISH;
-    when(mockDialog.getCancelDialogButtonType()).thenReturn(cancelButtonType);
-    robot.interact(() -> {
-      assertDialogNotShown();
-
-      WorkbenchDialog result = workbench.showDialog(mockDialog);
-
-      assertDialogShown(result, false);
-      verify(mockDialog, atLeastOnce()).getButtonTypes();
-      verify(mockOnResult, never()).accept(any()); // no result yet
-
-      // hiding by GlassPane click
-      simulateGlassPaneClick(dialogControl);
-
-      verify(mockDialog).getCancelDialogButtonType();
-      verify(mockOnResult).accept(cancelButtonType);
       assertDialogNotShown();
     });
   }
@@ -1623,13 +1604,14 @@ class WorkbenchTest extends ApplicationTest {
 
       WorkbenchDialog result = workbench.showDialog(mockDialog);
 
-      verify(mockDialog).isBlocking(); // call showOverlay(...) inside showDialog()
+      verify(mockDialog, atLeastOnce()).isBlocking(); // call showOverlay(...) inside showDialog()
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       assertDialogShown(result, true);
 
       // try hiding by clicking on GlassPane
       simulateGlassPaneClick(dialogControl); // simulates a click on GlassPane
 
+      verify(mockDialog, atLeast(0)).blockingProperty(); // ignore calls
       verify(mockDialog, never()).getOnResult();
       verify(mockOnResult, never()).accept(any());
       verifyNoMoreInteractions(mockDialog);
@@ -1650,7 +1632,7 @@ class WorkbenchTest extends ApplicationTest {
       WorkbenchDialog result = workbench.showDialog(mockDialog);
 
       assertDialogShown(result, true);
-      verify(mockDialog).isBlocking(); // call showOverlay(...) inside showDialog()
+      verify(mockDialog, atLeastOnce()).isBlocking(); // call showOverlay(...) inside showDialog()
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       verify(mockDialog, atLeastOnce()).getDialogControl();
       verify(mockDialog, never()).getOnResult();
@@ -1662,6 +1644,7 @@ class WorkbenchTest extends ApplicationTest {
       ButtonType toPress = buttonTypes.get(0);
       simulateDialogButtonClick(dialogControl, toPress);
 
+      verify(mockDialog, atLeast(0)).blockingProperty(); // ignore calls
       verify(mockDialog).getOnResult();
       verify(mockDialog, atLeastOnce()).getDialogControl();
       verify(mockOnResult).accept(toPress);
