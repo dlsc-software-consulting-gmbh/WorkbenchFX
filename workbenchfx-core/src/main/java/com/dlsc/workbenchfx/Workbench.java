@@ -105,6 +105,7 @@ public class Workbench extends Control {
   private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet();
 
   private final ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>();
+  private final ObjectProperty<Side> drawerSideShown = new SimpleObjectProperty<>();
 
   // Modules
   /**
@@ -422,7 +423,7 @@ public class Workbench extends Control {
         hideOverlay(oldDrawer);
       }
       if (!Objects.isNull(newDrawer)) {
-        showOverlay(newDrawer, false, null);
+        showOverlay(newDrawer, false, drawerSideShown.get());
       }
     });
 
@@ -861,25 +862,56 @@ public class Workbench extends Control {
   public boolean showOverlay(Region overlay, boolean blocking, Side side) {
     LOGGER.trace("showOverlay - animated");
     if (!animatedOverlaysStart.containsKey(overlay)) {
-      overlay.widthProperty().addListener(observable -> {
-        if (overlay.getWidth() > 0) {
-          overlay.setTranslateX(-(overlay.getWidth()));
-          getAnimatedOverlaysStart().get(overlay).play();
-        }
-      });
-      animatedOverlaysStart.put(overlay, slideIn(overlay));
-      animatedOverlaysEnd.put(overlay, slideOut(overlay));
+      addAnimationListener(overlay, side);
+      animatedOverlaysStart.put(overlay, slideIn(overlay, side));
+      animatedOverlaysEnd.put(overlay, slideOut(overlay, side));
     }
     return showOverlay(overlay, blocking);
   }
 
-  private TranslateTransition slideIn(Region overlay) {
+  private void addAnimationListener(Region overlay, Side side) {
+    switch (side) {
+      case LEFT:
+        overlay.widthProperty().addListener(observable -> {
+          if (overlay.getWidth() > 0) {
+            overlay.setTranslateX(-(overlay.getWidth()));
+            getAnimatedOverlaysStart().get(overlay).play();
+          }
+        });
+        break;
+      case RIGHT:
+        overlay.widthProperty().addListener(observable -> {
+          if (overlay.getWidth() > 0) {
+            overlay.setTranslateX(getWidth());
+            getAnimatedOverlaysStart().get(overlay).play();
+          }
+        });
+        break;
+    }
+
+  }
+
+  private TranslateTransition slideIn(Region overlay, Side side) {
     TranslateTransition open = new TranslateTransition(new Duration(1000), overlay);
-    open.setToX(0);
+    switch (side) {
+      case LEFT:
+        open.setToX(0);
+        break;
+      case RIGHT:
+        open.toXProperty().bind(widthProperty().subtract(overlay.widthProperty()));
+        break;
+      case TOP:
+        open.setToX(0);
+        break;
+      case BOTTOM:
+        open.toXProperty().bind(widthProperty().subtract(overlay.widthProperty()));
+        break;
+    }
     return open;
   }
-  private TranslateTransition slideOut(Region overlay) {
+  private TranslateTransition slideOut(Region overlay, Side side) {
     TranslateTransition close = new TranslateTransition(new Duration(1000), overlay);
+
     close.toXProperty().bind(overlay.widthProperty().negate());
     close.setOnFinished(event -> {
         overlay.setVisible(false);
@@ -1011,6 +1043,7 @@ public class Workbench extends Control {
     }
     StackPane.setAlignment(drawer, position);
     drawer.getStyleClass().add("drawer");
+    drawerSideShown.set(side); // TODO: use getter
     setDrawerShown(drawer);
   }
 
@@ -1050,6 +1083,7 @@ public class Workbench extends Control {
    */
   public void hideDrawer() {
     setDrawerShown(null);
+    drawerSideShown.set(null); // TODO: use getter
   }
 
   public void showNavigationDrawer() {
