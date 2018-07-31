@@ -142,6 +142,10 @@ public class WorkbenchPresenter extends Presenter {
     LOGGER.trace("showOverlay - Blocking: " + blocking);
     view.showOverlay(overlay);
 
+    if (!Objects.isNull(model.getAnimatedOverlays().get(overlay))) {
+      model.getAnimatedOverlays().get(overlay).play();
+    }
+
     // if overlay is not blocking, make the overlay hide when the glass pane is clicked
     if (!blocking) {
       LOGGER.trace("showOverlay - Set GlassPane EventHandler");
@@ -181,7 +185,11 @@ public class WorkbenchPresenter extends Presenter {
    * @param overlay to be hidden
    */
   public void hideOverlay(Node overlay) {
-    view.hideOverlay(overlay);
+    if (!Objects.isNull(model.getAnimatedOverlays().get(overlay))) {
+      model.getAnimatedOverlays().get(overlay).play();
+    } else {
+      view.hideOverlay(overlay);
+    }
   }
 
   /**

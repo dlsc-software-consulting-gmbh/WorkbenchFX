@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import javafx.animation.Animation;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
@@ -46,6 +48,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -90,6 +93,12 @@ public class Workbench extends Control {
    * corresponding {@link GlassPane}.
    */
   private final ObservableMap<Node, GlassPane> overlays = FXCollections.observableHashMap();
+
+  /**
+   * Map containing all overlays which are animated, with their corresponding {@link Animation}.
+   */
+  private final ObservableMap<Region, Animation> animatedOverlays =
+      FXCollections.observableHashMap();
   private final ObservableSet<Node> nonBlockingOverlaysShown = FXCollections.observableSet();
   private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet();
 
@@ -411,7 +420,7 @@ public class Workbench extends Control {
         hideOverlay(oldDrawer);
       }
       if (!Objects.isNull(newDrawer)) {
-        showOverlay(newDrawer, false);
+        showOverlay(newDrawer, false, null);
       }
     });
 
@@ -838,6 +847,49 @@ public class Workbench extends Control {
   }
 
   /**
+   * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background.
+   *
+   * @param overlay  to be shown
+   * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
+   *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
+   *                 clicking outside of the {@code overlay} will not do anything. The {@code
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide it.
+   * @return true if the overlay is not being shown already
+   */
+  public boolean showOverlay(Region overlay, boolean blocking, Side side) {
+    LOGGER.trace("showOverlay - animated");
+    if (!animatedOverlays.containsKey(overlay)) {
+      animatedOverlays.put(overlay, slideIn(overlay));
+      overlay.widthProperty().addListener(observable -> {
+        if (overlay.isVisible() && overlay.getWidth() > 0) {
+          LOGGER.trace("playing animation: " + overlay.getWidth());
+          overlay.setTranslateX(-(overlay.getWidth()));
+          TranslateTransition animation = (TranslateTransition)getAnimatedOverlays().get(overlay);
+          animation.setFromX(-(overlay.getWidth()));
+          animation.play();
+        }
+      });
+    }
+    return showOverlay(overlay, blocking);
+  }
+
+  private Animation slideIn(Region overlay) {
+    TranslateTransition openNav = new TranslateTransition(new Duration(1000), overlay);
+    openNav.setToX(0);
+    openNav.setOnFinished(event -> {
+      if (openNav.getToX() != 0) {
+        overlay.setVisible(false);
+        LOGGER.trace("Finished end - Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
+            overlay.getTranslateX());
+      } else {
+        LOGGER.trace("Finished start - Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
+            overlay.getTranslateX());
+      }
+    });
+    return openNav;
+  }
+
+  /**
    * Hides the {@code overlay} together with its {@link GlassPane}, which has previously been shown
    * using {@link Workbench#showOverlay(Node, boolean)}.
    *
@@ -1098,6 +1150,10 @@ public class Workbench extends Control {
 
   private void setDrawerShown(Region drawerShown) {
     this.drawerShown.set(drawerShown);
+  }
+
+  public ObservableMap<Region, Animation> getAnimatedOverlays() {
+    return FXCollections.unmodifiableObservableMap(animatedOverlays);
   }
 
   @Override

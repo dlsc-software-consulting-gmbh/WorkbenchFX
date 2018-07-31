@@ -103,26 +103,7 @@ public class WorkbenchView extends StackPane implements View {
    */
   public void showOverlay(Node overlay) {
     LOGGER.trace("showOverlay");
-    Region overlay2 = (Region)overlay;
-    LOGGER.trace("Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
-        overlay.getTranslateX());
-    if (overlay2.getWidth() == 0) {
-      overlay2.widthProperty().addListener(observable -> {
-        if (overlay2.getWidth() > 0) {
-          overlay2.setTranslateX(-(overlay2.getWidth()));
-          slideIn(overlay2);
-        }
-      });
-    } else {
-      slideIn(overlay2);
-    }
-
     overlay.setVisible(true);
-
-//    overlay2.setTranslateX(-(overlay2.getWidth()));
-    LOGGER.trace("Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
-        overlay.getTranslateX());
-
   }
 
   /**
@@ -132,27 +113,7 @@ public class WorkbenchView extends StackPane implements View {
    */
   public void hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");
-    slideOut((Region)overlay);
+    overlay.setVisible(false);
   }
-
-  private void slideIn(Region overlay) {
-    TranslateTransition openNav=new TranslateTransition(new Duration(200), overlay);
-      openNav.setFromX(overlay.getTranslateX());
-      openNav.setToX(0);
-      LOGGER.trace("Open Nav");
-      openNav.play();
-  }
-
-  private void slideOut(Region overlay) {
-    TranslateTransition closeNav=new TranslateTransition(new Duration(200), overlay);
-        LOGGER.trace("Close Nav");
-        closeNav.setToX(-(overlay.getWidth()));
-        closeNav.play();
-        closeNav.setOnFinished(event -> {
-          overlay.setVisible(false);
-          LOGGER.trace("Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
-              overlay.getTranslateX());
-        });
-      }
 
 }

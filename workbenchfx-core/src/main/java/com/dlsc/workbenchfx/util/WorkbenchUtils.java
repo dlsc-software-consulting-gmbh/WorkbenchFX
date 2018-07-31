@@ -3,6 +3,8 @@ package com.dlsc.workbenchfx.util;
 import com.google.common.base.CharMatcher;
 import java.util.Set;
 import java.util.function.Consumer;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
@@ -56,6 +58,30 @@ public final class WorkbenchUtils {
         added.accept(c);
       } else if (c.wasRemoved()) {
         removed.accept(c);
+      }
+    });
+  }
+
+  /**
+   * TODO.
+   * @param list
+   * @param addAction
+   * @param removeAction
+   * @param <T>
+   */
+  public static <T> void addListListener(ObservableList<T> list,
+                                        Consumer<T> addAction,
+                                        Consumer<T> removeAction) {
+    list.addListener((ListChangeListener<? super T>) c -> {
+      while (c.next()) {
+        if (!c.wasPermutated() && !c.wasUpdated()) {
+          for (T remitem : c.getRemoved()) {
+            removeAction.accept(remitem);
+          }
+          for (T additem : c.getAddedSubList()) {
+            addAction.accept(additem);
+          }
+        }
       }
     });
   }
