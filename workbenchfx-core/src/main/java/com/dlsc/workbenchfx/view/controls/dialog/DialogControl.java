@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.WeakHashMap;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -18,11 +19,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -51,8 +55,14 @@ public class DialogControl extends Control {
 
   private final ObservableList<Button> buttons = FXCollections.observableArrayList();
   private final Map<ButtonType, Button> buttonNodes = new WeakHashMap<>();
+  private Button defaultButton;
+  private ButtonType defaultButtonType;
+  private Button cancelButton;
+  private ButtonType cancelButtonType;
 
   private InvalidationListener dialogChangedListener;
+  private InvalidationListener blockingChangedListener;
+  private EventHandler<KeyEvent> escapeConsumeHandler;
 
   /**
    * Creates a dialog control.
@@ -68,15 +78,32 @@ public class DialogControl extends Control {
   private void setupChangeListeners() {
     // update buttons whenever dialog, buttonTypes, workbench, or buttonTextUppercase changes
     dialogChangedListener = observable -> {
-      buttonNodes.clear(); // force re-creation of buttons
       updateButtons(getDialog());
+    };
+    escapeConsumeHandler = event -> {
+      if (KeyCode.ESCAPE.equals(event.getCode())) {
+        LOGGER.trace("ESC was pressed on a blocking dialog, consuming event");
+        event.consume();
+      }
+    };
+    blockingChangedListener = observable -> {
+      if (getDialog().isBlocking()) {
+        LOGGER.trace("Added escapeConsumeHandler");
+        addEventFilter(KeyEvent.ANY, escapeConsumeHandler);
+      } else {
+        LOGGER.trace("Removed escapeConsumeHandler");
+        removeEventFilter(KeyEvent.ANY, escapeConsumeHandler);
+      }
     };
     dialog.addListener((observable, oldDialog, newDialog) -> {
       if (!Objects.isNull(oldDialog)) {
         oldDialog.getButtonTypes().removeListener(dialogChangedListener);
+        oldDialog.blockingProperty().removeListener(blockingChangedListener);
       }
       if (!Objects.isNull(newDialog)) {
         newDialog.getButtonTypes().addListener(dialogChangedListener);
+        newDialog.blockingProperty().addListener(blockingChangedListener);
+        blockingChangedListener.invalidated(null); // initially trigger
       }
     });
     dialog.addListener(dialogChangedListener);
@@ -107,6 +134,11 @@ public class DialogControl extends Control {
     LOGGER.trace("Updating buttons");
 
     buttons.clear();
+    cancelButton = null;
+    cancelButtonType = null;
+    defaultButton = null;
+    defaultButtonType = null;
+    buttonNodes.clear();
 
     if (Objects.isNull(dialog)) {
       return;
@@ -119,20 +151,65 @@ public class DialogControl extends Control {
       // keep only first default button
       ButtonBar.ButtonData buttonType = cmd.getButtonData();
 
-      button.setDefaultButton(
-          !hasDefault && buttonType != null && buttonType.isDefaultButton()
-      );
-      button.setCancelButton(buttonType != null && buttonType.isCancelButton());
-      button.setOnAction(evt -> {
-        getDialog().getOnResult().accept(cmd);
-        hide();
-      });
+      boolean isFirstDefaultButton =
+          !hasDefault && buttonType != null && buttonType.isDefaultButton();
+      button.setDefaultButton(isFirstDefaultButton);
+      if (isFirstDefaultButton) {
+        defaultButton = button;
+        defaultButtonType = cmd;
+      }
+      // take last cancel button
+      boolean isCancelButton = buttonType != null && buttonType.isCancelButton();
+      button.setCancelButton(isCancelButton);
+      if (isCancelButton) {
+        cancelButton = button;
+        cancelButtonType = cmd;
+      }
+      button.setOnAction(evt -> completeDialog(cmd));
 
       hasDefault |= buttonType != null && buttonType.isDefaultButton();
 
       buttons.add(button);
 
       LOGGER.trace("updateButtons finished");
+    }
+
+    updateKeyboardBehavior();
+  }
+
+  private void completeDialog(ButtonType cmd) {
+    getDialog().getOnResult().accept(cmd);
+    hide();
+  }
+
+  private void updateKeyboardBehavior() {
+    // if there is no default button, but there is only one button present
+    if (Objects.isNull(defaultButton) && buttons.size() == 1) {
+      // set the button as the default button
+      LOGGER.trace("updateKeyboardBehavior - No default button, setting button as default");
+      buttons.get(0).setDefaultButton(true);
+    }
+    if (Objects.isNull(cancelButton)) {
+      LOGGER.trace("No cancel button, setting ButtonType.CANCEL as cancel");
+      // focus the dialog if none of the buttons are focused by the ButtonBar or the ButtonBar has
+      // been made invisible, since onKeyReleased event only triggers, if the node or any of its
+      // children are focused
+      Platform.runLater(() -> {
+        if (!buttons.stream().anyMatch(Node::isFocused)) {
+          requestFocus();
+        }
+      });
+      setOnKeyReleased(event -> {
+        if (KeyCode.ESCAPE.equals(event.getCode())) {
+          LOGGER.trace("ESC was pressed, closing dialog");
+          completeDialog(ButtonType.CANCEL);
+        }
+      });
+    } else {
+      LOGGER.trace("Cancel button present");
+      setOnKeyReleased(event -> {
+        // do nothing, reset previously set event handler since it's being handled by the buttons
+      });
     }
   }
 
@@ -288,6 +365,22 @@ public class DialogControl extends Control {
 
   private void setShowing(boolean showing) {
     this.showingProperty.set(showing);
+  }
+
+  private Button getDefaultButton() {
+    return defaultButton;
+  }
+
+  private Button getCancelButton() {
+    return cancelButton;
+  }
+
+  private ButtonType getDefaultButtonType() {
+    return defaultButtonType;
+  }
+
+  public ButtonType getCancelButtonType() {
+    return cancelButtonType;
   }
 
   @Override
