@@ -667,6 +667,8 @@ class WorkbenchTest extends ApplicationTest {
       verify(module, atLeast(0)).getIcon();
       verify(module, atLeast(0)).getName();
       verify(module, atLeast(0)).getWorkbench();
+      verify(module, atLeast(0)).getToolbarControlsLeft();
+      verify(module, atLeast(0)).getToolbarControlsRight();
     }
   }
 
@@ -1215,8 +1217,6 @@ class WorkbenchTest extends ApplicationTest {
       int initialSizeLeft = workbench.getToolbarControlsLeft().size();
       Dropdown d = Dropdown.of(dropdownIconView, dropdownMenuItem);
       assertTrue(workbench.getToolbarControlsLeft().add(d));
-      assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
-      assertFalse(workbench.getToolbarControlsLeft().add(d));
       assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
 
       int initialSizeRight = workbench.getToolbarControlsRight().size();
