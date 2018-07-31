@@ -79,4 +79,15 @@ public final class WorkbenchUtils {
         .replace(' ', '-')
         .toLowerCase();
   }
+
+  /**
+   * Calculates from the amount of modules per page how many columns of modules there should be
+   * in a row.
+   *
+   * @param modulesPerPage how many modules are shown in a page
+   * @return the amount of columns per row
+   */
+  public static int calculateColumnsPerRow(int modulesPerPage) {
+    return -1;
+  }
 }

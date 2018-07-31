@@ -85,4 +85,10 @@ public class WorkbenchUtilsTest {
       assertEquals(expectedIds[i], WorkbenchUtils.convertToId(toBeConverted[i]));
     }
   }
+
+  @Test
+  void calculateColumnsPerRow() {
+    int modulesPerPage = 9
+    WorkbenchUtils.calculateColumnsPerRow(modulesPerPage);
+  }
 }
