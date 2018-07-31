@@ -865,8 +865,8 @@ public class Workbench extends Control {
     LOGGER.trace("showOverlay - animated");
     if (!animatedOverlaysStart.containsKey(overlay)) {
       addAnimationListener(overlay, side);
-      animatedOverlaysStart.put(overlay, slideIn(overlay, side));
-      animatedOverlaysEnd.put(overlay, slideOut(overlay, side));
+      animatedOverlaysStart.put(overlay, slideIn(overlay));
+      animatedOverlaysEnd.put(overlay, slideOut(overlay));
     }
     return showOverlay(overlay, blocking);
   }
@@ -938,11 +938,11 @@ public class Workbench extends Control {
 
   }
 
-  private TranslateTransition slideIn(Region overlay, Side side) {
+  private TranslateTransition slideIn(Region overlay) {
     TranslateTransition open = new TranslateTransition(new Duration(200), overlay);
     return open;
   }
-  private TranslateTransition slideOut(Region overlay, Side side) {
+  private TranslateTransition slideOut(Region overlay) {
     TranslateTransition close = new TranslateTransition(new Duration(200), overlay);
     close.setOnFinished(event -> {
         overlay.setVisible(false);
