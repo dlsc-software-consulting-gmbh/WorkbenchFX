@@ -92,6 +92,11 @@ public final class WorkbenchUtils {
     if (modulesPerPage <= 3) {
       return modulesPerPage;
     }
+    if (modulesPerPage > 10) {
+      if (divisibleBy(modulesPerPage, 3)) {
+        return modulesPerPage / 3;
+      }
+    }
     if (divisibleBy(modulesPerPage, 2)) {
       return modulesPerPage / 2;
     }
