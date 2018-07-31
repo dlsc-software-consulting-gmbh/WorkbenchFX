@@ -16,15 +16,19 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.CheckListView;
 
 public class DialogTestModule extends WorkbenchModule implements MapComponentInitializedListener {
+  private static final Logger LOGGER = LogManager.getLogger(DialogTestModule.class.getName());
   private int itemsCount = 1;
 
   private final Button confirmBtn = new Button("Confirmation Dialog");
@@ -41,6 +45,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
   private final Button longTitleMessageBtn = new Button("Long Title & Message Dialog");
   private final Button noButtonsBtn = new Button("No Buttons Dialog");
   private final Button conditionalBtn = new Button("Conditional Button Dialog");
+  private final Button settingsBtn = new Button("Settings Dialog With 3 Buttons");
 
   private GoogleMapView mapView;
   private GoogleMap map;
@@ -100,6 +105,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     customPane.add(errorBtn, 0, 1);
     customPane.add(warningBtn, 0, 2);
     customPane.add(informationBtn, 0, 3);
+    customPane.add(settingsBtn, 0, 4);
 
     customPane.add(errorExceptionBtn, 1, 0);
     customPane.add(errorDetailsBtn, 1, 1);
@@ -112,6 +118,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     customPane.add(longTitleMessageBtn, 2, 2);
     customPane.add(noButtonsBtn, 2, 3);
     customPane.add(conditionalBtn, 2, 4);
+
 
     customPane.setAlignment(Pos.CENTER);
   }
@@ -158,6 +165,39 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
       dialog.setOnShown(event1 -> {
         dialog.getButton(ButtonType.OK).ifPresent(button -> {
           button.disableProperty().bind(checkBox.selectedProperty().not());
+        });
+      });
+      getWorkbench().showDialog(dialog);
+    });
+    CheckBox settingsBox = new CheckBox("Insert your Preferences(FX) window.\n"
+        + "Check the box to simulate a change.");
+    settingsBtn.setOnAction(event -> {
+      WorkbenchDialog dialog = WorkbenchDialog.builder(
+          "Settings with 3 buttons", settingsBox,
+          ButtonType.OK, ButtonType.CANCEL, ButtonType.APPLY
+      ).onResult(buttonType -> {
+        if (ButtonType.OK.equals(buttonType)) {
+          // Do your OK stuff
+          LOGGER.trace("OK pressed: SettingsBox.isSelected() = " + settingsBox.isSelected());
+        }
+        if (ButtonType.CANCEL.equals(buttonType)) {
+          LOGGER.trace("CANCEL pressed: SettingsBox.isSelected() = " + settingsBox.isSelected());
+        }
+      }).build();
+      dialog.setOnShown(event1 -> {
+        dialog.getButton(ButtonType.APPLY).ifPresent(button -> {
+          button.disableProperty().bind(settingsBox.selectedProperty().not());
+          button.addEventFilter(ActionEvent.ACTION, event2 -> {
+            // Do your APPLY stuff
+            button.disableProperty().unbind(); // Unbind (because we're doing our "saving")
+            // Bind again ("saving" is done and the new state is bound)
+            if (settingsBox.isSelected()) {
+              button.disableProperty().bind(settingsBox.selectedProperty());
+            } else {
+              button.disableProperty().bind(settingsBox.selectedProperty().not());
+            }
+            event2.consume();
+          });
         });
       });
       getWorkbench().showDialog(dialog);

@@ -396,6 +396,13 @@ public final class WorkbenchDialog {
     return getDialogControl().onShownProperty();
   }
 
+  /**
+   * The dialog's action, which is invoked whenever the dialog has been fully initialized and is
+   * being shown. Whenever the {@link DialogControl#dialogProperty()}, {@link
+   * WorkbenchDialog#buttonTypes}, {@link DialogControl#buttonTextUppercaseProperty()} or {@link
+   * DialogControl#workbenchProperty()} changes, the dialog will be rebuilt and upon completion, an
+   * event will be fired.
+   */
   public final void setOnShown(EventHandler<Event> value) {
     getDialogControl().setOnShown(value);
   }
