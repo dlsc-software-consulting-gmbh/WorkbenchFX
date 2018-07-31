@@ -6,13 +6,12 @@
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-parent</artifactId>
-    <version>1.2.0</version>
+    <version>1.6.0</version>
     <packaging>pom</packaging>
 
     <properties>
-        <workbenchfx.version>1.2.0</workbenchfx.version>
+        <workbenchfx.version>1.6.0</workbenchfx.version>
 
-        <workbenchfx.core.pom>workbenchfx-core/pom.xml</workbenchfx.core.pom>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <asciidoctor.maven.plugin.version>1.5.6</asciidoctor.maven.plugin.version>
         <asciidoctorj.version>1.5.6</asciidoctorj.version>
@@ -61,7 +60,7 @@
                 <executions>
                     <execution>
                         <id>asciidoc-to-html</id>
-                        <phase>generate-resources</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>process-asciidoc</goal>
                         </goals>
@@ -88,7 +87,7 @@
                 <executions>
                     <execution>
                         <id>set-parent-version</id>
-                        <phase>process-resources</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -97,12 +96,15 @@
                             <arguments>
                                 <argument>versions:set</argument>
                                 <argument>-DnewVersion=${workbenchfx.version}</argument>
+                                <argument>-DoldVersion=*</argument>
+                                <argument>-DgroupId=*</argument>
+                                <argument>-DartifactId=*</argument>
                             </arguments>
                         </configuration>
                     </execution>
                     <execution>
                         <id>update-children-version</id>
-                        <phase>process-resources</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -113,25 +115,9 @@
                             </arguments>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>set-core-version</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>mvn</executable>
-                            <arguments>
-                                <argument>-f${workbenchfx.core.pom}</argument>
-                                <argument>versions:set</argument>
-                                <argument>-DnewVersion=${workbenchfx.version}</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-
 
 </project>

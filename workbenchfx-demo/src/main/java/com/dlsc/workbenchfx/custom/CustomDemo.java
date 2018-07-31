@@ -1,26 +1,27 @@
 package com.dlsc.workbenchfx.custom;
 
-import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
-
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
+import com.dlsc.workbenchfx.custom.controls.CustomNavigationDrawer;
+import com.dlsc.workbenchfx.custom.controls.CustomPage;
+import com.dlsc.workbenchfx.custom.controls.CustomTab;
+import com.dlsc.workbenchfx.custom.controls.CustomTile;
 import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
+import com.dlsc.workbenchfx.custom.test.DialogTestModule;
+import com.dlsc.workbenchfx.custom.test.DrawerTestModule;
 import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
+import com.dlsc.workbenchfx.custom.test.InterruptClosing2TestModule;
+import com.dlsc.workbenchfx.custom.test.InterruptClosingTestModule;
+import com.dlsc.workbenchfx.custom.test.LifecycleTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
-import com.dlsc.workbenchfx.module.Module;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
-import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
-import com.dlsc.workbenchfx.view.module.TabControl;
-import com.dlsc.workbenchfx.view.module.TileControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.util.function.BiFunction;
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,10 +30,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,69 +38,7 @@ public class CustomDemo extends Application {
 
   private static final Logger LOGGER = LogManager.getLogger(CustomDemo.class.getName());
   public Workbench workbench;
-
-  BiFunction<Workbench, Module, Node> tabFactory =
-      (workbench, module) -> {
-        TabControl tabControl = new TabControl(module);
-        workbench
-            .activeModuleProperty()
-            .addListener(
-                (observable, oldValue, newValue) -> {
-                  LOGGER.trace("Tab Factory - Old Module: " + oldValue);
-                  LOGGER.trace("Tab Factory - New Module: " + oldValue);
-                  if (module == newValue) {
-                    tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-                    LOGGER.error("STYLE SET");
-                  }
-                  if (module == oldValue) {
-                    // switch from this to other tab
-                    tabControl.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
-                  }
-                });
-        tabControl.setOnClose(e -> workbench.closeModule(module));
-        tabControl.setOnActive(e -> workbench.openModule(module));
-        tabControl.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-        System.out.println("This tab was proudly created by SteffiFX");
-        return tabControl;
-      };
-
-  BiFunction<Workbench, Module, Node> tileFactory =
-      (workbench, module) -> {
-        TileControl tileControl = new TileControl(module);
-        tileControl.setOnActive(e -> workbench.openModule(module));
-        System.out.println("This tile was proudly created by SteffiFX");
-        return tileControl;
-      };
-  BiFunction<Workbench, Integer, Node> pageFactory =
-      (workbench, pageIndex) -> {
-        final int COLUMNS_PER_ROW = 2;
-
-        GridPane gridPane = new GridPane();
-        gridPane.getStyleClass().add("tile-page");
-
-        int position = pageIndex * workbench.modulesPerPage;
-        int count = 0;
-        int column = 0;
-        int row = 0;
-
-        while (count < workbench.modulesPerPage && position < workbench.getModules().size()) {
-          Module module = workbench.getModules().get(position);
-          Node tile = workbench.getTile(module);
-          gridPane.add(tile, column, row);
-
-          position++;
-          count++;
-          column++;
-
-          if (column == COLUMNS_PER_ROW) {
-            column = 0;
-            row++;
-          }
-        }
-        return gridPane;
-      };
-  private Callback<Workbench, Node> navigationDrawerFactory =
-      NavigationDrawer::new;
+  PreferencesModule preferencesModule = new PreferencesModule();
 
   public static void main(String[] args) {
     launch(args);
@@ -158,25 +94,38 @@ public class CustomDemo extends Application {
     menu2.getItems().addAll(item21, item22);
     menu3.getItems().addAll(item31, item32, item33);
 
-    Button buttonLeft = new Button("Settings", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
-    buttonLeft.getStyleClass().add("button-inverted");
+    Button addPreferences = new Button("Add", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    Button removePreferences = new Button("Remove", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    addPreferences.getStyleClass().add("button-inverted");
+
+    Button showDialogButton = new Button("Show", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
 
     // WorkbenchFX
     workbench =
         Workbench.builder(
-                new CalendarModule(),
-                new NotesModule(),
-                new CustomerModule(),
-                new PreferencesModule(),
-                new WidgetsTestModule(),
-                new DropdownTestModule(),
-                new NavigationDrawerTestModule())
-            .toolbarLeft(buttonLeft)
-            .toolbarRight(
+            new CalendarModule(),
+            new NotesModule(),
+            new CustomerModule(),
+            new PreferencesModule(),
+            new WidgetsTestModule(),
+            new DropdownTestModule(),
+            new NavigationDrawerTestModule(),
+            new InterruptClosingTestModule(),
+            new InterruptClosing2TestModule(),
+            new DialogTestModule(),
+            new DrawerTestModule(),
+            new LifecycleTestModule()
+        )
+            .toolbarLeft(
+                addPreferences,
+                removePreferences,
                 Dropdown.of(
                     new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                     new CustomMenuItem(new Label("Content 1")),
-                    new CustomMenuItem(new Label("Content 2"))),
+                    new CustomMenuItem(new Label("Content 2")))
+            )
+            .toolbarRight(
+                showDialogButton,
                 Dropdown.of(
                     new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
                     new Menu(
@@ -190,11 +139,11 @@ public class CustomDemo extends Application {
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
             .modulesPerPage(4)
-            .tabFactory(tabFactory)
-            .tileFactory(tileFactory)
-            .pageFactory(pageFactory)
-            .navigationDrawerFactory(navigationDrawerFactory)
-            .navigationDrawer(
+            .pageFactory(CustomPage::new)
+            .tabFactory(CustomTab::new)
+            .tileFactory(CustomTile::new)
+            .navigationDrawer(new CustomNavigationDrawer())
+            .navigationDrawerItems(
                 menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
             .build();
 
@@ -202,11 +151,13 @@ public class CustomDemo extends Application {
     CustomOverlay blockingCustomOverlay = new CustomOverlay(workbench, true);
     showOverlay.setOnAction(event -> workbench.showOverlay(customOverlay, false));
     showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
-    buttonLeft.setOnAction(event -> workbench.showOverlay(customOverlay, false));
+    addPreferences.setOnAction(event -> workbench.getModules().add(preferencesModule));
+    removePreferences.setOnAction(event -> workbench.getModules().remove(preferencesModule));
+    showDialogButton.setOnAction(event -> workbench.showConfirmationDialog("Reset settings?",
+        "This will reset your device to its default factory settings.", null));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
-    workbench.getStylesheets().add(
-        CustomDemo.class.getResource("customTheme.css").toExternalForm());
+//    workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 
     workbench
         .getStylesheets()

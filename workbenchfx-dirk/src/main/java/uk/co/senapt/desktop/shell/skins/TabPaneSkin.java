@@ -3,6 +3,7 @@ package uk.co.senapt.desktop.shell.skins;
 import javafx.beans.Observable;
 import javafx.css.PseudoClass;
 import javafx.scene.Node;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.HBox;
@@ -50,6 +51,22 @@ public class TabPaneSkin extends SkinBase<TabPane> {
         content.resizeRelocate(contentX, contentY + headerHeight, contentWidth, content.prefHeight(-1));
     }
 
+    @Override
+    protected double computeMinHeight(double width, double topInset, double rightInset, double bottomInset, double leftInset) {
+        double height = super.computeMinHeight(width, topInset, rightInset, bottomInset, leftInset);
+        System.out.println("Computed Min height = " + height);
+        return height;
+        // TODO implement to avoid overlap components
+    }
+
+    @Override
+    protected double computePrefHeight(double width, double topInset, double rightInset, double bottomInset, double leftInset) {
+        double height = super.computePrefHeight(width, topInset, rightInset, bottomInset, leftInset);
+        System.out.println("Computed Pref height = " + height);
+        return height;
+        // TODO implement to avoid overlap components
+    }
+
     private void buildTabs () {
         List<TabView> tabs = new ArrayList<>();
         TabView first = null;
@@ -62,6 +79,8 @@ public class TabPaneSkin extends SkinBase<TabPane> {
                 HBox.setHgrow(view, Priority.ALWAYS);
                 view.setMaxWidth(Double.MAX_VALUE);
             }
+
+            view.setMaxHeight(Double.MAX_VALUE);
 
             if (first == null) {
                 first = view;
@@ -79,9 +98,10 @@ public class TabPaneSkin extends SkinBase<TabPane> {
 
         this.selected = selected;
 
-        if (this.selected != null) {
+        if (this.selected != null && this.selected.getContent() != null) {
             this.selected.pseudoClassStateChanged(SELECTED, true);
             content.getChildren().setAll(this.selected.getContent());
+            VBox.setVgrow(this.selected.getContent(), Priority.ALWAYS);
         }
         else {
             content.getChildren().clear();
@@ -105,6 +125,12 @@ public class TabPaneSkin extends SkinBase<TabPane> {
             if (tab.getName() != null) {
                 setText(tab.getName());
             }
+
+            if (tab.getGraphic() != null) {
+                setGraphic(tab.getGraphic());
+            }
+
+            setContentDisplay(ContentDisplay.RIGHT);
         }
 
         public Node getContent () {

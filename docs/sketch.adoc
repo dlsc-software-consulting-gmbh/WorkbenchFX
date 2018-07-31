@@ -1,0 +1,29 @@
+= Rough sketches of ideas
+
+== Refactoring for drawers
+/**
+   * TODO
+   * @param drawer
+   * @param position
+   * @param coverage
+   */
+  public void showDrawer(Node drawer, Pos position, double coverage) {
+    showDrawer(drawer, position, coverage, false);
+  } // convenience methods for coverage, i.e. if position left, coverage 33%, then will be placed 100% height and 33% width binding to the left
+
+  /**
+   *
+   * @param drawer
+   * @param position
+   * @param widthCoverage
+   * @param heightCoverage
+   * @param blocking
+   */
+  public void showDrawer(Node drawer, Pos position, double widthCoverage, double heightCoverage, boolean blocking) {
+    StackPane.setAlignment(drawer, position);
+    if(Pos.getVpos()... Pos.getHpos()...)
+    drawer.maxWidthProperty().bind(workbench.widthProperty().multiply(widthPercentage));
+    showOverlay()
+  }
+
+  Or go with class "Drawer" to use, which specifies those

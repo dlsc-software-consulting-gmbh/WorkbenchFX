@@ -29,6 +29,8 @@ public final class ShellDialog<T> {
     public ShellDialog(Type type) {
         this.type = type;
 
+        getStyleClass().add(type.name().toLowerCase());
+
         switch (type) {
             case INPUT:
                 getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
@@ -118,5 +120,45 @@ public final class ShellDialog<T> {
 
     public final void setTitle(String title) {
         this.title.set(title);
+    }
+
+    // custom style
+
+    private final ObservableList<String> styleClass = FXCollections.observableArrayList();
+
+    public ObservableList<String> getStyleClass() {
+        return styleClass;
+    }
+
+
+    // Show buttons bar
+    private final BooleanProperty showButtonsBar = new SimpleBooleanProperty(this, "showButtonsBar", true);
+
+    public final BooleanProperty showButtonsBarProperty () {
+        return showButtonsBar;
+    }
+
+    public final boolean isShowButtonsBar () {
+        return showButtonsBarProperty().get();
+    }
+
+    public final void setShowButtonsBar (boolean showButtonsBar) {
+        showButtonsBarProperty().set(showButtonsBar);
+    }
+
+    // exception
+
+    private final ObjectProperty<Exception> exception = new SimpleObjectProperty<>(this, "exception");
+
+    public final ObjectProperty<Exception> exceptionProperty() {
+        return exception;
+    }
+
+    public final void setException(Exception ex) {
+        this.exception.set(ex);
+    }
+
+    public final Exception getException() {
+        return exception.get();
     }
 }

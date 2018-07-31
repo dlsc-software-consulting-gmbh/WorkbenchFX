@@ -1,16 +1,16 @@
 .root {
-    -prim-color: #3f51b5;
-    -prim-color-hover: #5566c3;
-    -text-color: #ffffff;
-    -text-color-transparent: rgba(255, 255, 255, .7);
-
-    -danger-color: #f1986a;
-    -success-color: #51aaa0;
-    -accent-color: #aa8a70;
-
-    -icons-color: -text-color;
-    -fx-font-size: 14px;
-    -fx-font-family: Helvetica, sans-serif;
+  -primary-color: #8200ee;
+  -primary-variant-color: #6100b3;
+  -secondary-color: #03DAC6;
+  -secondary-variant-color: #018786;
+  -background-color: #FFFFFF;
+  -surface-color: #FFFFFF;
+  -error-color: #B00020;
+  -on-primary-color: #FFFFFF;
+  -on-secondary-color: #000000;
+  -on-background-color: #000000;
+  -on-surface-color: #000000;
+  -on-error-color: #FFFFFF;
 }
 
 .logo {

@@ -8,12 +8,15 @@ import com.dlsc.workbenchfx.Workbench;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ContentPresenter implements Presenter {
+public class ContentPresenter extends Presenter {
   private final Workbench model;
   private final ContentView view;
 
   /**
    * Creates a new {@link ContentPresenter} object for a corresponding {@link ContentView}.
+   *
+   * @param model the workbench, holding all data
+   * @param view the corresponding {@link ContentView}
    */
   public ContentPresenter(Workbench model, ContentView view) {
     this.model = model;

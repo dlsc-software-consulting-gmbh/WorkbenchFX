@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 
 public class CustomOverlay extends BorderPane {
 
@@ -15,6 +16,7 @@ public class CustomOverlay extends BorderPane {
   private final boolean blocking;
 
   public CustomOverlay(Workbench workbench, boolean blocking) {
+    StackPane.setAlignment(this, Pos.CENTER);
     Objects.requireNonNull(workbench);
     this.workbench = workbench;
     this.blocking = blocking;
@@ -31,7 +33,7 @@ public class CustomOverlay extends BorderPane {
     if (blocking) {
       // only show x button if it's a blocking overlay, so it can still be closed
       Button closeBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.CLOSE));
-      closeBtn.setOnAction(event -> workbench.hideOverlay(this, true));
+      closeBtn.setOnAction(event -> workbench.hideOverlay(this));
       BorderPane.setAlignment(closeBtn, Pos.TOP_RIGHT);
       setTop(closeBtn);
     }

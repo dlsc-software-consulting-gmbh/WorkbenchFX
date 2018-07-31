@@ -1,13 +1,13 @@
 package com.dlsc.workbenchfx.custom.customer;
 
-import com.dlsc.workbenchfx.module.AbstractModule;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.scene.Node;
 
-public class CustomerModule extends AbstractModule {
+public class CustomerModule extends WorkbenchModule {
 
   public CustomerModule() {
-    super("Customer Management", FontAwesomeIcon.USERS);
+    super("Customer\nManagement\nModule", FontAwesomeIcon.USERS);
   }
 
   @Override

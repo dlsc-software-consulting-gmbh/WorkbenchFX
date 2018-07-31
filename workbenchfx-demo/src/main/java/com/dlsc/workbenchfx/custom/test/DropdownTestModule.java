@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.custom.test;
 
-import com.dlsc.workbenchfx.module.AbstractModule;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.Dropdown;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -14,7 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 
-public class DropdownTestModule extends AbstractModule {
+public class DropdownTestModule extends WorkbenchModule {
   private int itemsCount = 1;
 
   private final Button addMenuBtn = new Button("Add new Dropdown");
@@ -46,12 +46,13 @@ public class DropdownTestModule extends AbstractModule {
     customPane.add(removeItemBtn, 1, 1);
     customPane.add(removeLotItemBtn, 1, 2);
 
+
     customPane.setAlignment(Pos.CENTER);
   }
 
   private void setupEventHandlers() {
-    addMenuBtn.setOnAction(event -> workbench.addToolbarControlRight(customDropdown));
-    removeMenuBtn.setOnAction(event -> workbench.removeToolbarControlRight(customDropdown));
+    addMenuBtn.setOnAction(event -> getWorkbench().getToolbarControlsRight().add(customDropdown));
+    removeMenuBtn.setOnAction(event -> getWorkbench().getToolbarControlsRight().remove(customDropdown));
 
     addItemBtn.setOnAction(event -> addItems(1));
     addLotItemBtn.setOnAction(event -> addItems(100));

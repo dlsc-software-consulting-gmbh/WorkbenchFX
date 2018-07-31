@@ -1,62 +1,81 @@
 package com.dlsc.workbenchfx;
 
-import static impl.org.controlsfx.ReflectionUtils.addUserAgentStylesheet;
+import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
 
-import com.dlsc.workbenchfx.module.Module;
-import com.dlsc.workbenchfx.view.ContentPresenter;
-import com.dlsc.workbenchfx.view.ContentView;
-import com.dlsc.workbenchfx.view.HomePresenter;
-import com.dlsc.workbenchfx.view.HomeView;
-import com.dlsc.workbenchfx.view.ToolbarPresenter;
-import com.dlsc.workbenchfx.view.ToolbarView;
-import com.dlsc.workbenchfx.view.WorkbenchFxPresenter;
-import com.dlsc.workbenchfx.view.WorkbenchFxView;
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
+import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
+import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
+import com.dlsc.workbenchfx.view.controls.module.Page;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
+import com.dlsc.workbenchfx.view.controls.module.Tile;
+import com.google.common.collect.Range;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.function.BiFunction;
-import javafx.application.Application;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Skin;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the main WorkbenchFX class.
+ * Contains all the model logic for the workbench.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public final class Workbench extends StackPane {
-  private static final Logger LOGGER = LogManager.getLogger(Workbench.class.getName());
+public class Workbench extends Control {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(Workbench.class.getName());
 
   public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
-  public static final String STYLE_CLASS_ACTIVE_HOME = "active-home";
-
-  // Views
-  private ToolbarView toolbarView;
-  private ToolbarPresenter toolbarPresenter;
-
-  private HomeView homeView;
-  private HomePresenter homePresenter;
-
-  private ContentView contentView;
-  private ContentPresenter contentPresenter;
-
-  private WorkbenchFxView workbenchFxView;
-  private WorkbenchFxPresenter workbenchFxPresenter;
+  public static final String STYLE_CLASS_ACTIVE_ADD_BUTTON = "active-add-button";
+  // Default values as constants
+  private static final Callback<Workbench, Tab>
+      DEFAULT_TAB_FACTORY = Tab::new;
+  private static final Callback<Workbench, Tile>
+      DEFAULT_TILE_FACTORY = Tile::new;
+  private static final Callback<Workbench, Page>
+      DEFAULT_PAGE_FACTORY = Page::new;
+  private static final int DEFAULT_MODULES_PER_PAGE = 9;
+  private static final NavigationDrawer DEFAULT_NAVIGATION_DRAWER = new NavigationDrawer();
+  private static final int MAX_PERCENT = 100;
 
   // Custom Controls
-  private Node navigationDrawer;
+  private ObjectProperty<NavigationDrawer> navigationDrawer =
+      new SimpleObjectProperty<>(DEFAULT_NAVIGATION_DRAWER);
 
   // Lists
   private final ObservableSet<Node> toolbarControlsRight =
@@ -71,27 +90,32 @@ public final class Workbench extends StackPane {
    * corresponding {@link GlassPane}.
    */
   private final ObservableMap<Node, GlassPane> overlays = FXCollections.observableHashMap();
-  private final ObservableSet<Node> overlaysShown = FXCollections.observableSet();
+  private final ObservableSet<Node> nonBlockingOverlaysShown = FXCollections.observableSet();
   private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet();
+
+  private final ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>();
 
   // Modules
   /**
    * List of all modules.
    */
-  private final ObservableList<Module> modules = FXCollections.observableArrayList();
+  private final ListProperty<WorkbenchModule> modules = new SimpleListProperty<>(this, "modules",
+      FXCollections.observableArrayList());
 
   /**
    * List of all currently open modules. Open modules are being displayed as open tabs in the
    * application.
    */
-  private final ObservableList<Module> openModules = FXCollections.observableArrayList();
+  private final ListProperty<WorkbenchModule> openModules = new SimpleListProperty<>(this,
+      "modules",
+      FXCollections.observableArrayList());
 
   /**
    * Currently active module. Active module is the module, which is currently being displayed in the
    * view. When the home screen is being displayed, {@code activeModule} and {@code
    * activeModuleView} are null.
    */
-  private final ObjectProperty<Module> activeModule = new SimpleObjectProperty<>();
+  private final ObjectProperty<WorkbenchModule> activeModule = new SimpleObjectProperty<>();
   private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
   // Factories
@@ -99,29 +123,31 @@ public final class Workbench extends StackPane {
    * The factories which are called when creating Tabs, Tiles and Pages of Tiles for the Views. They
    * require a module whose attributes are used to create the Nodes.
    */
-  private final ObjectProperty<BiFunction<Workbench, Module, Node>> tabFactory =
-      new SimpleObjectProperty<>(this, "tabFactory");
-  private final ObjectProperty<BiFunction<Workbench, Module, Node>> tileFactory =
-      new SimpleObjectProperty<>(this, "tileFactory");
-  private final ObjectProperty<BiFunction<Workbench, Integer, Node>> pageFactory =
-      new SimpleObjectProperty<>(this, "pageFactory");
+  private final ObjectProperty<Callback<Workbench, Tab>> tabFactory =
+      new SimpleObjectProperty<>(this, "tabFactory", DEFAULT_TAB_FACTORY);
+  private final ObjectProperty<Callback<Workbench, Tile>> tileFactory =
+      new SimpleObjectProperty<>(this, "tileFactory", DEFAULT_TILE_FACTORY);
+  private final ObjectProperty<Callback<Workbench, Page>> pageFactory =
+      new SimpleObjectProperty<>(this, "pageFactory", DEFAULT_PAGE_FACTORY);
 
   // Properties
-  public final int modulesPerPage;
+  private final IntegerProperty modulesPerPage =
+      new SimpleIntegerProperty(DEFAULT_MODULES_PER_PAGE);
+  private final IntegerProperty amountOfPages = new SimpleIntegerProperty();
 
-  Workbench(WorkbenchBuilder builder) {
-    modulesPerPage = builder.modulesPerPage;
-    tabFactory.set(builder.tabFactory);
-    tileFactory.set(builder.tileFactory);
-    pageFactory.set(builder.pageFactory);
-    initToolbarControls(builder);
-    initNavigationDrawer(builder);
-    initModules(builder.modules);
-    initViews();
-    getChildren().add(workbenchFxView);
-    Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
-    addUserAgentStylesheet(Workbench.class.getResource("css/main.css").toExternalForm());
-  }
+  /**
+   * Will close the module without calling {@link WorkbenchModule#destroy()} if the corresponding
+   * {@link CompletableFuture} is completed. If the stage was closed and {@code false} was returned
+   * on {@link WorkbenchModule#destroy()}, it will also trigger {@link
+   * Stage#setOnCloseRequest(EventHandler)}. Is <b>always</b> completed with {@code true}. This way,
+   * there is no need to differentiate whether it was completed with {@code true} or {@code false}.
+   */
+  private final Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap =
+      new HashMap<>();
+
+
+
+  // Builder
 
   /**
    * Creates a builder for {@link Workbench}.
@@ -129,8 +155,192 @@ public final class Workbench extends StackPane {
    * @param modules which should be loaded for the application
    * @return builder object
    */
-  public static WorkbenchBuilder builder(Module... modules) {
+  public static WorkbenchBuilder builder(WorkbenchModule... modules) {
     return new WorkbenchBuilder(modules);
+  }
+
+  public static class WorkbenchBuilder {
+    private static final Logger LOGGER = LogManager.getLogger(WorkbenchBuilder.class.getName());
+
+    // Required parameters
+    final WorkbenchModule[] modules;
+
+    // Optional parameters - initialized to default values
+    int modulesPerPage = DEFAULT_MODULES_PER_PAGE;
+
+    Callback<Workbench, Tab> tabFactory = DEFAULT_TAB_FACTORY;
+
+    Callback<Workbench, Tile> tileFactory = DEFAULT_TILE_FACTORY;
+
+    Callback<Workbench, Page> pageFactory = DEFAULT_PAGE_FACTORY;
+
+    Node[] toolbarControlsRight;
+    Node[] toolbarControlsLeft;
+
+    NavigationDrawer navigationDrawer = DEFAULT_NAVIGATION_DRAWER;
+
+    MenuItem[] navigationDrawerItems;
+
+    private WorkbenchBuilder(WorkbenchModule... modules) {
+      this.modules = modules;
+    }
+
+    /**
+     * Defines how many modules should be shown per page on the home screen.
+     *
+     * @param modulesPerPage amount of modules to be shown per page
+     * @return builder for chaining
+     */
+    public WorkbenchBuilder modulesPerPage(int modulesPerPage) {
+      this.modulesPerPage = modulesPerPage;
+      return this;
+    }
+
+    /**
+     * Defines how {@link Tab} should be created to be used as tabs in the view.
+     *
+     * @param tabFactory to be used to create the {@link Tab}
+     * @return builder for chaining
+     * @implNote Use this to replace the control which is used for the tab with your own
+     *           implementation.
+     */
+    public WorkbenchBuilder tabFactory(Callback<Workbench, Tab> tabFactory) {
+      this.tabFactory = tabFactory;
+      return this;
+    }
+
+    /**
+     * Defines how {@link Tab} should be created to be used as tiles in the home screen.
+     *
+     * @param tileFactory to be used to create the {@link Tile}
+     * @return builder for chaining
+     * @implNote Use this to replace the control which is used for the tiles with your own
+     *           implementation.
+     */
+    public WorkbenchBuilder tileFactory(Callback<Workbench, Tile> tileFactory) {
+      this.tileFactory = tileFactory;
+      return this;
+    }
+
+    /**
+     * Defines how a {@link Page} with tiles of {@link WorkbenchModule}s should be created.
+     *
+     * @param pageFactory to be used to create the {@link Page} for the tiles
+     * @return builder for chaining
+     * @implNote Use this to replace the page which is used in the home screen to display tiles
+     *           of the modules with your own implementation.
+     */
+    public WorkbenchBuilder pageFactory(Callback<Workbench, Page> pageFactory) {
+      this.pageFactory = pageFactory;
+      return this;
+    }
+
+    /**
+     * Defines which navigation drawer should be shown.
+     *
+     * @param navigationDrawer to be shown as the navigation drawer
+     * @return builder for chaining
+     * @implNote Use this to replace the navigation drawer, which is displayed when pressing the
+     *           menu icon, with your own implementation. To access the {@link MenuItem}s, use
+     *           {@link Workbench#getNavigationDrawerItems()}.
+     */
+    public WorkbenchBuilder navigationDrawer(NavigationDrawer navigationDrawer) {
+      this.navigationDrawer = navigationDrawer;
+      return this;
+    }
+
+    /**
+     * Defines the {@link MenuItem}s, which will be rendered using the respective {@code
+     * navigationDrawerFactory}.
+     *
+     * @param navigationDrawerItems the {@link MenuItem}s to display or null, if there should be no
+     *                              menu
+     * @return builder for chaining
+     * @implNote the menu button will be hidden, if null is passed to {@code navigationDrawerItems}
+     */
+    public WorkbenchBuilder navigationDrawerItems(MenuItem... navigationDrawerItems) {
+      this.navigationDrawerItems = navigationDrawerItems;
+      return this;
+    }
+
+    /**
+     * Defines the Controls which are placed on top-left of the Toolbar.
+     *
+     * @param toolbarControlsLeft the {@link Node}s which will be added to the Toolbar
+     * @return the updated {@link WorkbenchBuilder}
+     */
+    public WorkbenchBuilder toolbarLeft(Node... toolbarControlsLeft) {
+      this.toolbarControlsLeft = toolbarControlsLeft;
+      return this;
+    }
+
+    /**
+     * Defines the Controls which are placed on top-right of the Toolbar.
+     *
+     * @param toolbarControlsRight the {@link Node}s which will be added to the Toolbar
+     * @return the updated {@link WorkbenchBuilder}
+     */
+    public WorkbenchBuilder toolbarRight(Node... toolbarControlsRight) {
+      this.toolbarControlsRight = toolbarControlsRight;
+      return this;
+    }
+
+    /**
+     * Builds and fully initializes a {@link Workbench} object.
+     *
+     * @return the {@link Workbench} object
+     */
+    public Workbench build() {
+      return new Workbench(this);
+    }
+  }
+
+  /**
+   * Default constructor for use with Scene Builder.
+   * For use without FXML, use {@link Workbench#builder(WorkbenchModule...)} instead.
+   */
+  public Workbench() {
+    initBindings();
+    initListeners();
+    initNavigationDrawer(getNavigationDrawer());
+    setupCleanup();
+  }
+
+  /**
+   * Constructor for WorkbenchFX by using the {@link WorkbenchBuilder}.
+   *
+   * @param builder to use for the setup
+   */
+  private Workbench(WorkbenchBuilder builder) {
+    setModulesPerPage(builder.modulesPerPage);
+    initBindings();
+    initFactories(builder);
+    initToolbarControls(builder);
+    initNavigationDrawer(builder);
+    initModules(builder);
+    initListeners();
+    setupCleanup();
+
+    getStylesheets().add(Workbench.class.getResource("css/context-menu.css").toExternalForm());
+  }
+
+  private void initFactories(WorkbenchBuilder builder) {
+    tabFactory.set(builder.tabFactory);
+    tileFactory.set(builder.tileFactory);
+    pageFactory.set(builder.pageFactory);
+  }
+
+  private void initBindings() {
+    amountOfPages.bind(
+        Bindings.createIntegerBinding(
+            this::calculateAmountOfPages, modulesPerPageProperty(), getModules()
+        )
+    );
+  }
+
+  @Override
+  protected Skin<?> createDefaultSkin() {
+    return new WorkbenchSkin(this);
   }
 
   private void initToolbarControls(WorkbenchBuilder builder) {
@@ -147,12 +357,21 @@ public final class Workbench extends StackPane {
     if (builder.navigationDrawerItems != null) {
       navigationDrawerItems.addAll(builder.navigationDrawerItems);
     }
-    navigationDrawer = builder.navigationDrawerFactory.call(this);
+    initNavigationDrawer(builder.navigationDrawer);
   }
 
-  private void initModules(Module... modules) {
-    this.modules.addAll(modules);
+  private void initNavigationDrawer(NavigationDrawer navigationDrawer) {
+    setNavigationDrawer(navigationDrawer);
+    navigationDrawer.setWorkbench(this);
+  }
 
+  private void initModules(WorkbenchBuilder builder) {
+    WorkbenchModule[] modules = builder.modules;
+
+    this.modules.addAll(modules);
+  }
+
+  private void initListeners() {
     // handle changes of the active module
     activeModule.addListener((observable, oldModule, newModule) -> {
       LOGGER.trace("Module Listener - Old Module: " + oldModule);
@@ -178,26 +397,76 @@ public final class Workbench extends StackPane {
           // module has not been loaded yet
           LOGGER.trace("Active Module Listener - Initializing module - " + newModule);
           newModule.init(this);
+          resetModuleCloseable(newModule); // initialize closing on call to #close()
           openModules.add(newModule);
         }
         LOGGER.trace("Active Module Listener - Activating module - " + newModule);
         activeModuleView.setValue(newModule.activate());
       }
     });
+
+    // handle drawer changes
+    drawerShown.addListener((observable, oldDrawer, newDrawer) -> {
+      if (!Objects.isNull(oldDrawer)) {
+        hideOverlay(oldDrawer);
+      }
+      if (!Objects.isNull(newDrawer)) {
+        showOverlay(newDrawer, false);
+      }
+    });
+
+
+    // when control of navigation drawer changes, pass in the workbench object
+    navigationDrawerProperty().addListener((observable, oldControl, newControl) -> {
+      LOGGER.trace("NavigationDrawer has been set");
+      if (!Objects.isNull(newControl)) {
+        LOGGER.trace("NavigationDrawer - Setting Workbench");
+        newControl.setWorkbench(this);
+      }
+    });
   }
 
-  private void initViews() {
-    toolbarView = new ToolbarView();
-    toolbarPresenter = new ToolbarPresenter(this, toolbarView);
+  private void setupCleanup() {
+    Platform.runLater(() -> {
+      Scene scene = getScene();
+      // if there is no scene, don't cause NPE by calling "getWindow()" on null
+      if (Objects.isNull(scene)) {
+        // should only be thrown in tests with mocked views
+        LOGGER.error("setupCleanup - Scene could not be found! setOnCloseRequest was not set");
+        return;
+      }
 
-    homeView = new HomeView();
-    homePresenter = new HomePresenter(this, homeView);
+      Stage stage = (Stage) getScene().getWindow();
+      // when application is closed, destroy all modules
+      stage.setOnCloseRequest(event -> {
+        LOGGER.trace("Stage was requested to be closed");
+        event.consume(); // we need to perform some cleanup actions first
 
-    contentView = new ContentView();
-    contentPresenter = new ContentPresenter(this, contentView);
+        // close all open modules until one returns false
+        while (!getOpenModules().isEmpty()) {
+          WorkbenchModule openModule = getOpenModules().get(0);
+          if (!closeModule(openModule)) {
+            LOGGER.trace("Module " + openModule + " could not be closed yet");
 
-    workbenchFxView = new WorkbenchFxView(toolbarView, homeView, contentView);
-    workbenchFxPresenter = new WorkbenchFxPresenter(this, workbenchFxView);
+            // once module is ready to be closed, start stage closing process over again
+            getModuleCloseable(openModule).thenRun(() -> {
+              LOGGER.trace("moduleCloseable - Stage - thenRun triggered: " + openModule);
+              LOGGER.trace(openModule + " restarted stage closing process");
+              // re-start closing process, in case other modules are blocking the closing process
+              stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+            });
+            LOGGER.trace("moduleCloseable - Stage - thenRun set: " + openModule);
+
+            break; // interrupt closing until the interrupting module has been safely closed
+          }
+        }
+
+        if (getOpenModules().isEmpty()) {
+          LOGGER.trace("All modules could be closed successfully, closing stage");
+          stage.close();
+        }
+      });
+    });
   }
 
   /**
@@ -206,10 +475,10 @@ public final class Workbench extends StackPane {
    *
    * @param module the module to be opened or null to go to the home view
    */
-  public void openModule(Module module) {
+  public void openModule(WorkbenchModule module) {
     if (!modules.contains(module)) {
       throw new IllegalArgumentException(
-          "Module was not passed in with the constructor of WorkbenchFxModel");
+          "Module has not been loaded yet");
     }
     LOGGER.trace("openModule - set active module to " + module);
     activeModule.setValue(module);
@@ -228,15 +497,17 @@ public final class Workbench extends StackPane {
    * @param module to be closed
    * @return true if closing was successful
    */
-  public boolean closeModule(Module module) {
+  public boolean closeModule(WorkbenchModule module) {
+    LOGGER.trace("closeModule - " + module);
+    LOGGER.trace("closeModule - List of open modules: " + openModules);
     Objects.requireNonNull(module);
     int i = openModules.indexOf(module);
     if (i == -1) {
-      throw new IllegalArgumentException("Module has not been loaded yet.");
+      throw new IllegalArgumentException("Module has not been opened yet.");
     }
     // set new active module
-    Module oldActive = getActiveModule();
-    Module newActive;
+    WorkbenchModule oldActive = getActiveModule();
+    WorkbenchModule newActive;
     if (oldActive != module) {
       // if we are not closing the currently active module, stay at the current
       newActive = oldActive;
@@ -252,18 +523,49 @@ public final class Workbench extends StackPane {
       newActive = openModules.get(i - 1);
       LOGGER.trace("closeModule - Next active: Previous Module - " + newActive);
     }
-    // attempt to destroy module
-    if (!module.destroy()) {
-      // module should or could not be destroyed
-      LOGGER.trace("closeModule - Destroy: Fail - " + module);
-      return false;
-    } else {
+    // if the currently active module is the one that is being closed, deactivate first
+    if (oldActive == module) {
+      LOGGER.trace("closeModule - " + module + " was deactivated");
+      module.deactivate();
+    }
+    /*
+      If module has previously been closed and can now safely be closed, calling destroy() is not
+      necessary anymore, simply remove the module
+      If this module is being closed the first time or cannot be safely closed yet, attempt to
+      destroy module.
+      Note: destroy() will not be called if moduleCloseable was completed with true!
+     */
+    if (getModuleCloseable(module).getNow(false) || module.destroy()) {
       LOGGER.trace("closeModule - Destroy: Success - " + module);
       boolean removal = openModules.remove(module);
+      moduleCloseableMap.remove(module);
       LOGGER.trace("closeModule - Destroy, Removal successful: " + removal + " - " + module);
-      LOGGER.trace("closeModule - Set active module to: " + newActive);
+      if (oldActive != newActive) {
+        // only log if the active module has been changed
+        LOGGER.trace("closeModule - Set active module to: " + newActive);
+      }
       activeModule.setValue(newActive);
       return removal;
+    } else {
+      /*
+        If moduleCloseable wasn't completed yet but closeModule was called, there are two cases:
+        1. The stage is calling closeModule() => since thenRun will be set on moduleCloseable after
+           closeModule() returns "false", we need to reset moduleCloseable so that repeating stage
+           closes without completing moduleClosable won't lead to multiple thenRun actions being
+           layered with each stage close.
+        2. The tab is being closed, calling closeModule() => if there was a stage close beforehand
+           (and thus a thenRun from the stage closing process is still active) we need to
+           reset moduleCloseable so that the stage closing process will not be triggered again.
+       */
+      resetModuleCloseable(module);
+      // module should or could not be destroyed
+      LOGGER.trace("closeModule - Destroy: Fail - " + module);
+      // if the module that has failed to be destroyed is already open, activate it again
+      if (getActiveModule() == module) {
+        module.activate();
+      }
+      openModule(module); // set focus to new module
+      return false;
     }
   }
 
@@ -271,11 +573,12 @@ public final class Workbench extends StackPane {
    * Calculates the amount of pages of modules (rendered as tiles).
    *
    * @return amount of pages
-   * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}. This
-   * is repeated until all modules are rendered as tiles.
+   * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}.
+   *           This is repeated until all modules are rendered as tiles.
    */
-  public int amountOfPages() {
+  private int calculateAmountOfPages() {
     int amountOfModules = getModules().size();
+    int modulesPerPage = getModulesPerPage();
     // if all pages are completely full
     if (amountOfModules % modulesPerPage == 0) {
       return amountOfModules / modulesPerPage;
@@ -286,51 +589,36 @@ public final class Workbench extends StackPane {
   }
 
   /**
-   * Generates a new Node which is then used as a Tab. Using the given {@link Module}, it calls the
-   * {@code tabFactory} which generates the Tab.
-   *
-   * @param module the module for which the Tab should be created
-   * @return a corresponding Tab which is created from the {@code tabFactory}
+   * Returns an unmodifiableObservableList of the currently open modules.
+   * @return an unmodifiableObservableList of the currently open modules.
    */
-  public Node getTab(Module module) {
-    return tabFactory.get().apply(this, module);
-  }
-
-  /**
-   * Generates a new Node which is then used as a Tile. Using the given {@link Module}, it calls the
-   * {@code tileFactory} which generates the Tile.
-   *
-   * @param module the module for which the Tile should be created
-   * @return a corresponding Tile which contains the values of the module
-   */
-  public Node getTile(Module module) {
-    return tileFactory.get().apply(this, module);
-  }
-
-  /**
-   * Generates a new Node which is then used as a page for the tiles on the home screen. Using the
-   * given {@code pageIndex}, it calls the {@code pageFactory} which generates the page.
-   *
-   * @param pageIndex the page index for which the page should be created
-   * @return a corresponding page
-   */
-  public Node getPage(int pageIndex) {
-    return pageFactory.get().apply(this, pageIndex);
-  }
-
-  public ObservableList<Module> getOpenModules() {
+  public ObservableList<WorkbenchModule> getOpenModules() {
     return FXCollections.unmodifiableObservableList(openModules);
   }
 
-  public ObservableList<Module> getModules() {
-    return FXCollections.unmodifiableObservableList(modules);
+  private ListProperty<WorkbenchModule> openModulesProperty() {
+    return openModules;
   }
 
-  public Module getActiveModule() {
+  /**
+   * Returns a list of the currently loaded modules.
+   *
+   * @return the list of all loaded modules
+   * @implNote Use this method to add or remove modules at runtime.
+   */
+  public ObservableList<WorkbenchModule> getModules() {
+    return modules.get();
+  }
+
+  private ListProperty<WorkbenchModule> modulesProperty() {
+    return modules;
+  }
+
+  public WorkbenchModule getActiveModule() {
     return activeModule.get();
   }
 
-  public ReadOnlyObjectProperty<Module> activeModuleProperty() {
+  public ObjectProperty<WorkbenchModule> activeModuleProperty() {
     return activeModule;
   }
 
@@ -342,63 +630,184 @@ public final class Workbench extends StackPane {
     return activeModuleView;
   }
 
-  public Node getNavigationDrawer() {
-    return navigationDrawer;
-  }
-
   /**
-   * Removes a {@link Node} if one is in the {@code toolbarControlsLeft}.
+   * Returns a list of the currently loaded toolbar controls on the left.
    *
-   * @param node the {@link Node} which should be removed
-   * @return true if sucessful, false if not
+   * @return a list of the currently loaded toolbar controls on the left.
+   * @implNote Use this method to add or remove toolbar controls on the left at runtime.
    */
-  public boolean removeToolbarControlLeft(Node node) {
-    return toolbarControlsLeft.remove(node);
-  }
-
-  /**
-   * Inserts the given {@code node} at the end of the left toolbar. If the left toolbar already
-   * contains {@code node}, it will not be added.
-   *
-   * @param node to be added to the left toolbar
-   * @return true if {@code node} was added to the left toolbar, false if not
-   */
-  public boolean addToolbarControlLeft(Node node) {
-    return toolbarControlsLeft.add(node);
-  }
-
   public ObservableSet<Node> getToolbarControlsLeft() {
-    return FXCollections.unmodifiableObservableSet(toolbarControlsLeft);
+    return toolbarControlsLeft;
   }
 
   /**
-   * Removes a {@link Node} if one is in the {@code toolbarControlsRight}.
+   * Returns a list of the currently loaded toolbar controls on the right.
    *
-   * @param node which should be removed
-   * @return true if sucessful, false if not
+   * @return a list of the currently loaded toolbar controls on the right.
+   * @implNote Use this method to add or remove toolbar controls on the right at runtime.
    */
-  public boolean removeToolbarControlRight(Node node) {
-    return toolbarControlsRight.remove(node);
-  }
-
-  /**
-   * Inserts a given {@code node} at the end of the right toolbar. If the right toolbar already
-   * contains the {@code node}, it will not be added.
-   *
-   * @param node to be added to the right toolbar
-   * @return true if {@code node} was added to the right toolbar, false if not
-   */
-  public boolean addToolbarControlRight(Node node) {
-    return toolbarControlsRight.add(node);
-  }
-
   public ObservableSet<Node> getToolbarControlsRight() {
-    return FXCollections.unmodifiableObservableSet(toolbarControlsRight);
+    return toolbarControlsRight;
+  }
+
+  /**
+   * Hides the {@code dialog} which was previously shown in the view
+   * using {@link #showDialog(WorkbenchDialog)}.
+   *
+   * @param dialog to be hidden
+   */
+  public final void hideDialog(WorkbenchDialog dialog) {
+    LOGGER.trace("hideDialog");
+    DialogControl dialogControl = dialog.getDialogControl();
+    dialogControl.setWorkbench(null);
+    hideOverlay(dialogControl);
+  }
+
+  /**
+   * Shows a {@link WorkbenchDialog} in the view.
+   *
+   * @param dialog to be shown
+   * @return  the {@link WorkbenchDialog}, which will be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
+   *           All dialogs are non-blocking by default. If you want to change this behavior, use
+   *           {@link WorkbenchDialog#builder} to create a dialog and show it using
+   *           {@link Workbench#showDialog(WorkbenchDialog)}.
+   */
+  public final WorkbenchDialog showDialog(WorkbenchDialog dialog) {
+    DialogControl dialogControl = dialog.getDialogControl();
+    dialogControl.setWorkbench(this);
+    showOverlay(dialogControl, dialog.isBlocking());
+    return dialog;
+  }
+
+  /**
+   * Shows an error dialog in the view.
+   *
+   * @param title    of the dialog
+   * @param message  of the dialog
+   * @param onResult the action to perform when a button of the dialog was pressed, providing the
+   *                 {@link ButtonType} that was pressed
+   * @return the {@link WorkbenchDialog}, which will be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
+   *           result will be {@link ButtonType#CANCEL}.
+   */
+  public final WorkbenchDialog showErrorDialog(String title,
+                                               String message,
+                                               Consumer<ButtonType> onResult) {
+    WorkbenchDialog dialog =
+        WorkbenchDialog.builder(title, message, Type.ERROR).onResult(onResult).build();
+    return showDialog(dialog);
+  }
+
+  /**
+   * Shows an error dialog in the view with a stacktrace of the {@code exception}.
+   *
+   * @param title     of the dialog
+   * @param message   of the dialog
+   * @param exception of which the stacktrace should be shown
+   * @param onResult  the action to perform when a button of the dialog was pressed, providing the
+   *                  {@link ButtonType} that was pressed
+   * @return the {@link WorkbenchDialog}, which will be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
+   *           result will be {@link ButtonType#CANCEL}.
+   */
+  public final WorkbenchDialog showErrorDialog(String title,
+                                               String message,
+                                               Exception exception,
+                                               Consumer<ButtonType> onResult) {
+    WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
+        .exception(exception)
+        .onResult(onResult)
+        .build();
+    return showDialog(dialog);
+  }
+
+  /**
+   * Shows an error dialog in the view with {@code details} about the error.
+   *
+   * @param title    of the dialog
+   * @param message  of the dialog
+   * @param details  about the error
+   * @param onResult the action to perform when a button of the dialog was pressed, providing the
+   *                 {@link ButtonType} that was pressed
+   * @return the {@link WorkbenchDialog}, which will be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane}, the
+   *           result will be {@link ButtonType#CANCEL}.
+   */
+  public final WorkbenchDialog showErrorDialog(String title,
+                                               String message,
+                                               String details,
+                                               Consumer<ButtonType> onResult) {
+    WorkbenchDialog dialog = WorkbenchDialog.builder(title, message, Type.ERROR)
+        .details(details)
+        .onResult(onResult)
+        .build();
+    return showDialog(dialog);
+  }
+
+  /**
+   * Shows a warning dialog in the view.
+   *
+   * @param title    of the dialog
+   * @param message  of the dialog
+   * @param onResult the action to perform when a button of the dialog was pressed, providing the
+   *                 {@link ButtonType} that was pressed
+   * @return the {@link WorkbenchDialog}, which will be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
+   */
+  public final WorkbenchDialog showWarningDialog(String title,
+                                                 String message,
+                                                 Consumer<ButtonType> onResult) {
+    WorkbenchDialog dialog =
+        WorkbenchDialog.builder(title, message, Type.WARNING).onResult(onResult).build();
+    return showDialog(dialog);
+  }
+
+  /**
+   * Shows a confirmation dialog in the view.
+   *
+   * @param title    of the dialog
+   * @param message  of the dialog
+   * @param onResult the action to perform when a button of the dialog was pressed, providing the
+   *                 {@link ButtonType} that was pressed
+   * @return the {@link WorkbenchDialog}, which will be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
+   */
+  public final WorkbenchDialog showConfirmationDialog(String title,
+                                                      String message,
+                                                      Consumer<ButtonType> onResult) {
+    WorkbenchDialog dialog =
+        WorkbenchDialog.builder(title, message, Type.CONFIRMATION).onResult(onResult).build();
+    return showDialog(dialog);
+  }
+
+  /**
+   * Shows an information dialog in the view.
+   *
+   * @param title    of the dialog
+   * @param message  of the dialog
+   * @param onResult the action to perform when a button of the dialog was pressed, providing the
+   *                 {@link ButtonType} that was pressed
+   * @return the {@link WorkbenchDialog}, which will be shown
+   * @implNote If the user closes a non-blocking dialog by clicking on the {@link GlassPane},
+   *           the result will be {@link ButtonType#CANCEL}.
+   */
+  public final WorkbenchDialog showInformationDialog(String title,
+                                                     String message,
+                                                     Consumer<ButtonType> onResult) {
+    WorkbenchDialog dialog =
+        WorkbenchDialog.builder(title, message, Type.INFORMATION).onResult(onResult).build();
+    return showDialog(dialog);
   }
 
   /**
    * Returns a map of all overlays, which have previously been opened, with their corresponding
    * {@link GlassPane}.
+   * @return a map of all overlays, which have previously been opened, with their corresponding
+   *         {@link GlassPane}.
    */
   public ObservableMap<Node, GlassPane> getOverlays() {
     return FXCollections.unmodifiableObservableMap(overlays);
@@ -411,8 +820,8 @@ public final class Workbench extends StackPane {
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
-   *                 overlay} itself must call {@link Workbench#hideOverlay(Node, boolean)} to hide
-   *                 it.
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide it.
+   * @return true if the overlay is not being shown already
    */
   public boolean showOverlay(Node overlay, boolean blocking) {
     LOGGER.trace("showOverlay");
@@ -420,9 +829,11 @@ public final class Workbench extends StackPane {
       overlays.put(overlay, new GlassPane());
     }
     if (blocking) {
+      LOGGER.trace("showOverlay - blocking");
       return blockingOverlaysShown.add(overlay);
     } else {
-      return overlaysShown.add(overlay);
+      LOGGER.trace("showOverlay - non-blocking");
+      return nonBlockingOverlaysShown.add(overlay);
     }
   }
 
@@ -430,20 +841,19 @@ public final class Workbench extends StackPane {
    * Hides the {@code overlay} together with its {@link GlassPane}, which has previously been shown
    * using {@link Workbench#showOverlay(Node, boolean)}.
    *
-   * @param overlay  to be hidden
-   * @param blocking same value which was used when previously calling {@link
-   *                 Workbench#showOverlay(Node, boolean)}
+   * @param overlay to be hidden
+   * @return true if the overlay was showing and is now hidden
    * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
-   * remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden in the
-   * scene graph is not possible due to performance reasons, call {@link Workbench#clearOverlays()}
-   * after this method.
+   *           remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden
+   *           in the scene graph is not possible due to performance reasons, call {@link
+   *           Workbench#clearOverlays()} after this method.
    */
-  public boolean hideOverlay(Node overlay, boolean blocking) {
+  public boolean hideOverlay(Node overlay) {
     LOGGER.trace("hideOverlay");
-    if (blocking) {
+    if (blockingOverlaysShown.contains(overlay)) {
       return blockingOverlaysShown.remove(overlay);
     } else {
-      return overlaysShown.remove(overlay);
+      return nonBlockingOverlaysShown.remove(overlay);
     }
   }
 
@@ -453,36 +863,245 @@ public final class Workbench extends StackPane {
    */
   public void clearOverlays() {
     LOGGER.trace("clearOverlays");
-    overlaysShown.clear();
+    nonBlockingOverlaysShown.clear();
     blockingOverlaysShown.clear();
     overlays.clear();
   }
 
+  /**
+   * Completes the {@code moduleCloseable} of the {@code module}.
+   * Results in the module getting closed without calling {@link WorkbenchModule#destroy()}
+   * beforehand. If the stage was closed and calling {@link WorkbenchModule#destroy()} returned
+   * {@code false}, calling this method will also cause the stage closing process to get continued.
+   *
+   * @param module whose {@code moduleCloseable} should be completed
+   */
+  public final void completeModuleCloseable(WorkbenchModule module) {
+    getModuleCloseable(module).complete(true);
+  }
+
+  /**
+   * Returns a {@link CompletableFuture}, which upon completion will cause the module to be closed
+   * and if there was an ongoing stage closing process, it will re-initiate that process.
+   */
+  private final CompletableFuture<Boolean> getModuleCloseable(WorkbenchModule module) {
+    return moduleCloseableMap.get(module);
+  }
+
+  private final void resetModuleCloseable(WorkbenchModule module) {
+    LOGGER.trace("moduleCloseable - Cleared future: " + this);
+    CompletableFuture<Boolean> moduleCloseable = new CompletableFuture<>();
+    moduleCloseableMap.put(module, moduleCloseable);
+    LOGGER.trace("moduleCloseable - thenRun set: " + this);
+    moduleCloseable.thenRun(() -> {
+      LOGGER.trace("moduleCloseable -  thenRun triggered: " + this);
+      closeModule(module);
+    });
+  }
+
+  /**
+   * Shows the {@code drawer} on the defined {@code side} in the {@link Workbench}.
+   *
+   * @param drawer to be shown
+   * @param side   of the workbench, on which the {@code drawer} should be positioned
+   * @implNote Sizes the drawer according to the computed size of {@code drawer}.
+   *           However, it will take up a maximum of 90% of the screen, to allow the user to still
+   *           close the drawer by clicking on the {@link GlassPane}.
+   */
+  public void showDrawer(Region drawer, Side side) {
+    showDrawer(drawer, side, -1);
+  }
+
+  /**
+   * Shows the {@code drawer} on the defined {@code side} in the {@link Workbench}, ensuring the
+   * {@code drawer} doesn't cover more than the specified {@code percentage}.
+   *
+   * @param drawer     to be shown
+   * @param side       of the workbench, on which the {@code drawer} should be positioned
+   * @param percentage value between 0 and 100, defining how much <b>maximum</b> coverage the drawer
+   *                   should have or -1, to have the drawer size according to its computed size
+   */
+  public void showDrawer(Region drawer, Side side, int percentage) {
+    // fail fast
+    if (!Range.closed(0, MAX_PERCENT).or(number -> number == -1).test(percentage)) {
+      throw new IllegalArgumentException("Percentage needs to be between 0 and 100 or -1");
+    }
+    Pos position;
+    drawer.minWidthProperty().unbind();
+    drawer.maxWidthProperty().unbind();
+    drawer.minHeightProperty().unbind();
+    drawer.maxHeightProperty().unbind();
+    switch (side) {
+      case TOP:
+        // fall through to BOTTOM
+      case BOTTOM:
+        position = side == Side.TOP ? Pos.TOP_LEFT : Pos.BOTTOM_LEFT;
+        drawer.minWidthProperty().bind(widthProperty());
+        if (percentage == -1) {
+          bindDrawerHeight(drawer);
+        } else {
+          drawer.maxHeightProperty().bind(
+              heightProperty().multiply((double) percentage / MAX_PERCENT));
+        }
+        break;
+      case RIGHT:
+        // fall through to LEFT
+      default: // LEFT
+        position = side == Side.LEFT ? Pos.TOP_LEFT : Pos.TOP_RIGHT;
+        drawer.minHeightProperty().bind(heightProperty());
+        if (percentage == -1) {
+          bindDrawerWidth(drawer);
+        } else {
+          drawer.maxWidthProperty().bind(
+              widthProperty().multiply((double) percentage / MAX_PERCENT));
+        }
+        break;
+    }
+    StackPane.setAlignment(drawer, position);
+    drawer.getStyleClass().add("drawer");
+    setDrawerShown(drawer);
+  }
+
+  private void bindDrawerWidth(Region drawer) {
+    drawer.setMinWidth(0); // make sure minWidth isn't larger than maxWidth
+    drawer.maxWidthProperty().bind(
+        Bindings.createDoubleBinding(
+            () -> {
+              double computedWidth = drawer.prefWidth(-1);
+              // calculate the width the drawer can take up without being so large that it can't be
+              // hidden anymore by clicking on the GlassPane (GlassPane covers minimum of 10%)
+              double maxDrawerWidth = widthProperty().get() * 0.9;
+              return Math.min(computedWidth, maxDrawerWidth);
+            }, drawer.maxWidthProperty(), widthProperty()
+        )
+    );
+  }
+
+  private void bindDrawerHeight(Region drawer) {
+    drawer.setMinHeight(0); // make sure minHeight isn't larger than maxHeight
+    drawer.maxHeightProperty().bind(
+        Bindings.createDoubleBinding(
+            () -> {
+              double computedHeight = drawer.prefHeight(-1);
+              // calculate the height the drawer can take up without being so large that it can't be
+              // hidden anymore by clicking on the GlassPane (GlassPane covers minimum of 10%)
+              double maxDrawerHeight = heightProperty().get() * 0.9;
+              return Math.min(computedHeight, maxDrawerHeight);
+            }, drawer.maxHeightProperty(), heightProperty()
+        )
+    );
+  }
+
+  /**
+   * Hides the currently displayed drawer that was previously shown using
+   * {@link #showDrawer(Region, Side)} or {@link #showDrawer(Region, Side, int)}.
+   */
+  public void hideDrawer() {
+    setDrawerShown(null);
+  }
+
   public void showNavigationDrawer() {
-    showOverlay(navigationDrawer, false);
+    showDrawer(navigationDrawer.get(), Side.LEFT);
   }
 
   public void hideNavigationDrawer() {
-    hideOverlay(navigationDrawer, false);
+    hideDrawer();
+  }
+
+  public ObjectProperty<NavigationDrawer> navigationDrawerProperty() {
+    return navigationDrawer;
+  }
+
+  public NavigationDrawer getNavigationDrawer() {
+    return navigationDrawer.get();
+  }
+
+  public void setNavigationDrawer(NavigationDrawer navigationDrawer) {
+    this.navigationDrawer.set(navigationDrawer);
   }
 
   public ObservableList<MenuItem> getNavigationDrawerItems() {
-    return FXCollections.unmodifiableObservableList(navigationDrawerItems);
+    return navigationDrawerItems;
   }
 
-  public void addNavigationDrawerItems(MenuItem... menuItems) {
-    navigationDrawerItems.addAll(menuItems);
-  }
-
-  public void removeNavigationDrawerItems(MenuItem... menuItems) {
-    navigationDrawerItems.removeAll(menuItems);
-  }
-
-  public ObservableSet<Node> getOverlaysShown() {
-    return FXCollections.unmodifiableObservableSet(overlaysShown);
+  public ObservableSet<Node> getNonBlockingOverlaysShown() {
+    return FXCollections.unmodifiableObservableSet(nonBlockingOverlaysShown);
   }
 
   public ObservableSet<Node> getBlockingOverlaysShown() {
     return FXCollections.unmodifiableObservableSet(blockingOverlaysShown);
+  }
+
+  public int getModulesPerPage() {
+    return modulesPerPage.get();
+  }
+
+  public void setModulesPerPage(int modulesPerPage) {
+    this.modulesPerPage.set(modulesPerPage);
+  }
+
+  public Callback<Workbench, Tab> getTabFactory() {
+    return tabFactory.get();
+  }
+
+  public void setTabFactory(Callback<Workbench, Tab> tabFactory) {
+    this.tabFactory.set(tabFactory);
+  }
+
+  public ObjectProperty<Callback<Workbench, Tab>> tabFactoryProperty() {
+    return tabFactory;
+  }
+
+  public Callback<Workbench, Tile> getTileFactory() {
+    return tileFactory.get();
+  }
+
+  public void setTileFactory(Callback<Workbench, Tile> tileFactory) {
+    this.tileFactory.set(tileFactory);
+  }
+
+  public ObjectProperty<Callback<Workbench, Tile>> tileFactoryProperty() {
+    return tileFactory;
+  }
+
+  public Callback<Workbench, Page> getPageFactory() {
+    return pageFactory.get();
+  }
+
+  public void setPageFactory(Callback<Workbench, Page> pageFactory) {
+    this.pageFactory.set(pageFactory);
+  }
+
+  public ObjectProperty<Callback<Workbench, Page>> pageFactoryProperty() {
+    return pageFactory;
+  }
+
+  public IntegerProperty modulesPerPageProperty() {
+    return modulesPerPage;
+  }
+
+  public int getAmountOfPages() {
+    return amountOfPages.get();
+  }
+
+  public ReadOnlyIntegerProperty amountOfPagesProperty() {
+    return amountOfPages;
+  }
+
+  public Region getDrawerShown() {
+    return drawerShown.get();
+  }
+
+  public ReadOnlyObjectProperty<Region> drawerShownProperty() {
+    return drawerShown;
+  }
+
+  private void setDrawerShown(Region drawerShown) {
+    this.drawerShown.set(drawerShown);
+  }
+
+  @Override
+  public String getUserAgentStylesheet() {
+    return Workbench.class.getResource("css/main.css").toExternalForm();
   }
 }
