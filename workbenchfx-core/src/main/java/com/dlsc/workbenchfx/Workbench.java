@@ -873,6 +873,8 @@ public class Workbench extends Control {
 
   /**
    * TODO: Find way to simultaneously close GlassPane
+   * TODO: How to make it NOT trigger on size changes?
+   *
    * @param overlay
    * @param side
    */
