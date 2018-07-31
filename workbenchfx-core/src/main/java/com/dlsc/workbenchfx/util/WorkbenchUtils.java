@@ -88,6 +88,18 @@ public final class WorkbenchUtils {
    * @return the amount of columns per row
    */
   public static int calculateColumnsPerRow(int modulesPerPage) {
-    return -1;
+    if (modulesPerPage <= 3) {
+      return modulesPerPage;
+    }
+    if (modulesPerPage % 2 == 0) {
+      return modulesPerPage/2;
+    }
+    if (modulesPerPage % 3 == 0) {
+      return modulesPerPage/3;
+    }
+    if (modulesPerPage < 10) {
+      return (modulesPerPage/2)+1;
+    }
+    return (modulesPerPage/4)+1;
   }
 }
