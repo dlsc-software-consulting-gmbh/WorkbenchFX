@@ -2,7 +2,6 @@ package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import javafx.beans.InvalidationListener;
-import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.GridPane;
@@ -17,11 +16,8 @@ import org.apache.logging.log4j.Logger;
  */
 public class PageSkin extends SkinBase<Page> {
   private static final Logger LOGGER = LogManager.getLogger(PageSkin.class.getName());
-  private static final int COLUMNS_PER_ROW = 3;
 
-  private final ReadOnlyIntegerProperty pageIndex;
   private final ObservableList<Tile> tiles;
-
   private GridPane tilePane;
 
   /**
@@ -31,7 +27,6 @@ public class PageSkin extends SkinBase<Page> {
    */
   public PageSkin(Page page) {
     super(page);
-    pageIndex = page.pageIndexProperty();
     tiles = page.getTiles();
 
     initializeParts();
