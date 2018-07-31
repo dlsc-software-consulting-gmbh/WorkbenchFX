@@ -146,14 +146,7 @@ public class WorkbenchPresenter extends Presenter {
     TranslateTransition animation = model.getAnimatedOverlaysStart().get(overlay);
     if (!Objects.isNull(animation)) {
       Region animatedOverlay = (Region) overlay;
-      if (animatedOverlay.getWidth() == 0) {
-        animatedOverlay.widthProperty().addListener(observable -> {
-          if (animatedOverlay.getWidth() > 0) {
-            animatedOverlay.setTranslateX(-(animatedOverlay.getWidth()));
-            animation.play();
-          }
-        });
-      } else {
+      if (animatedOverlay.getWidth() != 0) {
         animation.play();
       }
     }

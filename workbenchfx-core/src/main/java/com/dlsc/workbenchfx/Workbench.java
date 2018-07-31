@@ -861,6 +861,12 @@ public class Workbench extends Control {
   public boolean showOverlay(Region overlay, boolean blocking, Side side) {
     LOGGER.trace("showOverlay - animated");
     if (!animatedOverlaysStart.containsKey(overlay)) {
+      overlay.widthProperty().addListener(observable -> {
+        if (overlay.getWidth() > 0) {
+          overlay.setTranslateX(-(overlay.getWidth()));
+          getAnimatedOverlaysStart().get(overlay).play();
+        }
+      });
       animatedOverlaysStart.put(overlay, slideIn(overlay));
       animatedOverlaysEnd.put(overlay, slideOut(overlay));
     }
