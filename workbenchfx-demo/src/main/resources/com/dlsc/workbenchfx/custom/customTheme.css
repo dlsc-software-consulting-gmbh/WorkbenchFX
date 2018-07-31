@@ -1,8 +1,8 @@
-.root {
-  -primary-color: #8200ee;
-  -primary-variant-color: #6100b3;
-  -secondary-color: #03DAC6;
-  -secondary-variant-color: #018786;
+* {
+  -primary-color: #6200EE;
+  -primary-variant-color: #0400ba;
+  -secondary-color: #d479ff;
+  -secondary-variant-color: #6709cb;
   -background-color: #FFFFFF;
   -surface-color: #FFFFFF;
   -error-color: #B00020;

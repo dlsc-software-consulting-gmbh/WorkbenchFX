@@ -184,15 +184,16 @@
     #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button {
       -fx-background-radius: 50%;
       -fx-background-insets: .5em;
-      -fx-background-color: rgba(0, 0, 0, 0.1); }
+      -fx-background-color: rgba(0, 0, 0, 0.1);
+      -fx-background-color: -secondary-variant-color; }
       #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:hover {
         -fx-cursor: hand;
-        -fx-background-color: rgba(0, 0, 0, 0.2); }
+        -fx-background-color: rgba(0, 0, 0, 0.2);
+        -fx-background-color: derive(-secondary-variant-color, 25%); }
       #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected {
-        -fx-background-color: -primary-color; }
+        -fx-background-color: -secondary-color; }
         #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
-          -fx-cursor: hand;
-          -fx-background-color: -primary-variant-color; }
+          -fx-cursor: inherit; }
 
 #toolbar {
   -fx-background-color: -primary-color; }
@@ -242,7 +243,7 @@
 .navigation-drawer {
   -fx-background-color: -surface-color; }
   .navigation-drawer .logo {
-    -fx-padding: 0 1em; }
+    -fx-padding: 0.7857142857em 1em 1em 1em; }
   .navigation-drawer .separator:horizontal .line {
     -fx-border-color: rgba(0, 0, 0, 0.2) transparent transparent transparent;
     -fx-border-insets: 1px 0 0 0; }
@@ -356,7 +357,7 @@
       -fx-padding: 1.4285714286em 0 0 0; }
   .dialog-pane .button-bar .button {
     -fx-background-color: transparent;
-    -fx-text-fill: -primary-color;
+    -fx-text-fill: -secondary-color;
     -fx-padding: 0.7142857143em 1.0714285714em;
     -font-size: 1.25em;
     -fx-font-weight: 700;
