@@ -151,7 +151,6 @@ public class WorkbenchPresenter extends Presenter {
           if (animatedOverlay.getWidth() > 0) {
             animatedOverlay.setTranslateX(-(animatedOverlay.getWidth()));
             animation.play();
-            model.getAnimatedOverlaysEnd().put(animatedOverlay, model.slideOut(animatedOverlay));
           }
         });
       } else {

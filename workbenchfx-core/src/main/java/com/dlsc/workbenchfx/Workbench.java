@@ -862,6 +862,7 @@ public class Workbench extends Control {
     LOGGER.trace("showOverlay - animated");
     if (!animatedOverlaysStart.containsKey(overlay)) {
       animatedOverlaysStart.put(overlay, slideIn(overlay));
+      animatedOverlaysEnd.put(overlay, slideOut(overlay));
     }
     return showOverlay(overlay, blocking);
   }
@@ -881,9 +882,9 @@ public class Workbench extends Control {
     });
     return open;
   }
-  public TranslateTransition slideOut(Region overlay) {
+  private TranslateTransition slideOut(Region overlay) {
     TranslateTransition close = new TranslateTransition(new Duration(1000), overlay);
-    close.setToX(-(overlay.getWidth()));
+    close.toXProperty().bind(overlay.widthProperty().negate());
     close.setOnFinished(event -> {
         overlay.setVisible(false);
       LOGGER.trace("Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
@@ -1156,11 +1157,11 @@ public class Workbench extends Control {
   }
 
   public ObservableMap<Region, TranslateTransition> getAnimatedOverlaysStart() {
-    return animatedOverlaysStart;
+    return FXCollections.unmodifiableObservableMap(animatedOverlaysStart);
   }
 
   public ObservableMap<Region, TranslateTransition> getAnimatedOverlaysEnd() {
-    return animatedOverlaysEnd;
+    return FXCollections.unmodifiableObservableMap(animatedOverlaysEnd);
   }
 
   @Override
