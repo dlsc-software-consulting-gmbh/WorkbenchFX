@@ -89,24 +89,7 @@ public final class WorkbenchUtils {
    * @return the amount of columns per row
    */
   public static int calculateColumnsPerRow(int modulesPerPage) {
-    if (modulesPerPage <= 3) {
-      return modulesPerPage;
-    }
-    if (modulesPerPage > 10) {
-      if (divisibleBy(modulesPerPage, 3)) {
-        return modulesPerPage / 3;
-      }
-    }
-    if (divisibleBy(modulesPerPage, 2)) {
-      return modulesPerPage / 2;
-    }
-    if (divisibleBy(modulesPerPage, 3)) {
-      return modulesPerPage / 3;
-    }
-    if (modulesPerPage < 10) {
-      return (modulesPerPage + 1) / 2;
-    }
-    return (modulesPerPage + 1) / 3;
+    return modulesPerPage <= 3 ? modulesPerPage : (int) Math.ceil(Math.sqrt(modulesPerPage));
   }
 
   /**
