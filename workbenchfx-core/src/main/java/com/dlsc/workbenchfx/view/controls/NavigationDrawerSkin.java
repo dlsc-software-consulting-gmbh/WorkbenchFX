@@ -15,7 +15,6 @@ import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -105,9 +104,6 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
     header.setTop(backBtn);
     header.setCenter(companyLogo);
-
-    StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
-    navigationDrawer.maxWidthProperty().bind(navigationDrawer.drawerWidthProperty());
 
     getChildren().add(drawerBox);
   }
