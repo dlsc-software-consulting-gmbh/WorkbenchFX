@@ -165,6 +165,7 @@ public class DialogControl extends Control {
         defaultButton = button;
         defaultButtonType = cmd;
       }
+      // take last cancel button
       boolean isCancelButton = buttonType != null && buttonType.isCancelButton();
       button.setCancelButton(isCancelButton);
       if (isCancelButton) {
