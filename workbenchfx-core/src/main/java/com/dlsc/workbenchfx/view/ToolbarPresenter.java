@@ -7,7 +7,6 @@ import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.TabCell;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
-import javafx.beans.property.BooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
@@ -33,8 +32,6 @@ public class ToolbarPresenter extends Presenter {
   private final ObservableList<Node> toolbarControlsLeft;
   private final ObservableSet<Node> toolbarControlsRight;
   private final ObservableList<WorkbenchModule> openModules;
-  private BooleanProperty emptyProperty;
-  private InvalidationListener invalidationListener = (observable) -> setMenuBtn();
 
   /**
    * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
@@ -49,9 +46,8 @@ public class ToolbarPresenter extends Presenter {
     toolbarControlsLeft = model.getToolbarControlsLeft();
     toolbarControlsRight = model.getToolbarControlsRight();
     openModules = model.getOpenModules();
-    emptyProperty = view.getToolbarControl().emptyProperty();
     init();
-    LOGGER.trace("Adds initially a menuButton if necessary (size of items > 0)");
+    // Adds initially a menuButton if necessary (size of items > 0)
     setMenuBtn();
   }
 
@@ -70,16 +66,15 @@ public class ToolbarPresenter extends Presenter {
 
   private void setMenuBtn() {
     LOGGER.trace("setMenuBtn() called");
-    view.bottomBox.getChildren().remove(view.menuBtn);
-    view.topBox.getChildren().remove(view.menuBtn);
+    view.removeMenuBtn(); // Remove the menuBtn
 
-    if (navigationDrawerItems.size() != 0) {
-      if (view.toolbarControl.isEmpty()) {
+    if (navigationDrawerItems.size() != 0) { // If setting it is required
+      if (view.toolbarControl.isEmpty()) { // If the toolbarControl is empty set it below
         LOGGER.trace("Put the button below into the bottomBox");
-        view.bottomBox.getChildren().add(0, view.menuBtn);
-      } else {
+        view.addMenuBtnBottom();
+      } else { // else put it into the topBox
         LOGGER.trace("Put it into the first position of toolbaritemsleft");
-        view.topBox.getChildren().add(0, view.menuBtn);
+        view.addMenuBtnTop();
       }
     }
   }
@@ -113,7 +108,8 @@ public class ToolbarPresenter extends Presenter {
 
     // makes sure the menu button is only being displayed if there are navigation drawer items
     navigationDrawerItems.addListener((InvalidationListener) observable -> setMenuBtn());
-//    emptyProperty.addListener(invalidationListener);
+    // when the toolbarControls emptyProperty changes, check teh menuBtns position
+    view.toolbarControl.emptyProperty().addListener(observable -> setMenuBtn());
   }
 
   /**
@@ -126,13 +122,7 @@ public class ToolbarPresenter extends Presenter {
     view.tabBar.selectedItemProperty().bindBidirectional(model.activeModuleProperty());
 
     // Bind items from toolbar to the ones of the workbench
-    view.getToolbarControl().toolbarControlsLeftProperty().bindContent(toolbarControlsLeft);
-    view.getToolbarControl().toolbarControlsRightProperty().bindContent(toolbarControlsRight);
-
-    view.toolbarControl.emptyProperty().addListener(observable -> {
-//      System.out.println("view.toolbarControl.emptyProperty().get() = " + view.toolbarControl.emptyProperty().get());
-      setMenuBtn();
-    });
-
+    view.toolbarControl.toolbarControlsLeftProperty().bindContent(toolbarControlsLeft);
+    view.toolbarControl.toolbarControlsRightProperty().bindContent(toolbarControlsRight);
   }
 }
