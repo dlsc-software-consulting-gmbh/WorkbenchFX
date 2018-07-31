@@ -43,6 +43,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -869,6 +871,11 @@ public class Workbench extends Control {
     return showOverlay(overlay, blocking);
   }
 
+  /**
+   * TODO: Find way to simultaneously close GlassPane
+   * @param overlay
+   * @param side
+   */
   private void addAnimationListener(Region overlay, Side side) {
     switch (side) {
       case LEFT:
@@ -888,12 +895,40 @@ public class Workbench extends Control {
       case RIGHT:
         overlay.widthProperty().addListener(observable -> {
           if (overlay.getWidth() > 0) {
-            overlay.setTranslateX(getWidth());  // initial position
+            overlay.setTranslateX(overlay.getWidth());  // initial position
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
             TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
             start.setToX(0);
             if (!end.toXProperty().isBound()) {
-              end.toXProperty().bind(widthProperty());
+              end.toXProperty().bind(overlay.widthProperty());
+            }
+            start.play();
+          }
+        });
+        break;
+      case TOP:
+        overlay.heightProperty().addListener(observable -> {
+          if (overlay.getHeight() > 0) {
+            overlay.setTranslateY(-(overlay.getHeight())); // initial position
+            TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
+            TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
+            start.setToY(0);
+            if (!end.toXProperty().isBound()) {
+              end.toYProperty().bind(overlay.heightProperty().negate());
+            }
+            start.play();
+          }
+        });
+        break;
+      case BOTTOM:
+        overlay.heightProperty().addListener(observable -> {
+          if (overlay.getHeight() > 0) {
+            overlay.setTranslateY(overlay.getHeight()); // initial position
+            TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
+            TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
+            start.setToY(0);
+            if (!end.toXProperty().isBound()) {
+              end.toYProperty().bind(overlay.heightProperty());
             }
             start.play();
           }
