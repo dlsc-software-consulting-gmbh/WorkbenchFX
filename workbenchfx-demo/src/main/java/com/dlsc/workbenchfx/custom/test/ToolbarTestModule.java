@@ -21,14 +21,14 @@ public class ToolbarTestModule extends WorkbenchModule {
   private static final Logger LOGGER =
       LogManager.getLogger(ToolbarTestModule.class.getName());
 
-  private final Button removeItemsBtn = new Button("REMOVE ALL ITEMS FROM THE TOOLBAR");
-  private final Button addItemsBtn = new Button("ADD ALL ITEMS TO THE TOOLBAR");
+  private final Button removeItemsBtn = new Button("Remove all items from the toolbar");
+  private final Button addItemsBtn = new Button("Add all items to the toolbar");
   private final Button remBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.MINUS));
   private final Button addBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.PLUS));
   private final MenuItem addContentItem = new MenuItem("Add Content");
   private final MenuItem removeContentItem = new MenuItem("Remove Content");
   private final Dropdown addContentDropdown = Dropdown.of(
-      "ADD CONTENT", new FontAwesomeIconView(FontAwesomeIcon.USER),
+      "Add Content", new FontAwesomeIconView(FontAwesomeIcon.USER),
       addContentItem, removeContentItem
   );
   private int contentIndex = 1;
@@ -38,7 +38,7 @@ public class ToolbarTestModule extends WorkbenchModule {
   private final HBox bottomBox = new HBox();
 
   public ToolbarTestModule() {
-    super("Toolbar TestModule", FontAwesomeIcon.QUESTION);
+    super("Toolbar Test Module", FontAwesomeIcon.QUESTION);
     addToolbarItems();
     setupStyling();
     layoutParts();
