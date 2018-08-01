@@ -7,19 +7,8 @@
   @extend %button-base;
   @extend %dropdown; // The dropdown in the toolbar
 
-  -fx-padding: px(3);
-  -fx-min-height: px(40);
-  -fx-pref-height: px(40);
-  -fx-max-height: px(40);
-
-  & .toolbar-control-left-box {
-    -fx-padding: 0 px(3) 0 px(6);
-    -fx-spacing: px(3);
-    -fx-max-height: px(34);
-  }
-
+  & .toolbar-control-left-box,
   & .toolbar-control-right-box {
-    -fx-padding: 0 0 0 px(3);
     -fx-spacing: px(3);
     -fx-max-height: px(34);
   }

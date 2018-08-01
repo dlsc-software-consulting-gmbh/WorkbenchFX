@@ -1,6 +1,11 @@
 #content-view {
   & .toolbar-control {
     @extend %toolbar-control;
+
+    -fx-padding: px(3);
+    -fx-min-height: px(40);
+    -fx-pref-height: px(40);
+    -fx-max-height: px(40);
     -fx-background-color: -background-color;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .075), 2, 0, 0, 2);
 
