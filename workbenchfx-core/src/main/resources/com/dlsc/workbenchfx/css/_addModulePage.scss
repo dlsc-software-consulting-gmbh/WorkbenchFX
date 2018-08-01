@@ -67,15 +67,16 @@
             -fx-background-radius: 50%;
             -fx-background-insets: .5em;
             -fx-background-color: rgba(0, 0, 0, .1);
+            -fx-background-color: -secondary-variant-color;
             &:hover {
               -fx-cursor: hand;
               -fx-background-color: rgba(0, 0, 0, .2);
+              -fx-background-color: derive(-secondary-variant-color, 25%);
             }
             &:selected {
-              -fx-background-color: -primary-color;
+              -fx-background-color: -secondary-color;
               &:hover {
-                -fx-cursor: hand;
-                -fx-background-color: -primary-variant-color;
+                -fx-cursor: inherit;
               }
             }
           }
