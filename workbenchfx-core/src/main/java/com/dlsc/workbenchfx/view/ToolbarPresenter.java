@@ -9,6 +9,7 @@ import java.util.Objects;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import javafx.css.PseudoClass;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import org.apache.logging.log4j.LogManager;
@@ -32,6 +33,13 @@ public class ToolbarPresenter extends Presenter {
   private final ObservableList<Node> toolbarControlsLeft;
   private final ObservableSet<Node> toolbarControlsRight;
   private final ObservableList<WorkbenchModule> openModules;
+
+  private final PseudoClass emptyState = new PseudoClass() {
+    @Override
+    public String getPseudoClassName() {
+      return "empty";
+    }
+  };
 
   /**
    * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
@@ -109,7 +117,10 @@ public class ToolbarPresenter extends Presenter {
     // makes sure the menu button is only being displayed if there are navigation drawer items
     navigationDrawerItems.addListener((InvalidationListener) observable -> setMenuBtn());
     // when the toolbarControls emptyProperty changes, check the menuBtns position
-    view.toolbarControl.emptyProperty().addListener(observable -> setMenuBtn());
+    view.toolbarControl.emptyProperty().addListener((observable, wasEmpty, isEmpty) -> {
+      view.topBox.pseudoClassStateChanged(emptyState, isEmpty); // Change the pseudoclass
+      setMenuBtn(); // Define where to put the menuBtn
+    });
   }
 
   /**

@@ -214,6 +214,9 @@
       -fx-padding: 0 0 0 0.2142857143em;
       -fx-spacing: 0.2142857143em;
       -fx-max-height: 2.4285714286em; }
+    #toolbar #top-box:empty {
+      -fx-min-height: 0.2142857143em;
+      -fx-pref-height: 0.2142857143em; }
   #toolbar #bottom-box {
     -fx-alignment: CENTER;
     -fx-pref-height: 2.8571428571em;

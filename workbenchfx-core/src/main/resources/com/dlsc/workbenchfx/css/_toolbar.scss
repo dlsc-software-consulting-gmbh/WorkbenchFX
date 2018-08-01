@@ -26,6 +26,11 @@
     @extend %dropdown; // The dropdown in the toolbar
     // @extend %context-menu;
     // The CSS for the context menu can be found in the context-menu.css file.
+
+    &:empty {
+      -fx-min-height: px(3); // When the toolbar is empty -> change its height
+      -fx-pref-height: px(3);
+    }
   }
 
   & #bottom-box {
