@@ -56,7 +56,7 @@ public class ToolbarPresenter extends Presenter {
     openModules = model.getOpenModules();
     init();
     // Adds initially a menuButton if necessary (size of items > 0)
-    setMenuBtn();
+    setupMenuBtn();
   }
 
   /**
@@ -72,8 +72,8 @@ public class ToolbarPresenter extends Presenter {
     view.addModuleBtn.requestFocus();
   }
 
-  private void setMenuBtn() {
-    LOGGER.trace("setMenuBtn() called");
+  private void setupMenuBtn() {
+    LOGGER.trace("setupMenuBtn() called");
     view.removeMenuBtn(); // Remove the menuBtn
 
     if (navigationDrawerItems.size() != 0) { // If setting it is required
@@ -115,11 +115,11 @@ public class ToolbarPresenter extends Presenter {
     });
 
     // makes sure the menu button is only being displayed if there are navigation drawer items
-    navigationDrawerItems.addListener((InvalidationListener) observable -> setMenuBtn());
+    navigationDrawerItems.addListener((InvalidationListener) observable -> setupMenuBtn());
     // when the workbenchToolbar's emptyProperty changes, check the menuBtn's position
     view.workbenchToolbar.emptyProperty().addListener((observable, wasEmpty, isEmpty) -> {
       view.topBox.pseudoClassStateChanged(emptyState, isEmpty); // Change the pseudoclass
-      setMenuBtn(); // Define where to put the menuBtn
+      setupMenuBtn(); // Define where to put the menuBtn
     });
   }
 
