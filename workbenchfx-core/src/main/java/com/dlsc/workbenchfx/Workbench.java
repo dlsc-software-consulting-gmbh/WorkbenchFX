@@ -69,7 +69,7 @@ public class Workbench extends Control {
       DEFAULT_TILE_FACTORY = Tile::new;
   private static final Callback<Workbench, Page>
       DEFAULT_PAGE_FACTORY = Page::new;
-  private static final int DEFAULT_MODULES_PER_PAGE = 9;
+  private static final int DEFAULT_MODULES_PER_PAGE = 6;
   private static final NavigationDrawer DEFAULT_NAVIGATION_DRAWER = new NavigationDrawer();
   private static final int MAX_PERCENT = 100;
 

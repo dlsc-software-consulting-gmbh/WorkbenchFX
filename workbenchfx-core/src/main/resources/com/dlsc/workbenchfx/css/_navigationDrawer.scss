@@ -1,6 +1,10 @@
 .navigation-drawer {
   -fx-background-color: -surface-color;
 
+  & .logo {
+    -fx-padding: px(11) 1em 1em 1em; // 11px -> 14px - 3px from border from back-button
+  }
+
   & .separator:horizontal .line {
     -fx-border-color: rgba(0, 0, 0, .2) transparent transparent transparent;
     -fx-border-insets: 1px 0 0 0;

@@ -16,15 +16,19 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.CheckListView;
 
 public class DialogTestModule extends WorkbenchModule implements MapComponentInitializedListener {
+  private static final Logger LOGGER = LogManager.getLogger(DialogTestModule.class.getName());
   private int itemsCount = 1;
 
   private final Button confirmBtn = new Button("Confirmation Dialog");
@@ -41,6 +45,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
   private final Button longTitleMessageBtn = new Button("Long Title & Message Dialog");
   private final Button noButtonsBtn = new Button("No Buttons Dialog");
   private final Button conditionalBtn = new Button("Conditional Button Dialog");
+  private final Button settingsBtn = new Button("Settings Dialog With 3 Buttons");
 
   private GoogleMapView mapView;
   private GoogleMap map;
@@ -100,6 +105,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     customPane.add(errorBtn, 0, 1);
     customPane.add(warningBtn, 0, 2);
     customPane.add(informationBtn, 0, 3);
+    customPane.add(settingsBtn, 0, 4);
 
     customPane.add(errorExceptionBtn, 1, 0);
     customPane.add(errorDetailsBtn, 1, 1);
@@ -113,6 +119,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     customPane.add(noButtonsBtn, 2, 3);
     customPane.add(conditionalBtn, 2, 4);
 
+
     customPane.setAlignment(Pos.CENTER);
   }
 
@@ -123,7 +130,12 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     errorExceptionBtn.setOnAction(event -> getWorkbench().showErrorDialog("Button click failed!", "During the click of this button, something went horribly wrong. Please forward the content below to anyone but the WorkbenchFX developers to track down the issue:", exception, printResult));
     errorDetailsBtn.setOnAction(event -> getWorkbench().showErrorDialog("Button click failed!", "During the click of this button, something went horribly wrong.", "Details about this exception are not present.", printResult));
     warningBtn.setOnAction(event -> getWorkbench().showWarningDialog("Reset settings?", "This will reset your device to its default factory settings.", printResult));
-    informationBtn.setOnAction(event -> getWorkbench().showInformationDialog("Everything is fine", "You can relax, nothing wrong here.", printResult));
+    //informationBtn.setOnAction(event -> getWorkbench().showInformationDialog("Everything is fine", "You can relax, nothing wrong here.", printResult));
+
+    informationBtn.setOnAction(event -> getWorkbench().showDialog(WorkbenchDialog.builder("title", "message", ButtonType.OK)
+        .blocking(false)
+        .onResult(printResult)
+        .build()));
     longTitleBtn.setOnAction(event -> getWorkbench().showInformationDialog("Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot.", "You can relax, nothing wrong here.", printResult));
     longMessageBtn.setOnAction(event -> getWorkbench().showInformationDialog("Everything is fine", "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot.", printResult));
     longTitleMessageBtn.setOnAction(event -> getWorkbench().showInformationDialog("In 2004, Bennett ruled that John Graham could be extradited to the United States for trial for the 1975 murder of Anna Mae Aquash, one of the most prominent members of the American Indian Movement. In 2007, she began proceedings on the Basi-Virk Affair where the Minister of Finance's politically appointed assistant was charged with the sale of benefits related to the province's sale of BC Rail, the publicly owned railway. The scandal came to public attention when news media filmed the RCMP conducting a search warrant inside the BC Legislature building.", "Filming started 2 December 1939. The film recorded a loss of $104,000. Ikrandraco (\"Ikran dragon\") is a genus of pteranodontoid pterosaur known from Lower Cretaceous rocks in northeastern China. It is notable for its unusual skull, which features a crest on the lower jaw. Ikrandraco is based on IVPP V18199, a partial skeleton including the skull and jaws, several neck vertebrae, a partial sternal plate, parts of both wings, and part of a foot.", printResult));
@@ -153,6 +165,39 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
       dialog.setOnShown(event1 -> {
         dialog.getButton(ButtonType.OK).ifPresent(button -> {
           button.disableProperty().bind(checkBox.selectedProperty().not());
+        });
+      });
+      getWorkbench().showDialog(dialog);
+    });
+    CheckBox settingsBox = new CheckBox("Insert your Preferences(FX) window.\n"
+        + "Check the box to simulate a change.");
+    settingsBtn.setOnAction(event -> {
+      WorkbenchDialog dialog = WorkbenchDialog.builder(
+          "Settings with 3 buttons", settingsBox,
+          ButtonType.OK, ButtonType.CANCEL, ButtonType.APPLY
+      ).onResult(buttonType -> {
+        if (ButtonType.OK.equals(buttonType)) {
+          // Do your OK stuff
+          LOGGER.trace("OK pressed: SettingsBox.isSelected() = " + settingsBox.isSelected());
+        }
+        if (ButtonType.CANCEL.equals(buttonType)) {
+          LOGGER.trace("CANCEL pressed: SettingsBox.isSelected() = " + settingsBox.isSelected());
+        }
+      }).build();
+      dialog.setOnShown(event1 -> {
+        dialog.getButton(ButtonType.APPLY).ifPresent(button -> {
+          button.disableProperty().bind(settingsBox.selectedProperty().not());
+          button.addEventFilter(ActionEvent.ACTION, event2 -> {
+            // Do your APPLY stuff
+            button.disableProperty().unbind(); // Unbind (because we're doing our "saving")
+            // Bind again ("saving" is done and the new state is bound)
+            if (settingsBox.isSelected()) {
+              button.disableProperty().bind(settingsBox.selectedProperty());
+            } else {
+              button.disableProperty().bind(settingsBox.selectedProperty().not());
+            }
+            event2.consume();
+          });
         });
       });
       getWorkbench().showDialog(dialog);

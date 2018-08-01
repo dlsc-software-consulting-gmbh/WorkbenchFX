@@ -2,14 +2,13 @@ package com.dlsc.workbenchfx.view.controls;
 
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.BorderPane;
@@ -37,8 +36,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
   private PrettyScrollPane scrollPane;
   private StackPane backIconShape;
   private Button backBtn;
-  private ImageView companyLogo;
-  private ReadOnlyDoubleProperty workbenchWidth;
+  private Label companyLogo;
 
   /**
    * Creates the skin for the {@link NavigationDrawer} control.
@@ -86,7 +84,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     backBtn.getStyleClass().add("icon");
     backBtn.setId("back-button");
 
-    companyLogo = new ImageView();
+    companyLogo = new Label("");
     companyLogo.getStyleClass().add("logo");
   }
 
