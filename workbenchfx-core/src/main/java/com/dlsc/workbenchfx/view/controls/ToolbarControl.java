@@ -101,19 +101,11 @@ public class ToolbarControl extends HBox {
     return toolbarControlsLeft;
   }
 
-  public void setToolbarControlsLeft(ObservableList<Node> toolbarControlsLeft) {
-    this.toolbarControlsLeft.set(toolbarControlsLeft);
-  }
-
   public ObservableSet<Node> getToolbarControlsRight() {
     return toolbarControlsRight.get();
   }
 
   public SetProperty<Node> toolbarControlsRightProperty() {
     return toolbarControlsRight;
-  }
-
-  public void setToolbarControlsRight(ObservableSet<Node> toolbarControlsRight) {
-    this.toolbarControlsRight.set(toolbarControlsRight);
   }
 }
