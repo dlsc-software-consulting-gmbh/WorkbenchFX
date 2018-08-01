@@ -47,6 +47,20 @@
   src: url("../fonts/Roboto-Thin.ttf"); }
 @font-face {
   src: url("../fonts/Roboto-ThinItalic.ttf"); }
+#content-view .toolbar-control, #toolbar #top-box #toolbar-control {
+  -fx-padding: 0.2142857143em;
+  -fx-min-height: 2.8571428571em;
+  -fx-pref-height: 2.8571428571em;
+  -fx-max-height: 2.8571428571em; }
+  #content-view .toolbar-control .toolbar-control-left-box, #toolbar #top-box #toolbar-control .toolbar-control-left-box {
+    -fx-padding: 0 0.2142857143em 0 0.4285714286em;
+    -fx-spacing: 0.2142857143em;
+    -fx-max-height: 2.4285714286em; }
+  #content-view .toolbar-control .toolbar-control-right-box, #toolbar #top-box #toolbar-control .toolbar-control-right-box {
+    -fx-padding: 0 0 0 0.2142857143em;
+    -fx-spacing: 0.2142857143em;
+    -fx-max-height: 2.4285714286em; }
+
 #toolbar #top-box #menu-button, #toolbar #bottom-box #menu-button {
   -icon-size: 2.4285714286em; }
   #toolbar #top-box #menu-button .shape, #toolbar #bottom-box #menu-button .shape {
@@ -55,9 +69,9 @@
     -fx-background-color: -primary-variant-color;
     -fx-background-radius: 0.1428571429em; }
 
-#toolbar #top-box .toolbar-menu-button {
+#content-view .toolbar-control .toolbar-menu-button, #toolbar #top-box #toolbar-control .toolbar-menu-button {
   -fx-max-height: 2.4285714286em; }
-  #toolbar #top-box .toolbar-menu-button .dropdown {
+  #content-view .toolbar-control .toolbar-menu-button .dropdown, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown {
     -fx-background-insets: 0;
     -fx-padding: 0 1em 0 .25em;
     -fx-graphic-text-gap: .5em;
@@ -65,14 +79,14 @@
     -fx-background-color: transparent;
     -fx-background-radius: 0.1428571429em;
     -fx-border-width: 0; }
-    #toolbar #top-box .toolbar-menu-button .dropdown .label .glyph-icon {
+    #content-view .toolbar-control .toolbar-menu-button .dropdown .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .label .glyph-icon {
       -fx-fill: -on-primary-color; }
-    #toolbar #top-box .toolbar-menu-button .dropdown .label .text {
+    #content-view .toolbar-control .toolbar-menu-button .dropdown .label .text, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .label .text {
       -fx-fill: -on-primary-color; }
-    #toolbar #top-box .toolbar-menu-button .dropdown .arrow-button {
+    #content-view .toolbar-control .toolbar-menu-button .dropdown .arrow-button, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .arrow-button {
       -fx-padding: 0;
       -fx-background-insets: 0; }
-      #toolbar #top-box .toolbar-menu-button .dropdown .arrow-button .arrow {
+      #content-view .toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow {
         -fx-rotate: 90;
         -shape-width: 0.1785714286em !important;
         -shape-height: 0.3571428571em !important;
@@ -83,14 +97,14 @@
         -fx-pref-width: -shape-width;
         -fx-pref-height: -shape-height;
         -fx-background-color: -on-primary-color; }
-    #toolbar #top-box .toolbar-menu-button .dropdown:hover {
+    #content-view .toolbar-control .toolbar-menu-button .dropdown:hover, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown:hover {
       -fx-cursor: hand; }
-    #toolbar #top-box .toolbar-menu-button .dropdown:showing {
+    #content-view .toolbar-control .toolbar-menu-button .dropdown:showing, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown:showing {
       -fx-background-color: -primary-variant-color; }
-      #toolbar #top-box .toolbar-menu-button .dropdown:showing .arrow-button .arrow {
+      #content-view .toolbar-control .toolbar-menu-button .dropdown:showing .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown:showing .arrow-button .arrow {
         -fx-rotate: -90; }
 
-#toolbar .button {
+#content-view .toolbar-control .button, #toolbar #top-box #toolbar-control .button, #toolbar .button {
   -fx-background-insets: 0;
   -fx-padding: 0 .75em 0 .75em;
   -fx-graphic-text-gap: .5em;
@@ -98,16 +112,16 @@
   -fx-background-color: transparent;
   -fx-background-radius: 0.1428571429em;
   -fx-border-width: 0; }
-  #toolbar .button .glyph-icon {
+  #content-view .toolbar-control .button .glyph-icon, #toolbar #top-box #toolbar-control .button .glyph-icon, #toolbar .button .glyph-icon {
     -fx-fill: -on-primary-color; }
-  #toolbar .button .text {
+  #content-view .toolbar-control .button .text, #toolbar #top-box #toolbar-control .button .text, #toolbar .button .text {
     -fx-fill: -on-primary-color; }
-  #toolbar .button:hover {
+  #content-view .toolbar-control .button:hover, #toolbar #top-box #toolbar-control .button:hover, #toolbar .button:hover {
     -fx-cursor: hand; }
-  #toolbar .button:pressed {
+  #content-view .toolbar-control .button:pressed, #toolbar #top-box #toolbar-control .button:pressed, #toolbar .button:pressed {
     -fx-background-color: -primary-variant-color; }
 
-#toolbar .icon, .navigation-drawer .drawer-box .header .icon {
+#content-view .toolbar-control .icon, #toolbar #top-box #toolbar-control .icon, #toolbar .icon, .navigation-drawer .drawer-box .header .icon {
   -fx-background-color: transparent;
   -icon-size: 2.8571428571em;
   -fx-max-width: -icon-size;
@@ -116,7 +130,7 @@
   -fx-min-height: -icon-size;
   -fx-pref-width: -icon-size;
   -fx-pref-height: -icon-size; }
-  #toolbar .icon .shape, .navigation-drawer .drawer-box .header .icon .shape {
+  #content-view .toolbar-control .icon .shape, #toolbar #top-box #toolbar-control .icon .shape, #toolbar .icon .shape, .navigation-drawer .drawer-box .header .icon .shape {
     -shape-width: 1.1428571429em;
     -shape-height: 1.1428571429em;
     -fx-max-width: -shape-width;
@@ -136,7 +150,7 @@
   -shape-width: 0.9523571429em;
   -shape-height: 0.9523571429em; }
 
-#toolbar #top-box .toolbar-menu-button .dropdown .arrow-button .arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
+#content-view .toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
   -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z";
   -shape-width: 0.2976428571em;
   -shape-height: 0.5952142857em; }
@@ -199,6 +213,20 @@
         #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
           -fx-cursor: inherit; }
 
+#content-view .toolbar-control {
+  -fx-background-color: -background-color;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.075), 2, 0, 0, 2); }
+  #content-view .toolbar-control .button .glyph-icon, #content-view .toolbar-control .button .text {
+    -fx-fill: -on-background-color; }
+  #content-view .toolbar-control .button:pressed {
+    -fx-background-color: rgba(0, 0, 0, 0.075); }
+  #content-view .toolbar-control .toolbar-menu-button .dropdown .label .glyph-icon, #content-view .toolbar-control .toolbar-menu-button .dropdown .label .text {
+    -fx-fill: -on-background-color; }
+  #content-view .toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow {
+    -fx-background-color: -on-background-color; }
+  #content-view .toolbar-control .toolbar-menu-button .dropdown:showing {
+    -fx-background-color: rgba(0, 0, 0, 0.075); }
+
 #toolbar {
   -fx-background-color: -primary-color; }
   #toolbar #top-box {
@@ -206,14 +234,6 @@
     -fx-min-height: 2.8571428571em;
     -fx-pref-height: 2.8571428571em;
     -fx-max-height: 2.8571428571em; }
-    #toolbar #top-box #toolbar-control-left-box {
-      -fx-padding: 0 0.2142857143em 0 0.4285714286em;
-      -fx-spacing: 0.2142857143em;
-      -fx-max-height: 2.4285714286em; }
-    #toolbar #top-box #toolbar-control-right-box {
-      -fx-padding: 0 0 0 0.2142857143em;
-      -fx-spacing: 0.2142857143em;
-      -fx-max-height: 2.4285714286em; }
     #toolbar #top-box:empty {
       -fx-min-height: 0.2142857143em;
       -fx-pref-height: 0.2142857143em; }

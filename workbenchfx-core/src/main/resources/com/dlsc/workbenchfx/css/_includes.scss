@@ -2,6 +2,33 @@
   @return 1em / 14 * $px; // 14px is defined by the default material design font-size
 }
 
+%toolbar-control {
+  @extend %icon-base; // All icons in the toolbar are targeted
+  @extend %button-base;
+  @extend %dropdown; // The dropdown in the toolbar
+
+  -fx-padding: px(3);
+  -fx-min-height: px(40);
+  -fx-pref-height: px(40);
+  -fx-max-height: px(40);
+
+  & .toolbar-control-left-box {
+    -fx-padding: 0 px(3) 0 px(6);
+    -fx-spacing: px(3);
+    -fx-max-height: px(34);
+  }
+
+  & .toolbar-control-right-box {
+    -fx-padding: 0 0 0 px(3);
+    -fx-spacing: px(3);
+    -fx-max-height: px(34);
+  }
+
+  // @extend %context-menu;
+  // The extention of the context-menu can be found in the context-menu.css file.
+  // It is set in the constructor of the Workbench.
+}
+
 %menu-button {
   // The menu-button which opens the toolbar on the left
   & #menu-button {

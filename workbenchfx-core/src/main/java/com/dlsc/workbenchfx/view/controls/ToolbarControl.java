@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import com.dlsc.workbenchfx.Workbench;
 import java.util.LinkedHashSet;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
@@ -53,10 +52,6 @@ public class ToolbarControl extends HBox {
   }
 
   private void initializeParts() {
-    getStylesheets().add(
-        Workbench.class.getResource("css/toolbar-control.css").toExternalForm()
-    );
-
     getStyleClass().add("toolbar-control");
 
     toolbarControlLeftBox = new HBox();
