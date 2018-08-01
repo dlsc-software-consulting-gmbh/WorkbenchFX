@@ -59,9 +59,6 @@ public class ToolbarControl extends HBox {
 
     toolbarControlRightBox = new HBox();
     toolbarControlRightBox.getStyleClass().add("toolbar-control-right-box");
-
-    ObservableSet<Node> toolbarItems = FXCollections.observableSet();
-    toolbarControlLeftBox.getChildren().setAll(toolbarItems);
   }
 
   private void layoutParts() {
