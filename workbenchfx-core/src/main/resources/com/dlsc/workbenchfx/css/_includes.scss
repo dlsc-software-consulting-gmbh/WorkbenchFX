@@ -2,6 +2,23 @@
   @return 1em / 14 * $px; // 14px is defined by the default material design font-size
 }
 
+%menu-button {
+  // The menu-button which opens the toolbar on the left
+  & #menu-button {
+    -icon-size: px(34);
+
+    & .shape {
+      -fx-background-color: -on-primary-color;
+      @extend %menu-icon;
+    }
+
+    &:pressed {
+      -fx-background-color: -primary-variant-color;
+      -fx-background-radius: px(2);
+    }
+  }
+}
+
 %context-menu {
   .context-menu {
     -fx-background-color: -surface-color;
