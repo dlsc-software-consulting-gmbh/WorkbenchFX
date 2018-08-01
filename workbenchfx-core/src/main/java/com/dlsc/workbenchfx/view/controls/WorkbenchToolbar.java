@@ -79,6 +79,9 @@ public class WorkbenchToolbar extends HBox {
 
   /**
    * Returns whether the toolbar is empty or not.
+   * As long as the toolbarControlsLeft and -right doesn't contain any values,
+   * the toolbar is considered empty.
+   *
    * @return whether the toolbar is empty or not
    */
   public boolean isEmpty() {
@@ -87,6 +90,9 @@ public class WorkbenchToolbar extends HBox {
 
   /**
    * Returns whether the toolbar is empty or not.
+   * As long as the toolbarControlsLeft and -right doesn't contain any values,
+   * the toolbar is considered empty.
+   *
    * @return whether the toolbar is empty or not
    */
   public ReadOnlyBooleanProperty emptyProperty() {
