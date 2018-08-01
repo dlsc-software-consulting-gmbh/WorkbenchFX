@@ -46,9 +46,11 @@ public class ToolbarTestModule extends WorkbenchModule {
   }
 
   private void addToolbarItems() {
-    getToolbarControlsLeft().add(remBtn);
-    getToolbarControlsLeft().add(addBtn);
-    getToolbarControlsRight().add(addContentDropdown);
+    if (getToolbarControlsLeft().isEmpty()) {
+      getToolbarControlsLeft().add(remBtn);
+      getToolbarControlsLeft().add(addBtn);
+      getToolbarControlsRight().add(addContentDropdown);
+    }
   }
 
   private void setupStyling() {
@@ -93,7 +95,7 @@ public class ToolbarTestModule extends WorkbenchModule {
       if (--contentIndex < 1) {
         contentIndex = 1;
       } else {
-        bottomBox.getChildren().remove(contentIndex);
+        bottomBox.getChildren().remove(contentIndex - 1);
       }
     });
 
