@@ -26,8 +26,8 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchToolbar extends HBox {
-  private static final Logger LOGGER = LogManager.getLogger(WorkbenchToolbar.class.getName());
+public class ToolbarControl extends HBox {
+  private static final Logger LOGGER = LogManager.getLogger(ToolbarControl.class.getName());
 
   private HBox toolbarControlLeftBox;
   private HBox toolbarControlRightBox;
@@ -42,9 +42,9 @@ public class WorkbenchToolbar extends HBox {
   private final BooleanProperty empty = new SimpleBooleanProperty(true);
 
   /**
-   * Creates an empty {@link WorkbenchToolbar} object and fully initializes it.
+   * Creates an empty {@link ToolbarControl} object and fully initializes it.
    */
-  public WorkbenchToolbar() {
+  public ToolbarControl() {
     initializeParts();
     layoutParts();
     setupListeners();
