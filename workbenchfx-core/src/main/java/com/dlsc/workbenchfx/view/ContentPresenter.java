@@ -57,7 +57,7 @@ public class ContentPresenter extends Presenter {
         // The active module is null -> therefore setting the addModuleView
         view.setAddModuleView();
       } else {
-        // The active Module is !null -> therefore setting the chosen view
+        // The active Module is not null -> therefore setting the view of the module
         Node activeModuleView = model.getActiveModuleView();
         view.setContent(activeModuleView);
         VBox.setVgrow(activeModuleView, Priority.ALWAYS);
