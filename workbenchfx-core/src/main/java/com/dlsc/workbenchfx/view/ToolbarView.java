@@ -3,7 +3,7 @@ package com.dlsc.workbenchfx.view;
 import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_ADD_BUTTON;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import com.dlsc.workbenchfx.view.controls.ToolbarControl;
+import com.dlsc.workbenchfx.view.controls.WorkbenchToolbar;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.SelectionStrip;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -21,7 +21,7 @@ import javafx.scene.layout.VBox;
 public class ToolbarView extends VBox implements View {
 
   HBox topBox;
-  ToolbarControl toolbarControl;
+  WorkbenchToolbar workbenchToolbar;
   HBox bottomBox;
 
   StackPane addIconShape;
@@ -53,8 +53,8 @@ public class ToolbarView extends VBox implements View {
     topBox = new HBox();
     topBox.setId("top-box");
 
-    toolbarControl = new ToolbarControl();
-    toolbarControl.setId("toolbar-control");
+    workbenchToolbar = new WorkbenchToolbar();
+    workbenchToolbar.setId("toolbar-control");
 
     bottomBox = new HBox();
     bottomBox.setId("bottom-box");
@@ -83,8 +83,8 @@ public class ToolbarView extends VBox implements View {
    */
   @Override
   public void layoutParts() {
-    topBox.getChildren().add(toolbarControl);
-    HBox.setHgrow(toolbarControl, Priority.ALWAYS);
+    topBox.getChildren().add(workbenchToolbar);
+    HBox.setHgrow(workbenchToolbar, Priority.ALWAYS);
 
     bottomBox.getChildren().addAll(tabBar, addModuleBtn);
     HBox.setHgrow(tabBar, Priority.ALWAYS);

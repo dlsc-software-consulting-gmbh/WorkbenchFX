@@ -15,30 +15,30 @@ import org.testfx.framework.junit5.ApplicationTest;
 /**
  * Test for {@link NavigationDrawer}.
  */
-class ToolbarControlTest extends ApplicationTest {
+class WorkbenchToolbarTest extends ApplicationTest {
 
   private FxRobot robot;
-  private ToolbarControl toolbarControl;
+  private WorkbenchToolbar workbenchToolbar;
 
   @Override
   public void start(Stage stage) {
     robot = new FxRobot();
 
-    toolbarControl = new ToolbarControl();
+    workbenchToolbar = new WorkbenchToolbar();
 
-    Scene scene = new Scene(toolbarControl, 100, 100);
+    Scene scene = new Scene(workbenchToolbar, 100, 100);
     stage.setScene(scene);
     stage.show();
   }
 
   @Test
   void testSettingStyleClasses() {
-    assertTrue(toolbarControl.getStyleClass().contains("toolbar-control"));
-    assertEquals(2, toolbarControl.getChildren().size());
+    assertTrue(workbenchToolbar.getStyleClass().contains("toolbar-control"));
+    assertEquals(2, workbenchToolbar.getChildren().size());
     assertTrue(
-        toolbarControl.getChildren().get(0).getStyleClass().contains("toolbar-control-left-box"));
+        workbenchToolbar.getChildren().get(0).getStyleClass().contains("toolbar-control-left-box"));
     assertTrue(
-        toolbarControl.getChildren().get(1).getStyleClass().contains("toolbar-control-right-box"));
+        workbenchToolbar.getChildren().get(1).getStyleClass().contains("toolbar-control-right-box"));
   }
 
   @Test
@@ -49,19 +49,19 @@ class ToolbarControlTest extends ApplicationTest {
 
     robot.interact(() -> {
       // Adding left a new control
-      toolbarControl.getToolbarControlsLeft().add(new Label("content"));
+      workbenchToolbar.getToolbarControlsLeft().add(new Label("content"));
 
       assertEquals(initialCapacity + 1, verifyChildren(0));
       assertEquals(initialCapacity, verifyChildren(1));
 
       // Adding right a new control
-      toolbarControl.getToolbarControlsRight().add(new Label("content"));
+      workbenchToolbar.getToolbarControlsRight().add(new Label("content"));
 
       assertEquals(initialCapacity + 1, verifyChildren(0));
       assertEquals(initialCapacity + 1, verifyChildren(1));
 
       // Removing left the first control
-      toolbarControl.getToolbarControlsLeft().remove(0);
+      workbenchToolbar.getToolbarControlsLeft().remove(0);
 
       assertEquals(initialCapacity, verifyChildren(0));
       assertEquals(initialCapacity + 1, verifyChildren(1));
@@ -70,26 +70,26 @@ class ToolbarControlTest extends ApplicationTest {
 
   @Test
   void testEmtyBinding() {
-    assertTrue(toolbarControl.isEmpty());
+    assertTrue(workbenchToolbar.isEmpty());
 
     robot.interact(() -> {
-      toolbarControl.getToolbarControlsLeft().add(new Label("content"));
-      assertFalse(toolbarControl.isEmpty());
+      workbenchToolbar.getToolbarControlsLeft().add(new Label("content"));
+      assertFalse(workbenchToolbar.isEmpty());
 
-      toolbarControl.getToolbarControlsRight().add(new Label("content"));
-      assertFalse(toolbarControl.isEmpty());
+      workbenchToolbar.getToolbarControlsRight().add(new Label("content"));
+      assertFalse(workbenchToolbar.isEmpty());
 
-      toolbarControl.getToolbarControlsLeft().clear();
-      assertFalse(toolbarControl.isEmpty());
+      workbenchToolbar.getToolbarControlsLeft().clear();
+      assertFalse(workbenchToolbar.isEmpty());
 
-      toolbarControl.getToolbarControlsRight().clear();
-      assertTrue(toolbarControl.isEmpty());
+      workbenchToolbar.getToolbarControlsRight().clear();
+      assertTrue(workbenchToolbar.isEmpty());
 
-      toolbarControl.getToolbarControlsRight().add(new Label("content"));
-      assertFalse(toolbarControl.isEmpty());
+      workbenchToolbar.getToolbarControlsRight().add(new Label("content"));
+      assertFalse(workbenchToolbar.isEmpty());
 
-      toolbarControl.getToolbarControlsRight().clear();
-      assertTrue(toolbarControl.isEmpty());
+      workbenchToolbar.getToolbarControlsRight().clear();
+      assertTrue(workbenchToolbar.isEmpty());
     });
   }
 
@@ -100,6 +100,6 @@ class ToolbarControlTest extends ApplicationTest {
    * @return the amount of children containing in the specified box.
    */
   private int verifyChildren(int pos) {
-    return ((HBox) toolbarControl.getChildren().get(pos)).getChildren().size();
+    return ((HBox) workbenchToolbar.getChildren().get(pos)).getChildren().size();
   }
 }

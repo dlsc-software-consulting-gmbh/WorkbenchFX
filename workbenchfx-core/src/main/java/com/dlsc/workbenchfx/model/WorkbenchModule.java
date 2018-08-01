@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.view.controls.ToolbarControl;
+import com.dlsc.workbenchfx.view.controls.WorkbenchToolbar;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.LinkedHashSet;
@@ -173,11 +173,11 @@ public abstract class WorkbenchModule {
 
   /**
    * Returns an {@link ObservableList} which stores the toolbar items of the module.
-   * If it's not empty, the {@link Workbench} creates a pre styled {@link ToolbarControl}
+   * If it's not empty, the {@link Workbench} creates a pre styled {@link WorkbenchToolbar}
    * and adds the stored items on its left side.
    *
    * @return the {@link ObservableList} of items which are displayed on the left side of the
-   *         automatically added {@link ToolbarControl}
+   *         automatically added {@link WorkbenchToolbar}
    */
   public ObservableList<Node> getToolbarControlsLeft() {
     return toolbarControlsLeft;
@@ -185,11 +185,11 @@ public abstract class WorkbenchModule {
 
   /**
    * Returns an {@link ObservableSet} which stores the toolbar items of the module.
-   * If it's not empty, the {@link Workbench} creates a pre styled {@link ToolbarControl}
+   * If it's not empty, the {@link Workbench} creates a pre styled {@link WorkbenchToolbar}
    * and adds the stored items on its right side.
    *
    * @return the {@link ObservableSet} of items which are displayed on the right side of the
-   *         automatically generated {@link ToolbarControl}
+   *         automatically generated {@link WorkbenchToolbar}
    */
   public ObservableSet<Node> getToolbarControlsRight() {
     return toolbarControlsRight;

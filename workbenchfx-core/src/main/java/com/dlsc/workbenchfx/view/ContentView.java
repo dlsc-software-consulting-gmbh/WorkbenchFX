@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
-import com.dlsc.workbenchfx.view.controls.ToolbarControl;
+import com.dlsc.workbenchfx.view.controls.WorkbenchToolbar;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 public class ContentView extends BorderPane implements View {
 
   private static final Logger LOGGER = LogManager.getLogger(ContentView.class.getName());
-  ToolbarControl toolbarControl;
+  WorkbenchToolbar workbenchToolbar;
   AddModuleView addModuleView;
 
   /**
@@ -39,7 +39,7 @@ public class ContentView extends BorderPane implements View {
    */
   @Override
   public void initializeParts() {
-    toolbarControl = new ToolbarControl();
+    workbenchToolbar = new WorkbenchToolbar();
   }
 
   /**
@@ -61,12 +61,12 @@ public class ContentView extends BorderPane implements View {
   }
 
   /**
-   * Displays the {@link ToolbarControl} based on the given parameter.
+   * Displays the {@link WorkbenchToolbar} based on the given parameter.
    *
-   * @param show true if the {@link ToolbarControl} should be displayed, false if not
+   * @param show true if the {@link WorkbenchToolbar} should be displayed, false if not
    */
   void showToolbar(boolean show) {
-    setTop(show ? toolbarControl : null);
+    setTop(show ? workbenchToolbar : null);
   }
 
   void setAddModuleView() {

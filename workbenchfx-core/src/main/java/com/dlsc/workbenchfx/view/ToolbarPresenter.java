@@ -77,7 +77,7 @@ public class ToolbarPresenter extends Presenter {
     view.removeMenuBtn(); // Remove the menuBtn
 
     if (navigationDrawerItems.size() != 0) { // If setting it is required
-      if (view.toolbarControl.isEmpty()) { // If the toolbarControl is empty set it below
+      if (view.workbenchToolbar.isEmpty()) { // If the workbenchToolbar is empty set it below
         LOGGER.trace("Put the button below into the bottomBox");
         view.addMenuBtnBottom();
       } else { // else put it into the topBox
@@ -116,8 +116,8 @@ public class ToolbarPresenter extends Presenter {
 
     // makes sure the menu button is only being displayed if there are navigation drawer items
     navigationDrawerItems.addListener((InvalidationListener) observable -> setMenuBtn());
-    // when the toolbarControl's emptyProperty changes, check the menuBtn's position
-    view.toolbarControl.emptyProperty().addListener((observable, wasEmpty, isEmpty) -> {
+    // when the workbenchToolbar's emptyProperty changes, check the menuBtn's position
+    view.workbenchToolbar.emptyProperty().addListener((observable, wasEmpty, isEmpty) -> {
       view.topBox.pseudoClassStateChanged(emptyState, isEmpty); // Change the pseudoclass
       setMenuBtn(); // Define where to put the menuBtn
     });
@@ -133,7 +133,7 @@ public class ToolbarPresenter extends Presenter {
     view.tabBar.selectedItemProperty().bindBidirectional(model.activeModuleProperty());
 
     // Bind items from toolbar to the ones of the workbench
-    view.toolbarControl.toolbarControlsLeftProperty().bindContent(toolbarControlsLeft);
-    view.toolbarControl.toolbarControlsRightProperty().bindContent(toolbarControlsRight);
+    view.workbenchToolbar.toolbarControlsLeftProperty().bindContent(toolbarControlsLeft);
+    view.workbenchToolbar.toolbarControlsRightProperty().bindContent(toolbarControlsRight);
   }
 }
