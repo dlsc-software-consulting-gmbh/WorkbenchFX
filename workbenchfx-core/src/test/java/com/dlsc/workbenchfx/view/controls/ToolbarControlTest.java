@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.view.controls;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javafx.scene.Scene;
@@ -65,6 +66,31 @@ class ToolbarControlTest extends ApplicationTest {
 
       assertEquals(initialCapacity, verifyChildren(0));
       assertEquals(initialCapacity + 1, verifyChildren(1));
+    });
+  }
+
+  @Test
+  void testEmtyBinding() {
+    assertTrue(toolbarControl.isEmpty());
+
+    robot.interact(() -> {
+      toolbarControl.getToolbarControlsLeft().add(new Label("content"));
+      assertFalse(toolbarControl.isEmpty());
+
+      toolbarControl.getToolbarControlsRight().add(new Label("content"));
+      assertFalse(toolbarControl.isEmpty());
+
+      toolbarControl.getToolbarControlsLeft().clear();
+      assertFalse(toolbarControl.isEmpty());
+
+      toolbarControl.getToolbarControlsRight().clear();
+      assertTrue(toolbarControl.isEmpty());
+
+      toolbarControl.getToolbarControlsRight().add(new Label("content"));
+      assertFalse(toolbarControl.isEmpty());
+
+      toolbarControl.getToolbarControlsRight().clear();
+      assertTrue(toolbarControl.isEmpty());
     });
   }
 
