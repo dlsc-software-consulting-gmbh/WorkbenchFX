@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
-
 /**
  * Test for {@link NavigationDrawer}.
  */
@@ -102,10 +101,5 @@ class ToolbarControlTest extends ApplicationTest {
    */
   private int verifyChildren(int pos) {
     return ((HBox) toolbarControl.getChildren().get(pos)).getChildren().size();
-  }
-
-  @Test
-  void test() {
-
   }
 }
