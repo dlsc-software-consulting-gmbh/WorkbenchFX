@@ -102,14 +102,14 @@ public class ToolbarView extends VBox implements View {
   }
 
   /**
-   * Adds the menuBtn in first position of the topBox
+   * Adds the menuBtn in first position of the topBox.
    */
   void addMenuBtnTop() {
     topBox.getChildren().add(0, menuBtn);
   }
 
   /**
-   * Adds the menuBtn in first position of the bottomBox
+   * Adds the menuBtn in first position of the bottomBox.
    */
   void addMenuBtnBottom() {
     bottomBox.getChildren().add(0, menuBtn);
