@@ -2,6 +2,39 @@
   @return 1em / 14 * $px; // 14px is defined by the default material design font-size
 }
 
+%toolbar-control {
+  @extend %icon-base; // All icons in the toolbar are targeted
+  @extend %button-base;
+  @extend %dropdown; // The dropdown in the toolbar
+
+  & .toolbar-control-left-box,
+  & .toolbar-control-right-box {
+    -fx-spacing: px(3);
+    -fx-max-height: px(34);
+  }
+
+  // @extend %context-menu;
+  // The extention of the context-menu can be found in the context-menu.css file.
+  // It is set in the constructor of the Workbench.
+}
+
+%menu-button {
+  // The menu-button which opens the toolbar on the left
+  & #menu-button {
+    -icon-size: px(34);
+
+    & .shape {
+      -fx-background-color: -on-primary-color;
+      @extend %menu-icon;
+    }
+
+    &:pressed {
+      -fx-background-color: -primary-variant-color;
+      -fx-background-radius: px(2);
+    }
+  }
+}
+
 %context-menu {
   .context-menu {
     -fx-background-color: -surface-color;
@@ -21,7 +54,7 @@
         -fx-padding: 0 2em 0 .25em;
 
         & .text {
-          -fx-fill: -on-surface-color;
+          -fx-fill: -on-surface-color !important;
         }
       }
 
@@ -80,7 +113,7 @@
       -fx-padding: 0 1em 0 .25em;
       -fx-graphic-text-gap: .5em;
       -fx-pref-height: px(34);
-      -fx-background-color: -primary-color;
+      -fx-background-color: transparent;
       -fx-background-radius: px(2);
       -fx-border-width: 0;
 
@@ -138,7 +171,7 @@
     -fx-padding: 0 .75em 0 .75em;
     -fx-graphic-text-gap: .5em;
     -fx-pref-height: px(34);
-    -fx-background-color: -primary-color;
+    -fx-background-color: transparent;
     -fx-background-radius: px(2);
     -fx-border-width: 0;
 

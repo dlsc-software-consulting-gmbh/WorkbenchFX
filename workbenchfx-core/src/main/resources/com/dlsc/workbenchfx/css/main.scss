@@ -38,11 +38,7 @@ $on-error-color: #FFFFFF;
   -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, .26), 20, 0.19, -1, 6);
 
   -shadow: dropshadow(gaussian, rgba(0, 0, 0, .1), 6, 0.2, 0, 0);
-}
 
-// Since the JavaFX SceneBuilder cannot perform setting font styles in the * selector,
-// we put them in the .root selector
-.root {
   -fx-font-family: "Roboto", sans-serif;
   -fx-font-size: 14px;
 }
@@ -57,9 +53,10 @@ $on-error-color: #FFFFFF;
 @import "fonts";
 @import "includes";
 @import "workbench";
-@import "addModulePage";
+@import "add-module-page";
+@import "content-view";
 @import "toolbar";
-@import "glassPane";
-@import "navigationDrawer";
+@import "glass-pane";
+@import "navigation-drawer";
 @import "dialog";
 @import "drawer";

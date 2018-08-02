@@ -13,8 +13,13 @@ import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DropdownTestModule extends WorkbenchModule {
+  private static final Logger LOGGER =
+      LogManager.getLogger(DropdownTestModule.class.getName());
+
   private int itemsCount = 1;
 
   private final Button addMenuBtn = new Button("Add new Dropdown");
@@ -30,6 +35,7 @@ public class DropdownTestModule extends WorkbenchModule {
   private final List<MenuItem> itemsLst = new ArrayList<>();
 
   private final GridPane customPane = new GridPane();
+  private final Button removeAllItmsBtn = new Button("REMOVE ALL ITEMS");
 
   public DropdownTestModule() {
     super("Dropdown Test", FontAwesomeIcon.QUESTION);
@@ -46,6 +52,8 @@ public class DropdownTestModule extends WorkbenchModule {
     customPane.add(removeItemBtn, 1, 1);
     customPane.add(removeLotItemBtn, 1, 2);
 
+    customPane.add(removeAllItmsBtn, 2, 0);
+
 
     customPane.setAlignment(Pos.CENTER);
   }
@@ -59,6 +67,11 @@ public class DropdownTestModule extends WorkbenchModule {
 
     removeItemBtn.setOnAction(event -> removeItems(1));
     removeLotItemBtn.setOnAction(event -> removeItems(100));
+
+    removeAllItmsBtn.setOnAction(event -> {
+      getWorkbench().getToolbarControlsLeft().clear();
+      getWorkbench().getToolbarControlsRight().clear();
+    });
   }
 
   private void addItems(int items) {

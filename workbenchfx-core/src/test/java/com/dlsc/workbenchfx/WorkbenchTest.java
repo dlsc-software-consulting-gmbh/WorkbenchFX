@@ -137,7 +137,8 @@ class WorkbenchTest extends ApplicationTest {
 
     for (int i = 0; i < mockModules.length; i++) {
       mockModules[i] = createMockModule(
-          moduleNodes[i], null, true, "Module " + i, workbench
+          moduleNodes[i], null, true, "Module " + i, workbench,
+          FXCollections.observableArrayList(), FXCollections.observableSet()
       );
     }
 
@@ -671,6 +672,8 @@ class WorkbenchTest extends ApplicationTest {
       verify(module, atLeast(0)).getIcon();
       verify(module, atLeast(0)).getName();
       verify(module, atLeast(0)).getWorkbench();
+      verify(module, atLeast(0)).getToolbarControlsLeft();
+      verify(module, atLeast(0)).getToolbarControlsRight();
     }
   }
 
@@ -1220,8 +1223,6 @@ class WorkbenchTest extends ApplicationTest {
       Dropdown d = Dropdown.of(dropdownIconView, dropdownMenuItem);
       assertTrue(workbench.getToolbarControlsLeft().add(d));
       assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
-      assertFalse(workbench.getToolbarControlsLeft().add(d));
-      assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
 
       int initialSizeRight = workbench.getToolbarControlsRight().size();
       d = Dropdown.of(dropdownText, dropdownMenuItem);
@@ -1239,11 +1240,8 @@ class WorkbenchTest extends ApplicationTest {
       int currentSize = modules.size();
       String mockModuleName = "Mock Module";
       WorkbenchModule mockModule = createMockModule(
-          new Label(),
-          null,
-          true,
-          mockModuleName,
-          workbench
+          new Label(),null,true, mockModuleName, workbench,
+          FXCollections.observableArrayList(), FXCollections.observableSet()
       );
 
       assertTrue(workbench.getModules().add(mockModule));
