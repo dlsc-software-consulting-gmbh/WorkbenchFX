@@ -351,7 +351,8 @@
 .dialog-pane {
   -fx-background-color: -surface-color;
   -fx-effect: -drop-shadow-3;
-  -fx-background-radius: 0.3571428571em; }
+  -fx-background-radius: 0.3571428571em;
+  -fx-padding: 0 0 0.7142857143em 0; }
   .dialog-pane .dialog-header {
     -fx-padding: 0;
     -fx-background-color: -surface-color;
@@ -377,7 +378,7 @@
   .dialog-pane .button-bar .button {
     -fx-background-color: transparent;
     -fx-text-fill: -secondary-color;
-    -fx-padding: 0.7142857143em 1.0714285714em;
+    -fx-padding: 0.7142857143em 1.0714285714em 0 1.0714285714em;
     -font-size: 1.25em;
     -fx-font-weight: 700;
     -fx-cursor: hand; }
