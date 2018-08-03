@@ -13,15 +13,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the Skin which is made for the {@link Dropdown}.
+ * Represents the Skin which is made for the {@link ToolbarItem}.
  * It uses a {@link MenuButton} to inherit the main functionality.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class DropdownSkin extends SkinBase<Dropdown> {
+public class ToolbarItemSkin extends SkinBase<ToolbarItem> {
   private static final Logger LOGGER =
-      LogManager.getLogger(DropdownSkin.class.getName());
+      LogManager.getLogger(ToolbarItemSkin.class.getName());
 
   private static final double RESIZING_FACTOR = 0.47d;
   private static final String STANDARD_STYLE = "dropdown";
@@ -31,27 +31,27 @@ public class DropdownSkin extends SkinBase<Dropdown> {
   private final ObservableList<MenuItem> menuItems;
 
   /**
-   * Creates a new {@link DropdownSkin} object for a corresponding {@link Dropdown}.
+   * Creates a new {@link ToolbarItemSkin} object for a corresponding {@link ToolbarItem}.
    *
-   * @param dropdown the {@link Dropdown} for which this Skin is created
+   * @param toolbarItem the {@link ToolbarItem} for which this Skin is created
    */
-  public DropdownSkin(Dropdown dropdown) {
-    super(dropdown);
+  public ToolbarItemSkin(ToolbarItem toolbarItem) {
+    super(toolbarItem);
     menuButton = new MenuButton();
     menuButton.getStyleClass().add(STANDARD_STYLE);
 
-    String text = dropdown.getText();
+    String text = toolbarItem.getText();
     if (!Objects.isNull(text)) {
       menuButton.setText(text);
     }
 
-    icon = dropdown.getIcon();
+    icon = toolbarItem.getIcon();
     if (!Objects.isNull(icon)) {
       menuButton.setGraphic(icon);
       icon.getStyleClass().add("icon");
     }
 
-    menuItems = dropdown.getItems();
+    menuItems = toolbarItem.getItems();
     for (MenuItem menuItem : menuItems) {
       menuItem.getStyleClass().add("content-node");
       menuButton.getItems().add(menuItem);
@@ -80,7 +80,7 @@ public class DropdownSkin extends SkinBase<Dropdown> {
       double ratio = getImage(imageView).getWidth() / getImage(imageView).getHeight();
 
       // Binds the dimensions of the ImageView to the dropdown's height.
-      // Resizes the image with a RESIZING_FACTOR in order to fit in the Dropdown
+      // Resizes the image with a RESIZING_FACTOR in order to fit in the ToolbarItem
       // and reach a size of 16px.
       imageView.fitHeightProperty().bind(
           menuButton.prefHeightProperty().multiply(RESIZING_FACTOR)

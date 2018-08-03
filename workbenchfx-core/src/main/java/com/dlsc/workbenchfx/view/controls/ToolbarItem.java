@@ -11,21 +11,21 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the Dropdown control which is used in the Toolbar of WorkbenchFX.
+ * Represents the ToolbarItem control which is used in the Toolbar of WorkbenchFX.
  * Its functionality is like that of a {@link MenuButton}.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class Dropdown extends Control {
+public class ToolbarItem extends Control {
   private static final Logger LOGGER =
-      LogManager.getLogger(Dropdown.class.getName());
+      LogManager.getLogger(ToolbarItem.class.getName());
 
   private final String text;
   private final Node icon;
   private final ObservableList<MenuItem> menuItems = FXCollections.observableArrayList();
 
-  private Dropdown(String text, Node icon, MenuItem... menuItems) {
+  private ToolbarItem(String text, Node icon, MenuItem... menuItems) {
     this.text = text;
     this.icon = icon;
     this.menuItems.addAll(menuItems);
@@ -33,21 +33,21 @@ public class Dropdown extends Control {
     getStyleClass().add("toolbar-menu-button");
   }
 
-  public static Dropdown of(String text, Node icon, MenuItem... menuItems) {
-    return new Dropdown(text, icon, menuItems);
+  public static ToolbarItem of(String text, Node icon, MenuItem... menuItems) {
+    return new ToolbarItem(text, icon, menuItems);
   }
 
-  public static Dropdown of(String text, MenuItem... menuItems) {
-    return new Dropdown(text, null, menuItems);
+  public static ToolbarItem of(String text, MenuItem... menuItems) {
+    return new ToolbarItem(text, null, menuItems);
   }
 
-  public static Dropdown of(Node icon, MenuItem... menuItems) {
-    return new Dropdown(null, icon, menuItems);
+  public static ToolbarItem of(Node icon, MenuItem... menuItems) {
+    return new ToolbarItem(null, icon, menuItems);
   }
 
   @Override
   protected Skin<?> createDefaultSkin() {
-    return new DropdownSkin(this);
+    return new ToolbarItemSkin(this);
   }
 
   public Node getIcon() {

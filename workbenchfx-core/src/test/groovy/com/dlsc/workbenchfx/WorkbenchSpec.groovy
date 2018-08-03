@@ -3,9 +3,9 @@ package com.dlsc.workbenchfx
 import com.dlsc.workbenchfx.model.WorkbenchDialog
 import com.dlsc.workbenchfx.model.WorkbenchModule
 import com.dlsc.workbenchfx.testing.*
-import com.dlsc.workbenchfx.view.controls.Dropdown
 import com.dlsc.workbenchfx.view.controls.GlassPane
 import com.dlsc.workbenchfx.view.controls.MultilineLabel
+import com.dlsc.workbenchfx.view.controls.ToolbarItem
 import com.dlsc.workbenchfx.view.controls.dialog.DialogErrorContent
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
@@ -73,13 +73,13 @@ class WorkbenchSpec extends ApplicationSpec {
 
     @Shared private FxRobot robot = new FxRobot()
 
-    // Dropdown items
+    // ToolbarItem items
     private String dropdownText
     private FontAwesomeIconView dropdownIconView
     private ImageView dropdownImageView
     private MenuItem dropdownMenuItem
-    private Dropdown dropdownLeft
-    private Dropdown dropdownRight
+    private ToolbarItem dropdownLeft
+    private ToolbarItem dropdownRight
 
     private MockNavigationDrawer navigationDrawer
     private MockDialogControl dialogControl
@@ -105,16 +105,16 @@ class WorkbenchSpec extends ApplicationSpec {
         fontAwesomeIconView.getStyleClass().add("icon")
         menuItem = new MenuItem("Item 1.1", fontAwesomeIconView)
 
-        // Initialization of items for Dropdown testing
-        dropdownText = "Dropdown Text"
+        // Initialization of items for ToolbarItem testing
+        dropdownText = "ToolbarItem Text"
         dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION)
         dropdownImageView = new ImageView(
                 new Image(WorkbenchTest.class.getResource("date-picker.png").toExternalForm())
         )
         dropdownMenuItem = new MenuItem("Menu Item")
 
-        dropdownLeft = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem)
-        dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem)
+        dropdownLeft = ToolbarItem.of(dropdownText, dropdownIconView, dropdownMenuItem)
+        dropdownRight = ToolbarItem.of(dropdownText, dropdownImageView, dropdownMenuItem)
 
         navigationDrawer = new MockNavigationDrawer()
         dialogControl = new MockDialogControl()

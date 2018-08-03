@@ -15,7 +15,7 @@ import com.dlsc.workbenchfx.custom.test.LifecycleTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.custom.test.ToolbarTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
-import com.dlsc.workbenchfx.view.controls.Dropdown;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
@@ -118,21 +118,21 @@ public class CustomDemo extends Application {
             .toolbarLeft(
                 addPreferences,
                 removePreferences,
-                Dropdown.of(
+                ToolbarItem.of(
                     new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2")))
             )
             .toolbarRight(
                 showDialogButton,
-                Dropdown.of(
+                ToolbarItem.of(
                     new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new Menu(
                         "Submenus",
                         new FontAwesomeIconView(FontAwesomeIcon.PLUS),
                         new MenuItem("Submenu 1"),
                         new CustomMenuItem(new Label("CustomMenuItem"), false))),
-                Dropdown.of(
+                ToolbarItem.of(
                     "Text",
                     new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new CustomMenuItem(new Label("Content 1")),

@@ -27,9 +27,9 @@ import com.dlsc.workbenchfx.testing.MockNavigationDrawer;
 import com.dlsc.workbenchfx.testing.MockPage;
 import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
-import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -101,13 +101,13 @@ class WorkbenchTest extends ApplicationTest {
 
   private FxRobot robot;
 
-  // Dropdown items
+  // ToolbarItem items
   private String dropdownText;
   private FontAwesomeIconView dropdownIconView;
   private ImageView dropdownImageView;
   private MenuItem dropdownMenuItem;
-  private Dropdown dropdownLeft;
-  private Dropdown dropdownRight;
+  private ToolbarItem toolbarItemLeft;
+  private ToolbarItem toolbarItemRight;
 
   private MockNavigationDrawer navigationDrawer;
   private MockDialogControl dialogControl;
@@ -146,16 +146,16 @@ class WorkbenchTest extends ApplicationTest {
     fontAwesomeIconView.getStyleClass().add("icon");
     menuItem = new MenuItem("Item 1.1", fontAwesomeIconView);
 
-    // Initialization of items for Dropdown testing
-    dropdownText = "Dropdown Text";
+    // Initialization of items for ToolbarItem testing
+    dropdownText = "ToolbarItem Text";
     dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
     dropdownImageView = new ImageView(
         new Image(WorkbenchTest.class.getResource("date-picker.png").toExternalForm())
     );
     dropdownMenuItem = new MenuItem("Menu Item");
 
-    dropdownLeft = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
-    dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
+    toolbarItemLeft = ToolbarItem.of(dropdownText, dropdownIconView, dropdownMenuItem);
+    toolbarItemRight = ToolbarItem.of(dropdownText, dropdownImageView, dropdownMenuItem);
 
     // Setup WorkbenchDialog Mock
     blocking = new SimpleBooleanProperty();
@@ -177,8 +177,8 @@ class WorkbenchTest extends ApplicationTest {
         .pageFactory(MockPage::new)
         .navigationDrawer(navigationDrawer)
         .navigationDrawerItems(menuItem)
-        .toolbarLeft(dropdownLeft)
-        .toolbarRight(dropdownRight)
+        .toolbarLeft(toolbarItemLeft)
+        .toolbarRight(toolbarItemRight)
         .build();
 
     first = mockModules[FIRST_INDEX];
@@ -1199,7 +1199,7 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void removeToolbarControlsLeftAndRight() {
     robot.interact(() -> {
-      Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
+      ToolbarItem d = ToolbarItem.of(dropdownText, dropdownIconView, dropdownMenuItem);
 
       int initialSizeLeft = workbench.getToolbarControlsLeft().size();
       assertFalse(workbench.getToolbarControlsLeft().remove(d));
@@ -1209,9 +1209,9 @@ class WorkbenchTest extends ApplicationTest {
       assertFalse(workbench.getToolbarControlsRight().remove(d));
       assertSame(initialSizeRight, workbench.getToolbarControlsRight().size());
 
-      assertTrue(workbench.getToolbarControlsLeft().remove(dropdownLeft));
+      assertTrue(workbench.getToolbarControlsLeft().remove(toolbarItemLeft));
       assertSame(initialSizeLeft - 1, workbench.getToolbarControlsLeft().size());
-      assertTrue(workbench.getToolbarControlsRight().remove(dropdownRight));
+      assertTrue(workbench.getToolbarControlsRight().remove(toolbarItemRight));
       assertSame(initialSizeRight - 1, workbench.getToolbarControlsRight().size());
     });
   }
@@ -1220,12 +1220,12 @@ class WorkbenchTest extends ApplicationTest {
   void addToolbarControlsLeftAndRight() {
     robot.interact(() -> {
       int initialSizeLeft = workbench.getToolbarControlsLeft().size();
-      Dropdown d = Dropdown.of(dropdownIconView, dropdownMenuItem);
+      ToolbarItem d = ToolbarItem.of(dropdownIconView, dropdownMenuItem);
       assertTrue(workbench.getToolbarControlsLeft().add(d));
       assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
 
       int initialSizeRight = workbench.getToolbarControlsRight().size();
-      d = Dropdown.of(dropdownText, dropdownMenuItem);
+      d = ToolbarItem.of(dropdownText, dropdownMenuItem);
       assertTrue(workbench.getToolbarControlsRight().add(d));
       assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
       assertFalse(workbench.getToolbarControlsRight().add(d));

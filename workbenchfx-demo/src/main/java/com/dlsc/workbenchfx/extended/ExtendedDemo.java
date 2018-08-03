@@ -6,7 +6,7 @@ import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.extended.calendar.CalendarModule;
 import com.dlsc.workbenchfx.extended.notes.NotesModule;
 import com.dlsc.workbenchfx.extended.preferences.PreferencesModule;
-import com.dlsc.workbenchfx.view.controls.Dropdown;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
@@ -100,18 +100,18 @@ public class ExtendedDemo extends Application {
                 new NotesModule())
             .toolbarLeft(buttonLeft)
             .toolbarRight(
-                Dropdown.of(
+                ToolbarItem.of(
                     new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))),
-                Dropdown.of(
+                ToolbarItem.of(
                     new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new Menu(
                         "Submenus",
                         new FontAwesomeIconView(FontAwesomeIcon.PLUS),
                         new MenuItem("Submenu 1"),
                         new CustomMenuItem(new Label("CustomMenuItem"), false))),
-                Dropdown.of(
+                ToolbarItem.of(
                     "Text",
                     new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new CustomMenuItem(new Label("Content 1")),

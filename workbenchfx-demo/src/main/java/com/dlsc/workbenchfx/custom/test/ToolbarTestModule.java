@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import com.dlsc.workbenchfx.view.controls.Dropdown;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.geometry.Pos;
@@ -27,7 +27,7 @@ public class ToolbarTestModule extends WorkbenchModule {
   private final Button addBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.PLUS));
   private final MenuItem addContentItem = new MenuItem("Add Content");
   private final MenuItem removeContentItem = new MenuItem("Remove Content");
-  private final Dropdown addContentDropdown = Dropdown.of(
+  private final ToolbarItem addContentToolbarItem = ToolbarItem.of(
       "Add Content", new FontAwesomeIconView(FontAwesomeIcon.USER),
       addContentItem, removeContentItem
   );
@@ -49,7 +49,7 @@ public class ToolbarTestModule extends WorkbenchModule {
     if (getToolbarControlsLeft().isEmpty()) {
       getToolbarControlsLeft().add(remBtn);
       getToolbarControlsLeft().add(addBtn);
-      getToolbarControlsRight().add(addContentDropdown);
+      getToolbarControlsRight().add(addContentToolbarItem);
     }
   }
 
@@ -80,11 +80,11 @@ public class ToolbarTestModule extends WorkbenchModule {
 
   private void setupEventHandlers() {
     remBtn.setOnAction(evt -> {
-      getToolbarControlsRight().remove(addContentDropdown);
+      getToolbarControlsRight().remove(addContentToolbarItem);
     });
 
     addBtn.setOnAction(evt -> {
-      getToolbarControlsRight().add(addContentDropdown);
+      getToolbarControlsRight().add(addContentToolbarItem);
     });
 
     addContentItem.setOnAction(evt ->
