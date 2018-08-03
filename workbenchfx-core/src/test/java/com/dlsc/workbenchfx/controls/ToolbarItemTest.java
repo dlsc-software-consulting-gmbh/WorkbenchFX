@@ -40,43 +40,43 @@ class ToolbarItemTest extends ApplicationTest {
     );
     dropdownMenuItem = new MenuItem("Menu Item");
 
-    toolbarItem = new ToolbarItem(dropdownIconView, dropdownText, dropdownMenuItem);
+    toolbarItem = new ToolbarItem(dropdownText, dropdownIconView, dropdownMenuItem);
   }
 
   @Test
   void createDropdown() {
     toolbarItem = new ToolbarItem(dropdownText);
     assertEquals(dropdownText, toolbarItem.getText());
-    assertNull(toolbarItem.getIcon());
+    assertNull(toolbarItem.getGraphic());
     assertSame(0, toolbarItem.getItems().size());
 
     toolbarItem = new ToolbarItem(dropdownText, dropdownMenuItem);
     assertEquals(dropdownText, toolbarItem.getText());
-    assertNull(toolbarItem.getIcon());
+    assertNull(toolbarItem.getGraphic());
     assertSame(1, toolbarItem.getItems().size());
 
     toolbarItem = new ToolbarItem(dropdownIconView);
-    assertEquals(dropdownIconView, toolbarItem.getIcon());
+    assertEquals(dropdownIconView, toolbarItem.getGraphic());
     assertNull(toolbarItem.getText());
     assertSame(0, toolbarItem.getItems().size());
 
     toolbarItem = new ToolbarItem(dropdownIconView, dropdownMenuItem);
-    assertEquals(dropdownIconView, toolbarItem.getIcon());
+    assertEquals(dropdownIconView, toolbarItem.getGraphic());
     assertNull(toolbarItem.getText());
     assertSame(1, toolbarItem.getItems().size());
 
-    toolbarItem = new ToolbarItem(dropdownIconView, dropdownText);
+    toolbarItem = new ToolbarItem(dropdownText, dropdownIconView);
     assertEquals(dropdownText, toolbarItem.getText());
-    assertEquals(dropdownIconView, toolbarItem.getIcon());
+    assertEquals(dropdownIconView, toolbarItem.getGraphic());
     assertSame(0, toolbarItem.getItems().size());
 
-    toolbarItem = new ToolbarItem(dropdownIconView, dropdownText, dropdownMenuItem);
+    toolbarItem = new ToolbarItem(dropdownText, dropdownIconView, dropdownMenuItem);
     assertEquals(dropdownText, toolbarItem.getText());
-    assertEquals(dropdownIconView, toolbarItem.getIcon());
+    assertEquals(dropdownIconView, toolbarItem.getGraphic());
     assertSame(1, toolbarItem.getItems().size());
 
-    toolbarItem = new ToolbarItem(dropdownImageView, dropdownText, dropdownMenuItem);
-    assertEquals(dropdownImageView, toolbarItem.getIcon());
+    toolbarItem = new ToolbarItem(dropdownText, dropdownImageView, dropdownMenuItem);
+    assertEquals(dropdownImageView, toolbarItem.getGraphic());
   }
 
   @Test

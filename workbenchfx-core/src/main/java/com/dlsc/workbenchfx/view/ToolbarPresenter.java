@@ -4,13 +4,13 @@ import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_ADD_BUTTON;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.TabCell;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.css.PseudoClass;
-import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,8 +30,8 @@ public class ToolbarPresenter extends Presenter {
 
   // Strong reference to prevent garbage collection
   private final ObservableList<MenuItem> navigationDrawerItems;
-  private final ObservableList<Node> toolbarControlsLeft;
-  private final ObservableSet<Node> toolbarControlsRight;
+  private final ObservableList<ToolbarItem> toolbarControlsLeft;
+  private final ObservableSet<ToolbarItem> toolbarControlsRight;
   private final ObservableList<WorkbenchModule> openModules;
 
   private final PseudoClass emptyState = new PseudoClass() {

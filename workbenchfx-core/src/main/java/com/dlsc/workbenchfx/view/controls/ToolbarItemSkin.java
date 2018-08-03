@@ -49,7 +49,7 @@ public class ToolbarItemSkin extends SkinBase<ToolbarItem> {
 
   private void setupBindings() {
     menuButton.textProperty().bind(getSkinnable().textProperty());
-    menuButton.graphicProperty().bind(getSkinnable().iconProperty());
+    menuButton.graphicProperty().bind(getSkinnable().graphicProperty());
     menuButton.onMouseClickedProperty().bind(getSkinnable().onClickProperty());
 
     menuButton.minWidthProperty().bind(getSkinnable().minWidthProperty());

@@ -154,8 +154,8 @@ class WorkbenchTest extends ApplicationTest {
     );
     dropdownMenuItem = new MenuItem("Menu Item");
 
-    toolbarItemLeft = new ToolbarItem(dropdownIconView, dropdownText, dropdownMenuItem);
-    toolbarItemRight = new ToolbarItem(dropdownImageView, dropdownText, dropdownMenuItem);
+    toolbarItemLeft = new ToolbarItem(dropdownText, dropdownIconView, dropdownMenuItem);
+    toolbarItemRight = new ToolbarItem(dropdownText, dropdownImageView, dropdownMenuItem);
 
     // Setup WorkbenchDialog Mock
     blocking = new SimpleBooleanProperty();
@@ -1199,7 +1199,7 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void removeToolbarControlsLeftAndRight() {
     robot.interact(() -> {
-      ToolbarItem d = new ToolbarItem(dropdownIconView, dropdownText, dropdownMenuItem);
+      ToolbarItem d = new ToolbarItem(dropdownText, dropdownIconView, dropdownMenuItem);
 
       int initialSizeLeft = workbench.getToolbarControlsLeft().size();
       assertFalse(workbench.getToolbarControlsLeft().remove(d));

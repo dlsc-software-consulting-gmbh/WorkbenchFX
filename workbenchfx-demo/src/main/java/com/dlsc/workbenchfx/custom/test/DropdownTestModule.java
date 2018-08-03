@@ -17,6 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DropdownTestModule extends WorkbenchModule {
+
   private static final Logger LOGGER =
       LogManager.getLogger(DropdownTestModule.class.getName());
 
@@ -29,8 +30,7 @@ public class DropdownTestModule extends WorkbenchModule {
   private final Button removeItemBtn = new Button("Remove MenuItem from ToolbarItem");
   private final Button removeLotItemBtn = new Button("Remove 100 MenuItems from ToolbarItem");
   private final ToolbarItem customToolbarItem = new ToolbarItem(
-      new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION),
-      "New MenuButton"
+      "New MenuButton", new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION)
   );
   private final List<MenuItem> itemsLst = new ArrayList<>();
 
@@ -54,12 +54,12 @@ public class DropdownTestModule extends WorkbenchModule {
 
     customPane.add(removeAllItmsBtn, 2, 0);
 
-
     customPane.setAlignment(Pos.CENTER);
   }
 
   private void setupEventHandlers() {
-    addMenuBtn.setOnAction(event -> getWorkbench().getToolbarControlsRight().add(customToolbarItem));
+    addMenuBtn
+        .setOnAction(event -> getWorkbench().getToolbarControlsRight().add(customToolbarItem));
     removeMenuBtn.setOnAction(event -> getWorkbench().getToolbarControlsRight().remove(
         customToolbarItem));
 

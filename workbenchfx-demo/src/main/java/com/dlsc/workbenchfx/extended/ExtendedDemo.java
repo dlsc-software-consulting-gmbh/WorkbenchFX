@@ -12,7 +12,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -78,7 +77,8 @@ public class ExtendedDemo extends Application {
     menu2.getItems().addAll(item21, item22);
     menu3.getItems().addAll(item31, item32, item33);
 
-    Button buttonLeft = new Button("Settings", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    ToolbarItem buttonLeft = new ToolbarItem("Settings",
+        new FontAwesomeIconView(FontAwesomeIcon.GEARS));
     buttonLeft.getStyleClass().add("button-inverted");
 
     workbench =
@@ -112,8 +112,8 @@ public class ExtendedDemo extends Application {
                         new MenuItem("Submenu 1"),
                         new CustomMenuItem(new Label("CustomMenuItem"), false))),
                 new ToolbarItem(
-                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     "Text",
+                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
             .navigationDrawerItems(
@@ -124,7 +124,7 @@ public class ExtendedDemo extends Application {
     CustomOverlay blockingCustomOverlay = new CustomOverlay(workbench, true);
     showOverlay.setOnAction(event -> workbench.showOverlay(customOverlay, false));
     showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
-    buttonLeft.setOnAction(event -> workbench.showOverlay(customOverlay, false));
+    buttonLeft.setOnClick(event -> workbench.showOverlay(customOverlay, false));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
     // workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());

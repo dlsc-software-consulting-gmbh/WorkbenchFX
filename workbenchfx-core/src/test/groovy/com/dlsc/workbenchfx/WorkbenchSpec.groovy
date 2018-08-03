@@ -102,7 +102,7 @@ class WorkbenchSpec extends ApplicationSpec {
         }
 
         FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION)
-        fontAwesomeIconView.getStyleClass().add("icon")
+        fontAwesomeIconView.getStyleClass().add("graphic")
         menuItem = new MenuItem("Item 1.1", fontAwesomeIconView)
 
         // Initialization of items for ToolbarItem testing

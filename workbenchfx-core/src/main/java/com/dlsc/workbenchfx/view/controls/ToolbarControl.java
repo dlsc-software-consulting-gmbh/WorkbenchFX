@@ -13,7 +13,6 @@ import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
-import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import org.apache.logging.log4j.LogManager;
@@ -33,9 +32,9 @@ public class ToolbarControl extends HBox {
   private HBox toolbarControlRightBox;
 
   // The content of the two HBoxes listens to the two Lists and will be set on change.
-  private final ListProperty<Node> toolbarControlsLeft = new SimpleListProperty<>(this,
+  private final ListProperty<ToolbarItem> toolbarControlsLeft = new SimpleListProperty<>(this,
       "toolbarControlsLeft", FXCollections.observableArrayList());
-  private final SetProperty<Node> toolbarControlsRight = new SimpleSetProperty<>(this,
+  private final SetProperty<ToolbarItem> toolbarControlsRight = new SimpleSetProperty<>(this,
       "toolbarControlsRight",
       FXCollections.observableSet(new LinkedHashSet<>()));
 
@@ -99,19 +98,19 @@ public class ToolbarControl extends HBox {
     return empty;
   }
 
-  public ObservableList<Node> getToolbarControlsLeft() {
+  public ObservableList<ToolbarItem> getToolbarControlsLeft() {
     return toolbarControlsLeft.get();
   }
 
-  public ListProperty<Node> toolbarControlsLeftProperty() {
+  public ListProperty<ToolbarItem> toolbarControlsLeftProperty() {
     return toolbarControlsLeft;
   }
 
-  public ObservableSet<Node> getToolbarControlsRight() {
+  public ObservableSet<ToolbarItem> getToolbarControlsRight() {
     return toolbarControlsRight.get();
   }
 
-  public SetProperty<Node> toolbarControlsRightProperty() {
+  public SetProperty<ToolbarItem> toolbarControlsRightProperty() {
     return toolbarControlsRight;
   }
 }

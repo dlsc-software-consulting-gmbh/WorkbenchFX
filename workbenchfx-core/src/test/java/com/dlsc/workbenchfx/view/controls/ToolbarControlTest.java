@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
@@ -49,13 +48,13 @@ class ToolbarControlTest extends ApplicationTest {
 
     robot.interact(() -> {
       // Adding left a new control
-      toolbarControl.getToolbarControlsLeft().add(new Label("content"));
+      toolbarControl.getToolbarControlsLeft().add(new ToolbarItem());
 
       assertEquals(initialCapacity + 1, verifyChildren(0));
       assertEquals(initialCapacity, verifyChildren(1));
 
       // Adding right a new control
-      toolbarControl.getToolbarControlsRight().add(new Label("content"));
+      toolbarControl.getToolbarControlsRight().add(new ToolbarItem());
 
       assertEquals(initialCapacity + 1, verifyChildren(0));
       assertEquals(initialCapacity + 1, verifyChildren(1));
@@ -73,10 +72,10 @@ class ToolbarControlTest extends ApplicationTest {
     assertTrue(toolbarControl.isEmpty());
 
     robot.interact(() -> {
-      toolbarControl.getToolbarControlsLeft().add(new Label("content"));
+      toolbarControl.getToolbarControlsLeft().add(new ToolbarItem());
       assertFalse(toolbarControl.isEmpty());
 
-      toolbarControl.getToolbarControlsRight().add(new Label("content"));
+      toolbarControl.getToolbarControlsRight().add(new ToolbarItem());
       assertFalse(toolbarControl.isEmpty());
 
       toolbarControl.getToolbarControlsLeft().clear();
@@ -85,7 +84,7 @@ class ToolbarControlTest extends ApplicationTest {
       toolbarControl.getToolbarControlsRight().clear();
       assertTrue(toolbarControl.isEmpty());
 
-      toolbarControl.getToolbarControlsRight().add(new Label("content"));
+      toolbarControl.getToolbarControlsRight().add(new ToolbarItem());
       assertFalse(toolbarControl.isEmpty());
 
       toolbarControl.getToolbarControlsRight().clear();

@@ -21,7 +21,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -91,11 +90,12 @@ public class CustomDemo extends Application {
     menu2.getItems().addAll(item21, item22);
     menu3.getItems().addAll(item31, item32, item33);
 
-    Button addPreferences = new Button("Add", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
-    Button removePreferences = new Button("Remove", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
-    addPreferences.getStyleClass().add("button-inverted");
-
-    Button showDialogButton = new Button("Show", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    ToolbarItem addPreferences = new ToolbarItem("Add",
+        new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    ToolbarItem removePreferences = new ToolbarItem("Remove",
+        new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    ToolbarItem showDialogButton = new ToolbarItem("Show",
+        new FontAwesomeIconView(FontAwesomeIcon.GEARS));
 
     // WorkbenchFX
     workbench =
@@ -116,6 +116,7 @@ public class CustomDemo extends Application {
             new LifecycleTestModule()
         )
             .toolbarLeft(
+                new ToolbarItem("Workbench Application"),
                 addPreferences,
                 removePreferences,
                 new ToolbarItem(
@@ -133,8 +134,8 @@ public class CustomDemo extends Application {
                         new MenuItem("Submenu 1"),
                         new CustomMenuItem(new Label("CustomMenuItem"), false))),
                 new ToolbarItem(
-                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     "Text",
+                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
             .modulesPerPage(9)
@@ -150,9 +151,9 @@ public class CustomDemo extends Application {
     CustomOverlay blockingCustomOverlay = new CustomOverlay(workbench, true);
     showOverlay.setOnAction(event -> workbench.showOverlay(customOverlay, false));
     showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
-    addPreferences.setOnAction(event -> workbench.getModules().add(preferencesModule));
-    removePreferences.setOnAction(event -> workbench.getModules().remove(preferencesModule));
-    showDialogButton.setOnAction(event -> workbench.showConfirmationDialog("Reset settings?",
+    addPreferences.setOnClick(event -> workbench.getModules().add(preferencesModule));
+    removePreferences.setOnClick(event -> workbench.getModules().remove(preferencesModule));
+    showDialogButton.setOnClick(event -> workbench.showConfirmationDialog("Reset settings?",
         "This will reset your device to its default factory settings.", null));
 
     // This sets the custom style. Comment this out to have a look at the default styles.

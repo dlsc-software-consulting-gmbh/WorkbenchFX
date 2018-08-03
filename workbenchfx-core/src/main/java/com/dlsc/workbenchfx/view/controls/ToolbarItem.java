@@ -38,7 +38,7 @@ public class ToolbarItem extends Control {
   private static final String TOOLBAR_COMBO_BOX = "toolbar-menu-button"; // color on showing
 
   private final StringProperty text = new SimpleStringProperty(this, "text");
-  private final ObjectProperty<Node> icon = new SimpleObjectProperty<>(this, "icon");
+  private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this, "graphic");
   private final ObjectProperty<EventHandler<? super MouseEvent>> onClick =
       new SimpleObjectProperty<>(this, "onClick");
   private final ListProperty<MenuItem> items = new SimpleListProperty<>(this, "items",
@@ -54,15 +54,15 @@ public class ToolbarItem extends Control {
     getStyleClass().setAll(TOOLBAR_LABEL);
   }
 
-  public ToolbarItem(Node icon) {
+  public ToolbarItem(Node graphic) {
     this();
-    setIcon(icon);
+    setGraphic(graphic);
     getStyleClass().setAll(TOOLBAR_LABEL);
   }
 
-  public ToolbarItem(Node icon, String text) {
+  public ToolbarItem(String text, Node graphic) {
     this(text);
-    setIcon(icon);
+    setGraphic(graphic);
   }
 
   public ToolbarItem(String text, EventHandler<? super MouseEvent> onClick) {
@@ -71,14 +71,14 @@ public class ToolbarItem extends Control {
     getStyleClass().setAll(TOOLBAR_BUTTON);
   }
 
-  public ToolbarItem(Node icon, EventHandler<? super MouseEvent> onClick) {
-    this(icon);
+  public ToolbarItem(Node graphic, EventHandler<? super MouseEvent> onClick) {
+    this(graphic);
     setOnClick(onClick);
     getStyleClass().setAll(TOOLBAR_BUTTON);
   }
 
-  public ToolbarItem(Node icon, String text, EventHandler<? super MouseEvent> onClick) {
-    this(icon, text);
+  public ToolbarItem(String text, Node graphic, EventHandler<? super MouseEvent> onClick) {
+    this(text, graphic);
     setOnClick(onClick);
     getStyleClass().setAll(TOOLBAR_BUTTON);
   }
@@ -89,14 +89,14 @@ public class ToolbarItem extends Control {
     getStyleClass().setAll(TOOLBAR_COMBO_BOX);
   }
 
-  public ToolbarItem(Node icon, MenuItem... items) {
-    this(icon);
+  public ToolbarItem(Node graphic, MenuItem... items) {
+    this(graphic);
     setItems(FXCollections.observableArrayList(items));
     getStyleClass().setAll(TOOLBAR_COMBO_BOX);
   }
 
-  public ToolbarItem(Node icon, String text, MenuItem... items) {
-    this(icon, text);
+  public ToolbarItem(String text, Node graphic, MenuItem... items) {
+    this(text, graphic);
     setItems(FXCollections.observableArrayList(items));
     getStyleClass().setAll(TOOLBAR_COMBO_BOX);
   }
@@ -107,7 +107,7 @@ public class ToolbarItem extends Control {
       updateStyleClasses();
     });
     items.addListener((InvalidationListener) observable -> updateStyleClasses());
-    icon.addListener((observable, oldIcon, newIcon) -> {
+    graphic.addListener((observable, oldIcon, newIcon) -> {
       if (newIcon instanceof ImageView) {
         ImageView imageView = ((ImageView) newIcon);
         imageView.setPreserveRatio(true);
@@ -142,16 +142,16 @@ public class ToolbarItem extends Control {
     this.text.set(text);
   }
 
-  public Node getIcon() {
-    return icon.get();
+  public Node getGraphic() {
+    return graphic.get();
   }
 
-  public ObjectProperty<Node> iconProperty() {
-    return icon;
+  public ObjectProperty<Node> graphicProperty() {
+    return graphic;
   }
 
-  public void setIcon(Node icon) {
-    this.icon.set(icon);
+  public void setGraphic(Node graphic) {
+    this.graphic.set(graphic);
   }
 
   @Override
