@@ -895,7 +895,7 @@ public class Workbench extends Control {
         overlay.widthProperty().addListener(observable -> {
           // make sure this code only gets run the first time the overlay has been shown and
           // rendered in the scene graph, to ensure the overlay has a size for the calculations
-          if (!animatedOverlaysInit.getOrDefault(overlay, false) && overlay.getWidth() > 0) {
+          if (isAnimatedOverlayInitialized(overlay) && overlay.getWidth() > 0) {
             animatedOverlaysInit.put(overlay, true);
             overlay.setTranslateX(-(overlay.getWidth())); // initial position
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
@@ -912,7 +912,7 @@ public class Workbench extends Control {
         overlay.widthProperty().addListener(observable -> {
           // make sure this code only gets run the first time the overlay has been shown and
           // rendered in the scene graph, to ensure the overlay has a size for the calculations
-          if (!animatedOverlaysInit.getOrDefault(overlay, false) && overlay.getWidth() > 0) {
+          if (isAnimatedOverlayInitialized(overlay) && overlay.getWidth() > 0) {
             animatedOverlaysInit.put(overlay, true);
             overlay.setTranslateX(overlay.getWidth());  // initial position
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
@@ -929,7 +929,7 @@ public class Workbench extends Control {
         overlay.heightProperty().addListener(observable -> {
           // make sure this code only gets run the first time the overlay has been shown and
           // rendered in the scene graph, to ensure the overlay has a size for the calculations
-          if (!animatedOverlaysInit.getOrDefault(overlay, false) && overlay.getHeight() > 0) {
+          if (isAnimatedOverlayInitialized(overlay) && overlay.getHeight() > 0) {
             animatedOverlaysInit.put(overlay, true);
             overlay.setTranslateY(-(overlay.getHeight())); // initial position
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
@@ -946,7 +946,7 @@ public class Workbench extends Control {
         overlay.heightProperty().addListener(observable -> {
           // make sure this code only gets run the first time the overlay has been shown and
           // rendered in the scene graph, to ensure the overlay has a size for the calculations
-          if (!animatedOverlaysInit.getOrDefault(overlay, false) && overlay.getHeight() > 0) {
+          if (isAnimatedOverlayInitialized(overlay) && overlay.getHeight() > 0) {
             animatedOverlaysInit.put(overlay, true);
             overlay.setTranslateY(overlay.getHeight()); // initial position
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
@@ -961,6 +961,19 @@ public class Workbench extends Control {
         break;
     }
 
+  }
+
+  private boolean isAnimatedOverlayInitialized(Region overlay) {
+    return !animatedOverlaysInit.getOrDefault(overlay, false);
+  }
+
+  private void initAnimation(Region overlay, Side side) {
+    if (side.isVertical()) { // LEFT or RIGHT
+      // X
+    }
+    if (side.isHorizontal()) { // TOP or BOTTOM
+      // Y
+    }
   }
 
   private TranslateTransition slideIn(Region overlay) {
