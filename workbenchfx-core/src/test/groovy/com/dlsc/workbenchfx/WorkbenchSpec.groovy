@@ -113,8 +113,8 @@ class WorkbenchSpec extends ApplicationSpec {
         )
         toolbarItemMenuItem = new MenuItem("Menu Item")
 
-        toolbarItemLeft = ToolbarItem.of(toolbarItemText, toolbarItemIconView, toolbarItemMenuItem)
-        toolbarItemRight = ToolbarItem.of(toolbarItemText, toolbarItemImageView, toolbarItemMenuItem)
+        toolbarItemLeft = new ToolbarItem(toolbarItemText, toolbarItemIconView, toolbarItemMenuItem)
+        toolbarItemRight = new ToolbarItem(toolbarItemText, toolbarItemImageView, toolbarItemMenuItem)
 
         navigationDrawer = new MockNavigationDrawer()
         dialogControl = new MockDialogControl()
