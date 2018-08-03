@@ -15,9 +15,8 @@ $on-background-color: #000000;
 $on-surface-color: #000000;
 $on-error-color: #FFFFFF;
 
-// Since the JavaFX SceneBuilder cannot perform setting variables in the .root selector,
-// we put them in the * selector
-* {
+// Workaround to make global declarations work with FXML and standard JavaFX. See https://stackoverflow.com/a/49207678
+.root > * {
   -primary-color: $primary-color;
   -primary-variant-color: $primary-variant-color;
   -secondary-color: $secondary-color;
@@ -38,11 +37,7 @@ $on-error-color: #FFFFFF;
   -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, .26), 20, 0.19, -1, 6);
 
   -shadow: dropshadow(gaussian, rgba(0, 0, 0, .1), 6, 0.2, 0, 0);
-}
 
-// Since the JavaFX SceneBuilder cannot perform setting fonts in the * selector,
-// we put them in the .root selector
-.root {
   -fx-font-family: "Roboto", sans-serif;
   -fx-font-size: 14px;
 }
