@@ -904,7 +904,7 @@ public class Workbench extends Control {
     size.addListener(observable -> {
       // make sure this code only gets run the first time the overlay has been shown and
       // rendered in the scene graph, to ensure the overlay has a size for the calculations
-      if (isAnimatedOverlayInitialized(overlay) && size.get() > 0) {
+      if (!isAnimatedOverlayInitialized(overlay) && size.get() > 0) {
         setAnimatedOverlayInitialized(overlay);
 
         // prepare variables
@@ -950,7 +950,7 @@ public class Workbench extends Control {
    * @param overlay
    */
   private boolean isAnimatedOverlayInitialized(Region overlay) {
-    return !animatedOverlaysInit.getOrDefault(overlay, false);
+    return animatedOverlaysInit.getOrDefault(overlay, false);
   }
 
   private TranslateTransition slideIn(Region overlay) {
