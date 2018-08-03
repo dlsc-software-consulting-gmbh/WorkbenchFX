@@ -25,7 +25,9 @@ import org.apache.logging.log4j.Logger;
  * Represents the ToolbarItem which is used in the {@link ToolbarControl}s of WorkbenchFX.
  * Depending on the Parameters defined in the constructor, the {@link ToolbarItem} changes its
  * visual appearance to either a {@link javafx.scene.control.Label}, a {@link Button} or a
- * {@link MenuButton}. Additionally there is the possibility to define a {@link Node} as value.
+ * {@link MenuButton}.
+ * Using {@link #setGraphic(Node)} offers additionally the possibility to add custom content.
+ * But doing this might require additional custom styling.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -35,13 +37,30 @@ public class ToolbarItem extends Control {
   private static final Logger LOGGER =
       LogManager.getLogger(ToolbarItem.class.getName());
 
+  /**
+   * Used to bind the dimensions of a ImageView to the ToolbarItems height
+   * in order to reach a size of 16px, assuming a default height of 34px.
+   */
   private static final double RESIZING_FACTOR = 0.47d;
-  private static final String TOOLBAR_BUTTON = "toolbar-button"; // no arrow to the right
-  private static final String TOOLBAR_LABEL = "toolbar-label"; // no arrow, no click effect
-  private static final String TOOLBAR_COMBO_BOX = "toolbar-menu-button"; // color on showing
+
+  /**
+   * The style class which is used to style the ToolbarItem as a Button.
+   */
+  private static final String TOOLBAR_BUTTON = "toolbar-button";
+
+  /**
+   * The style class which is used to style the ToolbarItem as a Label.
+   */
+  private static final String TOOLBAR_LABEL = "toolbar-label";
+
+  /**
+   * The style class which is used to style the ToolbarItem as a MenuButton.
+   */
+  private static final String TOOLBAR_COMBO_BOX = "toolbar-menu-button";
 
   private final StringProperty text = new SimpleStringProperty(this, "text");
-  private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this, "graphic");
+  private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this,
+      "graphic");
   private final ObjectProperty<EventHandler<? super MouseEvent>> onClick =
       new SimpleObjectProperty<>(this, "onClick");
   private final ListProperty<MenuItem> items = new SimpleListProperty<>(this, "items",
@@ -191,9 +210,8 @@ public class ToolbarItem extends Control {
         ImageView imageView = ((ImageView) newIcon);
         imageView.setPreserveRatio(true);
 
-        // Binds the dimensions of the ImageView to the toolbarItems height.
-        // Resizes the image with a RESIZING_FACTOR in order to fit in the ToolbarItem
-        // and reach a size of 16px by a default height of 34px.
+        // Binds the dimensions of a ImageView to the ToolbarItems height
+        // in order to reach a size of 16px, assuming a default height of 34px.
         imageView.fitHeightProperty().bind(prefHeightProperty().multiply(RESIZING_FACTOR));
       }
     });

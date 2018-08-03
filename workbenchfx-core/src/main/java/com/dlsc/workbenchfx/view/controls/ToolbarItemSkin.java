@@ -2,8 +2,6 @@ package com.dlsc.workbenchfx.view.controls;
 
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.SkinBase;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,16 +35,6 @@ public class ToolbarItemSkin extends SkinBase<ToolbarItem> {
     setupListeners();
   }
 
-  /**
-   * Retrieves the {@link Image} of a given {@link ImageView} and returns it.
-   *
-   * @param imageView the {@link ImageView} from which the {@link Image} should be extracted
-   * @return the found {@link Image}
-   */
-  private static Image getImage(ImageView imageView) {
-    return imageView.getImage();
-  }
-
   private void setupBindings() {
     menuButton.textProperty().bind(getSkinnable().textProperty());
     menuButton.graphicProperty().bind(getSkinnable().graphicProperty());
@@ -61,6 +49,7 @@ public class ToolbarItemSkin extends SkinBase<ToolbarItem> {
   }
 
   private void setupListeners() {
+    // When the items are changing update the items from the menuButton
     getSkinnable().itemsProperty()
         .addListener((observable, oldValue, newValue) -> menuButton.getItems().setAll(newValue));
 
