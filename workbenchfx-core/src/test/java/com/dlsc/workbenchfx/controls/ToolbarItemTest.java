@@ -1,15 +1,14 @@
 package com.dlsc.workbenchfx.controls;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.EventHandler;
-import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -105,16 +104,61 @@ class ToolbarItemTest extends ApplicationTest {
   }
 
   @Test
-  void removeItemFromToolbarItem() {
-    int initialSize = toolbarItem.getItems().size();
-    toolbarItem.getItems().remove(0);
-    assertSame(initialSize - 1, toolbarItem.getItems().size());
+  void testOnClickListener() {
+    // Creating the Item and everything should be default
+    toolbarItem = new ToolbarItem();
+    assertNull(toolbarItem.getOnMouseClicked());
+    assertTrue(toolbarItem.getStyleClass().isEmpty());
+
+    // Setting the onclick event
+    toolbarItem.setOnClick(toolbarItemOnClick);
+
+    // The onMouseClicked event should be set and the style class also
+    assertEquals(toolbarItemOnClick, toolbarItem.getOnMouseClicked());
+    assertTrue(toolbarItem.getStyleClass().contains(TOOLBAR_BUTTON));
+
+    // Setting the onclick event null
+    toolbarItem.setOnClick(null);
+
+    // The onMouseClicked event should be removed and the style class should now be a label
+    assertNull(toolbarItem.getOnMouseClicked());
+    assertTrue(toolbarItem.getStyleClass().contains(TOOLBAR_LABEL));
   }
 
   @Test
-  void addItemFromToolbarItem() {
-    int initialSize = toolbarItem.getItems().size();
-    toolbarItem.getItems().add(new CustomMenuItem(new Label("New Item")));
-    assertSame(initialSize + 1, toolbarItem.getItems().size());
+  void testGraphicListenerDefaultCtor() {
+    // create a new image 20x20
+    ImageView imageView = new ImageView(
+        ToolbarItemTest.class.getResource("../date-picker.png").toExternalForm());
+    // the fit height property is not yet bound and the preserve ratio is also not set
+    assertEquals(0, imageView.getFitHeight());
+    assertFalse(imageView.isPreserveRatio());
+
+    // init a new empty ToolbarItem and set the ImageView
+    toolbarItem = new ToolbarItem();
+    toolbarItem.setGraphic(imageView);
+    toolbarItem.setPrefHeight(100);
+
+    // expected outcome: fitheight to 47 (due to factor 0.47) and preserveratio is set
+    assertEquals(47, imageView.getFitHeight());
+    assertTrue(imageView.isPreserveRatio());
+  }
+
+  @Test
+  void testGraphicListenerUsingCtor() {
+    // create a new image 20x20
+    ImageView imageView = new ImageView(
+        ToolbarItemTest.class.getResource("../date-picker.png").toExternalForm());
+    // the fit height property is not yet bound and the preserve ratio is also not set
+    assertEquals(0, imageView.getFitHeight());
+    assertFalse(imageView.isPreserveRatio());
+
+    // init a new ToolbarItem with the ImageView (to test if the listener triggers)
+    toolbarItem = new ToolbarItem(imageView);
+    toolbarItem.setPrefHeight(100);
+
+    // expected outcome: fitheight to 47 (due to factor 0.47) and preserveratio is set
+    assertEquals(47, imageView.getFitHeight());
+    assertTrue(imageView.isPreserveRatio());
   }
 }
