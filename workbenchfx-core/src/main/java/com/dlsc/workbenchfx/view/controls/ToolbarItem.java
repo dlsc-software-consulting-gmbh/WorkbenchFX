@@ -15,21 +15,24 @@ import javafx.scene.control.Control;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the ToolbarItem control which is used in the Toolbar of WorkbenchFX.
- * Its functionality is like that of a {@link MenuButton}.
+ * Represents the ToolbarItem control which is used in the Toolbar of WorkbenchFX. Its functionality
+ * is like that of a {@link MenuButton}.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
 public class ToolbarItem extends Control {
+
   private static final Logger LOGGER =
       LogManager.getLogger(ToolbarItem.class.getName());
 
+  private static final double RESIZING_FACTOR = 0.47d;
   private static final String TOOLBAR_BUTTON = "toolbar-button"; // no arrow to the right
   private static final String TOOLBAR_LABEL = "toolbar-label"; // no arrow, no click effect
   private static final String TOOLBAR_COMBO_BOX = "toolbar-menu-button"; // color on showing
@@ -42,11 +45,7 @@ public class ToolbarItem extends Control {
       FXCollections.observableArrayList());
 
   public ToolbarItem() {
-    onClick.addListener((observable, oldClick, newClick) -> {
-      setOnMouseClicked(newClick);
-      updateStyleClasses();
-    });
-    items.addListener((InvalidationListener) observable -> updateStyleClasses());
+    setupListeners();
   }
 
   public ToolbarItem(String text) {
@@ -100,6 +99,25 @@ public class ToolbarItem extends Control {
     this(icon, text);
     setItems(FXCollections.observableArrayList(items));
     getStyleClass().setAll(TOOLBAR_COMBO_BOX);
+  }
+
+  private void setupListeners() {
+    onClick.addListener((observable, oldClick, newClick) -> {
+      setOnMouseClicked(newClick);
+      updateStyleClasses();
+    });
+    items.addListener((InvalidationListener) observable -> updateStyleClasses());
+    icon.addListener((observable, oldIcon, newIcon) -> {
+      if (newIcon instanceof ImageView) {
+        ImageView imageView = ((ImageView) newIcon);
+        imageView.setPreserveRatio(true);
+
+        // Binds the dimensions of the ImageView to the dropdown's height.
+        // Resizes the image with a RESIZING_FACTOR in order to fit in the ToolbarItem
+        // and reach a size of 16px by a default height of 34px.
+        imageView.fitHeightProperty().bind(prefHeightProperty().multiply(RESIZING_FACTOR));
+      }
+    });
   }
 
   private void updateStyleClasses() {
