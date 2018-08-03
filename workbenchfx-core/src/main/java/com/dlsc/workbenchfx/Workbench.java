@@ -103,7 +103,7 @@ public class Workbench extends Control {
    * Map containing all overlays which have been loaded into the scene graph, with their
    * corresponding {@link GlassPane}.
    */
-  private final ObservableMap<Node, GlassPane> overlays = FXCollections.observableHashMap();
+  private final ObservableMap<Region, GlassPane> overlays = FXCollections.observableHashMap();
 
   /**
    * Map containing all overlays which are animated, with their corresponding {@link Animation}.
@@ -118,8 +118,8 @@ public class Workbench extends Control {
   private final ObservableMap<Region, Boolean> animatedOverlaysInit =
       FXCollections.observableHashMap();
 
-  private final ObservableSet<Node> nonBlockingOverlaysShown = FXCollections.observableSet();
-  private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet();
+  private final ObservableSet<Region> nonBlockingOverlaysShown = FXCollections.observableSet();
+  private final ObservableSet<Region> blockingOverlaysShown = FXCollections.observableSet();
 
   private final ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>();
   private final ObjectProperty<Side> drawerSideShown = new SimpleObjectProperty<>();
@@ -838,7 +838,7 @@ public class Workbench extends Control {
    * @return a map of all overlays, which have previously been opened, with their corresponding
    *         {@link GlassPane}.
    */
-  public ObservableMap<Node, GlassPane> getOverlays() {
+  public ObservableMap<Region, GlassPane> getOverlays() {
     return FXCollections.unmodifiableObservableMap(overlays);
   }
 
@@ -849,10 +849,10 @@ public class Workbench extends Control {
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
-   *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide it.
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Region)} to hide it.
    * @return true if the overlay is not being shown already
    */
-  public boolean showOverlay(Node overlay, boolean blocking) {
+  public boolean showOverlay(Region overlay, boolean blocking) {
     LOGGER.trace("showOverlay");
     if (!overlays.containsKey(overlay)) {
       overlays.put(overlay, new GlassPane());
@@ -867,16 +867,16 @@ public class Workbench extends Control {
   }
 
   /**
-   * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background.
+   * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background. TODO
    *
    * @param overlay  to be shown
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
-   *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide it.
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Region)} to hide it.
    * @return true if the overlay is not being shown already
    */
-  public boolean showOverlay(Region overlay, boolean blocking, Side side) {
+  private boolean showOverlay(Region overlay, boolean blocking, Side side) {
     LOGGER.trace("showOverlay - animated");
     if (!animatedOverlaysStart.containsKey(overlay)) {
       addAnimationListener(overlay, side);
@@ -971,7 +971,7 @@ public class Workbench extends Control {
 
   /**
    * Hides the {@code overlay} together with its {@link GlassPane}, which has previously been shown
-   * using {@link Workbench#showOverlay(Node, boolean)}.
+   * using {@link Workbench#showOverlay(Region, boolean)}.
    *
    * @param overlay to be hidden
    * @return true if the overlay was showing and is now hidden
@@ -980,7 +980,7 @@ public class Workbench extends Control {
    *           in the scene graph is not possible due to performance reasons, call {@link
    *           Workbench#clearOverlays()} after this method.
    */
-  public boolean hideOverlay(Node overlay) {
+  public boolean hideOverlay(Region overlay) {
     LOGGER.trace("hideOverlay");
     if (blockingOverlaysShown.contains(overlay)) {
       return blockingOverlaysShown.remove(overlay);
@@ -1158,11 +1158,11 @@ public class Workbench extends Control {
     return navigationDrawerItems;
   }
 
-  public ObservableSet<Node> getNonBlockingOverlaysShown() {
+  public ObservableSet<Region> getNonBlockingOverlaysShown() {
     return FXCollections.unmodifiableObservableSet(nonBlockingOverlaysShown);
   }
 
-  public ObservableSet<Node> getBlockingOverlaysShown() {
+  public ObservableSet<Region> getBlockingOverlaysShown() {
     return FXCollections.unmodifiableObservableSet(blockingOverlaysShown);
   }
 

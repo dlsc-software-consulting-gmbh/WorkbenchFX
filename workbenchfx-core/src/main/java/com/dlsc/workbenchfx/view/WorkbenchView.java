@@ -76,7 +76,7 @@ public class WorkbenchView extends StackPane implements View {
    * @param overlay   to be stacked on top of the view
    * @param glassPane to be added in the background of the {@code overlay}
    */
-  public void addOverlay(Node overlay, GlassPane glassPane) {
+  public void addOverlay(Region overlay, GlassPane glassPane) {
     LOGGER.trace("addOverlay");
     overlay.setVisible(false);
     getChildren().addAll(glassPane, overlay);
@@ -88,12 +88,12 @@ public class WorkbenchView extends StackPane implements View {
 
   /**
    * Removes the {@code overlay} from the scene graph and removes the bindings created with the call
-   * to {@link WorkbenchView#addOverlay(Node, GlassPane)}.
+   * to {@link WorkbenchView#addOverlay(Region, GlassPane)}.
    *
    * @param overlay   to be removed from the scene graph
    * @param glassPane the {@code overlay}'s corresponding {@link GlassPane}
    */
-  public void removeOverlay(Node overlay, GlassPane glassPane) {
+  public void removeOverlay(Region overlay, GlassPane glassPane) {
     LOGGER.trace("removeOverlay");
     glassPane.hideProperty().unbind();
     getChildren().removeAll(glassPane, overlay);
@@ -104,7 +104,7 @@ public class WorkbenchView extends StackPane implements View {
    *
    * @param overlay to be made visible
    */
-  public void showOverlay(Node overlay) {
+  public void showOverlay(Region overlay) {
     LOGGER.trace("showOverlay");
     overlay.setVisible(true);
   }
@@ -114,7 +114,7 @@ public class WorkbenchView extends StackPane implements View {
    *
    * @param overlay to be made <b>in</b>visible
    */
-  public void hideOverlay(Node overlay) {
+  public void hideOverlay(Region overlay) {
     LOGGER.trace("hideOverlay");
     overlay.setVisible(false);
   }
