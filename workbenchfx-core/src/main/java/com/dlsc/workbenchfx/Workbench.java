@@ -935,7 +935,7 @@ public class Workbench extends Control {
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
             TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
             start.setToY(0);
-            if (!end.toXProperty().isBound()) {
+            if (!end.toYProperty().isBound()) {
               end.toYProperty().bind(overlay.heightProperty().negate());
             }
             start.play();
@@ -952,7 +952,7 @@ public class Workbench extends Control {
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
             TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
             start.setToY(0);
-            if (!end.toXProperty().isBound()) {
+            if (!end.toYProperty().isBound()) {
               end.toYProperty().bind(overlay.heightProperty());
             }
             start.play();
