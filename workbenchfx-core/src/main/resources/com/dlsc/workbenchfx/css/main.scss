@@ -15,9 +15,8 @@ $on-background-color: #000000;
 $on-surface-color: #000000;
 $on-error-color: #FFFFFF;
 
-// Since the JavaFX SceneBuilder cannot perform setting variables in the .root selector,
-// we put them in the * selector
-* {
+// Workaround to make global declarations work with FXML and standard JavaFX. See https://stackoverflow.com/a/49207678
+.root > * {
   -primary-color: $primary-color;
   -primary-variant-color: $primary-variant-color;
   -secondary-color: $secondary-color;

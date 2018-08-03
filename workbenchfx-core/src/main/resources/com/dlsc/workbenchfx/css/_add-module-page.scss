@@ -10,10 +10,10 @@
             -fx-alignment: CENTER;
 
             & .tile-control {
-              -fx-padding: 1.5em;
+              -fx-padding: 1em;
               -fx-alignment: CENTER;
 
-              $tile-width: 12.5em;
+              $tile-width: 13.25em;
               $golden-ratio: 1.61803398875;
               -fx-pref-width: $tile-width;
               -fx-pref-height: $tile-width / $golden-ratio;
@@ -65,7 +65,7 @@
 
           & > .bullet-button {
             -fx-background-radius: 50%;
-            -fx-background-insets: .55em;
+            -fx-background-insets: 0.45em; // Size of the bullets: Smaller values mean bigger dots
             -fx-background-color: -secondary-variant-color;
             &:hover {
               -fx-cursor: hand;
