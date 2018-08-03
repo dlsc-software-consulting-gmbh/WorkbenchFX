@@ -65,30 +65,6 @@ public final class WorkbenchUtils {
   }
 
   /**
-   * TODO.
-   * @param list
-   * @param addAction
-   * @param removeAction
-   * @param <T>
-   */
-  public static <T> void addListListener(ObservableList<T> list,
-                                        Consumer<T> addAction,
-                                        Consumer<T> removeAction) {
-    list.addListener((ListChangeListener<? super T>) c -> {
-      while (c.next()) {
-        if (!c.wasPermutated() && !c.wasUpdated()) {
-          for (T remitem : c.getRemoved()) {
-            removeAction.accept(remitem);
-          }
-          for (T additem : c.getAddedSubList()) {
-            addAction.accept(additem);
-          }
-        }
-      }
-    });
-  }
-
-  /**
    * Converts a given String into one that can be used in css.
    * Accepts only characters that match 'a' to 'z', 'A' to 'Z', '0' to '9', ' ' and '-'.
    * All uppercase letters are converted into a lowercase and spaces are replaced by '-'.

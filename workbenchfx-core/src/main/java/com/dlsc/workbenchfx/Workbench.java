@@ -878,8 +878,8 @@ public class Workbench extends Control {
   /**
    * TODO.
    *
-   * @param workbenchOverlay
-   * @param side
+   * @param workbenchOverlay TODO
+   * @param side TODO
    */
   private void addAnimationListener(WorkbenchOverlay workbenchOverlay, Side side) {
     Region overlay = workbenchOverlay.getOverlay();
@@ -928,13 +928,14 @@ public class Workbench extends Control {
         new Duration(ANIMATION_DURATION_DRAWER_OPEN), overlay);
     return open;
   }
+
   private TranslateTransition slideOut(Region overlay) {
     TranslateTransition close = new TranslateTransition(
         new Duration(ANIMATION_DURATION_DRAWER_CLOSE), overlay);
     close.setOnFinished(event -> {
-        overlay.setVisible(false);
-      LOGGER.trace("Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
-          overlay.getTranslateX());
+      overlay.setVisible(false);
+      LOGGER.trace(
+          "Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " + overlay.getTranslateX());
     });
     return close;
   }

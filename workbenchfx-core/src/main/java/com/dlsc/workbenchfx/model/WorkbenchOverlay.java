@@ -9,6 +9,9 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Region;
 
+/**
+ * TODO.
+ */
 public final class WorkbenchOverlay {
   
   private final Region overlay;
@@ -22,6 +25,24 @@ public final class WorkbenchOverlay {
   private final ObjectProperty<EventHandler<Event>> onInitialized =
       new SimpleObjectProperty<>(this, "onInitialized");
 
+  /**
+   * TODO.
+   *
+   * @param overlay TODO
+   * @param glassPane TODO
+   */
+  public WorkbenchOverlay(Region overlay, GlassPane glassPane) {
+    this(overlay, glassPane, null, null);
+  }
+
+  /**
+   * TODO.
+   *
+   * @param overlay TODO
+   * @param glassPane TODO
+   * @param animationStart TODO
+   * @param end TODO
+   */
   public WorkbenchOverlay(Region overlay, GlassPane glassPane,
                           TranslateTransition animationStart, TranslateTransition end) {
     this.overlay = overlay;
@@ -40,14 +61,10 @@ public final class WorkbenchOverlay {
   private void initialize(Region overlay) {
     if (!isInitialized() && overlay.getWidth() > 0 && overlay.getHeight() > 0) {
       setInitialized(true);
-      if(!Objects.isNull(getOnInitialized())) {
+      if (!Objects.isNull(getOnInitialized())) {
         getOnInitialized().handle(new Event(overlay, overlay, Event.ANY));
       }
     }
-  }
-
-  public WorkbenchOverlay(Region overlay, GlassPane glassPane) {
-    this(overlay, glassPane, null, null);
   }
 
   public final Region getOverlay() {
@@ -58,6 +75,11 @@ public final class WorkbenchOverlay {
     return glassPane;
   }
 
+  /**
+   * TODO.
+   *
+   * @return TODO
+   */
   public final boolean isAnimated() {
     return !Objects.isNull(animationStart) && !Objects.isNull(animationEnd);
   }
