@@ -896,7 +896,7 @@ public class Workbench extends Control {
           // make sure this code only gets run the first time the overlay has been shown and
           // rendered in the scene graph, to ensure the overlay has a size for the calculations
           if (isAnimatedOverlayInitialized(overlay) && overlay.getWidth() > 0) {
-            animatedOverlaysInit.put(overlay, true);
+            setAnimatedOverlayInitialized(overlay);
             overlay.setTranslateX(-(overlay.getWidth())); // initial position
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
             TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
@@ -913,7 +913,7 @@ public class Workbench extends Control {
           // make sure this code only gets run the first time the overlay has been shown and
           // rendered in the scene graph, to ensure the overlay has a size for the calculations
           if (isAnimatedOverlayInitialized(overlay) && overlay.getWidth() > 0) {
-            animatedOverlaysInit.put(overlay, true);
+            setAnimatedOverlayInitialized(overlay);
             overlay.setTranslateX(overlay.getWidth());  // initial position
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
             TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
@@ -930,7 +930,7 @@ public class Workbench extends Control {
           // make sure this code only gets run the first time the overlay has been shown and
           // rendered in the scene graph, to ensure the overlay has a size for the calculations
           if (isAnimatedOverlayInitialized(overlay) && overlay.getHeight() > 0) {
-            animatedOverlaysInit.put(overlay, true);
+            setAnimatedOverlayInitialized(overlay);
             overlay.setTranslateY(-(overlay.getHeight())); // initial position
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
             TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
@@ -947,7 +947,7 @@ public class Workbench extends Control {
           // make sure this code only gets run the first time the overlay has been shown and
           // rendered in the scene graph, to ensure the overlay has a size for the calculations
           if (isAnimatedOverlayInitialized(overlay) && overlay.getHeight() > 0) {
-            animatedOverlaysInit.put(overlay, true);
+            setAnimatedOverlayInitialized(overlay);
             overlay.setTranslateY(overlay.getHeight()); // initial position
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
             TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
@@ -963,6 +963,18 @@ public class Workbench extends Control {
 
   }
 
+  /**
+   * TODO.
+   * @param overlay
+   */
+  private void setAnimatedOverlayInitialized(Region overlay) {
+    animatedOverlaysInit.put(overlay, true);
+  }
+
+  /**
+   * TODO.
+   * @param overlay
+   */
   private boolean isAnimatedOverlayInitialized(Region overlay) {
     return !animatedOverlaysInit.getOrDefault(overlay, false);
   }
