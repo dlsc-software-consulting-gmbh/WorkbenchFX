@@ -22,6 +22,7 @@ import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchOverlay;
 import com.dlsc.workbenchfx.testing.MockDialogControl;
 import com.dlsc.workbenchfx.testing.MockNavigationDrawer;
 import com.dlsc.workbenchfx.testing.MockPage;
@@ -56,6 +57,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -89,12 +91,12 @@ class WorkbenchTest extends ApplicationTest {
   WorkbenchModule first;
   WorkbenchModule second;
   WorkbenchModule last;
-  private ObservableMap<Node, GlassPane> overlays;
-  private ObservableSet<Node> blockingOverlaysShown;
-  private ObservableSet<Node> overlaysShown;
-  private Node overlay1;
-  private Node overlay2;
-  private Node overlay3;
+  private ObservableMap<Region, WorkbenchOverlay> overlays;
+  private ObservableSet<Region> blockingOverlaysShown;
+  private ObservableSet<Region> overlaysShown;
+  private Region overlay1;
+  private Region overlay2;
+  private Region overlay3;
 
   private MenuItem menuItem;
   private ObservableList<MenuItem> navigationDrawerItems;
@@ -837,10 +839,10 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void getOverlays() {
     robot.interact(() -> {
-      ObservableMap<Node, GlassPane> overlays = workbench.getOverlays();
+      ObservableMap<Region, WorkbenchOverlay> overlays = workbench.getOverlays();
       // Test if unmodifiable map is returned
       assertThrows(UnsupportedOperationException.class,
-          () -> overlays.put(new Label(), new GlassPane()));
+          () -> overlays.put(new Label(), new WorkbenchOverlay(null, null)));
     });
   }
 
@@ -857,7 +859,7 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(1, blockingOverlaysShown.size());
       assertEquals(0, overlaysShown.size());
       assertTrue(overlay1.isVisible()); // overlay1 has been made visible
-      GlassPane glassPane = overlays.get(overlay1);
+      GlassPane glassPane = overlays.get(overlay1).getGlassPane();
       assertFalse(glassPane.isHide());
       assertNull(glassPane.onMouseClickedProperty().get()); // no closing handler has been attached
       assertTrue(glassPane.hideProperty().isBound());
@@ -889,7 +891,7 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(0, blockingOverlaysShown.size());
       assertEquals(1, overlaysShown.size());
       assertTrue(overlay1.isVisible()); // overlay1 has been made visible
-      GlassPane glassPane = overlays.get(overlay1);
+      GlassPane glassPane = overlays.get(overlay1).getGlassPane();
       assertFalse(glassPane.isHide());
       assertNotNull(glassPane.onMouseClickedProperty().get()); // closing handler has been attached
       assertTrue(glassPane.hideProperty().isBound());
@@ -923,11 +925,11 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(1, overlaysShown.size());
       assertTrue(overlay1.isVisible()); // overlay1 has been made visible
       assertTrue(overlay2.isVisible()); // overlay1 has been made visible
-      GlassPane glassPane1 = overlays.get(overlay1);
+      GlassPane glassPane1 = overlays.get(overlay1).getGlassPane();
       assertFalse(glassPane1.isHide());
       assertNotNull(glassPane1.onMouseClickedProperty().get()); // closing handler has been attached
       assertTrue(glassPane1.hideProperty().isBound());
-      GlassPane glassPane2 = overlays.get(overlay2);
+      GlassPane glassPane2 = overlays.get(overlay2).getGlassPane();
       assertFalse(glassPane2.isHide());
       assertNull(glassPane2.onMouseClickedProperty().get()); // no closing handler has been attached
       assertTrue(glassPane2.hideProperty().isBound());
@@ -964,7 +966,7 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(0, blockingOverlaysShown.size()); // none shown
       assertEquals(0, overlaysShown.size());
       assertFalse(overlay1.isVisible()); // overlay1 is invisible
-      GlassPane glassPane = overlays.get(overlay1);
+      GlassPane glassPane = overlays.get(overlay1).getGlassPane();
       assertTrue(glassPane.isHide());
       assertTrue(glassPane.hideProperty().isBound());
 
@@ -1002,7 +1004,7 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(0, blockingOverlaysShown.size()); // none shown
       assertEquals(0, overlaysShown.size());
       assertFalse(overlay1.isVisible()); // overlay1 is invisible
-      GlassPane glassPane = overlays.get(overlay1);
+      GlassPane glassPane = overlays.get(overlay1).getGlassPane();
       assertTrue(glassPane.isHide());
       assertTrue(glassPane.hideProperty().isBound());
 
@@ -1039,7 +1041,7 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(0, blockingOverlaysShown.size()); // none shown
       assertEquals(0, overlaysShown.size());
       assertFalse(overlay1.isVisible()); // overlay1 is invisible
-      GlassPane glassPane = overlays.get(overlay1);
+      GlassPane glassPane = overlays.get(overlay1).getGlassPane();
       assertTrue(glassPane.isHide());
       assertTrue(glassPane.hideProperty().isBound());
     });
@@ -1062,9 +1064,9 @@ class WorkbenchTest extends ApplicationTest {
       assertTrue(overlay2.isVisible());
       assertTrue(overlay3.isVisible());
 
-      final GlassPane glassPane1 = overlays.get(overlay1);
-      final GlassPane glassPane2 = overlays.get(overlay2);
-      final GlassPane glassPane3 = overlays.get(overlay3);
+      final GlassPane glassPane1 = overlays.get(overlay1).getGlassPane();
+      final GlassPane glassPane2 = overlays.get(overlay2).getGlassPane();
+      final GlassPane glassPane3 = overlays.get(overlay3).getGlassPane();
 
       workbench.clearOverlays();
 
@@ -1112,9 +1114,9 @@ class WorkbenchTest extends ApplicationTest {
       assertFalse(overlay2.isVisible());
       assertFalse(overlay3.isVisible());
 
-      final GlassPane glassPane1 = overlays.get(overlay1);
-      final GlassPane glassPane2 = overlays.get(overlay2);
-      final GlassPane glassPane3 = overlays.get(overlay3);
+      final GlassPane glassPane1 = overlays.get(overlay1).getGlassPane();
+      final GlassPane glassPane2 = overlays.get(overlay2).getGlassPane();
+      final GlassPane glassPane3 = overlays.get(overlay3).getGlassPane();
 
       workbench.clearOverlays();
 
@@ -1680,7 +1682,7 @@ class WorkbenchTest extends ApplicationTest {
    * @param overlayNode of which the GlassPane should be clicked
    */
   private void simulateGlassPaneClick(Node overlayNode) {
-    GlassPane glassPane = workbench.getOverlays().get(overlayNode);
+    GlassPane glassPane = workbench.getOverlays().get(overlayNode).getGlassPane();
     glassPane.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0,
         MouseButton.PRIMARY, 1,
         false, false, false, false, true, false, false, false, false, false,

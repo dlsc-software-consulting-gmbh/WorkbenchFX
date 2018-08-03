@@ -3,9 +3,10 @@ package com.dlsc.workbenchfx.model;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Objects;
 import javafx.animation.TranslateTransition;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.layout.Region;
 
 public final class WorkbenchOverlay {
@@ -16,16 +17,33 @@ public final class WorkbenchOverlay {
   private final TranslateTransition animationStart;
   private final TranslateTransition animationEnd;
   
-  private final BooleanProperty initialized = new SimpleBooleanProperty();
+  private boolean initialized = false;
 
-  public WorkbenchOverlay(Region overlay, GlassPane glassPane, TranslateTransition animationStart, TranslateTransition end) {
+  private final ObjectProperty<EventHandler<Event>> onInitialized =
+      new SimpleObjectProperty<>(this, "onInitialized");
+
+  public WorkbenchOverlay(Region overlay, GlassPane glassPane,
+                          TranslateTransition animationStart, TranslateTransition end) {
     this.overlay = overlay;
     this.glassPane = glassPane;
     this.animationStart = animationStart;
     this.animationEnd = end;
 
-    initialized.bind(
-        overlay.widthProperty().greaterThan(0).or(overlay.heightProperty().greaterThan(0)));
+    setupInitializedListeners(overlay);
+  }
+
+  private void setupInitializedListeners(Region overlay) {
+    overlay.widthProperty().addListener(observable -> initialize(overlay));
+    overlay.heightProperty().addListener(observable -> initialize(overlay));
+  }
+
+  private void initialize(Region overlay) {
+    if (!isInitialized() && overlay.getWidth() > 0 && overlay.getHeight() > 0) {
+      setInitialized(true);
+      if(!Objects.isNull(getOnInitialized())) {
+        getOnInitialized().handle(new Event(overlay, overlay, Event.ANY));
+      }
+    }
   }
 
   public WorkbenchOverlay(Region overlay, GlassPane glassPane) {
@@ -53,14 +71,27 @@ public final class WorkbenchOverlay {
   }
 
   public final boolean isInitialized() {
-    return initialized.get();
-  }
-
-  public final ReadOnlyBooleanProperty initializedProperty() {
     return initialized;
   }
 
-  private final void setInitialized(boolean initialized) {
-    this.initialized.set(initialized);
+  public final void setInitialized(boolean initialized) {
+    this.initialized = initialized;
+  }
+
+  /**
+   * TODO.
+   *
+   * @return
+   */
+  public final ObjectProperty<EventHandler<Event>> onInitializedProperty() {
+    return onInitialized;
+  }
+
+  public final void setOnInitialized(EventHandler<Event> value) {
+    onInitialized.set(value);
+  }
+
+  public final EventHandler<Event> getOnInitialized() {
+    return onInitialized.get();
   }
 }

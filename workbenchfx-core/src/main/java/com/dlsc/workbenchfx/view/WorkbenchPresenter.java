@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.model.WorkbenchOverlay;
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
@@ -30,7 +31,7 @@ public class WorkbenchPresenter extends Presenter {
   private Workbench model;
   private WorkbenchView view;
 
-  private final ObservableMap<Region, GlassPane> overlays;
+  private final ObservableMap<Region, WorkbenchOverlay> overlays;
   private final ObservableSet<Region> overlaysShown;
   private final ObservableSet<Region> blockingOverlaysShown;
 
@@ -71,14 +72,14 @@ public class WorkbenchPresenter extends Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-    overlays.addListener((MapChangeListener<Region, GlassPane>) c -> {
+    overlays.addListener((MapChangeListener<Region, WorkbenchOverlay>) c -> {
       LOGGER.trace("Listener overlays fired");
       if (c.wasAdded()) {
         LOGGER.trace("Overlay added");
-        addOverlay(c.getKey(), c.getValueAdded());
+        addOverlay(c.getValueAdded());
       } else if (c.wasRemoved()) {
         LOGGER.trace("Overlay removed");
-        removeOverlay(c.getKey(), c.getValueRemoved());
+        removeOverlay(c.getValueRemoved());
       }
     });
 
@@ -99,25 +100,23 @@ public class WorkbenchPresenter extends Presenter {
    * Adds an {@code overlay} together with the {@code glassPane} to the view.
    *
    * @param overlay to be added
-   * @param glassPane to be added
    */
-  public void addOverlay(Region overlay, GlassPane glassPane) {
+  public void addOverlay(WorkbenchOverlay overlay) {
     LOGGER.trace("addOverlay");
-    view.addOverlay(overlay, glassPane);
+    view.addOverlay(overlay.getOverlay(), overlay.getGlassPane());
   }
 
   /**
    * Removes an {@code overlay} together with the {@code glassPane} from the view.
    *
    * @param overlay to be removed
-   * @param glassPane to be removed
    */
-  public void removeOverlay(Region overlay, GlassPane glassPane) {
+  public void removeOverlay(WorkbenchOverlay overlay) {
     LOGGER.trace("removeOverlay");
-    view.removeOverlay(overlay, glassPane);
+    view.removeOverlay(overlay.getOverlay(), overlay.getGlassPane());
 
     // invalidate previous event handler, if existent (when blocking)
-    glassPane.setOnMouseClicked(null);
+    overlay.getGlassPane().setOnMouseClicked(null);
   }
 
   /**
@@ -126,24 +125,22 @@ public class WorkbenchPresenter extends Presenter {
    * @param overlay to be shown
    * @param blocking if false, will make {@code overlay} hide, if its {@code glassPane} was clicked
    */
-  public void showOverlay(Region overlay, boolean blocking) {
-    showOverlay(overlay, overlays.get(overlay), blocking);
+  private void showOverlay(Region overlay, boolean blocking) {
+    showOverlay(model.getOverlays().get(overlay), blocking);
   }
 
   /**
    * Makes the {@code overlay} visible, along with its {@code glassPane}.
    *
-   * @param overlay to be shown
-   * @param glassPane the {@code overlay}'s corresponding {@link GlassPane}
+   * @param workbenchOverlay the {@code overlay}'s corresponding model object
    * @param blocking if false, will make {@code overlay} hide, if its {@code glassPane} was clicked
    */
-  private void showOverlay(Region overlay, GlassPane glassPane, boolean blocking) {
+  private void showOverlay(WorkbenchOverlay workbenchOverlay, boolean blocking) {
     LOGGER.trace("showOverlay - Blocking: " + blocking);
-    TranslateTransition animation = model.getAnimatedOverlaysStart().get(overlay);
-    if (!Objects.isNull(animation)) {
-      Region animatedOverlay = (Region) overlay;
-      if (animatedOverlay.getWidth() != 0) {
-        animation.play();
+    Region overlay = workbenchOverlay.getOverlay();
+    if (workbenchOverlay.isAnimated()) {
+      if (overlay.getWidth() != 0) {
+        workbenchOverlay.getAnimationStart().play();
       }
     }
     view.showOverlay(overlay);
@@ -151,7 +148,7 @@ public class WorkbenchPresenter extends Presenter {
     // if overlay is not blocking, make the overlay hide when the glass pane is clicked
     if (!blocking) {
       LOGGER.trace("showOverlay - Set GlassPane EventHandler");
-      glassPane.setOnMouseClicked(event -> {
+      workbenchOverlay.getGlassPane().setOnMouseClicked(event -> {
         // check if overlay is really not blocking, is needed to avoid false-positives
         if (overlaysShown.contains(overlay)) {
 
@@ -187,14 +184,22 @@ public class WorkbenchPresenter extends Presenter {
    * @param overlay to be hidden
    */
   public void hideOverlay(Region overlay) {
-    TranslateTransition animation = model.getAnimatedOverlaysEnd().get(overlay);
-    if (!Objects.isNull(animation)) {
-      animation.play();
+    hideOverlay(model.getOverlays().get(overlay));
+  }
+
+  /**
+   * Makes the {@code overlay} <b>in</b>visible, along with its {@code glassPane}.
+   *
+   * @param overlay to be hidden
+   */
+  public void hideOverlay(WorkbenchOverlay overlay) {
+    if (overlay.isAnimated()) {
+      overlay.getAnimationEnd().play();
       // make sure GlassPane starts hiding at the same time as the animation, not when the animation
       // is finished and the overlay has been hidden
-      model.getOverlays().get(overlay).setHide(true);
+      overlay.getGlassPane().setHide(true);
     } else {
-      view.hideOverlay(overlay);
+      view.hideOverlay(overlay.getOverlay());
     }
   }
 

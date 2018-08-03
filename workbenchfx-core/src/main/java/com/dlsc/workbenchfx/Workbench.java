@@ -4,6 +4,7 @@ import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
 
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchOverlay;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
@@ -18,7 +19,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
-import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -101,21 +101,9 @@ public class Workbench extends Control {
 
   /**
    * Map containing all overlays which have been loaded into the scene graph, with their
-   * corresponding {@link GlassPane}.
+   * corresponding model object {@link WorkbenchOverlay}.
    */
-  private final ObservableMap<Region, GlassPane> overlays = FXCollections.observableHashMap();
-
-  /**
-   * Map containing all overlays which are animated, with their corresponding {@link Animation}.
-   */
-  private final ObservableMap<Region, TranslateTransition> animatedOverlaysStart =
-      FXCollections.observableHashMap();
-  private final ObservableMap<Region, TranslateTransition> animatedOverlaysEnd =
-      FXCollections.observableHashMap();
-  /**
-   * TODO.
-   */
-  private final ObservableMap<Region, Boolean> animatedOverlaysInit =
+  private final ObservableMap<Region, WorkbenchOverlay> overlays =
       FXCollections.observableHashMap();
 
   private final ObservableSet<Region> nonBlockingOverlaysShown = FXCollections.observableSet();
@@ -834,11 +822,11 @@ public class Workbench extends Control {
 
   /**
    * Returns a map of all overlays, which have previously been opened, with their corresponding
-   * {@link GlassPane}.
+   * model object {@link WorkbenchOverlay}.
    * @return a map of all overlays, which have previously been opened, with their corresponding
-   *         {@link GlassPane}.
+   *         model object {@link WorkbenchOverlay}.
    */
-  public ObservableMap<Region, GlassPane> getOverlays() {
+  public ObservableMap<Region, WorkbenchOverlay> getOverlays() {
     return FXCollections.unmodifiableObservableMap(overlays);
   }
 
@@ -855,7 +843,7 @@ public class Workbench extends Control {
   public boolean showOverlay(Region overlay, boolean blocking) {
     LOGGER.trace("showOverlay");
     if (!overlays.containsKey(overlay)) {
-      overlays.put(overlay, new GlassPane());
+      overlays.put(overlay, new WorkbenchOverlay(overlay, new GlassPane()));
     }
     if (blocking) {
       LOGGER.trace("showOverlay - blocking");
@@ -878,10 +866,11 @@ public class Workbench extends Control {
    */
   private boolean showOverlay(Region overlay, boolean blocking, Side side) {
     LOGGER.trace("showOverlay - animated");
-    if (!animatedOverlaysStart.containsKey(overlay)) {
-      addAnimationListener(overlay, side);
-      animatedOverlaysStart.put(overlay, slideIn(overlay));
-      animatedOverlaysEnd.put(overlay, slideOut(overlay));
+    if (!overlays.containsKey(overlay)) {
+      overlays.put(overlay,
+          new WorkbenchOverlay(overlay, new GlassPane(), slideIn(overlay), slideOut(overlay))
+      );
+      addAnimationListener(overlays.get(overlay), side);
     }
     return showOverlay(overlay, blocking);
   }
@@ -889,10 +878,11 @@ public class Workbench extends Control {
   /**
    * TODO.
    *
-   * @param overlay
+   * @param workbenchOverlay
    * @param side
    */
-  private void addAnimationListener(Region overlay, Side side) {
+  private void addAnimationListener(WorkbenchOverlay workbenchOverlay, Side side) {
+    Region overlay = workbenchOverlay.getOverlay();
     // prepare values for setting the listener
     ReadOnlyDoubleProperty size;
     if (side.isVertical()) { // LEFT or RIGHT
@@ -901,56 +891,36 @@ public class Workbench extends Control {
       size = overlay.heightProperty();
     }
 
-    size.addListener(observable -> {
-      // make sure this code only gets run the first time the overlay has been shown and
-      // rendered in the scene graph, to ensure the overlay has a size for the calculations
-      if (!isAnimatedOverlayInitialized(overlay) && size.get() > 0) {
-        setAnimatedOverlayInitialized(overlay);
-
-        // prepare variables
-        TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
-        TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
-        DoubleExpression hiddenCoordinate = DoubleBinding.doubleExpression(size);
-        if (Side.LEFT.equals(side) || Side.TOP.equals(side)) {
-          hiddenCoordinate = hiddenCoordinate.negate(); // make coordinates in hidden state negative
-        }
-
-        if (side.isVertical()) { // LEFT or RIGHT
-          // X
-          overlay.setTranslateX(hiddenCoordinate.get()); // initial position
-          start.setToX(0);
-          if (!end.toXProperty().isBound()) {
-            end.toXProperty().bind(hiddenCoordinate);
-          }
-        }
-        if (side.isHorizontal()) { // TOP or BOTTOM
-          // Y
-          overlay.setTranslateY(hiddenCoordinate.get()); // initial position
-          start.setToY(0);
-          if (!end.toYProperty().isBound()) {
-            end.toYProperty().bind(hiddenCoordinate);
-          }
-        }
-
-        start.play();
+    // make sure this code only gets run the first time the overlay has been shown and
+    // rendered in the scene graph, to ensure the overlay has a size for the calculations
+    workbenchOverlay.setOnInitialized(event -> {
+      // prepare variables
+      TranslateTransition start = workbenchOverlay.getAnimationStart();
+      TranslateTransition end = workbenchOverlay.getAnimationEnd();
+      DoubleExpression hiddenCoordinate = DoubleBinding.doubleExpression(size);
+      if (Side.LEFT.equals(side) || Side.TOP.equals(side)) {
+        hiddenCoordinate = hiddenCoordinate.negate(); // make coordinates in hidden state negative
       }
+
+      if (side.isVertical()) { // LEFT or RIGHT
+        // X
+        overlay.setTranslateX(hiddenCoordinate.get()); // initial position
+        start.setToX(0);
+        if (!end.toXProperty().isBound()) {
+          end.toXProperty().bind(hiddenCoordinate);
+        }
+      }
+      if (side.isHorizontal()) { // TOP or BOTTOM
+        // Y
+        overlay.setTranslateY(hiddenCoordinate.get()); // initial position
+        start.setToY(0);
+        if (!end.toYProperty().isBound()) {
+          end.toYProperty().bind(hiddenCoordinate);
+        }
+      }
+
+      start.play();
     });
-  }
-
-  /**
-   * TODO.
-   * @param overlay
-   */
-  private void setAnimatedOverlayInitialized(Region overlay) {
-    animatedOverlaysInit.put(overlay, true);
-  }
-
-  /**
-   * TODO.
-   * @param overlay
-   */
-  private boolean isAnimatedOverlayInitialized(Region overlay) {
-    return animatedOverlaysInit.getOrDefault(overlay, false);
   }
 
   private TranslateTransition slideIn(Region overlay) {
@@ -1232,14 +1202,6 @@ public class Workbench extends Control {
 
   private void setDrawerShown(Region drawerShown) {
     this.drawerShown.set(drawerShown);
-  }
-
-  public ObservableMap<Region, TranslateTransition> getAnimatedOverlaysStart() {
-    return FXCollections.unmodifiableObservableMap(animatedOverlaysStart);
-  }
-
-  public ObservableMap<Region, TranslateTransition> getAnimatedOverlaysEnd() {
-    return FXCollections.unmodifiableObservableMap(animatedOverlaysEnd);
   }
 
   @Override
