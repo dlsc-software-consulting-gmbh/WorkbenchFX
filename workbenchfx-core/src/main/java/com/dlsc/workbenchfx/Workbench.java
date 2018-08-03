@@ -1062,7 +1062,7 @@ public class Workbench extends Control {
     }
     StackPane.setAlignment(drawer, position);
     drawer.getStyleClass().add("drawer");
-    drawerSideShown.set(side); // TODO: use getter
+    setDrawerSideShown(side);
     setDrawerShown(drawer);
   }
 
@@ -1102,7 +1102,7 @@ public class Workbench extends Control {
    */
   public void hideDrawer() {
     setDrawerShown(null);
-    drawerSideShown.set(null); // TODO: use getter
+    setDrawerSideShown(null);
   }
 
   public void showNavigationDrawer() {
@@ -1203,6 +1203,18 @@ public class Workbench extends Control {
 
   private void setDrawerShown(Region drawerShown) {
     this.drawerShown.set(drawerShown);
+  }
+
+  public Side getDrawerSideShown() {
+    return drawerSideShown.get();
+  }
+
+  public ReadOnlyObjectProperty<Side> drawerSideShownProperty() {
+    return drawerSideShown;
+  }
+
+  private void setDrawerSideShown(Side drawerSideShown) {
+    this.drawerSideShown.set(drawerSideShown);
   }
 
   @Override
