@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -21,8 +22,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the ToolbarItem control which is used in the Toolbar of WorkbenchFX. Its functionality
- * is like that of a {@link MenuButton}.
+ * Represents the ToolbarItem which is used in the {@link ToolbarControl}s of WorkbenchFX.
+ * Depending on the Parameters defined in the constructor, the {@link ToolbarItem} changes its
+ * visual appearance to either a {@link javafx.scene.control.Label}, a {@link Button} or a
+ * {@link MenuButton}. Additionally there is the possibility to define a {@link Node} as value.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -44,57 +47,133 @@ public class ToolbarItem extends Control {
   private final ListProperty<MenuItem> items = new SimpleListProperty<>(this, "items",
       FXCollections.observableArrayList());
 
+  /**
+   * Creates a new empty {@link ToolbarItem}.
+   * Use {@link #setText(String)}, {@link #setGraphic(Node)}, {@link #getItems()} or
+   * {@link #setOnClick(EventHandler)} to define the content.
+   */
   public ToolbarItem() {
     setupListeners();
   }
 
+  /**
+   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.Label},
+   * using the given {@code text} as label text.
+   *
+   * @param text the text to be displayed on the {@link ToolbarItem}
+   */
   public ToolbarItem(String text) {
     this();
     setText(text);
     getStyleClass().setAll(TOOLBAR_LABEL);
   }
 
+  /**
+   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.Label},
+   * using the given {@code graphic} as label graphic.
+   *
+   * @param graphic the graphic to be displayed on the {@link ToolbarItem}
+   */
   public ToolbarItem(Node graphic) {
     this();
     setGraphic(graphic);
     getStyleClass().setAll(TOOLBAR_LABEL);
   }
 
+  /**
+   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.Label},
+   * using the given {@code text} and {@code graphic} as label content.
+   *
+   * @param text    the text to be displayed on the {@link ToolbarItem}
+   * @param graphic the graphic to be displayed on the {@link ToolbarItem}
+   */
   public ToolbarItem(String text, Node graphic) {
     this(text);
     setGraphic(graphic);
   }
 
+  /**
+   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.Button},
+   * using the given {@code text} as button text and the {@code onClick} as onMouseClicked event.
+   *
+   * @param text    the text to be displayed on the {@link ToolbarItem}
+   * @param onClick the function to be called when a mouse button has been clicked
+   *                (pressed and released) on this {@code Node}
+   */
   public ToolbarItem(String text, EventHandler<? super MouseEvent> onClick) {
     this(text);
     setOnClick(onClick);
     getStyleClass().setAll(TOOLBAR_BUTTON);
   }
 
+  /**
+   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.Button},
+   * using the given {@code graphic} as button graphic
+   * and the {@code onClick} as onMouseClicked event.
+   *
+   * @param graphic the graphic to be displayed on the {@link ToolbarItem}
+   * @param onClick the function to be called when a mouse button has been clicked
+   *                (pressed and released) on this {@code Node}
+   */
   public ToolbarItem(Node graphic, EventHandler<? super MouseEvent> onClick) {
     this(graphic);
     setOnClick(onClick);
     getStyleClass().setAll(TOOLBAR_BUTTON);
   }
 
+  /**
+   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.Button},
+   * using the given {@code text} and {@code graphic} as button content
+   * and the {@code onClick} as onMouseClicked event.
+   *
+   * @param text    the text to be displayed on the {@link ToolbarItem}
+   * @param graphic the graphic to be displayed on the {@link ToolbarItem}
+   * @param onClick the function to be called when a mouse button has been clicked
+   *                (pressed and released) on this {@code Node}
+   */
   public ToolbarItem(String text, Node graphic, EventHandler<? super MouseEvent> onClick) {
     this(text, graphic);
     setOnClick(onClick);
     getStyleClass().setAll(TOOLBAR_BUTTON);
   }
 
+  /**
+   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.MenuButton},
+   * using the given {@code text} as button menu button text
+   * and the {@code items} as its {@link MenuItem}s.
+   *
+   * @param text  the text to be displayed on the {@link ToolbarItem}
+   * @param items the items to be displayed in the context-menu of the {@link ToolbarItem}
+   */
   public ToolbarItem(String text, MenuItem... items) {
     this(text);
     setItems(FXCollections.observableArrayList(items));
     getStyleClass().setAll(TOOLBAR_COMBO_BOX);
   }
 
+  /**
+   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.MenuButton},
+   * using the given {@code graphic} as button menu button graphic
+   * and the {@code items} as its {@link MenuItem}s.
+   *
+   * @param graphic the graphic to be displayed on the {@link ToolbarItem}
+   * @param items   the items to be displayed in the context-menu of the {@link ToolbarItem}
+   */
   public ToolbarItem(Node graphic, MenuItem... items) {
     this(graphic);
     setItems(FXCollections.observableArrayList(items));
     getStyleClass().setAll(TOOLBAR_COMBO_BOX);
   }
 
+  /**
+   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.MenuButton},
+   * using the given {@code text} and {@code graphic} as button menu button content
+   * and the {@code items} as its {@link MenuItem}s.
+   *
+   * @param text  the text to be displayed on the {@link ToolbarItem}
+   * @param graphic the graphic to be displayed on the {@link ToolbarItem}
+   * @param items   the items to be displayed in the context-menu of the {@link ToolbarItem}
+   */
   public ToolbarItem(String text, Node graphic, MenuItem... items) {
     this(text, graphic);
     setItems(FXCollections.observableArrayList(items));
