@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx;
 
 import static com.dlsc.workbenchfx.Workbench.WorkbenchBuilder;
 import static com.dlsc.workbenchfx.testing.MockFactory.createMockModule;
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -35,6 +36,7 @@ import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -1156,8 +1158,9 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(1, overlays.size());
       assertEquals(0, blockingOverlaysShown.size());
       assertEquals(0, overlaysShown.size());
-      // TODO: wait for navigationdrawer to be hidden
-      //assertFalse(navigationDrawer.isVisible());
+
+      // wait for closing animation to complete
+      await().atMost(5, TimeUnit.SECONDS).until(() -> (navigationDrawer.isVisible()));
     });
   }
 
