@@ -61,7 +61,7 @@
       -fx-background-radius: px(5) px(5) 0 0;
       -fx-border-radius: px(5) px(5) 0 0;
       -fx-cursor: inherit;
-      -fx-background-insets: 0 0 0 -1px; // Needed to remove the border of the tab
+      -fx-background-insets: 0 0 0 -1.2px; // Needed to remove the border of the tab
 
       & .tab-control {
         -fx-border-color: transparent;

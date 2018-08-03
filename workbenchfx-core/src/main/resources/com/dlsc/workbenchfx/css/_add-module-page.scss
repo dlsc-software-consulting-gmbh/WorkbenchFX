@@ -10,10 +10,10 @@
             -fx-alignment: CENTER;
 
             & .tile-control {
-              -fx-padding: 1.5em;
+              -fx-padding: 1em;
               -fx-alignment: CENTER;
 
-              $tile-width: 12.5em;
+              $tile-width: 13.25em;
               $golden-ratio: 1.61803398875;
               -fx-pref-width: $tile-width;
               -fx-pref-height: $tile-width / $golden-ratio;
@@ -61,21 +61,20 @@
         -fx-tooltip-visible: false;
 
         & > .pagination-control > .control-box {
-          -fx-spacing: .5em;
+          -fx-spacing: .25em;
 
           & > .bullet-button {
             -fx-background-radius: 50%;
-            -fx-background-insets: .5em;
-            -fx-background-color: rgba(0, 0, 0, .1);
+            -fx-background-insets: 0.45em; // Size of the bullets: Smaller values mean bigger dots
+            -fx-background-color: -secondary-variant-color;
             &:hover {
               -fx-cursor: hand;
-              -fx-background-color: rgba(0, 0, 0, .2);
+              -fx-background-color: derive(-secondary-variant-color, 25%);
             }
             &:selected {
-              -fx-background-color: -primary-color;
+              -fx-background-color: -secondary-color;
               &:hover {
-                -fx-cursor: hand;
-                -fx-background-color: -primary-variant-color;
+                -fx-cursor: inherit;
               }
             }
           }

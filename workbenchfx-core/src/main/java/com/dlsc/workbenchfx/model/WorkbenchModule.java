@@ -1,9 +1,14 @@
 package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +30,12 @@ public abstract class WorkbenchModule {
   private String name;
   private FontAwesomeIcon faIcon;
   private Image imgIcon;
+
+  // The sets which store the toolbar icons which are displayed in the modules toolbar
+  private final ObservableList<Node> toolbarControlsLeft =
+      FXCollections.observableArrayList();
+  private final ObservableSet<Node> toolbarControlsRight =
+      FXCollections.observableSet(new LinkedHashSet<>());
 
   /**
    * Super constructor to be called by the implementing class.
@@ -158,5 +169,29 @@ public abstract class WorkbenchModule {
    */
   public Node getIcon() {
     return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
+  }
+
+  /**
+   * Returns an {@link ObservableList} which stores the toolbar items of the module.
+   * If it's not empty, the {@link Workbench} creates a pre styled {@link ToolbarControl}
+   * and adds the stored items on its left side.
+   *
+   * @return the {@link ObservableList} of items which are displayed on the left side of the
+   *         automatically added {@link ToolbarControl}
+   */
+  public ObservableList<Node> getToolbarControlsLeft() {
+    return toolbarControlsLeft;
+  }
+
+  /**
+   * Returns an {@link ObservableSet} which stores the toolbar items of the module.
+   * If it's not empty, the {@link Workbench} creates a pre styled {@link ToolbarControl}
+   * and adds the stored items on its right side.
+   *
+   * @return the {@link ObservableSet} of items which are displayed on the right side of the
+   *         automatically generated {@link ToolbarControl}
+   */
+  public ObservableSet<Node> getToolbarControlsRight() {
+    return toolbarControlsRight;
   }
 }

@@ -66,6 +66,7 @@ public class WorkbenchView extends StackPane implements View {
     viewBox.getChildren().addAll(toolbarView, contentView);
     getChildren().addAll(viewBox);
     VBox.setVgrow(contentView, Priority.ALWAYS);
+    VBox.setVgrow(addModuleView, Priority.ALWAYS);
   }
 
   /**

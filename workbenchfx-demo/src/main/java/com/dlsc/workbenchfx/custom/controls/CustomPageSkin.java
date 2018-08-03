@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.custom.controls;
 
+import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyIntegerProperty;
@@ -63,7 +64,7 @@ public class CustomPageSkin extends SkinBase<CustomPage> {
       tilePane.add(tile, column, row);
       column++;
 
-      if (column == COLUMNS_PER_ROW) {
+      if (column == WorkbenchUtils.calculateColumnsPerRow(tiles.size())) {
         column = 0;
         row++;
       }

@@ -54,10 +54,10 @@ public class CalendarDrawer extends VBox {
     userBox.setAlignment(Pos.CENTER);
 
     userIcon = new FontAwesomeIconView(FontAwesomeIcon.USER_CIRCLE);
+    userIcon.setId("user-icon");
     userIcon.setStyle("-fx-fill: black; -fx-font-family: FontAwesome; -fx-font-size: 2em !important;"); // TODO: why is this necessary?
     userBox.getChildren().addAll(userIcon, userLbl);
     userBox.setMargin(userIcon, new Insets(10));
-
 
     calendarGrid.add(workRect, 0, 0);
     calendarGrid.add(workLbl,  1, 0);

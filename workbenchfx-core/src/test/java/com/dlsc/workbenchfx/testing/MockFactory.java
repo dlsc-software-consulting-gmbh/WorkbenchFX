@@ -5,6 +5,8 @@ import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 
 /**
@@ -21,11 +23,8 @@ public class MockFactory {
    * @return the mock
    */
   public static WorkbenchModule createMockModule(
-      Node displayNode,
-      Node icon,
-      boolean destroy,
-      String toString,
-      Workbench workbench
+      Node displayNode, Node icon, boolean destroy, String toString, Workbench workbench,
+      ObservableList<Node> controlsLeft, ObservableSet<Node> controlsRight
   ) {
     WorkbenchModule mockModule = mock(WorkbenchModule.class);
     when(mockModule.getName()).thenReturn(toString);
@@ -34,6 +33,8 @@ public class MockFactory {
     when(mockModule.destroy()).thenReturn(destroy);
     when(mockModule.toString()).thenReturn(toString);
     when(mockModule.getWorkbench()).thenReturn(workbench);
+    when(mockModule.getToolbarControlsLeft()).thenReturn(controlsLeft);
+    when(mockModule.getToolbarControlsRight()).thenReturn(controlsRight);
     return mockModule;
   }
 

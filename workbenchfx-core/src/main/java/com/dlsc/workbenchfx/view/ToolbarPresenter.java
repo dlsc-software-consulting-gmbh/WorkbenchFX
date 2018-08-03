@@ -4,12 +4,12 @@ import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_ADD_BUTTON;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.TabCell;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import javafx.css.PseudoClass;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import org.apache.logging.log4j.LogManager;
@@ -30,9 +30,16 @@ public class ToolbarPresenter extends Presenter {
 
   // Strong reference to prevent garbage collection
   private final ObservableList<MenuItem> navigationDrawerItems;
-  private final ObservableSet<Node> toolbarControlsLeft;
+  private final ObservableList<Node> toolbarControlsLeft;
   private final ObservableSet<Node> toolbarControlsRight;
   private final ObservableList<WorkbenchModule> openModules;
+
+  private final PseudoClass emptyState = new PseudoClass() {
+    @Override
+    public String getPseudoClassName() {
+      return "empty";
+    }
+  };
 
   /**
    * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
@@ -48,6 +55,8 @@ public class ToolbarPresenter extends Presenter {
     toolbarControlsRight = model.getToolbarControlsRight();
     openModules = model.getOpenModules();
     init();
+    // Adds initially a menuButton if necessary (size of items > 0)
+    setupMenuBtn();
   }
 
   /**
@@ -60,14 +69,21 @@ public class ToolbarPresenter extends Presenter {
         Workbench.class.getResource("css/selection-strip.css").toExternalForm()
     );
 
-    toolbarControlsLeft.stream().forEachOrdered(view::addToolbarControlLeft);
-    toolbarControlsRight.stream().forEachOrdered(view::addToolbarControlRight);
-
     view.addModuleBtn.requestFocus();
+  }
 
-    // Adds a menuButton if necessary (size of items > 0)
-    if (model.getNavigationDrawerItems().size() > 0) {
-      view.addMenuButton();
+  private void setupMenuBtn() {
+    LOGGER.trace("setupMenuBtn() called");
+    view.removeMenuBtn(); // Remove the menuBtn
+
+    if (navigationDrawerItems.size() != 0) { // If setting it is required
+      if (view.toolbarControl.isEmpty()) { // If the toolbarControl is empty set it below
+        LOGGER.trace("Put the button below into the bottomBox");
+        view.addMenuBtnBottom();
+      } else { // else put it into the topBox
+        LOGGER.trace("Put it into the first position of toolbaritemsleft");
+        view.addMenuBtnTop();
+      }
     }
   }
 
@@ -87,37 +103,23 @@ public class ToolbarPresenter extends Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-    // When the List of the currently open toolbarControlsLeft is changed, the view is updated.
-    WorkbenchUtils.addSetListener(
-        toolbarControlsLeft,
-        change -> view.addToolbarControlLeft(change.getElementAdded()),
-        change -> view.removeToolbarControlLeft(change.getElementRemoved())
-    );
-    // When the List of the currently open toolbarControlsRight is changed, the view is updated.
-    WorkbenchUtils.addSetListener(
-        toolbarControlsRight,
-        change -> view.addToolbarControlRight(change.getElementAdded()),
-        change -> view.removeToolbarControlRight(change.getElementRemoved())
-    );
-
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       if (Objects.isNull(oldModule)) {
-        // Home is the old value
+        // AddModuleView is the old value
         view.addModuleBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_ADD_BUTTON);
       }
       if (Objects.isNull(newModule)) {
-        // Home is the new value
+        // AddModuleView is the new value
         view.addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
       }
     });
 
     // makes sure the menu button is only being displayed if there are navigation drawer items
-    navigationDrawerItems.addListener((InvalidationListener) observable -> {
-      if (navigationDrawerItems.size() == 0) {
-        view.removeMenuButton();
-      } else {
-        view.addMenuButton();
-      }
+    navigationDrawerItems.addListener((InvalidationListener) observable -> setupMenuBtn());
+    // when the toolbarControl's emptyProperty changes, check the menuBtn's position
+    view.toolbarControl.emptyProperty().addListener((observable, wasEmpty, isEmpty) -> {
+      view.topBox.pseudoClassStateChanged(emptyState, isEmpty); // Change the pseudoclass
+      setupMenuBtn(); // Define where to put the menuBtn
     });
   }
 
@@ -129,6 +131,9 @@ public class ToolbarPresenter extends Presenter {
     // Binds content of the SelectionStrip to the Workbench content
     view.tabBar.itemsProperty().bindContent(openModules);
     view.tabBar.selectedItemProperty().bindBidirectional(model.activeModuleProperty());
-  }
 
+    // Bind items from toolbar to the ones of the workbench
+    view.toolbarControl.toolbarControlsLeftProperty().bindContent(toolbarControlsLeft);
+    view.toolbarControl.toolbarControlsRightProperty().bindContent(toolbarControlsRight);
+  }
 }

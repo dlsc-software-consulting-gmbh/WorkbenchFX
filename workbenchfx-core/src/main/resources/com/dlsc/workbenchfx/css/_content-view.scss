@@ -1,0 +1,41 @@
+#content-view {
+  & .toolbar-control {
+    @extend %toolbar-control;
+
+    -fx-padding: px(3);
+    -fx-min-height: px(40);
+    -fx-pref-height: px(40);
+    -fx-max-height: px(40);
+    -fx-background-color: -background-color;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .075), 2, 0, 0, 2);
+
+    & .button {
+      & .glyph-icon,
+      & .text {
+        -fx-fill: -on-background-color;
+      }
+      &:pressed {
+        -fx-background-color: rgba(0, 0, 0, .075);
+      }
+    }
+
+    & .toolbar-menu-button .dropdown {
+      & .label {
+        & .glyph-icon,
+        & .text {
+          -fx-fill: -on-background-color;
+        }
+      }
+      & .arrow-button .arrow {
+        -fx-background-color: -on-background-color;
+      }
+      &:showing {
+        -fx-background-color: rgba(0, 0, 0, .075);
+      }
+    }
+  }
+
+  & .toolbar-module {
+    // We don't interfere with the developers work
+  }
+}

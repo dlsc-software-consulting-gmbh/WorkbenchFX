@@ -107,4 +107,15 @@ public final class WorkbenchUtils {
         .replace(' ', '-')
         .toLowerCase();
   }
+
+  /**
+   * Calculates from the amount of modules per page how many columns of modules there should be
+   * in a row.
+   *
+   * @param modulesPerPage how many modules are shown in a page, a maximum of 9 is recommended
+   * @return the amount of columns per row
+   */
+  public static int calculateColumnsPerRow(int modulesPerPage) {
+    return modulesPerPage <= 3 ? modulesPerPage : (int) Math.ceil(Math.sqrt(modulesPerPage));
+  }
 }

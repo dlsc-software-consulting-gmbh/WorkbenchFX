@@ -4,7 +4,6 @@ import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -13,7 +12,6 @@ import javafx.scene.layout.GridPane;
 
 public class WidgetsTestModule extends WorkbenchModule {
   private final GridPane customPane = new GridPane();
-  Button invert = new Button("invert");
 
   public WidgetsTestModule() {
     super("Widgets Test", FontAwesomeIcon.QUESTION);
@@ -21,24 +19,10 @@ public class WidgetsTestModule extends WorkbenchModule {
   }
 
   private void layoutParts() {
-    customPane.add(invert, 0, 0);
-//    customPane.add(new Button("Button"), 0, 0);
     customPane.add(new Label("Label"), 0, 1);
     customPane.add(new TextField("TextField"), 0, 2);
     customPane.add(new CheckBox("CheckBox"), 0, 3);
     customPane.add(new ComboBox<String>(), 0, 4);
-
-    invert.setOnAction(event -> getWorkbench().getToolbarControlsLeft().stream()
-        .limit(1) // take first
-        .findAny()
-        .ifPresent(control -> {
-          if (control.getStyleClass().contains("button-inverted")) {
-            control.getStyleClass().remove("button-inverted");
-          } else {
-            control.getStyleClass().add("button-inverted");
-          }
-        }));
-
     customPane.setAlignment(Pos.CENTER);
   }
 

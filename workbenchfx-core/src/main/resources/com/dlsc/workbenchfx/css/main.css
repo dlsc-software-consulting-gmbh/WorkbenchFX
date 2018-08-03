@@ -1,22 +1,20 @@
-* {
+.root > * {
   -primary-color: #6200EE;
   -primary-variant-color: #3700B3;
-  -secondary-color: #03DAC6;
-  -secondary-variant-color: #018786;
+  -secondary-color: #6300ff;
+  -secondary-variant-color: #1e005f;
   -background-color: #FFFFFF;
   -surface-color: #FFFFFF;
   -error-color: #B00020;
   -on-primary-color: #FFFFFF;
-  -on-secondary-color: #000000;
+  -on-secondary-color: #FFFFFF;
   -on-background-color: #000000;
   -on-surface-color: #000000;
   -on-error-color: #FFFFFF;
   -drop-shadow-1: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 10, 0.12, -1, 2);
   -drop-shadow-2: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 15, 0.16, -1, 4);
   -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 20, 0.19, -1, 6);
-  -shadow: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.2, 0, 0); }
-
-.root {
+  -shadow: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.2, 0, 0);
   -fx-font-family: "Roboto", sans-serif;
   -fx-font-size: 14px; }
 
@@ -49,24 +47,36 @@
   src: url("../fonts/Roboto-Thin.ttf"); }
 @font-face {
   src: url("../fonts/Roboto-ThinItalic.ttf"); }
-#toolbar #top-box .toolbar-menu-button {
+#content-view .toolbar-control .toolbar-control-left-box, #toolbar #top-box #toolbar-control .toolbar-control-left-box, #content-view .toolbar-control .toolbar-control-right-box, #toolbar #top-box #toolbar-control .toolbar-control-right-box {
+  -fx-spacing: 0.2142857143em;
   -fx-max-height: 2.4285714286em; }
-  #toolbar #top-box .toolbar-menu-button .dropdown {
+
+#toolbar #top-box #menu-button, #toolbar #bottom-box #menu-button {
+  -icon-size: 2.4285714286em; }
+  #toolbar #top-box #menu-button .shape, #toolbar #bottom-box #menu-button .shape {
+    -fx-background-color: -on-primary-color; }
+  #toolbar #top-box #menu-button:pressed, #toolbar #bottom-box #menu-button:pressed {
+    -fx-background-color: -primary-variant-color;
+    -fx-background-radius: 0.1428571429em; }
+
+#content-view .toolbar-control .toolbar-menu-button, #toolbar #top-box #toolbar-control .toolbar-menu-button {
+  -fx-max-height: 2.4285714286em; }
+  #content-view .toolbar-control .toolbar-menu-button .dropdown, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown {
     -fx-background-insets: 0;
     -fx-padding: 0 1em 0 .25em;
     -fx-graphic-text-gap: .5em;
     -fx-pref-height: 2.4285714286em;
-    -fx-background-color: -primary-color;
+    -fx-background-color: transparent;
     -fx-background-radius: 0.1428571429em;
     -fx-border-width: 0; }
-    #toolbar #top-box .toolbar-menu-button .dropdown .label .glyph-icon {
+    #content-view .toolbar-control .toolbar-menu-button .dropdown .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .label .glyph-icon {
       -fx-fill: -on-primary-color; }
-    #toolbar #top-box .toolbar-menu-button .dropdown .label .text {
+    #content-view .toolbar-control .toolbar-menu-button .dropdown .label .text, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .label .text {
       -fx-fill: -on-primary-color; }
-    #toolbar #top-box .toolbar-menu-button .dropdown .arrow-button {
+    #content-view .toolbar-control .toolbar-menu-button .dropdown .arrow-button, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .arrow-button {
       -fx-padding: 0;
       -fx-background-insets: 0; }
-      #toolbar #top-box .toolbar-menu-button .dropdown .arrow-button .arrow {
+      #content-view .toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow {
         -fx-rotate: 90;
         -shape-width: 0.1785714286em !important;
         -shape-height: 0.3571428571em !important;
@@ -77,31 +87,31 @@
         -fx-pref-width: -shape-width;
         -fx-pref-height: -shape-height;
         -fx-background-color: -on-primary-color; }
-    #toolbar #top-box .toolbar-menu-button .dropdown:hover {
+    #content-view .toolbar-control .toolbar-menu-button .dropdown:hover, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown:hover {
       -fx-cursor: hand; }
-    #toolbar #top-box .toolbar-menu-button .dropdown:showing {
+    #content-view .toolbar-control .toolbar-menu-button .dropdown:showing, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown:showing {
       -fx-background-color: -primary-variant-color; }
-      #toolbar #top-box .toolbar-menu-button .dropdown:showing .arrow-button .arrow {
+      #content-view .toolbar-control .toolbar-menu-button .dropdown:showing .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown:showing .arrow-button .arrow {
         -fx-rotate: -90; }
 
-#toolbar .button {
+#content-view .toolbar-control .button, #toolbar #top-box #toolbar-control .button, #toolbar .button {
   -fx-background-insets: 0;
   -fx-padding: 0 .75em 0 .75em;
   -fx-graphic-text-gap: .5em;
   -fx-pref-height: 2.4285714286em;
-  -fx-background-color: -primary-color;
+  -fx-background-color: transparent;
   -fx-background-radius: 0.1428571429em;
   -fx-border-width: 0; }
-  #toolbar .button .glyph-icon {
+  #content-view .toolbar-control .button .glyph-icon, #toolbar #top-box #toolbar-control .button .glyph-icon, #toolbar .button .glyph-icon {
     -fx-fill: -on-primary-color; }
-  #toolbar .button .text {
+  #content-view .toolbar-control .button .text, #toolbar #top-box #toolbar-control .button .text, #toolbar .button .text {
     -fx-fill: -on-primary-color; }
-  #toolbar .button:hover {
+  #content-view .toolbar-control .button:hover, #toolbar #top-box #toolbar-control .button:hover, #toolbar .button:hover {
     -fx-cursor: hand; }
-  #toolbar .button:pressed {
+  #content-view .toolbar-control .button:pressed, #toolbar #top-box #toolbar-control .button:pressed, #toolbar .button:pressed {
     -fx-background-color: -primary-variant-color; }
 
-#toolbar .icon, .navigation-drawer .drawer-box .header .icon {
+#content-view .toolbar-control .icon, #toolbar #top-box #toolbar-control .icon, #toolbar .icon, .navigation-drawer .drawer-box .header .icon {
   -fx-background-color: transparent;
   -icon-size: 2.8571428571em;
   -fx-max-width: -icon-size;
@@ -110,7 +120,7 @@
   -fx-min-height: -icon-size;
   -fx-pref-width: -icon-size;
   -fx-pref-height: -icon-size; }
-  #toolbar .icon .shape, .navigation-drawer .drawer-box .header .icon .shape {
+  #content-view .toolbar-control .icon .shape, #toolbar #top-box #toolbar-control .icon .shape, #toolbar .icon .shape, .navigation-drawer .drawer-box .header .icon .shape {
     -shape-width: 1.1428571429em;
     -shape-height: 1.1428571429em;
     -fx-max-width: -shape-width;
@@ -130,12 +140,12 @@
   -shape-width: 0.9523571429em;
   -shape-height: 0.9523571429em; }
 
-#toolbar #top-box .toolbar-menu-button .dropdown .arrow-button .arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
+#content-view .toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
   -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z";
   -shape-width: 0.2976428571em;
   -shape-height: 0.5952142857em; }
 
-#toolbar #top-box #menu-button .shape {
+#toolbar #top-box #menu-button .shape, #toolbar #bottom-box #menu-button .shape {
   -fx-shape: "M 3 18 L 21 18 L 21 16 L 3 16 L 3 18 Z M 3 13 L 21 13 L 21 11 L 3 11 L 3 13 Z M 3 6 L 3 8 L 21 8 L 21 6 L 3 6 Z";
   -shape-width: 1.0714285714em;
   -shape-height: 0.7142857143em; }
@@ -156,10 +166,10 @@
     -fx-padding: 1.5em;
     -fx-alignment: CENTER; }
     #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control {
-      -fx-padding: 1.5em;
+      -fx-padding: 1em;
       -fx-alignment: CENTER;
-      -fx-pref-width: 12.5em;
-      -fx-pref-height: 7.7254248594em;
+      -fx-pref-width: 13.25em;
+      -fx-pref-height: 8.1889503509em;
       -fx-background-color: -surface-color;
       -fx-effect: -drop-shadow-1;
       -fx-border-width: 0;
@@ -180,45 +190,53 @@
       #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control:pressed {
         -fx-effect: -drop-shadow-3; }
   #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box {
-    -fx-spacing: .5em; }
+    -fx-spacing: .25em; }
     #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button {
       -fx-background-radius: 50%;
-      -fx-background-insets: .5em;
-      -fx-background-color: rgba(0, 0, 0, 0.1); }
+      -fx-background-insets: 0.45em;
+      -fx-background-color: -secondary-variant-color; }
       #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:hover {
         -fx-cursor: hand;
-        -fx-background-color: rgba(0, 0, 0, 0.2); }
+        -fx-background-color: derive(-secondary-variant-color, 25%); }
       #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected {
-        -fx-background-color: -primary-color; }
+        -fx-background-color: -secondary-color; }
         #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
-          -fx-cursor: hand;
-          -fx-background-color: -primary-variant-color; }
+          -fx-cursor: inherit; }
+
+#content-view .toolbar-control {
+  -fx-padding: 0.2142857143em;
+  -fx-min-height: 2.8571428571em;
+  -fx-pref-height: 2.8571428571em;
+  -fx-max-height: 2.8571428571em;
+  -fx-background-color: -background-color;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.075), 2, 0, 0, 2); }
+  #content-view .toolbar-control .button .glyph-icon, #content-view .toolbar-control .button .text {
+    -fx-fill: -on-background-color; }
+  #content-view .toolbar-control .button:pressed {
+    -fx-background-color: rgba(0, 0, 0, 0.075); }
+  #content-view .toolbar-control .toolbar-menu-button .dropdown .label .glyph-icon, #content-view .toolbar-control .toolbar-menu-button .dropdown .label .text {
+    -fx-fill: -on-background-color; }
+  #content-view .toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow {
+    -fx-background-color: -on-background-color; }
+  #content-view .toolbar-control .toolbar-menu-button .dropdown:showing {
+    -fx-background-color: rgba(0, 0, 0, 0.075); }
 
 #toolbar {
   -fx-background-color: -primary-color; }
   #toolbar #top-box {
     -fx-padding: 0.2142857143em;
+    -fx-spacing: 0.2142857143em;
     -fx-min-height: 2.8571428571em;
     -fx-pref-height: 2.8571428571em;
     -fx-max-height: 2.8571428571em; }
-    #toolbar #top-box #toolbar-control-left-box {
-      -fx-padding: 0 0.2142857143em 0 0.4285714286em;
-      -fx-spacing: 0.2142857143em;
-      -fx-max-height: 2.4285714286em; }
-    #toolbar #top-box #toolbar-control-right-box {
-      -fx-padding: 0 0 0 0.2142857143em;
-      -fx-spacing: 0.2142857143em;
-      -fx-max-height: 2.4285714286em; }
-    #toolbar #top-box #menu-button {
-      -icon-size: 2.4285714286em; }
-      #toolbar #top-box #menu-button .shape {
-        -fx-background-color: -on-primary-color; }
-      #toolbar #top-box #menu-button:pressed {
-        -fx-background-color: -primary-variant-color;
-        -fx-background-radius: 0.1428571429em; }
+    #toolbar #top-box:empty {
+      -fx-min-height: 0.2142857143em;
+      -fx-pref-height: 0.2142857143em; }
   #toolbar #bottom-box {
+    -fx-alignment: CENTER;
     -fx-pref-height: 2.8571428571em;
-    -fx-padding: 0 0.2857142857em 0 0.2142857143em; }
+    -fx-padding: 0 0.2857142857em 0 0.2142857143em;
+    -fx-spacing: 0.2142857143em; }
     #toolbar #bottom-box #add-button {
       -fx-background-insets: 0; }
       #toolbar #bottom-box #add-button .shape {
@@ -241,6 +259,8 @@
 
 .navigation-drawer {
   -fx-background-color: -surface-color; }
+  .navigation-drawer .logo {
+    -fx-padding: 0.7857142857em 1em 1em 1em; }
   .navigation-drawer .separator:horizontal .line {
     -fx-border-color: rgba(0, 0, 0, 0.2) transparent transparent transparent;
     -fx-border-insets: 1px 0 0 0; }
@@ -329,7 +349,8 @@
 .dialog-pane {
   -fx-background-color: -surface-color;
   -fx-effect: -drop-shadow-3;
-  -fx-background-radius: 0.3571428571em; }
+  -fx-background-radius: 0.3571428571em;
+  -fx-padding: 0 0 0.7142857143em 0; }
   .dialog-pane .dialog-header {
     -fx-padding: 0;
     -fx-background-color: -surface-color;
@@ -354,8 +375,8 @@
       -fx-padding: 1.4285714286em 0 0 0; }
   .dialog-pane .button-bar .button {
     -fx-background-color: transparent;
-    -fx-text-fill: -primary-color;
-    -fx-padding: 0.7142857143em 1.0714285714em;
+    -fx-text-fill: -secondary-color;
+    -fx-padding: 0.7142857143em 1.0714285714em 0 1.0714285714em;
     -font-size: 1.25em;
     -fx-font-weight: 700;
     -fx-cursor: hand; }

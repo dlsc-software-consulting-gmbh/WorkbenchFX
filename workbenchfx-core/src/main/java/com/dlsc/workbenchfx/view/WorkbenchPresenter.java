@@ -24,8 +24,8 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class WorkbenchPresenter extends Presenter {
-  private static final Logger LOGGER =
-      LogManager.getLogger(WorkbenchPresenter.class.getName());
+
+  private static final Logger LOGGER = LogManager.getLogger(WorkbenchPresenter.class.getName());
 
   private Workbench model;
   private WorkbenchView view;
@@ -38,14 +38,15 @@ public class WorkbenchPresenter extends Presenter {
    * Constructs a new {@link WorkbenchPresenter} for the {@link WorkbenchView}.
    *
    * @param model the model of WorkbenchFX
-   * @param view  corresponding view to this presenter
+   * @param view corresponding view to this presenter
    */
   public WorkbenchPresenter(Workbench model, WorkbenchView view) {
     this.model = model;
     this.view = view;
-    overlays = model.getOverlays();
-    overlaysShown = model.getNonBlockingOverlaysShown();
-    blockingOverlaysShown = model.getBlockingOverlaysShown();
+    this.overlays = model.getOverlays();
+    this.overlaysShown = model.getNonBlockingOverlaysShown();
+    this.blockingOverlaysShown = model.getBlockingOverlaysShown();
+
     init();
   }
 
@@ -54,7 +55,7 @@ public class WorkbenchPresenter extends Presenter {
    */
   @Override
   public void initializeViewParts() {
-    view.contentView.setContent(view.addModuleView);
+
   }
 
   /**
@@ -70,11 +71,6 @@ public class WorkbenchPresenter extends Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-    // When the active module changes, the new view is set to the add module screen if null.
-    model.activeModuleViewProperty().addListener((observable, oldModule, newModule) ->
-        view.contentView.setContent(Objects.isNull(newModule) ? view.addModuleView : newModule)
-    );
-
     overlays.addListener((MapChangeListener<Node, GlassPane>) c -> {
       LOGGER.trace("Listener overlays fired");
       if (c.wasAdded()) {
@@ -102,7 +98,7 @@ public class WorkbenchPresenter extends Presenter {
   /**
    * Adds an {@code overlay} together with the {@code glassPane} to the view.
    *
-   * @param overlay   to be added
+   * @param overlay to be added
    * @param glassPane to be added
    */
   public void addOverlay(Node overlay, GlassPane glassPane) {
@@ -113,7 +109,7 @@ public class WorkbenchPresenter extends Presenter {
   /**
    * Removes an {@code overlay} together with the {@code glassPane} from the view.
    *
-   * @param overlay   to be removed
+   * @param overlay to be removed
    * @param glassPane to be removed
    */
   public void removeOverlay(Node overlay, GlassPane glassPane) {
@@ -127,7 +123,7 @@ public class WorkbenchPresenter extends Presenter {
   /**
    * Makes the {@code overlay} visible, along with its {@code glassPane}.
    *
-   * @param overlay  to be shown
+   * @param overlay to be shown
    * @param blocking if false, will make {@code overlay} hide, if its {@code glassPane} was clicked
    */
   public void showOverlay(Node overlay, boolean blocking) {
@@ -137,7 +133,7 @@ public class WorkbenchPresenter extends Presenter {
   /**
    * Makes the {@code overlay} visible, along with its {@code glassPane}.
    *
-   * @param overlay   to be shown
+   * @param overlay to be shown
    * @param glassPane the {@code overlay}'s corresponding {@link GlassPane}
    * @param blocking if false, will make {@code overlay} hide, if its {@code glassPane} was clicked
    */
