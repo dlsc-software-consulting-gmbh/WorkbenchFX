@@ -126,6 +126,28 @@ class ToolbarItemTest extends ApplicationTest {
   }
 
   @Test
+  void testItemsListener() {
+    //    items.addListener((InvalidationListener) observable -> updateStyleClasses());
+
+    // Creating the Item and everything should be default
+    toolbarItem = new ToolbarItem();
+    assertTrue(toolbarItem.getItems().isEmpty());
+    assertTrue(toolbarItem.getStyleClass().isEmpty());
+
+    // Setting the item
+    toolbarItem.getItems().add(toolbarItemMenuItem);
+
+    // The style class should be set
+    assertTrue(toolbarItem.getStyleClass().contains(TOOLBAR_COMBO_BOX));
+
+    // Clear items
+    toolbarItem.getItems().clear();
+
+    // The the style class should now be a label
+    assertTrue(toolbarItem.getStyleClass().contains(TOOLBAR_LABEL));
+  }
+
+  @Test
   void testGraphicListenerDefaultCtor() {
     // create a new image 20x20
     ImageView imageView = new ImageView(
