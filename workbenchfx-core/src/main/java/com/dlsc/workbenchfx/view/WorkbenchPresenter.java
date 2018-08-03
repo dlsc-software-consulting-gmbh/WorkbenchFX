@@ -194,6 +194,9 @@ public class WorkbenchPresenter extends Presenter {
     TranslateTransition animation = model.getAnimatedOverlaysEnd().get(overlay);
     if (!Objects.isNull(animation)) {
       animation.play();
+      // make sure GlassPane starts hiding at the same time as the animation, not when the animation
+      // is finished and the overlay has been hidden
+      model.getOverlays().get(overlay).setHide(true);
     } else {
       view.hideOverlay(overlay);
     }
