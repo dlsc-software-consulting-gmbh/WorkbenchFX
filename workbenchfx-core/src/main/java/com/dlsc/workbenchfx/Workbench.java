@@ -43,8 +43,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -111,7 +109,10 @@ public class Workbench extends Control {
       FXCollections.observableHashMap();
   private final ObservableMap<Region, TranslateTransition> animatedOverlaysEnd =
       FXCollections.observableHashMap();
-  private final ObservableMap<Region, Boolean> animatedOverlaysInitialized =
+  /**
+   * TODO.
+   */
+  private final ObservableMap<Region, Boolean> animatedOverlaysInit =
       FXCollections.observableHashMap();
 
   private final ObservableSet<Node> nonBlockingOverlaysShown = FXCollections.observableSet();
@@ -894,8 +895,8 @@ public class Workbench extends Control {
         overlay.widthProperty().addListener(observable -> {
           // make sure this code only gets run the first time the overlay has been shown and
           // rendered in the scene graph, to ensure the overlay has a size for the calculations
-          if (!animatedOverlaysInitialized.getOrDefault(overlay, false) && overlay.getWidth() > 0) {
-            animatedOverlaysInitialized.put(overlay, true);
+          if (!animatedOverlaysInit.getOrDefault(overlay, false) && overlay.getWidth() > 0) {
+            animatedOverlaysInit.put(overlay, true);
             overlay.setTranslateX(-(overlay.getWidth())); // initial position
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
             TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
@@ -911,8 +912,8 @@ public class Workbench extends Control {
         overlay.widthProperty().addListener(observable -> {
           // make sure this code only gets run the first time the overlay has been shown and
           // rendered in the scene graph, to ensure the overlay has a size for the calculations
-          if (!animatedOverlaysInitialized.getOrDefault(overlay, false) && overlay.getWidth() > 0) {
-            animatedOverlaysInitialized.put(overlay, true);
+          if (!animatedOverlaysInit.getOrDefault(overlay, false) && overlay.getWidth() > 0) {
+            animatedOverlaysInit.put(overlay, true);
             overlay.setTranslateX(overlay.getWidth());  // initial position
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
             TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
@@ -928,8 +929,8 @@ public class Workbench extends Control {
         overlay.heightProperty().addListener(observable -> {
           // make sure this code only gets run the first time the overlay has been shown and
           // rendered in the scene graph, to ensure the overlay has a size for the calculations
-          if (!animatedOverlaysInitialized.getOrDefault(overlay, false) && overlay.getHeight() > 0) {
-            animatedOverlaysInitialized.put(overlay, true);
+          if (!animatedOverlaysInit.getOrDefault(overlay, false) && overlay.getHeight() > 0) {
+            animatedOverlaysInit.put(overlay, true);
             overlay.setTranslateY(-(overlay.getHeight())); // initial position
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
             TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
@@ -945,8 +946,8 @@ public class Workbench extends Control {
         overlay.heightProperty().addListener(observable -> {
           // make sure this code only gets run the first time the overlay has been shown and
           // rendered in the scene graph, to ensure the overlay has a size for the calculations
-          if (!animatedOverlaysInitialized.getOrDefault(overlay, false) && overlay.getHeight() > 0) {
-            animatedOverlaysInitialized.put(overlay, true);
+          if (!animatedOverlaysInit.getOrDefault(overlay, false) && overlay.getHeight() > 0) {
+            animatedOverlaysInit.put(overlay, true);
             overlay.setTranslateY(overlay.getHeight()); // initial position
             TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
             TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
