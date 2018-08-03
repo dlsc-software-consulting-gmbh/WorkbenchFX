@@ -16,10 +16,10 @@ import javafx.scene.layout.GridPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class DropdownTestModule extends WorkbenchModule {
+public class ToolbarItemTestModule extends WorkbenchModule {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(DropdownTestModule.class.getName());
+      LogManager.getLogger(ToolbarItemTestModule.class.getName());
 
   private int itemsCount = 1;
 
@@ -37,7 +37,7 @@ public class DropdownTestModule extends WorkbenchModule {
   private final GridPane customPane = new GridPane();
   private final Button removeAllItmsBtn = new Button("REMOVE ALL ITEMS");
 
-  public DropdownTestModule() {
+  public ToolbarItemTestModule() {
     super("ToolbarItem Test", FontAwesomeIcon.QUESTION);
     layoutParts();
     setupEventHandlers();

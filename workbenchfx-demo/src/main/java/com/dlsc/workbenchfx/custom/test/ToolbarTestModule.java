@@ -71,7 +71,7 @@ public class ToolbarTestModule extends WorkbenchModule {
   private void layoutParts() {
     topBox.getChildren().addAll(
         new Label("Module to test the modules toolbar."),
-        new Label("Use the dropdown to add content."),
+        new Label("Use the toolbar item to add content."),
         addItemsBtn, removeItemsBtn
     );
 

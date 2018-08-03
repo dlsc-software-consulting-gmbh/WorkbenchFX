@@ -102,10 +102,10 @@ class WorkbenchTest extends ApplicationTest {
   private FxRobot robot;
 
   // ToolbarItem items
-  private String dropdownText;
-  private FontAwesomeIconView dropdownIconView;
-  private ImageView dropdownImageView;
-  private MenuItem dropdownMenuItem;
+  private String toolbarItemText;
+  private FontAwesomeIconView toolbarItemIconView;
+  private ImageView toolbarItemImageView;
+  private MenuItem toolbarItemMenuItem;
   private ToolbarItem toolbarItemLeft;
   private ToolbarItem toolbarItemRight;
 
@@ -147,15 +147,15 @@ class WorkbenchTest extends ApplicationTest {
     menuItem = new MenuItem("Item 1.1", fontAwesomeIconView);
 
     // Initialization of items for ToolbarItem testing
-    dropdownText = "ToolbarItem Text";
-    dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
-    dropdownImageView = new ImageView(
+    toolbarItemText = "ToolbarItem Text";
+    toolbarItemIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
+    toolbarItemImageView = new ImageView(
         new Image(WorkbenchTest.class.getResource("date-picker.png").toExternalForm())
     );
-    dropdownMenuItem = new MenuItem("Menu Item");
+    toolbarItemMenuItem = new MenuItem("Menu Item");
 
-    toolbarItemLeft = new ToolbarItem(dropdownText, dropdownIconView, dropdownMenuItem);
-    toolbarItemRight = new ToolbarItem(dropdownText, dropdownImageView, dropdownMenuItem);
+    toolbarItemLeft = new ToolbarItem(toolbarItemText, toolbarItemIconView, toolbarItemMenuItem);
+    toolbarItemRight = new ToolbarItem(toolbarItemText, toolbarItemImageView, toolbarItemMenuItem);
 
     // Setup WorkbenchDialog Mock
     blocking = new SimpleBooleanProperty();
@@ -1199,7 +1199,7 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void removeToolbarControlsLeftAndRight() {
     robot.interact(() -> {
-      ToolbarItem d = new ToolbarItem(dropdownText, dropdownIconView, dropdownMenuItem);
+      ToolbarItem d = new ToolbarItem(toolbarItemText, toolbarItemIconView, toolbarItemMenuItem);
 
       int initialSizeLeft = workbench.getToolbarControlsLeft().size();
       assertFalse(workbench.getToolbarControlsLeft().remove(d));
@@ -1220,12 +1220,12 @@ class WorkbenchTest extends ApplicationTest {
   void addToolbarControlsLeftAndRight() {
     robot.interact(() -> {
       int initialSizeLeft = workbench.getToolbarControlsLeft().size();
-      ToolbarItem d = new ToolbarItem(dropdownIconView, dropdownMenuItem);
+      ToolbarItem d = new ToolbarItem(toolbarItemIconView, toolbarItemMenuItem);
       assertTrue(workbench.getToolbarControlsLeft().add(d));
       assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
 
       int initialSizeRight = workbench.getToolbarControlsRight().size();
-      d = new ToolbarItem(dropdownText, dropdownMenuItem);
+      d = new ToolbarItem(toolbarItemText, toolbarItemMenuItem);
       assertTrue(workbench.getToolbarControlsRight().add(d));
       assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
       assertFalse(workbench.getToolbarControlsRight().add(d));

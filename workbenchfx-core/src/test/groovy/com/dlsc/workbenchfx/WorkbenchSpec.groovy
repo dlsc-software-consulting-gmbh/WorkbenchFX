@@ -74,12 +74,12 @@ class WorkbenchSpec extends ApplicationSpec {
     @Shared private FxRobot robot = new FxRobot()
 
     // ToolbarItem items
-    private String dropdownText
-    private FontAwesomeIconView dropdownIconView
-    private ImageView dropdownImageView
-    private MenuItem dropdownMenuItem
-    private ToolbarItem dropdownLeft
-    private ToolbarItem dropdownRight
+    private String toolbarItemText
+    private FontAwesomeIconView toolbarItemIconView
+    private ImageView toolbarItemImageView
+    private MenuItem toolbarItemMenuItem
+    private ToolbarItem toolbarItemLeft
+    private ToolbarItem toolbarItemRight
 
     private MockNavigationDrawer navigationDrawer
     private MockDialogControl dialogControl
@@ -106,15 +106,15 @@ class WorkbenchSpec extends ApplicationSpec {
         menuItem = new MenuItem("Item 1.1", fontAwesomeIconView)
 
         // Initialization of items for ToolbarItem testing
-        dropdownText = "ToolbarItem Text"
-        dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION)
-        dropdownImageView = new ImageView(
+        toolbarItemText = "ToolbarItem Text"
+        toolbarItemIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION)
+        toolbarItemImageView = new ImageView(
                 new Image(WorkbenchTest.class.getResource("date-picker.png").toExternalForm())
         )
-        dropdownMenuItem = new MenuItem("Menu Item")
+        toolbarItemMenuItem = new MenuItem("Menu Item")
 
-        dropdownLeft = ToolbarItem.of(dropdownText, dropdownIconView, dropdownMenuItem)
-        dropdownRight = ToolbarItem.of(dropdownText, dropdownImageView, dropdownMenuItem)
+        toolbarItemLeft = ToolbarItem.of(toolbarItemText, toolbarItemIconView, toolbarItemMenuItem)
+        toolbarItemRight = ToolbarItem.of(toolbarItemText, toolbarItemImageView, toolbarItemMenuItem)
 
         navigationDrawer = new MockNavigationDrawer()
         dialogControl = new MockDialogControl()
@@ -128,8 +128,8 @@ class WorkbenchSpec extends ApplicationSpec {
                 .pageFactory({ workbench -> new MockPage(workbench) })
                 .navigationDrawer(navigationDrawer)
                 .navigationDrawerItems(menuItem)
-                .toolbarLeft(dropdownLeft)
-                .toolbarRight(dropdownRight)
+                .toolbarLeft(toolbarItemLeft)
+                .toolbarRight(toolbarItemRight)
                 .build()
 
         first = mockModules[FIRST_INDEX]

@@ -8,11 +8,11 @@ import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DialogTestModule;
 import com.dlsc.workbenchfx.custom.test.DrawerTestModule;
-import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.custom.test.InterruptClosing2TestModule;
 import com.dlsc.workbenchfx.custom.test.InterruptClosingTestModule;
 import com.dlsc.workbenchfx.custom.test.LifecycleTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
+import com.dlsc.workbenchfx.custom.test.ToolbarItemTestModule;
 import com.dlsc.workbenchfx.custom.test.ToolbarTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
@@ -107,7 +107,7 @@ public class CustomDemo extends Application {
             new ToolbarTestModule(),
             new ToolbarTestModule(),
             new WidgetsTestModule(),
-            new DropdownTestModule(),
+            new ToolbarItemTestModule(),
             new NavigationDrawerTestModule(),
             new InterruptClosingTestModule(),
             new InterruptClosing2TestModule(),

@@ -64,7 +64,7 @@ public class ToolbarItemSkin extends SkinBase<ToolbarItem> {
     getSkinnable().itemsProperty()
         .addListener((observable, oldValue, newValue) -> menuButton.getItems().setAll(newValue));
 
-    // Sets the pref-width of the dropdown's items when the ContextMenu is showing
+    // Sets the pref-width of the toolbarItems items when the ContextMenu is showing
     menuButton.showingProperty().addListener((observable, wasShowing, isShowing) -> {
       if (!menuButton.getItems().isEmpty() && isShowing) {
         menuButton.getItems().get(FIRST_ELEMENT_INDEX).getParentPopup()

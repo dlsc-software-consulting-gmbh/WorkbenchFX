@@ -112,7 +112,7 @@ public class ToolbarItem extends Control {
         ImageView imageView = ((ImageView) newIcon);
         imageView.setPreserveRatio(true);
 
-        // Binds the dimensions of the ImageView to the dropdown's height.
+        // Binds the dimensions of the ImageView to the toolbarItems height.
         // Resizes the image with a RESIZING_FACTOR in order to fit in the ToolbarItem
         // and reach a size of 16px by a default height of 34px.
         imageView.fitHeightProperty().bind(prefHeightProperty().multiply(RESIZING_FACTOR));
