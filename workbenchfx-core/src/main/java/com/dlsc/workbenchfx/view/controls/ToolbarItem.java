@@ -1,12 +1,21 @@
 package com.dlsc.workbenchfx.view.controls;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
+import javafx.scene.input.MouseEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,28 +30,110 @@ public class ToolbarItem extends Control {
   private static final Logger LOGGER =
       LogManager.getLogger(ToolbarItem.class.getName());
 
-  private final String text;
-  private final Node icon;
-  private final ObservableList<MenuItem> menuItems = FXCollections.observableArrayList();
+  private static final String TOOLBAR_BUTTON = "toolbar-button"; // no arrow to the right
+  private static final String TOOLBAR_LABEL = "toolbar-label"; // no arrow, no click effect
+  private static final String TOOLBAR_COMBO_BOX = "toolbar-menu-button"; // color on showing
 
-  private ToolbarItem(String text, Node icon, MenuItem... menuItems) {
-    this.text = text;
-    this.icon = icon;
-    this.menuItems.addAll(menuItems);
+  private final StringProperty text = new SimpleStringProperty(this, "text");
+  private final ObjectProperty<Node> icon = new SimpleObjectProperty<>(this, "icon");
+  private final ObjectProperty<EventHandler<? super MouseEvent>> onClick =
+      new SimpleObjectProperty<>(this, "onClick");
+  private final ListProperty<MenuItem> items = new SimpleListProperty<>(this, "items",
+      FXCollections.observableArrayList());
 
-    getStyleClass().add("toolbar-menu-button");
+  public ToolbarItem() {
+    onClick.addListener((observable, oldClick, newClick) -> {
+      setOnMouseClicked(newClick);
+      updateStyleClasses();
+    });
+    items.addListener((InvalidationListener) observable -> updateStyleClasses());
   }
 
-  public static ToolbarItem of(String text, Node icon, MenuItem... menuItems) {
-    return new ToolbarItem(text, icon, menuItems);
+  public ToolbarItem(String text) {
+    this();
+    setText(text);
+    getStyleClass().setAll(TOOLBAR_LABEL);
   }
 
-  public static ToolbarItem of(String text, MenuItem... menuItems) {
-    return new ToolbarItem(text, null, menuItems);
+  public ToolbarItem(Node icon) {
+    this();
+    setIcon(icon);
+    getStyleClass().setAll(TOOLBAR_LABEL);
   }
 
-  public static ToolbarItem of(Node icon, MenuItem... menuItems) {
-    return new ToolbarItem(null, icon, menuItems);
+  public ToolbarItem(Node icon, String text) {
+    this(text);
+    setIcon(icon);
+  }
+
+  public ToolbarItem(String text, EventHandler<? super MouseEvent> onClick) {
+    this(text);
+    setOnClick(onClick);
+    getStyleClass().setAll(TOOLBAR_BUTTON);
+  }
+
+  public ToolbarItem(Node icon, EventHandler<? super MouseEvent> onClick) {
+    this(icon);
+    setOnClick(onClick);
+    getStyleClass().setAll(TOOLBAR_BUTTON);
+  }
+
+  public ToolbarItem(Node icon, String text, EventHandler<? super MouseEvent> onClick) {
+    this(icon, text);
+    setOnClick(onClick);
+    getStyleClass().setAll(TOOLBAR_BUTTON);
+  }
+
+  public ToolbarItem(String text, MenuItem... items) {
+    this(text);
+    setItems(FXCollections.observableArrayList(items));
+    getStyleClass().setAll(TOOLBAR_COMBO_BOX);
+  }
+
+  public ToolbarItem(Node icon, MenuItem... items) {
+    this(icon);
+    setItems(FXCollections.observableArrayList(items));
+    getStyleClass().setAll(TOOLBAR_COMBO_BOX);
+  }
+
+  public ToolbarItem(Node icon, String text, MenuItem... items) {
+    this(icon, text);
+    setItems(FXCollections.observableArrayList(items));
+    getStyleClass().setAll(TOOLBAR_COMBO_BOX);
+  }
+
+  private void updateStyleClasses() {
+    getStyleClass().setAll(TOOLBAR_LABEL);
+    if (null != getOnClick()) {
+      getStyleClass().setAll(TOOLBAR_BUTTON);
+    }
+    if (0 != items.size()) {
+      getStyleClass().setAll(TOOLBAR_COMBO_BOX);
+    }
+  }
+
+  public String getText() {
+    return text.get();
+  }
+
+  public StringProperty textProperty() {
+    return text;
+  }
+
+  public void setText(String text) {
+    this.text.set(text);
+  }
+
+  public Node getIcon() {
+    return icon.get();
+  }
+
+  public ObjectProperty<Node> iconProperty() {
+    return icon;
+  }
+
+  public void setIcon(Node icon) {
+    this.icon.set(icon);
   }
 
   @Override
@@ -50,15 +141,27 @@ public class ToolbarItem extends Control {
     return new ToolbarItemSkin(this);
   }
 
-  public Node getIcon() {
-    return icon;
+  public EventHandler<? super MouseEvent> getOnClick() {
+    return onClick.get();
   }
 
-  public String getText() {
-    return text;
+  public ObjectProperty<EventHandler<? super MouseEvent>> onClickProperty() {
+    return onClick;
+  }
+
+  public void setOnClick(EventHandler<? super MouseEvent> onClick) {
+    this.onClick.set(onClick);
   }
 
   public ObservableList<MenuItem> getItems() {
-    return menuItems;
+    return items.get();
+  }
+
+  public ListProperty<MenuItem> itemsProperty() {
+    return items;
+  }
+
+  public void setItems(ObservableList<MenuItem> items) {
+    this.items.set(items);
   }
 }
