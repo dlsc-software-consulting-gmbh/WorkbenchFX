@@ -73,6 +73,7 @@ public class ToolbarItem extends Control {
    */
   public ToolbarItem() {
     setupListeners();
+    getStyleClass().setAll(TOOLBAR_LABEL);
   }
 
   /**
@@ -84,7 +85,6 @@ public class ToolbarItem extends Control {
   public ToolbarItem(String text) {
     this();
     setText(text);
-    getStyleClass().setAll(TOOLBAR_LABEL);
   }
 
   /**
@@ -96,7 +96,6 @@ public class ToolbarItem extends Control {
   public ToolbarItem(Node graphic) {
     this();
     setGraphic(graphic);
-    getStyleClass().setAll(TOOLBAR_LABEL);
   }
 
   /**
@@ -122,7 +121,6 @@ public class ToolbarItem extends Control {
   public ToolbarItem(String text, EventHandler<? super MouseEvent> onClick) {
     this(text);
     setOnClick(onClick);
-    getStyleClass().setAll(TOOLBAR_BUTTON);
   }
 
   /**
@@ -137,7 +135,6 @@ public class ToolbarItem extends Control {
   public ToolbarItem(Node graphic, EventHandler<? super MouseEvent> onClick) {
     this(graphic);
     setOnClick(onClick);
-    getStyleClass().setAll(TOOLBAR_BUTTON);
   }
 
   /**
@@ -153,7 +150,6 @@ public class ToolbarItem extends Control {
   public ToolbarItem(String text, Node graphic, EventHandler<? super MouseEvent> onClick) {
     this(text, graphic);
     setOnClick(onClick);
-    getStyleClass().setAll(TOOLBAR_BUTTON);
   }
 
   /**
@@ -167,7 +163,6 @@ public class ToolbarItem extends Control {
   public ToolbarItem(String text, MenuItem... items) {
     this(text);
     setItems(FXCollections.observableArrayList(items));
-    getStyleClass().setAll(TOOLBAR_COMBO_BOX);
   }
 
   /**
@@ -181,7 +176,6 @@ public class ToolbarItem extends Control {
   public ToolbarItem(Node graphic, MenuItem... items) {
     this(graphic);
     setItems(FXCollections.observableArrayList(items));
-    getStyleClass().setAll(TOOLBAR_COMBO_BOX);
   }
 
   /**
@@ -196,7 +190,6 @@ public class ToolbarItem extends Control {
   public ToolbarItem(String text, Node graphic, MenuItem... items) {
     this(text, graphic);
     setItems(FXCollections.observableArrayList(items));
-    getStyleClass().setAll(TOOLBAR_COMBO_BOX);
   }
 
   private void setupListeners() {
@@ -218,12 +211,12 @@ public class ToolbarItem extends Control {
   }
 
   private void updateStyleClasses() {
-    getStyleClass().setAll(TOOLBAR_LABEL);
-    if (null != getOnClick()) {
-      getStyleClass().setAll(TOOLBAR_BUTTON);
-    }
     if (0 != items.size()) {
       getStyleClass().setAll(TOOLBAR_COMBO_BOX);
+    } else if (null != getOnClick()) {
+      getStyleClass().setAll(TOOLBAR_BUTTON);
+    } else {
+      getStyleClass().setAll(TOOLBAR_LABEL);
     }
   }
 

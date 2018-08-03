@@ -53,7 +53,7 @@ class ToolbarItemTest extends ApplicationTest {
   void testCtors() {
     // Default ctor
     toolbarItem = new ToolbarItem();
-    assertTrue(toolbarItem.getStyleClass().isEmpty());
+    assertTrue(toolbarItem.getStyleClass().contains(TOOLBAR_LABEL));
 
     // Label ctors
     toolbarItem = new ToolbarItem(toolbarItemText);
@@ -108,7 +108,7 @@ class ToolbarItemTest extends ApplicationTest {
     // Creating the Item and everything should be default
     toolbarItem = new ToolbarItem();
     assertNull(toolbarItem.getOnMouseClicked());
-    assertTrue(toolbarItem.getStyleClass().isEmpty());
+    assertTrue(toolbarItem.getStyleClass().contains(TOOLBAR_LABEL));
 
     // Setting the onclick event
     toolbarItem.setOnClick(toolbarItemOnClick);
@@ -127,12 +127,10 @@ class ToolbarItemTest extends ApplicationTest {
 
   @Test
   void testItemsListener() {
-    //    items.addListener((InvalidationListener) observable -> updateStyleClasses());
-
     // Creating the Item and everything should be default
     toolbarItem = new ToolbarItem();
     assertTrue(toolbarItem.getItems().isEmpty());
-    assertTrue(toolbarItem.getStyleClass().isEmpty());
+    assertTrue(toolbarItem.getStyleClass().contains(TOOLBAR_LABEL));
 
     // Setting the item
     toolbarItem.getItems().add(toolbarItemMenuItem);
