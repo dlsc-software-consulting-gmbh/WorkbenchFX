@@ -78,6 +78,14 @@ public class Workbench extends Control {
   private static final NavigationDrawer DEFAULT_NAVIGATION_DRAWER = new NavigationDrawer();
   private static final int MAX_PERCENT = 100;
 
+  /**
+   * Duration of animations according to material design guidelines.
+   * @see <a href="https://material.io/design/motion/speed.html#duration">
+   * Speed - Material Design</a>
+   */
+  private static final int ANIMATION_DURATION_DRAWER_OPEN = 250;
+  private static final int ANIMATION_DURATION_DRAWER_CLOSE = 200;
+
   // Custom Controls
   private ObjectProperty<NavigationDrawer> navigationDrawer =
       new SimpleObjectProperty<>(DEFAULT_NAVIGATION_DRAWER);
@@ -872,7 +880,6 @@ public class Workbench extends Control {
   }
 
   /**
-   * TODO: Find way to simultaneously close GlassPane
    * TODO: How to make it NOT trigger on size changes?
    *
    * @param overlay
@@ -941,11 +948,13 @@ public class Workbench extends Control {
   }
 
   private TranslateTransition slideIn(Region overlay) {
-    TranslateTransition open = new TranslateTransition(new Duration(200), overlay);
+    TranslateTransition open = new TranslateTransition(
+        new Duration(ANIMATION_DURATION_DRAWER_OPEN), overlay);
     return open;
   }
   private TranslateTransition slideOut(Region overlay) {
-    TranslateTransition close = new TranslateTransition(new Duration(200), overlay);
+    TranslateTransition close = new TranslateTransition(
+        new Duration(ANIMATION_DURATION_DRAWER_CLOSE), overlay);
     close.setOnFinished(event -> {
         overlay.setVisible(false);
       LOGGER.trace("Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " +
