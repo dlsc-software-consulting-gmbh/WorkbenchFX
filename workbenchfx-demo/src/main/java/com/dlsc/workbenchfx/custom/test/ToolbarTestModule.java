@@ -27,8 +27,8 @@ public class ToolbarTestModule extends WorkbenchModule {
   private final Button addBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.PLUS));
   private final MenuItem addContentItem = new MenuItem("Add Content");
   private final MenuItem removeContentItem = new MenuItem("Remove Content");
-  private final ToolbarItem addContentToolbarItem = ToolbarItem.of(
-      "Add Content", new FontAwesomeIconView(FontAwesomeIcon.USER),
+  private final ToolbarItem addContentToolbarItem = new ToolbarItem(
+      new FontAwesomeIconView(FontAwesomeIcon.USER), "Add Content",
       addContentItem, removeContentItem
   );
   private int contentIndex = 1;

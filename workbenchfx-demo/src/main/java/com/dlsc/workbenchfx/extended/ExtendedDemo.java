@@ -83,37 +83,37 @@ public class ExtendedDemo extends Application {
 
     workbench =
         Workbench.builder(
-                new PreferencesModule(),
-                new PreferencesModule(),
-                new PreferencesModule(),
-                new PreferencesModule(),
-                new PreferencesModule(),
-                new CalendarModule(),
-                new CalendarModule(),
-                new CalendarModule(),
-                new CalendarModule(),
-                new CalendarModule(),
-                new NotesModule(),
-                new NotesModule(),
-                new NotesModule(),
-                new NotesModule(),
-                new NotesModule())
+            new PreferencesModule(),
+            new PreferencesModule(),
+            new PreferencesModule(),
+            new PreferencesModule(),
+            new PreferencesModule(),
+            new CalendarModule(),
+            new CalendarModule(),
+            new CalendarModule(),
+            new CalendarModule(),
+            new CalendarModule(),
+            new NotesModule(),
+            new NotesModule(),
+            new NotesModule(),
+            new NotesModule(),
+            new NotesModule())
             .toolbarLeft(buttonLeft)
             .toolbarRight(
-                ToolbarItem.of(
+                new ToolbarItem(
                     new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))),
-                ToolbarItem.of(
+                new ToolbarItem(
                     new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new Menu(
                         "Submenus",
                         new FontAwesomeIconView(FontAwesomeIcon.PLUS),
                         new MenuItem("Submenu 1"),
                         new CustomMenuItem(new Label("CustomMenuItem"), false))),
-                ToolbarItem.of(
-                    "Text",
+                new ToolbarItem(
                     new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
+                    "Text",
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
             .navigationDrawerItems(

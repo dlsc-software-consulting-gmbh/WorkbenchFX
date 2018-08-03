@@ -28,9 +28,9 @@ public class DropdownTestModule extends WorkbenchModule {
   private final Button removeMenuBtn = new Button("Remove new ToolbarItem");
   private final Button removeItemBtn = new Button("Remove MenuItem from ToolbarItem");
   private final Button removeLotItemBtn = new Button("Remove 100 MenuItems from ToolbarItem");
-  private final ToolbarItem customToolbarItem = ToolbarItem.of(
-      "New MenuButton",
-      new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION)
+  private final ToolbarItem customToolbarItem = new ToolbarItem(
+      new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION),
+      "New MenuButton"
   );
   private final List<MenuItem> itemsLst = new ArrayList<>();
 
