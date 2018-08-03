@@ -22,9 +22,12 @@ import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -890,77 +893,48 @@ public class Workbench extends Control {
    * @param side
    */
   private void addAnimationListener(Region overlay, Side side) {
-    switch (side) {
-      case LEFT:
-        overlay.widthProperty().addListener(observable -> {
-          // make sure this code only gets run the first time the overlay has been shown and
-          // rendered in the scene graph, to ensure the overlay has a size for the calculations
-          if (isAnimatedOverlayInitialized(overlay) && overlay.getWidth() > 0) {
-            setAnimatedOverlayInitialized(overlay);
-            overlay.setTranslateX(-(overlay.getWidth())); // initial position
-            TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
-            TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
-            start.setToX(0);
-            if (!end.toXProperty().isBound()) {
-              end.toXProperty().bind(overlay.widthProperty().negate());
-            }
-            start.play();
-          }
-        });
-        break;
-      case RIGHT:
-        overlay.widthProperty().addListener(observable -> {
-          // make sure this code only gets run the first time the overlay has been shown and
-          // rendered in the scene graph, to ensure the overlay has a size for the calculations
-          if (isAnimatedOverlayInitialized(overlay) && overlay.getWidth() > 0) {
-            setAnimatedOverlayInitialized(overlay);
-            overlay.setTranslateX(overlay.getWidth());  // initial position
-            TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
-            TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
-            start.setToX(0);
-            if (!end.toXProperty().isBound()) {
-              end.toXProperty().bind(overlay.widthProperty());
-            }
-            start.play();
-          }
-        });
-        break;
-      case TOP:
-        overlay.heightProperty().addListener(observable -> {
-          // make sure this code only gets run the first time the overlay has been shown and
-          // rendered in the scene graph, to ensure the overlay has a size for the calculations
-          if (isAnimatedOverlayInitialized(overlay) && overlay.getHeight() > 0) {
-            setAnimatedOverlayInitialized(overlay);
-            overlay.setTranslateY(-(overlay.getHeight())); // initial position
-            TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
-            TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
-            start.setToY(0);
-            if (!end.toYProperty().isBound()) {
-              end.toYProperty().bind(overlay.heightProperty().negate());
-            }
-            start.play();
-          }
-        });
-        break;
-      case BOTTOM:
-        overlay.heightProperty().addListener(observable -> {
-          // make sure this code only gets run the first time the overlay has been shown and
-          // rendered in the scene graph, to ensure the overlay has a size for the calculations
-          if (isAnimatedOverlayInitialized(overlay) && overlay.getHeight() > 0) {
-            setAnimatedOverlayInitialized(overlay);
-            overlay.setTranslateY(overlay.getHeight()); // initial position
-            TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
-            TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
-            start.setToY(0);
-            if (!end.toYProperty().isBound()) {
-              end.toYProperty().bind(overlay.heightProperty());
-            }
-            start.play();
-          }
-        });
-        break;
+    // prepare values for setting the listener
+    ReadOnlyDoubleProperty size;
+    if (side.isVertical()) { // LEFT or RIGHT
+      size = overlay.widthProperty();
+    } else { // TOP or BOTTOM
+      size = overlay.heightProperty();
     }
 
+    size.addListener(observable -> {
+      // make sure this code only gets run the first time the overlay has been shown and
+      // rendered in the scene graph, to ensure the overlay has a size for the calculations
+      if (isAnimatedOverlayInitialized(overlay) && size.get() > 0) {
+        setAnimatedOverlayInitialized(overlay);
+
+        // prepare variables
+        TranslateTransition start = getAnimatedOverlaysStart().get(overlay);
+        TranslateTransition end = getAnimatedOverlaysEnd().get(overlay);
+        DoubleExpression hiddenCoordinate = DoubleBinding.doubleExpression(size);
+        if (Side.LEFT.equals(side) || Side.TOP.equals(side)) {
+          hiddenCoordinate = hiddenCoordinate.negate(); // make coordinates in hidden state negative
+        }
+
+        if (side.isVertical()) { // LEFT or RIGHT
+          // X
+          overlay.setTranslateX(hiddenCoordinate.get()); // initial position
+          start.setToX(0);
+          if (!end.toXProperty().isBound()) {
+            end.toXProperty().bind(hiddenCoordinate);
+          }
+        }
+        if (side.isHorizontal()) { // TOP or BOTTOM
+          // Y
+          overlay.setTranslateY(hiddenCoordinate.get()); // initial position
+          start.setToY(0);
+          if (!end.toYProperty().isBound()) {
+            end.toYProperty().bind(hiddenCoordinate);
+          }
+        }
+
+        start.play();
+      }
+    });
   }
 
   /**
@@ -977,15 +951,6 @@ public class Workbench extends Control {
    */
   private boolean isAnimatedOverlayInitialized(Region overlay) {
     return !animatedOverlaysInit.getOrDefault(overlay, false);
-  }
-
-  private void initAnimation(Region overlay, Side side) {
-    if (side.isVertical()) { // LEFT or RIGHT
-      // X
-    }
-    if (side.isHorizontal()) { // TOP or BOTTOM
-      // Y
-    }
   }
 
   private TranslateTransition slideIn(Region overlay) {
