@@ -902,16 +902,14 @@ public class Workbench extends Control {
         hiddenCoordinate = hiddenCoordinate.negate(); // make coordinates in hidden state negative
       }
 
-      if (side.isVertical()) { // LEFT or RIGHT
-        // X
+      if (side.isVertical()) { // LEFT or RIGHT => X
         overlay.setTranslateX(hiddenCoordinate.get()); // initial position
         start.setToX(0);
         if (!end.toXProperty().isBound()) {
           end.toXProperty().bind(hiddenCoordinate);
         }
       }
-      if (side.isHorizontal()) { // TOP or BOTTOM
-        // Y
+      if (side.isHorizontal()) { // TOP or BOTTOM => Y
         overlay.setTranslateY(hiddenCoordinate.get()); // initial position
         start.setToY(0);
         if (!end.toYProperty().isBound()) {
