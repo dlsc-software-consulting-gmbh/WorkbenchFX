@@ -1534,7 +1534,7 @@ class WorkbenchTest extends ApplicationTest {
    * inside of {@link Stage#setOnCloseRequest(EventHandler)}.
    * Using {@link FxRobot#closeCurrentWindow()} would be better, but it only works on Windows
    * because of its implementation, so this approach was chosen as a workaround.
-   * @see <a href="https://github.com/TestFX/TestFX/issues/447>
+   * @see <a href="https://github.com/TestFX/TestFX/issues/447">
    * closeCurrentWindow() doesn't work headless</a>
    */
   private void closeStage() {
