@@ -50,6 +50,63 @@
 #content-view .toolbar-control .toolbar-control-left-box, #toolbar #top-box #toolbar-control .toolbar-control-left-box, #content-view .toolbar-control .toolbar-control-right-box, #toolbar #top-box #toolbar-control .toolbar-control-right-box {
   -fx-spacing: 0.2142857143em;
   -fx-max-height: 2.4285714286em; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button {
+    -fx-padding: 0; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow {
+      -fx-padding: 0;
+      -fx-min-height: 0 !important;
+      -fx-pref-height: 0 !important;
+      -fx-max-height: 0 !important;
+      -fx-min-width: 0 !important;
+      -fx-pref-width: 0 !important;
+      -fx-max-width: 0 !important; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button:hover, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button:hover, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button:hover, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button:hover {
+    -fx-cursor: hand; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button:pressed, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button:pressed, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button:pressed, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button:pressed {
+    -fx-background-color: -primary-variant-color; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button {
+    -fx-padding: 0; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow {
+      -fx-padding: 0;
+      -fx-min-height: 0 !important;
+      -fx-pref-height: 0 !important;
+      -fx-max-height: 0 !important;
+      -fx-min-width: 0 !important;
+      -fx-pref-width: 0 !important;
+      -fx-max-width: 0 !important; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:hover, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:hover, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:hover, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:hover {
+    -fx-cursor: hand; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:showing, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:showing, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:showing, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:showing {
+    -fx-background-color: -primary-variant-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:showing .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:showing .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:showing .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:showing .arrow-button .arrow {
+      -fx-rotate: -90; }
+
+#content-view .toolbar-control .toolbar-control-left-box .toolbar-label, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button {
+  -fx-min-height: 2.4285714286em;
+  -fx-pref-height: 2.4285714286em;
+  -fx-max-height: 2.4285714286em; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button {
+    -fx-background-color: -primary-color;
+    -fx-background-insets: 0;
+    -fx-padding: 0 .25em;
+    -fx-graphic-text-gap: .6em;
+    -fx-background-radius: 0.1428571429em;
+    -fx-border-width: 0; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label {
+      -fx-min-height: 1.1428571429em;
+      -fx-pref-height: 1.1428571429em;
+      -fx-max-height: 1.1428571429em; }
+      #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label .text, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label .text, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label .text, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label .text, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label .text, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label .text, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label .text, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label .text, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label .text, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label .text, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label .text, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label .text {
+        -fx-fill: -on-primary-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .arrow-button .arrow {
+      -fx-rotate: 90;
+      -fx-min-width: 0.1785714286em;
+      -fx-pref-width: 0.1785714286em;
+      -fx-max-width: 0.1785714286em;
+      -fx-min-height: 0.3571428571em;
+      -fx-pref-height: 0.3571428571em;
+      -fx-max-height: 0.3571428571em;
+      -fx-background-color: -on-primary-color; }
 
 #toolbar #top-box #menu-button, #toolbar #bottom-box #menu-button {
   -icon-size: 2.4285714286em; }
@@ -59,59 +116,7 @@
     -fx-background-color: -primary-variant-color;
     -fx-background-radius: 0.1428571429em; }
 
-#content-view .toolbar-control .toolbar-menu-button, #toolbar #top-box #toolbar-control .toolbar-menu-button {
-  -fx-max-height: 2.4285714286em; }
-  #content-view .toolbar-control .toolbar-menu-button .dropdown, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown {
-    -fx-background-insets: 0;
-    -fx-padding: 0 1em 0 .25em;
-    -fx-graphic-text-gap: .5em;
-    -fx-pref-height: 2.4285714286em;
-    -fx-background-color: transparent;
-    -fx-background-radius: 0.1428571429em;
-    -fx-border-width: 0; }
-    #content-view .toolbar-control .toolbar-menu-button .dropdown .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .label .glyph-icon {
-      -fx-fill: -on-primary-color; }
-    #content-view .toolbar-control .toolbar-menu-button .dropdown .label .text, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .label .text {
-      -fx-fill: -on-primary-color; }
-    #content-view .toolbar-control .toolbar-menu-button .dropdown .arrow-button, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .arrow-button {
-      -fx-padding: 0;
-      -fx-background-insets: 0; }
-      #content-view .toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow {
-        -fx-rotate: 90;
-        -shape-width: 0.1785714286em !important;
-        -shape-height: 0.3571428571em !important;
-        -fx-max-width: -shape-width;
-        -fx-max-height: -shape-height;
-        -fx-min-width: -shape-width;
-        -fx-min-height: -shape-height;
-        -fx-pref-width: -shape-width;
-        -fx-pref-height: -shape-height;
-        -fx-background-color: -on-primary-color; }
-    #content-view .toolbar-control .toolbar-menu-button .dropdown:hover, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown:hover {
-      -fx-cursor: hand; }
-    #content-view .toolbar-control .toolbar-menu-button .dropdown:showing, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown:showing {
-      -fx-background-color: -primary-variant-color; }
-      #content-view .toolbar-control .toolbar-menu-button .dropdown:showing .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown:showing .arrow-button .arrow {
-        -fx-rotate: -90; }
-
-#content-view .toolbar-control .button, #toolbar #top-box #toolbar-control .button, #toolbar .button {
-  -fx-background-insets: 0;
-  -fx-padding: 0 .75em 0 .75em;
-  -fx-graphic-text-gap: .5em;
-  -fx-pref-height: 2.4285714286em;
-  -fx-background-color: transparent;
-  -fx-background-radius: 0.1428571429em;
-  -fx-border-width: 0; }
-  #content-view .toolbar-control .button .glyph-icon, #toolbar #top-box #toolbar-control .button .glyph-icon, #toolbar .button .glyph-icon {
-    -fx-fill: -on-primary-color; }
-  #content-view .toolbar-control .button .text, #toolbar #top-box #toolbar-control .button .text, #toolbar .button .text {
-    -fx-fill: -on-primary-color; }
-  #content-view .toolbar-control .button:hover, #toolbar #top-box #toolbar-control .button:hover, #toolbar .button:hover {
-    -fx-cursor: hand; }
-  #content-view .toolbar-control .button:pressed, #toolbar #top-box #toolbar-control .button:pressed, #toolbar .button:pressed {
-    -fx-background-color: -primary-variant-color; }
-
-#content-view .toolbar-control .icon, #toolbar #top-box #toolbar-control .icon, #toolbar .icon, .navigation-drawer .drawer-box .header .icon {
+#toolbar .icon, .navigation-drawer .drawer-box .header .icon {
   -fx-background-color: transparent;
   -icon-size: 2.8571428571em;
   -fx-max-width: -icon-size;
@@ -120,7 +125,7 @@
   -fx-min-height: -icon-size;
   -fx-pref-width: -icon-size;
   -fx-pref-height: -icon-size; }
-  #content-view .toolbar-control .icon .shape, #toolbar #top-box #toolbar-control .icon .shape, #toolbar .icon .shape, .navigation-drawer .drawer-box .header .icon .shape {
+  #toolbar .icon .shape, .navigation-drawer .drawer-box .header .icon .shape {
     -shape-width: 1.1428571429em;
     -shape-height: 1.1428571429em;
     -fx-max-width: -shape-width;
@@ -140,7 +145,7 @@
   -shape-width: 0.9523571429em;
   -shape-height: 0.9523571429em; }
 
-#content-view .toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
+#content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .arrow-button .arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
   -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z";
   -shape-width: 0.2976428571em;
   -shape-height: 0.5952142857em; }
@@ -210,16 +215,28 @@
   -fx-max-height: 2.8571428571em;
   -fx-background-color: -background-color;
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.075), 2, 0, 0, 2); }
-  #content-view .toolbar-control .button .glyph-icon, #content-view .toolbar-control .button .text {
-    -fx-fill: -on-background-color; }
-  #content-view .toolbar-control .button:pressed {
-    -fx-background-color: rgba(0, 0, 0, 0.075); }
-  #content-view .toolbar-control .toolbar-menu-button .dropdown .label .glyph-icon, #content-view .toolbar-control .toolbar-menu-button .dropdown .label .text {
-    -fx-fill: -on-background-color; }
-  #content-view .toolbar-control .toolbar-menu-button .dropdown .arrow-button .arrow {
-    -fx-background-color: -on-background-color; }
-  #content-view .toolbar-control .toolbar-menu-button .dropdown:showing {
-    -fx-background-color: rgba(0, 0, 0, 0.075); }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button {
+    -fx-background-color: -background-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label .text, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label .text {
+      -fx-fill: -on-background-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow {
+      -fx-background-color: -on-background-color; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button {
+    -fx-background-color: -background-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button:pressed, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button:pressed {
+      -fx-background-color: rgba(0, 0, 0, 0.075); }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label .text, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label .text {
+      -fx-fill: -on-background-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow {
+      -fx-background-color: -on-background-color; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button {
+    -fx-background-color: -background-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:showing, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:showing {
+      -fx-background-color: rgba(0, 0, 0, 0.075); }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label .text, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label .text {
+      -fx-fill: -on-background-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .arrow-button .arrow {
+      -fx-background-color: -on-background-color; }
 
 #toolbar {
   -fx-background-color: -primary-color; }
@@ -231,7 +248,8 @@
     -fx-max-height: 2.8571428571em; }
     #toolbar #top-box:empty {
       -fx-min-height: 0.2142857143em;
-      -fx-pref-height: 0.2142857143em; }
+      -fx-pref-height: 0.2142857143em;
+      -fx-max-height: 0.2142857143em; }
   #toolbar #bottom-box {
     -fx-alignment: CENTER;
     -fx-pref-height: 2.8571428571em;
@@ -242,7 +260,10 @@
       #toolbar #bottom-box #add-button .shape {
         -fx-background-color: -on-primary-color; }
       #toolbar #bottom-box #add-button:pressed {
-        -fx-background-radius: 0.3571428571em 0.3571428571em 0 0; }
+        -fx-background-radius: 0.3571428571em 0.3571428571em 0 0;
+        -fx-background-color: -primary-variant-color; }
+      #toolbar #bottom-box #add-button:hover {
+        -fx-cursor: hand; }
     #toolbar #bottom-box .active-add-button {
       -fx-background-color: -background-color;
       -fx-background-radius: 0.3571428571em 0.3571428571em 0 0;
@@ -250,8 +271,10 @@
       -fx-background-insets: 0 -1px 0 -1px; }
       #toolbar #bottom-box .active-add-button .shape {
         -fx-background-color: -on-background-color !important; }
+      #toolbar #bottom-box .active-add-button:pressed {
+        -fx-background-color: -background-color !important; }
       #toolbar #bottom-box .active-add-button:hover {
-        -fx-cursor: inherit; }
+        -fx-cursor: inherit !important; }
 
 .glass-pane {
   -fx-background-color: black;
