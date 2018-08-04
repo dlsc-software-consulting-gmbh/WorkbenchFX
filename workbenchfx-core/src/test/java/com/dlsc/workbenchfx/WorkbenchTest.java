@@ -1775,12 +1775,13 @@ class WorkbenchTest extends ApplicationTest {
   void showDrawerOnlyOne() {
     robot.interact(() -> {
       // given
-      VBox drawer1 = new VBox();
+      Label drawer1 = new Label("Hello");
       VBox drawer2 = new VBox();
       VBox drawer3 = new VBox();
       assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
       assertTrue(workbench.getNonBlockingOverlaysShown().isEmpty());
       assertNull(workbench.getDrawerShown());
+      assertNull(workbench.getDrawerSideShown());
 
       // when: showing two different drawers subsequently on the same side
       workbench.showDrawer(drawer1, Side.LEFT);
@@ -1792,6 +1793,7 @@ class WorkbenchTest extends ApplicationTest {
       assertNotNull(workbench.getDrawerShown());
       assertSame(drawer2, getShowingOverlay());
       assertSame(drawer2, workbench.getDrawerShown());
+      assertEquals(Side.LEFT, workbench.getDrawerSideShown());
 
       // when: showing drawer on a different side while another drawer is currently showing
       workbench.showDrawer(drawer3, Side.BOTTOM);
@@ -1802,7 +1804,19 @@ class WorkbenchTest extends ApplicationTest {
       assertNotNull(workbench.getDrawerShown());
       assertSame(drawer3, getShowingOverlay());
       assertSame(drawer3, workbench.getDrawerShown());
+      assertEquals(Side.BOTTOM, workbench.getDrawerSideShown());
       assertSame(Pos.BOTTOM_LEFT, StackPane.getAlignment(drawer3)); // verify correct position
+
+      // when: show first drawer again
+      workbench.showDrawer(drawer1, Side.LEFT);
+
+      // then: only drawer1 is showing
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertSame(1, workbench.getNonBlockingOverlaysShown().size());
+      assertNotNull(workbench.getDrawerShown());
+      assertSame(drawer1, getShowingOverlay());
+      assertSame(drawer1, workbench.getDrawerShown());
+      assertEquals(Side.LEFT, workbench.getDrawerSideShown());
     });
   }
 
