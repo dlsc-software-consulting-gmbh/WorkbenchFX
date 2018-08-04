@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.view.dialog
+package com.dlsc.workbenchfx.view.controls.dialog
 
 import com.dlsc.workbenchfx.Workbench
 import com.dlsc.workbenchfx.model.WorkbenchDialog

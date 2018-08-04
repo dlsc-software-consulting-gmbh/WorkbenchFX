@@ -1,6 +1,6 @@
-package com.dlsc.workbenchfx.view.dialog;
+package com.dlsc.workbenchfx.view.controls.dialog;
 
-import static com.dlsc.workbenchfx.view.dialog.WorkbenchDialog.Type;
+import static com.dlsc.workbenchfx.view.controls.dialog.WorkbenchDialog.Type;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
