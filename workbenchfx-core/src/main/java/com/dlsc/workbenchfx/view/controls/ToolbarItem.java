@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
@@ -23,9 +24,8 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the ToolbarItem which is used in the {@link ToolbarControl}s of WorkbenchFX.
- * Depending on the Parameters defined in the constructor, the {@link ToolbarItem} changes its
- * visual appearance to either a {@link javafx.scene.control.Label}, a {@link Button} or a
- * {@link MenuButton}.
+ * Depending on the parameters defined in the constructor, the {@link ToolbarItem} changes its
+ * visual appearance to either a {@link Label}, a {@link Button} or a {@link MenuButton}.
  * Using {@link #setGraphic(Node)} offers additionally the possibility to add custom content.
  * But doing this might require additional custom styling.
  *
@@ -38,7 +38,7 @@ public class ToolbarItem extends Control {
       LogManager.getLogger(ToolbarItem.class.getName());
 
   /**
-   * Used to bind the dimensions of a ImageView to the ToolbarItems height
+   * Used to bind the dimensions of an {@link ImageView} to the {@link ToolbarItem}'s height
    * in order to reach a size of 16px, assuming a default height of 34px.
    */
   private static final double RESIZING_FACTOR = 0.47d;
@@ -77,10 +77,10 @@ public class ToolbarItem extends Control {
   }
 
   /**
-   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.Label},
+   * Creates a new {@link ToolbarItem} which appears like a {@link Label},
    * using the given {@code text} as label text.
    *
-   * @param text the text to be displayed on the {@link ToolbarItem}
+   * @param text to be displayed on the {@link ToolbarItem}
    */
   public ToolbarItem(String text) {
     this();
@@ -88,10 +88,10 @@ public class ToolbarItem extends Control {
   }
 
   /**
-   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.Label},
+   * Creates a new {@link ToolbarItem} which appears like a {@link Label},
    * using the given {@code graphic} as label graphic.
    *
-   * @param graphic the graphic to be displayed on the {@link ToolbarItem}
+   * @param graphic to be displayed on the {@link ToolbarItem}
    */
   public ToolbarItem(Node graphic) {
     this();
@@ -99,11 +99,11 @@ public class ToolbarItem extends Control {
   }
 
   /**
-   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.Label},
+   * Creates a new {@link ToolbarItem} which appears like a {@link Label},
    * using the given {@code text} and {@code graphic} as label content.
    *
-   * @param text    the text to be displayed on the {@link ToolbarItem}
-   * @param graphic the graphic to be displayed on the {@link ToolbarItem}
+   * @param text    to be displayed on the {@link ToolbarItem}
+   * @param graphic to be displayed on the {@link ToolbarItem}
    */
   public ToolbarItem(String text, Node graphic) {
     this(text);
@@ -111,10 +111,10 @@ public class ToolbarItem extends Control {
   }
 
   /**
-   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.Button},
+   * Creates a new {@link ToolbarItem} which appears like a {@link Button},
    * using the given {@code text} as button text and the {@code onClick} as onMouseClicked event.
    *
-   * @param text    the text to be displayed on the {@link ToolbarItem}
+   * @param text    to be displayed on the {@link ToolbarItem}
    * @param onClick the function to be called when a mouse button has been clicked
    *                (pressed and released) on this {@code Node}
    */
@@ -124,7 +124,7 @@ public class ToolbarItem extends Control {
   }
 
   /**
-   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.Button},
+   * Creates a new {@link ToolbarItem} which appears like a {@link Button},
    * using the given {@code graphic} as button graphic
    * and the {@code onClick} as onMouseClicked event.
    *
@@ -138,9 +138,9 @@ public class ToolbarItem extends Control {
   }
 
   /**
-   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.Button},
-   * using the given {@code text} and {@code graphic} as button content
-   * and the {@code onClick} as onMouseClicked event.
+   * Creates a new {@link ToolbarItem} which appears like a {@link Button}, using the
+   * given {@code text} and {@code graphic} as button content and the {@code onClick} as
+   * onMouseClicked event.
    *
    * @param text    the text to be displayed on the {@link ToolbarItem}
    * @param graphic the graphic to be displayed on the {@link ToolbarItem}
@@ -153,8 +153,8 @@ public class ToolbarItem extends Control {
   }
 
   /**
-   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.MenuButton},
-   * using the given {@code text} as button menu button text
+   * Creates a new {@link ToolbarItem} which appears like a {@link MenuButton},
+   * using the given {@code text} as menu button text
    * and the {@code items} as its {@link MenuItem}s.
    *
    * @param text  the text to be displayed on the {@link ToolbarItem}
@@ -166,7 +166,7 @@ public class ToolbarItem extends Control {
   }
 
   /**
-   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.MenuButton},
+   * Creates a new {@link ToolbarItem} which appears like a {@link MenuButton},
    * using the given {@code graphic} as button menu button graphic
    * and the {@code items} as its {@link MenuItem}s.
    *
@@ -179,7 +179,7 @@ public class ToolbarItem extends Control {
   }
 
   /**
-   * Creates a new {@link ToolbarItem} which appears like a {@link javafx.scene.control.MenuButton},
+   * Creates a new {@link ToolbarItem} which appears like a {@link MenuButton},
    * using the given {@code text} and {@code graphic} as button menu button content
    * and the {@code items} as its {@link MenuItem}s.
    *
