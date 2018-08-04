@@ -1776,6 +1776,7 @@ class WorkbenchTest extends ApplicationTest {
     robot.interact(() -> {
       // given
       Label drawer1 = new Label("Hello");
+      drawer1.setMinSize(100, 100);
       VBox drawer2 = new VBox();
       VBox drawer3 = new VBox();
       assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
