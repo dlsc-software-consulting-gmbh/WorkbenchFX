@@ -41,14 +41,14 @@ public final class WorkbenchOverlay {
    * @param overlay TODO
    * @param glassPane TODO
    * @param animationStart TODO
-   * @param end TODO
+   * @param animationEnd TODO
    */
   public WorkbenchOverlay(Region overlay, GlassPane glassPane,
-                          TranslateTransition animationStart, TranslateTransition end) {
+                          TranslateTransition animationStart, TranslateTransition animationEnd) {
     this.overlay = overlay;
     this.glassPane = glassPane;
     this.animationStart = animationStart;
-    this.animationEnd = end;
+    this.animationEnd = animationEnd;
 
     setupInitializedListeners(overlay);
   }
