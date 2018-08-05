@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import com.dlsc.workbenchfx.view.controls.Dropdown;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.ArrayList;
@@ -16,29 +16,29 @@ import javafx.scene.layout.GridPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class DropdownTestModule extends WorkbenchModule {
+public class ToolbarItemTestModule extends WorkbenchModule {
+
   private static final Logger LOGGER =
-      LogManager.getLogger(DropdownTestModule.class.getName());
+      LogManager.getLogger(ToolbarItemTestModule.class.getName());
 
   private int itemsCount = 1;
 
-  private final Button addMenuBtn = new Button("Add new Dropdown");
-  private final Button addItemBtn = new Button("Add MenuItem to Dropdown");
-  private final Button addLotItemBtn = new Button("Add 100 MenuItems to Dropdown");
-  private final Button removeMenuBtn = new Button("Remove new Dropdown");
-  private final Button removeItemBtn = new Button("Remove MenuItem from Dropdown");
-  private final Button removeLotItemBtn = new Button("Remove 100 MenuItems from Dropdown");
-  private final Dropdown customDropdown = Dropdown.of(
-      "New MenuButton",
-      new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION)
+  private final Button addMenuBtn = new Button("Add new ToolbarItem");
+  private final Button addItemBtn = new Button("Add MenuItem to ToolbarItem");
+  private final Button addLotItemBtn = new Button("Add 100 MenuItems to ToolbarItem");
+  private final Button removeMenuBtn = new Button("Remove new ToolbarItem");
+  private final Button removeItemBtn = new Button("Remove MenuItem from ToolbarItem");
+  private final Button removeLotItemBtn = new Button("Remove 100 MenuItems from ToolbarItem");
+  private final ToolbarItem customToolbarItem = new ToolbarItem(
+      "New MenuButton", new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION)
   );
   private final List<MenuItem> itemsLst = new ArrayList<>();
 
   private final GridPane customPane = new GridPane();
   private final Button removeAllItmsBtn = new Button("REMOVE ALL ITEMS");
 
-  public DropdownTestModule() {
-    super("Dropdown Test", FontAwesomeIcon.QUESTION);
+  public ToolbarItemTestModule() {
+    super("ToolbarItem Test", FontAwesomeIcon.QUESTION);
     layoutParts();
     setupEventHandlers();
   }
@@ -54,13 +54,14 @@ public class DropdownTestModule extends WorkbenchModule {
 
     customPane.add(removeAllItmsBtn, 2, 0);
 
-
     customPane.setAlignment(Pos.CENTER);
   }
 
   private void setupEventHandlers() {
-    addMenuBtn.setOnAction(event -> getWorkbench().getToolbarControlsRight().add(customDropdown));
-    removeMenuBtn.setOnAction(event -> getWorkbench().getToolbarControlsRight().remove(customDropdown));
+    addMenuBtn
+        .setOnAction(event -> getWorkbench().getToolbarControlsRight().add(customToolbarItem));
+    removeMenuBtn.setOnAction(event -> getWorkbench().getToolbarControlsRight().remove(
+        customToolbarItem));
 
     addItemBtn.setOnAction(event -> addItems(1));
     addLotItemBtn.setOnAction(event -> addItems(100));
@@ -77,14 +78,14 @@ public class DropdownTestModule extends WorkbenchModule {
   private void addItems(int items) {
     for (int i = 0; i < items; i++) {
       itemsLst.add(new CustomMenuItem(new Label("New Item " + itemsCount++)));
-      customDropdown.getItems().add(itemsLst.get(itemsLst.size() - 1));
+      customToolbarItem.getItems().add(itemsLst.get(itemsLst.size() - 1));
     }
   }
 
   private void removeItems(int items) {
     for (int i = 0; i < items; i++) {
       if (itemsCount > 1) {
-        customDropdown.getItems().remove(itemsLst.remove(itemsCount - 2));
+        customToolbarItem.getItems().remove(itemsLst.remove(itemsCount - 2));
         itemsCount--;
       }
     }

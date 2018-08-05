@@ -6,6 +6,7 @@ import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import com.dlsc.workbenchfx.view.controls.module.Page;
 import com.dlsc.workbenchfx.view.controls.module.Tab;
@@ -78,9 +79,9 @@ public class Workbench extends Control {
       new SimpleObjectProperty<>(DEFAULT_NAVIGATION_DRAWER);
 
   // Lists
-  private final ObservableSet<Node> toolbarControlsRight =
+  private final ObservableSet<ToolbarItem> toolbarControlsRight =
       FXCollections.observableSet(new LinkedHashSet<>());
-  private final ObservableList<Node> toolbarControlsLeft =
+  private final ObservableList<ToolbarItem> toolbarControlsLeft =
       FXCollections.observableArrayList();
   private final ObservableList<MenuItem> navigationDrawerItems =
       FXCollections.observableArrayList();
@@ -174,8 +175,8 @@ public class Workbench extends Control {
 
     Callback<Workbench, Page> pageFactory = DEFAULT_PAGE_FACTORY;
 
-    Node[] toolbarControlsRight;
-    Node[] toolbarControlsLeft;
+    ToolbarItem[] toolbarControlsRight;
+    ToolbarItem[] toolbarControlsLeft;
 
     NavigationDrawer navigationDrawer = DEFAULT_NAVIGATION_DRAWER;
 
@@ -266,10 +267,10 @@ public class Workbench extends Control {
     /**
      * Defines the Controls which are placed on top-left of the Toolbar.
      *
-     * @param toolbarControlsLeft the {@link Node}s which will be added to the Toolbar
+     * @param toolbarControlsLeft the {@link ToolbarItem}s which will be added to the Toolbar
      * @return the updated {@link WorkbenchBuilder}
      */
-    public WorkbenchBuilder toolbarLeft(Node... toolbarControlsLeft) {
+    public WorkbenchBuilder toolbarLeft(ToolbarItem... toolbarControlsLeft) {
       this.toolbarControlsLeft = toolbarControlsLeft;
       return this;
     }
@@ -277,10 +278,10 @@ public class Workbench extends Control {
     /**
      * Defines the Controls which are placed on top-right of the Toolbar.
      *
-     * @param toolbarControlsRight the {@link Node}s which will be added to the Toolbar
+     * @param toolbarControlsRight the {@link ToolbarItem}s which will be added to the Toolbar
      * @return the updated {@link WorkbenchBuilder}
      */
-    public WorkbenchBuilder toolbarRight(Node... toolbarControlsRight) {
+    public WorkbenchBuilder toolbarRight(ToolbarItem... toolbarControlsRight) {
       this.toolbarControlsRight = toolbarControlsRight;
       return this;
     }
@@ -636,7 +637,7 @@ public class Workbench extends Control {
    * @return a list of the currently loaded toolbar controls on the left.
    * @implNote Use this method to add or remove toolbar controls on the left at runtime.
    */
-  public ObservableList<Node> getToolbarControlsLeft() {
+  public ObservableList<ToolbarItem> getToolbarControlsLeft() {
     return toolbarControlsLeft;
   }
 
@@ -646,7 +647,7 @@ public class Workbench extends Control {
    * @return a list of the currently loaded toolbar controls on the right.
    * @implNote Use this method to add or remove toolbar controls on the right at runtime.
    */
-  public ObservableSet<Node> getToolbarControlsRight() {
+  public ObservableSet<ToolbarItem> getToolbarControlsRight() {
     return toolbarControlsRight;
   }
 

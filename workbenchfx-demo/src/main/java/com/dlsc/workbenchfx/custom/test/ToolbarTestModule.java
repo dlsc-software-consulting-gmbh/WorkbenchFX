@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import com.dlsc.workbenchfx.view.controls.Dropdown;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.geometry.Pos;
@@ -23,11 +23,11 @@ public class ToolbarTestModule extends WorkbenchModule {
 
   private final Button removeItemsBtn = new Button("Remove all items from the toolbar");
   private final Button addItemsBtn = new Button("Add all items to the toolbar");
-  private final Button remBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.MINUS));
-  private final Button addBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.PLUS));
+  private final ToolbarItem remBtn = new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.MINUS));
+  private final ToolbarItem addBtn = new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.PLUS));
   private final MenuItem addContentItem = new MenuItem("Add Content");
   private final MenuItem removeContentItem = new MenuItem("Remove Content");
-  private final Dropdown addContentDropdown = Dropdown.of(
+  private final ToolbarItem addContentToolbarItem = new ToolbarItem(
       "Add Content", new FontAwesomeIconView(FontAwesomeIcon.USER),
       addContentItem, removeContentItem
   );
@@ -49,7 +49,7 @@ public class ToolbarTestModule extends WorkbenchModule {
     if (getToolbarControlsLeft().isEmpty()) {
       getToolbarControlsLeft().add(remBtn);
       getToolbarControlsLeft().add(addBtn);
-      getToolbarControlsRight().add(addContentDropdown);
+      getToolbarControlsRight().add(addContentToolbarItem);
     }
   }
 
@@ -71,7 +71,7 @@ public class ToolbarTestModule extends WorkbenchModule {
   private void layoutParts() {
     topBox.getChildren().addAll(
         new Label("Module to test the modules toolbar."),
-        new Label("Use the dropdown to add content."),
+        new Label("Use the toolbar item to add content."),
         addItemsBtn, removeItemsBtn
     );
 
@@ -79,13 +79,9 @@ public class ToolbarTestModule extends WorkbenchModule {
   }
 
   private void setupEventHandlers() {
-    remBtn.setOnAction(evt -> {
-      getToolbarControlsRight().remove(addContentDropdown);
-    });
+    remBtn.setOnClick(evt -> getToolbarControlsRight().remove(addContentToolbarItem));
 
-    addBtn.setOnAction(evt -> {
-      getToolbarControlsRight().add(addContentDropdown);
-    });
+    addBtn.setOnClick(evt -> getToolbarControlsRight().add(addContentToolbarItem));
 
     addContentItem.setOnAction(evt ->
         bottomBox.getChildren().add(new Label("Content " + contentIndex++))
