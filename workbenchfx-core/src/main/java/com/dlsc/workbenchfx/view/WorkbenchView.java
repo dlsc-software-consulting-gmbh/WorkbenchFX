@@ -78,9 +78,7 @@ public class WorkbenchView extends StackPane implements View {
     overlay.setVisible(false);
     getChildren().addAll(glassPane, overlay);
     // make glass pane hide if overlay is not showing
-    overlay.visibleProperty().addListener(observable -> {
-      glassPane.setHide(!overlay.isVisible());
-    });
+    overlay.visibleProperty().addListener(observable -> glassPane.setHide(!overlay.isVisible()));
   }
 
   /**
