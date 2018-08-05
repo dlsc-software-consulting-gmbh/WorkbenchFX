@@ -1,13 +1,17 @@
 package com.dlsc.workbenchfx.controls;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
@@ -143,11 +147,9 @@ class ToolbarItemTest extends ApplicationTest {
   @Test
   void testGraphicListenerDefaultCtor() {
     // create a new image 20x20
-    ImageView imageView = new ImageView(
-        ToolbarItemTest.class.getResource("../date-picker.png").toExternalForm());
-    // the fit height property is not yet bound and the preserve ratio is also not set
-    assertEquals(0, imageView.getFitHeight());
-    assertFalse(imageView.isPreserveRatio());
+    DoubleProperty fitHeightProperty = new SimpleDoubleProperty();
+    ImageView imageView = mock(ImageView.class);
+    when(imageView.fitHeightProperty()).thenReturn(fitHeightProperty);
 
     // init a new empty ToolbarItem and set the ImageView
     toolbarItem = new ToolbarItem();
@@ -155,25 +157,25 @@ class ToolbarItemTest extends ApplicationTest {
     toolbarItem.setPrefHeight(100);
 
     // expected outcome: fitheight to 47 (due to factor 0.47) and preserveratio is set
-    assertEquals(47, imageView.getFitHeight());
-    assertTrue(imageView.isPreserveRatio());
+    assertEquals(47, fitHeightProperty.get());
+    verify(imageView).setPreserveRatio(true);
+    verify(imageView).fitHeightProperty();
   }
 
   @Test
   void testGraphicListenerUsingCtor() {
     // create a new image 20x20
-    ImageView imageView = new ImageView(
-        ToolbarItemTest.class.getResource("../date-picker.png").toExternalForm());
-    // the fit height property is not yet bound and the preserve ratio is also not set
-    assertEquals(0, imageView.getFitHeight());
-    assertFalse(imageView.isPreserveRatio());
+    DoubleProperty fitHeightProperty = new SimpleDoubleProperty();
+    ImageView imageView = mock(ImageView.class);
+    when(imageView.fitHeightProperty()).thenReturn(fitHeightProperty);
 
     // init a new ToolbarItem with the ImageView (to test if the listener triggers)
     toolbarItem = new ToolbarItem(imageView);
     toolbarItem.setPrefHeight(100);
 
     // expected outcome: fitheight to 47 (due to factor 0.47) and preserveratio is set
-    assertEquals(47, imageView.getFitHeight());
-    assertTrue(imageView.isPreserveRatio());
+    assertEquals(47, fitHeightProperty.get());
+    verify(imageView).setPreserveRatio(true);
+    verify(imageView).fitHeightProperty();
   }
 }
