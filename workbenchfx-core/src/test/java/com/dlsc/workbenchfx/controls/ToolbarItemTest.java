@@ -10,7 +10,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +30,6 @@ class ToolbarItemTest extends ApplicationTest {
   // ToolbarItem items
   private String toolbarItemText;
   private FontAwesomeIconView toolbarItemIconView;
-  private ImageView toolbarItemImageView;
   private MenuItem toolbarItemMenuItem;
   private EventHandler<? super MouseEvent> toolbarItemOnClick;
 
@@ -42,9 +40,6 @@ class ToolbarItemTest extends ApplicationTest {
     // Initialization of items for ToolbarItem testing
     toolbarItemText = "ToolbarItem Text";
     toolbarItemIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
-    toolbarItemImageView = new ImageView(
-        new Image(ToolbarItemTest.class.getResource("../date-picker.png").toExternalForm())
-    );
     toolbarItemMenuItem = new MenuItem("Menu Item");
     toolbarItemOnClick = event -> System.out.println("Item Clicked");
   }
@@ -60,8 +55,8 @@ class ToolbarItemTest extends ApplicationTest {
     assertEquals(toolbarItemText, toolbarItem.getText());
     assertTrue(toolbarItem.getStyleClass().contains(TOOLBAR_LABEL));
 
-    toolbarItem = new ToolbarItem(toolbarItemImageView);
-    assertEquals(toolbarItemImageView, toolbarItem.getGraphic());
+    toolbarItem = new ToolbarItem(toolbarItemIconView);
+    assertEquals(toolbarItemIconView, toolbarItem.getGraphic());
     assertTrue(toolbarItem.getStyleClass().contains(TOOLBAR_LABEL));
 
     toolbarItem = new ToolbarItem(toolbarItemText, toolbarItemIconView);
@@ -75,8 +70,8 @@ class ToolbarItemTest extends ApplicationTest {
     assertEquals(toolbarItemOnClick, toolbarItem.getOnClick());
     assertTrue(toolbarItem.getStyleClass().contains(TOOLBAR_BUTTON));
 
-    toolbarItem = new ToolbarItem(toolbarItemImageView, toolbarItemOnClick);
-    assertEquals(toolbarItemImageView, toolbarItem.getGraphic());
+    toolbarItem = new ToolbarItem(toolbarItemIconView, toolbarItemOnClick);
+    assertEquals(toolbarItemIconView, toolbarItem.getGraphic());
     assertTrue(toolbarItem.getStyleClass().contains(TOOLBAR_BUTTON));
 
     toolbarItem = new ToolbarItem(toolbarItemText, toolbarItemIconView, toolbarItemOnClick);
@@ -91,8 +86,8 @@ class ToolbarItemTest extends ApplicationTest {
     assertTrue(toolbarItem.getItems().contains(toolbarItemMenuItem));
     assertTrue(toolbarItem.getStyleClass().contains(TOOLBAR_COMBO_BOX));
 
-    toolbarItem = new ToolbarItem(toolbarItemImageView, toolbarItemMenuItem);
-    assertEquals(toolbarItemImageView, toolbarItem.getGraphic());
+    toolbarItem = new ToolbarItem(toolbarItemIconView, toolbarItemMenuItem);
+    assertEquals(toolbarItemIconView, toolbarItem.getGraphic());
     assertTrue(toolbarItem.getItems().contains(toolbarItemMenuItem));
     assertTrue(toolbarItem.getStyleClass().contains(TOOLBAR_COMBO_BOX));
 

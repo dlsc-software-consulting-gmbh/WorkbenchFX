@@ -51,8 +51,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -104,7 +102,6 @@ class WorkbenchTest extends ApplicationTest {
   // ToolbarItem items
   private String toolbarItemText;
   private FontAwesomeIconView toolbarItemIconView;
-  private ImageView toolbarItemImageView;
   private MenuItem toolbarItemMenuItem;
   private ToolbarItem toolbarItemLeft;
   private ToolbarItem toolbarItemRight;
@@ -149,13 +146,10 @@ class WorkbenchTest extends ApplicationTest {
     // Initialization of items for ToolbarItem testing
     toolbarItemText = "ToolbarItem Text";
     toolbarItemIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
-    toolbarItemImageView = new ImageView(
-        new Image(WorkbenchTest.class.getResource("date-picker.png").toExternalForm())
-    );
     toolbarItemMenuItem = new MenuItem("Menu Item");
 
     toolbarItemLeft = new ToolbarItem(toolbarItemText, toolbarItemIconView, toolbarItemMenuItem);
-    toolbarItemRight = new ToolbarItem(toolbarItemText, toolbarItemImageView, toolbarItemMenuItem);
+    toolbarItemRight = new ToolbarItem(toolbarItemText, toolbarItemIconView, toolbarItemMenuItem);
 
     // Setup WorkbenchDialog Mock
     blocking = new SimpleBooleanProperty();
