@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view.controls;
 
+import java.util.Objects;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -56,7 +57,7 @@ public class ToolbarItem extends Control {
   /**
    * The style class which is used to style the ToolbarItem as a MenuButton.
    */
-  private static final String TOOLBAR_COMBO_BOX = "toolbar-menu-button";
+  private static final String TOOLBAR_MENU_BUTTON = "toolbar-menu-button";
 
   private final StringProperty text = new SimpleStringProperty(this, "text");
   private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this,
@@ -116,7 +117,7 @@ public class ToolbarItem extends Control {
    *
    * @param text    to be displayed on the {@link ToolbarItem}
    * @param onClick the function to be called when a mouse button has been clicked
-   *                (pressed and released) on this {@code Node}
+   *                (pressed and released) on this Control
    */
   public ToolbarItem(String text, EventHandler<? super MouseEvent> onClick) {
     this(text);
@@ -130,7 +131,7 @@ public class ToolbarItem extends Control {
    *
    * @param graphic the graphic to be displayed on the {@link ToolbarItem}
    * @param onClick the function to be called when a mouse button has been clicked
-   *                (pressed and released) on this {@code Node}
+   *                (pressed and released) on this Control
    */
   public ToolbarItem(Node graphic, EventHandler<? super MouseEvent> onClick) {
     this(graphic);
@@ -145,7 +146,7 @@ public class ToolbarItem extends Control {
    * @param text    the text to be displayed on the {@link ToolbarItem}
    * @param graphic the graphic to be displayed on the {@link ToolbarItem}
    * @param onClick the function to be called when a mouse button has been clicked
-   *                (pressed and released) on this {@code Node}
+   *                (pressed and released) on this Control
    */
   public ToolbarItem(String text, Node graphic, EventHandler<? super MouseEvent> onClick) {
     this(text, graphic);
@@ -211,9 +212,9 @@ public class ToolbarItem extends Control {
   }
 
   private void updateStyleClasses() {
-    if (0 != items.size()) {
-      getStyleClass().setAll(TOOLBAR_COMBO_BOX);
-    } else if (null != getOnClick()) {
+    if (!items.isEmpty()) {
+      getStyleClass().setAll(TOOLBAR_MENU_BUTTON);
+    } else if (!Objects.isNull(getOnClick())) {
       getStyleClass().setAll(TOOLBAR_BUTTON);
     } else {
       getStyleClass().setAll(TOOLBAR_LABEL);
