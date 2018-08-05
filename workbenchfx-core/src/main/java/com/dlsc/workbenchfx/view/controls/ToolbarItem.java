@@ -39,8 +39,19 @@ public class ToolbarItem extends Control {
       LogManager.getLogger(ToolbarItem.class.getName());
 
   /**
-   * Used to bind the dimensions of an {@link ImageView} to the {@link ToolbarItem}'s height
-   * in order to reach a size of 16px, assuming a default height of 34px.
+   * Used to bind the dimensions of an {@link ImageView} to this Control.
+   *
+   * <p>The material design standards define a height of 40x40px area for an icon
+   * (for web applications). The icons size itself is defined by 16x16px.</p>
+   * @see <a href="https://material.io/design/iconography/system-icons.html#">material.io</a>
+   *
+   * <p>In the WorkbenchFX styling, the toolbars default height is therefore set to 40px.
+   * Its padding is set to 3px on top and bottom, which leads to an "empty space" of 40-3-3 = 34px
+   * which the {@link ToolbarItem} can use.</p>
+   *
+   * <p>This constant is used to bind the dimensions of an {@link ImageView} to the height of the
+   * {@link ToolbarItem} in order to reach the desired height of 16px.
+   * If the height of the ToolbarItem is changed, the {@link ImageView} grows relatively.</p>
    */
   private static final double RESIZING_FACTOR = 0.47d;
 
@@ -204,8 +215,7 @@ public class ToolbarItem extends Control {
         ImageView imageView = ((ImageView) newIcon);
         imageView.setPreserveRatio(true);
 
-        // Binds the dimensions of a ImageView to the ToolbarItems height
-        // in order to reach a size of 16px, assuming a default height of 34px.
+        // Binds the dimensions of the ImageView to the ToolbarItems height.
         imageView.fitHeightProperty().bind(prefHeightProperty().multiply(RESIZING_FACTOR));
       }
     });
