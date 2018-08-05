@@ -884,12 +884,9 @@ public class Workbench extends Control {
   private void addAnimationListener(WorkbenchOverlay workbenchOverlay, Side side) {
     Region overlay = workbenchOverlay.getOverlay();
     // prepare values for setting the listener
-    ReadOnlyDoubleProperty size;
-    if (side.isVertical()) { // LEFT or RIGHT
-      size = overlay.widthProperty();
-    } else { // TOP or BOTTOM
-      size = overlay.heightProperty();
-    }
+    ReadOnlyDoubleProperty size =
+        side.isVertical() ? overlay.widthProperty() : overlay.heightProperty();
+    //                       LEFT or RIGHT side          TOP or BOTTOM side
 
     // make sure this code only gets run the first time the overlay has been shown and
     // rendered in the scene graph, to ensure the overlay has a size for the calculations
