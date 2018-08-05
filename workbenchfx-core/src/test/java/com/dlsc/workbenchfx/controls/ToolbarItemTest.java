@@ -157,7 +157,7 @@ class ToolbarItemTest extends ApplicationTest {
     toolbarItem.setPrefHeight(100);
 
     // expected outcome: fitheight to 47 (due to factor 0.47) and preserveratio is set
-    assertEquals(47, fitHeightProperty.get());
+    assertEquals(47, fitHeightProperty.get(), .1);
     verify(imageView).setPreserveRatio(true);
     verify(imageView).fitHeightProperty();
   }
@@ -174,7 +174,7 @@ class ToolbarItemTest extends ApplicationTest {
     toolbarItem.setPrefHeight(100);
 
     // expected outcome: fitheight to 47 (due to factor 0.47) and preserveratio is set
-    assertEquals(47, fitHeightProperty.get());
+    assertEquals(47, fitHeightProperty.get(), .1);
     verify(imageView).setPreserveRatio(true);
     verify(imageView).fitHeightProperty();
   }

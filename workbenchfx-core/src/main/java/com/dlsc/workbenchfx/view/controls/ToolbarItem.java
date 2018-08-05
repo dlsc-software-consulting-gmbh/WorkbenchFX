@@ -39,21 +39,28 @@ public class ToolbarItem extends Control {
       LogManager.getLogger(ToolbarItem.class.getName());
 
   /**
-   * Used to bind the dimensions of an {@link ImageView} to this Control.
-   *
-   * <p>The material design standards define a height of 40x40px area for an icon
-   * (for web applications). The icons size itself is defined by 16x16px.</p>
+   * According to the material design standards, a desktop icon should have a size of 16x16px.
    * @see <a href="https://material.io/design/iconography/system-icons.html#">material.io</a>
-   *
-   * <p>In the WorkbenchFX styling, the toolbars default height is therefore set to 40px.
-   * Its padding is set to 3px on top and bottom, which leads to an "empty space" of 40-3-3 = 34px
-   * which the {@link ToolbarItem} can use.</p>
-   *
-   * <p>This constant is used to bind the dimensions of an {@link ImageView} to the height of the
-   * {@link ToolbarItem} in order to reach the desired height of 16px.
-   * If the height of the ToolbarItem is changed, the {@link ImageView} grows relatively.</p>
    */
-  private static final double RESIZING_FACTOR = 0.47d;
+  private static final double ICON_SIZE = 16d;
+
+  /**
+   * The icon should be placed in a square of 40x40px as clearance.
+   */
+  private static final double TOTAL_ICON_SIZE = 40d;
+
+  /**
+   * The WorkbenchFX styles define a toolbar height of 40px with a padding of 3px on top and bottom.
+   */
+  private static final double TOOLBAR_PADDING = 3d;
+
+  /**
+   * Used to bind the fit size dimensions of an {@link ImageView} to this Controls pref height.
+   * The resizing factor ensures, that the {@link ImageView} doesn't exceed the defined icon size
+   * of 16px.
+   */
+  private static final double ICON_RESIZING_FACTOR =
+      ICON_SIZE / (TOTAL_ICON_SIZE - 2 * TOOLBAR_PADDING);
 
   /**
    * The style class which is used to style the ToolbarItem as a Button.
@@ -216,7 +223,7 @@ public class ToolbarItem extends Control {
         imageView.setPreserveRatio(true);
 
         // Binds the dimensions of the ImageView to the ToolbarItems height.
-        imageView.fitHeightProperty().bind(prefHeightProperty().multiply(RESIZING_FACTOR));
+        imageView.fitHeightProperty().bind(prefHeightProperty().multiply(ICON_RESIZING_FACTOR));
       }
     });
   }
