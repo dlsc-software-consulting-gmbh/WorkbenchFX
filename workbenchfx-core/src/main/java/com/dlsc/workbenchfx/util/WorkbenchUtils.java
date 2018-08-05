@@ -3,13 +3,9 @@ package com.dlsc.workbenchfx.util;
 import com.google.common.base.CharMatcher;
 import java.util.Set;
 import java.util.function.Consumer;
-import javafx.animation.TranslateTransition;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
-import javafx.scene.transform.Translate;
 
 /**
  * Provides utility methods to do general transformations between different model objects of
