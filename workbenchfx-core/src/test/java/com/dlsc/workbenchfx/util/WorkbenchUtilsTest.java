@@ -7,7 +7,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableSet;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -22,13 +22,13 @@ import org.junit.jupiter.api.Test;
  */
 public class WorkbenchUtilsTest {
 
-  ObservableSet<String> observableSet;
+  ObservableList<String> observableList;
 
   @BeforeEach
   void setUp() {
     // is needed to avoid "java.lang.IllegalStateException: Toolkit not initialized"
     JFXPanel jfxPanel = new JFXPanel();
-    observableSet = FXCollections.observableSet();
+    observableList = FXCollections.observableArrayList();
   }
 
   @Test
@@ -46,11 +46,11 @@ public class WorkbenchUtilsTest {
   void addSetListenerAdd() {
     Thread mock = mock(Thread.class);
     WorkbenchUtils.addListListener(
-        observableSet,
+        observableList,
         c -> mock.run(),
         c -> fail("was removed instead of added")
     );
-    observableSet.add("Test");
+    observableList.add("Test");
     verify(mock).run();
   }
 
@@ -58,13 +58,13 @@ public class WorkbenchUtilsTest {
   void addSetListenerRemove() {
     Thread mock = mock(Thread.class);
     String test = "Test";
-    observableSet.add(test);
+    observableList.add(test);
     WorkbenchUtils.addListListener(
-        observableSet,
+        observableList,
         c -> fail("was added instead of removed"),
         c -> mock.run()
     );
-    observableSet.remove(test);
+    observableList.remove(test);
     verify(mock).run();
   }
 
