@@ -1,4 +1,4 @@
-= WorkbenchFX
+= Technical Report: WorkbenchFX
 François Martin; Marco Sanfratello
 
 // Path to the code references
