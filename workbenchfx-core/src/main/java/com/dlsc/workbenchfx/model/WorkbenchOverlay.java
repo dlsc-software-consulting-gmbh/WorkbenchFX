@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.model;
 
+import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Objects;
 import javafx.animation.TranslateTransition;
@@ -7,10 +8,19 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Side;
 import javafx.scene.layout.Region;
 
 /**
- * TODO.
+ * Represents the model class of an overlay.
+ *
+ * <p>An overlay can be shown using:<br>
+ * {@link Workbench#showOverlay(Region, boolean)}<br>
+ * {@link Workbench#showDialog(WorkbenchDialog)}<br>
+ * {@link Workbench#showDrawer(Region, Side)}
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public final class WorkbenchOverlay {
   
@@ -26,22 +36,22 @@ public final class WorkbenchOverlay {
       new SimpleObjectProperty<>(this, "onInitialized");
 
   /**
-   * TODO.
+   * Initializes a new non-animated overlay.
    *
-   * @param overlay TODO
-   * @param glassPane TODO
+   * @param overlay to be shown as the main content node
+   * @param glassPane to be shown in the background of the overlay
    */
   public WorkbenchOverlay(Region overlay, GlassPane glassPane) {
     this(overlay, glassPane, null, null);
   }
 
   /**
-   * TODO.
+   * Initializes a new <b>animated</b> overlay.
    *
-   * @param overlay TODO
-   * @param glassPane TODO
-   * @param animationStart TODO
-   * @param animationEnd TODO
+   * @param overlay to be shown as the main content node
+   * @param glassPane to be shown in the background of the overlay
+   * @param animationStart animation that should be played when the overlay is being shown
+   * @param animationEnd animation that should be played when the overlay is being hidden
    */
   public WorkbenchOverlay(Region overlay, GlassPane glassPane,
                           TranslateTransition animationStart, TranslateTransition animationEnd) {
@@ -76,9 +86,12 @@ public final class WorkbenchOverlay {
   }
 
   /**
-   * TODO.
+   * Returns whether or not this overlay is animated.
    *
-   * @return TODO
+   * @return whether or not this overlay is animated.
+   * @implNote An overlay is being considered as animated when {@code animationStart} and
+   *           {@code animationEnd} are not null. The defined animation will then be played when
+   *           the overlay is being shown or hidden.
    */
   public final boolean isAnimated() {
     return !Objects.isNull(animationStart) && !Objects.isNull(animationEnd);
@@ -101,9 +114,15 @@ public final class WorkbenchOverlay {
   }
 
   /**
-   * TODO.
+   * Enables to define actions that should be performed when an overlay is initialized.
    *
-   * @return
+   * @return the {@link ObjectProperty} of the {@link EventHandler} which will be triggered upon
+   *         initialization
+   * @implNote an overlay is being considered as initialized, when the {@code overlay} node has been
+   *           added to the scene graph and a layout pass has been performed, which means the values
+   *           of {@link Region#widthProperty()} and {@link Region#heightProperty()} are defined.
+   *           This enables to initially set the position of an overlay using its size dynamically,
+   *           for example before an animation is being performed for the first time.
    */
   public final ObjectProperty<EventHandler<Event>> onInitializedProperty() {
     return onInitialized;
