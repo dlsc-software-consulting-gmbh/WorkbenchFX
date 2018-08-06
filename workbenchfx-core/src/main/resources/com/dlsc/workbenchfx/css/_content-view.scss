@@ -3,34 +3,54 @@
     @extend %toolbar-control;
 
     -fx-padding: px(3);
-    -fx-min-height: px(40);
-    -fx-pref-height: px(40);
-    -fx-max-height: px(40);
+    @include set-height(px(40));
     -fx-background-color: -background-color;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .075), 2, 0, 0, 2);
 
-    & .button {
-      & .glyph-icon,
-      & .text {
-        -fx-fill: -on-background-color;
-      }
-      &:pressed {
-        -fx-background-color: rgba(0, 0, 0, .075);
-      }
-    }
-
-    & .toolbar-menu-button .dropdown {
-      & .label {
-        & .glyph-icon,
-        & .text {
-          -fx-fill: -on-background-color;
+    & .toolbar-control-left-box,
+    & .toolbar-control-right-box {
+      & .toolbar-label {
+        & .menu-button {
+          -fx-background-color: -background-color;
+          & .label .glyph-icon,
+          & .label .text {
+            -fx-fill: -on-background-color;
+          }
+          & .arrow-button .arrow {
+            -fx-background-color: -on-background-color;
+          }
         }
       }
-      & .arrow-button .arrow {
-        -fx-background-color: -on-background-color;
+      & .toolbar-button {
+        @extend %toolbar-item-base;
+        & .menu-button {
+          -fx-background-color: -background-color;
+          &:pressed {
+            -fx-background-color: rgba(0, 0, 0, .075);
+          }
+          & .label .glyph-icon,
+          & .label .text {
+            -fx-fill: -on-background-color;
+          }
+          & .arrow-button .arrow {
+            -fx-background-color: -on-background-color;
+          }
+        }
       }
-      &:showing {
-        -fx-background-color: rgba(0, 0, 0, .075);
+      & .toolbar-menu-button {
+        & .menu-button {
+          -fx-background-color: -background-color;
+          &:showing {
+            -fx-background-color: rgba(0, 0, 0, .075);
+          }
+          & .label .glyph-icon,
+          & .label .text {
+            -fx-fill: -on-background-color;
+          }
+          & .arrow-button .arrow {
+            -fx-background-color: -on-background-color;
+          }
+        }
       }
     }
   }

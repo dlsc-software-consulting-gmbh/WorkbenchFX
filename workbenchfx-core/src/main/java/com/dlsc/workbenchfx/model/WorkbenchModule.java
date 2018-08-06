@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.ToolbarControl;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.LinkedHashSet;
@@ -32,9 +33,9 @@ public abstract class WorkbenchModule {
   private Image imgIcon;
 
   // The sets which store the toolbar icons which are displayed in the modules toolbar
-  private final ObservableList<Node> toolbarControlsLeft =
+  private final ObservableList<ToolbarItem> toolbarControlsLeft =
       FXCollections.observableArrayList();
-  private final ObservableSet<Node> toolbarControlsRight =
+  private final ObservableSet<ToolbarItem> toolbarControlsRight =
       FXCollections.observableSet(new LinkedHashSet<>());
 
   /**
@@ -179,7 +180,7 @@ public abstract class WorkbenchModule {
    * @return the {@link ObservableList} of items which are displayed on the left side of the
    *         automatically added {@link ToolbarControl}
    */
-  public ObservableList<Node> getToolbarControlsLeft() {
+  public ObservableList<ToolbarItem> getToolbarControlsLeft() {
     return toolbarControlsLeft;
   }
 
@@ -191,7 +192,7 @@ public abstract class WorkbenchModule {
    * @return the {@link ObservableSet} of items which are displayed on the right side of the
    *         automatically generated {@link ToolbarControl}
    */
-  public ObservableSet<Node> getToolbarControlsRight() {
+  public ObservableSet<ToolbarItem> getToolbarControlsRight() {
     return toolbarControlsRight;
   }
 }

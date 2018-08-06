@@ -2,20 +2,120 @@
   @return 1em / 14 * $px; // 14px is defined by the default material design font-size
 }
 
-%toolbar-control {
-  @extend %icon-base; // All icons in the toolbar are targeted
-  @extend %button-base;
-  @extend %dropdown; // The dropdown in the toolbar
+@mixin set-height($height) {
+  -fx-min-height: $height;
+  -fx-pref-height: $height;
+  -fx-max-height: $height;
+}
 
+@mixin set-width($width) {
+  -fx-min-width: $width;
+  -fx-pref-width: $width;
+  -fx-max-width: $width;
+}
+
+@mixin set-size($width, $height) {
+  @include set-width($width);
+  @include set-height($height);
+}
+
+%toolbar-control {
   & .toolbar-control-left-box,
   & .toolbar-control-right-box {
     -fx-spacing: px(3);
     -fx-max-height: px(34);
+
+    & .toolbar-label {
+      @extend %toolbar-item-base;
+      & .menu-button {
+        & .arrow-button {
+          -fx-padding: 0;
+          & .arrow {
+            -fx-padding: 0;
+            -fx-min-height: 0 !important;
+            -fx-pref-height: 0 !important;
+            -fx-max-height: 0 !important;
+            -fx-min-width: 0 !important;
+            -fx-pref-width: 0 !important;
+            -fx-max-width: 0 !important;
+          }
+        }
+      }
+    }
+    & .toolbar-button {
+      @extend %toolbar-item-base;
+      & .menu-button {
+        &:hover {
+          -fx-cursor: hand;
+        }
+        &:pressed {
+          -fx-background-color: -primary-variant-color;
+        }
+        & .arrow-button {
+          -fx-padding: 0;
+          & .arrow {
+            -fx-padding: 0;
+            -fx-min-height: 0 !important;
+            -fx-pref-height: 0 !important;
+            -fx-max-height: 0 !important;
+            -fx-min-width: 0 !important;
+            -fx-pref-width: 0 !important;
+            -fx-max-width: 0 !important;
+          }
+        }
+      }
+    }
+    & .toolbar-menu-button {
+      @extend %toolbar-item-base;
+      & .menu-button {
+        &:hover {
+          -fx-cursor: hand;
+        }
+        &:showing {
+          -fx-background-color: -primary-variant-color;
+
+          & .arrow-button .arrow {
+            -fx-rotate: -90;
+          }
+        }
+      }
+    }
   }
 
   // @extend %context-menu;
   // The extention of the context-menu can be found in the context-menu.css file.
   // It is set in the constructor of the Workbench.
+}
+
+%toolbar-item-base {
+  @include set-height(px(34));
+  & .menu-button {
+     -fx-background-color: -primary-color;
+
+     -fx-background-insets: 0; // Remove the border from bottom
+     -fx-padding: 0 .25em;
+
+     -fx-graphic-text-gap: .6em;
+     -fx-background-radius: px(2);
+     -fx-border-width: 0;
+
+     & .label {
+       @include set-height(px(16));
+
+       & .glyph-icon,
+       & .text {
+         -fx-fill: -on-primary-color;
+       }
+     }
+     & .arrow-button {
+       & .arrow {
+         @extend %arrow-right-icon;
+         -fx-rotate: 90;
+         @include set-size(px(2.5), px(5));
+         -fx-background-color: -on-primary-color;
+       }
+     }
+   }
 }
 
 %menu-button {
@@ -100,94 +200,6 @@
         -fx-pref-width: -shape-width;
         -fx-pref-height: -shape-height;
       }
-    }
-  }
-}
-
-%dropdown {
-  & .toolbar-menu-button {
-    -fx-max-height: px(34);
-
-    & .dropdown {
-      -fx-background-insets: 0; // Remove the border from bottom
-      -fx-padding: 0 1em 0 .25em;
-      -fx-graphic-text-gap: .5em;
-      -fx-pref-height: px(34);
-      -fx-background-color: transparent;
-      -fx-background-radius: px(2);
-      -fx-border-width: 0;
-
-      & .label {
-        & .glyph-icon {
-          -fx-fill: -on-primary-color;
-        }
-        & .image-view {
-
-        }
-        & .text {
-          -fx-fill: -on-primary-color;
-        }
-      }
-
-      & .arrow-button {
-        -fx-padding: 0;
-        -fx-background-insets: 0;
-
-        & .arrow {
-          @extend %arrow-right-icon;
-          -fx-rotate: 90;
-
-          -shape-width: px(2.5) !important; // Shrink arrow down
-          -shape-height: px(5) !important; // Shrink arrow down
-          -fx-max-width: -shape-width;
-          -fx-max-height: -shape-height;
-          -fx-min-width: -shape-width;
-          -fx-min-height: -shape-height;
-          -fx-pref-width: -shape-width;
-          -fx-pref-height: -shape-height;
-
-          -fx-background-color: -on-primary-color;
-        }
-      }
-
-      &:hover {
-        -fx-cursor: hand;
-      }
-
-      &:showing {
-        -fx-background-color: -primary-variant-color;
-
-        & .arrow-button .arrow {
-          -fx-rotate: -90;
-        }
-      }
-    }
-  }
-}
-
-%button-base {
-  & .button {
-    -fx-background-insets: 0; // Remove the border from bottom
-    -fx-padding: 0 .75em 0 .75em;
-    -fx-graphic-text-gap: .5em;
-    -fx-pref-height: px(34);
-    -fx-background-color: transparent;
-    -fx-background-radius: px(2);
-    -fx-border-width: 0;
-
-    & .glyph-icon {
-      -fx-fill: -on-primary-color;
-    }
-
-    & .text {
-      -fx-fill: -on-primary-color;
-    }
-
-    &:hover {
-      -fx-cursor: hand;
-    }
-    &:pressed {
-      -fx-background-color: -primary-variant-color;
     }
   }
 }

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.scene.Node;
@@ -24,7 +25,7 @@ public class MockFactory {
    */
   public static WorkbenchModule createMockModule(
       Node displayNode, Node icon, boolean destroy, String toString, Workbench workbench,
-      ObservableList<Node> controlsLeft, ObservableSet<Node> controlsRight
+      ObservableList<ToolbarItem> controlsLeft, ObservableSet<ToolbarItem> controlsRight
   ) {
     WorkbenchModule mockModule = mock(WorkbenchModule.class);
     when(mockModule.getName()).thenReturn(toString);
