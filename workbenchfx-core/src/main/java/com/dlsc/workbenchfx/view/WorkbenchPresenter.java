@@ -7,8 +7,9 @@ import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import java.util.Objects;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.collections.ObservableSet;
+import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
 import org.apache.logging.log4j.LogManager;
@@ -28,8 +29,8 @@ public class WorkbenchPresenter extends Presenter {
   private WorkbenchView view;
 
   private final ObservableMap<Region, WorkbenchOverlay> overlays;
-  private final ObservableSet<Region> overlaysShown;
-  private final ObservableSet<Region> blockingOverlaysShown;
+  private final ObservableList<Region> overlaysShown;
+  private final ObservableList<Region> blockingOverlaysShown;
 
   /**
    * Constructs a new {@link WorkbenchPresenter} for the {@link WorkbenchView}.
@@ -79,16 +80,16 @@ public class WorkbenchPresenter extends Presenter {
       }
     });
 
-    WorkbenchUtils.addSetListener(
+    WorkbenchUtils.addListListener(
         overlaysShown,
-        change -> showOverlay(change.getElementAdded(), false),
-        change -> hideOverlay(change.getElementRemoved())
+        change -> showOverlay(change, false),
+        this::hideOverlay
     );
 
-    WorkbenchUtils.addSetListener(
+    WorkbenchUtils.addListListener(
         blockingOverlaysShown,
-        change -> showOverlay(change.getElementAdded(), true),
-        change -> hideOverlay(change.getElementRemoved())
+        change -> showOverlay(change, true),
+        this::hideOverlay
     );
   }
 
@@ -169,7 +170,6 @@ public class WorkbenchPresenter extends Presenter {
             model.hideOverlay(overlay);
           }
         }
-
       });
     }
   }

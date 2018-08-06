@@ -9,7 +9,6 @@ import com.dlsc.workbenchfx.view.controls.selectionstrip.TabCell;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
 import javafx.css.PseudoClass;
 import javafx.scene.control.MenuItem;
 import org.apache.logging.log4j.LogManager;
@@ -31,7 +30,7 @@ public class ToolbarPresenter extends Presenter {
   // Strong reference to prevent garbage collection
   private final ObservableList<MenuItem> navigationDrawerItems;
   private final ObservableList<ToolbarItem> toolbarControlsLeft;
-  private final ObservableSet<ToolbarItem> toolbarControlsRight;
+  private final ObservableList<ToolbarItem> toolbarControlsRight;
   private final ObservableList<WorkbenchModule> openModules;
 
   private final PseudoClass emptyState = new PseudoClass() {

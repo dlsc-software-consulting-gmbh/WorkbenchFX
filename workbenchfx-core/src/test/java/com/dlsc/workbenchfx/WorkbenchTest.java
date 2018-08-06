@@ -45,7 +45,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.collections.ObservableSet;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -93,8 +92,8 @@ class WorkbenchTest extends ApplicationTest {
   WorkbenchModule second;
   WorkbenchModule last;
   private ObservableMap<Region, WorkbenchOverlay> overlays;
-  private ObservableSet<Region> blockingOverlaysShown;
-  private ObservableSet<Region> overlaysShown;
+  private ObservableList<Region> blockingOverlaysShown;
+  private ObservableList<Region> overlaysShown;
   private Region overlay1;
   private Region overlay2;
   private Region overlay3;
@@ -140,7 +139,7 @@ class WorkbenchTest extends ApplicationTest {
     for (int i = 0; i < mockModules.length; i++) {
       mockModules[i] = createMockModule(
           moduleNodes[i], null, true, "Module " + i, workbench,
-          FXCollections.observableArrayList(), FXCollections.observableSet()
+          FXCollections.observableArrayList(), FXCollections.observableArrayList()
       );
     }
 
@@ -919,7 +918,7 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(1, blockingOverlaysShown.size());
       assertEquals(1, overlaysShown.size());
       assertTrue(overlay1.isVisible()); // overlay1 has been made visible
-      assertTrue(overlay2.isVisible()); // overlay1 has been made visible
+      assertTrue(overlay2.isVisible()); // overlay2 has been made visible
       GlassPane glassPane1 = overlays.get(overlay1).getGlassPane();
       assertFalse(glassPane1.isHide());
       assertNotNull(glassPane1.onMouseClickedProperty().get()); // closing handler has been attached
@@ -1222,8 +1221,6 @@ class WorkbenchTest extends ApplicationTest {
       d = new ToolbarItem(toolbarItemText, toolbarItemMenuItem);
       assertTrue(workbench.getToolbarControlsRight().add(d));
       assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
-      assertFalse(workbench.getToolbarControlsRight().add(d));
-      assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
     });
   }
 
@@ -1235,7 +1232,7 @@ class WorkbenchTest extends ApplicationTest {
       String mockModuleName = "Mock Module";
       WorkbenchModule mockModule = createMockModule(
           new Label(),null,true, mockModuleName, workbench,
-          FXCollections.observableArrayList(), FXCollections.observableSet()
+          FXCollections.observableArrayList(), FXCollections.observableArrayList()
       );
 
       assertTrue(workbench.getModules().add(mockModule));
