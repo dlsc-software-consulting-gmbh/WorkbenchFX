@@ -5,9 +5,16 @@ import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
 import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
-import com.dlsc.workbenchfx.custom.pokemon.PokemonModule;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
+import com.dlsc.workbenchfx.custom.test.DialogTestModule;
+import com.dlsc.workbenchfx.custom.test.DrawerTestModule;
+import com.dlsc.workbenchfx.custom.test.InterruptClosing2TestModule;
+import com.dlsc.workbenchfx.custom.test.InterruptClosingTestModule;
+import com.dlsc.workbenchfx.custom.test.LifecycleTestModule;
+import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
+import com.dlsc.workbenchfx.custom.test.ToolbarItemTestModule;
 import com.dlsc.workbenchfx.custom.test.ToolbarTestModule;
+import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -93,21 +100,20 @@ public class CustomDemo extends Application {
     // WorkbenchFX
     workbench =
         Workbench.builder(
-            new PokemonModule(),
             new CalendarModule(),
             new NotesModule(),
             new CustomerModule(),
             new PreferencesModule(),
-            new ToolbarTestModule()
-//            new ToolbarTestModule(),
-//            new WidgetsTestModule(),
-//            new ToolbarItemTestModule(),
-//            new NavigationDrawerTestModule(),
-//            new InterruptClosingTestModule(),
-//            new InterruptClosing2TestModule(),
-//            new DialogTestModule(),
-//            new DrawerTestModule(),
-//            new LifecycleTestModule()
+            new ToolbarTestModule(),
+            new ToolbarTestModule(),
+            new WidgetsTestModule(),
+            new ToolbarItemTestModule(),
+            new NavigationDrawerTestModule(),
+            new InterruptClosingTestModule(),
+            new InterruptClosing2TestModule(),
+            new DialogTestModule(),
+            new DrawerTestModule(),
+            new LifecycleTestModule()
         )
             .toolbarLeft(
                 new ToolbarItem("Workbench Application"),
