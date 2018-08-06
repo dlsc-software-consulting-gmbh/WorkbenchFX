@@ -115,6 +115,8 @@
   #toolbar #top-box #menu-button:pressed, #toolbar #bottom-box #menu-button:pressed {
     -fx-background-color: -primary-variant-color;
     -fx-background-radius: 0.1428571429em; }
+  #toolbar #top-box #menu-button:hover, #toolbar #bottom-box #menu-button:hover {
+    -fx-cursor: hand; }
 
 #toolbar .icon, .navigation-drawer .drawer-box .header .icon {
   -fx-background-color: transparent;

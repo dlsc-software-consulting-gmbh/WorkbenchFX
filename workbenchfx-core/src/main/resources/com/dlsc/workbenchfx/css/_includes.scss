@@ -132,6 +132,10 @@
       -fx-background-color: -primary-variant-color;
       -fx-background-radius: px(2);
     }
+
+    &:hover {
+      -fx-cursor: hand;
+    }
   }
 }
 
