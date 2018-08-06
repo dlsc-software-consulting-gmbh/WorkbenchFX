@@ -62,7 +62,7 @@ public class WorkbenchSkin extends SkinBase<Workbench> {
     addModuleView = new AddModuleView();
     addModulePresenter = new AddModulePresenter(model, addModuleView);
 
-    contentView = new ContentView();
+    contentView = new ContentView(addModuleView);
     contentPresenter = new ContentPresenter(model, contentView);
 
     workbenchView = new WorkbenchView(toolbarView, addModuleView, contentView);

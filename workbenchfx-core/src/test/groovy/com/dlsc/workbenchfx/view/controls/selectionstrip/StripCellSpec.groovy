@@ -57,7 +57,7 @@ class StripCellSpec extends ApplicationSpec {
 
     def "test if maxWidth and Height were set correctly"() {
         given: "Double value of max and min which shall be set"
-        double val = Double.MAX_VALUE;
+        double val = Double.MAX_VALUE
 
         when: "the cell is created"
         stripCell = new StripCell<>()

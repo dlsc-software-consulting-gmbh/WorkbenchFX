@@ -2,29 +2,27 @@ package com.dlsc.workbenchfx.custom;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
-import com.dlsc.workbenchfx.custom.controls.CustomNavigationDrawer;
-import com.dlsc.workbenchfx.custom.controls.CustomPage;
-import com.dlsc.workbenchfx.custom.controls.CustomTab;
-import com.dlsc.workbenchfx.custom.controls.CustomTile;
 import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DialogTestModule;
 import com.dlsc.workbenchfx.custom.test.DrawerTestModule;
-import com.dlsc.workbenchfx.custom.test.DropdownTestModule;
 import com.dlsc.workbenchfx.custom.test.InterruptClosing2TestModule;
 import com.dlsc.workbenchfx.custom.test.InterruptClosingTestModule;
 import com.dlsc.workbenchfx.custom.test.LifecycleTestModule;
 import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
+import com.dlsc.workbenchfx.custom.test.ToolbarItemTestModule;
+import com.dlsc.workbenchfx.custom.test.ToolbarTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
-import com.dlsc.workbenchfx.view.controls.Dropdown;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -58,11 +56,11 @@ public class CustomDemo extends Application {
 
   private Workbench initWorkbench() {
     // Navigation Drawer
-    Menu menu1 = new Menu("Customer", createIcon(FontAwesomeIcon.USER));
-    Menu menu2 = new Menu("Tariff Management", createIcon(FontAwesomeIcon.BUILDING));
-    Menu menu3 = new Menu("Complaints", createIcon(FontAwesomeIcon.BOMB));
+    Menu menu1 = new Menu("Customer", createIcon(MaterialDesignIcon.ACCOUNT_MULTIPLE));
+    Menu menu2 = new Menu("Tariff Management", createIcon(MaterialDesignIcon.DOMAIN));
+    Menu menu3 = new Menu("Complaints", createIcon(MaterialDesignIcon.BOMB));
 
-    FontAwesomeIcon genericIcon = FontAwesomeIcon.QUESTION;
+    MaterialDesignIcon genericIcon = MaterialDesignIcon.HELP;
     MenuItem item11 = new MenuItem("Item 1.1", createIcon(genericIcon));
     MenuItem item12 = new MenuItem("Item 1.2", createIcon(genericIcon));
     MenuItem item13 = new MenuItem("Item 1.3", createIcon(genericIcon));
@@ -81,9 +79,9 @@ public class CustomDemo extends Application {
     MenuItem item32 = new MenuItem("Item 3.2", createIcon(genericIcon));
     MenuItem item33 = new MenuItem("Item 3.3", createIcon(genericIcon));
 
-    MenuItem itemA = new MenuItem("Complaints", createIcon(FontAwesomeIcon.BOMB));
-    MenuItem itemB = new MenuItem("Printing", createIcon(FontAwesomeIcon.PRINT));
-    MenuItem itemC = new MenuItem("Settings", createIcon(FontAwesomeIcon.COGS));
+    MenuItem itemA = new MenuItem("Complaints", createIcon(MaterialDesignIcon.BOMB));
+    MenuItem itemB = new MenuItem("Printing", createIcon(MaterialDesignIcon.PRINTER));
+    MenuItem itemC = new MenuItem("Settings", createIcon(MaterialDesignIcon.SETTINGS));
 
     MenuItem showOverlay = new MenuItem("Show overlay");
     MenuItem showBlockingOverlay = new MenuItem("Show blocking overlay");
@@ -94,11 +92,12 @@ public class CustomDemo extends Application {
     menu2.getItems().addAll(item21, item22);
     menu3.getItems().addAll(item31, item32, item33);
 
-    Button addPreferences = new Button("Add", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
-    Button removePreferences = new Button("Remove", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
-    addPreferences.getStyleClass().add("button-inverted");
-
-    Button showDialogButton = new Button("Show", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    ToolbarItem addPreferences = new ToolbarItem("Add",
+        new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    ToolbarItem removePreferences = new ToolbarItem("Remove",
+        new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    ToolbarItem showDialogButton = new ToolbarItem("Show",
+        new FontAwesomeIconView(FontAwesomeIcon.GEARS));
 
     // WorkbenchFX
     workbench =
@@ -107,8 +106,10 @@ public class CustomDemo extends Application {
             new NotesModule(),
             new CustomerModule(),
             new PreferencesModule(),
+            new ToolbarTestModule(),
+            new ToolbarTestModule(),
             new WidgetsTestModule(),
-            new DropdownTestModule(),
+            new ToolbarItemTestModule(),
             new NavigationDrawerTestModule(),
             new InterruptClosingTestModule(),
             new InterruptClosing2TestModule(),
@@ -117,32 +118,33 @@ public class CustomDemo extends Application {
             new LifecycleTestModule()
         )
             .toolbarLeft(
+                new ToolbarItem("WorkbenchFX"),
                 addPreferences,
                 removePreferences,
-                Dropdown.of(
+                new ToolbarItem(
                     new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2")))
             )
             .toolbarRight(
                 showDialogButton,
-                Dropdown.of(
-                    new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
+                new ToolbarItem(
+                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new Menu(
                         "Submenus",
                         new FontAwesomeIconView(FontAwesomeIcon.PLUS),
                         new MenuItem("Submenu 1"),
                         new CustomMenuItem(new Label("CustomMenuItem"), false))),
-                Dropdown.of(
+                new ToolbarItem(
                     "Text",
-                    new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
+                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
-            .modulesPerPage(4)
-            .pageFactory(CustomPage::new)
-            .tabFactory(CustomTab::new)
-            .tileFactory(CustomTile::new)
-            .navigationDrawer(new CustomNavigationDrawer())
+            .modulesPerPage(9)
+            //.pageFactory(CustomPage::new)
+            //.tabFactory(CustomTab::new)
+            //.tileFactory(CustomTile::new)
+            //.navigationDrawer(new CustomNavigationDrawer())
             .navigationDrawerItems(
                 menu1, menu2, menu3, itemA, itemB, itemC, showOverlay, showBlockingOverlay)
             .build();
@@ -151,13 +153,14 @@ public class CustomDemo extends Application {
     CustomOverlay blockingCustomOverlay = new CustomOverlay(workbench, true);
     showOverlay.setOnAction(event -> workbench.showOverlay(customOverlay, false));
     showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
-    addPreferences.setOnAction(event -> workbench.getModules().add(preferencesModule));
-    removePreferences.setOnAction(event -> workbench.getModules().remove(preferencesModule));
-    showDialogButton.setOnAction(event -> workbench.showConfirmationDialog("Reset settings?",
+    addPreferences.setOnClick(event -> workbench.getModules().add(preferencesModule));
+    removePreferences.setOnClick(event -> workbench.getModules().remove(preferencesModule));
+    showDialogButton.setOnClick(event -> workbench.showConfirmationDialog("Reset settings?",
         "This will reset your device to its default factory settings.", null));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
-//    workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+    //workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+    //workbench.getStylesheets().add(CustomDemo.class.getResource("darkTheme.css").toExternalForm());
 
     workbench
         .getStylesheets()
@@ -166,9 +169,9 @@ public class CustomDemo extends Application {
     return workbench;
   }
 
-  private Node createIcon(FontAwesomeIcon icon) {
-    FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(icon);
-    fontAwesomeIconView.getStyleClass().add("icon");
-    return fontAwesomeIconView;
+  private Node createIcon(MaterialDesignIcon icon) {
+    MaterialDesignIconView materialDesignIconView = new MaterialDesignIconView(icon);
+    materialDesignIconView.getStyleClass().add("icon");
+    return materialDesignIconView;
   }
 }

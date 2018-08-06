@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.view.dialog;
+package com.dlsc.workbenchfx.view.controls.dialog;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,9 +17,10 @@ import static org.mockito.Mockito.when;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.testing.MockDialogControl;
-import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import java.util.Optional;
 import java.util.function.Consumer;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -64,6 +65,8 @@ class DialogControlTest extends ApplicationTest {
   private Stage stage;
   private DialogControl dialogControl2;
 
+  private BooleanProperty blocking;
+
   @Override
   public void start(Stage stage) {
     this.stage = stage;
@@ -71,10 +74,12 @@ class DialogControlTest extends ApplicationTest {
 
     robot = new FxRobot();
 
+    blocking = new SimpleBooleanProperty();
     mockDialog = mock(WorkbenchDialog.class);
     buttonTypes = FXCollections.observableArrayList(BUTTON_TYPE_1);
     when(mockDialog.getButtonTypes()).thenReturn(buttonTypes);
     when(mockDialog.getOnResult()).thenReturn(mockOnResult);
+    when(mockDialog.blockingProperty()).thenReturn(blocking);
 
     mockBench = mock(Workbench.class);
 

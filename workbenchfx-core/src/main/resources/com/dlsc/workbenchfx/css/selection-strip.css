@@ -69,7 +69,7 @@
       -fx-background-radius: 0.3571428571em 0.3571428571em 0 0;
       -fx-border-radius: 0.3571428571em 0.3571428571em 0 0;
       -fx-cursor: inherit;
-      -fx-background-insets: 0 0 0 -1px; }
+      -fx-background-insets: 0 0 0 -1.2px; }
       #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control {
         -fx-border-color: transparent; }
         #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-icon, #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-name-lbl .text {

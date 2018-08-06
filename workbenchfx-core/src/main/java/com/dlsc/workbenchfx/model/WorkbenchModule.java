@@ -1,9 +1,15 @@
 package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.view.controls.ToolbarControl;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.util.Objects;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,10 +30,19 @@ public abstract class WorkbenchModule {
   private Workbench workbench;
   private String name;
   private FontAwesomeIcon faIcon;
+  private MaterialDesignIcon mdIcon;
   private Image imgIcon;
+
+  // The sets which store the toolbar icons which are displayed in the modules toolbar
+  private final ObservableList<ToolbarItem> toolbarControlsLeft =
+      FXCollections.observableArrayList();
+  private final ObservableList<ToolbarItem> toolbarControlsRight =
+      FXCollections.observableArrayList();
 
   /**
    * Super constructor to be called by the implementing class.
+   * Uses a {@link FontAwesomeIcon} as the icon for this module.
+   * @see <a href="https://fontawesome.com/v4.7.0/">FontAwesome v4.7.0 Icons</a>
    *
    * @param name of this module
    * @param icon of this module
@@ -35,6 +50,19 @@ public abstract class WorkbenchModule {
   protected WorkbenchModule(String name, FontAwesomeIcon icon) {
     this.name = name;
     faIcon = icon;
+  }
+
+  /**
+   * Super constructor to be called by the implementing class.
+   * Uses a {@link MaterialDesignIcon} as the icon for this module.
+   * @see <a href="https://materialdesignicons.com/">Material Design Icons</a>
+   *
+   * @param name of this module
+   * @param icon of this module
+   */
+  protected WorkbenchModule(String name, MaterialDesignIcon icon) {
+    this.name = name;
+    mdIcon = icon;
   }
 
   /**
@@ -157,6 +185,35 @@ public abstract class WorkbenchModule {
    * @return the icon of this module as a {@link Node}.
    */
   public Node getIcon() {
-    return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
+    if (!Objects.isNull(faIcon)) {
+      return new FontAwesomeIconView(faIcon);
+    } else if (!Objects.isNull(mdIcon)) {
+      return new MaterialDesignIconView(mdIcon);
+    }
+    return new ImageView(imgIcon);
+  }
+
+  /**
+   * Returns an {@link ObservableList} which stores the toolbar items of the module.
+   * If it's not empty, the {@link Workbench} creates a pre styled {@link ToolbarControl}
+   * and adds the stored items on its left side.
+   *
+   * @return the {@link ObservableList} of items which are displayed on the left side of the
+   *         automatically added {@link ToolbarControl}
+   */
+  public ObservableList<ToolbarItem> getToolbarControlsLeft() {
+    return toolbarControlsLeft;
+  }
+
+  /**
+   * Returns an {@link ObservableList} which stores the toolbar items of the module.
+   * If it's not empty, the {@link Workbench} creates a pre styled {@link ToolbarControl}
+   * and adds the stored items on its right side.
+   *
+   * @return the {@link ObservableList} of items which are displayed on the right side of the
+   *         automatically generated {@link ToolbarControl}
+   */
+  public ObservableList<ToolbarItem> getToolbarControlsRight() {
+    return toolbarControlsRight;
   }
 }

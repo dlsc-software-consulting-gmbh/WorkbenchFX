@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.standard;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.custom.test.ToolbarItemTestModule;
 import com.dlsc.workbenchfx.extended.calendar.CalendarModule;
 import com.dlsc.workbenchfx.extended.notes.NotesModule;
 import com.dlsc.workbenchfx.extended.preferences.PreferencesModule;
@@ -38,7 +39,8 @@ public class StandardDemo extends Application {
     workbench = Workbench.builder(
         calendarModule,
         notesModule,
-        preferencesModule
+        preferencesModule,
+        new ToolbarItemTestModule()
     ).build();
     return workbench;
   }

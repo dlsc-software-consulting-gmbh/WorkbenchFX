@@ -1,3 +1,5 @@
+package com.dlsc.workbenchfx.model
+
 import com.dlsc.workbenchfx.model.WorkbenchDialog
 import com.dlsc.workbenchfx.model.WorkbenchDialog.Type
 import com.dlsc.workbenchfx.testing.MockDialogControl
@@ -25,7 +27,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
     private Label content
     private static final WorkbenchDialog.Type TYPE = WorkbenchDialog.Type.INFORMATION
     private WorkbenchDialog dialog
-    private MockDialogControl mockDialogControl;
+    private MockDialogControl mockDialogControl
 
     private FxRobot robot
 
@@ -115,7 +117,6 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         EventHandler<Event> onHidden = { event -> }
         EventHandler<Event> onShown = { event -> }
         DialogControl dialogControl = new MockDialogControl()
-        ButtonType cancelDialogButtonType = ButtonType.FINISH
 
         when: "Optional parameters are specified"
         dialog = WorkbenchDialog.builder(TITLE, content, TYPE)
@@ -129,7 +130,6 @@ class WorkbenchDialogSpec extends ApplicationSpec {
                 .onHidden(onHidden)
                 .onShown(onShown)
                 .dialogControl(dialogControl)
-                .cancelDialogButtonType(cancelDialogButtonType)
                 .build()
 
         then: "Specified optional parameters are correctly set"
@@ -143,7 +143,6 @@ class WorkbenchDialogSpec extends ApplicationSpec {
         onHidden == dialog.getOnHidden()
         onShown == dialog.getOnShown()
         dialogControl == dialog.getDialogControl()
-        cancelDialogButtonType == dialog.getCancelDialogButtonType()
     }
 
     def "Initialization of a Dialog with Type #type has exactly the ButtonTypes #buttonTypes"(
