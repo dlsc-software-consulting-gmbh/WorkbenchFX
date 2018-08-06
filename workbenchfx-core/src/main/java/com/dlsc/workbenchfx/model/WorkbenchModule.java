@@ -5,6 +5,7 @@ import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import javafx.collections.FXCollections;
@@ -40,6 +41,8 @@ public abstract class WorkbenchModule {
 
   /**
    * Super constructor to be called by the implementing class.
+   * Uses a {@link FontAwesomeIcon} as the icon for this module.
+   * @see <a href="https://fontawesome.com/v4.7.0/">FontAwesome v4.7.0 Icons</a>
    *
    * @param name of this module
    * @param icon of this module
