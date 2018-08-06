@@ -862,6 +862,8 @@ public class Workbench extends Control {
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
    *                 overlay} itself must call {@link Workbench#hideOverlay(Region)} to hide it.
+   * @param side from which the {@code overlay} should be slid when the overlay is being shown or
+   *             hidden
    * @return true if the overlay is not being shown already
    */
   private boolean showOverlay(Region overlay, boolean blocking, Side side) {
@@ -870,7 +872,7 @@ public class Workbench extends Control {
       overlays.put(overlay,
           new WorkbenchOverlay(overlay, new GlassPane(), slideIn(overlay), slideOut(overlay))
       );
-      addAnimationListener(overlays.get(overlay), side);
+      addInitialAnimationHandler(overlays.get(overlay), side);
     }
     return showOverlay(overlay, blocking);
   }
@@ -881,7 +883,7 @@ public class Workbench extends Control {
    * @param workbenchOverlay TODO
    * @param side TODO
    */
-  private void addAnimationListener(WorkbenchOverlay workbenchOverlay, Side side) {
+  private void addInitialAnimationHandler(WorkbenchOverlay workbenchOverlay, Side side) {
     Region overlay = workbenchOverlay.getOverlay();
     // prepare values for setting the listener
     ReadOnlyDoubleProperty size =
