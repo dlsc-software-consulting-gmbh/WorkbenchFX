@@ -1,3 +1,5 @@
+package com.dlsc.workbenchfx.model
+
 import com.dlsc.workbenchfx.model.WorkbenchDialog
 import com.dlsc.workbenchfx.model.WorkbenchDialog.Type
 import com.dlsc.workbenchfx.testing.MockDialogControl

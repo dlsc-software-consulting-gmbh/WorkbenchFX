@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.view.dialog
+package com.dlsc.workbenchfx.view.controls.dialog
 
 import com.dlsc.workbenchfx.Workbench
 import com.dlsc.workbenchfx.model.WorkbenchDialog
@@ -178,7 +178,7 @@ class IDialogSpec extends ApplicationSpec {
      * @param overlayNode of which the GlassPane should be clicked
      */
     def simulateGlassPaneClick(Node overlayNode) {
-        GlassPane glassPane = workbench.getOverlays().get(overlayNode);
+        GlassPane glassPane = workbench.getOverlays().get(overlayNode).getGlassPane();
         glassPane.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0,
                 MouseButton.PRIMARY, 1,
                 false, false, false, false, true, false, false, false, false, false,
