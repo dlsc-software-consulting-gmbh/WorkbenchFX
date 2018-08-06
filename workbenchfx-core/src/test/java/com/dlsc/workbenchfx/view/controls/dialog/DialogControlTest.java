@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.view.dialog;
+package com.dlsc.workbenchfx.view.controls.dialog;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,7 +17,6 @@ import static org.mockito.Mockito.when;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.testing.MockDialogControl;
-import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import java.util.Optional;
 import java.util.function.Consumer;
 import javafx.beans.property.BooleanProperty;
