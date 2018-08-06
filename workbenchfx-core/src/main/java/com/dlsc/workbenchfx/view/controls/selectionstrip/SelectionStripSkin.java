@@ -55,10 +55,12 @@ public class SelectionStripSkin<T> extends SkinBase<SelectionStrip<T>> {
     leftBtn = new Region();
     leftBtn.getStyleClass().addAll("scroller", "left");
     leftBtn.setOpacity(0);
+    leftBtn.setVisible(false);
 
     rightBtn = new Region();
     rightBtn.getStyleClass().addAll("scroller", "right");
     rightBtn.setOpacity(0);
+    rightBtn.setVisible(false);
 
     leftFader = new Region();
     leftFader.setMouseTransparent(true);
@@ -142,15 +144,21 @@ public class SelectionStripSkin<T> extends SkinBase<SelectionStrip<T>> {
   private void fadeSupport(Boolean newShow, Region fader, Region button) {
     if (getSkinnable().isAnimateScrolling()) {
       if (newShow) {
-        new ParallelTransition(createFadeTransition(fader, 0, 1),
-            createFadeTransition(button, 0, 1)).play();
+        button.setVisible(true);
+        ParallelTransition parallelTransition = new ParallelTransition(
+            createFadeTransition(fader, 0, 1),
+            createFadeTransition(button, 0, 1));
+        parallelTransition.play();
       } else {
-        new ParallelTransition(createFadeTransition(fader, 1, 0),
-            createFadeTransition(button, 1, 0)).play();
+        ParallelTransition parallelTransition = new ParallelTransition(
+            createFadeTransition(fader, 1, 0),
+            createFadeTransition(button, 1, 0));
+        parallelTransition.setOnFinished(event -> button.setVisible(false));
+        parallelTransition.play();
       }
     } else {
-      fader.setOpacity(newShow ? 1 : 0);
-      button.setOpacity(newShow ? 1 : 0);
+      fader.setVisible(newShow);
+      button.setVisible(newShow);
     }
   }
 
