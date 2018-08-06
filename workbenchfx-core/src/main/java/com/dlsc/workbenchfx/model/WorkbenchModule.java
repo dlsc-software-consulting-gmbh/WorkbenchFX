@@ -6,6 +6,7 @@ import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import javafx.collections.FXCollections;
@@ -31,6 +32,7 @@ public abstract class WorkbenchModule {
   private Workbench workbench;
   private String name;
   private FontAwesomeIcon faIcon;
+  private MaterialDesignIcon mdIcon;
   private Image imgIcon;
 
   // The sets which store the toolbar icons which are displayed in the modules toolbar
@@ -50,6 +52,19 @@ public abstract class WorkbenchModule {
   protected WorkbenchModule(String name, FontAwesomeIcon icon) {
     this.name = name;
     faIcon = icon;
+  }
+
+  /**
+   * Super constructor to be called by the implementing class.
+   * Uses a {@link MaterialDesignIcon} as the icon for this module.
+   * @see <a href="https://materialdesignicons.com/">Material Design Icons</a>
+   *
+   * @param name of this module
+   * @param icon of this module
+   */
+  protected WorkbenchModule(String name, MaterialDesignIcon icon) {
+    this.name = name;
+    mdIcon = icon;
   }
 
   /**
@@ -172,7 +187,12 @@ public abstract class WorkbenchModule {
    * @return the icon of this module as a {@link Node}.
    */
   public Node getIcon() {
-    return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
+    if (!Objects.isNull(faIcon)) {
+      return new FontAwesomeIconView(faIcon);
+    } else if (!Objects.isNull(mdIcon)) {
+      return new MaterialDesignIconView(mdIcon);
+    }
+    return new ImageView(imgIcon);
   }
 
   /**
