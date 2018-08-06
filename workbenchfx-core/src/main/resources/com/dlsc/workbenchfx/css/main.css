@@ -173,8 +173,8 @@
     #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control {
       -fx-padding: 1em;
       -fx-alignment: CENTER;
-      -fx-pref-width: 13.25em;
-      -fx-pref-height: 8.1889503509em;
+      -fx-pref-width: 13.5em;
+      -fx-pref-height: 8.3434588481em;
       -fx-background-color: -surface-color;
       -fx-effect: -drop-shadow-1;
       -fx-border-width: 0;
@@ -183,7 +183,7 @@
       -fx-background-insets: 0; }
       #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .icon .glyph-icon {
         -fx-fill: -on-surface-color;
-        -fx-font-size: 1.5714285714em !important; }
+        -fx-font-size: 1.4285714286em !important; }
       #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-lbl {
         -fx-padding: .5em 0 0 0;
         -fx-alignment: CENTER;
