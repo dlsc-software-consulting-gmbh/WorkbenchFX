@@ -109,7 +109,7 @@ public final class WorkbenchOverlay {
     return initialized;
   }
 
-  public final void setInitialized(boolean initialized) {
+  private final void setInitialized(boolean initialized) {
     this.initialized = initialized;
   }
 
