@@ -915,7 +915,7 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(1, blockingOverlaysShown.size());
       assertEquals(1, overlaysShown.size());
       assertTrue(overlay1.isVisible()); // overlay1 has been made visible
-      assertTrue(overlay2.isVisible()); // overlay1 has been made visible
+      assertTrue(overlay2.isVisible()); // overlay2 has been made visible
       GlassPane glassPane1 = overlays.get(overlay1);
       assertFalse(glassPane1.isHide());
       assertNotNull(glassPane1.onMouseClickedProperty().get()); // closing handler has been attached
@@ -1220,8 +1220,6 @@ class WorkbenchTest extends ApplicationTest {
       int initialSizeRight = workbench.getToolbarControlsRight().size();
       d = new ToolbarItem(toolbarItemText, toolbarItemMenuItem);
       assertTrue(workbench.getToolbarControlsRight().add(d));
-      assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
-      assertFalse(workbench.getToolbarControlsRight().add(d));
       assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
     });
   }

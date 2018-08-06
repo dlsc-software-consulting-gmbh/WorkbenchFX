@@ -827,6 +827,10 @@ public class Workbench extends Control {
     if (!overlays.containsKey(overlay)) {
       overlays.put(overlay, new GlassPane());
     }
+    // To prevent showing the same overlay twice
+    if (blockingOverlaysShown.contains(overlay) || nonBlockingOverlaysShown.contains(overlay)) {
+      return false;
+    }
     if (blocking) {
       LOGGER.trace("showOverlay - blocking");
       return blockingOverlaysShown.add(overlay);
