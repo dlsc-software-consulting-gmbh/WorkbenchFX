@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
 import javafx.scene.control.Pagination;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -11,7 +10,6 @@ import javafx.scene.layout.StackPane;
  * @author Marco Sanfratello
  */
 public class AddModuleView extends StackPane implements View {
-  AnchorPane tilePane;
   Pagination pagination;
 
   /**
@@ -35,9 +33,6 @@ public class AddModuleView extends StackPane implements View {
   @Override
   public void initializeParts() {
     pagination = new Pagination();
-
-    tilePane = new AnchorPane();
-    tilePane.setId("tile-pane");
   }
 
   /**
@@ -45,15 +40,7 @@ public class AddModuleView extends StackPane implements View {
    */
   @Override
   public void layoutParts() {
-    AnchorPane.setTopAnchor(pagination, 0.0);
-    AnchorPane.setRightAnchor(pagination, 10.0);
-    AnchorPane.setBottomAnchor(pagination, 60.0);
-    AnchorPane.setLeftAnchor(pagination, 10.0);
-
     pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
-
-    tilePane.getChildren().addAll(pagination);
-
-    getChildren().add(tilePane);
+    getChildren().add(pagination);
   }
 }
