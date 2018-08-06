@@ -11,7 +11,7 @@ import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
@@ -58,7 +58,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
   private WorkbenchDialog favoriteLibrariesDialog;
 
   public DialogTestModule() {
-    super("Dialog Test", FontAwesomeIcon.QUESTION);
+    super("Dialog Test", MaterialDesignIcon.HELP);
     initDialogParts();
     initException();
     layoutParts();

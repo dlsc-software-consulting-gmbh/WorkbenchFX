@@ -115,8 +115,6 @@
   #toolbar #top-box #menu-button:pressed, #toolbar #bottom-box #menu-button:pressed {
     -fx-background-color: -primary-variant-color;
     -fx-background-radius: 0.1428571429em; }
-  #toolbar #top-box #menu-button:hover, #toolbar #bottom-box #menu-button:hover {
-    -fx-cursor: hand; }
 
 #toolbar .icon, .navigation-drawer .drawer-box .header .icon {
   -fx-background-color: transparent;
@@ -163,54 +161,52 @@
   -fx-min-height: 0;
   -fx-alignment: TOP_LEFT; }
 
-#content-view #add-module-view {
-  -fx-padding: 0 0 4em 0;
+#content-view #add-module-view #tile-pane .pagination {
   -fx-arrows-visible: false;
   -fx-page-information-visible: false;
   -fx-tooltip-visible: false; }
-  #content-view #add-module-view:one-page > .pagination-control {
-    -fx-opacity: 0; }
-  #content-view #add-module-view .page .tile-page {
+  #content-view #add-module-view #tile-pane .pagination .page .tile-page {
     -fx-vgap: 3em;
     -fx-hgap: 3em;
     -fx-padding: 1.5em;
     -fx-alignment: CENTER; }
-    #content-view #add-module-view .page .tile-page .tile-control {
+    #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control {
       -fx-padding: 1em;
       -fx-alignment: CENTER;
-      -fx-pref-width: 13.25em;
-      -fx-pref-height: 8.1889503509em;
+      -fx-pref-width: 13.5em;
+      -fx-pref-height: 8.3434588481em;
       -fx-background-color: -surface-color;
       -fx-effect: -drop-shadow-1;
       -fx-border-width: 0;
       -fx-border-radius: 0.3571428571em;
       -fx-background-radius: 0.3571428571em;
       -fx-background-insets: 0; }
-      #content-view #add-module-view .page .tile-page .tile-control .icon .glyph-icon {
-        -fx-fill: -on-surface-color; }
-      #content-view #add-module-view .page .tile-page .tile-control .text-lbl {
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .icon .glyph-icon {
+        -fx-fill: -on-surface-color;
+        -fx-font-size: 1.4285714286em !important; }
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-lbl {
         -fx-padding: .5em 0 0 0;
         -fx-alignment: CENTER;
         -fx-text-alignment: CENTER; }
-        #content-view #add-module-view .page .tile-page .tile-control .text-lbl .text {
+        #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-lbl .text {
           -fx-fill: -on-surface-color; }
-      #content-view #add-module-view .page .tile-page .tile-control:hover {
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control:hover {
         -fx-effect: -drop-shadow-2;
         -fx-cursor: hand; }
-      #content-view #add-module-view .page .tile-page .tile-control:pressed {
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control:pressed {
         -fx-effect: -drop-shadow-3; }
-  #content-view #add-module-view > .pagination-control > .control-box {
+  #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box {
     -fx-spacing: .25em; }
-    #content-view #add-module-view > .pagination-control > .control-box > .bullet-button {
+    #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button {
       -fx-background-radius: 50%;
       -fx-background-insets: 0.45em;
       -fx-background-color: -secondary-variant-color; }
-      #content-view #add-module-view > .pagination-control > .control-box > .bullet-button:hover {
+      #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:hover {
         -fx-cursor: hand;
         -fx-background-color: derive(-secondary-variant-color, 25%); }
-      #content-view #add-module-view > .pagination-control > .control-box > .bullet-button:selected {
+      #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected {
         -fx-background-color: -secondary-color; }
-        #content-view #add-module-view > .pagination-control > .control-box > .bullet-button:selected:hover {
+        #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
           -fx-cursor: inherit; }
 
 #content-view .toolbar-control {
