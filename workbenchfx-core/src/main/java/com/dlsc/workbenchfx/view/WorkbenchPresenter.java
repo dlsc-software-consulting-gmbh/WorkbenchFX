@@ -81,14 +81,14 @@ public class WorkbenchPresenter extends Presenter {
 
     WorkbenchUtils.addListListener(
         overlaysShown,
-        change -> showOverlay(change.getElementAdded(), false),
-        change -> hideOverlay(change.getElementRemoved())
+        change -> showOverlay(change, false),
+        this::hideOverlay
     );
 
     WorkbenchUtils.addListListener(
         blockingOverlaysShown,
-        change -> showOverlay(change.getElementAdded(), true),
-        change -> hideOverlay(change.getElementRemoved())
+        change -> showOverlay(change, true),
+        this::hideOverlay
     );
   }
 
@@ -166,7 +166,6 @@ public class WorkbenchPresenter extends Presenter {
             model.hideOverlay(overlay);
           }
         }
-
       });
     }
   }
