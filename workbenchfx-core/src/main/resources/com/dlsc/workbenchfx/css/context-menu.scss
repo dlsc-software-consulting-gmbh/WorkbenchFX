@@ -1,0 +1,29 @@
+@import "includes";
+
+.navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container {
+  @extend %context-menu;
+}
+
+#toolbar #top-box,
+.root #workbench #content-view .toolbar-control {
+  @extend %context-menu;
+
+  & .context-menu {
+    // Shrinking down everything with factor 0.8
+    -fx-background-radius: px(2);
+    -fx-padding: .4em 0 .4em 0;
+
+    & .menu-item {
+      -fx-padding: .6em .65em .6em .65em;
+
+      & .label {
+        -fx-padding: 0 1.6em 0 .2em;
+      }
+    }
+
+    & > .scroll-arrow {
+      // ArrowMenuItem when having a lot of items
+      -fx-padding: .8em;
+    }
+  }
+}

@@ -1,0 +1,71 @@
+#toolbar {
+  @extend %icon-base; // All icons in the toolbar are targeted
+  -fx-background-color: -primary-color;
+
+  & #top-box {
+    -fx-padding: px(3);
+    -fx-spacing: px(3);
+    @include set-height(px(40)); // Setting min, pref and max-height
+
+    @extend %menu-button; // The menu-button which opens the toolbar on the left
+
+    & #toolbar-control {
+      @extend %toolbar-control; // Target the toolbar where the menu items are stored
+    }
+
+    // @extend %context-menu;
+    // The CSS for the context menu can be found in the context-menu.css file.
+
+    &:empty {
+      @include set-height(px(3)); // When the toolbar is empty -> change its height
+    }
+  }
+
+  & #bottom-box {
+    -fx-alignment: CENTER;
+    -fx-pref-height: px(40);
+    -fx-padding: 0 px(4) 0 px(3);
+    -fx-spacing: px(3);
+
+    @extend %menu-button; // The menu-button which opens the toolbar on the left
+    //.selection-strip {...}
+    // The CSS for the context menu can be found in the selection-strip.css file.
+
+    & #add-button {
+      -fx-background-insets: 0;
+
+      & .shape {
+        -fx-background-color: -on-primary-color;
+        @extend %add-icon;
+      }
+
+      &:pressed {
+        -fx-background-radius: px(5) px(5) 0 0;
+        -fx-background-color: -primary-variant-color;
+      }
+
+      &:hover {
+        -fx-cursor: hand;
+      }
+    }
+
+    & .active-add-button {
+      -fx-background-color: -background-color;
+      -fx-background-radius: px(5) px(5) 0 0;
+      -fx-border-radius: px(5) px(5) 0 0;
+      -fx-background-insets: 0 -1px 0 -1px; // To remove the nearby tab's white border
+
+      & .shape {
+        -fx-background-color: -on-background-color !important;
+      }
+
+      &:pressed {
+        -fx-background-color: -background-color !important;
+      }
+
+      &:hover {
+        -fx-cursor: inherit !important;
+      }
+    }
+  }
+}

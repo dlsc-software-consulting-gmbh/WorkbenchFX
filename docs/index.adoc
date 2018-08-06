@@ -4,12 +4,15 @@ François Martin; Marco Sanfratello
 // Path to the code references
 :sourcedir: ../src/main/java
 :sourcedirdemo: ../workbenchfx-demo/src/main/java
+// Check symbol
+:y: &#10003;
 
 == Front page
 
 == Abstract / Management summary
 
 == Introduction
+The paradigm of WorkbenchFX is: "Give the API user as much customizability as reasonable, but make sure they don't have to use them."
 
 == The way to WorkbenchFX
 === Briefing
@@ -20,6 +23,11 @@ Fluent API or not?
 === First thoughts
 
 == Analysis
+
+=== Naming
+==== Navigation Drawer
+Comes from Material Design: https://material.io/guidelines/patterns/navigation-drawer.html
+
 === Architecture
 API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
 //They want to be able to define their own design to ensure it blends in with the design of their components.
@@ -72,15 +80,15 @@ Which is why we decided to include them in the API design of the `Module` class.
 * Tile representation of module in home screen => Node gets returned by getTile()
 
 ==== Icon: Image vs File vs Node
-As for the icon, there are different ways to implement the inclusion of one in a module.
+As for the graphic, there are different ways to implement the inclusion of one in a module.
 
 One possibility is to accept an `Image` object as a parameter of the constructor.
 The advantage is, that the API user doesn't need to care about how the image is being displayed
-The disadvantage however is, that it is for example not possible to specify a FontAwesome icon as a `Node`, to use vector objects.
+The disadvantage however is, that it is for example not possible to specify a FontAwesome graphic as a `Node`, to use vector objects.
 
-Also, it would be possible to have the API user include an image file in the resources, to use as an icon.
-Using "convention over configuration", the API user would simply choose the same name for the icon file as for the module, which makes it possible to easily identify the corresponding icon file of a module.
-This brings the advantage of having less code per module, since the icon doesn't need to be specified in the code.
+Also, it would be possible to have the API user include an image file in the resources, to use as an graphic.
+Using "convention over configuration", the API user would simply choose the same name for the graphic file as for the module, which makes it possible to easily identify the corresponding graphic file of a module.
+This brings the advantage of having less code per module, since the graphic doesn't need to be specified in the code.
 However, this is also limiting for the same reasons as with the `Image` object above, it is not possible to pass in objects to be displayed.
 
 This is why we decided to have the API user pass in a `Node` object to the constructor of the module.
@@ -98,6 +106,38 @@ At first, we used a separate `WorkbenchFxModel` object for the model.
 Our customer suggests that it would be easier to skip the `WorkbenchFxModel` class and just put the logic in `WorkbenchFx`, since that's the place where he would expect such logic.
 We decide to change it in a way that `WorkbenchFx` is the model object in the MVP pattern in our case.
 This simplifies the architecture and readability is improved, since methods are where they would be expected.
+
+// TODO: used view and presenter class, with view being interface and presenter being abstract.
+`View` is an interface, because it's used as a mixin.
+We implemented it this way because every view needs to already extend a certain JavaFX class and multiple inheritance is not possible in Java, so using an abstract class here isn't an option.
+This makes it possible to initialize all views in the same way while also resulting in less code duplication, since the `init()` method and the JavaDoc doesn't need to be rewritten over and over again.
+`Presenter` is abstract, because it acts more like a "super class" of all the presenters.
+Since all presenters don't need to extend anything else, using an abstract class here is possible.
+
+==== Builder Pattern
+// TODO: explain how builder pattern works in WorkbenchFx.java
+
+==== Overlays
+To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `WorkbenchFx.showOverlay()` and `WorkbenchFx.hideOverlay()` methods.
+// TODO: include code of the above mentioned methods
+// TODO: explain glass pane
+The GUI of WorkbenchFX is organized in layers.
+At all times, there is a layer of the general WorkbenchFX GUI, which is being represented by the view class `WorkbenchFxView`.
+On top of that is the `GlassPane`, which is generally hidden and is only being displayed if a modal overlay is being shown.
+Stacked on top are all of the layers, which are either being added by WorkbenchFx internally or by the API user.
+One example of an internally added layer is the Navigation Drawer, which is being displayed when the menu button has been pressed.
+
+Overlays must first be loaded by using the `overlays()` method in the builder.
+The overlays are initially being loaded hidden and are being displayed on demand by calling `WorkbenchFx.showOverlay()`.
+This way, initial loading of the application may take longer, since all of the overlays have to be eagerly loaded.
+In turn, actions of the user causing an overlay to be displayed are instant and don't require rebuilding of the scene graph.
+Users generally prefer to wait a bit longer for an application to startup, rather than waiting for every action to have a longer loading time. // TODO: source?
+
+It is also possible to load an overlay at runtime, using the `WorkbenchFx.addOverlay()` method.
+However, since this requires a rebuild of the scene graph, it is not recommended. // TODO: source?
+This is only recommended when an overlay is so resource intensive, that it can't stay loaded in the background.
+
+// TODO: write more
 
 == Why should someone use our Workbench instead of coding on their own?
 * Simple Design
@@ -211,7 +251,7 @@ Below it is shown the final prototype:
 |link:mvp/module.png[image:mvp/module.png[Module Screen]]
 |===
 
-==== The way creating the workbench
+=== The way creating the workbench
 
 === SCSS instead of CSS
 // TODO: Explain reason why we use SCSS instead of CSS
@@ -312,10 +352,107 @@ In a next step, we create the `TileControl`.
 The Compiler redirects now the Parent-reference of TabControl to the TileControl.
 As a result, the icon is only displayed in the TileControl.
 
+=== Customizability
+Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
+Of course, the resulting API design from this needs to work with our implementation as well.
+When we implemented the pagination in the home screen, we wanted the API user to be able to choose the amount of modules shown per page.
+To do so, our initial idea was to design the API for creating a `WorkbenchFx` object like this:
+[source,java]
+----
+WorkbenchFx.of(module1, module2)
+           .modulesPerPage(10);
+----
+This would be very easy to use, but it turned out to be not possible, since the `GridPane` with the module tiles are being initialized in the constructor of `WorkbenchFx`.
+Changing the amount of modules per page after the constructor was called, would mean that we would have needed to rebuild all of the pages with the modules again.
+This is not only very inefficient, but also a very bad solution for this problem.
+
+Another way of solving this would've been to initialize the `WorkbenchFx` object with a separate method after setting the amount of modules per page, like this:
+[source,java]
+----
+WorkbenchFx.of(module1, module2)
+           .modulesPerPage(10)
+           .init();
+----
+This would mean that the `GridPane` with the tiles would only need to be built once.
+However, this solution is also very unelegant.
+If the API user doesn't want to set the amount of modules per page, they still need to call "init()".
+Also, in this case the API user must rememeber to call `init()`, which is easy to forget.
+
+One of the better options would be to solve it like this:
+[source,java]
+----
+WorkbenchFx.of(10, module1, module2);
+----
+We would simply pass in the amount of modules to the `.of()` method.
+This would work, however it has some disadvantages.
+For example, the readability suffers: "What does that 10 mean again?".
+Also, since we want the API user to be able to define their own controls for the tabs and tiles using factories, we noticed that we also need to pass those factories in the same way.
+This would not only make the readability worse, but this also means that if we want to stick to our paradigm, we would need to add multiple overloaded `of()` methods.
+With 3 parameters (modules per page, tab and tile factory) this would result in the following combinations:
+
+.Combinations of overloaded WorkbenchFx.of() methods
+|===
+|No. |Modules per Page |Tab Factory |Tile Factory
+
+|1
+|
+|
+|
+
+|2
+|{y}
+|
+|
+
+|3
+|
+|{y}
+|
+
+|4
+|
+|
+|{y}
+
+|5
+|{y}
+|{y}
+|
+
+|6
+|
+|{y}
+|{y}
+
+|7
+|{y}
+|{y}
+|{y}
+|===
+
+Only 3 parameters result in 7 overloaded `of()` methods, which is already quite a lot.
+Should we need to add more parameters in the future, it would get even worse.
+
+This is why we decided to go with our final solution, to *use the builder pattern*.
+Using it results in the following syntax:
+[source,java]
+----
+WorkbenchFx.builder(module1, module2)
+           .modulesPerPage(10)
+           .build();
+----
+This solution solves all of the problems.
+It's not possible to forget `build()`, since else it won't return a `WorkbenchFx` object.
+It's expandable to a large amount of parameters.
+It allows for maximum flexibility, i. e. any combination of the parameters in any order can be specified.
+We decided against keeping the original `WorkbenchFx.of(module1, module2)` notation, since using the builder doesn't require a lot more code and doesn't introduce more complexity.
+
+
 
 === Architecture
 WorkbenchFX seems like a gigantic pane.
 Maybe the panes are giving us some inspiration?
+//TODO: describe change from AbstractModule to Module, skip interface in favor of less API pollution, less maintenance, maybe challenge as well?
 
 === Testing
 

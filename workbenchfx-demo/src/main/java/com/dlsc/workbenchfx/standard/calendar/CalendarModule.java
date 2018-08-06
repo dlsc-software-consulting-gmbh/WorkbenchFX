@@ -1,10 +1,13 @@
 package com.dlsc.workbenchfx.standard.calendar;
 
-import com.dlsc.workbenchfx.module.AbstractModule;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import java.util.Objects;
 import javafx.scene.Node;
 
-public class CalendarModule extends AbstractModule {
+public class CalendarModule extends WorkbenchModule {
+
+  private CalendarView calendarView;
 
   public CalendarModule() {
     super("Calendar", FontAwesomeIcon.CALENDAR);
@@ -12,7 +15,28 @@ public class CalendarModule extends AbstractModule {
 
   @Override
   public Node activate() {
-    return new CalendarView();
+    if (Objects.isNull(calendarView)) {
+      calendarView = new CalendarView();
+    }
+    calendarView.startClock();
+    return calendarView;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void deactivate() {
+    calendarView.stopClock();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean destroy() {
+    calendarView.stopClock();
+    calendarView = null;
+    return true;
+  }
 }

@@ -1,0 +1,411 @@
+.root > * {
+  -primary-color: #6200EE;
+  -primary-variant-color: #3700B3;
+  -secondary-color: #6300ff;
+  -secondary-variant-color: #1e005f;
+  -background-color: #FFFFFF;
+  -surface-color: #FFFFFF;
+  -error-color: #B00020;
+  -on-primary-color: #FFFFFF;
+  -on-secondary-color: #FFFFFF;
+  -on-background-color: #000000;
+  -on-surface-color: #000000;
+  -on-error-color: #FFFFFF;
+  -drop-shadow-1: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 10, 0.12, -1, 2);
+  -drop-shadow-2: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 15, 0.16, -1, 4);
+  -drop-shadow-3: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 20, 0.19, -1, 6);
+  -shadow: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.2, 0, 0);
+  -fx-font-family: "Roboto", sans-serif;
+  -fx-font-size: 14px; }
+
+.glyph-icon {
+  -fx-text-fill: -on-primary-color;
+  -fx-fill: -on-primary-color;
+  -fx-font-size: 1.1428571429em !important; }
+
+@font-face {
+  src: url("../fonts/Roboto-Black.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-BlackItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Bold.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-BoldItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Italic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Light.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-LightItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Medium.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-MediumItalic.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Regular.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-Thin.ttf"); }
+@font-face {
+  src: url("../fonts/Roboto-ThinItalic.ttf"); }
+#content-view .toolbar-control .toolbar-control-left-box, #toolbar #top-box #toolbar-control .toolbar-control-left-box, #content-view .toolbar-control .toolbar-control-right-box, #toolbar #top-box #toolbar-control .toolbar-control-right-box {
+  -fx-spacing: 0.2142857143em;
+  -fx-max-height: 2.4285714286em; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button {
+    -fx-padding: 0; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow {
+      -fx-padding: 0;
+      -fx-min-height: 0 !important;
+      -fx-pref-height: 0 !important;
+      -fx-max-height: 0 !important;
+      -fx-min-width: 0 !important;
+      -fx-pref-width: 0 !important;
+      -fx-max-width: 0 !important; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button:hover, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button:hover, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button:hover, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button:hover {
+    -fx-cursor: hand; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button:pressed, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button:pressed, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button:pressed, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button:pressed {
+    -fx-background-color: -primary-variant-color; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button {
+    -fx-padding: 0; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow {
+      -fx-padding: 0;
+      -fx-min-height: 0 !important;
+      -fx-pref-height: 0 !important;
+      -fx-max-height: 0 !important;
+      -fx-min-width: 0 !important;
+      -fx-pref-width: 0 !important;
+      -fx-max-width: 0 !important; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:hover, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:hover, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:hover, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:hover {
+    -fx-cursor: hand; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:showing, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:showing, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:showing, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:showing {
+    -fx-background-color: -primary-variant-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:showing .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:showing .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:showing .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:showing .arrow-button .arrow {
+      -fx-rotate: -90; }
+
+#content-view .toolbar-control .toolbar-control-left-box .toolbar-label, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button {
+  -fx-min-height: 2.4285714286em;
+  -fx-pref-height: 2.4285714286em;
+  -fx-max-height: 2.4285714286em; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button {
+    -fx-background-color: -primary-color;
+    -fx-background-insets: 0;
+    -fx-padding: 0 .25em;
+    -fx-graphic-text-gap: .6em;
+    -fx-background-radius: 0.1428571429em;
+    -fx-border-width: 0; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label {
+      -fx-min-height: 1.1428571429em;
+      -fx-pref-height: 1.1428571429em;
+      -fx-max-height: 1.1428571429em; }
+      #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label .glyph-icon, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label .text, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label .text, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label .text, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label .text, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label .text, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label .text, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label .text, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label .text, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label .text, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label .text, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label .text, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label .text {
+        -fx-fill: -on-primary-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .arrow-button .arrow {
+      -fx-rotate: 90;
+      -fx-min-width: 0.1785714286em;
+      -fx-pref-width: 0.1785714286em;
+      -fx-max-width: 0.1785714286em;
+      -fx-min-height: 0.3571428571em;
+      -fx-pref-height: 0.3571428571em;
+      -fx-max-height: 0.3571428571em;
+      -fx-background-color: -on-primary-color; }
+
+#toolbar #top-box #menu-button, #toolbar #bottom-box #menu-button {
+  -icon-size: 2.4285714286em; }
+  #toolbar #top-box #menu-button .shape, #toolbar #bottom-box #menu-button .shape {
+    -fx-background-color: -on-primary-color; }
+  #toolbar #top-box #menu-button:pressed, #toolbar #bottom-box #menu-button:pressed {
+    -fx-background-color: -primary-variant-color;
+    -fx-background-radius: 0.1428571429em; }
+
+#toolbar .icon, .navigation-drawer .drawer-box .header .icon {
+  -fx-background-color: transparent;
+  -icon-size: 2.8571428571em;
+  -fx-max-width: -icon-size;
+  -fx-max-height: -icon-size;
+  -fx-min-width: -icon-size;
+  -fx-min-height: -icon-size;
+  -fx-pref-width: -icon-size;
+  -fx-pref-height: -icon-size; }
+  #toolbar .icon .shape, .navigation-drawer .drawer-box .header .icon .shape {
+    -shape-width: 1.1428571429em;
+    -shape-height: 1.1428571429em;
+    -fx-max-width: -shape-width;
+    -fx-max-height: -shape-height;
+    -fx-min-width: -shape-width;
+    -fx-min-height: -shape-height;
+    -fx-pref-width: -shape-width;
+    -fx-pref-height: -shape-height; }
+
+#toolbar #bottom-box #add-button .shape {
+  -fx-shape: "M 19 13 L 13 13 L 13 19 L 11 19 L 11 13 L 5 13 L 5 11 L 11 11 L 11 5 L 13 5 L 13 11 L 19 11 L 19 13 Z";
+  -shape-width: 0.8333571429em;
+  -shape-height: 0.8333571429em; }
+
+.navigation-drawer .drawer-box .header #back-button .shape {
+  -fx-shape: "M 20 11 L 7.83 11 L 13.42 5.41 L 12 4 L 4 12 L 12 20 L 13.41 18.59 L 7.83 13 L 20 13 L 20 11 Z";
+  -shape-width: 0.9523571429em;
+  -shape-height: 0.9523571429em; }
+
+#content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .arrow-button .arrow, #toolbar #top-box #toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .arrow-button .arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
+  -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z";
+  -shape-width: 0.2976428571em;
+  -shape-height: 0.5952142857em; }
+
+#toolbar #top-box #menu-button .shape, #toolbar #bottom-box #menu-button .shape {
+  -fx-shape: "M 3 18 L 21 18 L 21 16 L 3 16 L 3 18 Z M 3 13 L 21 13 L 21 11 L 3 11 L 3 13 Z M 3 6 L 3 8 L 21 8 L 21 6 L 3 6 Z";
+  -shape-width: 1.0714285714em;
+  -shape-height: 0.7142857143em; }
+
+#workbench {
+  -fx-background-color: -background-color;
+  -fx-min-width: 0;
+  -fx-min-height: 0;
+  -fx-alignment: TOP_LEFT; }
+
+#content-view #add-module-view #tile-pane .pagination {
+  -fx-arrows-visible: false;
+  -fx-page-information-visible: false;
+  -fx-tooltip-visible: false; }
+  #content-view #add-module-view #tile-pane .pagination .page .tile-page {
+    -fx-vgap: 3em;
+    -fx-hgap: 3em;
+    -fx-padding: 1.5em;
+    -fx-alignment: CENTER; }
+    #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control {
+      -fx-padding: 1em;
+      -fx-alignment: CENTER;
+      -fx-pref-width: 13.5em;
+      -fx-pref-height: 8.3434588481em;
+      -fx-background-color: -surface-color;
+      -fx-effect: -drop-shadow-1;
+      -fx-border-width: 0;
+      -fx-border-radius: 0.3571428571em;
+      -fx-background-radius: 0.3571428571em;
+      -fx-background-insets: 0; }
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .icon .glyph-icon {
+        -fx-fill: -on-surface-color;
+        -fx-font-size: 1.4285714286em !important; }
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-lbl {
+        -fx-padding: .5em 0 0 0;
+        -fx-alignment: CENTER;
+        -fx-text-alignment: CENTER; }
+        #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-lbl .text {
+          -fx-fill: -on-surface-color; }
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control:hover {
+        -fx-effect: -drop-shadow-2;
+        -fx-cursor: hand; }
+      #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control:pressed {
+        -fx-effect: -drop-shadow-3; }
+  #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box {
+    -fx-spacing: .25em; }
+    #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button {
+      -fx-background-radius: 50%;
+      -fx-background-insets: 0.45em;
+      -fx-background-color: -secondary-variant-color; }
+      #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:hover {
+        -fx-cursor: hand;
+        -fx-background-color: derive(-secondary-variant-color, 25%); }
+      #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected {
+        -fx-background-color: -secondary-color; }
+        #content-view #add-module-view #tile-pane .pagination > .pagination-control > .control-box > .bullet-button:selected:hover {
+          -fx-cursor: inherit; }
+
+#content-view .toolbar-control {
+  -fx-padding: 0.2142857143em;
+  -fx-min-height: 2.8571428571em;
+  -fx-pref-height: 2.8571428571em;
+  -fx-max-height: 2.8571428571em;
+  -fx-background-color: -background-color;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.075), 2, 0, 0, 2); }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button {
+    -fx-background-color: -background-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .label .text, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .label .text {
+      -fx-fill: -on-background-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-label .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-label .menu-button .arrow-button .arrow {
+      -fx-background-color: -on-background-color; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button {
+    -fx-background-color: -background-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button:pressed, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button:pressed {
+      -fx-background-color: rgba(0, 0, 0, 0.075); }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .label .text, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .label .text {
+      -fx-fill: -on-background-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-button .menu-button .arrow-button .arrow {
+      -fx-background-color: -on-background-color; }
+  #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button {
+    -fx-background-color: -background-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button:showing, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button:showing {
+      -fx-background-color: rgba(0, 0, 0, 0.075); }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .label .text, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label .glyph-icon, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .label .text {
+      -fx-fill: -on-background-color; }
+    #content-view .toolbar-control .toolbar-control-left-box .toolbar-menu-button .menu-button .arrow-button .arrow, #content-view .toolbar-control .toolbar-control-right-box .toolbar-menu-button .menu-button .arrow-button .arrow {
+      -fx-background-color: -on-background-color; }
+
+#toolbar {
+  -fx-background-color: -primary-color; }
+  #toolbar #top-box {
+    -fx-padding: 0.2142857143em;
+    -fx-spacing: 0.2142857143em;
+    -fx-min-height: 2.8571428571em;
+    -fx-pref-height: 2.8571428571em;
+    -fx-max-height: 2.8571428571em; }
+    #toolbar #top-box:empty {
+      -fx-min-height: 0.2142857143em;
+      -fx-pref-height: 0.2142857143em;
+      -fx-max-height: 0.2142857143em; }
+  #toolbar #bottom-box {
+    -fx-alignment: CENTER;
+    -fx-pref-height: 2.8571428571em;
+    -fx-padding: 0 0.2857142857em 0 0.2142857143em;
+    -fx-spacing: 0.2142857143em; }
+    #toolbar #bottom-box #add-button {
+      -fx-background-insets: 0; }
+      #toolbar #bottom-box #add-button .shape {
+        -fx-background-color: -on-primary-color; }
+      #toolbar #bottom-box #add-button:pressed {
+        -fx-background-radius: 0.3571428571em 0.3571428571em 0 0;
+        -fx-background-color: -primary-variant-color; }
+      #toolbar #bottom-box #add-button:hover {
+        -fx-cursor: hand; }
+    #toolbar #bottom-box .active-add-button {
+      -fx-background-color: -background-color;
+      -fx-background-radius: 0.3571428571em 0.3571428571em 0 0;
+      -fx-border-radius: 0.3571428571em 0.3571428571em 0 0;
+      -fx-background-insets: 0 -1px 0 -1px; }
+      #toolbar #bottom-box .active-add-button .shape {
+        -fx-background-color: -on-background-color !important; }
+      #toolbar #bottom-box .active-add-button:pressed {
+        -fx-background-color: -background-color !important; }
+      #toolbar #bottom-box .active-add-button:hover {
+        -fx-cursor: inherit !important; }
+
+.glass-pane {
+  -fx-background-color: black;
+  -fx-opacity: .6; }
+
+.navigation-drawer {
+  -fx-background-color: -surface-color; }
+  .navigation-drawer .logo {
+    -fx-padding: 0.7857142857em 1em 1em 1em; }
+  .navigation-drawer .separator:horizontal .line {
+    -fx-border-color: rgba(0, 0, 0, 0.2) transparent transparent transparent;
+    -fx-border-insets: 1px 0 0 0; }
+  .navigation-drawer > .scroll-arrow {
+    -fx-padding: .5em;
+    -fx-background-color: transparent; }
+    .navigation-drawer > .scroll-arrow:hover {
+      -fx-background: -fx-selection-bar;
+      -fx-background-color: -fx-background;
+      -fx-text-fill: -fx-text-background-color; }
+  .navigation-drawer:show-mnemonics > .mnemonic-underline {
+    -fx-stroke: -fx-text-fill; }
+  .navigation-drawer .drawer-box .header {
+    -fx-background-color: -surface-color;
+    -fx-effect: -shadow;
+    -fx-min-height: 5.7142857143em; }
+    .navigation-drawer .drawer-box .header .separator .line {
+      -fx-border-color: -on-surface-color;
+      -fx-border-width: 1px; }
+    .navigation-drawer .drawer-box .header #back-button {
+      -fx-background-insets: 0.2142857143em; }
+      .navigation-drawer .drawer-box .header #back-button .shape {
+        -fx-background-color: -on-surface-color; }
+      .navigation-drawer .drawer-box .header #back-button:pressed {
+        -fx-background-color: rgba(0, 0, 0, 0.075); }
+      .navigation-drawer .drawer-box .header #back-button:hover {
+        -fx-cursor: hand; }
+  .navigation-drawer .drawer-box .pretty-scroll-pane {
+    -fx-background-color: transparent; }
+    .navigation-drawer .drawer-box .pretty-scroll-pane .viewport {
+      -fx-background-color: transparent; }
+      .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container {
+        -fx-padding: 1.5em 1em 1.5em 1em; }
+        .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item {
+          -fx-graphic-text-gap: .5em;
+          -fx-pref-height: 2.8571428571em;
+          -fx-border-width: 0;
+          -fx-background-radius: 0.3571428571em;
+          -fx-padding: 0 1em 0 1em; }
+          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item .glyph-icon, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item .text {
+            -fx-fill: -on-surface-color; }
+          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:focused {
+            -fx-background-color: transparent; }
+          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:showing {
+            -fx-background-color: rgba(0, 0, 0, 0.075);
+            -fx-cursor: hand; }
+            .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover .label .glyph-icon, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover .label .text, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:showing .label .glyph-icon, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:showing .label .text {
+              -fx-fill: -on-surface-color; }
+            .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:hover .arrow-button .arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-item:showing .arrow-button .arrow {
+              -fx-background-color: -on-surface-color; }
+        .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button {
+          -fx-alignment: CENTER_LEFT; }
+          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .button:pressed {
+            -fx-background-color: rgba(0, 0, 0, 0.1); }
+        .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button {
+          -fx-padding: 0 0 0 1.5em;
+          -fx-background-insets: 0; }
+          .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .menu-button .arrow-button .arrow {
+            -shape-width: 0.2380714286em;
+            -shape-height: 0.4762142857em;
+            -fx-max-width: -shape-width;
+            -fx-max-height: -shape-height;
+            -fx-min-width: -shape-width;
+            -fx-min-height: -shape-height;
+            -fx-pref-width: -shape-width;
+            -fx-pref-height: -shape-height;
+            -fx-background-color: -on-surface-color; }
+    .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar {
+      -fx-pref-width: 1em;
+      -fx-pref-height: 1em;
+      -fx-padding: 0.1428571429em;
+      -fx-background-color: transparent; }
+      .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .increment-button, .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .increment-arrow, .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .decrement-button, .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .decrement-arrow {
+        -fx-pref-width: 0;
+        -fx-pref-height: 0; }
+      .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar .thumb {
+        -fx-background-color: rgba(0, 0, 0, 0.075);
+        -fx-background-radius: 71.3571428571em;
+        -fx-pref-width: 1em;
+        -fx-pref-height: 1em; }
+      .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar:vertical .thumb {
+        -fx-background-insets: 0.7142857143em 0.1428571429em 0.7142857143em 0; }
+      .navigation-drawer .drawer-box .pretty-scroll-pane .scroll-bar:horizontal .thumb {
+        -fx-background-insets: 0 0.7142857143em 0.1428571429em 0.7142857143em; }
+
+.dialog-pane {
+  -fx-background-color: -surface-color;
+  -fx-effect: -drop-shadow-3;
+  -fx-background-radius: 0.3571428571em;
+  -fx-padding: 0 0 0.7142857143em 0; }
+  .dialog-pane .dialog-header {
+    -fx-padding: 0;
+    -fx-background-color: -surface-color;
+    -fx-background-radius: 0.3571428571em; }
+    .dialog-pane .dialog-header .dialog-title {
+      -fx-padding: 2.1428571429em 2.1428571429em 0 2.1428571429em;
+      -fx-font-size: 1.5em;
+      -fx-font-weight: 700;
+      -fx-text-fill: -on-surface-color; }
+  .dialog-pane .dialog-content-pane {
+    -fx-padding: 1.4285714286em 2.1428571429em 1.4285714286em 2.1428571429em; }
+    .dialog-pane .dialog-content-pane .label {
+      -fx-font-size: 1.2em;
+      -fx-font-weight: 600;
+      -fx-text-fill: -on-surface-color;
+      -fx-opacity: .54; }
+    .dialog-pane .dialog-content-pane .input-container {
+      -fx-spacing: 0.7142857143em; }
+    .dialog-pane .dialog-content-pane .textfield-container {
+      -fx-spacing: 0.7142857143em; }
+    .dialog-pane .dialog-content-pane .error-details-titled-pane {
+      -fx-padding: 1.4285714286em 0 0 0; }
+  .dialog-pane .button-bar .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -secondary-color;
+    -fx-padding: 0.7142857143em 1.0714285714em 0 1.0714285714em;
+    -font-size: 1.25em;
+    -fx-font-weight: 700;
+    -fx-cursor: hand; }
+
+.drawer {
+  -fx-background-color: -surface-color; }
+
+/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,288 @@
+@function px($px) {
+  @return 1em / 14 * $px; // 14px is defined by the default material design font-size
+}
+
+@mixin set-height($height) {
+  -fx-min-height: $height;
+  -fx-pref-height: $height;
+  -fx-max-height: $height;
+}
+
+@mixin set-width($width) {
+  -fx-min-width: $width;
+  -fx-pref-width: $width;
+  -fx-max-width: $width;
+}
+
+@mixin set-size($width, $height) {
+  @include set-width($width);
+  @include set-height($height);
+}
+
+%toolbar-control {
+  & .toolbar-control-left-box,
+  & .toolbar-control-right-box {
+    -fx-spacing: px(3);
+    -fx-max-height: px(34);
+
+    & .toolbar-label {
+      @extend %toolbar-item-base;
+      & .menu-button {
+        & .arrow-button {
+          -fx-padding: 0;
+          & .arrow {
+            -fx-padding: 0;
+            -fx-min-height: 0 !important;
+            -fx-pref-height: 0 !important;
+            -fx-max-height: 0 !important;
+            -fx-min-width: 0 !important;
+            -fx-pref-width: 0 !important;
+            -fx-max-width: 0 !important;
+          }
+        }
+      }
+    }
+    & .toolbar-button {
+      @extend %toolbar-item-base;
+      & .menu-button {
+        &:hover {
+          -fx-cursor: hand;
+        }
+        &:pressed {
+          -fx-background-color: -primary-variant-color;
+        }
+        & .arrow-button {
+          -fx-padding: 0;
+          & .arrow {
+            -fx-padding: 0;
+            -fx-min-height: 0 !important;
+            -fx-pref-height: 0 !important;
+            -fx-max-height: 0 !important;
+            -fx-min-width: 0 !important;
+            -fx-pref-width: 0 !important;
+            -fx-max-width: 0 !important;
+          }
+        }
+      }
+    }
+    & .toolbar-menu-button {
+      @extend %toolbar-item-base;
+      & .menu-button {
+        &:hover {
+          -fx-cursor: hand;
+        }
+        &:showing {
+          -fx-background-color: -primary-variant-color;
+
+          & .arrow-button .arrow {
+            -fx-rotate: -90;
+          }
+        }
+      }
+    }
+  }
+
+  // @extend %context-menu;
+  // The extention of the context-menu can be found in the context-menu.css file.
+  // It is set in the constructor of the Workbench.
+}
+
+%toolbar-item-base {
+  @include set-height(px(34));
+  & .menu-button {
+     -fx-background-color: -primary-color;
+
+     -fx-background-insets: 0; // Remove the border from bottom
+     -fx-padding: 0 .25em;
+
+     -fx-graphic-text-gap: .6em;
+     -fx-background-radius: px(2);
+     -fx-border-width: 0;
+
+     & .label {
+       @include set-height(px(16));
+
+       & .glyph-icon,
+       & .text {
+         -fx-fill: -on-primary-color;
+       }
+     }
+     & .arrow-button {
+       & .arrow {
+         @extend %arrow-right-icon;
+         -fx-rotate: 90;
+         @include set-size(px(2.5), px(5));
+         -fx-background-color: -on-primary-color;
+       }
+     }
+   }
+}
+
+%menu-button {
+  // The menu-button which opens the toolbar on the left
+  & #menu-button {
+    -icon-size: px(34);
+
+    & .shape {
+      -fx-background-color: -on-primary-color;
+      @extend %menu-icon;
+    }
+
+    &:pressed {
+      -fx-background-color: -primary-variant-color;
+      -fx-background-radius: px(2);
+    }
+  }
+}
+
+%context-menu {
+  .context-menu {
+    -fx-background-color: -surface-color;
+    -fx-background-radius: px(5);
+    -fx-effect: -drop-shadow-3;
+    -fx-padding: .5em 0 .5em 0;
+
+    & .menu-item {
+      -fx-background-radius: 0;
+      -fx-padding: .75em 1.25em .75em 1.25em;
+
+      & .glyph-icon {
+        -fx-fill: -on-surface-color;
+      }
+
+      & .label {
+        -fx-padding: 0 2em 0 .25em;
+
+        & .text {
+          -fx-fill: -on-surface-color !important;
+        }
+      }
+
+      & .right-container > .arrow {
+        -fx-background-color: -on-surface-color;
+      }
+
+      &:focused {
+        -fx-background-color: rgba(0, 0, 0, .075);
+      }
+
+      &:hover {
+        -fx-cursor: hand;
+      }
+    }
+
+    & .menu:hover {
+      -fx-cursor: inherit;
+    }
+
+    & > .scroll-arrow {
+      // ArrowMenuItem when having a lot of items
+      -fx-padding: 1em;
+
+      &:hover {
+        -fx-background-color: rgba(0, 0, 0, .075);
+      }
+
+      & .menu-up-arrow {
+        -fx-background-color: -on-surface-color;
+        @extend %arrow-right-icon;
+        -fx-rotate: -90;
+
+        -fx-pref-width: -shape-width;
+        -fx-pref-height: -shape-height;
+      }
+
+      & .menu-down-arrow {
+        -fx-background-color: -on-surface-color;
+        @extend %arrow-right-icon;
+        -fx-rotate: 90;
+
+        -fx-pref-width: -shape-width;
+        -fx-pref-height: -shape-height;
+      }
+    }
+  }
+}
+
+// Base format of an icon: two StackPanes into each other.
+%icon-base {
+  & .icon {
+    -fx-background-color: transparent;
+    // tablet
+    //-icon-size: 48px;
+    // desktop
+    -icon-size: px(40);
+    -fx-max-width: -icon-size;
+    -fx-max-height: -icon-size;
+    -fx-min-width: -icon-size;
+    -fx-min-height: -icon-size;
+    -fx-pref-width: -icon-size;
+    -fx-pref-height: -icon-size;
+
+    & .shape {
+      // tablet
+      //-shape-width: 20px;
+      //-shape-height: 20px;
+      // desktop
+      -shape-width: px(16);
+      -shape-height: px(16);
+      -fx-max-width: -shape-width;
+      -fx-max-height: -shape-height;
+      -fx-min-width: -shape-width;
+      -fx-min-height: -shape-height;
+      -fx-pref-width: -shape-width;
+      -fx-pref-height: -shape-height;
+    }
+  }
+}
+
+// ----- SVG paths of material design icons ---------------------------------------------------- //
+// ----- Designs available at: ----------------------------------------------------------------- //
+// ----- https://material.io/tools/icons/?icon=vertical_split&style=baseline ------------------- //
+%add-icon {
+  -fx-shape: "M 19 13 L 13 13 L 13 19 L 11 19 L 11 13 L 5 13 L 5 11 L 11 11 L 11 5 L 13 5 L 13 11 L 19 11 L 19 13 Z";
+  //-shape-width: 14px; // -> tablet size
+  //-shape-height: 14px; // -> tablet size
+  -shape-width: px(11.667);
+  -shape-height: px(11.667);
+}
+
+%arrow-back-icon {
+  -fx-shape: "M 20 11 L 7.83 11 L 13.42 5.41 L 12 4 L 4 12 L 12 20 L 13.41 18.59 L 7.83 13 L 20 13 L 20 11 Z";
+  //-shape-width: 16px; // -> tablet size
+  //-shape-height: 16px; // -> tablet size
+  -shape-width: px(13.333);
+  -shape-height: px(13.333);
+}
+
+%arrow-right-icon {
+  -fx-shape: "M 10 17 L 15 12 L 10 7 L 10 17 Z";
+  //-shape-width: 5px; // -> tablet size
+  //-shape-height: 10px; // -> tablet size
+  -shape-width: px(4.167);
+  -shape-height: px(8.333);
+}
+
+%cancel-icon {
+  -fx-shape: "M 12 2 C 6.47 2 2 6.47 2 12 C 2 17.53 6.47 22 12 22 C 17.53 22 22 17.53 22 12 C 22 6.47 17.53 2 12 2 Z M 17 15.59 L 15.59 17 L 12 13.41 L 8.41 17 L 7 15.59 L 10.59 12 L 7 8.41 L 8.41 7 L 12 10.59 L 15.59 7 L 17 8.41 L 13.41 12 L 17 15.59 Z";
+  //-shape-width: 20px; // -> tablet size
+  //-shape-height: 20px; // -> tablet size
+  -shape-width: px(16.667);
+  -shape-height: px(16.667);
+}
+
+%close-icon {
+  -fx-shape: "M 19 6.41 L 17.59 5 L 12 10.59 L 6.41 5 L 5 6.41 L 10.59 12 L 5 17.59 L 6.41 19 L 12 13.41 L 17.59 19 L 19 17.59 L 13.41 12 Z";
+  //-shape-width: 14px; // -> tablet size
+  //-shape-height: 14px; // -> tablet size
+  -shape-width: px(11.667);
+  -shape-height: px(11.667);
+}
+
+%menu-icon {
+  -fx-shape: "M 3 18 L 21 18 L 21 16 L 3 16 L 3 18 Z M 3 13 L 21 13 L 21 11 L 3 11 L 3 13 Z M 3 6 L 3 8 L 21 8 L 21 6 L 3 6 Z";
+  //-shape-width: 18px; // -> tablet size
+  //-shape-height: 12px; // -> tablet size
+  -shape-width: px(15);
+  -shape-height: px(10);
+}

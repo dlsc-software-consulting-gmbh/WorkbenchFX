@@ -10,7 +10,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import uk.co.senapt.desktop.shell.ModulesManager;
+//import uk.co.senapt.desktop.shell.ModulesManager;
 import uk.co.senapt.desktop.shell.Shell;
 import uk.co.senapt.desktop.shell.model.Favorite;
 
@@ -24,10 +24,10 @@ public class ShellApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        final ModulesManager modulesManager = new ModulesManager();
+        //final ModulesManager modulesManager = new ModulesManager();
 
         Shell shell = new Shell();
-        shell.getModules().addAll(modulesManager.getModules());
+        //shell.getModules().addAll(modulesManager.getModules());
 
         Favorite fav1 = new Favorite("Favorite 1", "module-small");
         Favorite fav2 = new Favorite("Favorite 2", "module-small");
@@ -43,9 +43,9 @@ public class ShellApp extends Application {
         /*
          * Add the stylesheets required by the modules to the scene.
          */
-        modulesManager.getModules().forEach(module -> {
+        /*modulesManager.getModules().forEach(module -> {
             scene.getStylesheets().addAll(module.getModuleStylesheets());
-        });
+        });*/
 
         primaryStage.setScene(scene);
 

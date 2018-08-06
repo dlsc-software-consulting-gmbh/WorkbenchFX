@@ -1,0 +1,27 @@
+.custom-overlay {
+  -fx-background-color: -primary-color;
+  -fx-min-width: 300px;
+  -fx-max-width: 300px;
+  -fx-min-height: 300px;
+  -fx-max-height: 300px;
+}
+
+.custom-overlay .label {
+  -fx-text-fill: -on-primary-color;
+}
+
+.custom-overlay .button {
+  -fx-background-color: transparent;
+}
+
+.custom-overlay .button:hover {
+  -fx-cursor: hand;
+}
+
+.custom-overlay .button .glyph-icon {
+  -fx-font-size: 1.25em !important;
+}
+
+.custom-overlay .button:hover .glyph-icon {
+  -fx-fill: -error-color;
+}
