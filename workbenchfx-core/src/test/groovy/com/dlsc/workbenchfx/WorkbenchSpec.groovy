@@ -11,7 +11,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.ObservableList
 import javafx.collections.ObservableMap
-import javafx.collections.ObservableSet
 import javafx.geometry.Pos
 import javafx.geometry.Side
 import javafx.scene.Node
@@ -62,8 +61,8 @@ class WorkbenchSpec extends ApplicationSpec {
     WorkbenchModule second
     WorkbenchModule last
     private ObservableMap<Node, GlassPane> overlays
-    private ObservableSet<Node> blockingOverlaysShown
-    private ObservableSet<Node> overlaysShown
+    private ObservableList<Node> blockingOverlaysShown
+    private ObservableList<Node> overlaysShown
     private Node overlay1
     private Node overlay2
     private Node overlay3

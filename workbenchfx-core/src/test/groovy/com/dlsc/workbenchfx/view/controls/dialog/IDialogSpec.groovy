@@ -178,12 +178,12 @@ class IDialogSpec extends ApplicationSpec {
      * @param overlayNode of which the GlassPane should be clicked
      */
     def simulateGlassPaneClick(Node overlayNode) {
-        GlassPane glassPane = workbench.getOverlays().get(overlayNode).getGlassPane();
+        GlassPane glassPane = workbench.getOverlays().get(overlayNode).getGlassPane()
         glassPane.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0,
                 MouseButton.PRIMARY, 1,
                 false, false, false, false, true, false, false, false, false, false,
                 null)
-        );
+        )
     }
 
     def amountDialogShowing() {

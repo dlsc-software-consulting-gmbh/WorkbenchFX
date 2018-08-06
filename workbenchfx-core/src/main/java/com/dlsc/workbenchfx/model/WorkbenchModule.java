@@ -5,11 +5,9 @@ import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.util.LinkedHashSet;
 import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,8 +33,8 @@ public abstract class WorkbenchModule {
   // The sets which store the toolbar icons which are displayed in the modules toolbar
   private final ObservableList<ToolbarItem> toolbarControlsLeft =
       FXCollections.observableArrayList();
-  private final ObservableSet<ToolbarItem> toolbarControlsRight =
-      FXCollections.observableSet(new LinkedHashSet<>());
+  private final ObservableList<ToolbarItem> toolbarControlsRight =
+      FXCollections.observableArrayList();
 
   /**
    * Super constructor to be called by the implementing class.
@@ -185,14 +183,14 @@ public abstract class WorkbenchModule {
   }
 
   /**
-   * Returns an {@link ObservableSet} which stores the toolbar items of the module.
+   * Returns an {@link ObservableList} which stores the toolbar items of the module.
    * If it's not empty, the {@link Workbench} creates a pre styled {@link ToolbarControl}
    * and adds the stored items on its right side.
    *
-   * @return the {@link ObservableSet} of items which are displayed on the right side of the
+   * @return the {@link ObservableList} of items which are displayed on the right side of the
    *         automatically generated {@link ToolbarControl}
    */
-  public ObservableSet<ToolbarItem> getToolbarControlsRight() {
+  public ObservableList<ToolbarItem> getToolbarControlsRight() {
     return toolbarControlsRight;
   }
 }

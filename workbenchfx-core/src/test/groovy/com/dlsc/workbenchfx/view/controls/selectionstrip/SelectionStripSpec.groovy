@@ -42,8 +42,8 @@ class SelectionStripSpec extends ApplicationSpec {
 
     def "test if maxWidth and Height were set correctly"() {
         given: "Double value of max and min which shall be set"
-        double prefWidth = 400;
-        double prefHeight = 50;
+        double prefWidth = 400
+        double prefHeight = 50
 
         when: "selectionStrip was initialized"
 
@@ -73,7 +73,7 @@ class SelectionStripSpec extends ApplicationSpec {
         }
 
         expect:
-        autoscrolledModule == selectionStrip.getProperties().get("scroll.to");
+        autoscrolledModule == selectionStrip.getProperties().get("scroll.to")
 
         where:
         autoScrolling | selectedItem    || autoscrolledModule
@@ -88,7 +88,7 @@ class SelectionStripSpec extends ApplicationSpec {
         selectionStrip.scrollTo(moduleToBeScrolled)
 
         expect: "it should be stored in the properties map with the key 'scroll.to'"
-        expectedModule == selectionStrip.getProperties().get("scroll.to");
+        expectedModule == selectionStrip.getProperties().get("scroll.to")
 
         where:
         moduleToBeScrolled || expectedModule

@@ -27,7 +27,7 @@ class WorkbenchDialogSpec extends ApplicationSpec {
     private Label content
     private static final WorkbenchDialog.Type TYPE = WorkbenchDialog.Type.INFORMATION
     private WorkbenchDialog dialog
-    private MockDialogControl mockDialogControl;
+    private MockDialogControl mockDialogControl
 
     private FxRobot robot
 
