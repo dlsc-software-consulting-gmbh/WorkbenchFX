@@ -1,13 +1,13 @@
 package com.dlsc.workbenchfx.custom.notes;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
 
 public class NotesModule extends WorkbenchModule {
 
   public NotesModule() {
-    super("Notes", FontAwesomeIcon.PENCIL_SQUARE);
+    super("Notes", MaterialDesignIcon.PENCIL_BOX_OUTLINE);
   }
 
   @Override

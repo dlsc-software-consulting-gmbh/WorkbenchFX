@@ -18,6 +18,8 @@ import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -54,11 +56,11 @@ public class CustomDemo extends Application {
 
   private Workbench initWorkbench() {
     // Navigation Drawer
-    Menu menu1 = new Menu("Customer", createIcon(FontAwesomeIcon.USER));
-    Menu menu2 = new Menu("Tariff Management", createIcon(FontAwesomeIcon.BUILDING));
-    Menu menu3 = new Menu("Complaints", createIcon(FontAwesomeIcon.BOMB));
+    Menu menu1 = new Menu("Customer", createIcon(MaterialDesignIcon.ACCOUNT_MULTIPLE));
+    Menu menu2 = new Menu("Tariff Management", createIcon(MaterialDesignIcon.DOMAIN));
+    Menu menu3 = new Menu("Complaints", createIcon(MaterialDesignIcon.BOMB));
 
-    FontAwesomeIcon genericIcon = FontAwesomeIcon.QUESTION;
+    MaterialDesignIcon genericIcon = MaterialDesignIcon.HELP;
     MenuItem item11 = new MenuItem("Item 1.1", createIcon(genericIcon));
     MenuItem item12 = new MenuItem("Item 1.2", createIcon(genericIcon));
     MenuItem item13 = new MenuItem("Item 1.3", createIcon(genericIcon));
@@ -77,9 +79,9 @@ public class CustomDemo extends Application {
     MenuItem item32 = new MenuItem("Item 3.2", createIcon(genericIcon));
     MenuItem item33 = new MenuItem("Item 3.3", createIcon(genericIcon));
 
-    MenuItem itemA = new MenuItem("Complaints", createIcon(FontAwesomeIcon.BOMB));
-    MenuItem itemB = new MenuItem("Printing", createIcon(FontAwesomeIcon.PRINT));
-    MenuItem itemC = new MenuItem("Settings", createIcon(FontAwesomeIcon.COGS));
+    MenuItem itemA = new MenuItem("Complaints", createIcon(MaterialDesignIcon.BOMB));
+    MenuItem itemB = new MenuItem("Printing", createIcon(MaterialDesignIcon.PRINTER));
+    MenuItem itemC = new MenuItem("Settings", createIcon(MaterialDesignIcon.SETTINGS));
 
     MenuItem showOverlay = new MenuItem("Show overlay");
     MenuItem showBlockingOverlay = new MenuItem("Show blocking overlay");
@@ -167,9 +169,9 @@ public class CustomDemo extends Application {
     return workbench;
   }
 
-  private Node createIcon(FontAwesomeIcon icon) {
-    FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(icon);
-    fontAwesomeIconView.getStyleClass().add("icon");
-    return fontAwesomeIconView;
+  private Node createIcon(MaterialDesignIcon icon) {
+    MaterialDesignIconView materialDesignIconView = new MaterialDesignIconView(icon);
+    materialDesignIconView.getStyleClass().add("icon");
+    return materialDesignIconView;
   }
 }

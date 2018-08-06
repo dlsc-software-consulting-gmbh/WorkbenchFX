@@ -4,6 +4,7 @@ import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -38,7 +39,7 @@ public class ToolbarTestModule extends WorkbenchModule {
   private final HBox bottomBox = new HBox();
 
   public ToolbarTestModule() {
-    super("Toolbar Test Module", FontAwesomeIcon.QUESTION);
+    super("Toolbar Test Module", MaterialDesignIcon.HELP);
     addToolbarItems();
     setupStyling();
     layoutParts();
