@@ -23,7 +23,6 @@ public class AddModulePresenter extends Presenter {
       return "one-page";
     }
   };
-  private static final int MIN_PAGE_COUNT = 1;
   private final Workbench model;
   private final AddModuleView view;
 
@@ -38,7 +37,7 @@ public class AddModulePresenter extends Presenter {
     this.view = view;
     init();
     view.pagination.pseudoClassStateChanged(
-        ONE_PAGE_STATE, view.pagination.getPageCount() == MIN_PAGE_COUNT);
+        ONE_PAGE_STATE, view.pagination.getPageCount() == 1);
   }
 
   /**
@@ -71,7 +70,7 @@ public class AddModulePresenter extends Presenter {
     model.amountOfPagesProperty().addListener((observable, oldPageCount, newPageCount) -> {
       view.pagination.setPageCount(newPageCount.intValue());
       view.pagination.pseudoClassStateChanged(
-          ONE_PAGE_STATE, newPageCount.intValue() == MIN_PAGE_COUNT);
+          ONE_PAGE_STATE, newPageCount.intValue() == 1);
     });
   }
 
