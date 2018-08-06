@@ -2,7 +2,6 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.module.Page;
-import javafx.css.PseudoClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,12 +16,6 @@ public class AddModulePresenter extends Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(AddModulePresenter.class.getName());
 
-  private static final PseudoClass ONE_PAGE_STATE = new PseudoClass() {
-    @Override
-    public String getPseudoClassName() {
-      return "one-page";
-    }
-  };
   private final Workbench model;
   private final AddModuleView view;
 
@@ -36,8 +29,7 @@ public class AddModulePresenter extends Presenter {
     this.model = model;
     this.view = view;
     init();
-    view.pagination.pseudoClassStateChanged(
-        ONE_PAGE_STATE, view.pagination.getPageCount() == 1);
+    view.updatePageCount(model.getAmountOfPages());
   }
 
   /**
@@ -67,11 +59,8 @@ public class AddModulePresenter extends Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-    model.amountOfPagesProperty().addListener((observable, oldPageCount, newPageCount) -> {
-      view.pagination.setPageCount(newPageCount.intValue());
-      view.pagination.pseudoClassStateChanged(
-          ONE_PAGE_STATE, newPageCount.intValue() == 1);
-    });
+    model.amountOfPagesProperty().addListener(
+        (observable, oldPageCount, newPageCount) -> view.updatePageCount(newPageCount.intValue()));
   }
 
   /**

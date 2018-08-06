@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
+import javafx.css.PseudoClass;
 import javafx.scene.control.Pagination;
 import javafx.scene.layout.StackPane;
 
@@ -10,6 +11,14 @@ import javafx.scene.layout.StackPane;
  * @author Marco Sanfratello
  */
 public class AddModuleView extends StackPane implements View {
+
+  private static final PseudoClass ONE_PAGE_STATE = new PseudoClass() {
+    @Override
+    public String getPseudoClassName() {
+      return "one-page";
+    }
+  };
+
   Pagination pagination;
 
   /**
@@ -42,5 +51,11 @@ public class AddModuleView extends StackPane implements View {
   public void layoutParts() {
     pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
     getChildren().add(pagination);
+  }
+
+  void updatePageCount(int amountOfPages) {
+    pagination.setPageCount(amountOfPages);
+    pagination.pseudoClassStateChanged(
+        ONE_PAGE_STATE, amountOfPages == 1);
   }
 }
