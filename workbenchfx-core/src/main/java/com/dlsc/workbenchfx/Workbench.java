@@ -13,7 +13,6 @@ import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
 import com.google.common.collect.Range;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -32,7 +31,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.collections.ObservableSet;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -79,8 +77,8 @@ public class Workbench extends Control {
       new SimpleObjectProperty<>(DEFAULT_NAVIGATION_DRAWER);
 
   // Lists
-  private final ObservableSet<ToolbarItem> toolbarControlsRight =
-      FXCollections.observableSet(new LinkedHashSet<>());
+  private final ObservableList<ToolbarItem> toolbarControlsRight =
+      FXCollections.observableArrayList();
   private final ObservableList<ToolbarItem> toolbarControlsLeft =
       FXCollections.observableArrayList();
   private final ObservableList<MenuItem> navigationDrawerItems =
@@ -91,8 +89,8 @@ public class Workbench extends Control {
    * corresponding {@link GlassPane}.
    */
   private final ObservableMap<Node, GlassPane> overlays = FXCollections.observableHashMap();
-  private final ObservableSet<Node> nonBlockingOverlaysShown = FXCollections.observableSet();
-  private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet();
+  private final ObservableList<Node> nonBlockingOverlaysShown = FXCollections.observableArrayList();
+  private final ObservableList<Node> blockingOverlaysShown = FXCollections.observableArrayList();
 
   private final ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>();
 
@@ -647,7 +645,7 @@ public class Workbench extends Control {
    * @return a list of the currently loaded toolbar controls on the right.
    * @implNote Use this method to add or remove toolbar controls on the right at runtime.
    */
-  public ObservableSet<ToolbarItem> getToolbarControlsRight() {
+  public ObservableList<ToolbarItem> getToolbarControlsRight() {
     return toolbarControlsRight;
   }
 
@@ -1025,12 +1023,12 @@ public class Workbench extends Control {
     return navigationDrawerItems;
   }
 
-  public ObservableSet<Node> getNonBlockingOverlaysShown() {
-    return FXCollections.unmodifiableObservableSet(nonBlockingOverlaysShown);
+  public ObservableList<Node> getNonBlockingOverlaysShown() {
+    return FXCollections.unmodifiableObservableList(nonBlockingOverlaysShown);
   }
 
-  public ObservableSet<Node> getBlockingOverlaysShown() {
-    return FXCollections.unmodifiableObservableSet(blockingOverlaysShown);
+  public ObservableList<Node> getBlockingOverlaysShown() {
+    return FXCollections.unmodifiableObservableList(blockingOverlaysShown);
   }
 
   public int getModulesPerPage() {
