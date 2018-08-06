@@ -24,16 +24,6 @@
         <module>workbenchfx-dirk</module>
     </modules>
 
-    <repositories>
-        <repository>
-            <id>rubygems-release</id>
-            <url>http://rubygems-proxy.torquebox.org/releases</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <build>
         <plugins>
             <plugin>
@@ -51,8 +41,8 @@
                     <skip>true</skip>
                     <!-- Align JRuby version with AsciidoctorJ to avoid redundant downloading -->
                     <jrubyVersion>${jruby.version}</jrubyVersion>
-                    <gemHome>${project.build.directory}/gems</gemHome>
-                    <gemPath>${project.build.directory}/gems</gemPath>
+                    <gemHome>${project.basedir}/gems-provided/gems</gemHome>
+                    <gemPath>${project.basedir}/gems-provided/gems</gemPath>
                 </configuration>
                 <executions>
                     <!-- Install required gems in target directory -->
@@ -89,10 +79,12 @@
                     <attributes>
                         <sourcedir>${project.build.sourceDirectory}</sourcedir>
                         <project-version>${project.version}</project-version>
+                        <bibliography-database>bibliography/WorkbenchFX.bib</bibliography-database>
+                        <bibliography-style>ieee</bibliography-style>
                     </attributes>
 
                     <!-- The gem-maven-plugin appends the scope (e.g., provided) to the gemPath defined in the plugin configuration -->
-                    <gemPath>${project.build.directory}/gems-provided</gemPath>
+                    <gemPath>${project.basedir}/gems-provided</gemPath>
                     <!-- Set Ruby extensions as required gems -->
                     <requires>
                         <require>asciidoctor-bibliography</require>
@@ -160,34 +152,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <!-- Ruby Gem for asciidoctor-bibliography -->
-    <dependencies>
-        <dependency>
-            <groupId>rubygems</groupId>
-            <artifactId>rubysl</artifactId>
-            <version>2.1.0</version>
-            <type>gem</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>rubygems</groupId>
-            <artifactId>asciidoctor-bibliography</artifactId>
-            <version>0.8.0</version>
-            <type>gem</type>
-            <!-- avoid downloading gems included in AsciidoctorJ -->
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>rubygems</groupId>
-                    <artifactId>asciidoctor</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>rubygems</groupId>
-                    <artifactId>rubysl</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
 
 </project>

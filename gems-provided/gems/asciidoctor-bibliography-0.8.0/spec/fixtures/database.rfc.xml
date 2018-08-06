@@ -1,0 +1,86 @@
+<references>
+<reference anchor="RFC2119" target="https://www.rfc-editor.org/info/rfc2119">
+<front>
+<title>
+Key words for use in RFCs to Indicate Requirement Levels
+</title>
+<author initials="S." surname="Bradner" fullname="S. Bradner">
+<organization/>
+</author>
+<date year="1997" month="March"/>
+<abstract>
+<t>
+In many standards track documents several words are used to signify the requirements in the specification. These words are often capitalized. This document defines these words as they should be interpreted in IETF documents. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.
+</t>
+</abstract>
+</front>
+<seriesInfo name="BCP" value="14"/>
+<seriesInfo name="RFC" value="2119"/>
+<seriesInfo name="DOI" value="10.17487/RFC2119"/>
+</reference>
+<reference anchor="RFC2629" target="https://www.rfc-editor.org/info/rfc2629">
+<front>
+<title>Writing I-Ds and RFCs using XML</title>
+<author initials="M." surname="Rose" fullname="M. Rose">
+<organization/>
+</author>
+<date year="1999" month="June"/>
+<abstract>
+<t>
+This memo presents a technique for using XML (Extensible Markup Language) as a source format for documents in the Internet-Drafts (I-Ds) and Request for Comments (RFC) series. This memo provides information for the Internet community.
+</t>
+</abstract>
+</front>
+<seriesInfo name="RFC" value="2629"/>
+<seriesInfo name="DOI" value="10.17487/RFC2629"/>
+</reference>
+<reference anchor="RFC3552" target="https://www.rfc-editor.org/info/rfc3552">
+<front>
+<title>
+Guidelines for Writing RFC Text on Security Considerations
+</title>
+<author initials="E." surname="Rescorla" fullname="E. Rescorla">
+<organization/>
+</author>
+<author initials="B." surname="Korver" fullname="B. Korver">
+<organization/>
+</author>
+<date year="2003" month="July"/>
+<abstract>
+<t>
+All RFCs are required to have a Security Considerations section. Historically, such sections have been relatively weak. This document provides guidelines to RFC authors on how to write a good Security Considerations section. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.
+</t>
+</abstract>
+</front>
+<seriesInfo name="BCP" value="72"/>
+<seriesInfo name="RFC" value="3552"/>
+<seriesInfo name="DOI" value="10.17487/RFC3552"/>
+</reference>
+<reference anchor="RFC5226" target="https://www.rfc-editor.org/info/rfc5226">
+<front>
+<title>
+Guidelines for Writing an IANA Considerations Section in RFCs
+</title>
+<author initials="T." surname="Narten" fullname="T. Narten">
+<organization/>
+</author>
+<author initials="H." surname="Alvestrand" fullname="H. Alvestrand">
+<organization/>
+</author>
+<date year="2008" month="May"/>
+<abstract>
+<t>
+Many protocols make use of identifiers consisting of constants and other well-known values. Even after a protocol has been defined and deployment has begun, new values may need to be assigned (e.g., for a new option type in DHCP, or a new encryption or authentication transform for IPsec). To ensure that such quantities have consistent values and interpretations across all implementations, their assignment must be administered by a central authority. For IETF protocols, that role is provided by the Internet Assigned Numbers Authority (IANA).
+</t>
+<t>
+In order for IANA to manage a given namespace prudently, it needs guidelines describing the conditions under which new values can be assigned or when modifications to existing values can be made. If IANA is expected to play a role in the management of a namespace, IANA must be given clear and concise instructions describing that role. This document discusses issues that should be considered in formulating a policy for assigning values to a namespace and provides guidelines for authors on the specific text that must be included in documents that place demands on IANA.
+</t>
+<t>
+This document obsoletes RFC 2434. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.
+</t>
+</abstract>
+</front>
+<seriesInfo name="RFC" value="5226"/>
+<seriesInfo name="DOI" value="10.17487/RFC5226"/>
+</reference>
+</references>
