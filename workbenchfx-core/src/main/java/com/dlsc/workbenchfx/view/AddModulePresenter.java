@@ -2,6 +2,9 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.module.Page;
+import javafx.css.PseudoClass;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the presenter of the corresponding {@link AddModuleView}.
@@ -10,6 +13,17 @@ import com.dlsc.workbenchfx.view.controls.module.Page;
  * @author Marco Sanfratello
  */
 public class AddModulePresenter extends Presenter {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(AddModulePresenter.class.getName());
+
+  private static final PseudoClass ONE_PAGE_STATE = new PseudoClass() {
+    @Override
+    public String getPseudoClassName() {
+      return "one-page";
+    }
+  };
+  private static final int MIN_PAGE_COUNT = 1;
   private final Workbench model;
   private final AddModuleView view;
 
@@ -23,6 +37,8 @@ public class AddModulePresenter extends Presenter {
     this.model = model;
     this.view = view;
     init();
+    view.pagination.pseudoClassStateChanged(
+        ONE_PAGE_STATE, view.pagination.getPageCount() == MIN_PAGE_COUNT);
   }
 
   /**
@@ -52,7 +68,11 @@ public class AddModulePresenter extends Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-
+    model.amountOfPagesProperty().addListener((observable, oldPageCount, newPageCount) -> {
+      view.pagination.setPageCount(newPageCount.intValue());
+      view.pagination.pseudoClassStateChanged(
+          ONE_PAGE_STATE, newPageCount.intValue() == MIN_PAGE_COUNT);
+    });
   }
 
   /**
@@ -60,7 +80,6 @@ public class AddModulePresenter extends Presenter {
    */
   @Override
   public void setupBindings() {
-    view.pagination.pageCountProperty().bind(model.amountOfPagesProperty());
-  }
 
+  }
 }
