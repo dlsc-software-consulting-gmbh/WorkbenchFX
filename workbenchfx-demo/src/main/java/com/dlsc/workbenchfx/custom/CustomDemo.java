@@ -118,7 +118,7 @@ public class CustomDemo extends Application {
             new LifecycleTestModule()
         )
             .toolbarLeft(
-                new ToolbarItem("Workbench Application"),
+                new ToolbarItem("WorkbenchFX"),
                 addPreferences,
                 removePreferences,
                 new ToolbarItem(

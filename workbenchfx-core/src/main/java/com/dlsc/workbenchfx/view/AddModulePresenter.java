@@ -2,6 +2,8 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.module.Page;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the presenter of the corresponding {@link AddModuleView}.
@@ -10,6 +12,10 @@ import com.dlsc.workbenchfx.view.controls.module.Page;
  * @author Marco Sanfratello
  */
 public class AddModulePresenter extends Presenter {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(AddModulePresenter.class.getName());
+
   private final Workbench model;
   private final AddModuleView view;
 
@@ -23,6 +29,7 @@ public class AddModulePresenter extends Presenter {
     this.model = model;
     this.view = view;
     init();
+    view.updatePageCount(model.getAmountOfPages());
   }
 
   /**
@@ -30,13 +37,13 @@ public class AddModulePresenter extends Presenter {
    */
   @Override
   public void initializeViewParts() {
-    view.pagination.setPageCount(model.getAmountOfPages());
-    view.pagination.setPageFactory(pageIndex -> {
+    view.setPageCount(model.getAmountOfPages());
+    view.setPageFactory(pageIndex -> {
       Page page = model.getPageFactory().call(model);
       page.setPageIndex(pageIndex);
       return page;
     });
-    view.pagination.setMaxPageIndicatorCount(Integer.MAX_VALUE);
+    view.setMaxPageIndicatorCount(Integer.MAX_VALUE);
   }
 
   /**
@@ -52,7 +59,8 @@ public class AddModulePresenter extends Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-
+    model.amountOfPagesProperty().addListener(
+        (observable, oldPageCount, newPageCount) -> view.updatePageCount(newPageCount.intValue()));
   }
 
   /**
@@ -60,7 +68,6 @@ public class AddModulePresenter extends Presenter {
    */
   @Override
   public void setupBindings() {
-    view.pagination.pageCountProperty().bind(model.amountOfPagesProperty());
-  }
 
+  }
 }
