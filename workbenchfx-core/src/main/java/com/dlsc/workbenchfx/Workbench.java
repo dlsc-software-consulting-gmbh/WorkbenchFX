@@ -107,8 +107,10 @@ public class Workbench extends Control {
   private final ObservableMap<Region, WorkbenchOverlay> overlays =
       FXCollections.observableHashMap();
 
-  private final ObservableList<Region> nonBlockingOverlaysShown = FXCollections.observableArrayList();
-  private final ObservableList<Region> blockingOverlaysShown = FXCollections.observableArrayList();
+  private final ObservableList<Region> nonBlockingOverlaysShown =
+      FXCollections.observableArrayList();
+  private final ObservableList<Region> blockingOverlaysShown =
+      FXCollections.observableArrayList();
 
   private final ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>();
   private final ObjectProperty<Side> drawerSideShown = new SimpleObjectProperty<>();
