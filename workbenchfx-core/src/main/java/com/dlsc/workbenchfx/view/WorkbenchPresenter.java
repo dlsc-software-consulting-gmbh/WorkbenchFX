@@ -7,8 +7,8 @@ import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import java.util.Objects;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import org.apache.logging.log4j.LogManager;
@@ -28,8 +28,8 @@ public class WorkbenchPresenter extends Presenter {
   private WorkbenchView view;
 
   private final ObservableMap<Node, GlassPane> overlays;
-  private final ObservableSet<Node> overlaysShown;
-  private final ObservableSet<Node> blockingOverlaysShown;
+  private final ObservableList<Node> overlaysShown;
+  private final ObservableList<Node> blockingOverlaysShown;
 
   /**
    * Constructs a new {@link WorkbenchPresenter} for the {@link WorkbenchView}.
@@ -79,13 +79,13 @@ public class WorkbenchPresenter extends Presenter {
       }
     });
 
-    WorkbenchUtils.addSetListener(
+    WorkbenchUtils.addListListener(
         overlaysShown,
         change -> showOverlay(change.getElementAdded(), false),
         change -> hideOverlay(change.getElementRemoved())
     );
 
-    WorkbenchUtils.addSetListener(
+    WorkbenchUtils.addListListener(
         blockingOverlaysShown,
         change -> showOverlay(change.getElementAdded(), true),
         change -> hideOverlay(change.getElementRemoved())

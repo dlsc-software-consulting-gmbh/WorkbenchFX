@@ -45,7 +45,7 @@ public class WorkbenchUtilsTest {
   @Test
   void addSetListenerAdd() {
     Thread mock = mock(Thread.class);
-    WorkbenchUtils.addSetListener(
+    WorkbenchUtils.addListListener(
         observableSet,
         c -> mock.run(),
         c -> fail("was removed instead of added")
@@ -59,7 +59,7 @@ public class WorkbenchUtilsTest {
     Thread mock = mock(Thread.class);
     String test = "Test";
     observableSet.add(test);
-    WorkbenchUtils.addSetListener(
+    WorkbenchUtils.addListListener(
         observableSet,
         c -> fail("was added instead of removed"),
         c -> mock.run()
