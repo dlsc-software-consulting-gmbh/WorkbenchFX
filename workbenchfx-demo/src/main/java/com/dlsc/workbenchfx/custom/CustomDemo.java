@@ -5,6 +5,7 @@ import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
 import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
+import com.dlsc.workbenchfx.custom.pokemon.PokemonModule;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DialogTestModule;
 import com.dlsc.workbenchfx.custom.test.DrawerTestModule;
@@ -100,6 +101,7 @@ public class CustomDemo extends Application {
     // WorkbenchFX
     workbench =
         Workbench.builder(
+            new PokemonModule(),
             new CalendarModule(),
             new NotesModule(),
             new CustomerModule(),
@@ -125,6 +127,7 @@ public class CustomDemo extends Application {
                     new CustomMenuItem(new Label("Content 2")))
             )
             .toolbarRight(
+                new ToolbarItem("Hallo Rubil", event -> System.out.println("Hallo Marco")),
                 showDialogButton,
                 new ToolbarItem(
                     new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
@@ -138,7 +141,7 @@ public class CustomDemo extends Application {
                     new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
-            .modulesPerPage(9)
+            .modulesPerPage(6)
             //.pageFactory(CustomPage::new)
             //.tabFactory(CustomTab::new)
             //.tileFactory(CustomTile::new)
@@ -158,7 +161,7 @@ public class CustomDemo extends Application {
 
     // This sets the custom style. Comment this out to have a look at the default styles.
     //workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
-    //workbench.getStylesheets().add(CustomDemo.class.getResource("darkTheme.css").toExternalForm());
+    workbench.getStylesheets().add(CustomDemo.class.getResource("darkTheme.css").toExternalForm());
 
     workbench
         .getStylesheets()

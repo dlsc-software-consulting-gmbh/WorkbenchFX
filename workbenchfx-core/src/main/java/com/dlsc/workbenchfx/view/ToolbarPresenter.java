@@ -75,9 +75,11 @@ public class ToolbarPresenter extends Presenter {
   private void setupMenuBtn() {
     LOGGER.trace("setupMenuBtn() called");
     view.removeMenuBtn(); // Remove the menuBtn
+    boolean empty = view.toolbarControl.isEmpty();
+    view.topBox.pseudoClassStateChanged(emptyState, empty); // Change the pseudoclass
 
     if (navigationDrawerItems.size() != 0) { // If setting it is required
-      if (view.toolbarControl.isEmpty()) { // If the toolbarControl is empty set it below
+      if (empty) { // If the toolbarControl is empty set it below
         LOGGER.trace("Put the button below into the bottomBox");
         view.addMenuBtnBottom();
       } else { // else put it into the topBox
@@ -117,10 +119,8 @@ public class ToolbarPresenter extends Presenter {
     // makes sure the menu button is only being displayed if there are navigation drawer items
     navigationDrawerItems.addListener((InvalidationListener) observable -> setupMenuBtn());
     // when the toolbarControl's emptyProperty changes, check the menuBtn's position
-    view.toolbarControl.emptyProperty().addListener((observable, wasEmpty, isEmpty) -> {
-      view.topBox.pseudoClassStateChanged(emptyState, isEmpty); // Change the pseudoclass
-      setupMenuBtn(); // Define where to put the menuBtn
-    });
+    view.toolbarControl.emptyProperty().addListener(
+        (observable, wasEmpty, isEmpty) -> setupMenuBtn()); // Define where to put the menuBtn
   }
 
   /**
