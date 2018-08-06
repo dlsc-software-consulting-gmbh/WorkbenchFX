@@ -47,3 +47,4 @@ deploy:
   on:
     repo: FHNW-IP5-IP6/WorkbenchFX
     tags: true
+    branch: master
