@@ -2,14 +2,14 @@ package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
 public class LifecycleTestModule extends WorkbenchModule {
 
   public LifecycleTestModule() {
-    super("Lifecycle Test", FontAwesomeIcon.QUESTION);
+    super("Lifecycle Test", MaterialDesignIcon.HELP);
   }
 
   @Override

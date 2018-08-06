@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
@@ -14,7 +14,7 @@ public class WidgetsTestModule extends WorkbenchModule {
   private final GridPane customPane = new GridPane();
 
   public WidgetsTestModule() {
-    super("Widgets Test", FontAwesomeIcon.QUESTION);
+    super("Widgets Test", MaterialDesignIcon.HELP);
     layoutParts();
   }
 

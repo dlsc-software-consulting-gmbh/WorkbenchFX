@@ -182,7 +182,8 @@
       -fx-background-radius: 0.3571428571em;
       -fx-background-insets: 0; }
       #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .icon .glyph-icon {
-        -fx-fill: -on-surface-color; }
+        -fx-fill: -on-surface-color;
+        -fx-font-size: 1.5714285714em !important; }
       #content-view #add-module-view #tile-pane .pagination .page .tile-page .tile-control .text-lbl {
         -fx-padding: .5em 0 0 0;
         -fx-alignment: CENTER;

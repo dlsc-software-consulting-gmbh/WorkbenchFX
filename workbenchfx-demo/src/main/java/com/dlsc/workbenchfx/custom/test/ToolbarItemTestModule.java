@@ -4,6 +4,7 @@ import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Pos;
@@ -38,7 +39,7 @@ public class ToolbarItemTestModule extends WorkbenchModule {
   private final Button removeAllItmsBtn = new Button("REMOVE ALL ITEMS");
 
   public ToolbarItemTestModule() {
-    super("ToolbarItem Test", FontAwesomeIcon.QUESTION);
+    super("ToolbarItem Test", MaterialDesignIcon.HELP);
     layoutParts();
     setupEventHandlers();
   }
