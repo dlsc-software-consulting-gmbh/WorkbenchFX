@@ -56,7 +56,7 @@ class TileTest extends ApplicationTest {
     for (int i = 0; i < mockModules.length; i++) {
       mockModules[i] = createMockModule(
           moduleNodes[i], moduleIcons[i],true,"Module " + i, mockBench,
-          FXCollections.observableArrayList(), FXCollections.observableSet()
+          FXCollections.observableArrayList(), FXCollections.observableArrayList()
       );
     }
 
@@ -85,7 +85,7 @@ class TileTest extends ApplicationTest {
 
     tile.setModule(createMockModule(
         new Label("node"), new Label("icon"),true,"Name\nwith\nbreaks",
-        mockBench, FXCollections.observableArrayList(), FXCollections.observableSet()
+        mockBench, FXCollections.observableArrayList(), FXCollections.observableArrayList()
     ));
     assertEquals("Name\nwith\nbreaks", tile.getName());
     assertEquals("icon", ((Label) tile.getIcon()).getText());

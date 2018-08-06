@@ -1,18 +1,14 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import java.util.LinkedHashSet;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import org.apache.logging.log4j.LogManager;
@@ -34,9 +30,8 @@ public class ToolbarControl extends HBox {
   // The content of the two HBoxes listens to the two Lists and will be set on change.
   private final ListProperty<ToolbarItem> toolbarControlsLeft = new SimpleListProperty<>(this,
       "toolbarControlsLeft", FXCollections.observableArrayList());
-  private final SetProperty<ToolbarItem> toolbarControlsRight = new SimpleSetProperty<>(this,
-      "toolbarControlsRight",
-      FXCollections.observableSet(new LinkedHashSet<>()));
+  private final ListProperty<ToolbarItem> toolbarControlsRight = new SimpleListProperty<>(this,
+      "toolbarControlsRight", FXCollections.observableArrayList());
 
   private final BooleanProperty empty = new SimpleBooleanProperty(true);
 
@@ -106,11 +101,11 @@ public class ToolbarControl extends HBox {
     return toolbarControlsLeft;
   }
 
-  public ObservableSet<ToolbarItem> getToolbarControlsRight() {
+  public ObservableList<ToolbarItem> getToolbarControlsRight() {
     return toolbarControlsRight.get();
   }
 
-  public SetProperty<ToolbarItem> toolbarControlsRightProperty() {
+  public ListProperty<ToolbarItem> toolbarControlsRightProperty() {
     return toolbarControlsRight;
   }
 }

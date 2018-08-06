@@ -4,6 +4,8 @@ import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
 
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchOverlay;
+import com.dlsc.workbenchfx.view.WorkbenchPresenter;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
@@ -13,17 +15,20 @@ import com.dlsc.workbenchfx.view.controls.module.Tab;
 import com.dlsc.workbenchfx.view.controls.module.Tile;
 import com.google.common.collect.Range;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -32,7 +37,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.collections.ObservableSet;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -47,6 +52,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -74,13 +80,21 @@ public class Workbench extends Control {
   private static final NavigationDrawer DEFAULT_NAVIGATION_DRAWER = new NavigationDrawer();
   private static final int MAX_PERCENT = 100;
 
+  /**
+   * Duration of animations according to material design guidelines.
+   * @see <a href="https://material.io/design/motion/speed.html#duration">
+   * Speed - Material Design</a>
+   */
+  private static final int ANIMATION_DURATION_DRAWER_OPEN = 250;
+  private static final int ANIMATION_DURATION_DRAWER_CLOSE = 200;
+
   // Custom Controls
   private ObjectProperty<NavigationDrawer> navigationDrawer =
       new SimpleObjectProperty<>(DEFAULT_NAVIGATION_DRAWER);
 
   // Lists
-  private final ObservableSet<ToolbarItem> toolbarControlsRight =
-      FXCollections.observableSet(new LinkedHashSet<>());
+  private final ObservableList<ToolbarItem> toolbarControlsRight =
+      FXCollections.observableArrayList();
   private final ObservableList<ToolbarItem> toolbarControlsLeft =
       FXCollections.observableArrayList();
   private final ObservableList<MenuItem> navigationDrawerItems =
@@ -88,13 +102,18 @@ public class Workbench extends Control {
 
   /**
    * Map containing all overlays which have been loaded into the scene graph, with their
-   * corresponding {@link GlassPane}.
+   * corresponding model object {@link WorkbenchOverlay}.
    */
-  private final ObservableMap<Node, GlassPane> overlays = FXCollections.observableHashMap();
-  private final ObservableSet<Node> nonBlockingOverlaysShown = FXCollections.observableSet();
-  private final ObservableSet<Node> blockingOverlaysShown = FXCollections.observableSet();
+  private final ObservableMap<Region, WorkbenchOverlay> overlays =
+      FXCollections.observableHashMap();
+
+  private final ObservableList<Region> nonBlockingOverlaysShown =
+      FXCollections.observableArrayList();
+  private final ObservableList<Region> blockingOverlaysShown =
+      FXCollections.observableArrayList();
 
   private final ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>();
+  private final ObjectProperty<Side> drawerSideShown = new SimpleObjectProperty<>();
 
   // Modules
   /**
@@ -412,7 +431,7 @@ public class Workbench extends Control {
         hideOverlay(oldDrawer);
       }
       if (!Objects.isNull(newDrawer)) {
-        showOverlay(newDrawer, false);
+        showOverlay(newDrawer, false, drawerSideShown.get());
       }
     });
 
@@ -647,7 +666,7 @@ public class Workbench extends Control {
    * @return a list of the currently loaded toolbar controls on the right.
    * @implNote Use this method to add or remove toolbar controls on the right at runtime.
    */
-  public ObservableSet<ToolbarItem> getToolbarControlsRight() {
+  public ObservableList<ToolbarItem> getToolbarControlsRight() {
     return toolbarControlsRight;
   }
 
@@ -806,11 +825,11 @@ public class Workbench extends Control {
 
   /**
    * Returns a map of all overlays, which have previously been opened, with their corresponding
-   * {@link GlassPane}.
+   * model object {@link WorkbenchOverlay}.
    * @return a map of all overlays, which have previously been opened, with their corresponding
-   *         {@link GlassPane}.
+   *         model object {@link WorkbenchOverlay}.
    */
-  public ObservableMap<Node, GlassPane> getOverlays() {
+  public ObservableMap<Region, WorkbenchOverlay> getOverlays() {
     return FXCollections.unmodifiableObservableMap(overlays);
   }
 
@@ -821,13 +840,17 @@ public class Workbench extends Control {
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
-   *                 overlay} itself must call {@link Workbench#hideOverlay(Node)} to hide it.
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Region)} to hide it.
    * @return true if the overlay is not being shown already
    */
-  public boolean showOverlay(Node overlay, boolean blocking) {
+  public boolean showOverlay(Region overlay, boolean blocking) {
     LOGGER.trace("showOverlay");
     if (!overlays.containsKey(overlay)) {
-      overlays.put(overlay, new GlassPane());
+      overlays.put(overlay, new WorkbenchOverlay(overlay, new GlassPane()));
+    }
+    // To prevent showing the same overlay twice
+    if (blockingOverlaysShown.contains(overlay) || nonBlockingOverlaysShown.contains(overlay)) {
+      return false;
     }
     if (blocking) {
       LOGGER.trace("showOverlay - blocking");
@@ -839,8 +862,106 @@ public class Workbench extends Control {
   }
 
   /**
+   * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background.
+   * The overlay will be shown and hidden with an animation, sliding the overlay in and out
+   * from the defined {@code side}.
+   *
+   * @param overlay to be shown
+   * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
+   *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
+   *                 clicking outside of the {@code overlay} will not do anything. The {@code
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Region)} to hide it.
+   * @param side from which the {@code overlay} should be slid when the overlay is being shown or
+   *             hidden
+   * @return true if the overlay is not being shown already
+   */
+  private boolean showOverlay(Region overlay, boolean blocking, Side side) {
+    LOGGER.trace("showOverlay - animated");
+    if (!overlays.containsKey(overlay)) {
+      overlays.put(overlay,
+          new WorkbenchOverlay(overlay, new GlassPane(), slideIn(overlay), slideOut(overlay))
+      );
+      addInitialAnimationHandler(overlays.get(overlay), side);
+    }
+    return showOverlay(overlay, blocking);
+  }
+
+  /**
+   * Handles the initial animation of an overlay.
+   *
+   * <p>An overlay will have a default size of {@code 0}, when it is <b>first being shown</b> by
+   * {@link WorkbenchPresenter#showOverlay(Region, boolean)}, because it has not been added to the
+   * scene graph or a layout pass has not been performed yet. This means the animation won't be
+   * played by {@link WorkbenchPresenter#showOverlay(Region, boolean)} as well.<br>
+   * For this reason, we wait for the {@link WorkbenchOverlay} to be initialized and then initially
+   * set the coordinates of the overlay to be outside of the {@link Scene}, followed by playing the
+   * initial starting animation.<br>
+   * Any subsequent calls which show this {@code workbenchOverlay} again will <b>not</b> cause this
+   * to trigger again, as the {@link Event} of {@link WorkbenchOverlay#onInitializedProperty()}
+   * will only be fired once, since calling {@link Workbench#hideOverlay(Region)} only makes the
+   * overlays not visible, which means the nodes remain with their size already initialized in the
+   * scene graph.
+   *
+   * @param workbenchOverlay for which to prepare the initial animation handler for
+   * @param side from which the sliding animation should originate
+   */
+  private void addInitialAnimationHandler(WorkbenchOverlay workbenchOverlay, Side side) {
+    Region overlay = workbenchOverlay.getOverlay();
+    // prepare values for setting the listener
+    ReadOnlyDoubleProperty size =
+        side.isVertical() ? overlay.widthProperty() : overlay.heightProperty();
+    //                       LEFT or RIGHT side          TOP or BOTTOM side
+
+    // make sure this code only gets run the first time the overlay has been shown and
+    // rendered in the scene graph, to ensure the overlay has a size for the calculations
+    workbenchOverlay.setOnInitialized(event -> {
+      // prepare variables
+      TranslateTransition start = workbenchOverlay.getAnimationStart();
+      TranslateTransition end = workbenchOverlay.getAnimationEnd();
+      DoubleExpression hiddenCoordinate = DoubleBinding.doubleExpression(size);
+      if (Side.LEFT.equals(side) || Side.TOP.equals(side)) {
+        hiddenCoordinate = hiddenCoordinate.negate(); // make coordinates in hidden state negative
+      }
+
+      if (side.isVertical()) { // LEFT or RIGHT => X
+        overlay.setTranslateX(hiddenCoordinate.get()); // initial position
+        start.setToX(0);
+        if (!end.toXProperty().isBound()) {
+          end.toXProperty().bind(hiddenCoordinate);
+        }
+      }
+      if (side.isHorizontal()) { // TOP or BOTTOM => Y
+        overlay.setTranslateY(hiddenCoordinate.get()); // initial position
+        start.setToY(0);
+        if (!end.toYProperty().isBound()) {
+          end.toYProperty().bind(hiddenCoordinate);
+        }
+      }
+
+      start.play();
+    });
+  }
+
+  private TranslateTransition slideIn(Region overlay) {
+    TranslateTransition open = new TranslateTransition(
+        new Duration(ANIMATION_DURATION_DRAWER_OPEN), overlay);
+    return open;
+  }
+
+  private TranslateTransition slideOut(Region overlay) {
+    TranslateTransition close = new TranslateTransition(
+        new Duration(ANIMATION_DURATION_DRAWER_CLOSE), overlay);
+    close.setOnFinished(event -> {
+      overlay.setVisible(false);
+      LOGGER.trace(
+          "Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " + overlay.getTranslateX());
+    });
+    return close;
+  }
+
+  /**
    * Hides the {@code overlay} together with its {@link GlassPane}, which has previously been shown
-   * using {@link Workbench#showOverlay(Node, boolean)}.
+   * using {@link Workbench#showOverlay(Region, boolean)}.
    *
    * @param overlay to be hidden
    * @return true if the overlay was showing and is now hidden
@@ -849,7 +970,7 @@ public class Workbench extends Control {
    *           in the scene graph is not possible due to performance reasons, call {@link
    *           Workbench#clearOverlays()} after this method.
    */
-  public boolean hideOverlay(Node overlay) {
+  public boolean hideOverlay(Region overlay) {
     LOGGER.trace("hideOverlay");
     if (blockingOverlaysShown.contains(overlay)) {
       return blockingOverlaysShown.remove(overlay);
@@ -960,6 +1081,7 @@ public class Workbench extends Control {
     }
     StackPane.setAlignment(drawer, position);
     drawer.getStyleClass().add("drawer");
+    setDrawerSideShown(side);
     setDrawerShown(drawer);
   }
 
@@ -999,6 +1121,7 @@ public class Workbench extends Control {
    */
   public void hideDrawer() {
     setDrawerShown(null);
+    setDrawerSideShown(null);
   }
 
   public void showNavigationDrawer() {
@@ -1025,12 +1148,12 @@ public class Workbench extends Control {
     return navigationDrawerItems;
   }
 
-  public ObservableSet<Node> getNonBlockingOverlaysShown() {
-    return FXCollections.unmodifiableObservableSet(nonBlockingOverlaysShown);
+  public ObservableList<Region> getNonBlockingOverlaysShown() {
+    return FXCollections.unmodifiableObservableList(nonBlockingOverlaysShown);
   }
 
-  public ObservableSet<Node> getBlockingOverlaysShown() {
-    return FXCollections.unmodifiableObservableSet(blockingOverlaysShown);
+  public ObservableList<Region> getBlockingOverlaysShown() {
+    return FXCollections.unmodifiableObservableList(blockingOverlaysShown);
   }
 
   public int getModulesPerPage() {
@@ -1099,6 +1222,18 @@ public class Workbench extends Control {
 
   private void setDrawerShown(Region drawerShown) {
     this.drawerShown.set(drawerShown);
+  }
+
+  public Side getDrawerSideShown() {
+    return drawerSideShown.get();
+  }
+
+  public ReadOnlyObjectProperty<Side> drawerSideShownProperty() {
+    return drawerSideShown;
+  }
+
+  private void setDrawerSideShown(Side drawerSideShown) {
+    this.drawerSideShown.set(drawerSideShown);
   }
 
   @Override
