@@ -5,6 +5,7 @@ import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.model.WorkbenchOverlay;
+import com.dlsc.workbenchfx.view.WorkbenchPresenter;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
@@ -37,6 +38,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -855,9 +857,11 @@ public class Workbench extends Control {
   }
 
   /**
-   * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background. TODO
+   * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background.
+   * The overlay will be shown and hidden with an animation, sliding the overlay in and out
+   * from the defined {@code side}.
    *
-   * @param overlay  to be shown
+   * @param overlay to be shown
    * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
    *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
    *                 clicking outside of the {@code overlay} will not do anything. The {@code
@@ -878,10 +882,23 @@ public class Workbench extends Control {
   }
 
   /**
-   * TODO.
+   * Handles the initial animation of an overlay.
    *
-   * @param workbenchOverlay TODO
-   * @param side TODO
+   * <p>An overlay will have a default size of {@code 0}, when it is <b>first being shown</b> by
+   * {@link WorkbenchPresenter#showOverlay(Region, boolean)}, because it has not been added to the
+   * scene graph or a layout pass has not been performed yet. This means the animation won't be
+   * played by {@link WorkbenchPresenter#showOverlay(Region, boolean)} as well.<br>
+   * For this reason, we wait for the {@link WorkbenchOverlay} to be initialized and then initially
+   * set the coordinates of the overlay to be outside of the {@link Scene}, followed by playing the
+   * initial starting animation.<br>
+   * Any subsequent calls which show this {@code workbenchOverlay} again will <b>not</b> cause this
+   * to trigger again, as the {@link Event} of {@link WorkbenchOverlay#onInitializedProperty()}
+   * will only be fired once, since calling {@link Workbench#hideOverlay(Region)} only makes the
+   * overlays not visible, which means the nodes remain with their size already initialized in the
+   * scene graph.
+   *
+   * @param workbenchOverlay for which to prepare the initial animation handler for
+   * @param side from which the sliding animation should originate
    */
   private void addInitialAnimationHandler(WorkbenchOverlay workbenchOverlay, Side side) {
     Region overlay = workbenchOverlay.getOverlay();
