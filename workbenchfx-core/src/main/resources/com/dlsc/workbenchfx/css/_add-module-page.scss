@@ -1,84 +1,82 @@
 #content-view {
   & #add-module-view {
     -fx-padding: 0 0 4em 0;
-    & .pagination {
-      &:one-page > .pagination-control {
-        -fx-opacity: 0;
-      }
-      & .page {
-        & .tile-page {
-          -fx-vgap: 3em;
-          -fx-hgap: 3em;
-          -fx-padding: 1.5em;
+    &:one-page > .pagination-control {
+      -fx-opacity: 0;
+    }
+    & .page {
+      & .tile-page {
+        -fx-vgap: 3em;
+        -fx-hgap: 3em;
+        -fx-padding: 1.5em;
+        -fx-alignment: CENTER;
+
+        & .tile-control {
+          -fx-padding: 1em;
           -fx-alignment: CENTER;
 
-          & .tile-control {
-            -fx-padding: 1em;
+          $tile-width: 13.25em;
+          $golden-ratio: 1.61803398875;
+          -fx-pref-width: $tile-width;
+          -fx-pref-height: $tile-width / $golden-ratio;
+
+          -fx-background-color: -surface-color;
+          -fx-effect: -drop-shadow-1;
+          -fx-border-width: 0;
+
+          -fx-border-radius: px(5);
+          -fx-background-radius: px(5);
+
+          -fx-background-insets: 0; //needed to remove the focused border on bottom
+
+          & .icon .glyph-icon {
+            -fx-fill: -on-surface-color;
+          }
+
+          & .text-lbl {
+            -fx-padding: .5em 0 0 0;
             -fx-alignment: CENTER;
+            -fx-text-alignment: CENTER;
 
-            $tile-width: 13.25em;
-            $golden-ratio: 1.61803398875;
-            -fx-pref-width: $tile-width;
-            -fx-pref-height: $tile-width / $golden-ratio;
-
-            -fx-background-color: -surface-color;
-            -fx-effect: -drop-shadow-1;
-            -fx-border-width: 0;
-
-            -fx-border-radius: px(5);
-            -fx-background-radius: px(5);
-
-            -fx-background-insets: 0; //needed to remove the focused border on bottom
-
-            & .icon .glyph-icon {
+            & .text {
               -fx-fill: -on-surface-color;
             }
+          }
 
-            & .text-lbl {
-              -fx-padding: .5em 0 0 0;
-              -fx-alignment: CENTER;
-              -fx-text-alignment: CENTER;
+          &:hover {
+            -fx-effect: -drop-shadow-2;
+            -fx-cursor: hand;
+          }
 
-              & .text {
-                -fx-fill: -on-surface-color;
-              }
-            }
+          &:focused {
 
-            &:hover {
-              -fx-effect: -drop-shadow-2;
-              -fx-cursor: hand;
-            }
+          }
 
-            &:focused {
-
-            }
-
-            &:pressed {
-              -fx-effect: -drop-shadow-3;
-            }
+          &:pressed {
+            -fx-effect: -drop-shadow-3;
           }
         }
       }
-      -fx-arrows-visible: false;
-      -fx-page-information-visible: false;
-      -fx-tooltip-visible: false;
+    }
+    -fx-arrows-visible: false;
+    -fx-page-information-visible: false;
+    -fx-tooltip-visible: false;
 
-      & > .pagination-control > .control-box {
-        -fx-spacing: .25em;
+    & > .pagination-control > .control-box {
+      -fx-spacing: .25em;
 
-        & > .bullet-button {
-          -fx-background-radius: 50%;
-          -fx-background-insets: 0.45em; // Size of the bullets: Smaller values mean bigger dots
-          -fx-background-color: -secondary-variant-color;
+      & > .bullet-button {
+        -fx-background-radius: 50%;
+        -fx-background-insets: 0.45em; // Size of the bullets: Smaller values mean bigger dots
+        -fx-background-color: -secondary-variant-color;
+        &:hover {
+          -fx-cursor: hand;
+          -fx-background-color: derive(-secondary-variant-color, 25%);
+        }
+        &:selected {
+          -fx-background-color: -secondary-color;
           &:hover {
-            -fx-cursor: hand;
-            -fx-background-color: derive(-secondary-variant-color, 25%);
-          }
-          &:selected {
-            -fx-background-color: -secondary-color;
-            &:hover {
-              -fx-cursor: inherit;
-            }
+            -fx-cursor: inherit;
           }
         }
       }

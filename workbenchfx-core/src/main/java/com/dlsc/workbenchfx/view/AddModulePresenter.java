@@ -37,13 +37,13 @@ public class AddModulePresenter extends Presenter {
    */
   @Override
   public void initializeViewParts() {
-    view.pagination.setPageCount(model.getAmountOfPages());
-    view.pagination.setPageFactory(pageIndex -> {
+    view.setPageCount(model.getAmountOfPages());
+    view.setPageFactory(pageIndex -> {
       Page page = model.getPageFactory().call(model);
       page.setPageIndex(pageIndex);
       return page;
     });
-    view.pagination.setMaxPageIndicatorCount(Integer.MAX_VALUE);
+    view.setMaxPageIndicatorCount(Integer.MAX_VALUE);
   }
 
   /**

@@ -2,7 +2,6 @@ package com.dlsc.workbenchfx.view;
 
 import javafx.css.PseudoClass;
 import javafx.scene.control.Pagination;
-import javafx.scene.layout.StackPane;
 
 /**
  * Shows the home screen with the {@link Module}s as tiles, using pagination.
@@ -10,7 +9,7 @@ import javafx.scene.layout.StackPane;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class AddModuleView extends StackPane implements View {
+public class AddModuleView extends Pagination implements View {
 
   private static final PseudoClass ONE_PAGE_STATE = new PseudoClass() {
     @Override
@@ -18,8 +17,6 @@ public class AddModuleView extends StackPane implements View {
       return "one-page";
     }
   };
-
-  Pagination pagination;
 
   /**
    * Creates a new {@link AddModuleView}.
@@ -41,7 +38,7 @@ public class AddModuleView extends StackPane implements View {
    */
   @Override
   public void initializeParts() {
-    pagination = new Pagination();
+
   }
 
   /**
@@ -49,13 +46,11 @@ public class AddModuleView extends StackPane implements View {
    */
   @Override
   public void layoutParts() {
-    pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
-    getChildren().add(pagination);
+    getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
   }
 
   void updatePageCount(int amountOfPages) {
-    pagination.setPageCount(amountOfPages);
-    pagination.pseudoClassStateChanged(
-        ONE_PAGE_STATE, amountOfPages == 1);
+    setPageCount(amountOfPages);
+    pseudoClassStateChanged(ONE_PAGE_STATE, amountOfPages == 1);
   }
 }
