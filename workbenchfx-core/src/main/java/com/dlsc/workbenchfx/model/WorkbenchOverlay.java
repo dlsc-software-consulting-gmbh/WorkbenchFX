@@ -122,7 +122,8 @@ public final class WorkbenchOverlay {
    *           added to the scene graph and a layout pass has been performed, which means the values
    *           of {@link Region#widthProperty()} and {@link Region#heightProperty()} are defined.
    *           This enables to initially set the position of an overlay using its size dynamically,
-   *           for example before an animation is being performed for the first time.
+   *           for example before an animation is being performed for the first time.<br>
+   *           <b>This event will only be fired once!</b>
    */
   public final ObjectProperty<EventHandler<Event>> onInitializedProperty() {
     return onInitialized;
