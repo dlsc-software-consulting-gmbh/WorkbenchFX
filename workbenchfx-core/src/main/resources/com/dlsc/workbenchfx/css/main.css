@@ -167,6 +167,8 @@
     -fx-arrows-visible: false;
     -fx-page-information-visible: false;
     -fx-tooltip-visible: false; }
+    #content-view #add-module-view .pagination:one-page > .pagination-control {
+      -fx-opacity: 0; }
     #content-view #add-module-view .pagination .page .tile-page {
       -fx-vgap: 3em;
       -fx-hgap: 3em;

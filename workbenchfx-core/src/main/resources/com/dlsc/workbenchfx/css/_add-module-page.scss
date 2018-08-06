@@ -2,6 +2,9 @@
   & #add-module-view {
     -fx-padding: 0 0 4em 0;
     & .pagination {
+      &:one-page > .pagination-control {
+        -fx-opacity: 0;
+      }
       & .page {
         & .tile-page {
           -fx-vgap: 3em;
