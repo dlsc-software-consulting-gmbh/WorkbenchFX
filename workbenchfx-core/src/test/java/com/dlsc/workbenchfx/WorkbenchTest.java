@@ -41,7 +41,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.collections.ObservableSet;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -88,8 +87,8 @@ class WorkbenchTest extends ApplicationTest {
   WorkbenchModule second;
   WorkbenchModule last;
   private ObservableMap<Node, GlassPane> overlays;
-  private ObservableSet<Node> blockingOverlaysShown;
-  private ObservableSet<Node> overlaysShown;
+  private ObservableList<Node> blockingOverlaysShown;
+  private ObservableList<Node> overlaysShown;
   private Node overlay1;
   private Node overlay2;
   private Node overlay3;
@@ -1235,7 +1234,7 @@ class WorkbenchTest extends ApplicationTest {
       String mockModuleName = "Mock Module";
       WorkbenchModule mockModule = createMockModule(
           new Label(),null,true, mockModuleName, workbench,
-          FXCollections.observableArrayList(), FXCollections.observableSet()
+          FXCollections.observableArrayList(), FXCollections.observableArrayList()
       );
 
       assertTrue(workbench.getModules().add(mockModule));

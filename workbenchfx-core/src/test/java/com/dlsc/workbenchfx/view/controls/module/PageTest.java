@@ -64,7 +64,7 @@ class PageTest extends ApplicationTest {
     for (int i = 0; i < mockModules.length; i++) {
       mockModules[i] = createMockModule(
           moduleNodes[i], null, true, "Module " + i, mockBench,
-          FXCollections.observableArrayList(), FXCollections.observableSet()
+          FXCollections.observableArrayList(), FXCollections.observableArrayList()
       );
       MockTile mockTile = new MockTile(mockBench);
       mockTile.setModule(mockModules[i]);
