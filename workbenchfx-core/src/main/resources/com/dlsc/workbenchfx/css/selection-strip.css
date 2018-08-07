@@ -22,12 +22,12 @@
   -shape-width: 0.2976428571em;
   -shape-height: 0.5952142857em; }
 
-#workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon .shape:hover {
+#workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-box .close-icon .shape:hover {
   -fx-shape: "M 12 2 C 6.47 2 2 6.47 2 12 C 2 17.53 6.47 22 12 22 C 17.53 22 22 17.53 22 12 C 22 6.47 17.53 2 12 2 Z M 17 15.59 L 15.59 17 L 12 13.41 L 8.41 17 L 7 15.59 L 10.59 12 L 7 8.41 L 8.41 7 L 12 10.59 L 15.59 7 L 17 8.41 L 13.41 12 L 17 15.59 Z";
   -shape-width: 1.1905em;
   -shape-height: 1.1905em; }
 
-#workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon .shape {
+#workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-box .close-icon .shape {
   -fx-shape: "M 19 6.41 L 17.59 5 L 12 10.59 L 6.41 5 L 5 6.41 L 10.59 12 L 5 17.59 L 6.41 19 L 12 13.41 L 17.59 19 L 19 17.59 L 13.41 12 Z";
   -shape-width: 0.8333571429em;
   -shape-height: 0.8333571429em; }
@@ -41,26 +41,26 @@
       -fx-cursor: hand; }
     #workbench #toolbar #bottom-box .selection-strip .strip-cell:pressed {
       -fx-background-color: -primary-color; }
-    #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control {
+    #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-box {
       -fx-max-height: 0;
       -fx-alignment: CENTER;
       -fx-border-width: 0 1px 0 1px;
       -fx-border-color: transparent -on-primary-color transparent transparent;
       -fx-padding: 0 .5em 0 1em; }
-      #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-icon {
+      #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-box .tab-icon {
         -fx-fill: -on-primary-color; }
-      #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl {
+      #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-box .tab-name-lbl {
         -fx-max-width: 16.5em;
         -fx-padding: 0 .5em 0 .5em; }
-        #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .tab-name-lbl .text {
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-box .tab-name-lbl .text {
           -fx-fill: -on-primary-color; }
-      #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon {
+      #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-box .close-icon {
         -icon-size: 1.8571428571em; }
-        #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon .shape {
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-box .close-icon .shape {
           -fx-background-color: -on-primary-color;
           -shape-width: 0.5714285714em;
           -shape-height: 0.5714285714em; }
-          #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-control .close-icon .shape:hover {
+          #workbench #toolbar #bottom-box .selection-strip .strip-cell .tab-box .close-icon .shape:hover {
             -fx-cursor: hand;
             -shape-width: 1.1905em;
             -shape-height: 1.1905em; }
@@ -69,14 +69,14 @@
       -fx-background-radius: 0.3571428571em 0.3571428571em 0 0;
       -fx-border-radius: 0.3571428571em 0.3571428571em 0 0;
       -fx-cursor: inherit;
-      -fx-background-insets: 0 0 0 -1px; }
-      #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control {
+      -fx-background-insets: 0 0 0 -1.2px; }
+      #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-box {
         -fx-border-color: transparent; }
-        #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-icon, #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .tab-name-lbl .text {
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-box .tab-icon, #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-box .tab-name-lbl .text {
           -fx-fill: -on-background-color; }
-        #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-icon .shape {
+        #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-box .close-icon .shape {
           -fx-background-color: -on-background-color; }
-          #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-control .close-icon .shape:hover {
+          #workbench #toolbar #bottom-box .selection-strip .strip-cell:selected .tab-box .close-icon .shape:hover {
             -fx-background-color: -error-color; }
   #workbench #toolbar #bottom-box .selection-strip .first-child {
    /**

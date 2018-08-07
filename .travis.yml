@@ -2,13 +2,17 @@ language: java
 
 sudo: false   # Linux OS: run in container
 
-jdk: oraclejdk9
+# Java 8 only
+jdk: oraclejdk8
+# Java 9 only
+#jdk: oraclejdk9
 
 addons:
   apt:
     packages:
     - p7zip-full
-    - oracle-java9-installer
+#    - oracle-java9-installer
+# Java 9 only
 
 env:
   global:
@@ -20,7 +24,8 @@ before_install:
 install: true
 
 before_script:
-  - if [[ "${TRAVIS_OS_NAME}" == osx ]]; then brew update; brew cask reinstall caskroom/versions/java9; fi
+#  - if [[ "${TRAVIS_OS_NAME}" == osx ]]; then brew update; brew cask reinstall caskroom/versions/java9; fi
+# Java 9 only
 
 cache:
   directories:
@@ -47,3 +52,4 @@ deploy:
   on:
     repo: FHNW-IP5-IP6/WorkbenchFX
     tags: true
+    branch: master

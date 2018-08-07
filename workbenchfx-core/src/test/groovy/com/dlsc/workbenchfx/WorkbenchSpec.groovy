@@ -3,15 +3,14 @@ package com.dlsc.workbenchfx
 import com.dlsc.workbenchfx.model.WorkbenchDialog
 import com.dlsc.workbenchfx.model.WorkbenchModule
 import com.dlsc.workbenchfx.testing.*
-import com.dlsc.workbenchfx.view.controls.Dropdown
 import com.dlsc.workbenchfx.view.controls.GlassPane
 import com.dlsc.workbenchfx.view.controls.MultilineLabel
+import com.dlsc.workbenchfx.view.controls.ToolbarItem
 import com.dlsc.workbenchfx.view.controls.dialog.DialogErrorContent
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.ObservableList
 import javafx.collections.ObservableMap
-import javafx.collections.ObservableSet
 import javafx.geometry.Pos
 import javafx.geometry.Side
 import javafx.scene.Node
@@ -62,8 +61,8 @@ class WorkbenchSpec extends ApplicationSpec {
     WorkbenchModule second
     WorkbenchModule last
     private ObservableMap<Node, GlassPane> overlays
-    private ObservableSet<Node> blockingOverlaysShown
-    private ObservableSet<Node> overlaysShown
+    private ObservableList<Node> blockingOverlaysShown
+    private ObservableList<Node> overlaysShown
     private Node overlay1
     private Node overlay2
     private Node overlay3
@@ -73,13 +72,13 @@ class WorkbenchSpec extends ApplicationSpec {
 
     @Shared private FxRobot robot = new FxRobot()
 
-    // Dropdown items
-    private String dropdownText
-    private FontAwesomeIconView dropdownIconView
-    private ImageView dropdownImageView
-    private MenuItem dropdownMenuItem
-    private Dropdown dropdownLeft
-    private Dropdown dropdownRight
+    // ToolbarItem items
+    private String toolbarItemText
+    private FontAwesomeIconView toolbarItemIconView
+    private ImageView toolbarItemImageView
+    private MenuItem toolbarItemMenuItem
+    private ToolbarItem toolbarItemLeft
+    private ToolbarItem toolbarItemRight
 
     private MockNavigationDrawer navigationDrawer
     private MockDialogControl dialogControl
@@ -102,19 +101,19 @@ class WorkbenchSpec extends ApplicationSpec {
         }
 
         FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION)
-        fontAwesomeIconView.getStyleClass().add("icon")
+        fontAwesomeIconView.getStyleClass().add("graphic")
         menuItem = new MenuItem("Item 1.1", fontAwesomeIconView)
 
-        // Initialization of items for Dropdown testing
-        dropdownText = "Dropdown Text"
-        dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION)
-        dropdownImageView = new ImageView(
+        // Initialization of items for ToolbarItem testing
+        toolbarItemText = "ToolbarItem Text"
+        toolbarItemIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION)
+        toolbarItemImageView = new ImageView(
                 new Image(WorkbenchTest.class.getResource("date-picker.png").toExternalForm())
         )
-        dropdownMenuItem = new MenuItem("Menu Item")
+        toolbarItemMenuItem = new MenuItem("Menu Item")
 
-        dropdownLeft = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem)
-        dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem)
+        toolbarItemLeft = new ToolbarItem(toolbarItemText, toolbarItemIconView, toolbarItemMenuItem)
+        toolbarItemRight = new ToolbarItem(toolbarItemText, toolbarItemImageView, toolbarItemMenuItem)
 
         navigationDrawer = new MockNavigationDrawer()
         dialogControl = new MockDialogControl()
@@ -128,8 +127,8 @@ class WorkbenchSpec extends ApplicationSpec {
                 .pageFactory({ workbench -> new MockPage(workbench) })
                 .navigationDrawer(navigationDrawer)
                 .navigationDrawerItems(menuItem)
-                .toolbarLeft(dropdownLeft)
-                .toolbarRight(dropdownRight)
+                .toolbarLeft(toolbarItemLeft)
+                .toolbarRight(toolbarItemRight)
                 .build()
 
         first = mockModules[FIRST_INDEX]

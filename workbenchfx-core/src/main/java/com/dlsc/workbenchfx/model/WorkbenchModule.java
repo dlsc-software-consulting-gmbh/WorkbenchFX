@@ -1,9 +1,15 @@
 package com.dlsc.workbenchfx.model;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.view.controls.ToolbarControl;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.util.Objects;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,12 +28,21 @@ public abstract class WorkbenchModule {
       LogManager.getLogger(WorkbenchModule.class.getName());
 
   private Workbench workbench;
-  private String name;
+  private final String name;
   private FontAwesomeIcon faIcon;
+  private MaterialDesignIcon mdIcon;
   private Image imgIcon;
+
+  // The sets which store the toolbar icons which are displayed in the modules toolbar
+  private final ObservableList<ToolbarItem> toolbarControlsLeft =
+      FXCollections.observableArrayList();
+  private final ObservableList<ToolbarItem> toolbarControlsRight =
+      FXCollections.observableArrayList();
 
   /**
    * Super constructor to be called by the implementing class.
+   * Uses a {@link FontAwesomeIcon} as the icon for this module.
+   * @see <a href="https://fontawesome.com/v4.7.0/">FontAwesome v4.7.0 Icons</a>
    *
    * @param name of this module
    * @param icon of this module
@@ -35,6 +50,19 @@ public abstract class WorkbenchModule {
   protected WorkbenchModule(String name, FontAwesomeIcon icon) {
     this.name = name;
     faIcon = icon;
+  }
+
+  /**
+   * Super constructor to be called by the implementing class.
+   * Uses a {@link MaterialDesignIcon} as the icon for this module.
+   * @see <a href="https://materialdesignicons.com/">Material Design Icons</a>
+   *
+   * @param name of this module
+   * @param icon of this module
+   */
+  protected WorkbenchModule(String name, MaterialDesignIcon icon) {
+    this.name = name;
+    mdIcon = icon;
   }
 
   /**
@@ -100,7 +128,7 @@ public abstract class WorkbenchModule {
    *           action (e.g. open a dialog) and define the asynchronous behavior in advance to call
    *           {@link #close()} (e.g. define pressing "Yes" on the dialog to call {@link #close()}).
    *           Then <b>return {@code false}</b>, which prevents this module from immediately getting
-   *           closed and causes this {@link Module} to get opened, so the user can react.
+   *           closed and causes this {@link WorkbenchModule} to get opened, so the user can react.
    *           <br>
    *           Example:
    *           <pre class="code"><code class="java">
@@ -148,7 +176,7 @@ public abstract class WorkbenchModule {
    * Returns the name of this module.
    * @return the name of this module.
    */
-  public String getName() {
+  public final String getName() {
     return Objects.isNull(name) ? "" : name;
   }
 
@@ -156,7 +184,36 @@ public abstract class WorkbenchModule {
    * Returns the icon of this module as a {@link Node}.
    * @return the icon of this module as a {@link Node}.
    */
-  public Node getIcon() {
-    return Objects.isNull(faIcon) ? new ImageView(imgIcon) : new FontAwesomeIconView(faIcon);
+  public final Node getIcon() {
+    if (!Objects.isNull(faIcon)) {
+      return new FontAwesomeIconView(faIcon);
+    } else if (!Objects.isNull(mdIcon)) {
+      return new MaterialDesignIconView(mdIcon);
+    }
+    return new ImageView(imgIcon);
+  }
+
+  /**
+   * Returns an {@link ObservableList} which stores the toolbar items of the module.
+   * If it's not empty, the {@link Workbench} creates a pre styled {@link ToolbarControl}
+   * and adds the stored items on its left side.
+   *
+   * @return the {@link ObservableList} of items which are displayed on the left side of the
+   *         automatically added {@link ToolbarControl}
+   */
+  public final ObservableList<ToolbarItem> getToolbarControlsLeft() {
+    return toolbarControlsLeft;
+  }
+
+  /**
+   * Returns an {@link ObservableList} which stores the toolbar items of the module.
+   * If it's not empty, the {@link Workbench} creates a pre styled {@link ToolbarControl}
+   * and adds the stored items on its right side.
+   *
+   * @return the {@link ObservableList} of items which are displayed on the right side of the
+   *         automatically generated {@link ToolbarControl}
+   */
+  public final ObservableList<ToolbarItem> getToolbarControlsRight() {
+    return toolbarControlsRight;
   }
 }

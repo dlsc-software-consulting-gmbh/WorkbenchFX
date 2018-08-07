@@ -6,11 +6,11 @@
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-parent</artifactId>
-    <version>1.6.0</version>
+    <version>1.7.0</version>
     <packaging>pom</packaging>
 
     <properties>
-        <workbenchfx.version>1.6.0</workbenchfx.version>
+        <workbenchfx.version>1.7.0</workbenchfx.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <asciidoctor.maven.plugin.version>1.5.6</asciidoctor.maven.plugin.version>
@@ -30,6 +30,30 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>2.5</version>
+            </plugin>
+
+            <!-- Download Ruby Gems (for asciidoctor) -->
+            <plugin>
+                <groupId>de.saumya.mojo</groupId>
+                <artifactId>gem-maven-plugin</artifactId>
+                <version>1.1.5</version>
+                <configuration>
+                    <skip>true</skip>
+                    <!-- Align JRuby version with AsciidoctorJ to avoid redundant downloading -->
+                    <jrubyVersion>${jruby.version}</jrubyVersion>
+                    <gemHome>${project.basedir}/gems-provided/gems</gemHome>
+                    <gemPath>${project.basedir}/gems-provided/gems</gemPath>
+                </configuration>
+                <executions>
+                    <!-- Install required gems in target directory -->
+                    <execution>
+                        <id>install-gems</id>
+                        <goals>
+                            <goal>initialize</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -55,7 +79,16 @@
                     <attributes>
                         <sourcedir>${project.build.sourceDirectory}</sourcedir>
                         <project-version>${project.version}</project-version>
+                        <bibliography-database>bibliography/WorkbenchFX.bib</bibliography-database>
+                        <bibliography-style>ieee</bibliography-style>
                     </attributes>
+
+                    <!-- The gem-maven-plugin appends the scope (e.g., provided) to the gemPath defined in the plugin configuration -->
+                    <gemPath>${project.basedir}/gems-provided</gemPath>
+                    <!-- Set Ruby extensions as required gems -->
+                    <requires>
+                        <require>asciidoctor-bibliography</require>
+                    </requires>
                 </configuration>
                 <executions>
                     <execution>

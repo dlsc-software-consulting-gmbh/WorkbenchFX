@@ -4,7 +4,8 @@
   @extend %context-menu;
 }
 
-#toolbar #top-box {
+#toolbar #top-box,
+.root #workbench #content-view .toolbar-control {
   @extend %context-menu;
 
   & .context-menu {

@@ -3,7 +3,7 @@ package com.dlsc.workbenchfx.custom.test;
 import com.dlsc.workbenchfx.custom.controls.CalendarDrawer;
 import com.dlsc.workbenchfx.custom.controls.MapDrawer;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
@@ -46,7 +46,7 @@ public class DrawerTestModule extends WorkbenchModule {
   private final VBox contentBox = new VBox(mapLbl, mapPane, calendarLbl, calendarPane);
 
   public DrawerTestModule() {
-    super("Drawer Test", FontAwesomeIcon.QUESTION);
+    super("Drawer Test", MaterialDesignIcon.HELP);
     layoutParts();
     setupEventHandlers();
   }

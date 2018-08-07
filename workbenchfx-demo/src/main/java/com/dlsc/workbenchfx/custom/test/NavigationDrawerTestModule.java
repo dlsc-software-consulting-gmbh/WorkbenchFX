@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Pos;
@@ -28,7 +28,7 @@ public class NavigationDrawerTestModule extends WorkbenchModule {
   private final GridPane customPane = new GridPane();
 
   public NavigationDrawerTestModule() {
-    super("Navigation Drawer Test", FontAwesomeIcon.QUESTION);
+    super("Navigation Drawer Test", MaterialDesignIcon.HELP);
     layoutParts();
     setupEventHandlers();
   }

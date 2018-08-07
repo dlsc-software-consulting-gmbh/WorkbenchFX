@@ -42,7 +42,7 @@ workbenchfx.setLeft(new MyCustomBar());
 => Workbench compares type of parameter with interfaces
 workbenchfx.setLeft(ToolBar.of(Element.of(tooltipName, icon, event), Element.of()));
 
-workbenchfx.setLeft(DrawerBar.of(Drawer.of(name, icon, node), Drawer.of(name, icon, node));
+workbenchfx.setLeft(DrawerBar.of(Drawer.of(name, graphic, node), Drawer.of(name, graphic, node));
 VBox node2 = new VBox(ToolBar.of(Element.of(...)), contentNode);
 
 == Further Simplification

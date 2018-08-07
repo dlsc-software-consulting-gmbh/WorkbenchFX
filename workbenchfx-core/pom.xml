@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-core</artifactId>
-    <version>1.6.0</version>
+    <version>1.7.0</version>
     <packaging>jar</packaging>
 
     <distributionManagement>
@@ -19,9 +19,36 @@
         </repository>
     </distributionManagement>
 
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-jerady-maven</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/jerady/maven</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-jerady-maven</id>
+            <name>bintray-plugins</name>
+            <url>https://dl.bintray.com/jerady/maven</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <properties>
         <checkstyle.path>../config/checkstyle/checkstyle.xml</checkstyle.path>
+
+        <!-- Java 8 only -->
+        <java.version>1.8</java.version>
+        <!-- Java 9 only
         <java.version>9</java.version>
+        -->
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -38,7 +65,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>3.8.0</version>
                 <configuration>
                     <compilerId>javac-with-errorprone</compilerId>
                     <forceJavacCompilerUse>true</forceJavacCompilerUse>
@@ -253,13 +280,26 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>25.1-jre</version>
+            <version>26.0-jre</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-commons</artifactId>
+            <version>8.15</version>
         </dependency>
         <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>9.0.0</version>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-fontawesome</artifactId>
+            <version>4.7.0-5</version>
         </dependency>
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-materialdesignfont</artifactId>
+            <version>1.7.22-4</version>
+        </dependency>
+
+        <!-- Java 9 only
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-commons</artifactId>
@@ -270,16 +310,23 @@
             <artifactId>fontawesomefx-fontawesome</artifactId>
             <version>4.7.0-9.1.2</version>
         </dependency>
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-materialdesignfont</artifactId>
+            <version>2.0.26-9.1.2</version>
+        </dependency>
+        -->
+
         <!-- Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.11.0</version>
+            <version>2.11.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.11.0</version>
+            <version>2.11.1</version>
         </dependency>
 
         <!-- *** Test *** -->
@@ -318,7 +365,7 @@
         <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
-            <version>1.8.12</version>
+            <version>1.8.16</version>
             <scope>test</scope>
         </dependency>
         <dependency> <!-- enables mocking of classes without default constructor (together with CGLIB) -->
@@ -350,13 +397,19 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.19.0</version>
+            <version>2.21.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.10.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>3.1.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -2,6 +2,9 @@ package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.module.Page;
+import javafx.css.PseudoClass;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the presenter of the corresponding {@link AddModuleView}.
@@ -9,7 +12,13 @@ import com.dlsc.workbenchfx.view.controls.module.Page;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class AddModulePresenter extends Presenter {
+public final class AddModulePresenter extends Presenter {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(AddModulePresenter.class.getName());
+
+  private static final PseudoClass ONE_PAGE_STATE = PseudoClass.getPseudoClass("one-page");
+
   private final Workbench model;
   private final AddModuleView view;
 
@@ -29,29 +38,22 @@ public class AddModulePresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void initializeViewParts() {
-    view.pagination.setPageCount(model.getAmountOfPages());
-    view.pagination.setPageFactory(pageIndex -> {
+  public final void initializeViewParts() {
+    updatePageCount(model.getAmountOfPages());
+
+    view.setPageFactory(pageIndex -> {
       Page page = model.getPageFactory().call(model);
       page.setPageIndex(pageIndex);
       return page;
     });
-    view.pagination.setMaxPageIndicatorCount(Integer.MAX_VALUE);
+    view.setMaxPageIndicatorCount(Integer.MAX_VALUE);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void setupEventHandlers() {
-
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void setupValueChangedListeners() {
+  public final void setupEventHandlers() {
 
   }
 
@@ -59,8 +61,21 @@ public class AddModulePresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupBindings() {
-    view.pagination.pageCountProperty().bind(model.amountOfPagesProperty());
+  public final void setupValueChangedListeners() {
+    model.amountOfPagesProperty().addListener(
+        (observable, oldPageCount, newPageCount) -> updatePageCount(newPageCount.intValue()));
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public final void setupBindings() {
+
+  }
+
+  private void updatePageCount(int amountOfPages) {
+    view.setPageCount(amountOfPages);
+    view.pseudoClassStateChanged(ONE_PAGE_STATE, amountOfPages == 1);
+  }
 }

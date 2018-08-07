@@ -2,14 +2,13 @@ package com.dlsc.workbenchfx.view.controls;
 
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.BorderPane;
@@ -37,8 +36,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
   private PrettyScrollPane scrollPane;
   private StackPane backIconShape;
   private Button backBtn;
-  private ImageView companyLogo;
-  private ReadOnlyDoubleProperty workbenchWidth;
+  private Label companyLogo;
 
   /**
    * Creates the skin for the {@link NavigationDrawer} control.
@@ -49,20 +47,12 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     super(navigationDrawer);
     this.navigationDrawer = navigationDrawer;
 
-    initializeSelf();
     initializeParts();
     layoutParts();
     setupEventHandlers();
     setupValueChangedListeners();
 
     buildMenu();
-  }
-
-  /**
-   * Initializes the skin.
-   */
-  private void initializeSelf() {
-    navigationDrawer.getStyleClass().add("navigation-drawer");
   }
 
   /**
@@ -86,7 +76,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     backBtn.getStyleClass().add("icon");
     backBtn.setId("back-button");
 
-    companyLogo = new ImageView();
+    companyLogo = new Label();
     companyLogo.getStyleClass().add("logo");
   }
 
@@ -145,14 +135,14 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     menuButton.addEventFilter(TouchEvent.TOUCH_RELEASED, e -> isTouchUsed = true);
 
     // Only when ALWAYS or SOMETIMES
-    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehaviour())) {
+    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehavior())) {
       menuButton.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Menu
         if (isTouchUsed) {
           isTouchUsed = false;
           return;
         }
         // When ALWAYS, then trigger immediately. Else check if clicked before (case: SOMETIMES)
-        if (Priority.ALWAYS.equals(getSkinnable().getMenuHoverBehaviour())
+        if (Priority.ALWAYS.equals(getSkinnable().getMenuHoverBehavior())
             || (hoveredBtn != null && hoveredBtn.isShowing())) {
           menuButton.show(); // Shows the context-menu
           if (hoveredBtn != null && hoveredBtn != menuButton) {
@@ -175,7 +165,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     button.setOnAction(item.getOnAction());
 
     // Only in cases ALWAYS and SOMETIMES: hide previously hovered button
-    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehaviour())) {
+    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehavior())) {
       button.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Button
         if (!isTouchUsed) {
           if (hoveredBtn != null) {

@@ -1,0 +1,117 @@
+= asciidoctor-bibliography Syntax
+
+We base our syntax off the asciidoctor `footnoteref` command.
+
+[source,ruby]
+----
+footnoteref:[ref,Opinions are my own.]
+footnoteref:[ref]
+----
+
+asciidoctor supports these commands now:
+
+Attributes:
+[source,ruby]
+----
+video::video_file.mp4[width=640, start=60, end=140, options=autoplay]
+----
+
+Options:
+[source,ruby]
+----
+audio::ocean_waves.mp3[options="autoplay,loop"]
+----
+
+The "and" syntax:
+
+[source,ruby]
+----
+\ifdef::env-github+backend-html5[HTML5 only.]
+----
+
+
+== Proposed Syntax
+
+=== Basic Usage
+
+[source,ruby]
+----
+# Output => "[1]"
+cite:[foo]
+
+# Output => "[1, Page 5]"
+cite:[foo, page=5]
+
+# Output => "[1, Page 5; 2, Chapter 21]"
+cite:[foo, page=5]+[foobar, chapter=21]
+
+# Output => "[1, 2]"
+# or => "[1-2]"
+cite:[foo]+[foobar]
+
+# Output => "[1, 3]"
+cite:[foo]+[bar]
+----
+
+=== BibTeX-compatible Usage
+
+[source,ruby]
+----
+# BibTeX \citet{goossens93}
+# Output: "Goossens et al. (1993)"
+citet:[goossens93]
+cite:[goossens93]
+cite:[goossens93, authors=abbrev, format="%authors% (%year%)"]
+
+# BibTeX \citet{goossens93}
+# Output "(Goossens et al., 1993)"
+citep:[goossens93]
+cite:[goossens93, type=parens]
+cite:[goossens93, authors=abbrev, format="(%authors%, %year%)"]
+
+# BibTeX \citet*{goossens93}
+# Output "Goossens, Mittlebach, and Samarin (1993)"
+citets:[goossens93]
+cite:[goossens93, authors=full, type=text]
+cite:[goossens93, authors=full, format="%authors% (%year%)"]
+
+# BibTeX \citep*{goossens93}
+# Output "(Goossens, Mittlebach, and Samarin, 1993)"
+citeps:[goossens93]
+cite:[goossens93, authors=full, type=parens]
+cite:[goossens93, authors=full, format="(%authors%, %year%)"]
+
+# BibTeX \citeauthor{goossens93}
+# Output "Goossens et al."
+citeauthor:[goossens93]
+cite:[goossens93, only=authors, authors=abbrev]
+cite:[goossens93, authors=abbrev, format="%authors%"]
+
+# BibTeX \citeauthor*{goossens93}
+# Output => "Goossens, Mittlebach, and Samarin"
+citeauthors:[goossens93]
+cite:[goossens93, only=authors, authors=full]
+cite:[goossens93, authors=full, format="%authors%"]
+
+# BibTeX \citeyear{goossens93}
+# Output => "1993"
+citeyear:[goossens93]
+cite:[goossens93, only=year]
+cite:[goossens93, format="%year%"]
+
+# BibTeX \citeyearpar{goossens93}
+# Output => "(1993)"
+citeyear:[goossens93]
+cite:[goossens93, format="(%year%)"]
+
+# BibTeX \citealt{goossens93}
+# Output => "Goossens et al. 1993"
+citealt:[goossens93]
+cite:[goossens93, authors=abbrev, format="%authors% %year%"]
+
+# BibTeX \citealp{goossens93}
+# Output => "Goossens et al., 1993"
+citealp:[goossens93]
+cite:[goossens93, authors=abbrev, format="%authors%, %year%"]
+----
+

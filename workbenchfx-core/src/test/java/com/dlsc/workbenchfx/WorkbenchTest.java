@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx;
 
 import static com.dlsc.workbenchfx.Workbench.WorkbenchBuilder;
 import static com.dlsc.workbenchfx.testing.MockFactory.createMockModule;
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -15,6 +16,7 @@ import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -22,24 +24,27 @@ import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.model.WorkbenchOverlay;
 import com.dlsc.workbenchfx.testing.MockDialogControl;
 import com.dlsc.workbenchfx.testing.MockNavigationDrawer;
 import com.dlsc.workbenchfx.testing.MockPage;
 import com.dlsc.workbenchfx.testing.MockTab;
 import com.dlsc.workbenchfx.testing.MockTile;
-import com.dlsc.workbenchfx.view.controls.Dropdown;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.collections.ObservableSet;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -49,11 +54,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -87,25 +91,24 @@ class WorkbenchTest extends ApplicationTest {
   WorkbenchModule first;
   WorkbenchModule second;
   WorkbenchModule last;
-  private ObservableMap<Node, GlassPane> overlays;
-  private ObservableSet<Node> blockingOverlaysShown;
-  private ObservableSet<Node> overlaysShown;
-  private Node overlay1;
-  private Node overlay2;
-  private Node overlay3;
+  private ObservableMap<Region, WorkbenchOverlay> overlays;
+  private ObservableList<Region> blockingOverlaysShown;
+  private ObservableList<Region> overlaysShown;
+  private Region overlay1;
+  private Region overlay2;
+  private Region overlay3;
 
   private MenuItem menuItem;
   private ObservableList<MenuItem> navigationDrawerItems;
 
   private FxRobot robot;
 
-  // Dropdown items
-  private String dropdownText;
-  private FontAwesomeIconView dropdownIconView;
-  private ImageView dropdownImageView;
-  private MenuItem dropdownMenuItem;
-  private Dropdown dropdownLeft;
-  private Dropdown dropdownRight;
+  // ToolbarItem items
+  private String toolbarItemText;
+  private FontAwesomeIconView toolbarItemIconView;
+  private MenuItem toolbarItemMenuItem;
+  private ToolbarItem toolbarItemLeft;
+  private ToolbarItem toolbarItemRight;
 
   private MockNavigationDrawer navigationDrawer;
   private MockDialogControl dialogControl;
@@ -121,6 +124,8 @@ class WorkbenchTest extends ApplicationTest {
 
   private Pane drawer = new Pane();
 
+  private BooleanProperty blocking;
+
   @Override
   public void start(Stage stage) {
     MockitoAnnotations.initMocks(this);
@@ -133,7 +138,8 @@ class WorkbenchTest extends ApplicationTest {
 
     for (int i = 0; i < mockModules.length; i++) {
       mockModules[i] = createMockModule(
-          moduleNodes[i], null, true, "Module " + i, workbench
+          moduleNodes[i], null, true, "Module " + i, workbench,
+          FXCollections.observableArrayList(), FXCollections.observableArrayList()
       );
     }
 
@@ -141,21 +147,19 @@ class WorkbenchTest extends ApplicationTest {
     fontAwesomeIconView.getStyleClass().add("icon");
     menuItem = new MenuItem("Item 1.1", fontAwesomeIconView);
 
-    // Initialization of items for Dropdown testing
-    dropdownText = "Dropdown Text";
-    dropdownIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
-    dropdownImageView = new ImageView(
-        new Image(WorkbenchTest.class.getResource("date-picker.png").toExternalForm())
-    );
-    dropdownMenuItem = new MenuItem("Menu Item");
+    // Initialization of items for ToolbarItem testing
+    toolbarItemText = "ToolbarItem Text";
+    toolbarItemIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
+    toolbarItemMenuItem = new MenuItem("Menu Item");
 
-    dropdownLeft = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
-    dropdownRight = Dropdown.of(dropdownText, dropdownImageView, dropdownMenuItem);
+    toolbarItemLeft = new ToolbarItem(toolbarItemText, toolbarItemIconView, toolbarItemMenuItem);
+    toolbarItemRight = new ToolbarItem(toolbarItemText, toolbarItemIconView, toolbarItemMenuItem);
 
     // Setup WorkbenchDialog Mock
+    blocking = new SimpleBooleanProperty();
     when(mockDialog.getButtonTypes()).thenReturn(buttonTypes);
     when(mockDialog.getOnResult()).thenReturn(mockOnResult);
-    when(mockDialog.getCancelDialogButtonType()).thenReturn(ButtonType.CANCEL);
+    when(mockDialog.blockingProperty()).thenReturn(blocking);
 
     navigationDrawer = new MockNavigationDrawer();
     dialogControl = new MockDialogControl();
@@ -171,8 +175,8 @@ class WorkbenchTest extends ApplicationTest {
         .pageFactory(MockPage::new)
         .navigationDrawer(navigationDrawer)
         .navigationDrawerItems(menuItem)
-        .toolbarLeft(dropdownLeft)
-        .toolbarRight(dropdownRight)
+        .toolbarLeft(toolbarItemLeft)
+        .toolbarRight(toolbarItemRight)
         .build();
 
     first = mockModules[FIRST_INDEX];
@@ -666,6 +670,8 @@ class WorkbenchTest extends ApplicationTest {
       verify(module, atLeast(0)).getIcon();
       verify(module, atLeast(0)).getName();
       verify(module, atLeast(0)).getWorkbench();
+      verify(module, atLeast(0)).getToolbarControlsLeft();
+      verify(module, atLeast(0)).getToolbarControlsRight();
     }
   }
 
@@ -829,10 +835,10 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void getOverlays() {
     robot.interact(() -> {
-      ObservableMap<Node, GlassPane> overlays = workbench.getOverlays();
+      ObservableMap<Region, WorkbenchOverlay> overlays = workbench.getOverlays();
       // Test if unmodifiable map is returned
       assertThrows(UnsupportedOperationException.class,
-          () -> overlays.put(new Label(), new GlassPane()));
+          () -> overlays.put(new Label(), new WorkbenchOverlay(new Label(), null)));
     });
   }
 
@@ -849,10 +855,9 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(1, blockingOverlaysShown.size());
       assertEquals(0, overlaysShown.size());
       assertTrue(overlay1.isVisible()); // overlay1 has been made visible
-      GlassPane glassPane = overlays.get(overlay1);
+      GlassPane glassPane = overlays.get(overlay1).getGlassPane();
       assertFalse(glassPane.isHide());
       assertNull(glassPane.onMouseClickedProperty().get()); // no closing handler has been attached
-      assertTrue(glassPane.hideProperty().isBound());
 
       // test visibility binding to GlassPane
       overlay1.setVisible(false);
@@ -881,10 +886,9 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(0, blockingOverlaysShown.size());
       assertEquals(1, overlaysShown.size());
       assertTrue(overlay1.isVisible()); // overlay1 has been made visible
-      GlassPane glassPane = overlays.get(overlay1);
+      GlassPane glassPane = overlays.get(overlay1).getGlassPane();
       assertFalse(glassPane.isHide());
       assertNotNull(glassPane.onMouseClickedProperty().get()); // closing handler has been attached
-      assertTrue(glassPane.hideProperty().isBound());
 
       // test visibility binding to GlassPane
       overlay1.setVisible(false);
@@ -914,15 +918,13 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(1, blockingOverlaysShown.size());
       assertEquals(1, overlaysShown.size());
       assertTrue(overlay1.isVisible()); // overlay1 has been made visible
-      assertTrue(overlay2.isVisible()); // overlay1 has been made visible
-      GlassPane glassPane1 = overlays.get(overlay1);
+      assertTrue(overlay2.isVisible()); // overlay2 has been made visible
+      GlassPane glassPane1 = overlays.get(overlay1).getGlassPane();
       assertFalse(glassPane1.isHide());
       assertNotNull(glassPane1.onMouseClickedProperty().get()); // closing handler has been attached
-      assertTrue(glassPane1.hideProperty().isBound());
-      GlassPane glassPane2 = overlays.get(overlay2);
+      GlassPane glassPane2 = overlays.get(overlay2).getGlassPane();
       assertFalse(glassPane2.isHide());
       assertNull(glassPane2.onMouseClickedProperty().get()); // no closing handler has been attached
-      assertTrue(glassPane2.hideProperty().isBound());
 
       // test visibility binding to GlassPane
       overlay1.setVisible(false);
@@ -956,9 +958,8 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(0, blockingOverlaysShown.size()); // none shown
       assertEquals(0, overlaysShown.size());
       assertFalse(overlay1.isVisible()); // overlay1 is invisible
-      GlassPane glassPane = overlays.get(overlay1);
+      GlassPane glassPane = overlays.get(overlay1).getGlassPane();
       assertTrue(glassPane.isHide());
-      assertTrue(glassPane.hideProperty().isBound());
 
       // test if calling hideOverlay again, even though it's already hidden, does anything
       result = workbench.hideOverlay(overlay1);
@@ -994,9 +995,8 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(0, blockingOverlaysShown.size()); // none shown
       assertEquals(0, overlaysShown.size());
       assertFalse(overlay1.isVisible()); // overlay1 is invisible
-      GlassPane glassPane = overlays.get(overlay1);
+      GlassPane glassPane = overlays.get(overlay1).getGlassPane();
       assertTrue(glassPane.isHide());
-      assertTrue(glassPane.hideProperty().isBound());
 
       // test if calling hideOverlay again, even though it's already hidden, does anything
       result = workbench.hideOverlay(overlay1);
@@ -1031,9 +1031,8 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(0, blockingOverlaysShown.size()); // none shown
       assertEquals(0, overlaysShown.size());
       assertFalse(overlay1.isVisible()); // overlay1 is invisible
-      GlassPane glassPane = overlays.get(overlay1);
+      GlassPane glassPane = overlays.get(overlay1).getGlassPane();
       assertTrue(glassPane.isHide());
-      assertTrue(glassPane.hideProperty().isBound());
     });
   }
 
@@ -1054,9 +1053,9 @@ class WorkbenchTest extends ApplicationTest {
       assertTrue(overlay2.isVisible());
       assertTrue(overlay3.isVisible());
 
-      final GlassPane glassPane1 = overlays.get(overlay1);
-      final GlassPane glassPane2 = overlays.get(overlay2);
-      final GlassPane glassPane3 = overlays.get(overlay3);
+      final GlassPane glassPane1 = overlays.get(overlay1).getGlassPane();
+      final GlassPane glassPane2 = overlays.get(overlay2).getGlassPane();
+      final GlassPane glassPane3 = overlays.get(overlay3).getGlassPane();
 
       workbench.clearOverlays();
 
@@ -1104,9 +1103,9 @@ class WorkbenchTest extends ApplicationTest {
       assertFalse(overlay2.isVisible());
       assertFalse(overlay3.isVisible());
 
-      final GlassPane glassPane1 = overlays.get(overlay1);
-      final GlassPane glassPane2 = overlays.get(overlay2);
-      final GlassPane glassPane3 = overlays.get(overlay3);
+      final GlassPane glassPane1 = overlays.get(overlay1).getGlassPane();
+      final GlassPane glassPane2 = overlays.get(overlay2).getGlassPane();
+      final GlassPane glassPane3 = overlays.get(overlay3).getGlassPane();
 
       workbench.clearOverlays();
 
@@ -1153,7 +1152,9 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(1, overlays.size());
       assertEquals(0, blockingOverlaysShown.size());
       assertEquals(0, overlaysShown.size());
-      assertFalse(navigationDrawer.isVisible());
+
+      // wait for closing animation to complete
+      await().atMost(5, TimeUnit.SECONDS).until(() -> (navigationDrawer.isVisible()));
     });
   }
 
@@ -1191,7 +1192,7 @@ class WorkbenchTest extends ApplicationTest {
   @Test
   void removeToolbarControlsLeftAndRight() {
     robot.interact(() -> {
-      Dropdown d = Dropdown.of(dropdownText, dropdownIconView, dropdownMenuItem);
+      ToolbarItem d = new ToolbarItem(toolbarItemText, toolbarItemIconView, toolbarItemMenuItem);
 
       int initialSizeLeft = workbench.getToolbarControlsLeft().size();
       assertFalse(workbench.getToolbarControlsLeft().remove(d));
@@ -1201,9 +1202,9 @@ class WorkbenchTest extends ApplicationTest {
       assertFalse(workbench.getToolbarControlsRight().remove(d));
       assertSame(initialSizeRight, workbench.getToolbarControlsRight().size());
 
-      assertTrue(workbench.getToolbarControlsLeft().remove(dropdownLeft));
+      assertTrue(workbench.getToolbarControlsLeft().remove(toolbarItemLeft));
       assertSame(initialSizeLeft - 1, workbench.getToolbarControlsLeft().size());
-      assertTrue(workbench.getToolbarControlsRight().remove(dropdownRight));
+      assertTrue(workbench.getToolbarControlsRight().remove(toolbarItemRight));
       assertSame(initialSizeRight - 1, workbench.getToolbarControlsRight().size());
     });
   }
@@ -1212,17 +1213,13 @@ class WorkbenchTest extends ApplicationTest {
   void addToolbarControlsLeftAndRight() {
     robot.interact(() -> {
       int initialSizeLeft = workbench.getToolbarControlsLeft().size();
-      Dropdown d = Dropdown.of(dropdownIconView, dropdownMenuItem);
+      ToolbarItem d = new ToolbarItem(toolbarItemIconView, toolbarItemMenuItem);
       assertTrue(workbench.getToolbarControlsLeft().add(d));
-      assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
-      assertFalse(workbench.getToolbarControlsLeft().add(d));
       assertSame(initialSizeLeft + 1, workbench.getToolbarControlsLeft().size());
 
       int initialSizeRight = workbench.getToolbarControlsRight().size();
-      d = Dropdown.of(dropdownText, dropdownMenuItem);
+      d = new ToolbarItem(toolbarItemText, toolbarItemMenuItem);
       assertTrue(workbench.getToolbarControlsRight().add(d));
-      assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
-      assertFalse(workbench.getToolbarControlsRight().add(d));
       assertSame(initialSizeRight + 1, workbench.getToolbarControlsRight().size());
     });
   }
@@ -1234,11 +1231,8 @@ class WorkbenchTest extends ApplicationTest {
       int currentSize = modules.size();
       String mockModuleName = "Mock Module";
       WorkbenchModule mockModule = createMockModule(
-          new Label(),
-          null,
-          true,
-          mockModuleName,
-          workbench
+          new Label(),null,true, mockModuleName, workbench,
+          FXCollections.observableArrayList(), FXCollections.observableArrayList()
       );
 
       assertTrue(workbench.getModules().add(mockModule));
@@ -1529,7 +1523,7 @@ class WorkbenchTest extends ApplicationTest {
    * inside of {@link Stage#setOnCloseRequest(EventHandler)}.
    * Using {@link FxRobot#closeCurrentWindow()} would be better, but it only works on Windows
    * because of its implementation, so this approach was chosen as a workaround.
-   * @see <a href="https://github.com/TestFX/TestFX/issues/447>
+   * @see <a href="https://github.com/TestFX/TestFX/issues/447">
    * closeCurrentWindow() doesn't work headless</a>
    */
   private void closeStage() {
@@ -1549,7 +1543,7 @@ class WorkbenchTest extends ApplicationTest {
   }
 
   @Test
-  @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane - default")
+  @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane")
   void showDialogNonBlockingCloseGlassPaneDefault() {
     robot.interact(() -> {
       assertDialogNotShown();
@@ -1564,30 +1558,6 @@ class WorkbenchTest extends ApplicationTest {
       simulateGlassPaneClick(dialogControl);
 
       verify(mockOnResult).accept(ButtonType.CANCEL);
-      assertDialogNotShown();
-    });
-  }
-
-  @Test
-  @DisplayName("Show non-blocking dialog and close by clicking on the GlassPane - "
-      + "custom cancel ButtonType was defined")
-  void showDialogNonBlockingCloseGlassPaneCustom() {
-    ButtonType cancelButtonType = ButtonType.FINISH;
-    when(mockDialog.getCancelDialogButtonType()).thenReturn(cancelButtonType);
-    robot.interact(() -> {
-      assertDialogNotShown();
-
-      WorkbenchDialog result = workbench.showDialog(mockDialog);
-
-      assertDialogShown(result, false);
-      verify(mockDialog, atLeastOnce()).getButtonTypes();
-      verify(mockOnResult, never()).accept(any()); // no result yet
-
-      // hiding by GlassPane click
-      simulateGlassPaneClick(dialogControl);
-
-      verify(mockDialog).getCancelDialogButtonType();
-      verify(mockOnResult).accept(cancelButtonType);
       assertDialogNotShown();
     });
   }
@@ -1623,13 +1593,14 @@ class WorkbenchTest extends ApplicationTest {
 
       WorkbenchDialog result = workbench.showDialog(mockDialog);
 
-      verify(mockDialog).isBlocking(); // call showOverlay(...) inside showDialog()
+      verify(mockDialog, atLeastOnce()).isBlocking(); // call showOverlay(...) inside showDialog()
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       assertDialogShown(result, true);
 
       // try hiding by clicking on GlassPane
       simulateGlassPaneClick(dialogControl); // simulates a click on GlassPane
 
+      verify(mockDialog, atLeast(0)).blockingProperty(); // ignore calls
       verify(mockDialog, never()).getOnResult();
       verify(mockOnResult, never()).accept(any());
       verifyNoMoreInteractions(mockDialog);
@@ -1650,7 +1621,7 @@ class WorkbenchTest extends ApplicationTest {
       WorkbenchDialog result = workbench.showDialog(mockDialog);
 
       assertDialogShown(result, true);
-      verify(mockDialog).isBlocking(); // call showOverlay(...) inside showDialog()
+      verify(mockDialog, atLeastOnce()).isBlocking(); // call showOverlay(...) inside showDialog()
       verify(mockDialog, atLeastOnce()).getButtonTypes();
       verify(mockDialog, atLeastOnce()).getDialogControl();
       verify(mockDialog, never()).getOnResult();
@@ -1662,6 +1633,7 @@ class WorkbenchTest extends ApplicationTest {
       ButtonType toPress = buttonTypes.get(0);
       simulateDialogButtonClick(dialogControl, toPress);
 
+      verify(mockDialog, atLeast(0)).blockingProperty(); // ignore calls
       verify(mockDialog).getOnResult();
       verify(mockDialog, atLeastOnce()).getDialogControl();
       verify(mockOnResult).accept(toPress);
@@ -1699,7 +1671,7 @@ class WorkbenchTest extends ApplicationTest {
    * @param overlayNode of which the GlassPane should be clicked
    */
   private void simulateGlassPaneClick(Node overlayNode) {
-    GlassPane glassPane = workbench.getOverlays().get(overlayNode);
+    GlassPane glassPane = workbench.getOverlays().get(overlayNode).getGlassPane();
     glassPane.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0,
         MouseButton.PRIMARY, 1,
         false, false, false, false, true, false, false, false, false, false,
@@ -1795,12 +1767,15 @@ class WorkbenchTest extends ApplicationTest {
   void showDrawerOnlyOne() {
     robot.interact(() -> {
       // given
-      VBox drawer1 = new VBox();
+      VBox drawer1 = spy(VBox.class);
+      when(drawer1.getWidth()).thenReturn(100d);
+      when(drawer1.getHeight()).thenReturn(100d);
       VBox drawer2 = new VBox();
       VBox drawer3 = new VBox();
       assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
       assertTrue(workbench.getNonBlockingOverlaysShown().isEmpty());
       assertNull(workbench.getDrawerShown());
+      assertNull(workbench.getDrawerSideShown());
 
       // when: showing two different drawers subsequently on the same side
       workbench.showDrawer(drawer1, Side.LEFT);
@@ -1812,6 +1787,7 @@ class WorkbenchTest extends ApplicationTest {
       assertNotNull(workbench.getDrawerShown());
       assertSame(drawer2, getShowingOverlay());
       assertSame(drawer2, workbench.getDrawerShown());
+      assertEquals(Side.LEFT, workbench.getDrawerSideShown());
 
       // when: showing drawer on a different side while another drawer is currently showing
       workbench.showDrawer(drawer3, Side.BOTTOM);
@@ -1822,7 +1798,19 @@ class WorkbenchTest extends ApplicationTest {
       assertNotNull(workbench.getDrawerShown());
       assertSame(drawer3, getShowingOverlay());
       assertSame(drawer3, workbench.getDrawerShown());
+      assertEquals(Side.BOTTOM, workbench.getDrawerSideShown());
       assertSame(Pos.BOTTOM_LEFT, StackPane.getAlignment(drawer3)); // verify correct position
+
+      // when: show first drawer again
+      workbench.showDrawer(drawer1, Side.LEFT);
+
+      // then: only drawer1 is showing
+      assertTrue(workbench.getBlockingOverlaysShown().isEmpty());
+      assertSame(1, workbench.getNonBlockingOverlaysShown().size());
+      assertNotNull(workbench.getDrawerShown());
+      assertSame(drawer1, getShowingOverlay());
+      assertSame(drawer1, workbench.getDrawerShown());
+      assertEquals(Side.LEFT, workbench.getDrawerSideShown());
     });
   }
 

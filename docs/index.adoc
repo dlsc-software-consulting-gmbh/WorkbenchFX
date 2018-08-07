@@ -1,4 +1,4 @@
-= WorkbenchFX
+= Technical Report: WorkbenchFX
 François Martin; Marco Sanfratello
 
 // Path to the code references
@@ -13,6 +13,7 @@ François Martin; Marco Sanfratello
 
 == Introduction
 The paradigm of WorkbenchFX is: "Give the API user as much customizability as reasonable, but make sure they don't have to use them."
+This will end with a citation cite:[noauthor_system_nodate].
 
 == The way to WorkbenchFX
 === Briefing
@@ -80,15 +81,15 @@ Which is why we decided to include them in the API design of the `Module` class.
 * Tile representation of module in home screen => Node gets returned by getTile()
 
 ==== Icon: Image vs File vs Node
-As for the icon, there are different ways to implement the inclusion of one in a module.
+As for the graphic, there are different ways to implement the inclusion of one in a module.
 
 One possibility is to accept an `Image` object as a parameter of the constructor.
 The advantage is, that the API user doesn't need to care about how the image is being displayed
-The disadvantage however is, that it is for example not possible to specify a FontAwesome icon as a `Node`, to use vector objects.
+The disadvantage however is, that it is for example not possible to specify a FontAwesome graphic as a `Node`, to use vector objects.
 
-Also, it would be possible to have the API user include an image file in the resources, to use as an icon.
-Using "convention over configuration", the API user would simply choose the same name for the icon file as for the module, which makes it possible to easily identify the corresponding icon file of a module.
-This brings the advantage of having less code per module, since the icon doesn't need to be specified in the code.
+Also, it would be possible to have the API user include an image file in the resources, to use as an graphic.
+Using "convention over configuration", the API user would simply choose the same name for the graphic file as for the module, which makes it possible to easily identify the corresponding graphic file of a module.
+This brings the advantage of having less code per module, since the graphic doesn't need to be specified in the code.
 However, this is also limiting for the same reasons as with the `Image` object above, it is not possible to pass in objects to be displayed.
 
 This is why we decided to have the API user pass in a `Node` object to the constructor of the module.
@@ -148,11 +149,15 @@ This is only recommended when an overlay is so resource intensive, that it can't
 * Extendable
 
 === Persona
-Who is the persona?
+Who are the persona?
 
-* Programmer (-> Usage of WorkbenchFX)
-* User of the application (-> GUI)
-
+[cols="1,1,1"]
+.Persona
+|===
+|link:persona/stefanie_berner.pdf[image:persona/stefanie_berner.png[Stefanie Berner]]
+|link:persona/fabian_zimmer.pdf[image:persona/fabian_zimmer.png[Fabian Zimmer]]
+|link:persona/anna_leutner.pdf[image:persona/anna_leutner.png[Anna Leutner]]
+|===
 
 === Layout
 Challenge:
@@ -165,7 +170,7 @@ So everyone talks the same language.
 To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
 This includes features, usability and general appearance of the specific workbench.
 
-==== Blender (Tool for creating 3D models)
+=== Blender (Tool for creating 3D models)
 * Blender is divided up into five sections.
 ** Header --> Most important and the common settings
 ** Left Bar --> Tools
@@ -187,7 +192,7 @@ The bar itself is fixed and can't be moved.
 * The tools in the toolbar are stored in tabs.
 * When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
 
-==== Photoshop / Illustrator (Design tools)
+=== Photoshop / Illustrator (Design tools)
 * Photoshop (Image tool, Pixel based)
 **
 
@@ -204,7 +209,7 @@ Multiple workspaces can be stored and it can be switched to. (+)
 *** They have 3 states (not likely to understand) and it's collapsing behaviour is not intuitive. (-)
 **4
 
-==== IntelliJ
+=== IntelliJ
 * all possibilities available,
 Right click on the tab, then one can decide the behaviour of it.
 * "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
@@ -212,11 +217,11 @@ Right click on the tab, then one can decide the behaviour of it.
 * Layout changes should be stored at one place.
 *
 
-==== MSOffice
+=== MSOffice
 
-==== Sublime Text
+=== Sublime Text
 
-==== Minimal viable product
+=== Minimal viable product (MVP)
 As a result of our research we have enough information to create the most valuable workbench for our use case.
 Nonetheless we need to break down the functionality to it's simplest scenario.
 This way, we can assure our customer, that he minimal viable product as a result from this project.
@@ -234,9 +239,120 @@ They contain either further tools, buttons or a tree-view for navigation.
 * Finally another tool-bar is set below the application.
 It contains the least used tools, or tools which are needed at the end of the process.
 
+The outcome of our research results in a minimalistic version of the workbench, our customer developed.
+The MVP is designed with the prototyping-tool `Figma`.
+It's clickable prototype can be found at:
+https://www.figma.com/proto/LY7jPWrDVQ5GG1zmvBdlA2MT/WorkbenchFX?scaling=contain&node-id=47%3A129[figma-prototype]
+
+Below it is shown the final prototype:
+[cols="1,1"]
+.Minimal Viable Product (MVP)
+|===
+|link:mvp/home.png[image:mvp/home.png[Home Screen]]
+|link:mvp/module.png[image:mvp/module.png[Module Screen]]
+|===
+
 === The way creating the workbench
 
+=== SCSS instead of CSS
+// TODO: Explain reason why we use SCSS instead of CSS
+Less code.
+Easier to read.
+Plugin for IntelliJ which translates SCSS code into CSS:
+https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[SCSS to CSS]
+
+There is no margin in JavaFX CSS.
+We've made a workaround using a `SCSS Mixin` which looks like this:
+
+Creating the `Mixin`:
+[source,sass]
+----
+@mixin margin-all($margin) {
+  -fx-padding: $margin;
+  -fx-border-insets: $margin;
+  -fx-background-insets: $margin;
+}
+----
+
+Using the `Mixin` in code:
+[source,sass]
+----
+.my-class {
+  @include margin-all(1.5em);
+}
+----
+
+A `Mixin` includes code, created by the `Mixin` and puts it in the place where it was called.
+Link: http://thesassway.com/advanced/pure-sass-functions[SCSS - Mixin]
+
+==== General Conventions
+We have decided to define some general conventions:
+
+In CSS it is possible to give multiple classes the same layout.
+For example:
+[source,sass]
+----
+.myClass-1, .myClass-2 {
+  -fx-padding: 1em;
+  -fx-border-insets: 1em;
+  -fx-background-insets: 1em;
+}
+----
+this is possible, but it's readability is not that good.
+SCSS provides a special tag for such situations, the `@extend`-tag:
+[source,sass]
+----
+.myClass-1 {
+  -fx-padding: 1em;
+  -fx-border-insets: 1em;
+  -fx-background-insets: 1em;
+}
+
+.myClass-2 {
+  @extend .myClass-1;
+}
+----
+In both cases, both classes have the same attributes.
+But the readability is much better in the second example.
+Plus, there is the possibility to add another attributes in `.myClass-2`.
+[source,sass]
+----
+.myClass-2 {
+  @extend .myClass-1;
+  -fx-color: RED;
+}
+----
+`.myClass-2` inherits from `.myClass-1` and can be extended.
+https://sass-lang.com/guide[SCSS - @extend]
+
+Another convention we use is the separation of all scss-files.
+For readability we have the `main.scss` file separated into multiple scss files.
+In the `main.scss` we include all those other files and this "main file" will be compiled as a css file.
+Using the `@include` tag looks like this:
+[source,sass]
+----
+main.scss {
+  @include file1;
+  @include file2;
+  @include file3;
+}
+----
+The files to be included are named with an underscore as prefix: `_file1.scss`.
+
 === Challenges
+Setting the node-icon twice:
+When creating a new module, one declares a node or an icon for visualizing the module.
+After creation, a tab- and a tile-view is created and displayed.
+Sadly, the given icon is displayed in only one of the two views.
+A short research reveals the problem:
+https://stackoverflow.com/questions/27696414/javafx-why-does-adding-a-node-to-a-pane-multiple-times-or-to-different-panes-r[Stack Overflow]
+
+Every `Node` has a `Parent`.
+When creating a `TabControl`, the Compiler references the TabControl as the Parent of the icon.
+In a next step, we create the `TileControl`.
+The Compiler redirects now the Parent-reference of TabControl to the TileControl.
+As a result, the icon is only displayed in the TileControl.
+
 === Customizability
 Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
 Of course, the resulting API design from this needs to work with our implementation as well.
@@ -341,8 +457,42 @@ Maybe the panes are giving us some inspiration?
 
 === Testing
 
+== Build Process
+=== GitHub
+The programming is being done in a private GitHub repository.
+We work by using the GitFlow model // TODO add link.
+// TODO explain gitflow
+Every change is represented in a pull request to develop from the feature branch(es).
+=== Code Review
+To improve the quality of the code and also ensure https://www.agilealliance.org/glossary/collective-ownership/[collective code ownership], every pull request gets code reviewed by the other person.
+// TODO: maybe add more?
+=== Travis CI
+To simplify the code review process, we are using Travis CI.
+Travis CI is a build server similar to Jenkins.
+Compared with Jenkins, it runs in the cloud and is much more straight forward to set up.
+The biggest advantage is the tight integration with GitHub, which for example allows automatic builing of pull requests.
+GitHub then directly shows the build status in every pull request and we also set up that a pull request can't get merged until the build passes.
+With every build, Travis will compile the code, run tests and checkstyle.
+We set checkstyle up in a way which makes the build fail, if style violations are found.
+This provides us with immediate feedback when we open a new pull request and forget to run checkstyle checks.
+Also, it makes it easier for the reviewer, since they don't need to run the tests and checkstyle themselves every time.
+// TODO: maybe add more to travis?
+
+In order to not overload the amount of work Travis has to compile we have adjusted the default parapeters for checking each push.
+Normally, Travis checks the repo after each push.
+To reduce the amount of checks, we have overwritten the settings, so that Travis checks only the last push in case a lot of pushes are made.
+
+Travis makes two checks each time you make a push to the repository.
+The first check is the "push-check", which tests the compatibility of the current branch.
+The second one is the "pr-check", which emulates a merging with the develop branch in order to check if some errors occur when merging.
+This has the huge advantage, that our work is not only easier but also safer to accomplish.
+For further information we reference to following link: https://github.com/JuliaGraphs/LightGraphs.jl/issues/475[GitHub issue #475].
+
 == Lessons learned
 
 == Summary
+
+== Bibliography
+bibliography::[]
 
 == Honesty Declaration

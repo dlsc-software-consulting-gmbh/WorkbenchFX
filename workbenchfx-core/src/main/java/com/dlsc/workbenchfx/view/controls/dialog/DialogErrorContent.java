@@ -15,8 +15,8 @@ import javafx.scene.layout.VBox;
  */
 public class DialogErrorContent extends VBox {
 
-  private Node message;
-  private String details;
+  private final Node message;
+  private final String details;
 
   /**
    * Creates a control which shows the details of an exception or error to be used as the content of
@@ -39,6 +39,7 @@ public class DialogErrorContent extends VBox {
       TextArea textArea = new TextArea();
       textArea.setText(details);
       textArea.setWrapText(true);
+      textArea.getStyleClass().add("error-details-text-area");
 
       TitledPane titledPane = new TitledPane();
       titledPane.getStyleClass().add("error-details-titled-pane");
@@ -51,11 +52,11 @@ public class DialogErrorContent extends VBox {
 
   }
 
-  public Node getMessage() {
+  public final Node getMessage() {
     return message;
   }
 
-  public String getDetails() {
+  public final String getDetails() {
     return details;
   }
 }

@@ -2,7 +2,6 @@ package com.dlsc.workbenchfx.view.controls;
 
 import com.dlsc.workbenchfx.Workbench;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
@@ -22,15 +21,16 @@ import javafx.scene.layout.Priority;
  */
 public class NavigationDrawer extends Control {
 
-  private ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>();
+  private final ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>(this, "workbench");
 
-  private ObjectProperty<Priority> menuHoverBehaviour = new SimpleObjectProperty<>(Priority.ALWAYS);
+  private final ObjectProperty<Priority> menuHoverBehavior = new SimpleObjectProperty<>(
+      this, "menuHoverBehavior", Priority.ALWAYS);
 
   /**
    * Creates a navigation drawer control.
    */
   public NavigationDrawer() {
-
+    getStyleClass().add("navigation-drawer");
   }
 
   public final void hide() {
@@ -43,8 +43,8 @@ public class NavigationDrawer extends Control {
   }
 
 
-  public Priority getMenuHoverBehaviour() {
-    return menuHoverBehaviour.get();
+  public final Priority getMenuHoverBehavior() {
+    return menuHoverBehavior.get();
   }
 
   /**
@@ -56,27 +56,19 @@ public class NavigationDrawer extends Control {
    * NEVER:     No hover behaviour on the {@link MenuItem}s
    * @defaultValue Priority.ALWAYS
    */
-  public ObjectProperty<Priority> menuHoverBehaviourProperty() {
-    return menuHoverBehaviour;
+  public final ObjectProperty<Priority> menuHoverBehaviorProperty() {
+    return menuHoverBehavior;
   }
 
-  public void setMenuHoverBehaviour(Priority menuHoverBehaviour) {
-    this.menuHoverBehaviour.set(menuHoverBehaviour);
+  public final void setMenuHoverBehavior(Priority menuHoverBehavior) {
+    this.menuHoverBehavior.set(menuHoverBehavior);
   }
 
   public final ObservableList<MenuItem> getItems() {
     return getWorkbench().getNavigationDrawerItems();
   }
 
-  public double getWorkbenchWidth() {
-    return workbench.get().getWidth();
-  }
-
-  public ReadOnlyDoubleProperty workbenchWidthProperty() {
-    return workbench.get().widthProperty();
-  }
-
-  public Workbench getWorkbench() {
+  public final Workbench getWorkbench() {
     return workbench.get();
   }
 
@@ -84,7 +76,7 @@ public class NavigationDrawer extends Control {
     this.workbench.set(workbench);
   }
 
-  private ObjectProperty<Workbench> workbenchProperty() {
+  public final ObjectProperty<Workbench> workbenchProperty() {
     return workbench;
   }
 }

@@ -29,7 +29,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
       LogManager.getLogger(DialogSkin.class.getName());
   private static final double MARGIN_PERCENT = .1;
 
-  private ReadOnlyObjectProperty<WorkbenchDialog> dialog;
+  private final ReadOnlyObjectProperty<WorkbenchDialog> dialog;
 
   private Label dialogTitle;
   private VBox dialogPane;
@@ -73,6 +73,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
     dialogContentPane.getStyleClass().add("dialog-content-pane");
 
     dialogButtonBar = new ButtonBar();
+    dialogButtonBar.getStyleClass().add("dialog-button-bar");
   }
 
   private void layoutParts() {
@@ -175,5 +176,4 @@ public class DialogSkin extends SkinBase<DialogControl> {
       dialogTitle.setMaxWidth(dialogPrefWidth);
     }
   }
-
 }

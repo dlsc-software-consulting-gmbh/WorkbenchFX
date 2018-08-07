@@ -13,7 +13,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
@@ -31,8 +30,6 @@ public class Tab extends Control {
   private static final Logger LOGGER = LogManager.getLogger(Tab.class.getName());
 
   private final Workbench workbench;
-  private final ObservableList<WorkbenchModule> modules;
-
   private final ObjectProperty<WorkbenchModule> module;
   private final StringProperty name;
   private final ObjectProperty<Node> icon;
@@ -45,14 +42,14 @@ public class Tab extends Control {
    */
   public Tab(Workbench workbench) {
     this.workbench = workbench;
-    this.modules = workbench.getModules();
-    module = new SimpleObjectProperty<>();
-    name = new SimpleStringProperty();
-    icon = new SimpleObjectProperty<>();
-    activeTab = new SimpleBooleanProperty();
+    module = new SimpleObjectProperty<>(this, "module");
+    name = new SimpleStringProperty(this, "name");
+    icon = new SimpleObjectProperty<>(this, "icon");
+    activeTab = new SimpleBooleanProperty(this, "activeTab");
     setupModuleListeners();
     setupActiveTabListener();
     setupEventHandlers();
+    getStyleClass().add("tab-control");
   }
 
   private void setupEventHandlers() {
@@ -85,18 +82,18 @@ public class Tab extends Control {
   /**
    * Closes the {@link WorkbenchModule} along with this {@link Tab}.
    */
-  public void close() {
+  public final void close() {
     workbench.closeModule(getModule());
   }
 
   /**
    * Opens the {@link WorkbenchModule} belonging to this {@link Tab}.
    */
-  public void open() {
+  public final void open() {
     workbench.openModule(getModule());
   }
 
-  public WorkbenchModule getModule() {
+  public final WorkbenchModule getModule() {
     return module.get();
   }
 
@@ -110,31 +107,31 @@ public class Tab extends Control {
     this.module.set(module);
   }
 
-  public ReadOnlyObjectProperty<WorkbenchModule> moduleProperty() {
+  public final ReadOnlyObjectProperty<WorkbenchModule> moduleProperty() {
     return module;
   }
 
-  public String getName() {
+  public final String getName() {
     return name.get();
   }
 
-  public ReadOnlyStringProperty nameProperty() {
+  public final ReadOnlyStringProperty nameProperty() {
     return name;
   }
 
-  public Node getIcon() {
+  public final Node getIcon() {
     return icon.get();
   }
 
-  public ReadOnlyObjectProperty<Node> iconProperty() {
+  public final ReadOnlyObjectProperty<Node> iconProperty() {
     return icon;
   }
 
-  public boolean isActiveTab() {
+  public final boolean isActiveTab() {
     return activeTab.get();
   }
 
-  public ReadOnlyBooleanProperty activeTabProperty() {
+  public final ReadOnlyBooleanProperty activeTabProperty() {
     return activeTab;
   }
 

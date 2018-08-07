@@ -1,8 +1,8 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.view.controls.GlassPane;
-import javafx.scene.Node;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
@@ -14,12 +14,14 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchView extends StackPane implements View {
+public final class WorkbenchView extends StackPane implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchView.class.getName());
+
   final ToolbarView toolbarView;
   final AddModuleView addModuleView;
   final ContentView contentView;
+
   VBox viewBox;
 
   /**
@@ -43,7 +45,7 @@ public class WorkbenchView extends StackPane implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeSelf() {
+  public final void initializeSelf() {
     setId("workbench");
   }
 
@@ -51,7 +53,7 @@ public class WorkbenchView extends StackPane implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeParts() {
+  public final void initializeParts() {
     viewBox = new VBox();
   }
 
@@ -59,10 +61,11 @@ public class WorkbenchView extends StackPane implements View {
    * {@inheritDoc}
    */
   @Override
-  public void layoutParts() {
+  public final void layoutParts() {
     viewBox.getChildren().addAll(toolbarView, contentView);
     getChildren().addAll(viewBox);
     VBox.setVgrow(contentView, Priority.ALWAYS);
+    VBox.setVgrow(addModuleView, Priority.ALWAYS);
   }
 
   /**
@@ -72,22 +75,22 @@ public class WorkbenchView extends StackPane implements View {
    * @param overlay   to be stacked on top of the view
    * @param glassPane to be added in the background of the {@code overlay}
    */
-  public void addOverlay(Node overlay, GlassPane glassPane) {
+  final void addOverlay(Region overlay, GlassPane glassPane) {
     LOGGER.trace("addOverlay");
     overlay.setVisible(false);
     getChildren().addAll(glassPane, overlay);
     // make glass pane hide if overlay is not showing
-    glassPane.hideProperty().bind(overlay.visibleProperty().not());
+    overlay.visibleProperty().addListener(observable -> glassPane.setHide(!overlay.isVisible()));
   }
 
   /**
    * Removes the {@code overlay} from the scene graph and removes the bindings created with the call
-   * to {@link WorkbenchView#addOverlay(Node, GlassPane)}.
+   * to {@link WorkbenchView#addOverlay(Region, GlassPane)}.
    *
    * @param overlay   to be removed from the scene graph
    * @param glassPane the {@code overlay}'s corresponding {@link GlassPane}
    */
-  public void removeOverlay(Node overlay, GlassPane glassPane) {
+  final void removeOverlay(Region overlay, GlassPane glassPane) {
     LOGGER.trace("removeOverlay");
     glassPane.hideProperty().unbind();
     getChildren().removeAll(glassPane, overlay);
@@ -98,7 +101,7 @@ public class WorkbenchView extends StackPane implements View {
    *
    * @param overlay to be made visible
    */
-  public void showOverlay(Node overlay) {
+  final void showOverlay(Region overlay) {
     LOGGER.trace("showOverlay");
     overlay.setVisible(true);
   }
@@ -108,7 +111,7 @@ public class WorkbenchView extends StackPane implements View {
    *
    * @param overlay to be made <b>in</b>visible
    */
-  public void hideOverlay(Node overlay) {
+  final void hideOverlay(Region overlay) {
     LOGGER.trace("hideOverlay");
     overlay.setVisible(false);
   }

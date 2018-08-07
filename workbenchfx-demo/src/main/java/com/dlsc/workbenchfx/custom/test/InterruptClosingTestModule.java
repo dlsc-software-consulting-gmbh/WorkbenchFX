@@ -3,7 +3,7 @@ package com.dlsc.workbenchfx.custom.test;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -13,7 +13,7 @@ public class InterruptClosingTestModule extends WorkbenchModule {
   boolean closePossible;
 
   public InterruptClosingTestModule() {
-    super("Interrupt Close", FontAwesomeIcon.QUESTION);
+    super("Interrupt Close", MaterialDesignIcon.HELP);
   }
 
   @Override
