@@ -26,7 +26,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ToolbarItem extends MenuButton {
+public final class ToolbarItem extends MenuButton {
 
   private static final Logger LOGGER =
       LogManager.getLogger(ToolbarItem.class.getName());
