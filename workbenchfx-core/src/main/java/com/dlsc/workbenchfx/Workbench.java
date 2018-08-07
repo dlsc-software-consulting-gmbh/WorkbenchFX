@@ -318,6 +318,8 @@ public final class Workbench extends Control {
     initListeners();
     initNavigationDrawer(getNavigationDrawer());
     setupCleanup();
+    getStylesheets().add(Workbench.class.getResource("css/context-menu.css").toExternalForm());
+    getStyleClass().add("workbench");
   }
 
   /**
@@ -326,16 +328,12 @@ public final class Workbench extends Control {
    * @param builder to use for the setup
    */
   private Workbench(WorkbenchBuilder builder) {
+    this();
     setModulesPerPage(builder.modulesPerPage);
-    initBindings();
     initFactories(builder);
     initToolbarControls(builder);
     initNavigationDrawer(builder);
     initModules(builder);
-    initListeners();
-    setupCleanup();
-
-    getStylesheets().add(Workbench.class.getResource("css/context-menu.css").toExternalForm());
   }
 
   private void initFactories(WorkbenchBuilder builder) {
