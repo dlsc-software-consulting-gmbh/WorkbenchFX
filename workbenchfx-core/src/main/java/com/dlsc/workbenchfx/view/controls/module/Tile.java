@@ -67,11 +67,11 @@ public class Tile extends Control {
   /**
    * Opens the {@link WorkbenchModule} belonging to this {@link Tile}.
    */
-  public void open() {
+  public final void open() {
     workbench.openModule(getModule());
   }
 
-  public WorkbenchModule getModule() {
+  public final WorkbenchModule getModule() {
     return module.get();
   }
 
@@ -85,23 +85,23 @@ public class Tile extends Control {
     this.module.set(module);
   }
 
-  public ReadOnlyObjectProperty<WorkbenchModule> moduleProperty() {
+  public final ObjectProperty<WorkbenchModule> moduleProperty() {
     return module;
   }
 
-  public String getName() {
+  public final String getName() {
     return name.get();
   }
 
-  public ReadOnlyStringProperty nameProperty() {
+  public final ReadOnlyStringProperty nameProperty() {
     return name;
   }
 
-  public Node getIcon() {
+  public final Node getIcon() {
     return icon.get();
   }
 
-  public ReadOnlyObjectProperty<Node> iconProperty() {
+  public final ReadOnlyObjectProperty<Node> iconProperty() {
     return icon;
   }
 
