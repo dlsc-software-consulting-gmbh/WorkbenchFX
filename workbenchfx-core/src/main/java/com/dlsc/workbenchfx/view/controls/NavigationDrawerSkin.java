@@ -47,20 +47,12 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     super(navigationDrawer);
     this.navigationDrawer = navigationDrawer;
 
-    initializeSelf();
     initializeParts();
     layoutParts();
     setupEventHandlers();
     setupValueChangedListeners();
 
     buildMenu();
-  }
-
-  /**
-   * Initializes the skin.
-   */
-  private void initializeSelf() {
-    navigationDrawer.getStyleClass().add("navigation-drawer");
   }
 
   /**
@@ -84,7 +76,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     backBtn.getStyleClass().add("icon");
     backBtn.setId("back-button");
 
-    companyLogo = new Label("");
+    companyLogo = new Label();
     companyLogo.getStyleClass().add("logo");
   }
 

@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.testing.MockNavigationDrawer;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -63,10 +62,4 @@ class NavigationDrawerTest extends ApplicationTest {
     assertSame(this.items, items);
   }
 
-  @Test
-  void workbenchWidthProperty() {
-    ReadOnlyDoubleProperty widthProperty = navigationDrawer.workbenchWidthProperty();
-    verify(mockBench).widthProperty();
-    assertSame(this.widthProperty, widthProperty);
-  }
 }
