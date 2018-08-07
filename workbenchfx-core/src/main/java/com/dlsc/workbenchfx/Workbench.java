@@ -86,44 +86,44 @@ public final class Workbench extends Control {
   private static final NavigationDrawer DEFAULT_NAVIGATION_DRAWER = new NavigationDrawer();
 
   // Custom Controls
-  private ObjectProperty<NavigationDrawer> navigationDrawer =
+  private final ObjectProperty<NavigationDrawer> navigationDrawer =
       new SimpleObjectProperty<>(DEFAULT_NAVIGATION_DRAWER);
 
   // Lists
-  private ObservableList<ToolbarItem> toolbarControlsRight =
+  private final ObservableList<ToolbarItem> toolbarControlsRight =
       FXCollections.observableArrayList();
-  private ObservableList<ToolbarItem> toolbarControlsLeft =
+  private final ObservableList<ToolbarItem> toolbarControlsLeft =
       FXCollections.observableArrayList();
-  private ObservableList<MenuItem> navigationDrawerItems =
+  private final ObservableList<MenuItem> navigationDrawerItems =
       FXCollections.observableArrayList();
 
   /**
    * Map containing all overlays which have been loaded into the scene graph, with their
    * corresponding model object {@link WorkbenchOverlay}.
    */
-  private ObservableMap<Region, WorkbenchOverlay> overlays =
+  private final ObservableMap<Region, WorkbenchOverlay> overlays =
       FXCollections.observableHashMap();
 
-  private ObservableList<Region> nonBlockingOverlaysShown =
+  private final ObservableList<Region> nonBlockingOverlaysShown =
       FXCollections.observableArrayList();
-  private ObservableList<Region> blockingOverlaysShown =
+  private final ObservableList<Region> blockingOverlaysShown =
       FXCollections.observableArrayList();
 
-  private ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>();
-  private ObjectProperty<Side> drawerSideShown = new SimpleObjectProperty<>();
+  private final ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>();
+  private final ObjectProperty<Side> drawerSideShown = new SimpleObjectProperty<>();
 
   // Modules
   /**
    * List of all modules.
    */
-  private ListProperty<WorkbenchModule> modules = new SimpleListProperty<>(this, "modules",
+  private final ListProperty<WorkbenchModule> modules = new SimpleListProperty<>(this, "modules",
       FXCollections.observableArrayList());
 
   /**
    * List of all currently open modules. Open modules are being displayed as open tabs in the
    * application.
    */
-  private ListProperty<WorkbenchModule> openModules = new SimpleListProperty<>(this,
+  private final ListProperty<WorkbenchModule> openModules = new SimpleListProperty<>(this,
       "modules",
       FXCollections.observableArrayList());
 
@@ -134,7 +134,7 @@ public final class Workbench extends Control {
    * Stage#setOnCloseRequest(EventHandler)}. Is <b>always</b> completed with {@code true}. This way,
    * there is no need to differentiate whether it was completed with {@code true} or {@code false}.
    */
-  private Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap =
+  private final Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap =
       new HashMap<>();
 
   /**
@@ -142,25 +142,25 @@ public final class Workbench extends Control {
    * view. When the home screen is being displayed, {@code activeModule} and {@code
    * activeModuleView} are null.
    */
-  private ObjectProperty<WorkbenchModule> activeModule = new SimpleObjectProperty<>();
-  private ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
+  private final ObjectProperty<WorkbenchModule> activeModule = new SimpleObjectProperty<>();
+  private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
   // Factories
   /**
    * The factories which are called when creating Tabs, Tiles and Pages of Tiles for the Views. They
    * require a module whose attributes are used to create the Nodes.
    */
-  private ObjectProperty<Callback<Workbench, Tab>> tabFactory =
+  private final ObjectProperty<Callback<Workbench, Tab>> tabFactory =
       new SimpleObjectProperty<>(this, "tabFactory", DEFAULT_TAB_FACTORY);
-  private ObjectProperty<Callback<Workbench, Tile>> tileFactory =
+  private final ObjectProperty<Callback<Workbench, Tile>> tileFactory =
       new SimpleObjectProperty<>(this, "tileFactory", DEFAULT_TILE_FACTORY);
-  private ObjectProperty<Callback<Workbench, Page>> pageFactory =
+  private final ObjectProperty<Callback<Workbench, Page>> pageFactory =
       new SimpleObjectProperty<>(this, "pageFactory", DEFAULT_PAGE_FACTORY);
 
   // Properties
-  private IntegerProperty modulesPerPage =
+  private final IntegerProperty modulesPerPage =
       new SimpleIntegerProperty(DEFAULT_MODULES_PER_PAGE);
-  private IntegerProperty amountOfPages = new SimpleIntegerProperty();
+  private final IntegerProperty amountOfPages = new SimpleIntegerProperty();
 
   // Builder
   /**
