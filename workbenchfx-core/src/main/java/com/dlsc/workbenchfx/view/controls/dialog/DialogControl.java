@@ -73,13 +73,13 @@ public class DialogControl extends Control {
     setPickOnBounds(false);
 
     setupChangeListeners();
+
+    getStyleClass().add("dialog-control");
   }
 
   private void setupChangeListeners() {
     // update buttons whenever dialog, buttonTypes, workbench, or buttonTextUppercase changes
-    dialogChangedListener = observable -> {
-      updateButtons(getDialog());
-    };
+    dialogChangedListener = observable -> updateButtons(getDialog());
     escapeConsumeHandler = event -> {
       if (KeyCode.ESCAPE.equals(event.getCode())) {
         LOGGER.trace("ESC was pressed on a blocking dialog, consuming event");
@@ -305,35 +305,35 @@ public class DialogControl extends Control {
 
   // Accessors and mutators
 
-  public WorkbenchDialog getDialog() {
+  public final WorkbenchDialog getDialog() {
     return dialog.get();
   }
 
-  public ObjectProperty<WorkbenchDialog> dialogProperty() {
+  public final ObjectProperty<WorkbenchDialog> dialogProperty() {
     return dialog;
   }
 
-  public void setDialog(WorkbenchDialog dialog) {
+  public final void setDialog(WorkbenchDialog dialog) {
     this.dialog.set(dialog);
   }
 
-  public ObservableList<Button> getButtons() {
+  public final ObservableList<Button> getButtons() {
     return FXCollections.unmodifiableObservableList(buttons);
   }
 
-  public boolean isButtonTextUppercase() {
+  public final boolean isButtonTextUppercase() {
     return buttonTextUppercase.get();
   }
 
-  public BooleanProperty buttonTextUppercaseProperty() {
+  public final BooleanProperty buttonTextUppercaseProperty() {
     return buttonTextUppercase;
   }
 
-  public void setButtonTextUppercase(boolean buttonTextUppercase) {
+  public final void setButtonTextUppercase(boolean buttonTextUppercase) {
     this.buttonTextUppercase.set(buttonTextUppercase);
   }
 
-  public Workbench getWorkbench() {
+  public final Workbench getWorkbench() {
     return workbench.get();
   }
 
@@ -341,7 +341,7 @@ public class DialogControl extends Control {
     this.workbench.set(workbench);
   }
 
-  public ObjectProperty<Workbench> workbenchProperty() {
+  public final ObjectProperty<Workbench> workbenchProperty() {
     return workbench;
   }
 
@@ -365,18 +365,6 @@ public class DialogControl extends Control {
 
   private void setShowing(boolean showing) {
     this.showingProperty.set(showing);
-  }
-
-  private Button getDefaultButton() {
-    return defaultButton;
-  }
-
-  private Button getCancelButton() {
-    return cancelButton;
-  }
-
-  private ButtonType getDefaultButtonType() {
-    return defaultButtonType;
   }
 
   public ButtonType getCancelButtonType() {
