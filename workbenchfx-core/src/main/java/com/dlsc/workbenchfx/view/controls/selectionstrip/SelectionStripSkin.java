@@ -172,9 +172,11 @@ public class SelectionStripSkin<T> extends SkinBase<SelectionStrip<T>> {
     return faderTransition;
   }
 
-  private final BooleanProperty showLeftScroll = new SimpleBooleanProperty(this, "showLeftScroll", false);
+  private final BooleanProperty showLeftScroll =
+      new SimpleBooleanProperty(this, "showLeftScroll", false);
 
-  private final BooleanProperty showRightScroll = new SimpleBooleanProperty(this, "showRightScroll",false);
+  private final BooleanProperty showRightScroll =
+      new SimpleBooleanProperty(this, "showRightScroll",false);
 
   private void setupBindings() {
     showLeftScroll.bind(translateX.lessThan(0));

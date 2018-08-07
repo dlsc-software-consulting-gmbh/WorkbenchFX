@@ -109,8 +109,10 @@ public final class Workbench extends Control {
   private final ObservableList<Region> blockingOverlaysShown =
       FXCollections.observableArrayList();
 
-  private final ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>(this, "drawerShown");
-  private final ObjectProperty<Side> drawerSideShown = new SimpleObjectProperty<>(this, "drawerSideShown");
+  private final ObjectProperty<Region> drawerShown =
+      new SimpleObjectProperty<>(this, "drawerShown");
+  private final ObjectProperty<Side> drawerSideShown =
+      new SimpleObjectProperty<>(this, "drawerSideShown");
 
   // Modules
   /**
@@ -142,8 +144,10 @@ public final class Workbench extends Control {
    * view. When the home screen is being displayed, {@code activeModule} and {@code
    * activeModuleView} are null.
    */
-  private final ObjectProperty<WorkbenchModule> activeModule = new SimpleObjectProperty<>(this, "activeModule");
-  private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>(this, "activeModuleView");
+  private final ObjectProperty<WorkbenchModule> activeModule =
+      new SimpleObjectProperty<>(this, "activeModule");
+  private final ObjectProperty<Node> activeModuleView =
+      new SimpleObjectProperty<>(this, "activeModuleView");
 
   // Factories
   /**
