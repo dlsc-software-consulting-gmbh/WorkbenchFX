@@ -44,10 +44,7 @@ public class TileSkin extends SkinBase<Tile> {
   }
 
   private void layoutParts() {
-    contentBox.getChildren().addAll(
-        icon,
-        textLbl
-    );
+    contentBox.getChildren().addAll(icon, textLbl);
     getChildren().add(contentBox);
   }
 
