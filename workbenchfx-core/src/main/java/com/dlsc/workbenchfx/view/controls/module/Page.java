@@ -4,7 +4,6 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +21,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class Page extends Control {
   private static final Logger LOGGER = LogManager.getLogger(Page.class.getName());
-  public static final int INITIAL_PAGE_INDEX = -1;
+  private static final int INITIAL_PAGE_INDEX = -1;
   private final Workbench workbench;
   private final ObservableList<WorkbenchModule> modules;
   private final IntegerProperty pageIndex;
@@ -37,12 +36,13 @@ public class Page extends Control {
    */
   public Page(Workbench workbench) {
     this.workbench = workbench;
-    pageIndex = new SimpleIntegerProperty(INITIAL_PAGE_INDEX);
+    pageIndex = new SimpleIntegerProperty(this, "pageIndex", INITIAL_PAGE_INDEX);
     modulesPerPage = workbench.modulesPerPageProperty();
     modules = workbench.getModules();
     tiles = FXCollections.observableArrayList();
     setupChangeListeners();
     updateTiles();
+    getStyleClass().add("page-control");
   }
 
   private void setupChangeListeners() {
@@ -77,7 +77,7 @@ public class Page extends Control {
         .forEachOrdered(tiles::add);
   }
 
-  public int getPageIndex() {
+  public final int getPageIndex() {
     return pageIndex.get();
   }
 
@@ -90,11 +90,11 @@ public class Page extends Control {
     this.pageIndex.set(pageIndex);
   }
 
-  public ReadOnlyIntegerProperty pageIndexProperty() {
+  public final IntegerProperty pageIndexProperty() {
     return pageIndex;
   }
 
-  public ObservableList<Tile> getTiles() {
+  public final ObservableList<Tile> getTiles() {
     return FXCollections.unmodifiableObservableList(tiles);
   }
 

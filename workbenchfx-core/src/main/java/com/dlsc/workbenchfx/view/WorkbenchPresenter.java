@@ -9,7 +9,6 @@ import java.util.Objects;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
 import org.apache.logging.log4j.LogManager;
@@ -21,12 +20,12 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchPresenter extends Presenter {
+public final class WorkbenchPresenter extends Presenter {
 
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchPresenter.class.getName());
 
-  private Workbench model;
-  private WorkbenchView view;
+  private final Workbench model;
+  private final WorkbenchView view;
 
   private final ObservableMap<Region, WorkbenchOverlay> overlays;
   private final ObservableList<Region> overlaysShown;
@@ -52,7 +51,7 @@ public class WorkbenchPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void initializeViewParts() {
+  public final void initializeViewParts() {
 
   }
 
@@ -60,7 +59,7 @@ public class WorkbenchPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupEventHandlers() {
+  public final void setupEventHandlers() {
 
   }
 
@@ -68,7 +67,7 @@ public class WorkbenchPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupValueChangedListeners() {
+  public final void setupValueChangedListeners() {
     overlays.addListener((MapChangeListener<Region, WorkbenchOverlay>) c -> {
       LOGGER.trace("Listener overlays fired");
       if (c.wasAdded()) {
@@ -98,7 +97,7 @@ public class WorkbenchPresenter extends Presenter {
    *
    * @param overlay to be added
    */
-  public void addOverlay(WorkbenchOverlay overlay) {
+  private void addOverlay(WorkbenchOverlay overlay) {
     LOGGER.trace("addOverlay");
     view.addOverlay(overlay.getOverlay(), overlay.getGlassPane());
   }
@@ -108,7 +107,7 @@ public class WorkbenchPresenter extends Presenter {
    *
    * @param overlay to be removed
    */
-  public void removeOverlay(WorkbenchOverlay overlay) {
+  private void removeOverlay(WorkbenchOverlay overlay) {
     LOGGER.trace("removeOverlay");
     view.removeOverlay(overlay.getOverlay(), overlay.getGlassPane());
 
@@ -179,7 +178,7 @@ public class WorkbenchPresenter extends Presenter {
    *
    * @param overlay to be hidden
    */
-  public void hideOverlay(Region overlay) {
+  private void hideOverlay(Region overlay) {
     hideOverlay(model.getOverlays().get(overlay));
   }
 
@@ -188,7 +187,7 @@ public class WorkbenchPresenter extends Presenter {
    *
    * @param overlay to be hidden
    */
-  public void hideOverlay(WorkbenchOverlay overlay) {
+  private void hideOverlay(WorkbenchOverlay overlay) {
     if (overlay.isAnimated()) {
       overlay.getAnimationEnd().play();
       // make sure GlassPane starts hiding at the same time as the animation, not when the animation
@@ -203,7 +202,7 @@ public class WorkbenchPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupBindings() {
+  public final void setupBindings() {
 
   }
 }

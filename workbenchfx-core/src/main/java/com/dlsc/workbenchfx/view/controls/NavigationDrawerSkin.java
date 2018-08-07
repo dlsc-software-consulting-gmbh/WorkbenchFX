@@ -47,20 +47,12 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     super(navigationDrawer);
     this.navigationDrawer = navigationDrawer;
 
-    initializeSelf();
     initializeParts();
     layoutParts();
     setupEventHandlers();
     setupValueChangedListeners();
 
     buildMenu();
-  }
-
-  /**
-   * Initializes the skin.
-   */
-  private void initializeSelf() {
-    navigationDrawer.getStyleClass().add("navigation-drawer");
   }
 
   /**
@@ -84,7 +76,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     backBtn.getStyleClass().add("icon");
     backBtn.setId("back-button");
 
-    companyLogo = new Label("");
+    companyLogo = new Label();
     companyLogo.getStyleClass().add("logo");
   }
 
@@ -143,14 +135,14 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     menuButton.addEventFilter(TouchEvent.TOUCH_RELEASED, e -> isTouchUsed = true);
 
     // Only when ALWAYS or SOMETIMES
-    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehaviour())) {
+    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehavior())) {
       menuButton.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Menu
         if (isTouchUsed) {
           isTouchUsed = false;
           return;
         }
         // When ALWAYS, then trigger immediately. Else check if clicked before (case: SOMETIMES)
-        if (Priority.ALWAYS.equals(getSkinnable().getMenuHoverBehaviour())
+        if (Priority.ALWAYS.equals(getSkinnable().getMenuHoverBehavior())
             || (hoveredBtn != null && hoveredBtn.isShowing())) {
           menuButton.show(); // Shows the context-menu
           if (hoveredBtn != null && hoveredBtn != menuButton) {
@@ -173,7 +165,7 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     button.setOnAction(item.getOnAction());
 
     // Only in cases ALWAYS and SOMETIMES: hide previously hovered button
-    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehaviour())) {
+    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehavior())) {
       button.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Button
         if (!isTouchUsed) {
           if (hoveredBtn != null) {

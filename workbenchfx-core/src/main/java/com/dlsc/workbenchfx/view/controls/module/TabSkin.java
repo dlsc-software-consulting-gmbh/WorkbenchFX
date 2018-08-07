@@ -1,8 +1,5 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
-import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
-
-import com.dlsc.workbenchfx.model.WorkbenchModule;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -25,8 +22,7 @@ import org.apache.logging.log4j.Logger;
 public class TabSkin extends SkinBase<Tab> {
 
   private static final Logger LOGGER = LogManager.getLogger(TabSkin.class.getName());
-
-  private final ReadOnlyObjectProperty<WorkbenchModule> module;
+  private static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
 
   private HBox controlBox;
   private StackPane closeIconShape;
@@ -45,7 +41,6 @@ public class TabSkin extends SkinBase<Tab> {
    */
   public TabSkin(Tab tab) {
     super(tab);
-    module = tab.moduleProperty();
     activeTab = tab.activeTabProperty();
     name = tab.nameProperty();
     icon = tab.iconProperty();
@@ -68,17 +63,15 @@ public class TabSkin extends SkinBase<Tab> {
     closeBtn.getStyleClass().addAll("icon", "close-icon");
 
     nameLbl = new Label();
+    nameLbl.getStyleClass().add("tab-name-lbl");
+
     controlBox = new HBox();
+    controlBox.getStyleClass().addAll("tab-box", STYLE_CLASS_ACTIVE_TAB);
   }
 
   private void layoutParts() {
     Label iconPlaceholder = new Label(); // Will be replaced in the listener
     controlBox.getChildren().addAll(iconPlaceholder, nameLbl, closeBtn);
-
-    nameLbl.getStyleClass().add("tab-name-lbl");
-
-    controlBox.getStyleClass().add("tab-control");
-    controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
   }
 
   private void setupBindings() {

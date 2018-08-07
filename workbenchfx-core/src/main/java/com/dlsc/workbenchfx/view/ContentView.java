@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
@@ -7,12 +8,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Displays the content of the currently active {@link Module}.
+ * Displays the content of the currently active {@link WorkbenchModule}.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ContentView extends BorderPane implements View {
+public final class ContentView extends BorderPane implements View {
 
   private static final Logger LOGGER = LogManager.getLogger(ContentView.class.getName());
   ToolbarControl toolbarControl;
@@ -30,7 +31,7 @@ public class ContentView extends BorderPane implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeSelf() {
+  public final void initializeSelf() {
     setId("content-view");
   }
 
@@ -38,7 +39,7 @@ public class ContentView extends BorderPane implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeParts() {
+  public final void initializeParts() {
     toolbarControl = new ToolbarControl();
   }
 
@@ -46,7 +47,7 @@ public class ContentView extends BorderPane implements View {
    * {@inheritDoc}
    */
   @Override
-  public void layoutParts() {
+  public final void layoutParts() {
 
   }
 
@@ -56,7 +57,7 @@ public class ContentView extends BorderPane implements View {
    *
    * @param node the module content as a Node
    */
-  void setContent(Node node) {
+  final void setContent(Node node) {
     setCenter(node);
   }
 
@@ -65,11 +66,11 @@ public class ContentView extends BorderPane implements View {
    *
    * @param show true if the {@link ToolbarControl} should be displayed, false if not
    */
-  void showToolbar(boolean show) {
+  final void showToolbar(boolean show) {
     setTop(show ? toolbarControl : null);
   }
 
-  void setAddModuleView() {
+  final void setAddModuleView() {
     setCenter(addModuleView);
   }
 }

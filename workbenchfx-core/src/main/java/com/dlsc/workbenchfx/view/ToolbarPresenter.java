@@ -1,7 +1,5 @@
 package com.dlsc.workbenchfx.view;
 
-import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_ADD_BUTTON;
-
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
@@ -20,10 +18,12 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ToolbarPresenter extends Presenter {
+public final class ToolbarPresenter extends Presenter {
 
   private static final Logger LOGGER =
       LogManager.getLogger(ToolbarPresenter.class.getName());
+  private static final String STYLE_CLASS_ACTIVE_ADD_BUTTON = "active-add-button";
+
   private final Workbench model;
   private final ToolbarView view;
 
@@ -33,12 +33,7 @@ public class ToolbarPresenter extends Presenter {
   private final ObservableList<ToolbarItem> toolbarControlsRight;
   private final ObservableList<WorkbenchModule> openModules;
 
-  private final PseudoClass emptyState = new PseudoClass() {
-    @Override
-    public String getPseudoClassName() {
-      return "empty";
-    }
-  };
+  private static final PseudoClass EMPTY_STATE = PseudoClass.getPseudoClass("empty");
 
   /**
    * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
@@ -62,11 +57,14 @@ public class ToolbarPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void initializeViewParts() {
+  public final void initializeViewParts() {
     view.tabBar.setCellFactory(tab -> new TabCell());
     view.tabBar.getStylesheets().add(
         Workbench.class.getResource("css/selection-strip.css").toExternalForm()
     );
+
+    // initially set the add module button as active
+    view.addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
 
     view.addModuleBtn.requestFocus();
   }
@@ -75,7 +73,7 @@ public class ToolbarPresenter extends Presenter {
     LOGGER.trace("setupMenuBtn() called");
     view.removeMenuBtn(); // Remove the menuBtn
     boolean empty = view.toolbarControl.isEmpty();
-    view.topBox.pseudoClassStateChanged(emptyState, empty); // Change the pseudoclass
+    view.topBox.pseudoClassStateChanged(EMPTY_STATE, empty); // Change the pseudoclass
 
     if (navigationDrawerItems.size() != 0) { // If setting it is required
       if (empty) { // If the toolbarControl is empty set it below
@@ -92,7 +90,7 @@ public class ToolbarPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupEventHandlers() {
+  public final void setupEventHandlers() {
     // When the home button is clicked, the view changes
     view.addModuleBtn.setOnAction(event -> model.openHomeScreen());
     // When the menu button is clicked, the navigation drawer gets shown
@@ -103,7 +101,7 @@ public class ToolbarPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupValueChangedListeners() {
+  public final void setupValueChangedListeners() {
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       if (Objects.isNull(oldModule)) {
         // AddModuleView is the old value
@@ -120,16 +118,27 @@ public class ToolbarPresenter extends Presenter {
     // when the toolbarControl's emptyProperty changes, check the menuBtn's position
     view.toolbarControl.emptyProperty().addListener(
         (observable, wasEmpty, isEmpty) -> setupMenuBtn()); // Define where to put the menuBtn
+
+    // handle changes to the active module in the tabs
+    view.tabBar.selectedItemProperty().addListener((observable, oldModule, newModule) -> {
+      if (!Objects.isNull(newModule)) {
+        model.openModule(newModule);
+      } else {
+        model.openHomeScreen();
+      }
+    });
+    model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
+      view.tabBar.setSelectedItem(newModule);
+    });
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void setupBindings() {
+  public final void setupBindings() {
     // Binds content of the SelectionStrip to the Workbench content
     view.tabBar.itemsProperty().bindContent(openModules);
-    view.tabBar.selectedItemProperty().bindBidirectional(model.activeModuleProperty());
 
     // Bind items from toolbar to the ones of the workbench
     view.toolbarControl.toolbarControlsLeftProperty().bindContent(toolbarControlsLeft);

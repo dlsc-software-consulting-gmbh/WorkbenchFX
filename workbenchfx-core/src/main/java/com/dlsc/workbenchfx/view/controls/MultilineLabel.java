@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
  */
 public class MultilineLabel extends Label {
 
-  String message;
+  private final String message;
 
   /**
    * Creates a label whose content is wrapping around when it's text is too long.
@@ -30,7 +30,7 @@ public class MultilineLabel extends Label {
     setMaxWidth(Double.MAX_VALUE);
   }
 
-  public String getMessage() {
+  public final String getMessage() {
     return message;
   }
 }

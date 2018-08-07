@@ -145,14 +145,14 @@ public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer>
     menuButton.addEventFilter(TouchEvent.TOUCH_RELEASED, e -> isTouchUsed = true);
 
     // Only when ALWAYS or SOMETIMES
-    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehaviour())) {
+    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehavior())) {
       menuButton.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Menu
         if (isTouchUsed) {
           isTouchUsed = false;
           return;
         }
         // When ALWAYS, then trigger immediately. Else check if clicked before (case: SOMETIMES)
-        if (Priority.ALWAYS.equals(getSkinnable().getMenuHoverBehaviour())
+        if (Priority.ALWAYS.equals(getSkinnable().getMenuHoverBehavior())
             || (hoveredBtn != null && hoveredBtn.isShowing())) {
           menuButton.show(); // Shows the context-menu
           if (hoveredBtn != null && hoveredBtn != menuButton) {
@@ -175,7 +175,7 @@ public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer>
     button.setOnAction(item.getOnAction());
 
     // Only in cases ALWAYS and SOMETIMES: hide previously hovered button
-    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehaviour())) {
+    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehavior())) {
       button.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Button
         if (!isTouchUsed) {
           if (hoveredBtn != null) {

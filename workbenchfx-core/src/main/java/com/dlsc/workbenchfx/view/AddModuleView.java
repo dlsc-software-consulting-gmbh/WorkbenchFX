@@ -1,22 +1,15 @@
 package com.dlsc.workbenchfx.view;
 
-import javafx.css.PseudoClass;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import javafx.scene.control.Pagination;
 
 /**
- * Shows the home screen with the {@link Module}s as tiles, using pagination.
+ * Shows the home screen with the {@link WorkbenchModule}s as tiles, using pagination.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class AddModuleView extends Pagination implements View {
-
-  private static final PseudoClass ONE_PAGE_STATE = new PseudoClass() {
-    @Override
-    public String getPseudoClassName() {
-      return "one-page";
-    }
-  };
+public final class AddModuleView extends Pagination implements View {
 
   /**
    * Creates a new {@link AddModuleView}.
@@ -29,7 +22,7 @@ public class AddModuleView extends Pagination implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeSelf() {
+  public final void initializeSelf() {
     setId("add-module-view");
   }
 
@@ -37,7 +30,7 @@ public class AddModuleView extends Pagination implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeParts() {
+  public final void initializeParts() {
 
   }
 
@@ -45,12 +38,9 @@ public class AddModuleView extends Pagination implements View {
    * {@inheritDoc}
    */
   @Override
-  public void layoutParts() {
+  public final void layoutParts() {
     getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
   }
 
-  void updatePageCount(int amountOfPages) {
-    setPageCount(amountOfPages);
-    pseudoClassStateChanged(ONE_PAGE_STATE, amountOfPages == 1);
-  }
+
 }

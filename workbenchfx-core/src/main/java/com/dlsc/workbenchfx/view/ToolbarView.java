@@ -1,7 +1,5 @@
 package com.dlsc.workbenchfx.view;
 
-import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_ADD_BUTTON;
-
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.SelectionStrip;
@@ -18,7 +16,7 @@ import javafx.scene.layout.VBox;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ToolbarView extends VBox implements View {
+public final class ToolbarView extends VBox implements View {
 
   HBox topBox;
   ToolbarControl toolbarControl;
@@ -41,7 +39,7 @@ public class ToolbarView extends VBox implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeSelf() {
+  public final void initializeSelf() {
     setId("toolbar");
   }
 
@@ -49,7 +47,7 @@ public class ToolbarView extends VBox implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeParts() {
+  public final void initializeParts() {
     topBox = new HBox();
     topBox.setId("top-box");
 
@@ -64,7 +62,6 @@ public class ToolbarView extends VBox implements View {
     addModuleBtn = new Button("", addIconShape);
     addModuleBtn.getStyleClass().add("icon");
     addModuleBtn.setId("add-button");
-    addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
 
     menuIconShape = new StackPane();
     menuIconShape.getStyleClass().add("shape");
@@ -82,7 +79,7 @@ public class ToolbarView extends VBox implements View {
    * {@inheritDoc}
    */
   @Override
-  public void layoutParts() {
+  public final void layoutParts() {
     topBox.getChildren().add(toolbarControl);
     HBox.setHgrow(toolbarControl, Priority.ALWAYS);
 
@@ -96,7 +93,7 @@ public class ToolbarView extends VBox implements View {
   /**
    * Removes the menuBtn wherever it is located.
    */
-  void removeMenuBtn() {
+  final void removeMenuBtn() {
     bottomBox.getChildren().remove(menuBtn);
     topBox.getChildren().remove(menuBtn);
   }
@@ -104,14 +101,14 @@ public class ToolbarView extends VBox implements View {
   /**
    * Adds the menuBtn in first position of the topBox.
    */
-  void addMenuBtnTop() {
+  final void addMenuBtnTop() {
     topBox.getChildren().add(0, menuBtn);
   }
 
   /**
    * Adds the menuBtn in first position of the bottomBox.
    */
-  void addMenuBtnBottom() {
+  final void addMenuBtnBottom() {
     bottomBox.getChildren().add(0, menuBtn);
   }
 }

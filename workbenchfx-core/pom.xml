@@ -283,12 +283,6 @@
             <version>26.0-jre</version>
         </dependency>
 
-        <!-- Java 8 only -->
-        <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>8.40.14</version>
-        </dependency>
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-commons</artifactId>
@@ -306,11 +300,6 @@
         </dependency>
 
         <!-- Java 9 only
-        <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>9.0.0</version>
-        </dependency>
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-commons</artifactId>

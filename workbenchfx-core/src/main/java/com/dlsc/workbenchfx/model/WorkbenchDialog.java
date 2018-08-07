@@ -60,7 +60,7 @@ public final class WorkbenchDialog {
   private final ObjectProperty<DialogControl> dialogControl =
       new SimpleObjectProperty<>(this, "dialogControl");
 
-  private ObservableList<ButtonType> buttonTypes = FXCollections.observableArrayList();
+  private final ObservableList<ButtonType> buttonTypes = FXCollections.observableArrayList();
   private final ObservableList<String> styleClass = FXCollections.observableArrayList();
 
   public enum Type {
@@ -122,27 +122,27 @@ public final class WorkbenchDialog {
   }
 
   // Builder
-  public static class WorkbenchDialogBuilder {
+  public static final class WorkbenchDialogBuilder {
     private static final Logger LOGGER =
         LogManager.getLogger(WorkbenchDialogBuilder.class.getName());
 
     // Required parameters - only either type or buttonTypes are required
-    final WorkbenchDialog.Type type;
-    final ButtonType[] buttonTypes;
-    final String title;
-    final Node content;
+    private final WorkbenchDialog.Type type;
+    private final ButtonType[] buttonTypes;
+    private final String title;
+    private final Node content;
 
     // Optional parameters - initialized to default values
-    boolean blocking = false;
-    boolean maximized = false;
-    boolean showButtonsBar = true;
-    String[] styleClasses = new String[0];
-    Exception exception = null;
-    String details = "";
-    Consumer<ButtonType> onResult = null;
-    DialogControl dialogControl = new DialogControl();
-    EventHandler<Event> onShown = null;
-    EventHandler<Event> onHidden = null;
+    private boolean blocking = false;
+    private boolean maximized = false;
+    private boolean showButtonsBar = true;
+    private String[] styleClasses = new String[0];
+    private Exception exception = null;
+    private String details = "";
+    private Consumer<ButtonType> onResult = null;
+    private DialogControl dialogControl = new DialogControl();
+    private EventHandler<Event> onShown = null;
+    private EventHandler<Event> onHidden = null;
 
     private WorkbenchDialogBuilder(String title, Node content, ButtonType... buttonTypes) {
       this.title = title;
@@ -167,7 +167,7 @@ public final class WorkbenchDialog {
      *                 the {@code dialog} must be closed by pressing one of the buttons.
      * @return builder for chaining
      */
-    public WorkbenchDialogBuilder blocking(boolean blocking) {
+    public final WorkbenchDialogBuilder blocking(boolean blocking) {
       this.blocking = blocking;
       return this;
     }
@@ -178,7 +178,7 @@ public final class WorkbenchDialog {
      * @param maximized whether or not the dialog should be scaled to fit the whole window
      * @return builder for chaining
      */
-    public WorkbenchDialogBuilder maximized(boolean maximized) {
+    public final WorkbenchDialogBuilder maximized(boolean maximized) {
       this.maximized = maximized;
       return this;
     }
@@ -189,7 +189,7 @@ public final class WorkbenchDialog {
      * @param showButtonsBar if true, will show buttons, if false, will hide them
      * @return builder for chaining
      */
-    public WorkbenchDialogBuilder showButtonsBar(boolean showButtonsBar) {
+    public final WorkbenchDialogBuilder showButtonsBar(boolean showButtonsBar) {
       this.showButtonsBar = showButtonsBar;
       return this;
     }
@@ -200,7 +200,7 @@ public final class WorkbenchDialog {
      * @param styleClasses to be set on the dialog
      * @return builder for chaining
      */
-    public WorkbenchDialogBuilder styleClass(String... styleClasses) {
+    public final WorkbenchDialogBuilder styleClass(String... styleClasses) {
       this.styleClasses = styleClasses;
       return this;
     }
@@ -211,7 +211,7 @@ public final class WorkbenchDialog {
      * @param details to be shown
      * @return builder for chaining
      */
-    public WorkbenchDialogBuilder details(String details) {
+    public final WorkbenchDialogBuilder details(String details) {
       this.details = details;
       return this;
     }
@@ -223,7 +223,7 @@ public final class WorkbenchDialog {
      * @param exception to be shown
      * @return builder for chaining
      */
-    public WorkbenchDialogBuilder exception(Exception exception) {
+    public final WorkbenchDialogBuilder exception(Exception exception) {
       this.exception = exception;
       return this;
     }
@@ -236,7 +236,7 @@ public final class WorkbenchDialog {
      * @implNote If {@code onResult} is null, an empty consumer will be set instead, to avoid
      *           throwing {@link NullPointerException} upon calling.
      */
-    public WorkbenchDialogBuilder onResult(Consumer<ButtonType> onResult) {
+    public final WorkbenchDialogBuilder onResult(Consumer<ButtonType> onResult) {
       this.onResult = onResult;
       return this;
     }
@@ -247,7 +247,7 @@ public final class WorkbenchDialog {
      * @param dialogControl to be used to render the {@link WorkbenchDialog}.
      * @return builder for chaining
      */
-    public WorkbenchDialogBuilder dialogControl(DialogControl dialogControl) {
+    public final WorkbenchDialogBuilder dialogControl(DialogControl dialogControl) {
       this.dialogControl = dialogControl;
       return this;
     }
@@ -262,7 +262,7 @@ public final class WorkbenchDialog {
      * @param onShown action to be performed
      * @return builder for chaining
      */
-    public WorkbenchDialogBuilder onShown(EventHandler<Event> onShown) {
+    public final WorkbenchDialogBuilder onShown(EventHandler<Event> onShown) {
       this.onShown = onShown;
       return this;
     }
@@ -276,7 +276,7 @@ public final class WorkbenchDialog {
      * @param onHidden action to be performed
      * @return builder for chaining
      */
-    public WorkbenchDialogBuilder onHidden(EventHandler<Event> onHidden) {
+    public final WorkbenchDialogBuilder onHidden(EventHandler<Event> onHidden) {
       this.onHidden = onHidden;
       return this;
     }
@@ -286,7 +286,7 @@ public final class WorkbenchDialog {
      *
      * @return the {@link WorkbenchDialog} object
      */
-    public WorkbenchDialog build() {
+    public final WorkbenchDialog build() {
       return new WorkbenchDialog(this);
     }
   }
@@ -378,7 +378,6 @@ public final class WorkbenchDialog {
   }
 
   // Event Handler
-
   /**
    * The dialog's action, which is invoked whenever the dialog has been fully initialized and is
    * being shown. Whenever the {@link DialogControl#dialogProperty()}, {@link
@@ -438,7 +437,7 @@ public final class WorkbenchDialog {
 
   // button types
 
-  public ObservableList<ButtonType> getButtonTypes() {
+  public final ObservableList<ButtonType> getButtonTypes() {
     return buttonTypes;
   }
 
@@ -462,11 +461,11 @@ public final class WorkbenchDialog {
     return content;
   }
 
-  public void setContent(Node content) {
+  public final void setContent(Node content) {
     this.content.set(content);
   }
 
-  public Node getContent() {
+  public final Node getContent() {
     return content.get();
   }
 
@@ -486,7 +485,7 @@ public final class WorkbenchDialog {
 
   // custom style
 
-  public ObservableList<String> getStyleClass() {
+  public final ObservableList<String> getStyleClass() {
     return styleClass;
   }
 
@@ -520,39 +519,39 @@ public final class WorkbenchDialog {
 
   // details
 
-  public String getDetails() {
+  public final String getDetails() {
     return details.get();
   }
 
-  public StringProperty detailsProperty() {
+  public final StringProperty detailsProperty() {
     return details;
   }
 
-  public void setDetails(String details) {
+  public final void setDetails(String details) {
     this.details.set(details);
   }
 
   // blocking dialog or non-blocking dialog (modal or not modal)
 
-  public BooleanProperty blockingProperty() {
+  public final BooleanProperty blockingProperty() {
     return blocking;
   }
 
-  public void setBlocking(boolean blocking) {
+  public final void setBlocking(boolean blocking) {
     this.blocking.set(blocking);
   }
 
-  public boolean isBlocking() {
+  public final boolean isBlocking() {
     return blocking.get();
   }
 
   // action to be performed when a button on the DialogControl has been pressed
 
-  public Consumer<ButtonType> getOnResult() {
+  public final Consumer<ButtonType> getOnResult() {
     return onResult.get();
   }
 
-  public ObjectProperty<Consumer<ButtonType>> onResultProperty() {
+  public final ObjectProperty<Consumer<ButtonType>> onResultProperty() {
     return onResult;
   }
 
@@ -569,7 +568,7 @@ public final class WorkbenchDialog {
    * @implNote If {@code onResult} is null, an empty consumer will be set instead, to avoid
    *           throwing {@link NullPointerException} upon calling.
    */
-  public void setOnResult(Consumer<ButtonType> onResult) {
+  public final void setOnResult(Consumer<ButtonType> onResult) {
     if (Objects.isNull(onResult)) {
       // set empty consumer instead to avoid NPE
       onResult = buttonType -> {
@@ -580,7 +579,7 @@ public final class WorkbenchDialog {
 
   // Dialog Control to be used
 
-  public DialogControl getDialogControl() {
+  public final DialogControl getDialogControl() {
     return dialogControl.get();
   }
 
@@ -590,11 +589,11 @@ public final class WorkbenchDialog {
    * the existing dialog control or creating a new one.
    * @return the {@code dialogControl} of this {@link WorkbenchDialog}
    */
-  public ObjectProperty<DialogControl> dialogControlProperty() {
+  public final ObjectProperty<DialogControl> dialogControlProperty() {
     return dialogControl;
   }
 
-  public void setDialogControl(DialogControl dialogControl) {
+  public final void setDialogControl(DialogControl dialogControl) {
     this.dialogControl.set(dialogControl);
   }
 
