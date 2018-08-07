@@ -24,8 +24,8 @@ public final class WorkbenchPresenter extends Presenter {
 
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchPresenter.class.getName());
 
-  private Workbench model;
-  private WorkbenchView view;
+  private final Workbench model;
+  private final WorkbenchView view;
 
   private final ObservableMap<Region, WorkbenchOverlay> overlays;
   private final ObservableList<Region> overlaysShown;
@@ -97,7 +97,7 @@ public final class WorkbenchPresenter extends Presenter {
    *
    * @param overlay to be added
    */
-  public final void addOverlay(WorkbenchOverlay overlay) {
+  private void addOverlay(WorkbenchOverlay overlay) {
     LOGGER.trace("addOverlay");
     view.addOverlay(overlay.getOverlay(), overlay.getGlassPane());
   }
@@ -107,7 +107,7 @@ public final class WorkbenchPresenter extends Presenter {
    *
    * @param overlay to be removed
    */
-  public final void removeOverlay(WorkbenchOverlay overlay) {
+  private void removeOverlay(WorkbenchOverlay overlay) {
     LOGGER.trace("removeOverlay");
     view.removeOverlay(overlay.getOverlay(), overlay.getGlassPane());
 
@@ -121,7 +121,7 @@ public final class WorkbenchPresenter extends Presenter {
    * @param overlay to be shown
    * @param blocking if false, will make {@code overlay} hide, if its {@code glassPane} was clicked
    */
-  private final void showOverlay(Region overlay, boolean blocking) {
+  private void showOverlay(Region overlay, boolean blocking) {
     showOverlay(model.getOverlays().get(overlay), blocking);
   }
 
@@ -131,7 +131,7 @@ public final class WorkbenchPresenter extends Presenter {
    * @param workbenchOverlay the {@code overlay}'s corresponding model object
    * @param blocking if false, will make {@code overlay} hide, if its {@code glassPane} was clicked
    */
-  private final void showOverlay(WorkbenchOverlay workbenchOverlay, boolean blocking) {
+  private void showOverlay(WorkbenchOverlay workbenchOverlay, boolean blocking) {
     LOGGER.trace("showOverlay - Blocking: " + blocking);
     Region overlay = workbenchOverlay.getOverlay();
     if (workbenchOverlay.isAnimated()) {
@@ -178,7 +178,7 @@ public final class WorkbenchPresenter extends Presenter {
    *
    * @param overlay to be hidden
    */
-  public final void hideOverlay(Region overlay) {
+  private void hideOverlay(Region overlay) {
     hideOverlay(model.getOverlays().get(overlay));
   }
 
@@ -187,7 +187,7 @@ public final class WorkbenchPresenter extends Presenter {
    *
    * @param overlay to be hidden
    */
-  public final void hideOverlay(WorkbenchOverlay overlay) {
+  private void hideOverlay(WorkbenchOverlay overlay) {
     if (overlay.isAnimated()) {
       overlay.getAnimationEnd().play();
       // make sure GlassPane starts hiding at the same time as the animation, not when the animation
