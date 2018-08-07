@@ -124,6 +124,18 @@ public class ToolbarPresenter extends Presenter {
     // when the toolbarControl's emptyProperty changes, check the menuBtn's position
     view.toolbarControl.emptyProperty().addListener(
         (observable, wasEmpty, isEmpty) -> setupMenuBtn()); // Define where to put the menuBtn
+
+    // handle changes to the active module in the tabs
+    view.tabBar.selectedItemProperty().addListener((observable, oldModule, newModule) -> {
+      if (!Objects.isNull(newModule)) {
+        model.openModule(newModule);
+      } else {
+        model.openHomeScreen();
+      }
+    });
+    model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
+      view.tabBar.setSelectedItem(newModule);
+    });
   }
 
   /**
@@ -133,7 +145,6 @@ public class ToolbarPresenter extends Presenter {
   public void setupBindings() {
     // Binds content of the SelectionStrip to the Workbench content
     view.tabBar.itemsProperty().bindContent(openModules);
-    view.tabBar.selectedItemProperty().bindBidirectional(model.activeModuleProperty());
 
     // Bind items from toolbar to the ones of the workbench
     view.toolbarControl.toolbarControlsLeftProperty().bindContent(toolbarControlsLeft);

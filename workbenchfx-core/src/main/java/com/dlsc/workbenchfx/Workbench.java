@@ -632,7 +632,7 @@ public final class Workbench extends Control {
     return activeModule.get();
   }
 
-  public ObjectProperty<WorkbenchModule> activeModuleProperty() {
+  public final ReadOnlyObjectProperty<WorkbenchModule> activeModuleProperty() {
     return activeModule;
   }
 
