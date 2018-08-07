@@ -4,14 +4,14 @@
     &:one-page > .pagination-control {
       -fx-opacity: 0;
     }
-    & .page {
+    & .page-control {
       & .tile-pane {
         -fx-vgap: 3em;
         -fx-hgap: 3em;
         -fx-padding: 1.5em;
         -fx-alignment: CENTER;
 
-        & .tile-control {
+        & .tile-box {
           -fx-padding: 1em;
           -fx-alignment: CENTER;
 
