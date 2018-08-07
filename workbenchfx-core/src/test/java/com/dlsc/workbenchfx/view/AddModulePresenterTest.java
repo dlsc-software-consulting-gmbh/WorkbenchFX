@@ -32,7 +32,6 @@ public class AddModulePresenterTest extends ApplicationTest {
     when(mockCall.call(any())).thenReturn(null);
 
     mockBench = mock(Workbench.class);
-
     when(mockBench.getAmountOfPages()).thenReturn(1);
     when(mockBench.amountOfPagesProperty()).thenReturn(amountOfPages);
     when(mockBench.getPageFactory()).thenReturn(mockCall);
