@@ -93,7 +93,7 @@ public final class ToolbarView extends VBox implements View {
   /**
    * Removes the menuBtn wherever it is located.
    */
-  void removeMenuBtn() {
+  final void removeMenuBtn() {
     bottomBox.getChildren().remove(menuBtn);
     topBox.getChildren().remove(menuBtn);
   }
@@ -101,14 +101,14 @@ public final class ToolbarView extends VBox implements View {
   /**
    * Adds the menuBtn in first position of the topBox.
    */
-  void addMenuBtnTop() {
+  final void addMenuBtnTop() {
     topBox.getChildren().add(0, menuBtn);
   }
 
   /**
    * Adds the menuBtn in first position of the bottomBox.
    */
-  void addMenuBtnBottom() {
+  final void addMenuBtnBottom() {
     bottomBox.getChildren().add(0, menuBtn);
   }
 }

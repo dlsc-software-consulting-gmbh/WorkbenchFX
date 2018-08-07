@@ -24,7 +24,6 @@ public final class ToolbarPresenter extends Presenter {
       LogManager.getLogger(ToolbarPresenter.class.getName());
   private static final String STYLE_CLASS_ACTIVE_ADD_BUTTON = "active-add-button";
 
-
   private final Workbench model;
   private final ToolbarView view;
 
@@ -34,12 +33,7 @@ public final class ToolbarPresenter extends Presenter {
   private final ObservableList<ToolbarItem> toolbarControlsRight;
   private final ObservableList<WorkbenchModule> openModules;
 
-  private final PseudoClass emptyState = new PseudoClass() {
-    @Override
-    public String getPseudoClassName() {
-      return "empty";
-    }
-  };
+  private static final PseudoClass EMPTY_STATE = PseudoClass.getPseudoClass("empty");
 
   /**
    * Creates a new {@link ToolbarPresenter} object for a corresponding {@link ToolbarView}.
@@ -79,7 +73,7 @@ public final class ToolbarPresenter extends Presenter {
     LOGGER.trace("setupMenuBtn() called");
     view.removeMenuBtn(); // Remove the menuBtn
     boolean empty = view.toolbarControl.isEmpty();
-    view.topBox.pseudoClassStateChanged(emptyState, empty); // Change the pseudoclass
+    view.topBox.pseudoClassStateChanged(EMPTY_STATE, empty); // Change the pseudoclass
 
     if (navigationDrawerItems.size() != 0) { // If setting it is required
       if (empty) { // If the toolbarControl is empty set it below

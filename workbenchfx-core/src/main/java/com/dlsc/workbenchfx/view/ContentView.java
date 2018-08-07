@@ -57,7 +57,7 @@ public final class ContentView extends BorderPane implements View {
    *
    * @param node the module content as a Node
    */
-  void setContent(Node node) {
+  final void setContent(Node node) {
     setCenter(node);
   }
 
@@ -66,11 +66,11 @@ public final class ContentView extends BorderPane implements View {
    *
    * @param show true if the {@link ToolbarControl} should be displayed, false if not
    */
-  void showToolbar(boolean show) {
+  final void showToolbar(boolean show) {
     setTop(show ? toolbarControl : null);
   }
 
-  void setAddModuleView() {
+  final void setAddModuleView() {
     setCenter(addModuleView);
   }
 }
