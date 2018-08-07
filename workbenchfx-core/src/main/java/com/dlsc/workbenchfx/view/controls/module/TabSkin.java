@@ -76,7 +76,7 @@ public class TabSkin extends SkinBase<Tab> {
 
     nameLbl.getStyleClass().add("tab-name-lbl");
 
-    controlBox.getStyleClass().add("tab-control");
+    controlBox.getStyleClass().add("tab-box");
     controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
   }
 

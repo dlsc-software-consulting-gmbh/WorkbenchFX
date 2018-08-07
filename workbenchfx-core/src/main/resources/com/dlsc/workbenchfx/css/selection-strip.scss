@@ -16,7 +16,7 @@
       -fx-background-color: -primary-color;
     }
 
-    & .tab-control {
+    & .tab-box {
       -fx-max-height: 0; // To keep the height to the size of the close-icon --> for the border
       -fx-alignment: CENTER;
 
@@ -63,7 +63,7 @@
       -fx-cursor: inherit;
       -fx-background-insets: 0 0 0 -1.2px; // Needed to remove the border of the tab
 
-      & .tab-control {
+      & .tab-box {
         -fx-border-color: transparent;
 
         & .tab-icon,
