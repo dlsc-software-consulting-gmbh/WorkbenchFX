@@ -603,78 +603,183 @@ public final class Workbench extends Control {
   }
 
   /**
-   * Returns an unmodifiableObservableList of the currently open modules.
-   * @return an unmodifiableObservableList of the currently open modules.
+   * Completes the {@code moduleCloseable} of the {@code module}.
+   * Results in the module getting closed without calling {@link WorkbenchModule#destroy()}
+   * beforehand. If the stage was closed and calling {@link WorkbenchModule#destroy()} returned
+   * {@code false}, calling this method will also cause the stage closing process to get continued.
+   *
+   * @param module whose {@code moduleCloseable} should be completed
    */
-  public final ObservableList<WorkbenchModule> getOpenModules() {
-    return FXCollections.unmodifiableObservableList(openModules);
+  public final void completeModuleCloseable(WorkbenchModule module) {
+    getModuleCloseable(module).complete(true);
   }
 
-  private ListProperty<WorkbenchModule> openModulesProperty() {
-    return openModules;
+  private void resetModuleCloseable(WorkbenchModule module) {
+    LOGGER.trace("moduleCloseable - Cleared future: " + this);
+    CompletableFuture<Boolean> moduleCloseable = new CompletableFuture<>();
+    moduleCloseableMap.put(module, moduleCloseable);
+    LOGGER.trace("moduleCloseable - thenRun set: " + this);
+    moduleCloseable.thenRun(() -> {
+      LOGGER.trace("moduleCloseable -  thenRun triggered: " + this);
+      closeModule(module);
+    });
   }
 
   /**
-   * Returns a list of the currently loaded modules.
+   * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background.
    *
-   * @return the list of all loaded modules
-   * @implNote Use this method to add or remove modules at runtime.
+   * @param overlay  to be shown
+   * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
+   *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
+   *                 clicking outside of the {@code overlay} will not do anything. The {@code
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Region)} to hide it.
+   * @return true if the overlay is not being shown already
    */
-  public ObservableList<WorkbenchModule> getModules() {
-    return modules.get();
-  }
-
-  private ListProperty<WorkbenchModule> modulesProperty() {
-    return modules;
-  }
-
-  public WorkbenchModule getActiveModule() {
-    return activeModule.get();
-  }
-
-  public final ReadOnlyObjectProperty<WorkbenchModule> activeModuleProperty() {
-    return activeModule;
-  }
-
-  public Node getActiveModuleView() {
-    return activeModuleView.get();
-  }
-
-  public ReadOnlyObjectProperty<Node> activeModuleViewProperty() {
-    return activeModuleView;
+  public final boolean showOverlay(Region overlay, boolean blocking) {
+    LOGGER.trace("showOverlay");
+    if (!overlays.containsKey(overlay)) {
+      overlays.put(overlay, new WorkbenchOverlay(overlay, new GlassPane()));
+    }
+    // To prevent showing the same overlay twice
+    if (blockingOverlaysShown.contains(overlay) || nonBlockingOverlaysShown.contains(overlay)) {
+      return false;
+    }
+    if (blocking) {
+      LOGGER.trace("showOverlay - blocking");
+      return blockingOverlaysShown.add(overlay);
+    } else {
+      LOGGER.trace("showOverlay - non-blocking");
+      return nonBlockingOverlaysShown.add(overlay);
+    }
   }
 
   /**
-   * Returns a list of the currently loaded toolbar controls on the left.
+   * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background.
+   * The overlay will be shown and hidden with an animation, sliding the overlay in and out
+   * from the defined {@code side}.
    *
-   * @return a list of the currently loaded toolbar controls on the left.
-   * @implNote Use this method to add or remove toolbar controls on the left at runtime.
+   * @param overlay to be shown
+   * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
+   *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
+   *                 clicking outside of the {@code overlay} will not do anything. The {@code
+   *                 overlay} itself must call {@link Workbench#hideOverlay(Region)} to hide it.
+   * @param side from which the {@code overlay} should be slid when the overlay is being shown or
+   *             hidden
+   * @return true if the overlay is not being shown already
    */
-  public ObservableList<ToolbarItem> getToolbarControlsLeft() {
-    return toolbarControlsLeft;
+  private boolean showOverlay(Region overlay, boolean blocking, Side side) {
+    LOGGER.trace("showOverlay - animated");
+    if (!overlays.containsKey(overlay)) {
+      overlays.put(overlay,
+          new WorkbenchOverlay(overlay, new GlassPane(), slideIn(overlay), slideOut(overlay))
+      );
+      addInitialAnimationHandler(overlays.get(overlay), side);
+    }
+    return showOverlay(overlay, blocking);
   }
 
   /**
-   * Returns a list of the currently loaded toolbar controls on the right.
+   * Handles the initial animation of an overlay.
    *
-   * @return a list of the currently loaded toolbar controls on the right.
-   * @implNote Use this method to add or remove toolbar controls on the right at runtime.
+   * <p>An overlay will have a default size of {@code 0}, when it is <b>first being shown</b> by
+   * {@link WorkbenchPresenter#showOverlay(Region, boolean)}, because it has not been added to the
+   * scene graph or a layout pass has not been performed yet. This means the animation won't be
+   * played by {@link WorkbenchPresenter#showOverlay(Region, boolean)} as well.<br>
+   * For this reason, we wait for the {@link WorkbenchOverlay} to be initialized and then initially
+   * set the coordinates of the overlay to be outside of the {@link Scene}, followed by playing the
+   * initial starting animation.<br>
+   * Any subsequent calls which show this {@code workbenchOverlay} again will <b>not</b> cause this
+   * to trigger again, as the {@link Event} of {@link WorkbenchOverlay#onInitializedProperty()}
+   * will only be fired once, since calling {@link Workbench#hideOverlay(Region)} only makes the
+   * overlays not visible, which means the nodes remain with their size already initialized in the
+   * scene graph.
+   *
+   * @param workbenchOverlay for which to prepare the initial animation handler for
+   * @param side from which the sliding animation should originate
    */
-  public ObservableList<ToolbarItem> getToolbarControlsRight() {
-    return toolbarControlsRight;
+  private void addInitialAnimationHandler(WorkbenchOverlay workbenchOverlay, Side side) {
+    Region overlay = workbenchOverlay.getOverlay();
+    // prepare values for setting the listener
+    ReadOnlyDoubleProperty size =
+        side.isVertical() ? overlay.widthProperty() : overlay.heightProperty();
+    //                       LEFT or RIGHT side          TOP or BOTTOM side
+
+    // make sure this code only gets run the first time the overlay has been shown and
+    // rendered in the scene graph, to ensure the overlay has a size for the calculations
+    workbenchOverlay.setOnInitialized(event -> {
+      // prepare variables
+      TranslateTransition start = workbenchOverlay.getAnimationStart();
+      TranslateTransition end = workbenchOverlay.getAnimationEnd();
+      DoubleExpression hiddenCoordinate = DoubleBinding.doubleExpression(size);
+      if (Side.LEFT.equals(side) || Side.TOP.equals(side)) {
+        hiddenCoordinate = hiddenCoordinate.negate(); // make coordinates in hidden state negative
+      }
+
+      if (side.isVertical()) { // LEFT or RIGHT => X
+        overlay.setTranslateX(hiddenCoordinate.get()); // initial position
+        start.setToX(0);
+        if (!end.toXProperty().isBound()) {
+          end.toXProperty().bind(hiddenCoordinate);
+        }
+      }
+      if (side.isHorizontal()) { // TOP or BOTTOM => Y
+        overlay.setTranslateY(hiddenCoordinate.get()); // initial position
+        start.setToY(0);
+        if (!end.toYProperty().isBound()) {
+          end.toYProperty().bind(hiddenCoordinate);
+        }
+      }
+
+      start.play();
+    });
+  }
+
+  private TranslateTransition slideIn(Region overlay) {
+    TranslateTransition open = new TranslateTransition(
+        new Duration(ANIMATION_DURATION_DRAWER_OPEN), overlay);
+    return open;
+  }
+
+  private TranslateTransition slideOut(Region overlay) {
+    TranslateTransition close = new TranslateTransition(
+        new Duration(ANIMATION_DURATION_DRAWER_CLOSE), overlay);
+    close.setOnFinished(event -> {
+      overlay.setVisible(false);
+      LOGGER.trace(
+          "Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " + overlay.getTranslateX());
+    });
+    return close;
   }
 
   /**
-   * Hides the {@code dialog} which was previously shown in the view
-   * using {@link #showDialog(WorkbenchDialog)}.
+   * Hides the {@code overlay} together with its {@link GlassPane}, which has previously been shown
+   * using {@link Workbench#showOverlay(Region, boolean)}.
    *
-   * @param dialog to be hidden
+   * @param overlay to be hidden
+   * @return true if the overlay was showing and is now hidden
+   * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
+   *           remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden
+   *           in the scene graph is not possible due to performance reasons, call {@link
+   *           Workbench#clearOverlays()} after this method.
    */
-  public final void hideDialog(WorkbenchDialog dialog) {
-    LOGGER.trace("hideDialog");
-    DialogControl dialogControl = dialog.getDialogControl();
-    dialogControl.setWorkbench(null);
-    hideOverlay(dialogControl);
+  public final boolean hideOverlay(Region overlay) {
+    LOGGER.trace("hideOverlay");
+    if (blockingOverlaysShown.contains(overlay)) {
+      return blockingOverlaysShown.remove(overlay);
+    } else {
+      return nonBlockingOverlaysShown.remove(overlay);
+    }
+  }
+
+  /**
+   * Removes all previously loaded overlays from the scene graph including all references to them,
+   * in order to free up memory.
+   */
+  public final void clearOverlays() {
+    LOGGER.trace("clearOverlays");
+    nonBlockingOverlaysShown.clear();
+    blockingOverlaysShown.clear();
+    overlays.clear();
   }
 
   /**
@@ -818,201 +923,16 @@ public final class Workbench extends Control {
   }
 
   /**
-   * Returns a map of all overlays, which have previously been opened, with their corresponding
-   * model object {@link WorkbenchOverlay}.
-   * @return a map of all overlays, which have previously been opened, with their corresponding
-   *         model object {@link WorkbenchOverlay}.
-   */
-  public ObservableMap<Region, WorkbenchOverlay> getOverlays() {
-    return FXCollections.unmodifiableObservableMap(overlays);
-  }
-
-  /**
-   * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background.
+   * Hides the {@code dialog} which was previously shown in the view
+   * using {@link #showDialog(WorkbenchDialog)}.
    *
-   * @param overlay  to be shown
-   * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
-   *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
-   *                 clicking outside of the {@code overlay} will not do anything. The {@code
-   *                 overlay} itself must call {@link Workbench#hideOverlay(Region)} to hide it.
-   * @return true if the overlay is not being shown already
+   * @param dialog to be hidden
    */
-  public boolean showOverlay(Region overlay, boolean blocking) {
-    LOGGER.trace("showOverlay");
-    if (!overlays.containsKey(overlay)) {
-      overlays.put(overlay, new WorkbenchOverlay(overlay, new GlassPane()));
-    }
-    // To prevent showing the same overlay twice
-    if (blockingOverlaysShown.contains(overlay) || nonBlockingOverlaysShown.contains(overlay)) {
-      return false;
-    }
-    if (blocking) {
-      LOGGER.trace("showOverlay - blocking");
-      return blockingOverlaysShown.add(overlay);
-    } else {
-      LOGGER.trace("showOverlay - non-blocking");
-      return nonBlockingOverlaysShown.add(overlay);
-    }
-  }
-
-  /**
-   * Shows the {@code overlay} on top of the view, with a {@link GlassPane} in the background.
-   * The overlay will be shown and hidden with an animation, sliding the overlay in and out
-   * from the defined {@code side}.
-   *
-   * @param overlay to be shown
-   * @param blocking If false (non-blocking), clicking outside of the {@code overlay} will cause it
-   *                 to get hidden, together with its {@link GlassPane}. If true (blocking),
-   *                 clicking outside of the {@code overlay} will not do anything. The {@code
-   *                 overlay} itself must call {@link Workbench#hideOverlay(Region)} to hide it.
-   * @param side from which the {@code overlay} should be slid when the overlay is being shown or
-   *             hidden
-   * @return true if the overlay is not being shown already
-   */
-  private boolean showOverlay(Region overlay, boolean blocking, Side side) {
-    LOGGER.trace("showOverlay - animated");
-    if (!overlays.containsKey(overlay)) {
-      overlays.put(overlay,
-          new WorkbenchOverlay(overlay, new GlassPane(), slideIn(overlay), slideOut(overlay))
-      );
-      addInitialAnimationHandler(overlays.get(overlay), side);
-    }
-    return showOverlay(overlay, blocking);
-  }
-
-  /**
-   * Handles the initial animation of an overlay.
-   *
-   * <p>An overlay will have a default size of {@code 0}, when it is <b>first being shown</b> by
-   * {@link WorkbenchPresenter#showOverlay(Region, boolean)}, because it has not been added to the
-   * scene graph or a layout pass has not been performed yet. This means the animation won't be
-   * played by {@link WorkbenchPresenter#showOverlay(Region, boolean)} as well.<br>
-   * For this reason, we wait for the {@link WorkbenchOverlay} to be initialized and then initially
-   * set the coordinates of the overlay to be outside of the {@link Scene}, followed by playing the
-   * initial starting animation.<br>
-   * Any subsequent calls which show this {@code workbenchOverlay} again will <b>not</b> cause this
-   * to trigger again, as the {@link Event} of {@link WorkbenchOverlay#onInitializedProperty()}
-   * will only be fired once, since calling {@link Workbench#hideOverlay(Region)} only makes the
-   * overlays not visible, which means the nodes remain with their size already initialized in the
-   * scene graph.
-   *
-   * @param workbenchOverlay for which to prepare the initial animation handler for
-   * @param side from which the sliding animation should originate
-   */
-  private void addInitialAnimationHandler(WorkbenchOverlay workbenchOverlay, Side side) {
-    Region overlay = workbenchOverlay.getOverlay();
-    // prepare values for setting the listener
-    ReadOnlyDoubleProperty size =
-        side.isVertical() ? overlay.widthProperty() : overlay.heightProperty();
-    //                       LEFT or RIGHT side          TOP or BOTTOM side
-
-    // make sure this code only gets run the first time the overlay has been shown and
-    // rendered in the scene graph, to ensure the overlay has a size for the calculations
-    workbenchOverlay.setOnInitialized(event -> {
-      // prepare variables
-      TranslateTransition start = workbenchOverlay.getAnimationStart();
-      TranslateTransition end = workbenchOverlay.getAnimationEnd();
-      DoubleExpression hiddenCoordinate = DoubleBinding.doubleExpression(size);
-      if (Side.LEFT.equals(side) || Side.TOP.equals(side)) {
-        hiddenCoordinate = hiddenCoordinate.negate(); // make coordinates in hidden state negative
-      }
-
-      if (side.isVertical()) { // LEFT or RIGHT => X
-        overlay.setTranslateX(hiddenCoordinate.get()); // initial position
-        start.setToX(0);
-        if (!end.toXProperty().isBound()) {
-          end.toXProperty().bind(hiddenCoordinate);
-        }
-      }
-      if (side.isHorizontal()) { // TOP or BOTTOM => Y
-        overlay.setTranslateY(hiddenCoordinate.get()); // initial position
-        start.setToY(0);
-        if (!end.toYProperty().isBound()) {
-          end.toYProperty().bind(hiddenCoordinate);
-        }
-      }
-
-      start.play();
-    });
-  }
-
-  private TranslateTransition slideIn(Region overlay) {
-    TranslateTransition open = new TranslateTransition(
-        new Duration(ANIMATION_DURATION_DRAWER_OPEN), overlay);
-    return open;
-  }
-
-  private TranslateTransition slideOut(Region overlay) {
-    TranslateTransition close = new TranslateTransition(
-        new Duration(ANIMATION_DURATION_DRAWER_CLOSE), overlay);
-    close.setOnFinished(event -> {
-      overlay.setVisible(false);
-      LOGGER.trace(
-          "Overlay LayoutX: " + overlay.getLayoutX() + " TranslateX: " + overlay.getTranslateX());
-    });
-    return close;
-  }
-
-  /**
-   * Hides the {@code overlay} together with its {@link GlassPane}, which has previously been shown
-   * using {@link Workbench#showOverlay(Region, boolean)}.
-   *
-   * @param overlay to be hidden
-   * @return true if the overlay was showing and is now hidden
-   * @implNote As the method's name implies, this will only <b>hide</b> the {@code overlay}, not
-   *           remove it from the scene graph entirely. If keeping the {@code overlay} loaded hidden
-   *           in the scene graph is not possible due to performance reasons, call {@link
-   *           Workbench#clearOverlays()} after this method.
-   */
-  public boolean hideOverlay(Region overlay) {
-    LOGGER.trace("hideOverlay");
-    if (blockingOverlaysShown.contains(overlay)) {
-      return blockingOverlaysShown.remove(overlay);
-    } else {
-      return nonBlockingOverlaysShown.remove(overlay);
-    }
-  }
-
-  /**
-   * Removes all previously loaded overlays from the scene graph including all references to them,
-   * in order to free up memory.
-   */
-  public void clearOverlays() {
-    LOGGER.trace("clearOverlays");
-    nonBlockingOverlaysShown.clear();
-    blockingOverlaysShown.clear();
-    overlays.clear();
-  }
-
-  /**
-   * Completes the {@code moduleCloseable} of the {@code module}.
-   * Results in the module getting closed without calling {@link WorkbenchModule#destroy()}
-   * beforehand. If the stage was closed and calling {@link WorkbenchModule#destroy()} returned
-   * {@code false}, calling this method will also cause the stage closing process to get continued.
-   *
-   * @param module whose {@code moduleCloseable} should be completed
-   */
-  public final void completeModuleCloseable(WorkbenchModule module) {
-    getModuleCloseable(module).complete(true);
-  }
-
-  /**
-   * Returns a {@link CompletableFuture}, which upon completion will cause the module to be closed
-   * and if there was an ongoing stage closing process, it will re-initiate that process.
-   */
-  private CompletableFuture<Boolean> getModuleCloseable(WorkbenchModule module) {
-    return moduleCloseableMap.get(module);
-  }
-
-  private void resetModuleCloseable(WorkbenchModule module) {
-    LOGGER.trace("moduleCloseable - Cleared future: " + this);
-    CompletableFuture<Boolean> moduleCloseable = new CompletableFuture<>();
-    moduleCloseableMap.put(module, moduleCloseable);
-    LOGGER.trace("moduleCloseable - thenRun set: " + this);
-    moduleCloseable.thenRun(() -> {
-      LOGGER.trace("moduleCloseable -  thenRun triggered: " + this);
-      closeModule(module);
-    });
+  public final void hideDialog(WorkbenchDialog dialog) {
+    LOGGER.trace("hideDialog");
+    DialogControl dialogControl = dialog.getDialogControl();
+    dialogControl.setWorkbench(null);
+    hideOverlay(dialogControl);
   }
 
   /**
@@ -1024,7 +944,7 @@ public final class Workbench extends Control {
    *           However, it will take up a maximum of 90% of the screen, to allow the user to still
    *           close the drawer by clicking on the {@link GlassPane}.
    */
-  public void showDrawer(Region drawer, Side side) {
+  public final void showDrawer(Region drawer, Side side) {
     showDrawer(drawer, side, -1);
   }
 
@@ -1037,7 +957,7 @@ public final class Workbench extends Control {
    * @param percentage value between 0 and 100, defining how much <b>maximum</b> coverage the drawer
    *                   should have or -1, to have the drawer size according to its computed size
    */
-  public void showDrawer(Region drawer, Side side, int percentage) {
+  public final void showDrawer(Region drawer, Side side, int percentage) {
     // fail fast
     if (!Range.closed(0, MAX_PERCENT).or(number -> number == -1).test(percentage)) {
       throw new IllegalArgumentException("Percentage needs to be between 0 and 100 or -1");
@@ -1113,125 +1033,206 @@ public final class Workbench extends Control {
    * Hides the currently displayed drawer that was previously shown using
    * {@link #showDrawer(Region, Side)} or {@link #showDrawer(Region, Side, int)}.
    */
-  public void hideDrawer() {
+  public final void hideDrawer() {
     setDrawerShown(null);
     setDrawerSideShown(null);
   }
 
-  public void showNavigationDrawer() {
+  public final void showNavigationDrawer() {
     showDrawer(navigationDrawer.get(), Side.LEFT);
   }
 
-  public void hideNavigationDrawer() {
+  public final void hideNavigationDrawer() {
     hideDrawer();
   }
 
-  public ObjectProperty<NavigationDrawer> navigationDrawerProperty() {
-    return navigationDrawer;
+  // Mutators and Accessors
+  /**
+   * Returns an unmodifiableObservableList of the currently open modules.
+   * @return an unmodifiableObservableList of the currently open modules.
+   */
+  public final ObservableList<WorkbenchModule> getOpenModules() {
+    return FXCollections.unmodifiableObservableList(openModules);
   }
 
-  public NavigationDrawer getNavigationDrawer() {
+  private ListProperty<WorkbenchModule> openModulesProperty() {
+    return openModules;
+  }
+
+  /**
+   * Returns a list of the currently loaded modules.
+   *
+   * @return the list of all loaded modules
+   * @implNote Use this method to add or remove modules at runtime.
+   */
+  public final ObservableList<WorkbenchModule> getModules() {
+    return modules.get();
+  }
+
+  private ListProperty<WorkbenchModule> modulesProperty() {
+    return modules;
+  }
+
+  public final WorkbenchModule getActiveModule() {
+    return activeModule.get();
+  }
+
+  public final ReadOnlyObjectProperty<WorkbenchModule> activeModuleProperty() {
+    return activeModule;
+  }
+
+  public final Node getActiveModuleView() {
+    return activeModuleView.get();
+  }
+
+  public final ReadOnlyObjectProperty<Node> activeModuleViewProperty() {
+    return activeModuleView;
+  }
+
+  /**
+   * Returns a {@link CompletableFuture}, which upon completion will cause the module to be closed
+   * and if there was an ongoing stage closing process, it will re-initiate that process.
+   */
+  private CompletableFuture<Boolean> getModuleCloseable(WorkbenchModule module) {
+    return moduleCloseableMap.get(module);
+  }
+
+  /**
+   * Returns a list of the currently loaded toolbar controls on the left.
+   *
+   * @return a list of the currently loaded toolbar controls on the left.
+   * @implNote Use this method to add or remove toolbar controls on the left at runtime.
+   */
+  public final ObservableList<ToolbarItem> getToolbarControlsLeft() {
+    return toolbarControlsLeft;
+  }
+
+  /**
+   * Returns a list of the currently loaded toolbar controls on the right.
+   *
+   * @return a list of the currently loaded toolbar controls on the right.
+   * @implNote Use this method to add or remove toolbar controls on the right at runtime.
+   */
+  public final ObservableList<ToolbarItem> getToolbarControlsRight() {
+    return toolbarControlsRight;
+  }
+
+  /**
+   * Returns a map of all overlays, which have previously been opened, with their corresponding
+   * model object {@link WorkbenchOverlay}.
+   * @return a map of all overlays, which have previously been opened, with their corresponding
+   *         model object {@link WorkbenchOverlay}.
+   */
+  public final ObservableMap<Region, WorkbenchOverlay> getOverlays() {
+    return FXCollections.unmodifiableObservableMap(overlays);
+  }
+
+  public final NavigationDrawer getNavigationDrawer() {
     return navigationDrawer.get();
   }
 
-  public void setNavigationDrawer(NavigationDrawer navigationDrawer) {
+  public final void setNavigationDrawer(NavigationDrawer navigationDrawer) {
     this.navigationDrawer.set(navigationDrawer);
   }
 
-  public ObservableList<MenuItem> getNavigationDrawerItems() {
+  public final ObjectProperty<NavigationDrawer> navigationDrawerProperty() {
+    return navigationDrawer;
+  }
+
+  public final ObservableList<MenuItem> getNavigationDrawerItems() {
     return navigationDrawerItems;
   }
 
-  public ObservableList<Region> getNonBlockingOverlaysShown() {
+  public final ObservableList<Region> getNonBlockingOverlaysShown() {
     return FXCollections.unmodifiableObservableList(nonBlockingOverlaysShown);
   }
 
-  public ObservableList<Region> getBlockingOverlaysShown() {
+  public final ObservableList<Region> getBlockingOverlaysShown() {
     return FXCollections.unmodifiableObservableList(blockingOverlaysShown);
   }
 
-  public int getModulesPerPage() {
+  public final int getModulesPerPage() {
     return modulesPerPage.get();
   }
 
-  public void setModulesPerPage(int modulesPerPage) {
+  public final void setModulesPerPage(int modulesPerPage) {
     this.modulesPerPage.set(modulesPerPage);
   }
 
-  public Callback<Workbench, Tab> getTabFactory() {
-    return tabFactory.get();
-  }
-
-  public void setTabFactory(Callback<Workbench, Tab> tabFactory) {
-    this.tabFactory.set(tabFactory);
-  }
-
-  public ObjectProperty<Callback<Workbench, Tab>> tabFactoryProperty() {
-    return tabFactory;
-  }
-
-  public Callback<Workbench, Tile> getTileFactory() {
-    return tileFactory.get();
-  }
-
-  public void setTileFactory(Callback<Workbench, Tile> tileFactory) {
-    this.tileFactory.set(tileFactory);
-  }
-
-  public ObjectProperty<Callback<Workbench, Tile>> tileFactoryProperty() {
-    return tileFactory;
-  }
-
-  public Callback<Workbench, Page> getPageFactory() {
-    return pageFactory.get();
-  }
-
-  public void setPageFactory(Callback<Workbench, Page> pageFactory) {
-    this.pageFactory.set(pageFactory);
-  }
-
-  public ObjectProperty<Callback<Workbench, Page>> pageFactoryProperty() {
-    return pageFactory;
-  }
-
-  public IntegerProperty modulesPerPageProperty() {
+  public final IntegerProperty modulesPerPageProperty() {
     return modulesPerPage;
   }
 
-  public int getAmountOfPages() {
+  public final Callback<Workbench, Tab> getTabFactory() {
+    return tabFactory.get();
+  }
+
+  public final void setTabFactory(Callback<Workbench, Tab> tabFactory) {
+    this.tabFactory.set(tabFactory);
+  }
+
+  public final ObjectProperty<Callback<Workbench, Tab>> tabFactoryProperty() {
+    return tabFactory;
+  }
+
+  public final Callback<Workbench, Tile> getTileFactory() {
+    return tileFactory.get();
+  }
+
+  public final void setTileFactory(Callback<Workbench, Tile> tileFactory) {
+    this.tileFactory.set(tileFactory);
+  }
+
+  public final ObjectProperty<Callback<Workbench, Tile>> tileFactoryProperty() {
+    return tileFactory;
+  }
+
+  public final Callback<Workbench, Page> getPageFactory() {
+    return pageFactory.get();
+  }
+
+  public final void setPageFactory(Callback<Workbench, Page> pageFactory) {
+    this.pageFactory.set(pageFactory);
+  }
+
+  public final ObjectProperty<Callback<Workbench, Page>> pageFactoryProperty() {
+    return pageFactory;
+  }
+
+  public final int getAmountOfPages() {
     return amountOfPages.get();
   }
 
-  public ReadOnlyIntegerProperty amountOfPagesProperty() {
+  public final ReadOnlyIntegerProperty amountOfPagesProperty() {
     return amountOfPages;
   }
 
-  public Region getDrawerShown() {
+  public final Region getDrawerShown() {
     return drawerShown.get();
-  }
-
-  public ReadOnlyObjectProperty<Region> drawerShownProperty() {
-    return drawerShown;
   }
 
   private void setDrawerShown(Region drawerShown) {
     this.drawerShown.set(drawerShown);
   }
 
-  public Side getDrawerSideShown() {
-    return drawerSideShown.get();
+  public final ReadOnlyObjectProperty<Region> drawerShownProperty() {
+    return drawerShown;
   }
 
-  public ReadOnlyObjectProperty<Side> drawerSideShownProperty() {
-    return drawerSideShown;
+  public final Side getDrawerSideShown() {
+    return drawerSideShown.get();
   }
 
   private void setDrawerSideShown(Side drawerSideShown) {
     this.drawerSideShown.set(drawerSideShown);
   }
 
+  public final ReadOnlyObjectProperty<Side> drawerSideShownProperty() {
+    return drawerSideShown;
+  }
+
   @Override
-  public String getUserAgentStylesheet() {
+  public final String getUserAgentStylesheet() {
     return Workbench.class.getResource("css/main.css").toExternalForm();
   }
 }
