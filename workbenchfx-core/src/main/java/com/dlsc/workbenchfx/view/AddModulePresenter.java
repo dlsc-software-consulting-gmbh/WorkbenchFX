@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class AddModulePresenter extends Presenter {
+public final class AddModulePresenter extends Presenter {
 
   private static final Logger LOGGER =
       LogManager.getLogger(AddModulePresenter.class.getName());

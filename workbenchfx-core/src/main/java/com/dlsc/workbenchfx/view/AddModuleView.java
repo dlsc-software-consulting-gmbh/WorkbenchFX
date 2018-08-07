@@ -1,15 +1,16 @@
 package com.dlsc.workbenchfx.view;
 
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import javafx.css.PseudoClass;
 import javafx.scene.control.Pagination;
 
 /**
- * Shows the home screen with the {@link Module}s as tiles, using pagination.
+ * Shows the home screen with the {@link WorkbenchModule}s as tiles, using pagination.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class AddModuleView extends Pagination implements View {
+public final class AddModuleView extends Pagination implements View {
 
   private static final PseudoClass ONE_PAGE_STATE = new PseudoClass() {
     @Override

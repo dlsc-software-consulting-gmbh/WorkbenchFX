@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ToolbarView extends VBox implements View {
+public final class ToolbarView extends VBox implements View {
 
   HBox topBox;
   ToolbarControl toolbarControl;

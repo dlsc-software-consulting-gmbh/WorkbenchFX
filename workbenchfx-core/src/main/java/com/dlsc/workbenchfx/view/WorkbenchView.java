@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchView extends StackPane implements View {
+public final class WorkbenchView extends StackPane implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchView.class.getName());
   final ToolbarView toolbarView;

@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view;
 
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
@@ -7,12 +8,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Displays the content of the currently active {@link Module}.
+ * Displays the content of the currently active {@link WorkbenchModule}.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ContentView extends BorderPane implements View {
+public final class ContentView extends BorderPane implements View {
 
   private static final Logger LOGGER = LogManager.getLogger(ContentView.class.getName());
   ToolbarControl toolbarControl;

@@ -9,7 +9,6 @@ import java.util.Objects;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +20,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchPresenter extends Presenter {
+public final class WorkbenchPresenter extends Presenter {
 
   private static final Logger LOGGER = LogManager.getLogger(WorkbenchPresenter.class.getName());
 

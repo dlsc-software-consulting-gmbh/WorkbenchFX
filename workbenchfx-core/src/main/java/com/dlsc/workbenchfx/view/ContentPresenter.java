@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ContentPresenter extends Presenter {
+public final class ContentPresenter extends Presenter {
 
   private final Workbench model;
   private final ContentView view;
