@@ -31,7 +31,7 @@ public final class ContentView extends BorderPane implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeSelf() {
+  public final void initializeSelf() {
     setId("content-view");
   }
 
@@ -39,7 +39,7 @@ public final class ContentView extends BorderPane implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeParts() {
+  public final void initializeParts() {
     toolbarControl = new ToolbarControl();
   }
 
@@ -47,7 +47,7 @@ public final class ContentView extends BorderPane implements View {
    * {@inheritDoc}
    */
   @Override
-  public void layoutParts() {
+  public final void layoutParts() {
 
   }
 

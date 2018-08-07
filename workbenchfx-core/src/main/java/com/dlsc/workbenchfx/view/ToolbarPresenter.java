@@ -63,7 +63,7 @@ public final class ToolbarPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void initializeViewParts() {
+  public final void initializeViewParts() {
     view.tabBar.setCellFactory(tab -> new TabCell());
     view.tabBar.getStylesheets().add(
         Workbench.class.getResource("css/selection-strip.css").toExternalForm()
@@ -96,7 +96,7 @@ public final class ToolbarPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupEventHandlers() {
+  public final void setupEventHandlers() {
     // When the home button is clicked, the view changes
     view.addModuleBtn.setOnAction(event -> model.openHomeScreen());
     // When the menu button is clicked, the navigation drawer gets shown
@@ -107,7 +107,7 @@ public final class ToolbarPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupValueChangedListeners() {
+  public final void setupValueChangedListeners() {
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       if (Objects.isNull(oldModule)) {
         // AddModuleView is the old value
@@ -142,7 +142,7 @@ public final class ToolbarPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupBindings() {
+  public final void setupBindings() {
     // Binds content of the SelectionStrip to the Workbench content
     view.tabBar.itemsProperty().bindContent(openModules);
 

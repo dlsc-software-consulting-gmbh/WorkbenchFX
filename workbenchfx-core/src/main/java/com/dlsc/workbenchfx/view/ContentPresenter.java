@@ -33,7 +33,7 @@ public final class ContentPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void initializeViewParts() {
+  public final void initializeViewParts() {
     view.setAddModuleView();
   }
 
@@ -41,7 +41,7 @@ public final class ContentPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupEventHandlers() {
+  public final void setupEventHandlers() {
 
   }
 
@@ -49,7 +49,7 @@ public final class ContentPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupValueChangedListeners() {
+  public final void setupValueChangedListeners() {
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       view.showToolbar(false); // Remove toolbar
 
@@ -88,7 +88,7 @@ public final class ContentPresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupBindings() {
+  public final void setupBindings() {
 
   }
 }

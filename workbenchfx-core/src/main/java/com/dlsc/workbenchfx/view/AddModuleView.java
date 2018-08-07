@@ -30,7 +30,7 @@ public final class AddModuleView extends Pagination implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeSelf() {
+  public final void initializeSelf() {
     setId("add-module-view");
   }
 
@@ -38,7 +38,7 @@ public final class AddModuleView extends Pagination implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeParts() {
+  public final void initializeParts() {
 
   }
 
@@ -46,7 +46,7 @@ public final class AddModuleView extends Pagination implements View {
    * {@inheritDoc}
    */
   @Override
-  public void layoutParts() {
+  public final void layoutParts() {
     getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
   }
 

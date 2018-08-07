@@ -36,7 +36,7 @@ public final class AddModulePresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void initializeViewParts() {
+  public final void initializeViewParts() {
     view.setPageCount(model.getAmountOfPages());
     view.setPageFactory(pageIndex -> {
       Page page = model.getPageFactory().call(model);
@@ -50,7 +50,7 @@ public final class AddModulePresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupEventHandlers() {
+  public final void setupEventHandlers() {
 
   }
 
@@ -58,7 +58,7 @@ public final class AddModulePresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupValueChangedListeners() {
+  public final void setupValueChangedListeners() {
     model.amountOfPagesProperty().addListener(
         (observable, oldPageCount, newPageCount) -> view.updatePageCount(newPageCount.intValue()));
   }
@@ -67,7 +67,7 @@ public final class AddModulePresenter extends Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupBindings() {
+  public final void setupBindings() {
 
   }
 }

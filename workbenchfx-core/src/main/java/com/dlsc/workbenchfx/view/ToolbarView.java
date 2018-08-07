@@ -39,7 +39,7 @@ public final class ToolbarView extends VBox implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeSelf() {
+  public final void initializeSelf() {
     setId("toolbar");
   }
 
@@ -47,7 +47,7 @@ public final class ToolbarView extends VBox implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeParts() {
+  public final void initializeParts() {
     topBox = new HBox();
     topBox.setId("top-box");
 
@@ -79,7 +79,7 @@ public final class ToolbarView extends VBox implements View {
    * {@inheritDoc}
    */
   @Override
-  public void layoutParts() {
+  public final void layoutParts() {
     topBox.getChildren().add(toolbarControl);
     HBox.setHgrow(toolbarControl, Priority.ALWAYS);
 

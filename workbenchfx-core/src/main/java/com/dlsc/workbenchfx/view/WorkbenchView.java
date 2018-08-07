@@ -43,7 +43,7 @@ public final class WorkbenchView extends StackPane implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeSelf() {
+  public final void initializeSelf() {
     setId("workbench");
   }
 
@@ -51,7 +51,7 @@ public final class WorkbenchView extends StackPane implements View {
    * {@inheritDoc}
    */
   @Override
-  public void initializeParts() {
+  public final void initializeParts() {
     viewBox = new VBox();
   }
 
@@ -59,7 +59,7 @@ public final class WorkbenchView extends StackPane implements View {
    * {@inheritDoc}
    */
   @Override
-  public void layoutParts() {
+  public final void layoutParts() {
     viewBox.getChildren().addAll(toolbarView, contentView);
     getChildren().addAll(viewBox);
     VBox.setVgrow(contentView, Priority.ALWAYS);
@@ -73,7 +73,7 @@ public final class WorkbenchView extends StackPane implements View {
    * @param overlay   to be stacked on top of the view
    * @param glassPane to be added in the background of the {@code overlay}
    */
-  public void addOverlay(Region overlay, GlassPane glassPane) {
+  public final void addOverlay(Region overlay, GlassPane glassPane) {
     LOGGER.trace("addOverlay");
     overlay.setVisible(false);
     getChildren().addAll(glassPane, overlay);
@@ -88,7 +88,7 @@ public final class WorkbenchView extends StackPane implements View {
    * @param overlay   to be removed from the scene graph
    * @param glassPane the {@code overlay}'s corresponding {@link GlassPane}
    */
-  public void removeOverlay(Region overlay, GlassPane glassPane) {
+  public final void removeOverlay(Region overlay, GlassPane glassPane) {
     LOGGER.trace("removeOverlay");
     glassPane.hideProperty().unbind();
     getChildren().removeAll(glassPane, overlay);
@@ -99,7 +99,7 @@ public final class WorkbenchView extends StackPane implements View {
    *
    * @param overlay to be made visible
    */
-  public void showOverlay(Region overlay) {
+  public final void showOverlay(Region overlay) {
     LOGGER.trace("showOverlay");
     overlay.setVisible(true);
   }
@@ -109,7 +109,7 @@ public final class WorkbenchView extends StackPane implements View {
    *
    * @param overlay to be made <b>in</b>visible
    */
-  public void hideOverlay(Region overlay) {
+  public final void hideOverlay(Region overlay) {
     LOGGER.trace("hideOverlay");
     overlay.setVisible(false);
   }
