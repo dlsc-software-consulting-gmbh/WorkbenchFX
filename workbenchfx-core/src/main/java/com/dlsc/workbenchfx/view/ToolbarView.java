@@ -1,7 +1,5 @@
 package com.dlsc.workbenchfx.view;
 
-import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_ADD_BUTTON;
-
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.SelectionStrip;
@@ -64,7 +62,6 @@ public class ToolbarView extends VBox implements View {
     addModuleBtn = new Button("", addIconShape);
     addModuleBtn.getStyleClass().add("icon");
     addModuleBtn.setId("add-button");
-    addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
 
     menuIconShape = new StackPane();
     menuIconShape.getStyleClass().add("shape");

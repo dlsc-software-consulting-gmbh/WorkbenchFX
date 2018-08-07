@@ -1,7 +1,5 @@
 package com.dlsc.workbenchfx.view;
 
-import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_ADD_BUTTON;
-
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
@@ -24,6 +22,9 @@ public class ToolbarPresenter extends Presenter {
 
   private static final Logger LOGGER =
       LogManager.getLogger(ToolbarPresenter.class.getName());
+  private static final String STYLE_CLASS_ACTIVE_ADD_BUTTON = "active-add-button";
+
+
   private final Workbench model;
   private final ToolbarView view;
 
@@ -67,6 +68,9 @@ public class ToolbarPresenter extends Presenter {
     view.tabBar.getStylesheets().add(
         Workbench.class.getResource("css/selection-strip.css").toExternalForm()
     );
+
+    // initially set the add module button as active
+    view.addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
 
     view.addModuleBtn.requestFocus();
   }

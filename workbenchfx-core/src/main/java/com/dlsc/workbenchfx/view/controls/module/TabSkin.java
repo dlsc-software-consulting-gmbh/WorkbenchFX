@@ -1,7 +1,5 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
-import static com.dlsc.workbenchfx.Workbench.STYLE_CLASS_ACTIVE_TAB;
-
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -25,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 public class TabSkin extends SkinBase<Tab> {
 
   private static final Logger LOGGER = LogManager.getLogger(TabSkin.class.getName());
+  private static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
 
   private final ReadOnlyObjectProperty<WorkbenchModule> module;
 

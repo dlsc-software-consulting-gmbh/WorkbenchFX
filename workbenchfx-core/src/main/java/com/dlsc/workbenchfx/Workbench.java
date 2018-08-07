@@ -16,7 +16,6 @@ import com.dlsc.workbenchfx.view.controls.module.Tile;
 import com.google.common.collect.Range;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -63,22 +62,12 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class Workbench extends Control {
+public final class Workbench extends Control {
 
   private static final Logger LOGGER =
       LogManager.getLogger(Workbench.class.getName());
 
-  public static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
-  public static final String STYLE_CLASS_ACTIVE_ADD_BUTTON = "active-add-button";
-  // Default values as constants
-  private static final Callback<Workbench, Tab>
-      DEFAULT_TAB_FACTORY = Tab::new;
-  private static final Callback<Workbench, Tile>
-      DEFAULT_TILE_FACTORY = Tile::new;
-  private static final Callback<Workbench, Page>
-      DEFAULT_PAGE_FACTORY = Page::new;
-  private static final int DEFAULT_MODULES_PER_PAGE = 6;
-  private static final NavigationDrawer DEFAULT_NAVIGATION_DRAWER = new NavigationDrawer();
+  // Constants
   private static final int MAX_PERCENT = 100;
 
   /**
@@ -89,8 +78,15 @@ public class Workbench extends Control {
   private static final int ANIMATION_DURATION_DRAWER_OPEN = 250;
   private static final int ANIMATION_DURATION_DRAWER_CLOSE = 200;
 
+  // Default values
+  private static final Callback<Workbench, Tab> DEFAULT_TAB_FACTORY = Tab::new;
+  private static final Callback<Workbench, Tile> DEFAULT_TILE_FACTORY = Tile::new;
+  private static final Callback<Workbench, Page> DEFAULT_PAGE_FACTORY = Page::new;
+  private static final int DEFAULT_MODULES_PER_PAGE = 6;
+  private static final NavigationDrawer DEFAULT_NAVIGATION_DRAWER = new NavigationDrawer();
+
   // Custom Controls
-  private ObjectProperty<NavigationDrawer> navigationDrawer =
+  private final ObjectProperty<NavigationDrawer> navigationDrawer =
       new SimpleObjectProperty<>(DEFAULT_NAVIGATION_DRAWER);
 
   // Lists
@@ -132,6 +128,16 @@ public class Workbench extends Control {
       FXCollections.observableArrayList());
 
   /**
+   * Will close the module without calling {@link WorkbenchModule#destroy()} if the corresponding
+   * {@link CompletableFuture} is completed. If the stage was closed and {@code false} was returned
+   * on {@link WorkbenchModule#destroy()}, it will also trigger {@link
+   * Stage#setOnCloseRequest(EventHandler)}. Is <b>always</b> completed with {@code true}. This way,
+   * there is no need to differentiate whether it was completed with {@code true} or {@code false}.
+   */
+  private final Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap =
+      new HashMap<>();
+
+  /**
    * Currently active module. Active module is the module, which is currently being displayed in the
    * view. When the home screen is being displayed, {@code activeModule} and {@code
    * activeModuleView} are null.
@@ -156,20 +162,7 @@ public class Workbench extends Control {
       new SimpleIntegerProperty(DEFAULT_MODULES_PER_PAGE);
   private final IntegerProperty amountOfPages = new SimpleIntegerProperty();
 
-  /**
-   * Will close the module without calling {@link WorkbenchModule#destroy()} if the corresponding
-   * {@link CompletableFuture} is completed. If the stage was closed and {@code false} was returned
-   * on {@link WorkbenchModule#destroy()}, it will also trigger {@link
-   * Stage#setOnCloseRequest(EventHandler)}. Is <b>always</b> completed with {@code true}. This way,
-   * there is no need to differentiate whether it was completed with {@code true} or {@code false}.
-   */
-  private final Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap =
-      new HashMap<>();
-
-
-
   // Builder
-
   /**
    * Creates a builder for {@link Workbench}.
    *
@@ -180,27 +173,27 @@ public class Workbench extends Control {
     return new WorkbenchBuilder(modules);
   }
 
-  public static class WorkbenchBuilder {
+  public static final class WorkbenchBuilder {
     private static final Logger LOGGER = LogManager.getLogger(WorkbenchBuilder.class.getName());
 
     // Required parameters
-    final WorkbenchModule[] modules;
+    private final WorkbenchModule[] modules;
 
     // Optional parameters - initialized to default values
-    int modulesPerPage = DEFAULT_MODULES_PER_PAGE;
+    private int modulesPerPage = DEFAULT_MODULES_PER_PAGE;
 
-    Callback<Workbench, Tab> tabFactory = DEFAULT_TAB_FACTORY;
+    private Callback<Workbench, Tab> tabFactory = DEFAULT_TAB_FACTORY;
 
-    Callback<Workbench, Tile> tileFactory = DEFAULT_TILE_FACTORY;
+    private Callback<Workbench, Tile> tileFactory = DEFAULT_TILE_FACTORY;
 
-    Callback<Workbench, Page> pageFactory = DEFAULT_PAGE_FACTORY;
+    private Callback<Workbench, Page> pageFactory = DEFAULT_PAGE_FACTORY;
 
-    ToolbarItem[] toolbarControlsRight;
-    ToolbarItem[] toolbarControlsLeft;
+    private ToolbarItem[] toolbarControlsRight;
+    private ToolbarItem[] toolbarControlsLeft;
 
-    NavigationDrawer navigationDrawer = DEFAULT_NAVIGATION_DRAWER;
+    private NavigationDrawer navigationDrawer = DEFAULT_NAVIGATION_DRAWER;
 
-    MenuItem[] navigationDrawerItems;
+    private MenuItem[] navigationDrawerItems;
 
     private WorkbenchBuilder(WorkbenchModule... modules) {
       this.modules = modules;
@@ -212,7 +205,7 @@ public class Workbench extends Control {
      * @param modulesPerPage amount of modules to be shown per page
      * @return builder for chaining
      */
-    public WorkbenchBuilder modulesPerPage(int modulesPerPage) {
+    public final WorkbenchBuilder modulesPerPage(int modulesPerPage) {
       this.modulesPerPage = modulesPerPage;
       return this;
     }
@@ -225,7 +218,7 @@ public class Workbench extends Control {
      * @implNote Use this to replace the control which is used for the tab with your own
      *           implementation.
      */
-    public WorkbenchBuilder tabFactory(Callback<Workbench, Tab> tabFactory) {
+    public final WorkbenchBuilder tabFactory(Callback<Workbench, Tab> tabFactory) {
       this.tabFactory = tabFactory;
       return this;
     }
@@ -238,7 +231,7 @@ public class Workbench extends Control {
      * @implNote Use this to replace the control which is used for the tiles with your own
      *           implementation.
      */
-    public WorkbenchBuilder tileFactory(Callback<Workbench, Tile> tileFactory) {
+    public final WorkbenchBuilder tileFactory(Callback<Workbench, Tile> tileFactory) {
       this.tileFactory = tileFactory;
       return this;
     }
@@ -251,7 +244,7 @@ public class Workbench extends Control {
      * @implNote Use this to replace the page which is used in the home screen to display tiles
      *           of the modules with your own implementation.
      */
-    public WorkbenchBuilder pageFactory(Callback<Workbench, Page> pageFactory) {
+    public final WorkbenchBuilder pageFactory(Callback<Workbench, Page> pageFactory) {
       this.pageFactory = pageFactory;
       return this;
     }
@@ -265,7 +258,7 @@ public class Workbench extends Control {
      *           menu icon, with your own implementation. To access the {@link MenuItem}s, use
      *           {@link Workbench#getNavigationDrawerItems()}.
      */
-    public WorkbenchBuilder navigationDrawer(NavigationDrawer navigationDrawer) {
+    public final WorkbenchBuilder navigationDrawer(NavigationDrawer navigationDrawer) {
       this.navigationDrawer = navigationDrawer;
       return this;
     }
@@ -279,7 +272,7 @@ public class Workbench extends Control {
      * @return builder for chaining
      * @implNote the menu button will be hidden, if null is passed to {@code navigationDrawerItems}
      */
-    public WorkbenchBuilder navigationDrawerItems(MenuItem... navigationDrawerItems) {
+    public final WorkbenchBuilder navigationDrawerItems(MenuItem... navigationDrawerItems) {
       this.navigationDrawerItems = navigationDrawerItems;
       return this;
     }
@@ -290,7 +283,7 @@ public class Workbench extends Control {
      * @param toolbarControlsLeft the {@link ToolbarItem}s which will be added to the Toolbar
      * @return the updated {@link WorkbenchBuilder}
      */
-    public WorkbenchBuilder toolbarLeft(ToolbarItem... toolbarControlsLeft) {
+    public final WorkbenchBuilder toolbarLeft(ToolbarItem... toolbarControlsLeft) {
       this.toolbarControlsLeft = toolbarControlsLeft;
       return this;
     }
@@ -301,7 +294,7 @@ public class Workbench extends Control {
      * @param toolbarControlsRight the {@link ToolbarItem}s which will be added to the Toolbar
      * @return the updated {@link WorkbenchBuilder}
      */
-    public WorkbenchBuilder toolbarRight(ToolbarItem... toolbarControlsRight) {
+    public final WorkbenchBuilder toolbarRight(ToolbarItem... toolbarControlsRight) {
       this.toolbarControlsRight = toolbarControlsRight;
       return this;
     }
@@ -311,7 +304,7 @@ public class Workbench extends Control {
      *
      * @return the {@link Workbench} object
      */
-    public Workbench build() {
+    public final Workbench build() {
       return new Workbench(this);
     }
   }
@@ -345,13 +338,13 @@ public class Workbench extends Control {
     getStylesheets().add(Workbench.class.getResource("css/context-menu.css").toExternalForm());
   }
 
-  private void initFactories(WorkbenchBuilder builder) {
+  private final void initFactories(WorkbenchBuilder builder) {
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
   }
 
-  private void initBindings() {
+  private final void initBindings() {
     amountOfPages.bind(
         Bindings.createIntegerBinding(
             this::calculateAmountOfPages, modulesPerPageProperty(), getModules()
@@ -360,11 +353,11 @@ public class Workbench extends Control {
   }
 
   @Override
-  protected Skin<?> createDefaultSkin() {
+  protected final Skin<?> createDefaultSkin() {
     return new WorkbenchSkin(this);
   }
 
-  private void initToolbarControls(WorkbenchBuilder builder) {
+  private final void initToolbarControls(WorkbenchBuilder builder) {
     if (builder.toolbarControlsLeft != null) {
       toolbarControlsLeft.addAll(Arrays.asList(builder.toolbarControlsLeft));
     }
@@ -374,25 +367,25 @@ public class Workbench extends Control {
     }
   }
 
-  private void initNavigationDrawer(WorkbenchBuilder builder) {
+  private final void initNavigationDrawer(WorkbenchBuilder builder) {
     if (builder.navigationDrawerItems != null) {
       navigationDrawerItems.addAll(builder.navigationDrawerItems);
     }
     initNavigationDrawer(builder.navigationDrawer);
   }
 
-  private void initNavigationDrawer(NavigationDrawer navigationDrawer) {
+  private final void initNavigationDrawer(NavigationDrawer navigationDrawer) {
     setNavigationDrawer(navigationDrawer);
     navigationDrawer.setWorkbench(this);
   }
 
-  private void initModules(WorkbenchBuilder builder) {
+  private final void initModules(WorkbenchBuilder builder) {
     WorkbenchModule[] modules = builder.modules;
 
     this.modules.addAll(modules);
   }
 
-  private void initListeners() {
+  private final void initListeners() {
     // handle changes of the active module
     activeModule.addListener((observable, oldModule, newModule) -> {
       LOGGER.trace("Module Listener - Old Module: " + oldModule);
@@ -447,7 +440,7 @@ public class Workbench extends Control {
     });
   }
 
-  private void setupCleanup() {
+  private final void setupCleanup() {
     Platform.runLater(() -> {
       Scene scene = getScene();
       // if there is no scene, don't cause NPE by calling "getWindow()" on null
@@ -496,7 +489,7 @@ public class Workbench extends Control {
    *
    * @param module the module to be opened or null to go to the home view
    */
-  public void openModule(WorkbenchModule module) {
+  public final void openModule(WorkbenchModule module) {
     if (!modules.contains(module)) {
       throw new IllegalArgumentException(
           "Module has not been loaded yet");
@@ -508,7 +501,7 @@ public class Workbench extends Control {
   /**
    * Goes back to the home screen where the user can choose between modules.
    */
-  public void openHomeScreen() {
+  public final void openHomeScreen() {
     activeModule.setValue(null);
   }
 
@@ -518,7 +511,7 @@ public class Workbench extends Control {
    * @param module to be closed
    * @return true if closing was successful
    */
-  public boolean closeModule(WorkbenchModule module) {
+  public final boolean closeModule(WorkbenchModule module) {
     LOGGER.trace("closeModule - " + module);
     LOGGER.trace("closeModule - List of open modules: " + openModules);
     Objects.requireNonNull(module);
@@ -597,7 +590,7 @@ public class Workbench extends Control {
    * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}.
    *           This is repeated until all modules are rendered as tiles.
    */
-  private int calculateAmountOfPages() {
+  private final int calculateAmountOfPages() {
     int amountOfModules = getModules().size();
     int modulesPerPage = getModulesPerPage();
     // if all pages are completely full
@@ -613,11 +606,11 @@ public class Workbench extends Control {
    * Returns an unmodifiableObservableList of the currently open modules.
    * @return an unmodifiableObservableList of the currently open modules.
    */
-  public ObservableList<WorkbenchModule> getOpenModules() {
+  public final ObservableList<WorkbenchModule> getOpenModules() {
     return FXCollections.unmodifiableObservableList(openModules);
   }
 
-  private ListProperty<WorkbenchModule> openModulesProperty() {
+  private final ListProperty<WorkbenchModule> openModulesProperty() {
     return openModules;
   }
 
