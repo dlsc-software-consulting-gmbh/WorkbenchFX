@@ -28,7 +28,7 @@ public abstract class WorkbenchModule {
       LogManager.getLogger(WorkbenchModule.class.getName());
 
   private Workbench workbench;
-  private String name;
+  private final String name;
   private FontAwesomeIcon faIcon;
   private MaterialDesignIcon mdIcon;
   private Image imgIcon;
@@ -128,7 +128,7 @@ public abstract class WorkbenchModule {
    *           action (e.g. open a dialog) and define the asynchronous behavior in advance to call
    *           {@link #close()} (e.g. define pressing "Yes" on the dialog to call {@link #close()}).
    *           Then <b>return {@code false}</b>, which prevents this module from immediately getting
-   *           closed and causes this {@link Module} to get opened, so the user can react.
+   *           closed and causes this {@link WorkbenchModule} to get opened, so the user can react.
    *           <br>
    *           Example:
    *           <pre class="code"><code class="java">
@@ -176,7 +176,7 @@ public abstract class WorkbenchModule {
    * Returns the name of this module.
    * @return the name of this module.
    */
-  public String getName() {
+  public final String getName() {
     return Objects.isNull(name) ? "" : name;
   }
 
@@ -184,7 +184,7 @@ public abstract class WorkbenchModule {
    * Returns the icon of this module as a {@link Node}.
    * @return the icon of this module as a {@link Node}.
    */
-  public Node getIcon() {
+  public final Node getIcon() {
     if (!Objects.isNull(faIcon)) {
       return new FontAwesomeIconView(faIcon);
     } else if (!Objects.isNull(mdIcon)) {
@@ -201,7 +201,7 @@ public abstract class WorkbenchModule {
    * @return the {@link ObservableList} of items which are displayed on the left side of the
    *         automatically added {@link ToolbarControl}
    */
-  public ObservableList<ToolbarItem> getToolbarControlsLeft() {
+  public final ObservableList<ToolbarItem> getToolbarControlsLeft() {
     return toolbarControlsLeft;
   }
 
@@ -213,7 +213,7 @@ public abstract class WorkbenchModule {
    * @return the {@link ObservableList} of items which are displayed on the right side of the
    *         automatically generated {@link ToolbarControl}
    */
-  public ObservableList<ToolbarItem> getToolbarControlsRight() {
+  public final ObservableList<ToolbarItem> getToolbarControlsRight() {
     return toolbarControlsRight;
   }
 }
