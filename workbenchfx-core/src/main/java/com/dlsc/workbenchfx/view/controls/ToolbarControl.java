@@ -33,7 +33,7 @@ public class ToolbarControl extends HBox {
   private final ListProperty<ToolbarItem> toolbarControlsRight = new SimpleListProperty<>(this,
       "toolbarControlsRight", FXCollections.observableArrayList());
 
-  private final BooleanProperty empty = new SimpleBooleanProperty(true);
+  private final BooleanProperty empty = new SimpleBooleanProperty(this, "empty", true);
 
   /**
    * Creates an empty {@link ToolbarControl} object and fully initializes it.
@@ -78,7 +78,7 @@ public class ToolbarControl extends HBox {
    *
    * @return whether the toolbar is empty or not
    */
-  public boolean isEmpty() {
+  public final boolean isEmpty() {
     return empty.get();
   }
 
@@ -89,23 +89,23 @@ public class ToolbarControl extends HBox {
    *
    * @return whether the toolbar is empty or not
    */
-  public ReadOnlyBooleanProperty emptyProperty() {
+  public final ReadOnlyBooleanProperty emptyProperty() {
     return empty;
   }
 
-  public ObservableList<ToolbarItem> getToolbarControlsLeft() {
+  public final ObservableList<ToolbarItem> getToolbarControlsLeft() {
     return toolbarControlsLeft.get();
   }
 
-  public ListProperty<ToolbarItem> toolbarControlsLeftProperty() {
+  public final ListProperty<ToolbarItem> toolbarControlsLeftProperty() {
     return toolbarControlsLeft;
   }
 
-  public ObservableList<ToolbarItem> getToolbarControlsRight() {
+  public final ObservableList<ToolbarItem> getToolbarControlsRight() {
     return toolbarControlsRight.get();
   }
 
-  public ListProperty<ToolbarItem> toolbarControlsRightProperty() {
+  public final ListProperty<ToolbarItem> toolbarControlsRightProperty() {
     return toolbarControlsRight;
   }
 }
