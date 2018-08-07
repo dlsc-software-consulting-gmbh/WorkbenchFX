@@ -27,56 +27,53 @@
 
     & .toolbar-label {
       @extend %toolbar-item-base;
-      & .menu-button {
-        & .arrow-button {
+      & .arrow-button {
+        -fx-padding: 0;
+        & .arrow {
           -fx-padding: 0;
-          & .arrow {
-            -fx-padding: 0;
-            -fx-min-height: 0 !important;
-            -fx-pref-height: 0 !important;
-            -fx-max-height: 0 !important;
-            -fx-min-width: 0 !important;
-            -fx-pref-width: 0 !important;
-            -fx-max-width: 0 !important;
-          }
+          -fx-min-height: 0 !important;
+          -fx-pref-height: 0 !important;
+          -fx-max-height: 0 !important;
+          -fx-min-width: 0 !important;
+          -fx-pref-width: 0 !important;
+          -fx-max-width: 0 !important;
         }
       }
     }
     & .toolbar-button {
       @extend %toolbar-item-base;
-      & .menu-button {
-        &:hover {
-          -fx-cursor: hand;
-        }
-        &:pressed {
-          -fx-background-color: -primary-variant-color;
-        }
-        & .arrow-button {
+      &:hover {
+        -fx-cursor: hand;
+      }
+      &:pressed {
+        -fx-background-color: -primary-variant-color;
+      }
+      & .arrow-button {
+        -fx-padding: 0;
+        & .arrow {
           -fx-padding: 0;
-          & .arrow {
-            -fx-padding: 0;
-            -fx-min-height: 0 !important;
-            -fx-pref-height: 0 !important;
-            -fx-max-height: 0 !important;
-            -fx-min-width: 0 !important;
-            -fx-pref-width: 0 !important;
-            -fx-max-width: 0 !important;
-          }
+          -fx-min-height: 0 !important;
+          -fx-pref-height: 0 !important;
+          -fx-max-height: 0 !important;
+          -fx-min-width: 0 !important;
+          -fx-pref-width: 0 !important;
+          -fx-max-width: 0 !important;
         }
       }
     }
     & .toolbar-menu-button {
       @extend %toolbar-item-base;
-      & .menu-button {
-        &:hover {
-          -fx-cursor: hand;
-        }
-        &:showing {
-          -fx-background-color: -primary-variant-color;
+      &:hover {
+        -fx-cursor: hand;
+      }
+      & .arrow-button {
+        -fx-padding: 0 0 0 .35em;
+      }
+      &:showing {
+        -fx-background-color: -primary-variant-color;
 
-          & .arrow-button .arrow {
-            -fx-rotate: -90;
-          }
+        & .arrow-button .arrow {
+          -fx-rotate: -90;
         }
       }
     }
@@ -89,33 +86,31 @@
 
 %toolbar-item-base {
   @include set-height(px(34));
-  & .menu-button {
-     -fx-background-color: -primary-color;
+  -fx-background-color: -primary-color;
 
-     -fx-background-insets: 0; // Remove the border from bottom
-     -fx-padding: 0 .25em;
+  -fx-background-insets: 0; // Remove the border from bottom
+  -fx-padding: 0 .75em;
 
-     -fx-graphic-text-gap: .6em;
-     -fx-background-radius: px(2);
-     -fx-border-width: 0;
+  -fx-background-radius: px(2);
+  -fx-border-width: 0;
 
-     & .label {
-       @include set-height(px(16));
+  & .label {
+    @include set-height(px(16));
+    -fx-graphic-text-gap: .35em;
 
-       & .glyph-icon,
-       & .text {
-         -fx-fill: -on-primary-color;
-       }
-     }
-     & .arrow-button {
-       & .arrow {
-         @extend %arrow-right-icon;
-         -fx-rotate: 90;
-         @include set-size(px(2.5), px(5));
-         -fx-background-color: -on-primary-color;
-       }
-     }
-   }
+    & .glyph-icon,
+    & .text {
+      -fx-fill: -on-primary-color;
+    }
+  }
+  & .arrow-button {
+    & .arrow {
+      @extend %arrow-right-icon;
+      -fx-rotate: 90;
+      @include set-size(px(2.5), px(5));
+      -fx-background-color: -on-primary-color;
+    }
+  }
 }
 
 %menu-button {

@@ -2,22 +2,15 @@ package com.dlsc.workbenchfx.view.controls;
 
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
-import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Skin;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.apache.logging.log4j.LogManager;
@@ -33,7 +26,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class ToolbarItem extends Control {
+public class ToolbarItem extends MenuButton {
 
   private static final Logger LOGGER =
       LogManager.getLogger(ToolbarItem.class.getName());
@@ -77,13 +70,8 @@ public class ToolbarItem extends Control {
    */
   private static final String TOOLBAR_MENU_BUTTON = "toolbar-menu-button";
 
-  private final StringProperty text = new SimpleStringProperty(this, "text");
-  private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this,
-      "graphic");
   private final ObjectProperty<EventHandler<? super MouseEvent>> onClick =
       new SimpleObjectProperty<>(this, "onClick");
-  private final ListProperty<MenuItem> items = new SimpleListProperty<>(this, "items",
-      FXCollections.observableArrayList());
 
   /**
    * Creates a new empty {@link ToolbarItem}.
@@ -181,7 +169,7 @@ public class ToolbarItem extends Control {
    */
   public ToolbarItem(String text, MenuItem... items) {
     this(text);
-    setItems(FXCollections.observableArrayList(items));
+    getItems().addAll((FXCollections.observableArrayList(items)));
   }
 
   /**
@@ -194,7 +182,7 @@ public class ToolbarItem extends Control {
    */
   public ToolbarItem(Node graphic, MenuItem... items) {
     this(graphic);
-    setItems(FXCollections.observableArrayList(items));
+    getItems().addAll((FXCollections.observableArrayList(items)));
   }
 
   /**
@@ -208,7 +196,7 @@ public class ToolbarItem extends Control {
    */
   public ToolbarItem(String text, Node graphic, MenuItem... items) {
     this(text, graphic);
-    setItems(FXCollections.observableArrayList(items));
+    getItems().addAll(FXCollections.observableArrayList(items));
   }
 
   private void setupListeners() {
@@ -216,8 +204,8 @@ public class ToolbarItem extends Control {
       setOnMouseClicked(newClick);
       updateStyleClasses();
     });
-    items.addListener((InvalidationListener) observable -> updateStyleClasses());
-    graphic.addListener((observable, oldIcon, newIcon) -> {
+    getItems().addListener((InvalidationListener) observable -> updateStyleClasses());
+    graphicProperty().addListener((observable, oldIcon, newIcon) -> {
       if (newIcon instanceof ImageView) {
         ImageView imageView = ((ImageView) newIcon);
         imageView.setPreserveRatio(true);
@@ -226,10 +214,16 @@ public class ToolbarItem extends Control {
         imageView.fitHeightProperty().bind(prefHeightProperty().multiply(ICON_RESIZING_FACTOR));
       }
     });
+
+    showingProperty().addListener((observable, wasShowing, isShowing) -> {
+      if (!getItems().isEmpty() && isShowing) {
+        getItems().get(0).getParentPopup().setStyle("-fx-min-width: " + getWidth());
+      }
+    });
   }
 
   private void updateStyleClasses() {
-    if (!items.isEmpty()) {
+    if (!getItems().isEmpty()) {
       getStyleClass().setAll(TOOLBAR_MENU_BUTTON);
     } else if (!Objects.isNull(getOnClick())) {
       getStyleClass().setAll(TOOLBAR_BUTTON);
@@ -238,56 +232,16 @@ public class ToolbarItem extends Control {
     }
   }
 
-  public String getText() {
-    return text.get();
-  }
-
-  public StringProperty textProperty() {
-    return text;
-  }
-
-  public void setText(String text) {
-    this.text.set(text);
-  }
-
-  public Node getGraphic() {
-    return graphic.get();
-  }
-
-  public ObjectProperty<Node> graphicProperty() {
-    return graphic;
-  }
-
-  public void setGraphic(Node graphic) {
-    this.graphic.set(graphic);
-  }
-
-  @Override
-  protected Skin<?> createDefaultSkin() {
-    return new ToolbarItemSkin(this);
-  }
-
-  public EventHandler<? super MouseEvent> getOnClick() {
+  public final EventHandler<? super MouseEvent> getOnClick() {
     return onClick.get();
   }
 
-  public ObjectProperty<EventHandler<? super MouseEvent>> onClickProperty() {
+  public final ObjectProperty<EventHandler<? super MouseEvent>> onClickProperty() {
     return onClick;
   }
 
-  public void setOnClick(EventHandler<? super MouseEvent> onClick) {
+  public final void setOnClick(EventHandler<? super MouseEvent> onClick) {
     this.onClick.set(onClick);
   }
 
-  public ObservableList<MenuItem> getItems() {
-    return items.get();
-  }
-
-  public ListProperty<MenuItem> itemsProperty() {
-    return items;
-  }
-
-  public void setItems(ObservableList<MenuItem> items) {
-    this.items.set(items);
-  }
 }
