@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class WorkbenchSkin extends SkinBase<Workbench> {
+public final class WorkbenchSkin extends SkinBase<Workbench> {
 
   private static final Logger LOGGER =
       LogManager.getLogger(WorkbenchSkin.class.getName());
