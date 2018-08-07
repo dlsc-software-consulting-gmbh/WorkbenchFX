@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
-import com.dlsc.workbenchfx.model.WorkbenchModule;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -25,8 +24,6 @@ public class TabSkin extends SkinBase<Tab> {
   private static final Logger LOGGER = LogManager.getLogger(TabSkin.class.getName());
   private static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
 
-  private final ReadOnlyObjectProperty<WorkbenchModule> module;
-
   private HBox controlBox;
   private StackPane closeIconShape;
   private Button closeBtn;
@@ -44,7 +41,6 @@ public class TabSkin extends SkinBase<Tab> {
    */
   public TabSkin(Tab tab) {
     super(tab);
-    module = tab.moduleProperty();
     activeTab = tab.activeTabProperty();
     name = tab.nameProperty();
     icon = tab.iconProperty();
