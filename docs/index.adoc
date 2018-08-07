@@ -13,6 +13,7 @@ François Martin; Marco Sanfratello
 
 == Introduction
 The paradigm of WorkbenchFX is: "Give the API user as much customizability as reasonable, but make sure they don't have to use them."
+This will end with a citation cite:[noauthor_system_nodate].
 
 == The way to WorkbenchFX
 === Briefing
@@ -490,5 +491,8 @@ For further information we reference to following link: https://github.com/Julia
 == Lessons learned
 
 == Summary
+
+== Bibliography
+bibliography::[]
 
 == Honesty Declaration

@@ -1,0 +1,10 @@
+= My first document using asciidoctor-bibliography
+
+// Citating in general
+This will end with a citation cite:[noauthor_system_nodate].
+
+// Citating anchors from websites
+This will end with a citation cite:[noauthor_system_nodate, locator=Design principles].
+
+// Adding a bibliography
+bibliography::[]

@@ -1,5 +1,0 @@
-= My first document using asciidoctor-bibliography
-
-This will end with a citation cite:[bloch_effective_2018].
-
-bibliography::[]
