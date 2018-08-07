@@ -86,44 +86,44 @@ public final class Workbench extends Control {
   private static final NavigationDrawer DEFAULT_NAVIGATION_DRAWER = new NavigationDrawer();
 
   // Custom Controls
-  private final ObjectProperty<NavigationDrawer> navigationDrawer =
+  private ObjectProperty<NavigationDrawer> navigationDrawer =
       new SimpleObjectProperty<>(DEFAULT_NAVIGATION_DRAWER);
 
   // Lists
-  private final ObservableList<ToolbarItem> toolbarControlsRight =
+  private ObservableList<ToolbarItem> toolbarControlsRight =
       FXCollections.observableArrayList();
-  private final ObservableList<ToolbarItem> toolbarControlsLeft =
+  private ObservableList<ToolbarItem> toolbarControlsLeft =
       FXCollections.observableArrayList();
-  private final ObservableList<MenuItem> navigationDrawerItems =
+  private ObservableList<MenuItem> navigationDrawerItems =
       FXCollections.observableArrayList();
 
   /**
    * Map containing all overlays which have been loaded into the scene graph, with their
    * corresponding model object {@link WorkbenchOverlay}.
    */
-  private final ObservableMap<Region, WorkbenchOverlay> overlays =
+  private ObservableMap<Region, WorkbenchOverlay> overlays =
       FXCollections.observableHashMap();
 
-  private final ObservableList<Region> nonBlockingOverlaysShown =
+  private ObservableList<Region> nonBlockingOverlaysShown =
       FXCollections.observableArrayList();
-  private final ObservableList<Region> blockingOverlaysShown =
+  private ObservableList<Region> blockingOverlaysShown =
       FXCollections.observableArrayList();
 
-  private final ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>();
-  private final ObjectProperty<Side> drawerSideShown = new SimpleObjectProperty<>();
+  private ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>();
+  private ObjectProperty<Side> drawerSideShown = new SimpleObjectProperty<>();
 
   // Modules
   /**
    * List of all modules.
    */
-  private final ListProperty<WorkbenchModule> modules = new SimpleListProperty<>(this, "modules",
+  private ListProperty<WorkbenchModule> modules = new SimpleListProperty<>(this, "modules",
       FXCollections.observableArrayList());
 
   /**
    * List of all currently open modules. Open modules are being displayed as open tabs in the
    * application.
    */
-  private final ListProperty<WorkbenchModule> openModules = new SimpleListProperty<>(this,
+  private ListProperty<WorkbenchModule> openModules = new SimpleListProperty<>(this,
       "modules",
       FXCollections.observableArrayList());
 
@@ -134,7 +134,7 @@ public final class Workbench extends Control {
    * Stage#setOnCloseRequest(EventHandler)}. Is <b>always</b> completed with {@code true}. This way,
    * there is no need to differentiate whether it was completed with {@code true} or {@code false}.
    */
-  private final Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap =
+  private Map<WorkbenchModule, CompletableFuture<Boolean>> moduleCloseableMap =
       new HashMap<>();
 
   /**
@@ -142,25 +142,25 @@ public final class Workbench extends Control {
    * view. When the home screen is being displayed, {@code activeModule} and {@code
    * activeModuleView} are null.
    */
-  private final ObjectProperty<WorkbenchModule> activeModule = new SimpleObjectProperty<>();
-  private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
+  private ObjectProperty<WorkbenchModule> activeModule = new SimpleObjectProperty<>();
+  private ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
 
   // Factories
   /**
    * The factories which are called when creating Tabs, Tiles and Pages of Tiles for the Views. They
    * require a module whose attributes are used to create the Nodes.
    */
-  private final ObjectProperty<Callback<Workbench, Tab>> tabFactory =
+  private ObjectProperty<Callback<Workbench, Tab>> tabFactory =
       new SimpleObjectProperty<>(this, "tabFactory", DEFAULT_TAB_FACTORY);
-  private final ObjectProperty<Callback<Workbench, Tile>> tileFactory =
+  private ObjectProperty<Callback<Workbench, Tile>> tileFactory =
       new SimpleObjectProperty<>(this, "tileFactory", DEFAULT_TILE_FACTORY);
-  private final ObjectProperty<Callback<Workbench, Page>> pageFactory =
+  private ObjectProperty<Callback<Workbench, Page>> pageFactory =
       new SimpleObjectProperty<>(this, "pageFactory", DEFAULT_PAGE_FACTORY);
 
   // Properties
-  private final IntegerProperty modulesPerPage =
+  private IntegerProperty modulesPerPage =
       new SimpleIntegerProperty(DEFAULT_MODULES_PER_PAGE);
-  private final IntegerProperty amountOfPages = new SimpleIntegerProperty();
+  private IntegerProperty amountOfPages = new SimpleIntegerProperty();
 
   // Builder
   /**
@@ -177,7 +177,7 @@ public final class Workbench extends Control {
     private static final Logger LOGGER = LogManager.getLogger(WorkbenchBuilder.class.getName());
 
     // Required parameters
-    private final WorkbenchModule[] modules;
+    private WorkbenchModule[] modules;
 
     // Optional parameters - initialized to default values
     private int modulesPerPage = DEFAULT_MODULES_PER_PAGE;
@@ -338,13 +338,13 @@ public final class Workbench extends Control {
     getStylesheets().add(Workbench.class.getResource("css/context-menu.css").toExternalForm());
   }
 
-  private final void initFactories(WorkbenchBuilder builder) {
+  private void initFactories(WorkbenchBuilder builder) {
     tabFactory.set(builder.tabFactory);
     tileFactory.set(builder.tileFactory);
     pageFactory.set(builder.pageFactory);
   }
 
-  private final void initBindings() {
+  private void initBindings() {
     amountOfPages.bind(
         Bindings.createIntegerBinding(
             this::calculateAmountOfPages, modulesPerPageProperty(), getModules()
@@ -357,7 +357,7 @@ public final class Workbench extends Control {
     return new WorkbenchSkin(this);
   }
 
-  private final void initToolbarControls(WorkbenchBuilder builder) {
+  private void initToolbarControls(WorkbenchBuilder builder) {
     if (builder.toolbarControlsLeft != null) {
       toolbarControlsLeft.addAll(Arrays.asList(builder.toolbarControlsLeft));
     }
@@ -367,25 +367,25 @@ public final class Workbench extends Control {
     }
   }
 
-  private final void initNavigationDrawer(WorkbenchBuilder builder) {
+  private void initNavigationDrawer(WorkbenchBuilder builder) {
     if (builder.navigationDrawerItems != null) {
       navigationDrawerItems.addAll(builder.navigationDrawerItems);
     }
     initNavigationDrawer(builder.navigationDrawer);
   }
 
-  private final void initNavigationDrawer(NavigationDrawer navigationDrawer) {
+  private void initNavigationDrawer(NavigationDrawer navigationDrawer) {
     setNavigationDrawer(navigationDrawer);
     navigationDrawer.setWorkbench(this);
   }
 
-  private final void initModules(WorkbenchBuilder builder) {
+  private void initModules(WorkbenchBuilder builder) {
     WorkbenchModule[] modules = builder.modules;
 
     this.modules.addAll(modules);
   }
 
-  private final void initListeners() {
+  private void initListeners() {
     // handle changes of the active module
     activeModule.addListener((observable, oldModule, newModule) -> {
       LOGGER.trace("Module Listener - Old Module: " + oldModule);
@@ -440,7 +440,7 @@ public final class Workbench extends Control {
     });
   }
 
-  private final void setupCleanup() {
+  private void setupCleanup() {
     Platform.runLater(() -> {
       Scene scene = getScene();
       // if there is no scene, don't cause NPE by calling "getWindow()" on null
@@ -590,7 +590,7 @@ public final class Workbench extends Control {
    * @implNote Each page is filled up until there are as many tiles as {@code modulesPerPage}.
    *           This is repeated until all modules are rendered as tiles.
    */
-  private final int calculateAmountOfPages() {
+  private int calculateAmountOfPages() {
     int amountOfModules = getModules().size();
     int modulesPerPage = getModulesPerPage();
     // if all pages are completely full
@@ -610,7 +610,7 @@ public final class Workbench extends Control {
     return FXCollections.unmodifiableObservableList(openModules);
   }
 
-  private final ListProperty<WorkbenchModule> openModulesProperty() {
+  private ListProperty<WorkbenchModule> openModulesProperty() {
     return openModules;
   }
 
@@ -1000,11 +1000,11 @@ public final class Workbench extends Control {
    * Returns a {@link CompletableFuture}, which upon completion will cause the module to be closed
    * and if there was an ongoing stage closing process, it will re-initiate that process.
    */
-  private final CompletableFuture<Boolean> getModuleCloseable(WorkbenchModule module) {
+  private CompletableFuture<Boolean> getModuleCloseable(WorkbenchModule module) {
     return moduleCloseableMap.get(module);
   }
 
-  private final void resetModuleCloseable(WorkbenchModule module) {
+  private void resetModuleCloseable(WorkbenchModule module) {
     LOGGER.trace("moduleCloseable - Cleared future: " + this);
     CompletableFuture<Boolean> moduleCloseable = new CompletableFuture<>();
     moduleCloseableMap.put(module, moduleCloseable);
