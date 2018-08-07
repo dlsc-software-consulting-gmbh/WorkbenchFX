@@ -74,7 +74,7 @@ public final class AddModulePresenter extends Presenter {
 
   }
 
-  final void updatePageCount(int amountOfPages) {
+  private void updatePageCount(int amountOfPages) {
     view.setPageCount(amountOfPages);
     view.pseudoClassStateChanged(ONE_PAGE_STATE, amountOfPages == 1);
   }
