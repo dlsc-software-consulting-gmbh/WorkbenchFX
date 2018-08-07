@@ -32,7 +32,6 @@ public final class AddModulePresenter extends Presenter {
     this.model = model;
     this.view = view;
     init();
-    updatePageCount(model.getAmountOfPages());
   }
 
   /**
@@ -40,7 +39,8 @@ public final class AddModulePresenter extends Presenter {
    */
   @Override
   public final void initializeViewParts() {
-    view.setPageCount(model.getAmountOfPages());
+    updatePageCount(model.getAmountOfPages());
+
     view.setPageFactory(pageIndex -> {
       Page page = model.getPageFactory().call(model);
       page.setPageIndex(pageIndex);
