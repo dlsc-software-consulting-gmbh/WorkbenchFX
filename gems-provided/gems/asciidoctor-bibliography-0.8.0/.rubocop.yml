@@ -1,0 +1,13 @@
+inherit_from: .oss-guides.rubocop.yml
+
+AllCops:
+  TargetRubyVersion: 2.3
+
+# TODO: shorten all lines to 80, as per oss-guides.
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+Rails:
+  Enabled: false

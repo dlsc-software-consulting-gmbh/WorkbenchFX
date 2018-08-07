@@ -1,0 +1,13 @@
+= Latex Macros In Bibtex Items
+:bibliography-database: reference.bib
+:bibliography-style: ieee
+
+== Contents
+
+This is a paper "Validation and Verificaton of Computer Forensic Software
+tools -- Searching Function" (see cite:guo2009[]).
+
+== Bibliography
+
+bibliography::[]
+
