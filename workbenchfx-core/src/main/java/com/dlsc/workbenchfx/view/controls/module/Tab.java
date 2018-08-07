@@ -42,10 +42,10 @@ public class Tab extends Control {
    */
   public Tab(Workbench workbench) {
     this.workbench = workbench;
-    module = new SimpleObjectProperty<>();
-    name = new SimpleStringProperty();
-    icon = new SimpleObjectProperty<>();
-    activeTab = new SimpleBooleanProperty();
+    module = new SimpleObjectProperty<>(this, "module");
+    name = new SimpleStringProperty(this, "name");
+    icon = new SimpleObjectProperty<>(this, "icon");
+    activeTab = new SimpleBooleanProperty(this, "activeTab");
     setupModuleListeners();
     setupActiveTabListener();
     setupEventHandlers();

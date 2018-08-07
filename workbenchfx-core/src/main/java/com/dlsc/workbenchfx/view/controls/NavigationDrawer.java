@@ -21,7 +21,7 @@ import javafx.scene.layout.Priority;
  */
 public class NavigationDrawer extends Control {
 
-  private final ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>();
+  private final ObjectProperty<Workbench> workbench = new SimpleObjectProperty<>(this, "workbench");
 
   private final ObjectProperty<Priority> menuHoverBehavior = new SimpleObjectProperty<>(
       this, "menuHoverBehavior", Priority.ALWAYS);

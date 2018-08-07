@@ -39,9 +39,9 @@ public class Tile extends Control {
    */
   public Tile(Workbench workbench) {
     this.workbench = workbench;
-    module = new SimpleObjectProperty<>();
-    name = new SimpleStringProperty();
-    icon = new SimpleObjectProperty<>();
+    module = new SimpleObjectProperty<>(this, "module");
+    name = new SimpleStringProperty(this, "name");
+    icon = new SimpleObjectProperty<>(this, "icon");
     setupModuleListeners();
     setupEventHandlers();
     getStyleClass().add("tile-control");

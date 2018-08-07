@@ -36,7 +36,7 @@ public class Page extends Control {
    */
   public Page(Workbench workbench) {
     this.workbench = workbench;
-    pageIndex = new SimpleIntegerProperty(INITIAL_PAGE_INDEX);
+    pageIndex = new SimpleIntegerProperty(this, "pageIndex", INITIAL_PAGE_INDEX);
     modulesPerPage = workbench.modulesPerPageProperty();
     modules = workbench.getModules();
     tiles = FXCollections.observableArrayList();

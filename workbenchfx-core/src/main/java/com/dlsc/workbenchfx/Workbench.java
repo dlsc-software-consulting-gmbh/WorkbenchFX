@@ -87,7 +87,7 @@ public final class Workbench extends Control {
 
   // Custom Controls
   private final ObjectProperty<NavigationDrawer> navigationDrawer =
-      new SimpleObjectProperty<>(DEFAULT_NAVIGATION_DRAWER);
+      new SimpleObjectProperty<>(this, "navigationDrawer", DEFAULT_NAVIGATION_DRAWER);
 
   // Lists
   private final ObservableList<ToolbarItem> toolbarControlsRight =
@@ -109,8 +109,8 @@ public final class Workbench extends Control {
   private final ObservableList<Region> blockingOverlaysShown =
       FXCollections.observableArrayList();
 
-  private final ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>();
-  private final ObjectProperty<Side> drawerSideShown = new SimpleObjectProperty<>();
+  private final ObjectProperty<Region> drawerShown = new SimpleObjectProperty<>(this, "drawerShown");
+  private final ObjectProperty<Side> drawerSideShown = new SimpleObjectProperty<>(this, "drawerSideShown");
 
   // Modules
   /**
@@ -142,8 +142,8 @@ public final class Workbench extends Control {
    * view. When the home screen is being displayed, {@code activeModule} and {@code
    * activeModuleView} are null.
    */
-  private final ObjectProperty<WorkbenchModule> activeModule = new SimpleObjectProperty<>();
-  private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>();
+  private final ObjectProperty<WorkbenchModule> activeModule = new SimpleObjectProperty<>(this, "activeModule");
+  private final ObjectProperty<Node> activeModuleView = new SimpleObjectProperty<>(this, "activeModuleView");
 
   // Factories
   /**
@@ -159,8 +159,8 @@ public final class Workbench extends Control {
 
   // Properties
   private final IntegerProperty modulesPerPage =
-      new SimpleIntegerProperty(DEFAULT_MODULES_PER_PAGE);
-  private final IntegerProperty amountOfPages = new SimpleIntegerProperty();
+      new SimpleIntegerProperty(this, "modulesPerPage", DEFAULT_MODULES_PER_PAGE);
+  private final IntegerProperty amountOfPages = new SimpleIntegerProperty(this, "amountOfPages");
 
   // Builder
   /**
