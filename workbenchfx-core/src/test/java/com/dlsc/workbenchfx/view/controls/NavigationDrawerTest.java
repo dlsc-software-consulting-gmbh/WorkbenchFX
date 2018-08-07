@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -62,13 +61,6 @@ class NavigationDrawerTest extends ApplicationTest {
     ObservableList<MenuItem> items = navigationDrawer.getItems();
     verify(mockBench).getNavigationDrawerItems();
     assertSame(this.items, items);
-  }
-
-  @Test
-  void getWorkbenchWidth() {
-    double workbenchWidth = navigationDrawer.getWorkbenchWidth();
-    verify(mockBench).getWidth();
-    assertEquals(WIDTH, workbenchWidth, 1e-6);
   }
 
   @Test
