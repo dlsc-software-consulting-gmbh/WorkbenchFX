@@ -39,7 +39,7 @@ public class PageSkin extends SkinBase<Page> {
 
   private void initializeParts() {
     tilePane = new GridPane();
-    tilePane.getStyleClass().add("tile-page");
+    tilePane.getStyleClass().add("tile-pane");
   }
 
   private void setupListeners() {

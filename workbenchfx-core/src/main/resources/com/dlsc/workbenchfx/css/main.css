@@ -170,12 +170,12 @@
   -fx-tooltip-visible: false; }
   #content-view #add-module-view:one-page > .pagination-control {
     -fx-opacity: 0; }
-  #content-view #add-module-view .page .tile-page {
+  #content-view #add-module-view .page .tile-pane {
     -fx-vgap: 3em;
     -fx-hgap: 3em;
     -fx-padding: 1.5em;
     -fx-alignment: CENTER; }
-    #content-view #add-module-view .page .tile-page .tile-control {
+    #content-view #add-module-view .page .tile-pane .tile-control {
       -fx-padding: 1em;
       -fx-alignment: CENTER;
       -fx-pref-width: 13.5em;
@@ -186,19 +186,19 @@
       -fx-border-radius: 0.3571428571em;
       -fx-background-radius: 0.3571428571em;
       -fx-background-insets: 0; }
-      #content-view #add-module-view .page .tile-page .tile-control .icon .glyph-icon {
+      #content-view #add-module-view .page .tile-pane .tile-control .icon .glyph-icon {
         -fx-fill: -on-surface-color;
         -fx-font-size: 1.4285714286em !important; }
-      #content-view #add-module-view .page .tile-page .tile-control .text-lbl {
+      #content-view #add-module-view .page .tile-pane .tile-control .text-lbl {
         -fx-padding: .5em 0 0 0;
         -fx-alignment: CENTER;
         -fx-text-alignment: CENTER; }
-        #content-view #add-module-view .page .tile-page .tile-control .text-lbl .text {
+        #content-view #add-module-view .page .tile-pane .tile-control .text-lbl .text {
           -fx-fill: -on-surface-color; }
-      #content-view #add-module-view .page .tile-page .tile-control:hover {
+      #content-view #add-module-view .page .tile-pane .tile-control:hover {
         -fx-effect: -drop-shadow-2;
         -fx-cursor: hand; }
-      #content-view #add-module-view .page .tile-page .tile-control:pressed {
+      #content-view #add-module-view .page .tile-pane .tile-control:pressed {
         -fx-effect: -drop-shadow-3; }
   #content-view #add-module-view > .pagination-control > .control-box {
     -fx-spacing: .25em; }
