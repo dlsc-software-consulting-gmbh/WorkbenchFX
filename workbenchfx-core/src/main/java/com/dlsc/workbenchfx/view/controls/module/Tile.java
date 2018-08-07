@@ -44,6 +44,7 @@ public class Tile extends Control {
     icon = new SimpleObjectProperty<>();
     setupModuleListeners();
     setupEventHandlers();
+    getStyleClass().add("tile-control");
   }
 
   private void setupModuleListeners() {

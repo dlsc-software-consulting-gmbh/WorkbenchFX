@@ -42,7 +42,7 @@ public class Page extends Control {
     tiles = FXCollections.observableArrayList();
     setupChangeListeners();
     updateTiles();
-    getStyleClass().add("page");
+    getStyleClass().add("page-control");
   }
 
   private void setupChangeListeners() {
