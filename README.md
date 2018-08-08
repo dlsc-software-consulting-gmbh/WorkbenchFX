@@ -6,32 +6,20 @@
 ![screenshot of an application created with WorkbenchFX](docs/images/workbenchFX_in_use.png) 
 
 ## Table of Contents
-[WorkbenchFX](#workbenchfx)
-
-[What is WorkbenchFX](#what-is-workbenchfx)
-
-[Advantages](#advantages)
-
-[Main Features](#main-features)
-
-[Documentation](#documentation)
-
-[Structure](#structure)
-
-[Demos](#demos)
-
-[Getting Started](#getting-started)
-
+- [WorkbenchFX](#workbenchfx)
+- [Table of Contents](#table-of-contents)
+- [What is WorkbenchFX](#what-is-workbenchfx)
+- [Advantages](#advantages)
+- [Main Features](#main-features)
+- [Documentation](#documentation)
+- [Structure](#structure)
+- [Demos](#demos)
+- [Getting Started](#getting-started)
+  - [Extending the `WorkbenchModule`](#extending-the-workbenchmodule)
+  - [Creating the `Workbench`](#creating-the-workbench)
 []()
-
 []()
-
 []()
-
-[]()
-
-[]()
-
 []()
 
 ## What is WorkbenchFX?
