@@ -16,7 +16,9 @@ import com.dlsc.workbenchfx.custom.test.ToolbarItemTestModule;
 import com.dlsc.workbenchfx.custom.test.ToolbarTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
+import com.dlsc.workbenchfx.view.controls.module.Page;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
@@ -54,6 +56,7 @@ public class CustomDemo extends Application {
         new WorkbenchModule("My first Workbench module", MaterialDesignIcon.THUMB_UP) {
           @Override
           public Node activate() {
+            getToolbarControlsLeft()
             return new Label("Hello World");
           }
         }

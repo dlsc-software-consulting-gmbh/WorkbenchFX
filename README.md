@@ -17,10 +17,7 @@
 - [Getting Started](#getting-started)
   - [Extending the `WorkbenchModule`](#extending-the-workbenchmodule)
   - [Creating the `Workbench`](#creating-the-workbench)
-[]()
-[]()
-[]()
-[]()
+  - [Optionals](#optionals)
 
 ## What is WorkbenchFX?
 TODO: description
@@ -162,36 +159,39 @@ Opening the module, creates a `Tab` with the defined Icon and text and the conte
 By clicking on the `+` button, one gets back to the `AddModulePage`.
 Closing the opened module is achieved through clicking on the close button in the `Tab`.
 
-#### Must haves
-You have a lot of options to influence the behavior and layout of the preferences dialog.  
-The following parameters are the absolute minimum, needed for the proper functioning of `PreferencesFX`:
+### Optionals
+The optionals are called after adding the custom modules to the builder:
 
-Parameter | Description
------- | -----------
-`AppStarter.class` | In the constructor of `PreferencesFx` a `saveClass` is required. This class is saved as a key for the saved setting values. Further information is available in the javadoc.
-`Category description` | Each `Category` must have a description. This is required to display its description in the `TreeView`.
-`Setting description` | Each `Setting` must have a description. It will be displayed on the left of the control, which is used to manipulate the respective `Setting`.
-
-Note: The value of the each `Setting` is stored using the [Java Preferences API](https://docs.oracle.com/javase/8/docs/api/java/util/prefs/Preferences.html) by default.  
-For testing purposes, to clear the saved preferences of the demo, run the method in the class:
-```
-preferencesfx-demo/src/test/java/PreferencesStorageReset.java
+```Java
+Workbench workbench = Workbench.builder(...)
+.modulesPerPage(6) // call the optionals
+.build();
 ```
 
-#### Optionals
-The following parameters are optionally available to further configure the dialog created by `PreferencesFX`:
+The following parameters are optionally available to further configure the application:
 
-Method | Class | Description
------- | ----- | -----------
-`.subCategories` | `Category` | Subcategories allow a `Category` to have additional subcategories as children. Those are also displayed in the tree.
-`.description` | `Group` | If you decide not to add the description of a group in the constructor, you can still add it after the creation of the group.
-`.validate` | `Setting` | Allows to add a [Validator](http://dlsc.com/wp-content/html/formsfx/apidocs/com/dlsc/formsfx/model/validators/Validator.html) to a setting, to set constraints to the values that can be entered.
-`.persistApplicationState` | `PreferencesFx` | Defines if the Preferences API should save the application states. This includes the state persistence of the dialog window, as well as the values of each Setting.
-`.persistWindowState` | `PreferencesFx` | Defines whether the state of the dialog window (position, size, last selected Category) should be persisted or not. Defaults to false.
-`.saveSettings` | `PreferencesFx` | Defines whether the changed settings in the Preferences window should be saved or not. Defaults to true.
-`.debugHistoryMode` | `PreferencesFx` | Makes it possible to enable or disable the keycombination to open a debug view of the list of all actions in the history (undo / redo). Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H (Mac) opens a dialog with the undo / redo history, shown in a table. Defaults to false.
-`.buttonsVisibility` | `PreferencesFx` | Sets the visibility of the cancel and close buttons in the `PreferencesFxDialog`. Defaults to true.
-`.i18n` | `PreferencesFx` | Sets the translation service of the preferences dialog for internationalization.
+Method (Workbench) | Description
+------------------ | -----------
+`modulesPerPage()` | Define the amount of `Tiles` which are displayed at the `AddModulePage`
+`navigationDrawerItems()` | Allows setting multiple `MenuItems` which are then displayed in the `NavigationDrawer`. The button to open and close the drawer appears alway in the top-left corner
+`toolbarLeft()` | Allows setting multiple `ToolbarItems` on the left side of the toolbar on top of the `Tabs`
+`toolbarRight()` | Allows setting multiple `ToolbarItems` on the right side of the toolbar on top of the `Tabs`
+
+When the default layout of `Page`, `Tab`, `Tile` or `NavigationDrawer` doesn't fulfill the desired requirements, it is possible to replace them:
+
+Method (Workbench) | Description
+------------------ | -----------
+`navigationDrawer()` | Allows setting a custom implementation of the `NavigationDrawer` control, which will then be used
+`pageFactory()` | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Page` control
+`tabFactory()` | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Tab` control
+`tileFactory()` | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Tile` control
+
+The `WorkbenchModule` provides also optional functionality. It is possible to add `ToolbarItems` to the toolbar of the module (just like in the workbench):
+
+Method (WorkbenchModule) | Description
+------------------------ | -----------
+`getToolbarControlsLeft()` | Calling this method returns an `ObservableList` of `ToolbarItems`. Adding items to the list will automatically create a toolbar between the `Tab` and the module content and adds the items on the left side
+`getToolbarControlsRight()` | Calling this method returns an `ObservableList` of `ToolbarItems`. Adding items to the list will automatically create a toolbar between the `Tab` and the module content and adds the items on the right side
 
 #### Setting types
 The following table shows how to create `Settings` using the predefined controls and how they look like:
