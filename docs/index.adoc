@@ -80,6 +80,38 @@ Which is why we decided to include them in the API design of the `Module` class.
 * Tab representation of module => Node gets returned by getTab()
 * Tile representation of module in home screen => Node gets returned by getTile()
 
+=== WorkbenchModule Lifecycle
+The following UML diagrams explain how the lifecycle of a `WorkbenchModule` works.
+The diagrams are simplified to a degree that is relevant for the implementor of a `WorkbenchModule` and are *not* complete and *not* exhaustive.
+A minimal amount of examples try to explain the priciniple of the interactions of calls to `Workbench#openModule(WorkbenchModule)` and `Workbench#closeModule(WorkbenchModule)` on `WorkbenchModule` objects. // TODO: overwork
+
+Overview of lifecycle in a state diagram:
+
+image::include/UML/svg/Module Lifecycle.svg[Module Lifecycle]
+
+Process of opening two modules in sequence:
+
+image::include/UML/svg/Opening of Modules.svg[Opening of Modules]
+
+Closing of an active module:
+
+image::include/UML/svg/Close Module Active.svg[Close Module Active]
+
+Closing of an inactive module:
+
+image::include/UML/svg/Close Module Inactive.svg[Close Module Inactive]
+
+Closing of an active module, which was interrupted:
+
+image::include/UML/svg/Close Module Interrupted Active.svg[Close Module Interrupted Active]
+
+Closing of an inactive module, which was interrupted:
+
+image::include/UML/svg/Close Module Interrupted Inactive.svg[Close Module Interrupted Inactive]
+
+To learn more about the interactions in detail, look at the tests // TODO: cross-reference tests
+since the tests verify the exact order of the calls and describe more situations in detail.
+
 ==== Icon: Image vs File vs Node
 As for the graphic, there are different ways to implement the inclusion of one in a module.
 
