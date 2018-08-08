@@ -5,6 +5,35 @@
 
 ![screenshot of an application created with WorkbenchFX](docs/images/workbenchFX_in_use.png) 
 
+## Table of Contents
+[WorkbenchFX](#workbenchfx)
+
+[What is WorkbenchFX](#what-is-workbenchfx)
+
+[Advantages](#advantages)
+
+[Main Features](#main-features)
+
+[Documentation](#documentation)
+
+[Structure](#structure)
+
+[Demos](#demos)
+
+[Getting Started](#getting-started)
+
+[]()
+
+[]()
+
+[]()
+
+[]()
+
+[]()
+
+[]()
+
 ## What is WorkbenchFX?
 TODO: description
 
@@ -44,7 +73,7 @@ Afterwards, you will find the documentation in the `target/generated-docs/` subd
 
 ## Structure
 WorkbenchFX uses the builder pattern to create the application, since one can use plenty of optional features.
-The minimal usage requires only the definition of the custom extensions of the `WorkbenchModule`.
+The minimal usage requires only the definition of a custom extension from the `WorkbenchModule`.
 Afterwards one can define further functionality calling the equivalent method.
 
 For better illustration, the basic concept of creating a workbench application is shown below:
@@ -140,7 +169,7 @@ This code snippet results to the following application:
 
 ![custom workbench](docs/images/customWorkbench.png)
 
-The default implementation results in a clickable `Tile` to open the module.
+The default implementation comes with a clickable `Tile` to open the module.
 Opening the module, creates a `Tab` with the defined Icon and text and the content returned in the activate() method is displayed in the center.
 By clicking on the `+` button, one gets back to the `AddModulePage`.
 Closing the opened module is achieved through clicking on the close button in the `Tab`.
