@@ -60,46 +60,59 @@ Workbench workbench =
 
 Notes:
 - The result of the `build()` call is a `Control` which can be set in a scene.
-- It is also possible to use the default constructor `new Workbench()` and add the `WorkbenchModules` and features afterwards
+- It is also possible to use the default constructor `new Workbench()` and add the `WorkbenchModules` and features afterwards.
 
 ## Demos
 We created several demos to visualize the capabilities of `WorkbenchFX` in the `workbench-fx-demo` folder:
 
 File | Description
 ---- | -----------
-`CustomDemo` | A workbench application which uses all features, to demonstrate the full capability of `WorkbenchFX`
-`ExtendedDemo` | To demonstrate an application with a lot of `WorkbenchModules`
-`SceneBuilderDemo` | A proof of concept, if the API also works with `SceneBuilder`
-`StadardDemo` | Shows the simplest usage of `WorkbenchFX` with only three modules and no optional features  
+`CustomDemo.java` | A workbench application which uses all features, to demonstrate the full capability of `WorkbenchFX`
+`ExtendedDemo.java` | To demonstrate an application with a lot of `WorkbenchModules`
+`SceneBuilderDemo.java` | A proof of concept, if the API also works with `SceneBuilder`
+`StadardDemo.java` | Shows the simplest usage of `WorkbenchFX` with only three modules and no optional features  
 
 ## Getting started
-Creating a preferences dialog is as simple as calling `PreferencesFx.of()`.
+### Extending the `WorkbenchModule`
+An extension of the abstract class `WorkbenchModule` is required in order to create an application:
 
 ```Java
-StringProperty stringProperty = new SimpleStringProperty("String");
-BooleanProperty booleanProperty = new SimpleBooleanProperty(true);
-IntegerProperty integerProperty = new SimpleIntegerProperty(12);
-DoubleProperty doubleProperty = new SimpleDoubleProperty(6.5);
-
-PreferencesFx workbench = 
-    PreferencesFx.of(AppStarter.class, // Save class (will be used to reference saved values of Settings to)
-        Category.of("Category title 1",
-            Setting.of("Setting title 1", stringProperty), // creates a group automatically
-            Setting.of("Setting title 2", booleanProperty) // which contains both settings
-        ),
-        Category.of("Category title 2")
-            .subCategories( // adds a subcategory to "Category title 2"
-                Category.of("Category title 3",
-                    Group.of("Group title 1",
-                        Setting.of("Setting title 3", integerProperty)
-                    ),
-                    Group.of( // group without title
-                        Setting.of("Setting title 3", doubleProperty)
-                    )
-                )
-            )
-    );
+public class CustomModule extends WorkbenchModule {
+  
+}
 ```
+
+It is then required to call the `super()` constructor and hand over a `String` as name and either an `Image`, `FontawesomeIcon` or `MaterialDesignIcon` as icon for the module:
+
+```Java
+public class CustomModule extends WorkbenchModule {
+  public CustomModule() {
+      super("My first Workbench module", MaterialDesignIcon.THUMB_UP); // A name and an icon is required
+  }
+}
+```
+
+Furthermore, overriding the `activate()` method is also required.
+This method will be called when clicking on the `Tile` to open the module:
+
+```Java
+public class CustomModule extends WorkbenchModule {
+  public CustomModule() {
+      super("My first Workbench module", MaterialDesignIcon.THUMB_UP); // A name and an icon is required
+  }
+  @Override
+  public Node activate() {
+      return new Label("Hello World"); // return here your actual content to display
+  }
+}
+```
+
+This is a minimal implementation of a custom `WorkbenchModule`.
+For further information we refer to the `Javadoc`.
+
+
+
+
 
 This code snippet results in the following preferences window, containing three categories:
 

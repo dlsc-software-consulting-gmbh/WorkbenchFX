@@ -111,10 +111,11 @@ public class ToolbarTestModule extends WorkbenchModule {
   }
 
   private String getRandomColor() {
-    return "#" + Color.color(
-        Math.random() * .5 + .5,
-        Math.random() * .5 + .5,
-        Math.random() * .5 + .5
-    ).toString().substring(2, 8);
+    return "#f2f2f2";
+//    return "#" + Color.color(
+//        Math.random() * .5 + .5,
+//        Math.random() * .5 + .5,
+//        Math.random() * .5 + .5
+//    ).toString().substring(2, 8);
   }
 }

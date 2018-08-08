@@ -23,11 +23,15 @@ import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,7 +50,7 @@ public class CustomDemo extends Application {
   public void start(Stage primaryStage) {
     Scene myScene = new Scene(initWorkbench());
 
-    primaryStage.setTitle("Custom WorkbenchFX Demo");
+    primaryStage.setTitle("WorkbenchFX");
     primaryStage.setScene(myScene);
     primaryStage.setWidth(1000);
     primaryStage.setHeight(700);
@@ -98,6 +102,9 @@ public class CustomDemo extends Application {
         new FontAwesomeIconView(FontAwesomeIcon.GEARS));
     ToolbarItem showDialogButton = new ToolbarItem("Show",
         new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    Workbench.builder(
+        new CustomWorkbenchModule()
+    ).
 
     // WorkbenchFX
     workbench =
@@ -118,29 +125,34 @@ public class CustomDemo extends Application {
             new LifecycleTestModule()
         )
             .toolbarLeft(
-                new ToolbarItem("WorkbenchFX"),
-                addPreferences,
-                removePreferences,
-                new ToolbarItem(
-                    new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
-                    new CustomMenuItem(new Label("Content 1")),
-                    new CustomMenuItem(new Label("Content 2")))
+                new ToolbarItem("WorkbenchFX Application", event -> workbench.showConfirmationDialog("Recognized the Dialog?", "Please confirm, that you've seen the Dialog.", buttonType -> {}))
+//                addPreferences,
+//                removePreferences,
+//                new ToolbarItem(
+//                    new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
+//                    new CustomMenuItem(new Label("Content 1")),
+//                    new CustomMenuItem(new Label("Content 2")))
             )
             .toolbarRight(
-                showDialogButton,
-                new ToolbarItem(
-                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
-                    new Menu(
-                        "Submenus",
-                        new FontAwesomeIconView(FontAwesomeIcon.PLUS),
-                        new MenuItem("Submenu 1"),
-                        new CustomMenuItem(new Label("CustomMenuItem"), false))),
-                new ToolbarItem(
-                    "Text",
-                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
-                    new CustomMenuItem(new Label("Content 1")),
-                    new CustomMenuItem(new Label("Content 2"))))
-            .modulesPerPage(9)
+                new ToolbarItem("Account", new MaterialDesignIconView(MaterialDesignIcon.ACCOUNT),
+                    new MenuItem("", new HBox(
+                        new Label("Login: "), new TextField(), new Button("", new MaterialDesignIconView(MaterialDesignIcon.PLUS))
+                    ))),
+                new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.LANGUAGE), new MenuItem("English"), new MenuItem("German")))
+//                showDialogButton,
+//                new ToolbarItem(
+//                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
+//                    new Menu(
+//                        "Submenus",
+//                        new FontAwesomeIconView(FontAwesomeIcon.PLUS),
+//                        new MenuItem("Submenu 1"),
+//                        new CustomMenuItem(new Label("CustomMenuItem"), false))),
+//                new ToolbarItem(
+//                    "Text",
+//                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
+//                    new CustomMenuItem(new Label("Content 1")),
+//                    new CustomMenuItem(new Label("Content 2"))))
+//            .modulesPerPage(9)
             //.pageFactory(CustomPage::new)
             //.tabFactory(CustomTab::new)
             //.tileFactory(CustomTile::new)
@@ -159,7 +171,7 @@ public class CustomDemo extends Application {
         "This will reset your device to its default factory settings.", null));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
-    //workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+    workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
     //workbench.getStylesheets().add(CustomDemo.class.getResource("darkTheme.css").toExternalForm());
 
     workbench
