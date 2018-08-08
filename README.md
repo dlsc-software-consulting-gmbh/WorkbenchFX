@@ -3,33 +3,37 @@
 
 **The one and only library to build large JavaFX Applications!**
 
-![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
+![screenshot of an application created with WorkbenchFX](docs/images/workbenchFX_in_use.png) 
 
 ## What is WorkbenchFX?
-Creating preference dialogs in JavaFX is a tedious and very error-prone task. PreferencesFX is a framework which solves this problem. It enables the developer to create preference dialogs with ease and creates well-designed and user-friendly preference dialogs by default.
+TODO: description
 
 ## Advantages
 - Less error-prone
 - Less code needed
 - Easy to learn
 - Easy to understand
-- Easy to use, for developers and users alike
+- Easy to use, especially for developers which have not much experience in working with JavaFX
+- A well designed UI, inspired by the material design standards
 
 ## Main Features
 - Simple and understandable API
+- Encapsulating multiple, independent `WorkbenchModules`, and display them in Tabs
+- A predefined stylesheet which allows the user to change the styles as he needs to
 - The most important features are noted in the picture and the corresponding table below:
 
-![screenshot of created preferences dialog with features](docs/images/preferencesFX_in_use_border.png)
+![screenshot of the most important features WorkbenchFX provides](docs/images/features.png)
 
 Nr. | Feature | Description
 --- | ------- | -----------
-1 | `Search / Filter` | Filters all categories for a given String. Enables searching for a Setting, Group or Category by name.
-2 | `TreeView` | Shows all categories in a hierarchical structure
-3 | `Breadcrumb Bar` | Shows the user the previous categories in the hierarchy to the currently displayed category and allows the user to navigate back.
-4 | `Undo / Redo Buttons` | Allows the user a stepwise undo and redo possibility of his last changes.
-5 | `Various pre-defined setting types` | e.g. Integer, Double, Boolean, String, Lists, Objects
-6 | `close/cancel buttons` | The close button just closes the window and leaves the preferences as they are. The cancel button discards all changes which are made during the time the dialog was last opened.
-- | `Instant persistance` | Any changes to the application are saved instantly.
+1 | `WorkbenchModule` | what is a module? extend from wbmod, put different mods into the wb 
+2 | `Pagination` | mods displayed in addpage, pagination, multiple sites
+3 | `Tabs` | opening modules in multiple tabs, open/closeable
+4 | `NavigationDrawer` | automatically blend in when items
+5 | `Toolbar` | 
+6 | `ToolbarItems` | when defining custom -> just use the node ctor
+7 | `ModuleToolbar` | automatically blend in and out as you like 
+8 | `WorkbenchDialog` | providing various default dialog types
 
 ## Documentation
 This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following *maven* task:
@@ -39,41 +43,36 @@ process-resources
 Afterwards, you will find the documentation in the `target/generated-docs/` subdirectory.
 
 ## Structure
-A preferences dialog can contain multiple `Categories`.  
-Each `Category` contains one to multiple `Groups`  
-Each `Group` contains one to multiple `Settings`  
+WorkbenchFX uses the builder pattern to create the application, since one can use plenty of optional features.
+The minimal usage requires only the definition of the custom extensions of the `WorkbenchModule`.
+Afterwards one can define further functionality calling the equivalent method.
 
-For better illustration, the basic concept of writing a preferences dialog is shown below:
+For better illustration, the basic concept of creating a workbench application is shown below:
 ```Java
-PreferencesFx workbench = 
-    PreferencesFx.of(SaveClass.class,
-        Category.of("Category Title",
-            Group.of("Group Title",
-                Setting.of("Setting Title", new Property())
-            )
-        )
-    );
+Workbench workbench = 
+    Workbench.builder( // Using the static method call
+        new CustomWorkbenchModule() // Extension of the WorkbenchModule
+        ...
+    )
+    // .toolbarRight(...) // optional usage of additional features eg. navigationDrawer(), modulesPerPage(), etc.
+    .build(); // The build call finishes and returns the workbench
 ```
+
 Notes:
-- It is also possible to omit the `Group` and declare all settings in a `Category` directly. However, in this case all settings will simply be displayed one after another without grouping. If you want more control, use `Group`.
-- A `Group` can also be defined without a title. In this case, the individual groups are displayed with more space inbetween them, to ensure they can be differentiated.
+- The result of the `build()` call is a `Control` which can be set in a scene.
+- It is also possible to use the default constructor `new Workbench()` and add the `WorkbenchModules` and features afterwards
 
 ## Demos
-We created several demos to visualize the capabilities of `PreferencesFX`.  
-To change between demos, simply uncomment the desired demo in the imports of `preferencesfx-demo/src/com/dlsc/preferencesfx/AppStarter.java`
-```Java
-// Change this import depending on the demo
-import com.dlsc.workbenchfx.standard.com.dlsc.workbenchfx.RootPane;
-workbenchcom.dlsc.workbenchfxchfx
-```
+We created several demos to visualize the capabilities of `WorkbenchFX` in the `workbench-fx-demo` folder:
 
-The following dcom.dlsc.workbenchfxmport | Description
------- | ---com.dlsc.workbenchfxThe standard demo with a few settings and fully working bindings.
-`i18n` | Shows how to define preference dialogs in multiple languages, using internationalization.
-`oneCategory` | Shows the behavior of the API when only one category is used: The Breadcrumb Bar and TreeView will be omitted from the GUI.
-`extended` | A demo, populated with lots of categories, groups and settings without any bindings. Designed to show usage in a big project.
+File | Description
+---- | -----------
+`CustomDemo` | A workbench application which uses all features, to demonstrate the full capability of `WorkbenchFX`
+`ExtendedDemo` | To demonstrate an application with a lot of `WorkbenchModules`
+`SceneBuilderDemo` | A proof of concept, if the API also works with `SceneBuilder`
+`StadardDemo` | Shows the simplest usage of `WorkbenchFX` with only three modules and no optional features  
 
-## Defining a preferences dialog
+## Getting started
 Creating a preferences dialog is as simple as calling `PreferencesFx.of()`.
 
 ```Java
