@@ -15,6 +15,7 @@ import com.dlsc.workbenchfx.custom.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.custom.test.ToolbarItemTestModule;
 import com.dlsc.workbenchfx.custom.test.ToolbarTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -48,14 +49,22 @@ public class CustomDemo extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    Scene myScene = new Scene(initWorkbench());
+//    Scene myScene = new Scene(initWorkbench());
+    Scene myScene = new Scene(Workbench.builder(
+        new WorkbenchModule("My first Workbench module", MaterialDesignIcon.THUMB_UP) {
+          @Override
+          public Node activate() {
+            return new Label("Hello World");
+          }
+        }
+    ).build());
 
-    primaryStage.setTitle("WorkbenchFX");
+//    primaryStage.setTitle("WorkbenchFX");
     primaryStage.setScene(myScene);
     primaryStage.setWidth(1000);
     primaryStage.setHeight(700);
     primaryStage.show();
-    primaryStage.centerOnScreen();
+//    primaryStage.centerOnScreen();
   }
 
   private Workbench initWorkbench() {
@@ -102,9 +111,9 @@ public class CustomDemo extends Application {
         new FontAwesomeIconView(FontAwesomeIcon.GEARS));
     ToolbarItem showDialogButton = new ToolbarItem("Show",
         new FontAwesomeIconView(FontAwesomeIcon.GEARS));
-    Workbench.builder(
-        new CustomWorkbenchModule()
-    ).
+//    Workbench.builder(
+//        new CustomWorkbenchModule()
+//    ).
 
     // WorkbenchFX
     workbench =

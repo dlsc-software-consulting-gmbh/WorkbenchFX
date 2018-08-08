@@ -110,16 +110,40 @@ public class CustomModule extends WorkbenchModule {
 This is a minimal implementation of a custom `WorkbenchModule`.
 For further information we refer to the `Javadoc`.
 
+### Creating the `Workbench`
+After extending the `WorkbenchModule`, the application can be created.
+To do this, one can access the `WorkbenchBuilder` by calling `Workbench.builder()`, setting the previously written module and build the `Workbench` by calling the `build()` method:
 
+```Java
+public class CustomDemo extends Application {
+  public static void main(String[] args) {
+    launch(args);
+  }
 
+  @Override
+  public void start(Stage primaryStage) {
+    // Creating the Workbench
+    Workbench customWorkbench = Workbench.builder( // Accessing the WorkbenchBuilder
+        new CustomModule() // Adding the CustomModule
+    ).build(); // Building the Workbench
+    
+    Scene myScene = new Scene(customWorkbench);
+    primaryStage.setScene(myScene);
+    primaryStage.setWidth(1000);
+    primaryStage.setHeight(700);
+    primaryStage.show();
+  }
+}
+```
 
+This code snippet results to the following application:
 
-This code snippet results in the following preferences window, containing three categories:
+![custom workbench](docs/images/customWorkbench.png)
 
-![result](docs/images/example_preferences.png)
-
-To create a `Setting`, you only need to define a title and a `Property`. `PreferencesFX` does the rest.  
-You can then integrate this `Property` in your application. Changes of values in the preferences dialog will be persisted instantly, however it's up to you to decide whether you want to persist them instantly in your application as well.
+The default implementation results in a clickable `Tile` to open the module.
+Opening the module, creates a `Tab` with the defined Icon and text and the content returned in the activate() method is displayed in the center.
+By clicking on the `+` button, one gets back to the `AddModulePage`.
+Closing the opened module is achieved through clicking on the close button in the `Tab`.
 
 #### Must haves
 You have a lot of options to influence the behavior and layout of the preferences dialog.  
