@@ -398,7 +398,7 @@ List of all default Dialogs
 ## Custom Overlay
 // Chapter about creating a custom overlay
 
-#Restyling
+# Restyling
 // Chapter about using the stylesheet
 
 # Team
