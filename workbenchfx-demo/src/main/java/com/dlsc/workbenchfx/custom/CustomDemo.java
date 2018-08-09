@@ -62,16 +62,20 @@ public class CustomDemo extends Application {
         }
     ).build();
 
+    workbench1.getToolbarControlsLeft().add(new ToolbarItem("Show Dialog", event -> {
+      workbench1.showDialog(WorkbenchDialog.builder("Save before closing?", "Do you want to save your progress? Otherwise it will be lost.", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL).build());
+    }));
+
     NavigationDrawer drawer = workbench1.getNavigationDrawer();
     drawer.getItems().addAll(new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Bli")), new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Ble")));
     drawer.setMenuHoverBehavior(Priority.SOMETIMES);
 
-    Scene myScene = new Scene(workbench1);
+    Scene myScene = new Scene(initWorkbench());
 
 //    primaryStage.setTitle("WorkbenchFX");
     primaryStage.setScene(myScene);
-    primaryStage.setWidth(700);
-    primaryStage.setHeight(450);
+    primaryStage.setWidth(1000);
+    primaryStage.setHeight(700);
     primaryStage.show();
 //    primaryStage.centerOnScreen();
   }

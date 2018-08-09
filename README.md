@@ -583,25 +583,32 @@ For example following dialog asks for saving before closing:
 ![Dialog which asks for saving before closing](docs/images/dialogs/saveBeforeClose.png) 
 
 In the [Module Lifecycle](#module-lifecycle) it is stated, that the `destroy()` method will be called when closing the module.
+The module will be closed as soon as the `destroy()` method returns `true`.
+If someone wants to prevent the module from closing he has to return `false` and then close the module manually as soon as he is ready to.
+This is done by calling the method `close()`.
+
+The code snippet below results in the dialog displayed in the image on top:
 
 ```Java
 @Override
 public boolean destroy() {
   
-  // Do some asynchronous task (in our case showing a dialog and waiting for answer)
+  // Do some asynchronous task (in our case showing a dialog and waiting for input)
   getWorkbench().showDialog(WorkbenchDialog.builder(
-      "Confirmation", "Close Module?", WorkbenchDialog.Type.CONFIRMATION)
+      "Save before closing?",
+      "Do you want to save your progress? Otherwise it will be lost.",
+      ButtonType.YES, ButtonType.NO, ButtonType.CANCEL)
       .blocking(true)
       .onResult(buttonType -> {
         if (ButtonType.YES.equals(buttonType)) {
-          // YES was pressed -> Proceed with saving for example
+          // YES was pressed -> Proceed with saving
           ...
           close(); // At the end of saving, close the module 
         }
       })
       .build());
   
-  return false; // return false, because we're closing ourselves
+  return false; // return false, because we're closing manually
 }
 ```
 
