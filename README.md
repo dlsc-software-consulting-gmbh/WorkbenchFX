@@ -24,6 +24,8 @@
 - [Using the Components](#using-the-components)
   - [ToolbarItem](#toolbaritem)
   - [Dialog](#dialog)
+    - [Predefined Dialogs](#predefined-dialogs)
+    - [Custom Dialog](#custom-dialog)
   - [Prevent module from closing](#prevent-module-from-closing)
   - [Drawer](#drawer)
   - [Custom Overlay](#custom-overlay)
@@ -266,7 +268,7 @@ Method (Workbench) | Description
 `getToolbarControlsRight()`  | Grants access to the items on the right of the `Toolbar`
 
 ### `WorkbenchModule`
-The `WorkbenchModule` also provides optional functionality.
+The `WorkbenchModule` also provides useful functionality.
 It is possible to add `ToolbarItems` to the toolbar of the module (just like in the workbench):
 
 Method (WorkbenchModule)    | Description
@@ -274,6 +276,7 @@ Method (WorkbenchModule)    | Description
 `getToolbarControlsLeft()`  | Calling this method returns an `ObservableList` of `ToolbarItems`. Adding items to the list will automatically create a toolbar between the `Tab` and the module content and adds the items on the left side
 `getToolbarControlsRight()` | Calling this method returns an `ObservableList` of `ToolbarItems`. Adding items to the list will automatically create a toolbar between the `Tab` and the module content and adds the items on the right side
 `close()`                   | Will immediately close the module, ignoring the [Module Lifecycle](#module-lifecycle)
+`getWorkbench()`            | In the `init()` call, the `Workbench` is stored in the module. Calling this returns it
 
 # Using the Components
 ## ToolbarItem
@@ -281,7 +284,8 @@ The `Toolbar items` which can be set in the toolbars of either the workbench or 
 If for example the item contains a `String` as text and a `MenuItem` it is automatically assumed that the styling and behaviour of a `MenuButton` is needed.
 If on the other hand only an `IconView` is defined, it is assumed, the behaviour of a `Label` is desired.
 
-Adding different attributes to the `ToolbarItem` results in different outcomes:
+Adding different attributes to the `ToolbarItem` results in different outcomes: 
+They can also be seen in the `toolbar` of the `CustomDemo`
 
 <table>
     <tr>
@@ -365,10 +369,19 @@ ToolbarItem toolbarItem = new ToolbarItem(
     <tr>
 </table>
 
-
 ## Dialog
-Definition and behaviour of Dialogs.
-List of all default Dialogs
+### Predefined Dialogs
+`WorkbenchFX` comes with a lot of predefined dialogs.
+Using them is as simple as calling `(Workbench).show...Dialog()` with the desired dialog type.
+Every dialog type returns after clicking on a `Button` the corresponding `ButtonType` as a result.
+Therefore it is required to define a `Consumer<ButtonType>` for every dialog to validate the answer.
+A few examples on how to use them are listed below: 
+
+```Java
+// Precondition
+Workbench workbench = Workbench.builder(...).build; // Creating the workbench
+Button dialogBtn = new Button("Show Dialog"); // Assuming the button is used in a module
+```
 
 <table>
     <tr>
@@ -377,60 +390,86 @@ List of all default Dialogs
     </tr>
     <tr>
         <td><pre lang="java">
-// Dialog
-        </td>
+// Confirmation Dialog
+dialogBtn = new Button("Confirmation Dialog");
+dialogBtn.setOnAction(event ->
+    workbench.showConfirmationDialog(
+       "Continue without saving?",
+       "Are you sure you want to continue without saving your document?",
+       buttonType -> { // Proceed and validate the result }
+    )
+);</td>
         <td><img src="./docs/images/settings/integer_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
-// Dialog
-        </td>
+// Error Dialog
+dialogBtn = new Button("Error Dialog");
+dialogBtn.setOnAction(event ->
+    workbench.showErrorDialog(
+       "Button click failed!",
+       "During the click of this button, something went horribly wrong.",
+       buttonType -> { // Proceed and validate the result }
+    )
+);</td>
         <td><img src="./docs/images/settings/integerSlider_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
-// Dialog
-        </td>
+// Error Dialog on exception
+// Provokes an exception
+Button btn = null;
+try {
+  btn.setOnAction(event -> System.out.println("This will cause a NPE"));
+} catch (NullPointerException exception) {
+  workbench.showErrorDialog(
+     "Button click failed!",
+     "During the click of this button, something went horribly wrong. +
+     Please forward the content below to anyone but the WorkbenchFX developers +
+     to track down the issue:",
+     exception // Could also be just a String
+     buttonType -> { // Proceed and validate the result }
+  );
+}</td>
         <td><img src="./docs/images/settings/double_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
-// Dialog
-        </td>
+// Warning Dialog
+dialogBtn = new Button("Warning Dialog");
+dialogBtn.setOnAction(event ->
+    workbench.showWarningDialog(
+       "Reset settings?",
+       "This will reset your device to its default factory settings.",
+       buttonType -> { // Proceed and validate the result }
+    )
+);</td>
         <td><img src="./docs/images/settings/doubleSlider_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
-// Dialog
-        </td>
+// Information Dialog
+dialogBtn = new Button("Information Dialog");
+dialogBtn.setOnAction(event ->
+    workbench.showInformationDialog(
+       "Just to let you know",
+       "(This is an information dialog)",
+       buttonType -> { // Proceed and validate the result }
+    )
+);</td>
         <td><img src="./docs/images/settings/boolean_setting.png"/></td>
     </tr>
-    <tr>
-        <td><pre lang="java">
-// Dialog
-        </td>
-        <td><img src="./docs/images/settings/string_setting.png"></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
-// Dialog
-        </td>
-        <td><img src="./docs/images/settings/observableList_setting.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
-// Dialog
-        </td>
-        <td><img src="./docs/images/settings/listProperty_setting.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
-// Custom Dialog
-        </td>
-        <td><img src="./docs/images/settings/favourites_setting.png"/></td>
-    </tr>
-    <tr>
 </table>
+
+### Custom Dialog
+Sometimes just using the default dialog types are not enough.
+For such special cases, the `showDialog()` method can be used.
+With a `WorkbenchDialog.builder()` a custom dialog can be created.
+The builder provides some useful methods which can be used:
+
+Method (WorkbenchDialog.builder()) | Description
+---------------------------------- | -----------
+
 
 ## Prevent module from closing
 // Chapter about using the Dialog to save and close
