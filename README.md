@@ -96,9 +96,9 @@ Workbench workbench =
     .build(); // The build call finishes and returns the workbench
 ```
 
-Notes:
+Note:
 - The result of the `build()` call is a `Control` which can be set in a scene.
-- It is also possible to use the default constructor `new Workbench()` and add the `WorkbenchModules` and features afterwards. But it is recommended to use the builder pattern, since it is much easier to create the `Workbench`. The default constructor comes in use when the API is used with `Scenebuilder`.
+- It is also possible to use the default constructor `new Workbench()` and add the `WorkbenchModules` and features afterwards. But it is recommended to use the builder pattern, since it is much easier to create the `Workbench`. The default constructor comes in use when the API is used with `SceneBuilder`.
 
 ## Module Lifecycle
 The full documentation about the module lifecycle can be found in the subdirectory *docs/index.adoc#workbenchmodule-lifecycle*
@@ -112,8 +112,10 @@ Method         | Description
 `deactivate()` | Gets called whenever this module is the currently displayed content and the content is being switched to another module
 `destroy()`    | Gets called when this module is explicitly being closed by the user in the toolbar
 
-
 When extending a custom module, it is only required to override the `activate()` method.
+
+Overriding the methods don't require any workbench related coding.
+When overriding one of the methods, only the module related stuff needs to be programmed.
 
 Note:
 - A fifth method exists: `close()`. This method differs from the others, because it ignores the lifecycle and closes the module without calling `deactivate()` or `destroy()`. More about this method is written in the chapter about [prevent module from closing](#prevent-module-from-closing).
@@ -122,11 +124,11 @@ Note:
 # Demos
 We created several demos to visualize the capabilities of `WorkbenchFX` in the `workbench-fx-demo` folder:
 
-File | Description
----- | -----------
+File                | Description
+------------------- | -----------
 `StandardDemo.java` | Shows the simplest usage of `WorkbenchFX` with only three modules and no optional features  
-`CustomDemo.java` | A workbench application which uses all features, to demonstrate the full capability of `WorkbenchFX`
-`FXMLDemo.java` | A proof of concept, if the API also works with `SceneBuilder` and a `FXML` file
+`CustomDemo.java`   | A workbench application which uses all features, to demonstrate the full capability of `WorkbenchFX`
+`FXMLDemo.java`     | A proof of concept, if the API also works with `SceneBuilder` and a `FXML` file
 
 # Getting started
 ## Extending the `WorkbenchModule`
@@ -152,7 +154,7 @@ Cheatsheets for using the icons are available at:
 
 
 Furthermore, overriding the `activate()` method is also required.
-This method will be called when clicking on the `Tile` to open the module:
+This method will be called when clicking on the `Tile` to open the module (further information about the [Module Lifecycle](#module-lifecycle)):
 
 ```Java
 @Override
@@ -162,6 +164,7 @@ public Node activate() {
 ```
 
 The minimal implementation of a custom `WorkbenchModule` finally looks like the code snippet below.
+Returning a *Hello World Label* represents the view which will be displayed in the final application.
 For further information we refer to the `Javadoc`.
 
 ```Java
@@ -251,7 +254,7 @@ Method (WorkbenchBuilder) | Description
 
 ### `Workbench`
 After the `build()` call on the builder, the `Workbench` is created.
-Following useful calls might be interesting:
+Following useful calls might be of interest:
 
 Method (Workbench) | Description
 ------------------ | -----------
@@ -270,11 +273,15 @@ Method (WorkbenchModule)    | Description
 --------------------------- | -----------
 `getToolbarControlsLeft()`  | Calling this method returns an `ObservableList` of `ToolbarItems`. Adding items to the list will automatically create a toolbar between the `Tab` and the module content and adds the items on the left side
 `getToolbarControlsRight()` | Calling this method returns an `ObservableList` of `ToolbarItems`. Adding items to the list will automatically create a toolbar between the `Tab` and the module content and adds the items on the right side
-`close()`                   | Will immediately close the module, ignoring the module lifecycle
+`close()`                   | Will immediately close the module, ignoring the [Module Lifecycle](#module-lifecycle)
 
 # Using the Components
 ## ToolbarItem
-Definition and behaviour of TBI
+The `Toolbar items` which can be set in the toolbars of either the workbench or the module are styled and behave differently based on their content.
+If for example the item contains a `String` as text and a `MenuItem` it is automatically assumed that the styling and behaviour of a `MenuButton` is needed.
+If on the other hand only an `IconView` is defined, it is assumed, the behaviour of a `Label` is desired.
+
+Adding different attributes to the `ToolbarItem` results in different outcomes:
 
 <table>
     <tr>
@@ -284,55 +291,75 @@ Definition and behaviour of TBI
     <tr>
         <td><pre lang="java">
 // Label with text
-        </td>
+ToolbarItem toolbarItem = new ToolbarItem("Hello World");</td>
         <td><img src="./docs/images/settings/integer_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // Label with graphic
-        </td>
+ToolbarItem toolbarItem = new ToolbarItem(
+    new MaterialIconView(MaterialDesignIcon.THUMB_UP)
+);</td>
         <td><img src="./docs/images/settings/integerSlider_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // Label with text and graphic
-        </td>
+ToolbarItem toolbarItem = new ToolbarItem(
+    "Hello World", new MaterialIconView(MaterialDesignIcon.THUMB_UP)
+);</td>
         <td><img src="./docs/images/settings/double_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // Button with text
-        </td>
+ToolbarItem toolbarItem = new ToolbarItem(
+    "Hello World", event -> System.out.println("Hello World")
+);</td>
         <td><img src="./docs/images/settings/doubleSlider_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // Button with graphic
-        </td>
+ToolbarItem toolbarItem = new ToolbarItem(
+    new MaterialIconView(MaterialDesignIcon.THUMB_UP),
+    event -> System.out.println("Hello World")
+);</td>
         <td><img src="./docs/images/settings/boolean_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // Button with text and graphic
-        </td>
+ToolbarItem toolbarItem = new ToolbarItem(
+    "Hello World", new MaterialIconView(MaterialDesignIcon.THUMB_UP),
+    event -> System.out.println("Hello World")
+);</td>
         <td><img src="./docs/images/settings/string_setting.png"></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // MenuButton with text
-        </td>
+ToolbarItem toolbarItem = new ToolbarItem(
+    "Hello World", new MenuItem("Content 1"), new MenuItem("Content 2")
+);</td>
         <td><img src="./docs/images/settings/observableList_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // MenuButton with graphic
-        </td>
+ToolbarItem toolbarItem = new ToolbarItem(
+    new MaterialIconView(MaterialDesignIcon.THUMB_UP),
+    new MenuItem("Content 1"), new MenuItem("Content 2")
+);</td>
         <td><img src="./docs/images/settings/listProperty_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // MenuButton with text and graphic
-        </td>
+ToolbarItem toolbarItem = new ToolbarItem(
+    "Hello World", new MaterialIconView(MaterialDesignIcon.THUMB_UP),
+    new MenuItem("Content 1"), new MenuItem("Content 2")
+);</td>
         <td><img src="./docs/images/settings/favourites_setting.png"/></td>
     </tr>
     <tr>
