@@ -40,7 +40,6 @@ The most important components are noted in the picture and the corresponding tab
 
 ![screenshot of the most important features WorkbenchFX provides](docs/images/features.png)
 
-
 Nr. | Component           | Description
 --- | ------------------- | -----------
  _  | `Workbench module`  | The complete workbench application consists of multiple modules. It contains the title, an icon and the content to be displayed in the `Workbench`
@@ -56,9 +55,8 @@ Nr. | Component           | Description
 11  | `Menu button`       | It opens the `Navigation drawer`. The position of the button varies depending on the amount of items in the `Toolbar` and the `Navigation drawer`. If the `Navigation drawer` does not contain any items, the button will not be displayed at all. If any items are in the `Toolbar`, it will be displayed on the left side of the `Toolbar`, otherwise on the left side of the `Tabbar`
 12  | `Navigation drawer` | It displays a logo which can be set in the stylesheet and the defined items. The default hover behaviour over its items can be adjusted using the method call `(NavigationDrawer).setMenuHoverBehavior(Priority)`
 13  | `Drawers`           | It is possible to use the optional `showDrawer()` call on the `Workbench` to create additional drawers with custom content. All four window sides are supported
-14  | `WorkbenchDialog`   | When calling `showDialog()` on the `Workbench`, there is the possibility to create a custom dialog, or using a variety of predefined dialogs like `error-, confirmation-, information-dialog, etc.`
-15  | `ModuleToolbar`     | Calling `getToolbarControlsLeft()` or `getToolbarControlsRight()` on a `Workbench module` gives access to its `Toolbar items`. Adding them will automatically generate a unique toolbar for it
-
+14  | `Workbench dialog`  | When calling `showDialog()` on the `Workbench`, there is the possibility to create a custom dialog, or using a variety of predefined dialogs like `error-, confirmation-, information-dialog, etc.`
+15  | `Module toolbar`    | Calling `getToolbarControlsLeft()` or `getToolbarControlsRight()` on a `Workbench module` gives access to its `Toolbar items`. Adding them will automatically generate a unique toolbar for it
 
 For further information about the several components we refer to the `Javadoc`
 
