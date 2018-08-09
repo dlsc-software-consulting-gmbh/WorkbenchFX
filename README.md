@@ -400,7 +400,7 @@ dialogBtn.setOnAction(event ->
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
-        <td><img src="./docs/images/dialogs/confirmation.png"/></td>
+        <td><img src="docs/images/dialogs/confirmation.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
