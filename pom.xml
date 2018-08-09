@@ -76,7 +76,10 @@
                 <configuration>
                     <sourceDirectory>docs</sourceDirectory>
                     <attributes>
-                        <sourcedir>${project.build.sourceDirectory}</sourcedir>
+                        <dir-test-java>${project.basedir}/workbenchfx-core/src/test/java/com/dlsc/workbenchfx</dir-test-java>
+                        <dir-test-groovy>${project.basedir}/workbenchfx-core/src/test/groovy/com/dlsc/workbenchfx</dir-test-groovy>
+                        <dir-source-core>${project.basedir}/workbenchfx-core/src/main/java/com/dlsc/workbenchfx</dir-source-core>
+                        <dir-source-demo>${project.basedir}/workbenchfx-demo/src/main/java/com/dlsc/workbenchfx</dir-source-demo>
                         <project-version>${project.version}</project-version>
                         <bibliography-database>bibliography/WorkbenchFX.bib</bibliography-database>
                         <bibliography-style>ieee</bibliography-style>

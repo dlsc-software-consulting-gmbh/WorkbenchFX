@@ -1,23 +1,20 @@
-:sourcedirjava: ../workbenchfx-core/src/test/java/com/dlsc/workbenchfx
-:sourcedirgroovy: ../workbenchfx-core/src/test/groovy/com/dlsc/workbenchfx
-
 = Test Reference
 François Martin; Marco Sanfratello
 
 == Open Modules
 [source,java]
 ----
-include::{sourcedirjava}/WorkbenchTest.java[tags=openModule]
+include::{dir-test-java}/WorkbenchTest.java[tags=openModule]
 ----
 
 == Close Modules
 [source,java]
 ----
-include::{sourcedirjava}/WorkbenchTest.java[tags=closeModule]
+include::{dir-test-java}/WorkbenchTest.java[tags=closeModule]
 ----
 
 == Close Modules Interrupted
 [source,java]
 ----
-include::{sourcedirjava}/WorkbenchTest.java[tags=closeModuleInterrupt]
+include::{dir-test-java}/WorkbenchTest.java[tags=closeModuleInterrupt]
 ----
