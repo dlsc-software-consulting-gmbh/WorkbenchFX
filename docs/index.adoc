@@ -1,11 +1,10 @@
 = Technical Report: WorkbenchFX
 François Martin; Marco Sanfratello
 
-// Path to the code references
-:sourcedir: ../src/main/java
-:sourcedirdemo: ../workbenchfx-demo/src/main/java
 // Check symbol
 :y: &#10003;
+// Ensures references are displayed in "Figure x" format
+:xrefstyle: short
 
 == Front page
 
@@ -82,34 +81,50 @@ Which is why we decided to include them in the API design of the `Module` class.
 
 === WorkbenchModule Lifecycle
 The following UML diagrams explain how the lifecycle of a `WorkbenchModule` works.
-The diagrams are simplified to a degree that is relevant for the implementor of a `WorkbenchModule` and are *not* complete and *not* exhaustive.
-A minimal amount of examples try to explain the priciniple of the interactions of calls to `Workbench#openModule(WorkbenchModule)` and `Workbench#closeModule(WorkbenchModule)` on `WorkbenchModule` objects. // TODO: overwork
+The diagrams are simplified to a degree that is relevant for the implementor of a `WorkbenchModule` and are *not* complete and *not* exhaustive by design.
+The goal is to explain the principle of interactions on modules when using `Workbench#openModule(WorkbenchModule)` and `Workbench#closeModule(WorkbenchModule)` with a minimal amount of examples.
 
-Overview of lifecycle in a state diagram:
+Overview of the lifecycle in a state diagram, showing all state changes that can occur (<<img-module-lifecycle>>).
 
+.Module Lifecycle.
+[#img-module-lifecycle]
 image::include/UML/svg/Module Lifecycle.svg[Module Lifecycle]
 
-Process of opening two modules in sequence:
+Process of opening two modules in sequence, followed by opening the first module again (<<img-open-module>>).
 
+.Opening of modules.
+[#img-open-module]
 image::include/UML/svg/Opening of Modules.svg[Opening of Modules]
 
-Closing of an active module:
+Two open modules, closing of the active module (<<img-close-module-active>>).
 
+.Closing of modules, active module.
+[#img-close-module-active]
 image::include/UML/svg/Close Module Active.svg[Close Module Active]
 
-Closing of an inactive module:
+Two open modules, closing of the inactive module (<<img-close-module-inactive>>).
 
+.Closing of modules, inactive module.
+[#img-close-module-inactive]
 image::include/UML/svg/Close Module Inactive.svg[Close Module Inactive]
 
-Closing of an active module, which was interrupted:
+Two open modules, closing of the active module, where the call to `WorkbenchModule#destroy()` returns false (<<img-close-module-interrupt-active>>).
+This leads to the closing process getting interrupted.
+The implementor of `WorkbenchModule` can then choose to do cleanup actions or open a confirmation dialog, following a call to `WorkbenchModule#close()`, when the module should definitely be closed.
 
+.Closing of modules interrupted, active module.
+[#img-close-module-interrupt-active]
 image::include/UML/svg/Close Module Interrupted Active.svg[Close Module Interrupted Active]
 
-Closing of an inactive module, which was interrupted:
+Two open modules, closing of the inactive module, where the call to `WorkbenchModule#destroy()` returns false (<<img-close-module-interrupt-inactive>>).
+This leads to the closing process getting interrupted.
+The module which interrupted the closing process will be opened, so that the user's attention will be directed towards the interrupting module, so they can take appropriate actions.
 
+.Closing of modules interrupted, inactive module.
+[#img-close-module-interrupt-inactive]
 image::include/UML/svg/Close Module Interrupted Inactive.svg[Close Module Interrupted Inactive]
 
-To learn more about the interactions in detail, look at the tests below, since the tests verify the exact order of the calls and describe more situations in detail:
+To learn more about the interactions in detail, look at the tests below, since the tests verify the exact order of the calls and cover more situations in detail:
 
 * <<test-reference.adoc#_open_modules,Opening of Modules>>
 * <<test-reference.adoc#_close_modules,Closing of Modules>>
