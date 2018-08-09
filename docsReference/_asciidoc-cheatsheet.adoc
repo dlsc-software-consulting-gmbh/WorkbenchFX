@@ -105,3 +105,16 @@ image::images/exampleImage.png[exampleImage in use]
 |===
 |image:images/alternatives/eclipse_rcp.png[rcp1] Eclipse RCP, window 1| image:images/alternatives/eclipse_rcp1.png[rcp2] Eclipse RCP, window 2
 |===
+
+== Figures
+// **** Include this at the top of the document:
+// Ensures references are displayed in "Figure x" format
+:xrefstyle: short
+
+// **** Declare a figure:
+.Description for the figure
+[#reference-to-figure]
+image::include/image.svg[Image Name]
+
+// **** Reference the figure:
+<<reference-to-figure>>
