@@ -8,7 +8,7 @@
 ## Table of Contents
 - [What is WorkbenchFX?](#what-is-workbenchfx)
 - [Advantages](#advantages)
-- [Main Features](#main-features)
+- [Main Components](#main-components)
 - [Documentation](#documentation)
 - [Basic Structure](#basic-structure)
 - [Demos](#demos)
@@ -31,18 +31,28 @@ TODO: description
 - Easy to understand
 - Easy to use, especially for developers which have not much experience in working with JavaFX
 - A well designed UI, inspired by the material design standards
-
-## Main Features
 - Simple and understandable API
 - Encapsulating multiple, independent `WorkbenchModules`, and display them in Tabs
 - A predefined stylesheet which allows the user to change the styles as he needs to
-- The most important features are noted in the picture and the corresponding table below:
+
+## Main Components
+The most important components are noted in the picture and the corresponding table below:
 
 ![screenshot of the most important features WorkbenchFX provides](docs/images/features.png)
 
-Nr. | Feature | Description
---- | ------- | -----------
-1 | `WorkbenchModule` | what is a module? extend from wbmod, put different mods into the wb 
+Nr. | Component | Description
+--- | --------- | -----------
+- | `Workbench module` | The complete workbench application consists of multiple modules. It contains the title, an icon and the content to be displayed in the `Workbench`
+2 | `Tile` | Using the `Workbench module`, a `Tile` will be created. It is basically a button which allows to open a module or switch to it, if it's already open.
+3 | `Tab` | Together with the `Tile`, a `Tab` will be generated. It will be displayed in the `Tabbar` as long as the module is open. The `Tab` is used to navigate through the open modules and to close them
+4 | `Tabbar` | The upper section of the window, where the `Tabs` of the current open modules are displayed. On the right end of the bar, the `Add button` is displayed
+5 | `Add button` | The button used to open a new module. It opens an overview of all available modules.
+6 | `Toolbar` | It contains `Toolbar items`. If the bar does not contain any items, the `Toolbar` will be hidden automatically.
+7 | `Toolbar item` | Depending on the attributes defined, the item adapts the behaviour of either a JavaFX `Label`, `Button` or `MenuButton`
+7 | `Menu button` | It opens the `Navigation drawer`. The position of the button varies depending on the amount of items in the `Toolbar` and the `Navigation drawer`. If the `Navigation drawer` does not contain any items, the button will not be displayed at all. If any items are in the `Toolbar`, it will be displayed on the left side of the `Toolbar`, otherwise on the left side of the `Tabbar`
+8 | `Navigation drawer` | It displays a logo which can be set in the stylesheet and the defined items. The default hover behaviour over its items can be adjusted using the 
+
+
 2 | `Pagination` | mods displayed in addpage, pagination, multiple sites
 3 | `Tabs` | opening modules in multiple tabs, open/closeable
 4 | `NavigationDrawer` | automatically blend in when items
