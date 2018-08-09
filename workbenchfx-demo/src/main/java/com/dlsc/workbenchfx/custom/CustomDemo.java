@@ -16,9 +16,7 @@ import com.dlsc.workbenchfx.custom.test.ToolbarItemTestModule;
 import com.dlsc.workbenchfx.custom.test.ToolbarTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
-import com.dlsc.workbenchfx.view.controls.module.Page;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
@@ -27,14 +25,11 @@ import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -56,7 +51,6 @@ public class CustomDemo extends Application {
         new WorkbenchModule("My first Workbench module", MaterialDesignIcon.THUMB_UP) {
           @Override
           public Node activate() {
-            getToolbarControlsLeft()
             return new Label("Hello World");
           }
         }
@@ -64,8 +58,8 @@ public class CustomDemo extends Application {
 
 //    primaryStage.setTitle("WorkbenchFX");
     primaryStage.setScene(myScene);
-    primaryStage.setWidth(1000);
-    primaryStage.setHeight(700);
+    primaryStage.setWidth(700);
+    primaryStage.setHeight(450);
     primaryStage.show();
 //    primaryStage.centerOnScreen();
   }

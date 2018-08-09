@@ -19,8 +19,6 @@
 - [ToolbarItem](#toolbaritem)
 - [Using Dialogs](#using-dialogs)
 - [Prevent module from closing](#prevent-module-from-closing)
-- [Version Management](#version-management)
-- [Automated Release Binaries](#automated-release-binaries)
 - [Team](#team)
 
 ## What is WorkbenchFX?
@@ -103,15 +101,28 @@ public class CustomModule extends WorkbenchModule {
 It is then required to call the `super()` constructor and hand over a `String` as name and either an `Image`, `FontawesomeIcon` or `MaterialDesignIcon` as icon for the module:
 
 ```Java
-public class CustomModule extends WorkbenchModule {
-  public CustomModule() {
-      super("My first Workbench module", MaterialDesignIcon.THUMB_UP); // A name and an icon is required
-  }
+public CustomModule() {
+  super("My first Workbench module", MaterialDesignIcon.THUMB_UP); // A name and an icon is required
 }
 ```
 
+Cheatsheets for using the icons are available at:
+- [materialdesignicons.com](https://materialdesignicons.com/)
+- [fontawesome.com](https://fontawesome.com/v4.7.0/)
+
+
 Furthermore, overriding the `activate()` method is also required.
 This method will be called when clicking on the `Tile` to open the module:
+
+```Java
+@Override
+public Node activate() {
+  return new Label("Hello World"); // return here your actual content to display
+}
+```
+
+The minimal implementation of a custom `WorkbenchModule` finally looks like the code snippet below.
+For further information we refer to the `Javadoc`.
 
 ```Java
 public class CustomModule extends WorkbenchModule {
@@ -125,12 +136,18 @@ public class CustomModule extends WorkbenchModule {
 }
 ```
 
-This is a minimal implementation of a custom `WorkbenchModule`.
-For further information we refer to the `Javadoc`.
-
 ### Creating the `Workbench`
 After extending the `WorkbenchModule`, the application can be created.
 To do this, one can access the `WorkbenchBuilder` by calling `Workbench.builder()`, setting the previously written module and build the `Workbench` by calling the `build()` method:
+
+```Java
+// Creating the Workbench
+Workbench customWorkbench = Workbench.builder( // Accessing the WorkbenchBuilder
+    new CustomModule() // Adding the CustomModule
+).build(); // Building the Workbench
+```
+
+It then can be set into a scene:
 
 ```Java
 public class CustomDemo extends Application {
@@ -140,6 +157,7 @@ public class CustomDemo extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+    
     // Creating the Workbench
     Workbench customWorkbench = Workbench.builder( // Accessing the WorkbenchBuilder
         new CustomModule() // Adding the CustomModule
@@ -147,8 +165,8 @@ public class CustomDemo extends Application {
     
     Scene myScene = new Scene(customWorkbench);
     primaryStage.setScene(myScene);
-    primaryStage.setWidth(1000);
-    primaryStage.setHeight(700);
+    primaryStage.setWidth(700);
+    primaryStage.setHeight(450);
     primaryStage.show();
   }
 }
@@ -331,14 +349,6 @@ List of all default Dialogs
 
 ## Prevent module from closing
 // Chapter about using the Dialog to save and close
-
-## Version Management
-To change the version, set the property `workbenchfx.version` in the parent `pom.xml` file to the next version.
-Then, run: `mvn process-resources`
-It will then automatically proceed by updating all versions in all pom files automatically.
-
-## Automated Release Binaries
-// Chapter about automated release binaries
 
 ## Team
 - Marco Sanfratello
