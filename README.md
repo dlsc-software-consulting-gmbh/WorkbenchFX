@@ -580,8 +580,6 @@ dialogBtn.setOnAction(event ->
 In some cases it is necessary to prevent a module from closing.
 For example following dialog asks for saving before closing:
 
-![Dialog which asks for saving before closing](docs/images/dialogs/saveBeforeClose.png) 
-
 In the [Module Lifecycle](#module-lifecycle) it is stated, that the `destroy()` method will be called when closing the module.
 The module will be closed as soon as the `destroy()` method returns `true`.
 If someone wants to prevent the module from closing he has to return `false` and then close the module manually as soon as he is ready to.
