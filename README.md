@@ -371,6 +371,8 @@ ToolbarItem toolbarItem = new ToolbarItem(
 </table>
 
 ## Dialog
+A demo of the dialogs can be found in the `DialogTestModule` of the [Custom Demo](#demos) 
+
 ### Predefined Dialogs
 `WorkbenchFX` comes with a lot of predefined dialogs.
 Using them is as simple as calling `(Workbench).show...Dialog()` with the desired dialog type.
@@ -467,12 +469,141 @@ For such special cases, the `showDialog()` method can be used.
 With a `WorkbenchDialog.builder()` a custom dialog can be created.
 The builder provides some useful methods which can be used:
 
-Method (WorkbenchDialog.builder()) | Description
----------------------------------- | -----------
+WorkbenchDialog.builder(*Parameters*) | Description
+------------------------------------- | -----------
+`String title`                        | Required and defines the `title` of the dialog
+`String message`                      | Optional either a message or a content can be added. The `message` is located below the `title`
+`Node content`                        | A `Node` as custom content
+`Type type`                           | Defines one of the default dialog types like `error`, `information`, etc. The corresponding buttons will automatically be set
+`ButtonType... buttonTypes`           | All the defined button types will be set (eg. `OK`, `CANCEL` and `APPLY` for a preferences dialog)
 
+Note: 
+- Defining a `content` will prevent any further definition of `messages` or `exceptions`
+
+WorkbenchDialog.builder().*Parameters* | Description
+-------------------------------------- | -----------
+`blocking(boolean)`                    | Defines whether clicking on the `Glasspane` closes the dialog or not (eg. forcing a decision)
+`onResult(Consumer<ButtonType>)`       | Clicking on a dialog, the clicked `ButtonType` is returned. On result proceeds the answer
+`details(String)`                      | Adding details (@see the note on top)
+`exception(Exception)`                 | Adding an `Exception` (@see the note on top)
+`maximized(boolean)`                   | Defines whether the dialogs size should take the full screen or only as much as it fits the content
+`showButtonsBar(boolean)`              | Defines whether the dialogs buttons should be shown or not
+`onShown(EventHandler<Event>)`         | The `EventHandler` which is called when the dialog is showing
+`onHidden(EventHandler<Event>)`        | The `EventHandler` which is called when the dialog is hidden
+`dialogControl(DialogControl)`         | It is possible to set a custom `DialogControl`
+`build()`                              | Builds the `WorkbenchDialog`
+
+WorkbenchDialog                    | Description
+---------------------------------- | -----------
+`getButton(ButtonType buttonType)` | Returns an `Optional<Button>` of the dialog. Useful when accessing the buttons of the dialog is needed
+
+Using the builder it is possible to write some interesting custom dialogs:
+
+<table>
+    <tr>
+        <th>Syntax</th>
+        <th>Outcome</th>
+    </tr>
+    <tr>
+        <td><pre lang="java">
+// Confirmation Dialog
+dialogBtn = new Button("Confirmation Dialog");
+dialogBtn.setOnAction(event ->
+    workbench.showConfirmationDialog(
+       "Continue without saving?",
+       "Are you sure you want to continue without saving your document?",
+       buttonType -> { // Proceed and validate the result }
+    )
+);</td>
+        <td><img src="docs/images/dialogs/confirmation.png"/></td>
+    </tr>
+    <tr>
+        <td><pre lang="java">
+// Error Dialog
+dialogBtn = new Button("Error Dialog");
+dialogBtn.setOnAction(event ->
+    workbench.showErrorDialog(
+       "Button click failed!",
+       "During the click of this button, something went horribly wrong.",
+       buttonType -> { // Proceed and validate the result }
+    )
+);</td>
+        <td><img src="./docs/images/dialogs/error.png"/></td>
+    </tr>
+    <tr>
+        <td><pre lang="java">
+// Error Dialog on exception
+dialogBtn = null; // Provokes an exception
+try {
+  dialogBtn.setOnAction(event -> System.out.println("This will cause a NPE"));
+} catch (NullPointerException exception) {
+  workbench.showErrorDialog(
+     "Button click failed!",
+     "During the click of this button, something went horribly wrong. +
+     Please forward the content below to anyone but the WorkbenchFX developers +
+     to track down the issue:",
+     exception // Could also be just a String
+     buttonType -> { // Proceed and validate the result }
+  );
+}</td>
+        <td><img src="./docs/images/dialogs/exception.png"/></td>
+    </tr>
+    <tr>
+        <td><pre lang="java">
+// Warning Dialog
+dialogBtn = new Button("Warning Dialog");
+dialogBtn.setOnAction(event ->
+    workbench.showWarningDialog(
+       "Reset settings?",
+       "This will reset your device to its default factory settings.",
+       buttonType -> { // Proceed and validate the result }
+    )
+);</td>
+        <td><img src="./docs/images/dialogs/warning.png"/></td>
+    </tr>
+    <tr>
+        <td><pre lang="java">
+// Information Dialog
+dialogBtn = new Button("Information Dialog");
+dialogBtn.setOnAction(event ->
+    workbench.showInformationDialog(
+       "Just to let you know",
+       "(This is an information dialog)",
+       buttonType -> { // Proceed and validate the result }
+    )
+);</td>
+        <td><img src="./docs/images/dialogs/information.png"/></td>
+    </tr>
+</table>
 
 ## Prevent module from closing
-// Chapter about using the Dialog to save and close
+In some cases it is necessary to prevent a module from closing.
+For example following dialog asks for saving before closing:
+
+![Dialog which asks for saving before closing](docs/images/dialogs/saveBeforeClose.png) 
+
+In the [Module Lifecycle](#module-lifecycle) it is stated, that the `destroy()` method will be called when closing the module.
+
+```Java
+@Override
+public boolean destroy() {
+  
+  // Do some asynchronous task (in our case showing a dialog and waiting for answer)
+  getWorkbench().showDialog(WorkbenchDialog.builder(
+      "Confirmation", "Close Module?", WorkbenchDialog.Type.CONFIRMATION)
+      .blocking(true)
+      .onResult(buttonType -> {
+        if (ButtonType.YES.equals(buttonType)) {
+          // YES was pressed -> Proceed with saving for example
+          ...
+          close(); // At the end of saving, close the module 
+        }
+      })
+      .build());
+  
+  return false; // return false, because we're closing ourselves
+}
+```
 
 ## Drawer
 // Chapter about using the Drawers

@@ -132,7 +132,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
     warningBtn.setOnAction(event -> getWorkbench().showWarningDialog("Reset settings?", "This will reset your device to its default factory settings.", printResult));
     //informationBtn.setOnAction(event -> getWorkbench().showInformationDialog("Everything is fine", "You can relax, nothing wrong here.", printResult));
 
-    informationBtn.setOnAction(event -> getWorkbench().showDialog(WorkbenchDialog.builder("title", "message", ButtonType.OK)
+    informationBtn.setOnAction(event -> getWorkbench().showDialog(WorkbenchDialog.builder("title", "message", ButtonType.OK).build().getbu
         .blocking(false)
         .onResult(printResult)
         .build()));
