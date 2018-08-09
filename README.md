@@ -39,11 +39,9 @@ TODO: description
 - Easy to learn
 - Easy to understand
 - Easy to use, especially for developers which have not much experience in working with JavaFX
-- A well designed UI, inspired by the material design standards
-- Simple and understandable API
-- Encapsulating multiple, independent `WorkbenchModules`, and display them in Tabs
-- A predefined stylesheet which allows the user to change the styles as he needs to
-- The `jdk8` version works well with `JPRO`
+- A well designed, adaptable UI, inspired by the material design standards
+- Multiple, independent `Workbench modules`, displayed in Tabs combine into one great application
+- The `jdk8` branch works well with `JPRO`
 - `SceneBuilder` support
 
 # Main Components
