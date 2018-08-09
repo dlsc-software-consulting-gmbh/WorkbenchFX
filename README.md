@@ -19,9 +19,12 @@
     - [`WorkbenchBuilder`](#workbenchbuilder)
     - [`Workbench`](#workbench)
     - [`WorkbenchModule`](#workbenchmodule)
-- [ToolbarItem](#toolbaritem)
-- [Using Dialogs](#using-dialogs)
-- [Prevent module from closing](#prevent-module-from-closing)
+- [Using the Components](#using-the-components)
+  - [ToolbarItem](#toolbaritem)
+  - [Dialog](#dialog)
+  - [Prevent module from closing](#prevent-module-from-closing)
+  - [Drawer](#drawer)
+  - [Custom Overlay](#custom-overlay)
 - [Team](#team)
 
 # What is WorkbenchFX?
@@ -37,6 +40,8 @@ TODO: description
 - Simple and understandable API
 - Encapsulating multiple, independent `WorkbenchModules`, and display them in Tabs
 - A predefined stylesheet which allows the user to change the styles as he needs to
+- The `jdk8` version works well with `JPRO`
+- `SceneBuilder` support
 
 # Main Components
 The most important components are noted in the picture and the corresponding table below:
@@ -89,17 +94,16 @@ Workbench workbench =
 
 Notes:
 - The result of the `build()` call is a `Control` which can be set in a scene.
-- It is also possible to use the default constructor `new Workbench()` and add the `WorkbenchModules` and features afterwards.
+- It is also possible to use the default constructor `new Workbench()` and add the `WorkbenchModules` and features afterwards. But it is recommended to use the builder pattern, since it is much easier to create the `Workbench`. The default constructor comes in use when the API is used with `Scenebuilder`.
 
 # Demos
 We created several demos to visualize the capabilities of `WorkbenchFX` in the `workbench-fx-demo` folder:
 
 File | Description
 ---- | -----------
+`StandardDemo.java` | Shows the simplest usage of `WorkbenchFX` with only three modules and no optional features  
 `CustomDemo.java` | A workbench application which uses all features, to demonstrate the full capability of `WorkbenchFX`
-`ExtendedDemo.java` | To demonstrate an application with a lot of `WorkbenchModules`
-`SceneBuilderDemo.java` | A proof of concept, if the API also works with `SceneBuilder`
-`StadardDemo.java` | Shows the simplest usage of `WorkbenchFX` with only three modules and no optional features  
+`FXMLDemo.java` | A proof of concept, if the API also works with `SceneBuilder` and a `FXML` file
 
 # Getting started
 ## Extending the `WorkbenchModule`
@@ -245,7 +249,8 @@ Method (WorkbenchModule)    | Description
 `getToolbarControlsRight()` | Calling this method returns an `ObservableList` of `ToolbarItems`. Adding items to the list will automatically create a toolbar between the `Tab` and the module content and adds the items on the right side
 `close()`                   | Will immediately close the module, ignoring the module lifecycle
 
-# ToolbarItem
+# Using the Components
+## ToolbarItem
 Definition and behaviour of TBI
 
 <table>
@@ -311,7 +316,7 @@ Definition and behaviour of TBI
 </table>
 
 
-# Using Dialogs
+## Dialog
 Definition and behaviour of Dialogs.
 List of all default Dialogs
 
@@ -377,8 +382,14 @@ List of all default Dialogs
     <tr>
 </table>
 
-# Prevent module from closing
+## Prevent module from closing
 // Chapter about using the Dialog to save and close
+
+## Drawer
+// Chapter about using the Drawers
+
+## Custom Overlay
+// Chapter about creating a custom overlay
 
 # Team
 - Marco Sanfratello
