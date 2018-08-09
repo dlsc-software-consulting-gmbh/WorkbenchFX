@@ -11,6 +11,8 @@
 - [Main Components](#main-components)
 - [Documentation](#documentation)
 - [Basic Structure](#basic-structure)
+  - [Workbench Concept](#workbench-concept)
+  - [Module Lifecycle](#module-lifecycle)
 - [Demos](#demos)
 - [Getting Started](#getting-started)
   - [Extending the `WorkbenchModule`](#extending-the-workbenchmodule)
@@ -25,6 +27,7 @@
   - [Prevent module from closing](#prevent-module-from-closing)
   - [Drawer](#drawer)
   - [Custom Overlay](#custom-overlay)
+- [Restyling](#restyling)
 - [Team](#team)
 
 # What is WorkbenchFX?
@@ -77,9 +80,10 @@ process-resources
 Afterwards, you will find the documentation in the `target/generated-docs/` subdirectory.
 
 # Basic Structure
+## Workbench Concept
 WorkbenchFX uses the builder pattern to create the application, since one can use plenty of optional features.
 The minimal usage requires only the definition of a custom extension from the `WorkbenchModule`.
-Afterwards one can define further functionality calling the equivalent method.
+Afterwards one can define further functionality calling the equivalent methods.
 
 For better illustration, the basic concept of creating a workbench application is shown below:
 ```Java
@@ -95,6 +99,9 @@ Workbench workbench =
 Notes:
 - The result of the `build()` call is a `Control` which can be set in a scene.
 - It is also possible to use the default constructor `new Workbench()` and add the `WorkbenchModules` and features afterwards. But it is recommended to use the builder pattern, since it is much easier to create the `Workbench`. The default constructor comes in use when the API is used with `Scenebuilder`.
+
+## Module Lifecycle
+// Chapter about the module lifecycle
 
 # Demos
 We created several demos to visualize the capabilities of `WorkbenchFX` in the `workbench-fx-demo` folder:
@@ -390,6 +397,9 @@ List of all default Dialogs
 
 ## Custom Overlay
 // Chapter about creating a custom overlay
+
+#Restyling
+// Chapter about using the stylesheet
 
 # Team
 - Marco Sanfratello
