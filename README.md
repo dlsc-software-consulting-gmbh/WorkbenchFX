@@ -262,7 +262,8 @@ Method (Workbench) | Description
 ------------------ | -----------
 `getNavigationDrawer()`      | Returns the `Navigation drawer`
 `getNavigationDrawerItems()` | Returns the `ObservableList` of the drawers `ToolbarItems`
-`showDialog()`               | Shows a custom dialog
+`show...Dialog()`            | Shows a [predefined dialog](#predefined-dialogs)
+`showDialog()`               | Shows a [custom dialog](#custom-dialog)
 `showDrawer()`               | Shows a custom drawer
 `getToolbarControlsLeft()`   | Grants access to the items on the left of the `Toolbar`
 `getToolbarControlsRight()`  | Grants access to the items on the right of the `Toolbar`
@@ -417,10 +418,9 @@ dialogBtn.setOnAction(event ->
     <tr>
         <td><pre lang="java">
 // Error Dialog on exception
-// Provokes an exception
-Button btn = null;
+dialogBtn = null; // Provokes an exception
 try {
-  btn.setOnAction(event -> System.out.println("This will cause a NPE"));
+  dialogBtn.setOnAction(event -> System.out.println("This will cause a NPE"));
 } catch (NullPointerException exception) {
   workbench.showErrorDialog(
      "Button click failed!",
