@@ -325,7 +325,7 @@ class WorkbenchTest extends ApplicationTest {
           () -> workbench.openModule(mock(WorkbenchModule.class)));
     });
   }
-  // asciidoctor Documentation - tag::openModule[]
+  // asciidoctor Documentation - end::openModule[]
 
   // asciidoctor Documentation - tag::closeModule[]
   /**
@@ -540,7 +540,7 @@ class WorkbenchTest extends ApplicationTest {
       verifyNoMoreInteractions(first, second);
     });
   }
-  // asciidoctor Documentation - tag::closeModule[]
+  // asciidoctor Documentation - end::closeModule[]
 
   // asciidoctor Documentation - tag::closeModuleInterrupt[]
   /**
@@ -778,7 +778,7 @@ class WorkbenchTest extends ApplicationTest {
       verifyNoMoreInteractions(first, second, last);
     });
   }
-  // asciidoctor Documentation - tag::closeModuleInterrupt[]
+  // asciidoctor Documentation - end::closeModuleInterrupt[]
 
   @Test
   void getOpenModules() {

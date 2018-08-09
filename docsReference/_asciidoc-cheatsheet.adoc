@@ -25,7 +25,7 @@ menu:View[Zoom > Reset]
 === Code
 // asciidoctor Documentation - tag::exampleTag[]
 (Content)
-// asciidoctor Documentation - tag::exampleTag[]
+// asciidoctor Documentation - end::exampleTag[]
 
 === Documentation
 ==== Top of the document (variable)
@@ -36,7 +36,7 @@ menu:View[Zoom > Reset]
 ==== Citate
 [source,java]
 ----
-include::{sourcedir}/com/dlsc/workbenchfx/ExampleClass.java[tags=exampleTag]
+include::{dir-source-core}/ExampleClass.java[tags=exampleTag]
 ----
 
 == Custom Code
