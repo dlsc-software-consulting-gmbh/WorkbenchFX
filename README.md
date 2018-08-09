@@ -415,7 +415,7 @@ dialogBtn.setOnAction(event ->
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
-        <td><img src="./docs/images/dialogs/error.png"/></td>
+        <td><img src="docs/images/dialogs/error.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -580,7 +580,7 @@ dialogBtn.setOnAction(event ->
 In some cases it is necessary to prevent a module from closing.
 For example following dialog asks for saving before closing:
 
-![Image with a dialog displayed which asks for saving before closing the module](docs/images/dialogs/save.png)
+![Image of a dialog which asks for saving before closing the module](docs/images/dialogs/save.png | width=100)
 
 In the [Module Lifecycle](#module-lifecycle) it is stated, that the `destroy()` method will be called when closing the module.
 The module will be closed as soon as the `destroy()` method returns `true`.
