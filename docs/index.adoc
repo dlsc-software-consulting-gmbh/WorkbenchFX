@@ -111,9 +111,9 @@ image::include/UML/svg/Close Module Interrupted Inactive.svg[Close Module Interr
 
 To learn more about the interactions in detail, look at the tests below, since the tests verify the exact order of the calls and describe more situations in detail:
 
-* <<test-reference.adoc#Open Modules,Opening of Modules>>
-* <<test-reference.adoc#Close Modules,Closing of Modules>>
-* <<test-reference.adoc#Close Modules Interrupted,Closing of Modules Interrupted>>
+* <<test-reference.adoc#_open_modules,Opening of Modules>>
+* <<test-reference.adoc#_close_modules,Closing of Modules>>
+* <<test-reference.adoc#_close_modules_interrupted,Closing of Modules Interrupted>>
 
 ==== Icon: Image vs File vs Node
 As for the graphic, there are different ways to implement the inclusion of one in a module.
