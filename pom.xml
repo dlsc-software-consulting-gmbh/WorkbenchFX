@@ -21,7 +21,6 @@
     <modules>
         <module>workbenchfx-core</module>
         <module>workbenchfx-demo</module>
-        <module>workbenchfx-dirk</module>
     </modules>
 
     <build>
