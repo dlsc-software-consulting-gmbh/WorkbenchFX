@@ -16,6 +16,7 @@ import com.dlsc.workbenchfx.custom.test.ToolbarItemTestModule;
 import com.dlsc.workbenchfx.custom.test.ToolbarTestModule;
 import com.dlsc.workbenchfx.custom.test.WidgetsTestModule;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -30,6 +31,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,14 +49,22 @@ public class CustomDemo extends Application {
   @Override
   public void start(Stage primaryStage) {
 //    Scene myScene = new Scene(initWorkbench());
-    Scene myScene = new Scene(Workbench.builder(
+    NavigationDrawer navigationDrawer = new NavigationDrawer();
+
+    Workbench workbench1 = Workbench.builder(
         new WorkbenchModule("My first Workbench module", MaterialDesignIcon.THUMB_UP) {
           @Override
           public Node activate() {
             return new Label("Hello World");
           }
         }
-    ).build());
+    ).navigationDrawer(navigationDrawer).build();
+
+    NavigationDrawer drawer = workbench1.getNavigationDrawer();
+    drawer.getItems().addAll(new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Bli")), new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Ble")));
+    drawer.setMenuHoverBehavior(Priority.SOMETIMES);
+
+    Scene myScene = new Scene(workbench1);
 
 //    primaryStage.setTitle("WorkbenchFX");
     primaryStage.setScene(myScene);
