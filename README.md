@@ -71,11 +71,13 @@ Nr. | Component           | Description
 For further information about the several components we refer to the `Javadoc`
 
 # Documentation
+TODO: Rewrite documentation
+
 This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following *maven* task:
 ```Maven
 process-resources
 ```
-Afterwards, you will find the documentation in the `target/generated-docs/` subdirectory.
+Afterwards, the documentation is located in the `target/generated-docs/` subdirectory.
 
 # Basic Structure
 ## Workbench Concept
@@ -99,7 +101,23 @@ Notes:
 - It is also possible to use the default constructor `new Workbench()` and add the `WorkbenchModules` and features afterwards. But it is recommended to use the builder pattern, since it is much easier to create the `Workbench`. The default constructor comes in use when the API is used with `Scenebuilder`.
 
 ## Module Lifecycle
-// Chapter about the module lifecycle
+The full documentation about the module lifecycle can be found in the subdirectory *docs/index.adoc#workbenchmodule-lifecycle*
+
+The abstract class `WorkbenchModule` contains four different methods which can be overridden:
+
+Method         | Description
+-------------- | -----------
+`init()`       | Gets called when the module is being opened from the overview for the first time
+`activate()`   | Gets called whenever the currently displayed content is being switched to this module
+`deactivate()` | Gets called whenever this module is the currently displayed content and the content is being switched to another module
+`destroy()`    | Gets called when this module is explicitly being closed by the user in the toolbar
+
+
+When extending a custom module, it is only required to override the `activate()` method.
+
+Note:
+- A fifth method exists: `close()`. This method differs from the others, because it ignores the lifecycle and closes the module without calling `deactivate()` or `destroy()`. More about this method is written in the chapter about [prevent module from closing](#prevent-module-from-closing).
+- For further information we refer to our documentation or the `Javadoc`
 
 # Demos
 We created several demos to visualize the capabilities of `WorkbenchFX` in the `workbench-fx-demo` folder:
@@ -139,7 +157,7 @@ This method will be called when clicking on the `Tile` to open the module:
 ```Java
 @Override
 public Node activate() {
-  return new Label("Hello World"); // return here your actual content to display
+  return new Label("Hello World"); // return here the actual content to display
 }
 ```
 
@@ -153,7 +171,7 @@ public class CustomModule extends WorkbenchModule {
   }
   @Override
   public Node activate() {
-      return new Label("Hello World"); // return here your actual content to display
+      return new Label("Hello World"); // return here the actual content to display
   }
 }
 ```
