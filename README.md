@@ -297,7 +297,7 @@ They can also be seen in the `toolbar` of the `CustomDemo`
         <td><pre lang="java">
 // Label with text
 ToolbarItem toolbarItem = new ToolbarItem("Hello World");</td>
-        <td><img src="./docs/images/settings/integer_setting.png"/></td>
+        <td><img src="docs/images/settings/integer_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -305,7 +305,7 @@ ToolbarItem toolbarItem = new ToolbarItem("Hello World");</td>
 ToolbarItem toolbarItem = new ToolbarItem(
     new MaterialIconView(MaterialDesignIcon.THUMB_UP)
 );</td>
-        <td><img src="./docs/images/settings/integerSlider_setting.png"/></td>
+        <td><img src="docs/images/settings/integerSlider_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -313,7 +313,7 @@ ToolbarItem toolbarItem = new ToolbarItem(
 ToolbarItem toolbarItem = new ToolbarItem(
     "Hello World", new MaterialIconView(MaterialDesignIcon.THUMB_UP)
 );</td>
-        <td><img src="./docs/images/settings/double_setting.png"/></td>
+        <td><img src="docs/images/settings/double_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -321,7 +321,7 @@ ToolbarItem toolbarItem = new ToolbarItem(
 ToolbarItem toolbarItem = new ToolbarItem(
     "Hello World", event -> System.out.println("Hello World")
 );</td>
-        <td><img src="./docs/images/settings/doubleSlider_setting.png"/></td>
+        <td><img src="docs/images/settings/doubleSlider_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -330,7 +330,7 @@ ToolbarItem toolbarItem = new ToolbarItem(
     new MaterialIconView(MaterialDesignIcon.THUMB_UP),
     event -> System.out.println("Hello World")
 );</td>
-        <td><img src="./docs/images/settings/boolean_setting.png"/></td>
+        <td><img src="docs/images/settings/boolean_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -339,7 +339,7 @@ ToolbarItem toolbarItem = new ToolbarItem(
     "Hello World", new MaterialIconView(MaterialDesignIcon.THUMB_UP),
     event -> System.out.println("Hello World")
 );</td>
-        <td><img src="./docs/images/settings/string_setting.png"></td>
+        <td><img src="docs/images/settings/string_setting.png"></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -347,7 +347,7 @@ ToolbarItem toolbarItem = new ToolbarItem(
 ToolbarItem toolbarItem = new ToolbarItem(
     "Hello World", new MenuItem("Content 1"), new MenuItem("Content 2")
 );</td>
-        <td><img src="./docs/images/settings/observableList_setting.png"/></td>
+        <td><img src="docs/images/settings/observableList_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -356,7 +356,7 @@ ToolbarItem toolbarItem = new ToolbarItem(
     new MaterialIconView(MaterialDesignIcon.THUMB_UP),
     new MenuItem("Content 1"), new MenuItem("Content 2")
 );</td>
-        <td><img src="./docs/images/settings/listProperty_setting.png"/></td>
+        <td><img src="docs/images/settings/listProperty_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -365,7 +365,7 @@ ToolbarItem toolbarItem = new ToolbarItem(
     "Hello World", new MaterialIconView(MaterialDesignIcon.THUMB_UP),
     new MenuItem("Content 1"), new MenuItem("Content 2")
 );</td>
-        <td><img src="./docs/images/settings/favourites_setting.png"/></td>
+        <td><img src="docs/images/settings/favourites_setting.png"/></td>
     </tr>
     <tr>
 </table>
@@ -394,7 +394,6 @@ Button dialogBtn = new Button("Show Dialog"); // Assuming the button is used in 
     <tr>
         <td><pre lang="java">
 // Confirmation Dialog
-dialogBtn = new Button("Confirmation Dialog");
 dialogBtn.setOnAction(event ->
     workbench.showConfirmationDialog(
        "Continue without saving?",
@@ -407,7 +406,6 @@ dialogBtn.setOnAction(event ->
     <tr>
         <td><pre lang="java">
 // Error Dialog
-dialogBtn = new Button("Error Dialog");
 dialogBtn.setOnAction(event ->
     workbench.showErrorDialog(
        "Button click failed!",
@@ -422,23 +420,22 @@ dialogBtn.setOnAction(event ->
 // Error Dialog on exception
 dialogBtn = null; // Provokes an exception
 try {
-  dialogBtn.setOnAction(event -> System.out.println("This will cause a NPE"));
+  dialogBtn.setOnAction(event -> System.out.println("NPE alert!"));
 } catch (NullPointerException exception) {
   workbench.showErrorDialog(
      "Button click failed!",
-     "During the click of this button, something went horribly wrong. +
-     Please forward the content below to anyone but the WorkbenchFX developers +
-     to track down the issue:",
+     "During the click of this button, something went horribly +
+     wrong. Please forward the content below to anyone but the +
+     WorkbenchFX developers to track down the issue:",
      exception // Could also be just a String
      buttonType -> { // Proceed and validate the result }
   );
 }</td>
-        <td><img src="./docs/images/dialogs/exception.png"/></td>
+        <td><img src="docs/images/dialogs/exception.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // Warning Dialog
-dialogBtn = new Button("Warning Dialog");
 dialogBtn.setOnAction(event ->
     workbench.showWarningDialog(
        "Reset settings?",
@@ -446,12 +443,11 @@ dialogBtn.setOnAction(event ->
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
-        <td><img src="./docs/images/dialogs/warning.png"/></td>
+        <td><img src="docs/images/dialogs/warning.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // Information Dialog
-dialogBtn = new Button("Information Dialog");
 dialogBtn.setOnAction(event ->
     workbench.showInformationDialog(
        "Just to let you know",
@@ -459,7 +455,7 @@ dialogBtn.setOnAction(event ->
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
-        <td><img src="./docs/images/dialogs/information.png"/></td>
+        <td><img src="docs/images/dialogs/information.png"/></td>
     </tr>
 </table>
 
@@ -499,6 +495,12 @@ WorkbenchDialog                    | Description
 
 Using the builder it is possible to write some interesting custom dialogs:
 
+```Java
+// Precondition
+Workbench workbench = Workbench.builder(...).build; // Creating the workbench
+Button dialogBtn = new Button("Show Dialog"); // Assuming the button is used in a module
+```
+
 <table>
     <tr>
         <th>Syntax</th>
@@ -506,81 +508,34 @@ Using the builder it is possible to write some interesting custom dialogs:
     </tr>
     <tr>
         <td><pre lang="java">
-// Confirmation Dialog
-dialogBtn = new Button("Confirmation Dialog");
-dialogBtn.setOnAction(event ->
-    workbench.showConfirmationDialog(
-       "Continue without saving?",
-       "Are you sure you want to continue without saving your document?",
-       buttonType -> { // Proceed and validate the result }
-    )
-);</td>
-        <td><img src="docs/images/dialogs/confirmation.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
-// Error Dialog
-dialogBtn = new Button("Error Dialog");
-dialogBtn.setOnAction(event ->
-    workbench.showErrorDialog(
-       "Button click failed!",
-       "During the click of this button, something went horribly wrong.",
-       buttonType -> { // Proceed and validate the result }
-    )
-);</td>
-        <td><img src="./docs/images/dialogs/error.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
-// Error Dialog on exception
-dialogBtn = null; // Provokes an exception
-try {
-  dialogBtn.setOnAction(event -> System.out.println("This will cause a NPE"));
-} catch (NullPointerException exception) {
-  workbench.showErrorDialog(
-     "Button click failed!",
-     "During the click of this button, something went horribly wrong. +
-     Please forward the content below to anyone but the WorkbenchFX developers +
-     to track down the issue:",
-     exception // Could also be just a String
-     buttonType -> { // Proceed and validate the result }
-  );
-}</td>
-        <td><img src="./docs/images/dialogs/exception.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
-// Warning Dialog
-dialogBtn = new Button("Warning Dialog");
-dialogBtn.setOnAction(event ->
-    workbench.showWarningDialog(
-       "Reset settings?",
-       "This will reset your device to its default factory settings.",
-       buttonType -> { // Proceed and validate the result }
-    )
-);</td>
-        <td><img src="./docs/images/dialogs/warning.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
-// Information Dialog
-dialogBtn = new Button("Information Dialog");
-dialogBtn.setOnAction(event ->
-    workbench.showInformationDialog(
-       "Just to let you know",
-       "(This is an information dialog)",
-       buttonType -> { // Proceed and validate the result }
-    )
-);</td>
-        <td><img src="./docs/images/dialogs/information.png"/></td>
+// Dialog which requires input to proceed
+// Create a CheckBox which will be set as content
+CheckBox checkBox = new CheckBox("I accept the Terms and Conditions");
+dialogBtn.setOnAction(event -> {
+  // Building the dialog with the CheckBox as content
+  WorkbenchDialog dialog = WorkbenchDialog.builder(
+  "Check the box to continue", checkBox, ButtonType.OK)
+      .blocking(true)
+      .build();
+  // Bind the OK button to the CheckBox
+  dialog.setOnShown(event1 -> {
+    dialog.getButton(ButtonType.OK).ifPresent(button -> {
+      button.disableProperty().bind(checkBox.selectedProperty().not());
+    });
+  });
+  getWorkbench().showDialog(dialog);
+});</td>
+        <td><img src="docs/images/dialogs/conditional.png"/></td>
     </tr>
 </table>
+
+Other examples can be found in the `DialogTestModule` of the [Custom Demo](#demos) 
 
 ## Prevent module from closing
 In some cases it is necessary to prevent a module from closing.
 For example following dialog asks for saving before closing:
 
-![Image of a dialog which asks for saving before closing the module](docs/images/dialogs/save.png | width=100)
+![Image of a dialog which asks for saving before closing the module](docs/images/dialogs/save.png)
 
 In the [Module Lifecycle](#module-lifecycle) it is stated, that the `destroy()` method will be called when closing the module.
 The module will be closed as soon as the `destroy()` method returns `true`.
