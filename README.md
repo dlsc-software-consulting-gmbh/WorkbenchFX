@@ -400,7 +400,7 @@ dialogBtn.setOnAction(event ->
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
-        <td><img src="./docs/images/settings/integer_setting.png"/></td>
+        <td><img src="./docs/images/dialogs/confirmation.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -413,7 +413,7 @@ dialogBtn.setOnAction(event ->
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
-        <td><img src="./docs/images/settings/integerSlider_setting.png"/></td>
+        <td><img src="./docs/images/dialogs/error.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -431,7 +431,7 @@ try {
      buttonType -> { // Proceed and validate the result }
   );
 }</td>
-        <td><img src="./docs/images/settings/double_setting.png"/></td>
+        <td><img src="./docs/images/dialogs/exception.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -444,7 +444,7 @@ dialogBtn.setOnAction(event ->
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
-        <td><img src="./docs/images/settings/doubleSlider_setting.png"/></td>
+        <td><img src="./docs/images/dialogs/warning.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -457,7 +457,7 @@ dialogBtn.setOnAction(event ->
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
-        <td><img src="./docs/images/settings/boolean_setting.png"/></td>
+        <td><img src="./docs/images/dialogs/information.png"/></td>
     </tr>
 </table>
 
