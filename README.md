@@ -16,6 +16,9 @@
   - [Extending the `WorkbenchModule`](#extending-the-workbenchmodule)
   - [Creating the `Workbench`](#creating-the-workbench)
   - [Optionals](#optionals)
+    - [`WorkbenchBuilder`](#workbenchbuilder)
+    - [`Workbench`](#workbench)
+    - [`WorkbenchModule`](#workbenchmodule)
 - [ToolbarItem](#toolbaritem)
 - [Using Dialogs](#using-dialogs)
 - [Prevent module from closing](#prevent-module-from-closing)
@@ -53,7 +56,7 @@ Nr. | Component           | Description
  9  | `Toolbar`           | It contains `Toolbar items`. If the bar does not contain any items, the `Toolbar` will be hidden automatically.
 10  | `Toolbar item`      | Depending on the attributes defined, the item adapts the behaviour of either a JavaFX `Label`, `Button` or `MenuButton`
 11  | `Menu button`       | It opens the `Navigation drawer`. The position of the button varies depending on the amount of items in the `Toolbar` and the `Navigation drawer`. If the `Navigation drawer` does not contain any items, the button will not be displayed at all. If any items are in the `Toolbar`, it will be displayed on the left side of the `Toolbar`, otherwise on the left side of the `Tabbar`
-12  | `Navigation drawer` | It displays a logo which can be set in the stylesheet and the defined items. The default hover behaviour over its items can be adjusted using the method call `(NavigationDrawer).setMenuHoverBehavior(Priority)`. It can be closed by clicking on the `Glass pane`
+12  | `Navigation drawer` | It displays a logo which can be set in the stylesheet and the defined items. The default hover behaviour over its items can be adjusted using the method call `setMenuHoverBehavior()` on the drawer. It can be closed by clicking on the `Glass pane`
 13  | `Glass pane`        | The `Glass pane` prevents click events on the components below. Clicking on the `Glass pane` often closes the showing `Drawer` or `Dialog` unless its `blocking` attribute prevents it from closing
 14  | `Drawers`           | It is possible to use the optional `showDrawer()` call on the `Workbench` to create additional drawers with custom content. All four window sides are supported
 15  | `Workbench dialog`  | When calling `showDialog()` on the `Workbench`, there is the possibility to create a custom dialog, or using a variety of predefined dialogs like `error-, confirmation-, information-dialog, etc.`
@@ -192,7 +195,8 @@ By clicking on the `+` button, one gets back to the `AddModulePage`.
 Closing the opened module is achieved through clicking on the close button in the `Tab`.
 
 ### Optionals
-The optionals are called after adding the custom modules to the builder:
+#### `WorkbenchBuilder`
+These optionals are called after adding the custom modules to the builder:
 
 ```Java
 Workbench workbench = Workbench.builder(...)
@@ -202,29 +206,44 @@ Workbench workbench = Workbench.builder(...)
 
 The following parameters are optionally available to further configure the application:
 
-Method (Workbench) | Description
+Method (WorkbenchBuilder) | Description
 ------------------ | -----------
 `modulesPerPage()` | Define the amount of `Tiles` which are displayed at the `AddModulePage`
-`getNavigationDrawer()` | returns the navigation drawer
 `navigationDrawerItems()` | Allows setting multiple `MenuItems` which are then displayed in the `NavigationDrawer`. The button to open and close the drawer appears alway in the top-left corner
 `toolbarLeft()` | Allows setting multiple `ToolbarItems` on the left side of the toolbar on top of the `Tabs`
 `toolbarRight()` | Allows setting multiple `ToolbarItems` on the right side of the toolbar on top of the `Tabs`
 
 When the default layout of `Page`, `Tab`, `Tile` or `NavigationDrawer` doesn't fulfill the desired requirements, it is possible to replace them:
 
-Method (Workbench) | Description
+Method (WorkbenchBuilder) | Description
 ------------------ | -----------
 `navigationDrawer()` | Allows setting a custom implementation of the `NavigationDrawer` control, which will then be used
 `pageFactory()` | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Page` control
 `tabFactory()` | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Tab` control
 `tileFactory()` | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Tile` control
 
-The `WorkbenchModule` provides also optional functionality. It is possible to add `ToolbarItems` to the toolbar of the module (just like in the workbench):
+#### `Workbench`
+After the `build()` call on the builder, the `Workbench` is created.
+Following useful calls might be interesting:
 
-Method (WorkbenchModule) | Description
------------------------- | -----------
-`getToolbarControlsLeft()` | Calling this method returns an `ObservableList` of `ToolbarItems`. Adding items to the list will automatically create a toolbar between the `Tab` and the module content and adds the items on the left side
+Method (Workbench) | Description
+------------------ | -----------
+`getNavigationDrawer()`      | Returns the `Navigation drawer`
+`getNavigationDrawerItems()` | Returns the `ObservableList` of the drawers `ToolbarItems`
+`showDialog()`               | Shows a custom dialog
+`showDrawer()`               | Shows a custom drawer
+`getToolbarControlsLeft()`   | Grants access to the items on the left of the `Toolbar`
+`getToolbarControlsRight()`  | Grants access to the items on the right of the `Toolbar`
+
+#### `WorkbenchModule`
+The `WorkbenchModule` also provides optional functionality.
+It is possible to add `ToolbarItems` to the toolbar of the module (just like in the workbench):
+
+Method (WorkbenchModule)    | Description
+--------------------------- | -----------
+`getToolbarControlsLeft()`  | Calling this method returns an `ObservableList` of `ToolbarItems`. Adding items to the list will automatically create a toolbar between the `Tab` and the module content and adds the items on the left side
 `getToolbarControlsRight()` | Calling this method returns an `ObservableList` of `ToolbarItems`. Adding items to the list will automatically create a toolbar between the `Tab` and the module content and adds the items on the right side
+`close()`                   | Will immediately close the module, ignoring the module lifecycle
 
 ## ToolbarItem
 Definition and behaviour of TBI

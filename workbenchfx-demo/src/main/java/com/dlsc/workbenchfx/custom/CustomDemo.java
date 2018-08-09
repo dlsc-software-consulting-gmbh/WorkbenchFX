@@ -58,7 +58,7 @@ public class CustomDemo extends Application {
             return new Label("Hello World");
           }
         }
-    ).navigationDrawer(navigationDrawer).build();
+    ).build();
 
     NavigationDrawer drawer = workbench1.getNavigationDrawer();
     drawer.getItems().addAll(new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Bli")), new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Ble")));
