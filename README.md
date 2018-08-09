@@ -5,7 +5,7 @@
 
 ![screenshot of an application created with WorkbenchFX](docs/images/workbenchFX_in_use.png) 
 
-## Table of Contents
+# Table of Contents
 - [What is WorkbenchFX?](#what-is-workbenchfx)
 - [Advantages](#advantages)
 - [Main Components](#main-components)
@@ -24,10 +24,10 @@
 - [Prevent module from closing](#prevent-module-from-closing)
 - [Team](#team)
 
-## What is WorkbenchFX?
+# What is WorkbenchFX?
 TODO: description
 
-## Advantages
+# Advantages
 - Less error-prone
 - Less code needed
 - Easy to learn
@@ -38,7 +38,7 @@ TODO: description
 - Encapsulating multiple, independent `WorkbenchModules`, and display them in Tabs
 - A predefined stylesheet which allows the user to change the styles as he needs to
 
-## Main Components
+# Main Components
 The most important components are noted in the picture and the corresponding table below:
 
 ![screenshot of the most important features WorkbenchFX provides](docs/images/features.png)
@@ -64,14 +64,14 @@ Nr. | Component           | Description
 
 For further information about the several components we refer to the `Javadoc`
 
-## Documentation
+# Documentation
 This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following *maven* task:
 ```Maven
 process-resources
 ```
 Afterwards, you will find the documentation in the `target/generated-docs/` subdirectory.
 
-## Basic Structure
+# Basic Structure
 WorkbenchFX uses the builder pattern to create the application, since one can use plenty of optional features.
 The minimal usage requires only the definition of a custom extension from the `WorkbenchModule`.
 Afterwards one can define further functionality calling the equivalent method.
@@ -91,7 +91,7 @@ Notes:
 - The result of the `build()` call is a `Control` which can be set in a scene.
 - It is also possible to use the default constructor `new Workbench()` and add the `WorkbenchModules` and features afterwards.
 
-## Demos
+# Demos
 We created several demos to visualize the capabilities of `WorkbenchFX` in the `workbench-fx-demo` folder:
 
 File | Description
@@ -101,8 +101,8 @@ File | Description
 `SceneBuilderDemo.java` | A proof of concept, if the API also works with `SceneBuilder`
 `StadardDemo.java` | Shows the simplest usage of `WorkbenchFX` with only three modules and no optional features  
 
-## Getting started
-### Extending the `WorkbenchModule`
+# Getting started
+## Extending the `WorkbenchModule`
 An extension of the abstract class `WorkbenchModule` is required in order to create an application:
 
 ```Java
@@ -149,7 +149,7 @@ public class CustomModule extends WorkbenchModule {
 }
 ```
 
-### Creating the `Workbench`
+## Creating the `Workbench`
 After extending the `WorkbenchModule`, the application can be created.
 To do this, one can access the `WorkbenchBuilder` by calling `Workbench.builder()`, setting the previously written module and build the `Workbench` by calling the `build()` method:
 
@@ -194,8 +194,8 @@ Opening the module, creates a `Tab` with the defined Icon and text and the conte
 By clicking on the `+` button, one gets back to the `AddModulePage`.
 Closing the opened module is achieved through clicking on the close button in the `Tab`.
 
-### Optionals
-#### `WorkbenchBuilder`
+## Optionals
+### `WorkbenchBuilder`
 These optionals are called after adding the custom modules to the builder:
 
 ```Java
@@ -222,7 +222,7 @@ Method (WorkbenchBuilder) | Description
 `tabFactory()` | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Tab` control
 `tileFactory()` | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Tile` control
 
-#### `Workbench`
+### `Workbench`
 After the `build()` call on the builder, the `Workbench` is created.
 Following useful calls might be interesting:
 
@@ -235,7 +235,7 @@ Method (Workbench) | Description
 `getToolbarControlsLeft()`   | Grants access to the items on the left of the `Toolbar`
 `getToolbarControlsRight()`  | Grants access to the items on the right of the `Toolbar`
 
-#### `WorkbenchModule`
+### `WorkbenchModule`
 The `WorkbenchModule` also provides optional functionality.
 It is possible to add `ToolbarItems` to the toolbar of the module (just like in the workbench):
 
@@ -245,7 +245,7 @@ Method (WorkbenchModule)    | Description
 `getToolbarControlsRight()` | Calling this method returns an `ObservableList` of `ToolbarItems`. Adding items to the list will automatically create a toolbar between the `Tab` and the module content and adds the items on the right side
 `close()`                   | Will immediately close the module, ignoring the module lifecycle
 
-## ToolbarItem
+# ToolbarItem
 Definition and behaviour of TBI
 
 <table>
@@ -311,7 +311,7 @@ Definition and behaviour of TBI
 </table>
 
 
-## Using Dialogs
+# Using Dialogs
 Definition and behaviour of Dialogs.
 List of all default Dialogs
 
@@ -377,10 +377,10 @@ List of all default Dialogs
     <tr>
 </table>
 
-## Prevent module from closing
+# Prevent module from closing
 // Chapter about using the Dialog to save and close
 
-## Team
+# Team
 - Marco Sanfratello
   - marco.sanfratello@students.fhnw.ch
   - Skype: sanfratello.m@gmail.com 
