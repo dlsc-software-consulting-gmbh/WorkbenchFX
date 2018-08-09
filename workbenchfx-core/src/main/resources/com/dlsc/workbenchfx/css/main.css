@@ -169,8 +169,10 @@
   -fx-arrows-visible: false;
   -fx-page-information-visible: false;
   -fx-tooltip-visible: false; }
-  #content-view #add-module-view:one-page > .pagination-control {
-    -fx-opacity: 0; }
+  #content-view #add-module-view:one-page {
+    -fx-padding: 0; }
+    #content-view #add-module-view:one-page > .pagination-control {
+      -fx-opacity: 0; }
   #content-view #add-module-view .page-control .tile-pane {
     -fx-vgap: 3em;
     -fx-hgap: 3em;
