@@ -31,7 +31,7 @@ cache:
   directories:
   - $HOME/.m2
 
-script: mvn -pl "!workbenchfx-dirk" test -B
+script: mvn test -B
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
