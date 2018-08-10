@@ -367,7 +367,8 @@ ToolbarItem toolbarItem = new ToolbarItem(
         <td><pre lang="java">
 // MenuButton with text
 ToolbarItem toolbarItem = new ToolbarItem(
-    "Hello World", new MenuItem("Content 1"), new MenuItem("Content 2")
+    "Hello World",
+    new MenuItem("Content 1"), new MenuItem("Content 2")
 );</td>
         <td><img src="docs/images/toolbarItems/menuButton_text.png"/></td>
     </tr>
@@ -401,7 +402,8 @@ ToolbarItem toolbarItem = new ToolbarItem(
         new HBox(
             new Label("Login: "),
             new TextField(),
-            new Button("", new MaterialDesignIconView(MaterialDesignIcon.PLUS))
+            new Button("", new MaterialDesignIconView(
+                MaterialDesignIcon.PLUS))
         )
     )
 );</td>
