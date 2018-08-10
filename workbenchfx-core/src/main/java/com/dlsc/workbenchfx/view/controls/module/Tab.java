@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.css.PseudoClass;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
@@ -34,6 +35,7 @@ public class Tab extends Control {
   private final StringProperty name;
   private final ObjectProperty<Node> icon;
   private final BooleanProperty activeTab;
+  private static final PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");
 
   /**
    * Constructs a new {@link Tab}.
@@ -77,6 +79,9 @@ public class Tab extends Control {
       activeTab.unbind();
       activeTab.bind(Bindings.equal(getModule(), workbench.activeModuleProperty()));
     });
+    activeTab.addListener((observable, oldValue, newValue) ->
+      pseudoClassStateChanged(SELECTED, newValue)
+    );
   }
 
   /**
