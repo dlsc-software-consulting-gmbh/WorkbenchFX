@@ -29,13 +29,22 @@ Fluent API or not?
 ==== Navigation Drawer
 Comes from Material Design: https://material.io/guidelines/patterns/navigation-drawer.html
 
-=== Architecture
+=== Module Naming
+To plug in functionality by the API user, we use modules.
+However, the name "Module" is not ideal, since a lot of things are already being called "Module"
+To avoid confusion, we want to come up with a name which makes it clearer and less ambiguous.
+// TODO: maybe include more precise definition, specifying what exactly a module is for us?
+// TODO: include brainstorming_module.pdf with image as link
+At first, we chose "Capsule" as a working title, since no classes exist yet in Java which are called like this.
+This means we can easily refactor the name later and focus more on the API design than on the name in the beginning.
+
+== Architecture
 API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
 //They want to be able to define their own design to ensure it blends in with the design of their components.
 //The standard for custom controls in JavaFX is to use an implementation based on a control, separated from the skin. TODO: source?
 //TODO: maybe explain a little with graphics how this structure works?
 
-==== Modular Approach
+=== Modular Approach
 Power users need the utmost of customizability, to ensure they can change the workspace to be the most ergonomic for their workflow.
 In terms of the architecture, it could mean that it would need to allow the following:
 
@@ -54,28 +63,22 @@ In terms of the architecture, it could mean that it would need to allow the foll
 The architecture for such an approach looks like this: link:UML/modular_approach.asta[UML class diagram]
 // TODO: include picture as well
 
-==== Simple Approach
+=== Simple Approach
 Our customer states that the intended API user would not have the need to entirely replace the `Skin`, as it is rarely done.
 For this reason, we will not separate between Control and Skin.
 Panes don't need to be as flexible.
 It is more important that the user experience is straightforward.
 Still, the possibility of extending the workbench using modules is important to our customer.
 
-=== Module Naming
-To plug in functionality by the API user, we use modules.
-However, the name "Module" is not ideal, since a lot of things are already being called "Module"
-To avoid confusion, we want to come up with a name which makes it clearer and less ambiguous.
-// TODO: maybe include more precise definition, specifying what exactly a module is for us?
-// TODO: include brainstorming_module.pdf with image as link
-At first, we chose "Capsule" as a working title, since no classes exist yet in Java which are called like this.
-This means we can easily refactor the name later and focus more on the API design than on the name in the beginning.
-
 === API Design of Module
 We analyzed which "touch points" a module in the workbench would have, which resulted in 3 points:
+
 * Main view to be displayed
 * Tab representation of module
 * Tile representation of module in home screen
+
 Which is why we decided to include them in the API design of the `Module` class. // TODO: improve representation, less duplication in documentation and display
+
 * Main view to be displayed => Node gets returned by init()
 * Tab representation of module => Node gets returned by getTab()
 * Tile representation of module in home screen => Node gets returned by getTile()
