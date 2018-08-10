@@ -52,10 +52,11 @@ We did a brainstorming to come up with ideas for possible names for `Module` (<<
 [#img-brainstorming-module]
 image::include/brainstorming_module.jpg[Module Brainstorming]
 
-We discussed this with customer // TODO... association with module already too strong
-
-// TODO: maybe include more precise definition, specifying what exactly a module is for us?
-// TODO: include brainstorming_module.pdf with image as link
+We discussed this with our customer and we decided to rename `Module` to `WorkbenchModule`.
+We felt the association of a module in this context is much stronger compared to the other options, and feels more natural.
+Also, we thought it would be easier to understand for our API users.
+This is why we decided to stick with the word `Module`.
+However, we decided to add the `Workbench` prefix, to remedy the importing issue mentioned above and to clearly separate it from the other `Module` classes in the JDK.
 
 == Architecture
 API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
