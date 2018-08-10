@@ -83,7 +83,7 @@ public class CustomDemo extends Application {
 
 //    Scene myScene = new Scene(initWorkbench());
     Scene myScene = new Scene(workbench1);
-
+    workbench1.showdraw
 //    primaryStage.setTitle("WorkbenchFX");
     primaryStage.setScene(myScene);
     primaryStage.setWidth(700);

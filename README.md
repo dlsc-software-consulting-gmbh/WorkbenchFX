@@ -611,18 +611,39 @@ public boolean destroy() {
 ```
 
 ## Drawer
-// Chapter about using the Drawers
+Using the `workbench` call `showDrawer()` one can define a custom drawer just like the `Navigation drawer`.
+There are two different possibilities to define a drawer:
+
+    (Workbench).showDrawer(
+        Region drawer, // The drawer to be shown
+        Sider side     // Defines from which side the drawer should come
+    );
+    
+    (Workbench).showDrawer(
+        Region drawer, // The drawer to be shown
+        Sider side     // Defines from which side the drawer should come
+        int percentage // Defines how much of the screen should be covered
+    );
+
+The only difference 
+
+Examples of drawer can be found in the `` [Custom Demo](#demos)
 
 ## Custom Overlay
 The foundation of [Dialogs](#dialog) and [Drawers](#drawer) are `Overlays`.
 It is possible to define a custom one using the method `showOverlay()` in the `workbench`.
 The defined overlay will be stacked on a `Glass pane`.
 
-    (Workbench).showOverlay(
-        Region overlay,  // The overlay to show
+    workbench.showOverlay(
+        Region overlay,  // The overlay to be shown
         boolean blocking // true, if the overlay should not be closed when clicking on the glasspane
     );
     
+
+```Java
+workbench.hello();
+```
+
 The overlay can essentially be any `Region` (for example a `Custom Control`).
 As default, the defined content will be displayed in the top-left corner of the window.
 If it is desired to center the content the following call in the overlay is needed: 
