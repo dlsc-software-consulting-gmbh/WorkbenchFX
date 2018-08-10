@@ -23,6 +23,14 @@ Fluent API or not?
 
 === First thoughts
 
+=== Why should someone use our Workbench instead of coding on their own?
+* Simple Design
+* Fast
+* Fast learning curve
+* Easy to use
+* Modular
+* Extendable
+
 == Analysis
 
 === Naming
@@ -196,14 +204,6 @@ However, since this requires a rebuild of the scene graph, it is not recommended
 This is only recommended when an overlay is so resource intensive, that it can't stay loaded in the background.
 
 // TODO: write more
-
-== Why should someone use our Workbench instead of coding on their own?
-* Simple Design
-* Fast
-* Fast learning curve
-* Easy to use
-* Modular
-* Extendable
 
 == Persona
 Who are the persona?
