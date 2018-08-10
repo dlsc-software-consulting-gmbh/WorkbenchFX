@@ -403,6 +403,42 @@ In a next step, we create the `TileControl`.
 The Compiler redirects now the Parent-reference of TabControl to the TileControl.
 As a result, the icon is only displayed in the TileControl.
 
+==== Module Lifecycle
+Designing the module lifecycle was a challenge we didn't expect.
+There were a few goals we wanted to achieve:
+
+* Easy to understand
+* Self-explanatory sequence and ordering
+* Require the least amount of work from Fabian to use it
+* Fulfill the needs of Steffi, cover as many use-cases as possible
+* Easy to use, even for complex scenarios
+
+If we make it too complex, Fabian could get confused. +
+If we require lots of work to use it, Fabian could get frustrated. +
+However, if we make it too easy, Steffi can't cover all of her use cases. +
+At the same time, making it more complex potentially makes it less self-explanatory, which in turn makes it harder to use.
+
+The challenge was to strike a balance between complex and easy, ensuring both Fabian and Steffi would be happy with the API.
+
+The first design decision we made was to have it as an abstract class.
+This way, we can already pre-define as many lifecycle methods as possible, so Fabian has the least amount of work.
+Still, we enable Steffi or even Fabian in some more advanced use cases to override the lifecycle methods they need, to augment or replace the implementation with their own.
+The compromise here was to have `#activate()` as the only lifecycle method that *must* be implemented, as it returns the view of the module that should be displayed.
+But, since the only thing Fabian has to define is `return view;`, which is acceptable.
+
+We realized every module needs a reference to the `Workbench`, but we can't pass it in the constructor, since at the time of the construction of a `WorkbenchModule`, the `Workbench` doesn't exist yet.
+This lead to the `#init(Workbench)` lifecycle method, which initially sets the `workbench` reference, but also allows implementors to initialize their module.
+
+Then, we knew we needed lifecycle methods, so the implementor can know whether their module is the currently active module, which lead us to `#activate()` and `#deactivate()`.
+This makes it possible for example to have certain module-specific menu-items in the `NavigationDrawer` or `ToolbarItem`s in the Toolbar, by adding them with `#activate()` and removing them with `#deactivate()`.
+
+Finally, we need to allow the implementor to free up resources when a module is closed, which lead us to the `#destroy()` lifecycle method.
+This was a bit of a challenge itself though, since initially we thought it would be enough to have `void` as the return type.
+Then we realized there could be a use case, in which the implementor may want to open a confirmation dialog before a module is being closed.
+Again, we thought about different possible solutions and decided to return a `boolean`, allowing the implementor to specify whether the module can be closed or not.
+In case of a confirmation dialog before closing the module, the implementor can simply return `false`, causing the closing of the module to get interrupted.
+
+
 === Customizability
 Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
 Of course, the resulting API design from this needs to work with our implementation as well.
