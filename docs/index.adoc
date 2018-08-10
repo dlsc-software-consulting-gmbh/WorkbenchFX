@@ -85,6 +85,9 @@ The following UML diagrams explain how the lifecycle of a `WorkbenchModule` work
 The diagrams are simplified to a degree that is relevant for the implementor of a `WorkbenchModule` and are *not* complete and *not* exhaustive by design.
 The goal is to explain the principle of interactions on modules when using `Workbench#openModule(WorkbenchModule)` and `Workbench#closeModule(WorkbenchModule)` with a minimal amount of examples.
 
+*Generally*, when clicking on a tile in the `AddModuleView`, `Workbench#openModule(WorkbenchModule)` gets called. +
+When clicking on the `x` icon of a tab, `Workbench#closeModule(WorkbenchModule)` gets called.
+
 Overview of the lifecycle in a state diagram, showing all state changes that can occur (<<img-module-lifecycle>>).
 
 .Module Lifecycle.
