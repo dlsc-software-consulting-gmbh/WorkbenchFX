@@ -1,12 +1,13 @@
 = Technical Report: WorkbenchFX
 François Martin; Marco Sanfratello
 
+Customer: http://www.dlsc.com[Dirk Lemmermann Software & Consulting]
+
 // Check symbol
 :y: &#10003;
 // Ensures references are displayed in "Figure x" format
 :xrefstyle: short
 
-== Front page
 // TODO: differentiate somewhere the terms "implementor", "user" and "API user"
 // TODO: explain persona early, so it can be referenced later in the text
 == Abstract / Management summary
