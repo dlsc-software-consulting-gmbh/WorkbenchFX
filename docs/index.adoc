@@ -65,28 +65,30 @@ API Users of WorkbenchFX don't only care about the API design, but also about th
 //TODO: maybe explain a little with graphics how this structure works?
 
 === Modular Approach
-Power users need the utmost of customizability, to ensure they can change the workspace to be the most ergonomic for their workflow.
+Power users need the utmost of customizability, to ensure they can adapt the workspace to be the most ergonomic to fit their workflow.
 In terms of the architecture, it could mean that it would need to allow the following:
 
 * Separation between `Control` and `Skin`
 ** Skin can be replaced by API users, if they want to use a custom style
 * Flexible panes
 ** can be rearranged across the whole window
-** different modes for fixation TODO: explain more
+** different modes for fixation
 *** Pinned mode
 *** Docked mode
 *** Floating mode
 *** Window mode
 *** Split mode
-* TODO: add more
-
-The architecture for such an approach looks like this: link:UML/modular_approach.asta[UML class diagram]
-// TODO: include picture as well
 
 === Simple Approach
 Our customer states that the intended API user would not have the need to entirely replace the `Skin`, as it is rarely done.
-For this reason, we will not separate between Control and Skin.
-Panes don't need to be as flexible.
+At first we didn't separate between `Control` and `Skin` for this reason.
+Later on, our customer told us he would still consider the `Workbench` to be a `Control`, and that it would make more sense if used with https://gluonhq.com/products/scene-builder/[Scene Builder].
+This is why we decided to have the `Workbench` extend `Control` and split it up into `Workbench` and `WorkbenchSkin`.
+However, since we decided the API user would not want to replace the `WorkbenchSkin`, we decided to make `Workbench` and `WorkbenchSkin` final.
+With this, we make it clear that `Workbench` and `WorkbenchSkin` are not designed to be subclassed.
+
+This also means that we don't need to design the panes we use internally to be replaceable by the API user.
+// TODO:
 It is more important that the user experience is straightforward.
 Still, the possibility of extending the workbench using modules is important to our customer.
 
@@ -562,6 +564,17 @@ We decided against keeping the original `WorkbenchFx.of(module1, module2)` notat
 WorkbenchFX seems like a gigantic pane.
 Maybe the panes are giving us some inspiration?
 //TODO: describe change from AbstractModule to Module, skip interface in favor of less API pollution, less maintenance, maybe challenge as well?
+
+=== Secret Weapon: Agile
+Even though we had to face a lot of challenges, there is one thing we are especially grateful about: working in an agile way. +
+Because of the agile approach and having the whole development process transparently on GitHub, we were able to get constant feedback from our customer.
+This way, issues or misunderstandings in communication quickly became obvious and we were able to adjust the implementation accordingly right away.
+This enabled us to develop a product of very high quality, which meets the demands of our customer and future users alike. +
+So in the end, working agile enabled us to quickly identify and resolve challenges.
+
+For example, the separation between `Workbench` and `WorkbenchSkin` only became obvious later in the project (see <<_simple_approach>>).
+If we didn't get constant feedback from our customer, we would probably only have recognized this when it was too late - at the end of the project.
+Thanks to the agile way, we could resolve this quickly and early on in the project.
 
 == Testing
 
