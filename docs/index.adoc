@@ -29,7 +29,7 @@ Fluent API or not?
 ==== Navigation Drawer
 Comes from Material Design: https://material.io/guidelines/patterns/navigation-drawer.html
 
-=== Module Naming
+==== Module Naming
 To plug in functionality by the API user, we use modules.
 However, the name "Module" is not ideal, since a lot of things are already being called "Module"
 To avoid confusion, we want to come up with a name which makes it clearer and less ambiguous.
