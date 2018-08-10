@@ -137,7 +137,7 @@ To learn more about the interactions in detail, look at the tests below, since t
 * <<test-reference.adoc#_close_modules,Closing of Modules>>
 * <<test-reference.adoc#_close_modules_interrupted,Closing of Modules Interrupted>>
 
-==== Icon: Image vs File vs Node
+=== Icon: Image vs File vs Node
 As for the graphic, there are different ways to implement the inclusion of one in a module.
 
 One possibility is to accept an `Image` object as a parameter of the constructor.
@@ -154,10 +154,10 @@ This allows for a maximum of flexibility and not much overhead in terms of code.
 
 // TODO: maybe, decision in AbstractModule between adding "content" as parameter in constructor and overriding init() or not including "content" as parameter and not overriding init(). Chose to do the latter since the node would not be used anywhere else and it would be about the same in terms of code, but is easier to override that way.
 
-==== WorkbenchFxUtils.assertNodeNotSame
+=== WorkbenchFxUtils.assertNodeNotSame
 // TODO: add comment from AbstractModule, issues with icons as nodes not being possible to display => also to prevent Fabian from making this mistake, throw exception when constructor of AbstractModule is called.
 
-==== MVP
+=== MVP
 MVP (Model View Presenter) was used as general architecture pattern.
 // TODO: why?
 At first, we used a separate `WorkbenchFxModel` object for the model.
@@ -172,10 +172,10 @@ This makes it possible to initialize all views in the same way while also result
 `Presenter` is abstract, because it acts more like a "super class" of all the presenters.
 Since all presenters don't need to extend anything else, using an abstract class here is possible.
 
-==== Builder Pattern
+=== Builder Pattern
 // TODO: explain how builder pattern works in WorkbenchFx.java
 
-==== Overlays
+=== Overlays
 To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `WorkbenchFx.showOverlay()` and `WorkbenchFx.hideOverlay()` methods.
 // TODO: include code of the above mentioned methods
 // TODO: explain glass pane
@@ -205,7 +205,7 @@ This is only recommended when an overlay is so resource intensive, that it can't
 * Modular
 * Extendable
 
-=== Persona
+== Persona
 Who are the persona?
 
 [cols="1,1,1"]
@@ -216,7 +216,7 @@ Who are the persona?
 |link:persona/anna_leutner.pdf[image:persona/anna_leutner.png[Anna Leutner]]
 |===
 
-=== Layout
+== Layout
 Challenge:
 
 * Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
@@ -226,6 +226,9 @@ So everyone talks the same language.
 
 To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
 This includes features, usability and general appearance of the specific workbench.
+
+== Analysis of existing Applications
+// TODO: add text here
 
 === Blender (Tool for creating 3D models)
 * Blender is divided up into five sections.
@@ -278,7 +281,7 @@ Right click on the tab, then one can decide the behaviour of it.
 
 === Sublime Text
 
-=== Minimal viable product (MVP)
+== Minimal viable product (MVP)
 As a result of our research we have enough information to create the most valuable workbench for our use case.
 Nonetheless we need to break down the functionality to it's simplest scenario.
 This way, we can assure our customer, that he minimal viable product as a result from this project.
@@ -309,7 +312,7 @@ Below it is shown the final prototype:
 |link:mvp/module.png[image:mvp/module.png[Module Screen]]
 |===
 
-=== The way creating the workbench
+== Development Processes
 
 === SCSS instead of CSS
 // TODO: Explain reason why we use SCSS instead of CSS
@@ -342,7 +345,7 @@ Using the `Mixin` in code:
 A `Mixin` includes code, created by the `Mixin` and puts it in the place where it was called.
 Link: http://thesassway.com/advanced/pure-sass-functions[SCSS - Mixin]
 
-==== General Conventions
+=== General Conventions
 We have decided to define some general conventions:
 
 In CSS it is possible to give multiple classes the same layout.
@@ -396,7 +399,7 @@ main.scss {
 ----
 The files to be included are named with an underscore as prefix: `_file1.scss`.
 
-=== Challenges
+== Challenges
 Setting the node-icon twice:
 When creating a new module, one declares a node or an icon for visualizing the module.
 After creation, a tab- and a tile-view is created and displayed.
@@ -410,7 +413,7 @@ In a next step, we create the `TileControl`.
 The Compiler redirects now the Parent-reference of TabControl to the TileControl.
 As a result, the icon is only displayed in the TileControl.
 
-==== Module Lifecycle
+=== Module Lifecycle
 Designing the module lifecycle was a challenge we didn't expect.
 There were a few goals we wanted to achieve:
 
@@ -548,7 +551,7 @@ WorkbenchFX seems like a gigantic pane.
 Maybe the panes are giving us some inspiration?
 //TODO: describe change from AbstractModule to Module, skip interface in favor of less API pollution, less maintenance, maybe challenge as well?
 
-=== Testing
+== Testing
 
 == Build Process
 === GitHub
