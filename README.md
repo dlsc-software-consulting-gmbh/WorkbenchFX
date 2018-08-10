@@ -614,7 +614,26 @@ public boolean destroy() {
 // Chapter about using the Drawers
 
 ## Custom Overlay
-// Chapter about creating a custom overlay
+The foundation of [Dialogs](#dialog) and [Drawers](#drawer) are `Overlays`.
+It is possible to define a custom one using the method `showOverlay()` in the `workbench`.
+The defined overlay will be stacked on a `Glass pane`.
+
+    (Workbench).showOverlay(
+        Region overlay,  // The overlay to show
+        boolean blocking // true, if the overlay should not be closed when clicking on the glasspane
+    );
+    
+The overlay can essentially be any `Region` (for example a `Custom Control`).
+As default, the defined content will be displayed in the top-left corner of the window.
+If it is desired to center the content the following call in the overlay is needed: 
+
+```Java
+public class MyOverlay extends GridPane { // Example implementation of an overlay
+  public MyOverlay() {
+    StackPane.setAlignment(this, Pos.CENTER); // This call is needed to center the overlay on screen
+  }
+}
+```
 
 # Restyling
 First of all:
@@ -686,6 +705,7 @@ for further information we refer to the Javadoc `WorkbenchUtils.convertToId()`
         tile-pokmon-game // for the Tile
 
 Referring to the custom workbench in the chapter [Getting Started](#getting-started):
+
 If someone would like to change the colors of the application he creates a new `css` file `customTheme.css` and refers to it in the workbench:
 
 ```Java
@@ -708,6 +728,7 @@ public class CustomDemo extends Application {
         new CustomModule() // Adding the CustomModule
     ).build(); // Building the Workbench
     
+    // Adding the stylesheet to the workbench to restyle it
     customWorkbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
     
     Scene myScene = new Scene(customWorkbench);

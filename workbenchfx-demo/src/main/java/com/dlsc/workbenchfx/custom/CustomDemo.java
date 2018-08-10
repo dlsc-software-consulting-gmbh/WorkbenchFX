@@ -60,12 +60,18 @@ public class CustomDemo extends Application {
             return new Label("Hello World");
           }
         }
-    ).toolbarRight(new ToolbarItem(
-        new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP), new MenuItem("Content 1"), new MenuItem("Content 2")
-    ))
+    )
+
+//        .toolbarRight(new ToolbarItem(
+//        new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP), new MenuItem("Content 1"), new MenuItem("Content 2")
+//    ))
 
 
         .build();
+
+
+        workbench1.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+
 
 //    workbench1.getToolbarControlsLeft().add(new ToolbarItem("Show Dialog", event -> {
 //      workbench1.showDialog(WorkbenchDialog.builder("Save before closing?", "Do you want to save your progress? Otherwise it will be lost.", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL).build());
@@ -75,13 +81,13 @@ public class CustomDemo extends Application {
 //    drawer.getItems().addAll(new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Bli")), new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Ble")));
 //    drawer.setMenuHoverBehavior(Priority.SOMETIMES);
 
-    Scene myScene = new Scene(initWorkbench());
-//    Scene myScene = new Scene(workbench1);
+//    Scene myScene = new Scene(initWorkbench());
+    Scene myScene = new Scene(workbench1);
 
 //    primaryStage.setTitle("WorkbenchFX");
     primaryStage.setScene(myScene);
-    primaryStage.setWidth(1000);
-    primaryStage.setHeight(700);
+    primaryStage.setWidth(700);
+    primaryStage.setHeight(450);
     primaryStage.show();
 //    primaryStage.centerOnScreen();
   }
@@ -206,8 +212,8 @@ public class CustomDemo extends Application {
         "This will reset your device to its default factory settings.", null));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
-    workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
-    //workbench.getStylesheets().add(CustomDemo.class.getResource("darkTheme.css").toExternalForm());
+//    workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+    workbench.getStylesheets().add(CustomDemo.class.getResource("darkTheme.css").toExternalForm());
 
     workbench
         .getStylesheets()
