@@ -20,7 +20,7 @@ This will end with a citation cite:[noauthor_system_nodate].
 === Briefing
 
 === Syntax
-Fluent API or not?
+// TODO: Fluent API or not?
 
 === First thoughts
 
@@ -40,12 +40,21 @@ Comes from Material Design: https://material.io/guidelines/patterns/navigation-d
 
 ==== Module Naming
 To plug in functionality by the API user, we use modules.
-However, the name "Module" is not ideal, since a lot of things are already being called "Module"
+However, the name `Module` is not ideal, since that name already has a lot of associations.
+Additionally, when typing `extends Module` in an IDE, it will automatically imports Java's `Module`.
+This makes it frustrating, as the implementor has to manually change the import.
+
 To avoid confusion, we want to come up with a name which makes it clearer and less ambiguous.
+We did a brainstorming to come up with ideas for possible names for `Module` (<<img-brainstorming-module>>).
+
+.Brainstorming of possible names for `Module`.
+[#img-brainstorming-module]
+image::include/brainstorming_module.jpg[Module Brainstorming]
+
+We discussed this with customer // TODO... association with module already too strong
+
 // TODO: maybe include more precise definition, specifying what exactly a module is for us?
 // TODO: include brainstorming_module.pdf with image as link
-At first, we chose "Capsule" as a working title, since no classes exist yet in Java which are called like this.
-This means we can easily refactor the name later and focus more on the API design than on the name in the beginning.
 
 == Architecture
 API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
