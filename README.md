@@ -284,9 +284,10 @@ Method (Workbench) | Description
 `getNavigationDrawerItems()` | Returns the `ObservableList` of the drawers `ToolbarItems`
 `show...Dialog()`            | Shows a [predefined dialog](#predefined-dialogs)
 `showDialog()`               | Shows a [custom dialog](#custom-dialog)
-`showDrawer()`               | Shows a custom drawer
+`showDrawer()`               | Shows a [custom drawer](#drawer)
 `getToolbarControlsLeft()`   | Grants access to the items on the left of the `Toolbar`
 `getToolbarControlsRight()`  | Grants access to the items on the right of the `Toolbar`
+`showOverlay()`              | Shows a [custom overlay](#custom-overlay)
 
 ### `WorkbenchModule`
 The `WorkbenchModule` also provides useful functionality.
@@ -616,7 +617,60 @@ public boolean destroy() {
 // Chapter about creating a custom overlay
 
 # Restyling
-// Chapter about using the stylesheet
+`WorkbenchFX` comes with an out of the box styling.
+It is strongly inspired by the [material design standards](https://material.io/).
+Every component in the workbench has its own `class` or `id`.
+This way, the components can be restyled if needed.
+
+In the [CustomDemo.java](#demos) file a stylesheet is referenced:
+      
+```Java
+workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+```
+
+This way, the workbench styling can be altered.
+In the `customTheme.css` file are some default colors referenced:
+
+```css
+* {
+  -primary-color: #6200EE;
+  -primary-variant-color: #3700b3;
+  -secondary-color: #6300ff;
+  -secondary-variant-color: #1e005f;
+  -background-color: #FFFFFF;
+  -surface-color: #FFFFFF;
+  -error-color: #B00020;
+  -on-primary-color: #FFFFFF;
+  -on-secondary-color: #FFFFFF;
+  -on-background-color: #000000;
+  -on-surface-color: #000000;
+  -on-error-color: #FFFFFF;
+}
+
+.logo {
+  /* Reference to the applications logo */
+  -fx-graphic: url("logo.png");
+}
+```
+
+Every generated `Tab` and `Tile` has its own unique `id`.
+the naming convention for the `id` is set to:
+- Prefix: `tab/tile` (depending on the component)
+- body: the defined name of the module
+  - with any special letters removed
+  - all ' ' spaces replaced with '-' hyphens
+  - uppercase letters converted to lowercase
+
+for further information we refer to the Javadoc `WorkbenchUtils.convertToId()`
+
+`id` example:
+
+    Module name:
+        Pokémon
+        
+    Results to:
+        tab-pokmon // for the Tab
+        tile-pokmon // for the Tile
 
 # Team
 - Marco Sanfratello
