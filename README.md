@@ -317,23 +317,23 @@ They can also be seen in the `toolbar` of the `CustomDemo`
         <td><pre lang="java">
 // Label with text
 ToolbarItem toolbarItem = new ToolbarItem("Hello World");</td>
-        <td><img src="docs/images/settings/integer_setting.png"/></td>
+        <td><img src="docs/images/toolbarItems/label_text.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // Label with graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    new MaterialIconView(MaterialDesignIcon.THUMB_UP)
+    new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP)
 );</td>
-        <td><img src="docs/images/settings/integerSlider_setting.png"/></td>
+        <td><img src="docs/images/toolbarItems/label_icon.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // Label with text and graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    "Hello World", new MaterialIconView(MaterialDesignIcon.THUMB_UP)
+    "Hello World", new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP)
 );</td>
-        <td><img src="docs/images/settings/double_setting.png"/></td>
+        <td><img src="docs/images/toolbarItems/label_text_icon.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -341,25 +341,25 @@ ToolbarItem toolbarItem = new ToolbarItem(
 ToolbarItem toolbarItem = new ToolbarItem(
     "Hello World", event -> System.out.println("Hello World")
 );</td>
-        <td><img src="docs/images/settings/doubleSlider_setting.png"/></td>
+        <td><img src="docs/images/toolbarItems/button_text.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // Button with graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    new MaterialIconView(MaterialDesignIcon.THUMB_UP),
+    new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
     event -> System.out.println("Hello World")
 );</td>
-        <td><img src="docs/images/settings/boolean_setting.png"/></td>
+        <td><img src="docs/images/toolbarItems/button_icon.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // Button with text and graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    "Hello World", new MaterialIconView(MaterialDesignIcon.THUMB_UP),
+    "Hello World", new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
     event -> System.out.println("Hello World")
 );</td>
-        <td><img src="docs/images/settings/string_setting.png"></td>
+        <td><img src="docs/images/toolbarItems/button_text_icon.png"></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -367,25 +367,25 @@ ToolbarItem toolbarItem = new ToolbarItem(
 ToolbarItem toolbarItem = new ToolbarItem(
     "Hello World", new MenuItem("Content 1"), new MenuItem("Content 2")
 );</td>
-        <td><img src="docs/images/settings/observableList_setting.png"/></td>
+        <td><img src="docs/images/toolbarItems/menuButton_text.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // MenuButton with graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    new MaterialIconView(MaterialDesignIcon.THUMB_UP),
+    new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
     new MenuItem("Content 1"), new MenuItem("Content 2")
 );</td>
-        <td><img src="docs/images/settings/listProperty_setting.png"/></td>
+        <td><img src="docs/images/toolbarItems/menuButton_icon.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
 // MenuButton with text and graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    "Hello World", new MaterialIconView(MaterialDesignIcon.THUMB_UP),
+    "Hello World", new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
     new MenuItem("Content 1"), new MenuItem("Content 2")
 );</td>
-        <td><img src="docs/images/settings/favourites_setting.png"/></td>
+        <td><img src="docs/images/toolbarItems/menuButton_text_icon.png"/></td>
     </tr>
     <tr>
 </table>

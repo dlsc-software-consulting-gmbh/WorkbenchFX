@@ -60,17 +60,23 @@ public class CustomDemo extends Application {
             return new Label("Hello World");
           }
         }
-    ).build();
+    ).toolbarRight(new ToolbarItem(
+        new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP), new MenuItem("Content 1"), new MenuItem("Content 2")
+    ))
 
-    workbench1.getToolbarControlsLeft().add(new ToolbarItem("Show Dialog", event -> {
-      workbench1.showDialog(WorkbenchDialog.builder("Save before closing?", "Do you want to save your progress? Otherwise it will be lost.", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL).build());
-    }));
 
-    NavigationDrawer drawer = workbench1.getNavigationDrawer();
-    drawer.getItems().addAll(new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Bli")), new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Ble")));
-    drawer.setMenuHoverBehavior(Priority.SOMETIMES);
+        .build();
 
-    Scene myScene = new Scene(initWorkbench());
+//    workbench1.getToolbarControlsLeft().add(new ToolbarItem("Show Dialog", event -> {
+//      workbench1.showDialog(WorkbenchDialog.builder("Save before closing?", "Do you want to save your progress? Otherwise it will be lost.", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL).build());
+//    }));
+
+//    NavigationDrawer drawer = workbench1.getNavigationDrawer();
+//    drawer.getItems().addAll(new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Bli")), new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Ble")));
+//    drawer.setMenuHoverBehavior(Priority.SOMETIMES);
+
+//    Scene myScene = new Scene(initWorkbench());
+    Scene myScene = new Scene(workbench1);
 
 //    primaryStage.setTitle("WorkbenchFX");
     primaryStage.setScene(myScene);
