@@ -617,10 +617,13 @@ public boolean destroy() {
 // Chapter about creating a custom overlay
 
 # Restyling
+First of all:
+`WorkbenchFX` does not interrupt with the styles of the developer.
+This way each module can be styled independently and one does not have to worry about the workbench taking influence on the styling.
+
+But it is possible to alter the styles of the workbench itself.
 `WorkbenchFX` comes with an out of the box styling.
 It is strongly inspired by the [material design standards](https://material.io/).
-Every component in the workbench has its own `class` or `id`.
-This way, the components can be restyled if needed.
 
 In the [CustomDemo.java](#demos) file a stylesheet is referenced:
       
@@ -653,7 +656,17 @@ In the `customTheme.css` file are some default colors referenced:
 }
 ```
 
-Every generated `Tab` and `Tile` has its own unique `id`.
+Their naming and the way they are used is directly taken from the [material design standards](https://material.io/design/color/the-color-system.html#color-theme-creation).
+Changing those colors leads to a complete restyling of the application.
+For example A `darkTheme.css` is also referenced in the demo:
+
+![screenshot of the workbenches darkTheme version](docs/images/workbenchFX_in_use_dark.png)
+
+Sometimes just changing the colors is not enough.
+Every component in the workbench has its own `class` or `id`.
+This way, the components can be restyled if needed.
+
+For example every generated `Tab` and `Tile` has its own unique `id`.
 the naming convention for the `id` is set to:
 - Prefix: `tab/tile` (depending on the component)
 - body: the defined name of the module
@@ -666,11 +679,106 @@ for further information we refer to the Javadoc `WorkbenchUtils.convertToId()`
 `id` example:
 
     Module name:
-        Pokémon
+        Pokémon Game
         
     Results to:
-        tab-pokmon // for the Tab
-        tile-pokmon // for the Tile
+        tab-pokmon-game // for the Tab
+        tile-pokmon-game // for the Tile
+
+Referring to the custom workbench in the chapter [Getting Started](#getting-started):
+If someone would like to change the colors of the application he creates a new `css` file `customTheme.css` and refers to it in the workbench:
+
+```Java
+customWorkbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+``` 
+
+In context the code looks like this:
+
+```Java
+public class CustomDemo extends Application {
+  public static void main(String[] args) {
+    launch(args);
+  }
+
+  @Override
+  public void start(Stage primaryStage) {
+    
+    // Creating the Workbench
+    Workbench customWorkbench = Workbench.builder( // Accessing the WorkbenchBuilder
+        new CustomModule() // Adding the CustomModule
+    ).build(); // Building the Workbench
+    
+    customWorkbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+    
+    Scene myScene = new Scene(customWorkbench);
+    primaryStage.setScene(myScene);
+    primaryStage.setWidth(700);
+    primaryStage.setHeight(450);
+    primaryStage.show();
+  }
+}
+``` 
+
+Changing the colors in the `css` file to something like this:
+
+```css
+* {
+  -primary-color: #c9deee;
+    -primary-variant-color: #97aaba;
+    -secondary-color: #c9deee;
+    -secondary-variant-color: #97aaba;
+    -background-color: #FFFFFF;
+    -surface-color: #FFFFFF;
+    -error-color: #B00020;
+    -on-primary-color: #333333;
+    -on-secondary-color: #333333;
+    -on-background-color: #333333;
+    -on-surface-color: #333333;
+    -on-error-color: #FFFFFF;
+}
+```
+
+Leads to following design:
+
+![screenshot of the custom css](docs/images/custom_css_1.png)
+
+Assuming the `Tab` and `Tile` are needed to be restyled: Adding following code snippet to the `customTheme.css` 
+
+```css
+/* Styling the Tile */
+#tile-my-first-workbench-module .tile-box {
+  -fx-background-color: -primary-color !important; /* The background of the Tile */
+}
+
+#tile-my-first-workbench-module .tile-box .text, /* The icon and the text */
+#tile-my-first-workbench-module .tile-box .glyph-icon {
+  -fx-fill: -on-primary-color !important;
+}
+
+/* Styling the Tab */
+#tab-my-first-workbench-module:selected {
+  -fx-background-color: #333333 !important; /* The background of the Tab */
+  -fx-background-radius: 5px 5px 0 0 !important;
+}
+
+#tab-my-first-workbench-module:selected .text, /* The icon and the text */
+#tab-my-first-workbench-module:selected .glyph-icon {
+  -fx-fill: white !important;
+}
+
+#tab-my-first-workbench-module:selected .shape {
+  -fx-background-color: white !important; /* The close icon */
+}
+```
+
+Leads to following styling:
+
+![screenshot of the custom css](docs/images/custom_css_2.png)
+
+Note:
+- The `color-variables` can still be used in the `customTheme.css` file
+- Since the styling of the workbench is superior, the `!important` tag is required when restyling the workbench
+- A tool like [ScenicView](http://fxexperience.com/scenic-view/) works well to determine the style classes
 
 # Team
 - Marco Sanfratello
