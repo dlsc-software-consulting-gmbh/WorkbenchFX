@@ -88,7 +88,6 @@ However, since we decided the API user would not want to replace the `WorkbenchS
 With this, we make it clear that `Workbench` and `WorkbenchSkin` are not designed to be subclassed.
 
 This also means that we don't need to design the panes we use internally to be replaceable by the API user.
-// TODO:
 It is more important that the user experience is straightforward.
 Still, the possibility of extending the workbench using modules is important to our customer.
 
@@ -182,9 +181,9 @@ This allows for a maximum of flexibility and not much overhead in terms of code.
 === MVP
 MVP (Model View Presenter) was used as general architecture pattern.
 // TODO: why?
-At first, we used a separate `WorkbenchFxModel` object for the model.
-Our customer suggests that it would be easier to skip the `WorkbenchFxModel` class and just put the logic in `WorkbenchFx`, since that's the place where he would expect such logic.
-We decide to change it in a way that `WorkbenchFx` is the model object in the MVP pattern in our case.
+At first, we used a separate `WorkbenchModel` object for the model.
+Our customer suggests that it would be easier to skip the `WorkbenchModel` class and just put the logic in `Workbench`, since that's the place where he would expect such logic.
+We decide to change it in a way that `Workbench` is the model object in the MVP pattern in our case.
 This simplifies the architecture and readability is improved, since methods are where they would be expected.
 
 // TODO: used view and presenter class, with view being interface and presenter being abstract.
@@ -202,18 +201,19 @@ To enable the API user to easily show a custom overlay with the option of having
 // TODO: include code of the above mentioned methods
 // TODO: explain glass pane
 The GUI of WorkbenchFX is organized in layers.
-At all times, there is a layer of the general WorkbenchFX GUI, which is being represented by the view class `WorkbenchFxView`.
+// TODO: ENTIRELY rework....
+At all times, there is a layer of the general WorkbenchFX GUI, which is being represented by the view class `WorkbenchView`.
 On top of that is the `GlassPane`, which is generally hidden and is only being displayed if a modal overlay is being shown.
-Stacked on top are all of the layers, which are either being added by WorkbenchFx internally or by the API user.
-One example of an internally added layer is the Navigation Drawer, which is being displayed when the menu button has been pressed.
+Stacked on top are all of the layers, which are either being added by `Workbench` internally or by the API user.
+One example of an internally added layer is the Navigation Drawer, which is being displayed whenever the menu button was pressed.
 
 Overlays must first be loaded by using the `overlays()` method in the builder.
-The overlays are initially being loaded hidden and are being displayed on demand by calling `WorkbenchFx.showOverlay()`.
+The overlays are initially being loaded hidden and are being displayed on demand by calling `Workbench.showOverlay()`.
 This way, initial loading of the application may take longer, since all of the overlays have to be eagerly loaded.
 In turn, actions of the user causing an overlay to be displayed are instant and don't require rebuilding of the scene graph.
 Users generally prefer to wait a bit longer for an application to startup, rather than waiting for every action to have a longer loading time. // TODO: source?
 
-It is also possible to load an overlay at runtime, using the `WorkbenchFx.addOverlay()` method.
+It is also possible to load an overlay at runtime, using the `Workbench.addOverlay()` method.
 However, since this requires a rebuild of the scene graph, it is not recommended. // TODO: source?
 This is only recommended when an overlay is so resource intensive, that it can't stay loaded in the background.
 
@@ -232,7 +232,7 @@ Who are the persona?
 
 == Layout
 Challenge:
-
+// TODO: ????
 * Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
 * Unique glossary --> Like in the previous project, we aknowledge, that a shared understanding with the customer is needed.
 Thus, we're going to define a unique glossary.
@@ -265,6 +265,7 @@ The bar itself is fixed and can't be moved.
 * Items in the bar can be collapsed, in order to save space and make it cleaner.
 * The tools in the toolbar are stored in tabs.
 * When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
+// TODO: use table instead of + and -?
 
 === Photoshop / Illustrator (Design tools)
 * Photoshop (Image tool, Pixel based)
@@ -282,6 +283,7 @@ Multiple workspaces can be stored and it can be switched to. (+)
 *** When double-clicking on the Tabs, they collapse (+)
 *** They have 3 states (not likely to understand) and it's collapsing behaviour is not intuitive. (-)
 **4
+// TODO: use table instead of + and -?
 
 === IntelliJ
 * all possibilities available,
@@ -290,19 +292,20 @@ Right click on the tab, then one can decide the behaviour of it.
 * "Restore default layout" doesn't restore all layout changes (-)
 * Layout changes should be stored at one place.
 *
+// TODO: use table instead of + and -?
 
 === MSOffice
 
 === Sublime Text
 
-== Minimal viable product (MVP)
-As a result of our research we have enough information to create the most valuable workbench for our use case.
+== Minimum Viable product (MVP)
+As a result of our research we have enough information to create the minimum viable workbench for our use case.
 Nonetheless we need to break down the functionality to it's simplest scenario.
-This way, we can assure our customer, that he minimal viable product as a result from this project.
+This way, we can assure our customer, that the minimal viable product as a result from this project. // TODO: ????
 The reason why we do this is, that this way both parties are talking the same language regarding the expectations of the outcome of the project.
 Furthermore it's an assurance for both of them.
 
-Characteristically for all programs is:
+Characteristic for all programs is: // TODO: which programs?
 
 * A menu-bar on top of the application.
 * Below the menu-bar is often a tool-bar, which contains the current, or most important tools represented through buttons (without collapsing).
@@ -313,7 +316,7 @@ They contain either further tools, buttons or a tree-view for navigation.
 * Finally another tool-bar is set below the application.
 It contains the least used tools, or tools which are needed at the end of the process.
 
-The outcome of our research results in a minimalistic version of the workbench, our customer developed.
+The outcome of our research results in a minimalistic version of the workbench, our customer developed. // TODO: did he?
 The MVP is designed with the prototyping-tool `Figma`.
 It's clickable prototype can be found at:
 https://www.figma.com/proto/LY7jPWrDVQ5GG1zmvBdlA2MT/WorkbenchFX?scaling=contain&node-id=47%3A129[figma-prototype]
@@ -337,7 +340,7 @@ https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[S
 
 There is no margin in JavaFX CSS.
 We've made a workaround using a `SCSS Mixin` which looks like this:
-
+// TODO: still relevant? replace by what?
 Creating the `Mixin`:
 [source,sass]
 ----
@@ -405,7 +408,7 @@ In the `main.scss` we include all those other files and this "main file" will be
 Using the `@include` tag looks like this:
 [source,sass]
 ----
-main.scss {
+main.scss { // TODO: correct?
   @include file1;
   @include file2;
   @include file3;
@@ -461,7 +464,6 @@ This was a bit of a challenge itself though, since initially we thought it would
 Then we realized there could be a use case, in which the implementor may want to open a confirmation dialog before a module is being closed.
 Again, we thought about different possible solutions and decided to return a `boolean`, allowing the implementor to specify whether the module can be closed or not.
 In case of a confirmation dialog before closing the module, the implementor can simply return `false`, causing the closing of the module to get interrupted.
-
 
 === Customizability
 Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
@@ -562,7 +564,7 @@ We decided against keeping the original `WorkbenchFx.of(module1, module2)` notat
 
 === Architecture
 WorkbenchFX seems like a gigantic pane.
-Maybe the panes are giving us some inspiration?
+Maybe the panes are giving us some inspiration? // TODO: ????
 //TODO: describe change from AbstractModule to Module, skip interface in favor of less API pollution, less maintenance, maybe challenge as well?
 
 === Secret Weapon: Agile
@@ -577,6 +579,7 @@ If we didn't get constant feedback from our customer, we would probably only hav
 Thanks to the agile way, we could resolve this quickly and early on in the project.
 
 == Testing
+// TODO: what do we want to cover?
 
 == Build Process
 === GitHub
@@ -617,3 +620,8 @@ For further information we reference to following link: https://github.com/Julia
 bibliography::[]
 
 == Honesty Declaration
+It is hereby declared that the contents of this report, unless otherwise stated, have been authored by François Martin and Marco Sanfratello. All external sources have been named and quoted material has been attributed appropriately.
+
+The signatures are delivered separately.
+
+// TODO: insert place and date here
