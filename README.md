@@ -331,7 +331,8 @@ ToolbarItem toolbarItem = new ToolbarItem(
         <td><pre lang="java">
 // Label with text and graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    "Hello World", new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP)
+    "Hello World",
+    new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP)
 );</td>
         <td><img src="docs/images/toolbarItems/label_text_icon.png"/></td>
     </tr>
@@ -356,7 +357,8 @@ ToolbarItem toolbarItem = new ToolbarItem(
         <td><pre lang="java">
 // Button with text and graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    "Hello World", new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
+    "Hello World",
+    new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
     event -> System.out.println("Hello World")
 );</td>
         <td><img src="docs/images/toolbarItems/button_text_icon.png"></td>
@@ -382,10 +384,28 @@ ToolbarItem toolbarItem = new ToolbarItem(
         <td><pre lang="java">
 // MenuButton with text and graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    "Hello World", new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
+    "Hello World",
+    new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
     new MenuItem("Content 1"), new MenuItem("Content 2")
 );</td>
         <td><img src="docs/images/toolbarItems/menuButton_text_icon.png"/></td>
+    </tr>
+    <tr>
+    <tr>
+        <td><pre lang="java">
+// MenuButton with a MenuItem containing custom content
+ToolbarItem toolbarItem = new ToolbarItem(
+    "Account",
+    new MaterialDesignIconView(MaterialDesignIcon.ACCOUNT),
+    new MenuItem("",
+        new HBox(
+            new Label("Login: "),
+            new TextField(),
+            new Button("", new MaterialDesignIconView(MaterialDesignIcon.PLUS))
+        )
+    )
+);</td>
+        <td><img src="docs/images/toolbarItems/custom_content.png"/></td>
     </tr>
     <tr>
 </table>
