@@ -1,14 +1,14 @@
 = Technical Report: WorkbenchFX
 François Martin; Marco Sanfratello
 
-// Path to the code references
-:sourcedir: ../src/main/java
-:sourcedirdemo: ../workbenchfx-demo/src/main/java
 // Check symbol
 :y: &#10003;
+// Ensures references are displayed in "Figure x" format
+:xrefstyle: short
 
 == Front page
-
+// TODO: differentiate somewhere the terms "implementor", "user" and "API user"
+// TODO: explain persona early, so it can be referenced later in the text
 == Abstract / Management summary
 
 == Introduction
@@ -23,19 +23,36 @@ Fluent API or not?
 
 === First thoughts
 
+=== Why should someone use our Workbench instead of coding on their own?
+* Simple Design
+* Fast
+* Fast learning curve
+* Easy to use
+* Modular
+* Extendable
+
 == Analysis
 
 === Naming
 ==== Navigation Drawer
 Comes from Material Design: https://material.io/guidelines/patterns/navigation-drawer.html
 
-=== Architecture
+==== Module Naming
+To plug in functionality by the API user, we use modules.
+However, the name "Module" is not ideal, since a lot of things are already being called "Module"
+To avoid confusion, we want to come up with a name which makes it clearer and less ambiguous.
+// TODO: maybe include more precise definition, specifying what exactly a module is for us?
+// TODO: include brainstorming_module.pdf with image as link
+At first, we chose "Capsule" as a working title, since no classes exist yet in Java which are called like this.
+This means we can easily refactor the name later and focus more on the API design than on the name in the beginning.
+
+== Architecture
 API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
 //They want to be able to define their own design to ensure it blends in with the design of their components.
 //The standard for custom controls in JavaFX is to use an implementation based on a control, separated from the skin. TODO: source?
 //TODO: maybe explain a little with graphics how this structure works?
 
-==== Modular Approach
+=== Modular Approach
 Power users need the utmost of customizability, to ensure they can change the workspace to be the most ergonomic for their workflow.
 In terms of the architecture, it could mean that it would need to allow the following:
 
@@ -54,33 +71,81 @@ In terms of the architecture, it could mean that it would need to allow the foll
 The architecture for such an approach looks like this: link:UML/modular_approach.asta[UML class diagram]
 // TODO: include picture as well
 
-==== Simple Approach
+=== Simple Approach
 Our customer states that the intended API user would not have the need to entirely replace the `Skin`, as it is rarely done.
 For this reason, we will not separate between Control and Skin.
 Panes don't need to be as flexible.
 It is more important that the user experience is straightforward.
 Still, the possibility of extending the workbench using modules is important to our customer.
 
-=== Module Naming
-To plug in functionality by the API user, we use modules.
-However, the name "Module" is not ideal, since a lot of things are already being called "Module"
-To avoid confusion, we want to come up with a name which makes it clearer and less ambiguous.
-// TODO: maybe include more precise definition, specifying what exactly a module is for us?
-// TODO: include brainstorming_module.pdf with image as link
-At first, we chose "Capsule" as a working title, since no classes exist yet in Java which are called like this.
-This means we can easily refactor the name later and focus more on the API design than on the name in the beginning.
-
 === API Design of Module
 We analyzed which "touch points" a module in the workbench would have, which resulted in 3 points:
+
 * Main view to be displayed
 * Tab representation of module
 * Tile representation of module in home screen
+
 Which is why we decided to include them in the API design of the `Module` class. // TODO: improve representation, less duplication in documentation and display
+
 * Main view to be displayed => Node gets returned by init()
 * Tab representation of module => Node gets returned by getTab()
 * Tile representation of module in home screen => Node gets returned by getTile()
 
-==== Icon: Image vs File vs Node
+=== WorkbenchModule Lifecycle
+The following UML diagrams explain how the lifecycle of a `WorkbenchModule` works.
+The diagrams are simplified to a degree that is relevant for the implementor of a `WorkbenchModule` and are *not* complete and *not* exhaustive by design.
+The goal is to explain the principle of interactions on modules when using `Workbench#openModule(WorkbenchModule)` and `Workbench#closeModule(WorkbenchModule)` with a minimal amount of examples.
+
+*Generally*, when clicking on a tile in the `AddModuleView`, `Workbench#openModule(WorkbenchModule)` gets called. +
+When clicking on the `x` icon of a tab, `Workbench#closeModule(WorkbenchModule)` gets called.
+
+Overview of the lifecycle in a state diagram, showing all state changes that can occur (<<img-module-lifecycle>>).
+
+.Module Lifecycle.
+[#img-module-lifecycle]
+image::include/UML/svg/Module Lifecycle.svg[Module Lifecycle]
+
+Process of opening two modules in sequence, followed by opening the first module again (<<img-open-module>>).
+
+.Opening of modules.
+[#img-open-module]
+image::include/UML/svg/Opening of Modules.svg[Opening of Modules]
+
+Two open modules, closing of the active module (<<img-close-module-active>>).
+
+.Closing of modules, active module.
+[#img-close-module-active]
+image::include/UML/svg/Close Module Active.svg[Close Module Active]
+
+Two open modules, closing of the inactive module (<<img-close-module-inactive>>).
+
+.Closing of modules, inactive module.
+[#img-close-module-inactive]
+image::include/UML/svg/Close Module Inactive.svg[Close Module Inactive]
+
+Two open modules, closing of the active module, where the call to `WorkbenchModule#destroy()` returns false (<<img-close-module-interrupt-active>>).
+This leads to the closing process getting interrupted.
+The implementor of `WorkbenchModule` can then choose to do cleanup actions or open a confirmation dialog, following a call to `WorkbenchModule#close()`, when the module should definitely be closed.
+
+.Closing of modules interrupted, active module.
+[#img-close-module-interrupt-active]
+image::include/UML/svg/Close Module Interrupted Active.svg[Close Module Interrupted Active]
+
+Two open modules, closing of the inactive module, where the call to `WorkbenchModule#destroy()` returns false (<<img-close-module-interrupt-inactive>>).
+This leads to the closing process getting interrupted.
+The module which interrupted the closing process will be opened, so that the user's attention will be directed towards the interrupting module, so they can take appropriate actions.
+
+.Closing of modules interrupted, inactive module.
+[#img-close-module-interrupt-inactive]
+image::include/UML/svg/Close Module Interrupted Inactive.svg[Close Module Interrupted Inactive]
+
+To learn more about the interactions in detail, look at the tests below, since the tests verify the exact order of the calls and cover more situations in detail:
+
+* <<test-reference.adoc#_open_modules,Opening of Modules>>
+* <<test-reference.adoc#_close_modules,Closing of Modules>>
+* <<test-reference.adoc#_close_modules_interrupted,Closing of Modules Interrupted>>
+
+=== Icon: Image vs File vs Node
 As for the graphic, there are different ways to implement the inclusion of one in a module.
 
 One possibility is to accept an `Image` object as a parameter of the constructor.
@@ -97,10 +162,10 @@ This allows for a maximum of flexibility and not much overhead in terms of code.
 
 // TODO: maybe, decision in AbstractModule between adding "content" as parameter in constructor and overriding init() or not including "content" as parameter and not overriding init(). Chose to do the latter since the node would not be used anywhere else and it would be about the same in terms of code, but is easier to override that way.
 
-==== WorkbenchFxUtils.assertNodeNotSame
+=== WorkbenchFxUtils.assertNodeNotSame
 // TODO: add comment from AbstractModule, issues with icons as nodes not being possible to display => also to prevent Fabian from making this mistake, throw exception when constructor of AbstractModule is called.
 
-==== MVP
+=== MVP
 MVP (Model View Presenter) was used as general architecture pattern.
 // TODO: why?
 At first, we used a separate `WorkbenchFxModel` object for the model.
@@ -115,10 +180,10 @@ This makes it possible to initialize all views in the same way while also result
 `Presenter` is abstract, because it acts more like a "super class" of all the presenters.
 Since all presenters don't need to extend anything else, using an abstract class here is possible.
 
-==== Builder Pattern
+=== Builder Pattern
 // TODO: explain how builder pattern works in WorkbenchFx.java
 
-==== Overlays
+=== Overlays
 To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `WorkbenchFx.showOverlay()` and `WorkbenchFx.hideOverlay()` methods.
 // TODO: include code of the above mentioned methods
 // TODO: explain glass pane
@@ -140,15 +205,7 @@ This is only recommended when an overlay is so resource intensive, that it can't
 
 // TODO: write more
 
-== Why should someone use our Workbench instead of coding on their own?
-* Simple Design
-* Fast
-* Fast learning curve
-* Easy to use
-* Modular
-* Extendable
-
-=== Persona
+== Persona
 Who are the persona?
 
 [cols="1,1,1"]
@@ -159,7 +216,7 @@ Who are the persona?
 |link:persona/anna_leutner.pdf[image:persona/anna_leutner.png[Anna Leutner]]
 |===
 
-=== Layout
+== Layout
 Challenge:
 
 * Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
@@ -169,6 +226,9 @@ So everyone talks the same language.
 
 To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
 This includes features, usability and general appearance of the specific workbench.
+
+== Analysis of existing Applications
+// TODO: add text here
 
 === Blender (Tool for creating 3D models)
 * Blender is divided up into five sections.
@@ -221,7 +281,7 @@ Right click on the tab, then one can decide the behaviour of it.
 
 === Sublime Text
 
-=== Minimal viable product (MVP)
+== Minimal viable product (MVP)
 As a result of our research we have enough information to create the most valuable workbench for our use case.
 Nonetheless we need to break down the functionality to it's simplest scenario.
 This way, we can assure our customer, that he minimal viable product as a result from this project.
@@ -252,7 +312,7 @@ Below it is shown the final prototype:
 |link:mvp/module.png[image:mvp/module.png[Module Screen]]
 |===
 
-=== The way creating the workbench
+== Development Processes
 
 === SCSS instead of CSS
 // TODO: Explain reason why we use SCSS instead of CSS
@@ -285,7 +345,7 @@ Using the `Mixin` in code:
 A `Mixin` includes code, created by the `Mixin` and puts it in the place where it was called.
 Link: http://thesassway.com/advanced/pure-sass-functions[SCSS - Mixin]
 
-==== General Conventions
+=== General Conventions
 We have decided to define some general conventions:
 
 In CSS it is possible to give multiple classes the same layout.
@@ -339,7 +399,7 @@ main.scss {
 ----
 The files to be included are named with an underscore as prefix: `_file1.scss`.
 
-=== Challenges
+== Challenges
 Setting the node-icon twice:
 When creating a new module, one declares a node or an icon for visualizing the module.
 After creation, a tab- and a tile-view is created and displayed.
@@ -352,6 +412,42 @@ When creating a `TabControl`, the Compiler references the TabControl as the Pare
 In a next step, we create the `TileControl`.
 The Compiler redirects now the Parent-reference of TabControl to the TileControl.
 As a result, the icon is only displayed in the TileControl.
+
+=== Module Lifecycle
+Designing the module lifecycle was a challenge we didn't expect.
+There were a few goals we wanted to achieve:
+
+* Easy to understand
+* Self-explanatory sequence and ordering
+* Require the least amount of work from Fabian to use it
+* Fulfill the needs of Steffi, cover as many use-cases as possible
+* Easy to use, even for complex scenarios
+
+If we make it too complex, Fabian could get confused. +
+If we require lots of work to use it, Fabian could get frustrated. +
+However, if we make it too easy, Steffi can't cover all of her use cases. +
+At the same time, making it more complex potentially makes it less self-explanatory, which in turn makes it harder to use.
+
+The challenge was to strike a balance between complex and easy, ensuring both Fabian and Steffi would be happy with the API.
+
+The first design decision we made was to have it as an abstract class.
+This way, we can already pre-define as many lifecycle methods as possible, so Fabian has the least amount of work.
+Still, we enable Steffi or even Fabian in some more advanced use cases to override the lifecycle methods they need, to augment or replace the implementation with their own.
+The compromise here was to have `#activate()` as the only lifecycle method that *must* be implemented, as it returns the view of the module that should be displayed.
+But, since the only thing Fabian has to define is `return view;`, which is acceptable.
+
+We realized every module needs a reference to the `Workbench`, but we can't pass it in the constructor, since at the time of the construction of a `WorkbenchModule`, the `Workbench` doesn't exist yet.
+This lead to the `#init(Workbench)` lifecycle method, which initially sets the `workbench` reference, but also allows implementors to initialize their module.
+
+Then, we knew we needed lifecycle methods, so the implementor can know whether their module is the currently active module, which lead us to `#activate()` and `#deactivate()`.
+This makes it possible for example to have certain module-specific menu-items in the `NavigationDrawer` or `ToolbarItem`s in the Toolbar, by adding them with `#activate()` and removing them with `#deactivate()`.
+
+Finally, we need to allow the implementor to free up resources when a module is closed, which lead us to the `#destroy()` lifecycle method.
+This was a bit of a challenge itself though, since initially we thought it would be enough to have `void` as the return type.
+Then we realized there could be a use case, in which the implementor may want to open a confirmation dialog before a module is being closed.
+Again, we thought about different possible solutions and decided to return a `boolean`, allowing the implementor to specify whether the module can be closed or not.
+In case of a confirmation dialog before closing the module, the implementor can simply return `false`, causing the closing of the module to get interrupted.
+
 
 === Customizability
 Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
@@ -455,7 +551,7 @@ WorkbenchFX seems like a gigantic pane.
 Maybe the panes are giving us some inspiration?
 //TODO: describe change from AbstractModule to Module, skip interface in favor of less API pollution, less maintenance, maybe challenge as well?
 
-=== Testing
+== Testing
 
 == Build Process
 === GitHub

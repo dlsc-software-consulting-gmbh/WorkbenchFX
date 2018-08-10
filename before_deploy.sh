@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "Running mvn install"
-mvn -pl "!workbenchfx-dirk" install -DskipTests
+mvn install -DskipTests
 echo "Making zips"
 cd ${TRAVIS_BUILD_DIR}/workbenchfx-core/target/apidocs
 zip -r ${TRAVIS_BUILD_DIR}/javadoc.zip .

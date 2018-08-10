@@ -254,6 +254,7 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
+  // asciidoctor Documentation - tag::openModule[]
   @Test
   void openModule() {
     robot.interact(() -> {
@@ -324,7 +325,9 @@ class WorkbenchTest extends ApplicationTest {
           () -> workbench.openModule(mock(WorkbenchModule.class)));
     });
   }
+  // asciidoctor Documentation - end::openModule[]
 
+  // asciidoctor Documentation - tag::closeModule[]
   /**
    * Precondition: openModule tests pass.
    */
@@ -537,7 +540,9 @@ class WorkbenchTest extends ApplicationTest {
       verifyNoMoreInteractions(first, second);
     });
   }
+  // asciidoctor Documentation - end::closeModule[]
 
+  // asciidoctor Documentation - tag::closeModuleInterrupt[]
   /**
    * Precondition: openModule tests pass.
    */
@@ -773,6 +778,7 @@ class WorkbenchTest extends ApplicationTest {
       verifyNoMoreInteractions(first, second, last);
     });
   }
+  // asciidoctor Documentation - end::closeModuleInterrupt[]
 
   @Test
   void getOpenModules() {
