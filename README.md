@@ -639,11 +639,6 @@ The defined overlay will be stacked on a `Glass pane`.
         boolean blocking // true, if the overlay should not be closed when clicking on the glasspane
     );
     
-
-```Java
-workbench.hello();
-```
-
 The overlay can essentially be any `Region` (for example a `Custom Control`).
 As default, the defined content will be displayed in the top-left corner of the window.
 If it is desired to center the content the following call in the overlay is needed: 
@@ -719,11 +714,11 @@ for further information we refer to the Javadoc `WorkbenchUtils.convertToId()`
 `id` example:
 
     Module name:
-        Pokémon Game
+        François' Module
         
     Results to:
-        tab-pokmon-game // for the Tab
-        tile-pokmon-game // for the Tile
+        tab-franois-module // for the Tab
+        tile-franois-module // for the Tile
 
 Referring to the custom workbench in the chapter [Getting Started](#getting-started):
 

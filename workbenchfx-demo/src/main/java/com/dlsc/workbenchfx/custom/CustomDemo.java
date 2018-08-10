@@ -81,9 +81,8 @@ public class CustomDemo extends Application {
 //    drawer.getItems().addAll(new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Bli")), new Menu("Bla",null, new MenuItem("Ble"), new MenuItem("Ble")));
 //    drawer.setMenuHoverBehavior(Priority.SOMETIMES);
 
-//    Scene myScene = new Scene(initWorkbench());
-    Scene myScene = new Scene(workbench1);
-    workbench1.showdraw
+    Scene myScene = new Scene(initWorkbench());
+//    Scene myScene = new Scene(workbench1);
 //    primaryStage.setTitle("WorkbenchFX");
     primaryStage.setScene(myScene);
     primaryStage.setWidth(700);
