@@ -56,9 +56,9 @@ public class Tile extends Control {
       // Sets the id with toString of module.
       // Adds 'tile-', replaces spaces with hyphens and sets letters to lowercase.
       // eg. Customer Management converts to tile-customer-management
-      String tileId = "tile-" + current.getName();
-      LOGGER.debug("Tile-ID = " + tileId);
-      setId(WorkbenchUtils.convertToId(tileId));
+      String tileId = WorkbenchUtils.convertToId("tile-" + current.getName());
+      LOGGER.debug("Set Tile-ID of '" + getModule() + "' to: '" + tileId + "'");
+      setId(tileId);
     });
   }
 

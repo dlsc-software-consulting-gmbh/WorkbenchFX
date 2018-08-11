@@ -767,7 +767,12 @@ the naming convention for the `id` is set to:
   - all ' ' spaces replaced with '-' hyphens
   - uppercase letters converted to lowercase
 
-for further information we refer to the Javadoc `WorkbenchUtils.convertToId()`
+
+    Setting the LOGGER level to debug will print each modules tab- and tile-ID as soon as they are set:
+    - Set Tab-ID of '(MODULE NAME)' to: '(TAB ID)'
+    - Set Tile-ID of '(MODULE NAME)' to: '(TILE ID)'
+
+For further information we refer to the Javadoc `WorkbenchUtils.convertToId()`
 
 `id` example:
 
@@ -777,6 +782,10 @@ for further information we refer to the Javadoc `WorkbenchUtils.convertToId()`
     Results to:
         tab-franois-module // for the Tab
         tile-franois-module // for the Tile
+        
+    And a LOGGER output of:
+        Set Tab-ID of 'François' Module' to: 'tab-franois-module' // Tab-ID
+        Set Tile-ID of 'François' Module' to: 'tile-franois-module' // Tile-ID
 
 Referring to the custom workbench in the chapter [Getting Started](#getting-started):
 
