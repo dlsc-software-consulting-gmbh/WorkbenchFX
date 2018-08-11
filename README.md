@@ -465,7 +465,8 @@ dialogBtn.setOnAction(event ->
 // Error Dialog on exception
 dialogBtn = null; // Provokes an exception
 try {
-  dialogBtn.setOnAction(event -> System.out.println("NPE alert!"));
+  dialogBtn.setOnAction(
+     event -> System.out.println("Throws NPE!"));
 } catch (NullPointerException exception) {
   workbench.showErrorDialog(
      "Button click failed!",
