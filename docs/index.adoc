@@ -52,6 +52,12 @@ We did a brainstorming to come up with ideas for possible names for `Module` (<<
 [#img-brainstorming-module]
 image::include/brainstorming_module.jpg[Module Brainstorming]
 
+// TODO
+Though brainstorming and the many names, none of them seemed to feel "right".
+Even though module lots of conflicts, is the only thing that makes sense.
+Even though the name is bad, there's no better word, which has as strong of an association as module.
+// TODO
+
 We discussed this with our customer and we decided to rename `Module` to `WorkbenchModule`.
 We felt the association of a module in this context is much stronger compared to the other options, and feels more natural.
 Also, we thought it would be easier to understand for our API users.
@@ -301,11 +307,13 @@ Right click on the tab, then one can decide the behaviour of it.
 == Minimum Viable product (MVP)
 As a result of our research we have enough information to create the minimum viable workbench for our use case.
 Nonetheless we need to break down the functionality to it's simplest scenario.
+// Kunde weiss, dass er ein minimales PRodukt erhält, welches er benutzen kann
+// Wir stellen durch MVP sicher, dass ein shared understanding vorhanden ist, und wir vom gleichen reden
 This way, we can assure our customer, that the minimal viable product as a result from this project. // TODO: ????
 The reason why we do this is, that this way both parties are talking the same language regarding the expectations of the outcome of the project.
 Furthermore it's an assurance for both of them.
 
-Characteristic for all programs is: // TODO: which programs?
+Characteristic for all programs is: // TODO: move up as conclusion of comparison of programs
 
 * A menu-bar on top of the application.
 * Below the menu-bar is often a tool-bar, which contains the current, or most important tools represented through buttons (without collapsing).
@@ -316,7 +324,7 @@ They contain either further tools, buttons or a tree-view for navigation.
 * Finally another tool-bar is set below the application.
 It contains the least used tools, or tools which are needed at the end of the process.
 
-The outcome of our research results in a minimalistic version of the workbench, our customer developed. // TODO: did he?
+The outcome of our research results in a minimalistic version of the workbench, our customer developed. // TODO: rewrite
 The MVP is designed with the prototyping-tool `Figma`.
 It's clickable prototype can be found at:
 https://www.figma.com/proto/LY7jPWrDVQ5GG1zmvBdlA2MT/WorkbenchFX?scaling=contain&node-id=47%3A129[figma-prototype]
@@ -340,7 +348,7 @@ https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[S
 
 There is no margin in JavaFX CSS.
 We've made a workaround using a `SCSS Mixin` which looks like this:
-// TODO: still relevant? replace by what?
+
 Creating the `Mixin`:
 [source,sass]
 ----
@@ -408,11 +416,9 @@ In the `main.scss` we include all those other files and this "main file" will be
 Using the `@include` tag looks like this:
 [source,sass]
 ----
-main.scss { // TODO: correct?
-  @include file1;
-  @include file2;
-  @include file3;
-}
+@include file1;
+@include file2;
+@include file3;
 ----
 The files to be included are named with an underscore as prefix: `_file1.scss`.
 
@@ -563,8 +569,7 @@ We decided against keeping the original `WorkbenchFx.of(module1, module2)` notat
 
 
 === Architecture
-WorkbenchFX seems like a gigantic pane.
-Maybe the panes are giving us some inspiration? // TODO: ????
+// if looked at panes during inspiration of architecture => put in
 //TODO: describe change from AbstractModule to Module, skip interface in favor of less API pollution, less maintenance, maybe challenge as well?
 
 === Secret Weapon: Agile
@@ -580,6 +585,7 @@ Thanks to the agile way, we could resolve this quickly and early on in the proje
 
 == Testing
 // TODO: what do we want to cover?
+Anzahl Zeilen Code mit Anzahl Zeilen Tests vergleichen
 
 == Build Process
 === GitHub
