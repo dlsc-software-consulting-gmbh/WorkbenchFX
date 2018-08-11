@@ -249,33 +249,23 @@ This is more efficient and especially overlays with animations profit from this 
 In case of an application with very memory-intensive overlays, there is a possibility to call `Workbench#clearOverlays()`, which will remove all overlays from the scene graph and free them up to be garbage collected.
 
 Each overlay has its own `GlassPane` and it is possible to open multiple overlays on top of each other.
-While it is not recommended to open an overlay on top of another overlay, it frees the API user from having to account for timing / concurrency issues during transitions between overlays.
+While it is not recommended to open an overlay on top of another overlay, it frees the API user from having to account for timing / concurrency issues (see <<_discarded_implementations>>) during transitions between overlays.
 
 ==== Discarded Implementations
+At first, we designed the API to not allow multiple overlays to be shown on top of each other.
+This enabled us to have one `GlassPane` to use for all overlays and prevented the API user from showing multiple overlays on top of each other, which is bad practice. +
+However, this lead to timing / concurrency issues when switching from one overlay to another.
+When closing the stage with two open modules, which both would interrupt the closing process with a closing dialog, confirming the close on the first dialog would cause no dialog to be shown at all, even though the closing dialog of the second module should've been shown.
+It turned out `showOverlay()` to show the second dialog was called fractions of a second earlier than `hideOverlay()`.
+This resulted in the second dialog to be shown first, which was then hidden with the call to `hideOverlay()`.
+Since the whole process is asynchronous and highly depends on the changes in JavaFX's scene graph that are out of our control, we decided to allow multiple overlays to be shown on top of each other.
+Since the overlap during the transition between two overlays is so minimal that it can't be seen, this is not a problem visually.
+Even if we would've gotten the synchronization right internally, it would still mean an API user choosing to show two subsequent overlays would need to account for timing / concurrency issues as well, which was not acceptable for us.
 
-
-At first, we implemented overlays
-
-// TODO: include code of the above mentioned methods
-// TODO: explain glass pane
-
-// TODO: ENTIRELY rework....
-
-On top of that is the `GlassPane`, which is generally hidden and is only being displayed if a modal overlay is being shown.
-Stacked on top are all of the layers, which are either being added by `Workbench` internally or by the API user.
-One example of an internally added layer is the Navigation Drawer, which is being displayed whenever the menu button was pressed.
-
-Overlays must first be loaded by using the `overlays()` method in the builder.
-The overlays are initially being loaded hidden and are being displayed on demand by calling `Workbench.showOverlay()`.
-This way, initial loading of the application may take longer, since all of the overlays have to be eagerly loaded.
-In turn, actions of the user causing an overlay to be displayed are instant and don't require rebuilding of the scene graph.
-Users generally prefer to wait a bit longer for an application to startup, rather than waiting for every action to have a longer loading time. // TODO: source?
-
-It is also possible to load an overlay at runtime, using the `Workbench.addOverlay()` method.
-However, since this requires a rebuild of the scene graph, it is not recommended. // TODO: source?
-This is only recommended when an overlay is so resource intensive, that it can't stay loaded in the background.
-
-// TODO: write more
+Initially we also designed the API in a way that would require overlays to be loaded, either with a separate method call or during the creation of `Workbench`, before they could be shown.
+While this resulted in the best performance possible, since the overlays could be loaded hidden with the start of the application, it made the API more complex.
+Since changes in the scene graph can be performed quite quickly by JavaFX, resulting in the performance benefits to not be significant, we decided to change the API to load the overlays into the scene graph as they are being shown.
+But we decided to go for a compromise: we would still not remove the overlays when they are being hidden, to make sure they can be loaded faster the next time they are being shown, since they already have been added to the scene graph.
 
 == Persona
 Who are the persona?
