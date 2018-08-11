@@ -120,6 +120,11 @@
                     <docfilessubdirs>true</docfilessubdirs>
                     <tags>
                         <tag>
+                            <name>defaultValue</name>
+                            <placement>a</placement>
+                            <head>Default Value:</head>
+                        </tag>
+                        <tag>
                             <name>apiNote</name>
                             <placement>a</placement>
                             <head>API Note:</head>
@@ -139,6 +144,7 @@
                 <executions>
                     <execution>
                         <id>make-docs
+
                         </id> <!-- this is used for inheritance merges -->
                         <phase>package
                         </phase> <!-- bind to the packaging phase -->
