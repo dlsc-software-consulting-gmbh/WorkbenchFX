@@ -51,15 +51,10 @@ We did a brainstorming to come up with ideas for possible names for `Module` (<<
 [#img-brainstorming-module]
 image::include/brainstorming_module.jpg[Module Brainstorming]
 
-// TODO
-Though brainstorming and the many names, none of them seemed to feel "right".
-Even though module lots of conflicts, is the only thing that makes sense.
-Even though the name is bad, there's no better word, which has as strong of an association as module.
-// TODO
-
-We discussed this with our customer and we decided to rename `Module` to `WorkbenchModule`.
-We felt the association of a module in this context is much stronger compared to the other options, and feels more natural.
-Also, we thought it would be easier to understand for our API users.
+We discussed this with our customer and even though we did the brainstorming and came up with a lot of names, none of them seemed to feel "right".
+Even though the name `Module` has a lot of associations, it's the only name that makes sense for what it stands for.
+In the end, we decided to rename `Module` to `WorkbenchModule`.
+We thought it would be easier to understand for our API users and that was the most important factor for us in this decision.
 This is why we decided to stick with the word `Module`.
 However, we decided to add the `Workbench` prefix, to remedy the importing issue mentioned above and to clearly separate it from the other `Module` classes in the JDK.
 
