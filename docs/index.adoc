@@ -506,20 +506,20 @@ In case of a confirmation dialog before closing the module, the implementor can 
 Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
 Of course, the resulting API design from this needs to work with our implementation as well.
 When we implemented the pagination in the home screen, we wanted the API user to be able to choose the amount of modules shown per page.
-To do so, our initial idea was to design the API for creating a `WorkbenchFx` object like this:
+To do so, our initial idea was to design the API for creating a `Workbench` object like this:
 [source,java]
 ----
-WorkbenchFx.of(module1, module2)
+Workbench.of(module1, module2)
            .modulesPerPage(10);
 ----
-This would be very easy to use, but it turned out to be not possible, since the `GridPane` with the module tiles are being initialized in the constructor of `WorkbenchFx`.
+This would be very easy to use, but it turned out to be not possible, since the `GridPane` with the module tiles are being initialized in the constructor of `Workbench`.
 Changing the amount of modules per page after the constructor was called, would mean that we would have needed to rebuild all of the pages with the modules again.
 This is not only very inefficient, but also a very bad solution for this problem.
 
-Another way of solving this would've been to initialize the `WorkbenchFx` object with a separate method after setting the amount of modules per page, like this:
+Another way of solving this would've been to initialize the `Workbench` object with a separate method after setting the amount of modules per page, like this:
 [source,java]
 ----
-WorkbenchFx.of(module1, module2)
+Workbench.of(module1, module2)
            .modulesPerPage(10)
            .init();
 ----
@@ -531,7 +531,7 @@ Also, in this case the API user must rememeber to call `init()`, which is easy t
 One of the better options would be to solve it like this:
 [source,java]
 ----
-WorkbenchFx.of(10, module1, module2);
+Workbench.of(10, module1, module2);
 ----
 We would simply pass in the amount of modules to the `.of()` method.
 This would work, however it has some disadvantages.
@@ -540,7 +540,7 @@ Also, since we want the API user to be able to define their own controls for the
 This would not only make the readability worse, but this also means that if we want to stick to our paradigm, we would need to add multiple overloaded `of()` methods.
 With 3 parameters (modules per page, tab and tile factory) this would result in the following combinations:
 
-.Combinations of overloaded WorkbenchFx.of() methods
+.Combinations of overloaded Workbench.of() methods
 |===
 |No. |Modules per Page |Tab Factory |Tile Factory
 
@@ -587,15 +587,15 @@ This is why we decided to go with our final solution, to *use the builder patter
 Using it results in the following syntax:
 [source,java]
 ----
-WorkbenchFx.builder(module1, module2)
+Workbench.builder(module1, module2)
            .modulesPerPage(10)
            .build();
 ----
 This solution solves all of the problems.
-It's not possible to forget `build()`, since else it won't return a `WorkbenchFx` object.
+It's not possible to forget `build()`, since else it won't return a `Workbench` object.
 It's expandable to a large amount of parameters.
 It allows for maximum flexibility, i. e. any combination of the parameters in any order can be specified.
-We decided against keeping the original `WorkbenchFx.of(module1, module2)` notation, since using the builder doesn't require a lot more code and doesn't introduce more complexity.
+We decided against keeping the original `Workbench.of(module1, module2)` notation, since using the builder doesn't require a lot more code and doesn't introduce more complexity.
 
 
 
