@@ -440,7 +440,8 @@ Button dialogBtn = new Button("Show Dialog"); // Assuming the button is used in 
 dialogBtn.setOnAction(event ->
     workbench.showConfirmationDialog(
        "Continue without saving?",
-       "Are you sure you want to continue without saving your document?",
+       "Are you sure you want to continue without saving +
+       your document?",
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
@@ -452,7 +453,8 @@ dialogBtn.setOnAction(event ->
 dialogBtn.setOnAction(event ->
     workbench.showErrorDialog(
        "Button click failed!",
-       "During the click of this button, something went horribly wrong.",
+       "During the click of this button, something went +
+       horribly wrong.",
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
@@ -467,9 +469,10 @@ try {
 } catch (NullPointerException exception) {
   workbench.showErrorDialog(
      "Button click failed!",
-     "During the click of this button, something went horribly +
-     wrong. Please forward the content below to anyone but the +
-     WorkbenchFX developers to track down the issue:",
+     "During the click of this button, something went +
+     horribly wrong. Please forward the content below +
+     to anyone but the WorkbenchFX developers to track +
+     down the issue:",
      exception // Could also be just a String
      buttonType -> { // Proceed and validate the result }
   );
@@ -482,7 +485,8 @@ try {
 dialogBtn.setOnAction(event ->
     workbench.showWarningDialog(
        "Reset settings?",
-       "This will reset your device to its default factory settings.",
+       "This will reset your device to its default +
+       factory settings.",
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
@@ -553,7 +557,8 @@ Button dialogBtn = new Button("Show Dialog"); // Assuming the button is used in 
         <td><pre lang="java">
 // Dialog which requires input to proceed
 // Create a CheckBox which will be set as content
-CheckBox checkBox = new CheckBox("I accept the Terms and Conditions");
+CheckBox checkBox = 
+  new CheckBox("I accept the Terms and Conditions");
 dialogBtn.setOnAction(event -> {
   // Building the dialog with the CheckBox as content
   WorkbenchDialog dialog = WorkbenchDialog.builder(
@@ -562,9 +567,9 @@ dialogBtn.setOnAction(event -> {
       .build();
   // Bind the OK button to the CheckBox
   dialog.setOnShown(event1 -> {
-    dialog.getButton(ButtonType.OK).ifPresent(button -> {
-      button.disableProperty().bind(checkBox.selectedProperty().not());
-    });
+    dialog.getButton(ButtonType.OK).ifPresent(
+      button -> button.disableProperty().bind(
+        checkBox.selectedProperty().not()));
   });
   getWorkbench().showDialog(dialog);
 });</td>
