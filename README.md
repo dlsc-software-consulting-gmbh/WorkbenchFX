@@ -653,7 +653,7 @@ StackPane.setAlignment(this, Pos.CENTER); // This call is needed to center the o
 # Restyling
 ## Basic Styling
 First of all:
-`WorkbenchFX` does not interrupt with the styles of the developer.
+`WorkbenchFX` does not interrupt with the styles of the modules.
 This way each module can be styled independently and one does not have to worry about the workbench taking influence on the styling.
 
 But it is possible to alter the styles of the workbench itself.
@@ -735,18 +735,18 @@ Changing the colors in the `css` file to something like this:
 
 ```css
 * {
-  -primary-color: #c9deee;
-    -primary-variant-color: #97aaba;
-    -secondary-color: #c9deee;
-    -secondary-variant-color: #97aaba;
-    -background-color: #FFFFFF;
-    -surface-color: #FFFFFF;
-    -error-color: #B00020;
-    -on-primary-color: #333333;
-    -on-secondary-color: #333333;
-    -on-background-color: #333333;
-    -on-surface-color: #333333;
-    -on-error-color: #FFFFFF;
+  -primary-color: #9db668;
+  -primary-variant-color: #7f975f;
+  -secondary-color: #9db668;
+  -secondary-variant-color: #7f975f;
+  -background-color: #FFFFFF;
+  -surface-color: #FFFFFF;
+  -error-color: #B00020;
+  -on-primary-color: #FFFFFF;
+  -on-secondary-color: #FFFFFF;
+  -on-background-color: #747474;
+  -on-surface-color: #747474;
+  -on-error-color: #FFFFFF;
 }
 ```
 
@@ -804,17 +804,17 @@ Assuming the `Tab` and `Tile` are needed to be restyled: Adding following code s
 
 /* Styling the Tab */
 #tab-my-first-workbench-module:selected {
-  -fx-background-color: #333333 !important; /* The background of the Tab */
+  -fx-background-color: #747474 !important; /* The background of the Tab */
   -fx-background-radius: 5px 5px 0 0 !important;
 }
 
 #tab-my-first-workbench-module:selected .text, /* The icon and the text */
 #tab-my-first-workbench-module:selected .glyph-icon {
-  -fx-fill: white !important;
+  -fx-fill: #ffffff !important;
 }
 
 #tab-my-first-workbench-module:selected .shape {
-  -fx-background-color: white !important; /* The close icon */
+  -fx-background-color: #ffffff !important; /* The close icon */
 }
 ```
 
