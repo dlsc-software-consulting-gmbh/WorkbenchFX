@@ -231,9 +231,6 @@ This makes it possible to initialize all views in the same way while also result
 `Presenter` is abstract, because it acts more like a "super class" of all the presenters.
 Since all presenters don't need to extend anything else, using an abstract class here is possible.
 
-=== Builder Pattern
-// TODO: explain how builder pattern works in WorkbenchFx.java
-
 === Overlays
 To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `WorkbenchFx.showOverlay()` and `WorkbenchFx.hideOverlay()` methods.
 // TODO: include code of the above mentioned methods
