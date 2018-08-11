@@ -115,7 +115,9 @@
                     <windowtitle>WorkbenchFX API</windowtitle>
                     <additionalJOptions>
                         <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
+                        <!-- Java 9 only
                         <additionalJOption>-html5</additionalJOption>
+                        -->
                     </additionalJOptions>
                     <docfilessubdirs>true</docfilessubdirs>
                     <tags>
