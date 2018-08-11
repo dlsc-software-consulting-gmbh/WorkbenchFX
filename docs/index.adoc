@@ -512,7 +512,7 @@ To do so, our initial idea was to design the API for creating a `Workbench` obje
 Workbench.of(module1, module2)
            .modulesPerPage(10);
 ----
-This would be very easy to use, but it turned out to be not possible, since the `GridPane` with the module tiles are being initialized in the constructor of `Workbench`.
+This would be very easy to use, but it turned out to be not practical, since the `GridPane` with the module tiles are being initialized in the constructor of `Workbench`.
 Changing the amount of modules per page after the constructor was called, would mean that we would have needed to rebuild all of the pages with the modules again.
 This is not only very inefficient, but also a very bad solution for this problem.
 
@@ -524,9 +524,9 @@ Workbench.of(module1, module2)
            .init();
 ----
 This would mean that the `GridPane` with the tiles would only need to be built once.
-However, this solution is also very unelegant.
+However, this solution is also not very elegant.
 If the API user doesn't want to set the amount of modules per page, they still need to call "init()".
-Also, in this case the API user must rememeber to call `init()`, which is easy to forget.
+Also, in this case the API user must remember to call `init()`, which is easy to forget.
 
 One of the better options would be to solve it like this:
 [source,java]
@@ -597,12 +597,6 @@ It's expandable to a large amount of parameters.
 It allows for maximum flexibility, i. e. any combination of the parameters in any order can be specified.
 We decided against keeping the original `Workbench.of(module1, module2)` notation, since using the builder doesn't require a lot more code and doesn't introduce more complexity.
 
-
-
-=== Architecture
-// if looked at panes during inspiration of architecture => put in
-//TODO: describe change from AbstractModule to Module, skip interface in favor of less API pollution, less maintenance, maybe challenge as well?
-
 === Secret Weapon: Agile
 Even though we had to face a lot of challenges, there is one thing we are especially grateful about: working in an agile way. +
 Because of the agile approach and having the whole development process transparently on GitHub, we were able to get constant feedback from our customer.
@@ -616,38 +610,36 @@ Thanks to the agile way, we could resolve this quickly and early on in the proje
 
 == Testing
 // TODO: what do we want to cover?
-Anzahl Zeilen Code mit Anzahl Zeilen Tests vergleichen
+// TODO: Idea: Anzahl Zeilen Code mit Anzahl Zeilen Tests vergleichen
 
 == Build Process
 === GitHub
-The programming is being done in a private GitHub repository.
-We work by using the GitFlow model // TODO add link.
-// TODO explain gitflow
-Every change is represented in a pull request to develop from the feature branch(es).
+The programming is being done in a GitHub repository.
+We work using the git flow branching model cite:[noauthor_successful_nodate].
+Every change is represented in a pull request to develop from the feature branches.
 === Code Review
 To improve the quality of the code and also ensure https://www.agilealliance.org/glossary/collective-ownership/[collective code ownership], every pull request gets code reviewed by the other person.
-// TODO: maybe add more?
+This worked very well for us, since comments that were made by the other person always lead to improvements and code of higher quality.
 === Travis CI
 To simplify the code review process, we are using Travis CI.
 Travis CI is a build server similar to Jenkins.
-Compared with Jenkins, it runs in the cloud and is much more straight forward to set up.
-The biggest advantage is the tight integration with GitHub, which for example allows automatic builing of pull requests.
+Compared with Jenkins, it runs in the cloud and is much more straight forward to set up in our experience.
+The biggest advantage is the tight integration with GitHub, which for example allows automatic building of pull requests.
 GitHub then directly shows the build status in every pull request and we also set up that a pull request can't get merged until the build passes.
-With every build, Travis will compile the code, run tests and checkstyle.
-We set checkstyle up in a way which makes the build fail, if style violations are found.
-This provides us with immediate feedback when we open a new pull request and forget to run checkstyle checks.
-Also, it makes it easier for the reviewer, since they don't need to run the tests and checkstyle themselves every time.
-// TODO: maybe add more to travis?
+With every build, Travis will compile the code, run checkstyle and tests.
 
-In order to not overload the amount of work Travis has to compile we have adjusted the default parapeters for checking each push.
-Normally, Travis checks the repo after each push.
-To reduce the amount of checks, we have overwritten the settings, so that Travis checks only the last push in case a lot of pushes are made.
+We agreed with our customer to use the Google Java Code Style guidelines, as they are used in one of the most-widely used libraries in Java, Guava cite:[idan_top_2017], and because of its well-maintained open source checkstyle configuration on GitHub cite:[noauthor_checkstyle:_2018].
+If checkstyle finds code style violations, we set it up to fail the build.
+This provides us with immediate feedback when we open a new pull request and forgot to run checkstyle checks ourselves.
+Also, it makes it easier for the reviewer, since they don't need to run the tests and checkstyle themselves every time.
+
+In order to get build results from Travis faster we enabled "Auto Cancellation".
+If there are a lot of pushes from the same branch or pull request, Travis will then cancel all but the most recent build in the queue for each branch or pull request.
 
 Travis makes two checks each time you make a push to the repository.
-The first check is the "push-check", which tests the compatibility of the current branch.
-The second one is the "pr-check", which emulates a merging with the develop branch in order to check if some errors occur when merging.
-This has the huge advantage, that our work is not only easier but also safer to accomplish.
-For further information we reference to following link: https://github.com/JuliaGraphs/LightGraphs.jl/issues/475[GitHub issue #475].
+The first check is the "push-check", which tests the compatibility of the current branch cite:[noauthor_travis_nodate].
+The second one is the "pr-check", which emulates a merge with the target branch in order to check if the merge leads to errors making the build fail cite:[noauthor_travis_nodate].
+This has the huge advantage that our work is not only easier but also safer to accomplish.
 
 == Lessons learned
 
