@@ -17,6 +17,7 @@ The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
 This will end with a citation cite:[noauthor_system_nodate].
 
 == The way to WorkbenchFX
+
 === Briefing
 
 === Syntax
@@ -35,6 +36,7 @@ This will end with a citation cite:[noauthor_system_nodate].
 == Analysis
 
 === Naming
+
 ==== Navigation Drawer
 Comes from Material Design: https://material.io/guidelines/patterns/navigation-drawer.html
 
@@ -163,6 +165,7 @@ Every `WorkbenchModule` also has a reference to the `Workbench` object.
 This makes it possible to individually adapt the `Workbench` to the needs of a `WorkbenchModule` or to execute tasks like switching to another module.
 
 When we added the module toolbar, we also thought it would make the most sense to include the lists with the `ToolbarItem`s in the `WorkbenchModule` itself, as they are specific for each module.
+
 ==== Rejected API
 Generally, we decided to not include anything that wasn't strictly specific to a `WorkbenchModule`.
 
@@ -273,16 +276,18 @@ Who are the persona?
 [cols="1,1,1"]
 .Persona
 |===
-|link:persona/stefanie_berner.pdf[image:persona/stefanie_berner.png[Stefanie Berner]]
-|link:persona/fabian_zimmer.pdf[image:persona/fabian_zimmer.png[Fabian Zimmer]]
-|link:persona/anna_leutner.pdf[image:persona/anna_leutner.png[Anna Leutner]]
+|link:include/persona/stefanie_berner.pdf[image:include/persona/stefanie_berner.png[Stefanie Berner]]
+|link:include/persona/fabian_zimmer.pdf[image:include/persona/fabian_zimmer.png[Fabian Zimmer]]
+|link:include/persona/anna_leutner.pdf[image:include/persona/anna_leutner.png[Anna Leutner]]
 |===
 
 == Layout
 Challenge:
 // TODO: ????
+
 * Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
 * Unique glossary --> Like in the previous project, we aknowledge, that a shared understanding with the customer is needed.
+
 Thus, we're going to define a unique glossary.
 So everyone talks the same language.
 
@@ -613,13 +618,16 @@ Thanks to the agile way, we could resolve this quickly and early on in the proje
 // TODO: Idea: Anzahl Zeilen Code mit Anzahl Zeilen Tests vergleichen
 
 == Build Process
+
 === GitHub
 The programming is being done in a GitHub repository.
 We work using the git flow branching model cite:[noauthor_successful_nodate].
 Every change is represented in a pull request to develop from the feature branches.
+
 === Code Review
 To improve the quality of the code and also ensure https://www.agilealliance.org/glossary/collective-ownership/[collective code ownership], every pull request gets code reviewed by the other person.
 This worked very well for us, since comments that were made by the other person always lead to improvements and code of higher quality.
+
 === Travis CI
 To simplify the code review process, we are using Travis CI.
 Travis CI is a build server similar to Jenkins.
@@ -640,12 +648,13 @@ Travis makes two checks each time you make a push to the repository.
 The first check is the "push-check", which tests the compatibility of the current branch cite:[noauthor_travis_nodate].
 The second one is the "pr-check", which emulates a merge with the target branch in order to check if the merge leads to errors making the build fail cite:[noauthor_travis_nodate].
 This has the huge advantage that our work is not only easier but also safer to accomplish.
+
 === Codecov.io
 // TODO
+
 === Release Automation
 We also automated part of the release process with Travis.
 If ... // TODO
-===
 
 == Lessons learned
 
