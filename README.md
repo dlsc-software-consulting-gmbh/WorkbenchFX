@@ -780,12 +780,12 @@ For further information we refer to the Javadoc `WorkbenchUtils.convertToId()`
         François' Module
         
     Results to:
-        tab-franois-module // for the Tab
-        tile-franois-module // for the Tile
+        tab-franois-module // Tab-ID
+        tile-franois-module // Tile-ID
         
     And a LOGGER output of:
-        Set Tab-ID of 'François' Module' to: 'tab-franois-module' // Tab-ID
-        Set Tile-ID of 'François' Module' to: 'tile-franois-module' // Tile-ID
+        Set Tab-ID of 'François' Module' to: 'tab-franois-module'
+        Set Tile-ID of 'François' Module' to: 'tile-franois-module'
 
 Referring to the custom workbench in the chapter [Getting Started](#getting-started):
 
