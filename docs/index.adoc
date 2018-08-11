@@ -640,6 +640,12 @@ Travis makes two checks each time you make a push to the repository.
 The first check is the "push-check", which tests the compatibility of the current branch cite:[noauthor_travis_nodate].
 The second one is the "pr-check", which emulates a merge with the target branch in order to check if the merge leads to errors making the build fail cite:[noauthor_travis_nodate].
 This has the huge advantage that our work is not only easier but also safer to accomplish.
+=== Codecov.io
+// TODO
+=== Release Automation
+We also automated part of the release process with Travis.
+If ... // TODO
+===
 
 == Lessons learned
 
