@@ -1,15 +1,15 @@
 * {
-  -primary-color: #6200EE;
-  -primary-variant-color: #3700b3;
-  -secondary-color: #6300ff;
-  -secondary-variant-color: #1e005f;
+  -primary-color: #9db668;
+  -primary-variant-color: #7f975f;
+  -secondary-color: #9db668;
+  -secondary-variant-color: #7f975f;
   -background-color: #FFFFFF;
   -surface-color: #FFFFFF;
   -error-color: #B00020;
   -on-primary-color: #FFFFFF;
   -on-secondary-color: #FFFFFF;
-  -on-background-color: #000000;
-  -on-surface-color: #000000;
+  -on-background-color: #747474;
+  -on-surface-color: #747474;
   -on-error-color: #FFFFFF;
 }
 
