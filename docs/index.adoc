@@ -232,12 +232,35 @@ This makes it possible to initialize all views in the same way while also result
 Since all presenters don't need to extend anything else, using an abstract class here is possible.
 
 === Overlays
-To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `WorkbenchFx.showOverlay()` and `WorkbenchFx.hideOverlay()` methods.
+To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `Workbench#showOverlay()` and `Workbench#hideOverlay()` methods.
+
+The GUI of WorkbenchFX is organized in layers.
+At all times, there is a layer of the general WorkbenchFX GUI, which is being represented by the view class `WorkbenchView`.
+
+When showing an overlay, a `GlassPane` is added to the scene graph and shown on top of the WorkbenchFX GUI, followed by the overlay itself on top of the `GlassPane`.
+This ensures there is a "scrim"cite:[noauthor_elevation_nodate] between the WorkbenchFX GUI and the overlay (<<overlay-scrim>>).
+
+.Overlay with scrimmed background
+[#overlay-scrim]
+image::include/overlay.png[Overlay with scrimmed background]
+
+When hiding an overlay, it is made invisible and is not removed from the scene graph, so recurring overlays don't need to be re-inserted into the scene graph again.
+This is more efficient and especially overlays with animations profit from this design, since they run smoother when shown and hidden multiple times.
+In case of an application with very memory-intensive overlays, there is a possibility to call `Workbench#clearOverlays()`, which will remove all overlays from the scene graph and free them up to be garbage collected.
+
+Each overlay has its own `GlassPane` and it is possible to open multiple overlays on top of each other.
+While it is not recommended to open an overlay on top of another overlay, it frees the API user from having to account for timing / concurrency issues during transitions between overlays.
+
+==== Discarded Implementations
+
+
+At first, we implemented overlays
+
 // TODO: include code of the above mentioned methods
 // TODO: explain glass pane
-The GUI of WorkbenchFX is organized in layers.
+
 // TODO: ENTIRELY rework....
-At all times, there is a layer of the general WorkbenchFX GUI, which is being represented by the view class `WorkbenchView`.
+
 On top of that is the `GlassPane`, which is generally hidden and is only being displayed if a modal overlay is being shown.
 Stacked on top are all of the layers, which are either being added by `Workbench` internally or by the API user.
 One example of an internally added layer is the Navigation Drawer, which is being displayed whenever the menu button was pressed.
