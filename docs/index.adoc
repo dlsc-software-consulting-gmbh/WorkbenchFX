@@ -59,10 +59,13 @@ This is why we decided to stick with the word `Module`.
 However, we decided to add the `Workbench` prefix, to remedy the importing issue mentioned above and to clearly separate it from the other `Module` classes in the JDK.
 
 == Architecture
+// TODO: rework entirely, separate docking etc. from "simple approach" text, and merge it with the evaluation of tools etc.
+
 API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
 //They want to be able to define their own design to ensure it blends in with the design of their components.
 //The standard for custom controls in JavaFX is to use an implementation based on a control, separated from the skin. TODO: source?
 //TODO: maybe explain a little with graphics how this structure works?
+
 
 === Modular Approach
 Power users need the utmost of customizability, to ensure they can adapt the workspace to be the most ergonomic to fit their workflow.
@@ -90,19 +93,6 @@ With this, we make it clear that `Workbench` and `WorkbenchSkin` are not designe
 This also means that we don't need to design the panes we use internally to be replaceable by the API user.
 It is more important that the user experience is straightforward.
 Still, the possibility of extending the workbench using modules is important to our customer.
-
-=== API Design of Module
-We analyzed which "touch points" a module in the workbench would have, which resulted in 3 points:
-
-* Main view to be displayed
-* Tab representation of module
-* Tile representation of module in home screen
-
-Which is why we decided to include them in the API design of the `Module` class. // TODO: improve representation, less duplication in documentation and display
-
-* Main view to be displayed => Node gets returned by init()
-* Tab representation of module => Node gets returned by getTab()
-* Tile representation of module in home screen => Node gets returned by getTile()
 
 === WorkbenchModule Lifecycle
 The following UML diagrams explain how the lifecycle of a `WorkbenchModule` works.
@@ -157,6 +147,39 @@ To learn more about the interactions in detail, look at the tests below, since t
 * <<test-reference.adoc#_open_modules,Opening of Modules>>
 * <<test-reference.adoc#_close_modules,Closing of Modules>>
 * <<test-reference.adoc#_close_modules_interrupted,Closing of Modules Interrupted>>
+
+=== API Design of WorkbenchModule
+As with the design of the lifecycle, having a simple and easy to understand API overall for `WorkbenchModule` is very important to us.
+If there is a lot of code with a lot of methods in the `WorkbenchModule` class, it could make it harder for people to understand how to use the API and how it works.
+This is why we very carefully introduced complexity into a `WorkbenchModule`, and only added what really enhanced the user experience to a point that would justify the added code.
+We also considered to only add methods which are needed to fulfill a certain use case, which is likely to occur.
+
+==== Added API
+One part of a `WorkbenchModule` are its identifying properties.
+We decided for a `WorkbenchModule` to have a *name* and an *icon*.
+They are necessary, because they are shown in tabs and tiles representing each `WorkbenchModule`.
+
+Every `WorkbenchModule` also has a reference to the `Workbench` object.
+This makes it possible to individually adapt the `Workbench` to the needs of a `WorkbenchModule` or to execute tasks like switching to another module.
+
+When we added the module toolbar, we also thought it would make the most sense to include the lists with the `ToolbarItem`s in the `WorkbenchModule` itself, as they are specific for each module.
+==== Rejected API
+Generally, we decided to not include anything that wasn't strictly specific to a `WorkbenchModule`.
+
+For example, we discussed whether or not to include a list with `WorkbenchModule` specific `MenuItem`s to be shown in the `NavigationDrawer`.
+In the end, we decided against it, since the `NavigationDrawer` contains global `MenuItem`s.
+If there was one list in `Workbench` and one in each `WorkbenchModule`, API users could get confused.
+API users who don't know of the global list in the `Workbench`, could falsely think the `NavigationDrawer` is specific to each module, causing them to add the same `MenuItem`s in each `WorkbenchModule`.
+Additionally, some possible open questions it could cause would be:
+
+* Is there a separate module-specific `NavigationDrawer`?
+* Does the list of `MenuItem`s in the `WorkbenchModule` override or augment the list in the `Workbench`?
+* How are the module-specific and global `MenuItem`s separated?
+* Are the module-specific `MenuItem`s inserted on the top or the bottom?
+
+API users are still able to define module-specific `MenuItem`s with the already existing API, by adding them to the global list in `activate()` and removing them in `deactivate()`.
+This way, we give the API users the choice of how to include them and they don't miss out on any functionality.
+It also eliminates the "guessing" of how it was implemented, as it can be observed above in the possible open questions.
 
 === Icon: Image vs File vs Node
 As for the graphic, there are different ways to implement the inclusion of one in a module.
