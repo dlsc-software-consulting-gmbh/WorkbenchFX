@@ -30,6 +30,8 @@
   - [Drawer](#drawer)
   - [Custom Overlay](#custom-overlay)
 - [Restyling](#restyling)
+  - [Basic Styling](#basic-styling)
+  - [Advanced Styling](#advanced-styling)
 - [Team](#team)
 
 # What is WorkbenchFX?
@@ -93,11 +95,9 @@ Nr. | Component           | Description
 For further information about the several components we refer to the `Javadoc`
 
 # Documentation
-TODO: Rewrite documentation
-
 This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following *maven* task:
 ```Maven
-process-resources
+package
 ```
 Afterwards, the documentation is located in the `target/generated-docs/` subdirectory.
 
@@ -612,22 +612,25 @@ public boolean destroy() {
 
 ## Drawer
 Using the `workbench` call `showDrawer()` one can define a custom drawer just like the `Navigation drawer`.
-There are two different possibilities to define a drawer:
+There are two different possibilities to define a drawer: 
 
-    (Workbench).showDrawer(
+    workbench.showDrawer(
         Region drawer, // The drawer to be shown
         Sider side     // Defines from which side the drawer should come
     );
+
+Calling this, the width of the drawer is calculated automatically and takes the width which fits best for the drawer content defined.
+The other possibility comes into action when a specific width is desired:
     
-    (Workbench).showDrawer(
+    workbench.showDrawer(
         Region drawer, // The drawer to be shown
         Sider side     // Defines from which side the drawer should come
         int percentage // Defines how much of the screen should be covered
     );
 
-The only difference 
+The `percentage` can be defined in range `0` to `100` and represents the percentage of the window the drawer covers when showing.  
 
-Examples of drawer can be found in the `` [Custom Demo](#demos)
+Examples of drawers can be found in the [Custom Demo](#demos)
 
 ## Custom Overlay
 The foundation of [Dialogs](#dialog) and [Drawers](#drawer) are `Overlays`.
@@ -641,17 +644,14 @@ The defined overlay will be stacked on a `Glass pane`.
     
 The overlay can essentially be any `Region` (for example a `Custom Control`).
 As default, the defined content will be displayed in the top-left corner of the window.
-If it is desired to center the content the following call in the overlay is needed: 
+If it is desired to center the content, the following call inside the overlay is needed: 
 
 ```Java
-public class MyOverlay extends GridPane { // Example implementation of an overlay
-  public MyOverlay() {
-    StackPane.setAlignment(this, Pos.CENTER); // This call is needed to center the overlay on screen
-  }
-}
+StackPane.setAlignment(this, Pos.CENTER); // This call is needed to center the overlay on screen
 ```
 
 # Restyling
+## Basic Styling
 First of all:
 `WorkbenchFX` does not interrupt with the styles of the developer.
 This way each module can be styled independently and one does not have to worry about the workbench taking influence on the styling.
@@ -697,32 +697,7 @@ For example A `darkTheme.css` is also referenced in the demo:
 
 ![screenshot of the workbenches darkTheme version](docs/images/workbenchFX_in_use_dark.png)
 
-Sometimes just changing the colors is not enough.
-Every component in the workbench has its own `class` or `id`.
-This way, the components can be restyled if needed.
-
-For example every generated `Tab` and `Tile` has its own unique `id`.
-the naming convention for the `id` is set to:
-- Prefix: `tab/tile` (depending on the component)
-- body: the defined name of the module
-  - with any special letters removed
-  - all ' ' spaces replaced with '-' hyphens
-  - uppercase letters converted to lowercase
-
-for further information we refer to the Javadoc `WorkbenchUtils.convertToId()`
-
-`id` example:
-
-    Module name:
-        François' Module
-        
-    Results to:
-        tab-franois-module // for the Tab
-        tile-franois-module // for the Tile
-
-Referring to the custom workbench in the chapter [Getting Started](#getting-started):
-
-If someone would like to change the colors of the application he creates a new `css` file `customTheme.css` and refers to it in the workbench:
+If someone would like to change the colors of the application, he creates a new css file `customTheme.css` and refers to it in the workbench:
 
 ```Java
 customWorkbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
@@ -779,6 +754,32 @@ Leads to following design:
 
 ![screenshot of the custom css](docs/images/custom_css_1.png)
 
+## Advanced Styling
+Sometimes just changing the colors is not enough.
+Every component in the workbench has its own `class` or `id`.
+This way, the components can be restyled if needed.
+
+For example every generated `Tab` and `Tile` has its own unique `id`.
+the naming convention for the `id` is set to:
+- Prefix: `tab/tile` (depending on the component)
+- body: the defined name of the module
+  - with any special letters removed
+  - all ' ' spaces replaced with '-' hyphens
+  - uppercase letters converted to lowercase
+
+for further information we refer to the Javadoc `WorkbenchUtils.convertToId()`
+
+`id` example:
+
+    Module name:
+        François' Module
+        
+    Results to:
+        tab-franois-module // for the Tab
+        tile-franois-module // for the Tile
+
+Referring to the custom workbench in the chapter [Getting Started](#getting-started):
+
 Assuming the `Tab` and `Tile` are needed to be restyled: Adding following code snippet to the `customTheme.css` 
 
 ```css
@@ -813,7 +814,7 @@ Leads to following styling:
 ![screenshot of the custom css](docs/images/custom_css_2.png)
 
 Note:
-- The `color-variables` can still be used in the `customTheme.css` file
+- The `color-variables` still can be used in the `customTheme.css` file
 - Since the styling of the workbench is superior, the `!important` tag is required when restyling the workbench
 - A tool like [ScenicView](http://fxexperience.com/scenic-view/) works well to determine the style classes
 
