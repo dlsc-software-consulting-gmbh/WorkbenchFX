@@ -380,8 +380,8 @@ Below it is shown the final prototype:
 [cols="1,1"]
 .Minimal Viable Product (MVP)
 |===
-|link:mvp/home.png[image:mvp/home.png[Home Screen]]
-|link:mvp/module.png[image:mvp/module.png[Module Screen]]
+|link:include/mvp/home.png[image:include/mvp/home.png[Home Screen]]
+|link:include/mvp/module.png[image:include/mvp/module.png[Module Screen]]
 |===
 
 == Development Processes
