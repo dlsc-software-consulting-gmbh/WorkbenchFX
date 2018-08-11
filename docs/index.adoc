@@ -181,25 +181,40 @@ API users are still able to define module-specific `MenuItem`s with the already 
 This way, we give the API users the choice of how to include them and they don't miss out on any functionality.
 It also eliminates the "guessing" of how it was implemented, as it can be observed above in the possible open questions.
 
-=== Icon: Image vs File vs Node
-As for the graphic, there are different ways to implement the inclusion of one in a module.
+=== Icon: Node vs File vs Image
+To specify an icon for a `WorkbenchModule`, there are different ways to implement this in the API.
 
-One possibility is to accept an `Image` object as a parameter of the constructor.
-The advantage is, that the API user doesn't need to care about how the image is being displayed
-The disadvantage however is, that it is for example not possible to specify a FontAwesome graphic as a `Node`, to use vector objects.
+==== Node
+The most generic option would be to have the API user pass in a `Node` in the constructor to use as the icon.
 
-Also, it would be possible to have the API user include an image file in the resources, to use as an graphic.
-Using "convention over configuration", the API user would simply choose the same name for the graphic file as for the module, which makes it possible to easily identify the corresponding graphic file of a module.
-This brings the advantage of having less code per module, since the graphic doesn't need to be specified in the code.
-However, this is also limiting for the same reasons as with the `Image` object above, it is not possible to pass in objects to be displayed.
+The problem is that we display the icon in two places: one in the `Tab` and one in the `Tile`.
+The JavaFX API of `Node` is designed to have zero or one parent cite:[noauthor_node_nodate].
+This means the API user would need to pass in two `Node` objects, one for the icon of the `Tab`, and one for the `Tile`.
 
-This is why we decided to have the API user pass in a `Node` object to the constructor of the module.
-This allows for a maximum of flexibility and not much overhead in terms of code. // TODO: maybe write more?
+Since the icon will always be the same for the `Tab` and the `Tile`, this feels very redundant and is very error-prone.
+Should the implementor not know about this, they could pass in the same `Node` twice and wonder why only one icon is being displayed.
+This could cause the implementors to believe this to be a bug.
+Sure, we could check in the constructor if both `Node`s are referring to the same object, but it's still not very user-friendly.
 
-// TODO: maybe, decision in AbstractModule between adding "content" as parameter in constructor and overriding init() or not including "content" as parameter and not overriding init(). Chose to do the latter since the node would not be used anywhere else and it would be about the same in terms of code, but is easier to override that way.
+==== File
+Another option would be to have the API user pass in a file, referring to the path of the icon.
+This way, we don't have the same issues as mentioned in <<_node>>.
+However, it is quite limiting, since if the API user wants to use an icon from Font Awesome or Material Design Icons, they would need to find the icon as an image and refer to the file.
+This is quite cumbersome, compared to using the `FontAwesomeFX` library and simply specifying `FontAwesomeIcon.GEAR` for example.
+Also, this would not allow API users to make use of JavaFX' support for image files with multiple scaling factors, to account for different display resolutions cite:[lemmermann_javafx_2017].
 
-=== WorkbenchFxUtils.assertNodeNotSame
-// TODO: add comment from AbstractModule, issues with icons as nodes not being possible to display => also to prevent Fabian from making this mistake, throw exception when constructor of AbstractModule is called.
+==== Image
+We decided to use `Image` as one of the options of passing in an icon in the constructor of `WorkbenchModule`.
+There are none of the issues mentioned in <<_node>>, since the `Image` will be wrapped in an `ImageView`, when `WorkbenchModule#getIcon()` gets called by the `Tab` and `Tile`.
+Also, it allows API users to make use of JavaFX' support for image files with multiple scaling factors cite:[lemmermann_javafx_2017].
+
+Unfortunately, it doesn't solve the issues with icons from libraries, as mentioned in <<_image>>.
+To solve this, we looked at what were the most widely used icon libraries.
+Font Awesome is the most popular icon set, which is why we chose to include it as another option in the constructor cite:[noauthor_font_nodate].
+
+Also, since the design of WorkbenchFX is highly influenced by Material Design, we wanted to include an icon set that would include Material Design icons.
+FontAwesomeFX offers support for the https://material.io/tools/icons/?style=baseline[official Material Design Icons by Google] and also https://materialdesignicons.com/[Material Design Icons] cite:[noauthor_fontawesomefx_nodate].
+Since all of the icons from the https://material.io/tools/icons/?style=baseline[official Material Design Icons by Google] are included, along with many others in the icon set of https://materialdesignicons.com/[Material Design Icons], we also included a constructor option for https://materialdesignicons.com/[Material Design Icons].
 
 === MVP
 MVP (Model View Presenter) was used as general architecture pattern.
@@ -440,18 +455,7 @@ Using the `@include` tag looks like this:
 The files to be included are named with an underscore as prefix: `_file1.scss`.
 
 == Challenges
-Setting the node-icon twice:
-When creating a new module, one declares a node or an icon for visualizing the module.
-After creation, a tab- and a tile-view is created and displayed.
-Sadly, the given icon is displayed in only one of the two views.
-A short research reveals the problem:
-https://stackoverflow.com/questions/27696414/javafx-why-does-adding-a-node-to-a-pane-multiple-times-or-to-different-panes-r[Stack Overflow]
 
-Every `Node` has a `Parent`.
-When creating a `TabControl`, the Compiler references the TabControl as the Parent of the icon.
-In a next step, we create the `TileControl`.
-The Compiler redirects now the Parent-reference of TabControl to the TileControl.
-As a result, the icon is only displayed in the TileControl.
 
 === Module Lifecycle
 Designing the module lifecycle was a challenge we didn't expect.
