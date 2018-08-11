@@ -10,7 +10,7 @@ public class CalendarModule extends WorkbenchModule {
   private CalendarView calendarView;
 
   public CalendarModule() {
-    super("François' Module", MaterialDesignIcon.CALENDAR);
+    super("Calendar", MaterialDesignIcon.CALENDAR);
   }
 
   @Override

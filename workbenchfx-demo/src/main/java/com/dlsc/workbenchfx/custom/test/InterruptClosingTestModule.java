@@ -29,11 +29,15 @@ public class InterruptClosingTestModule extends WorkbenchModule {
 
   @Override
   public boolean destroy() {
-    getWorkbench().showDialog(WorkbenchDialog.builder(
-        "Confirmation", "Close Module?", WorkbenchDialog.Type.CONFIRMATION)
+    System.out.println("DESTROY CALLED ON 1");
+
+    getWorkbench().showDialog(WorkbenchDialog.builder("Confirmation",
+        "Are you sure you want to close this module without saving?",
+        WorkbenchDialog.Type.CONFIRMATION)
         .blocking(true)
         .onResult(buttonType -> {
           if (ButtonType.YES.equals(buttonType)) {
+            System.out.println("Pressed: YES");
             close();
           }
         })
