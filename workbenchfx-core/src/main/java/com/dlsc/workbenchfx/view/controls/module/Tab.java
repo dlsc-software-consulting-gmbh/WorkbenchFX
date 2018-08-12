@@ -82,7 +82,7 @@ public class Tab extends Control {
       activeTab.bind(Bindings.equal(getModule(), workbench.activeModuleProperty()));
     });
     activeTab.addListener((observable, oldValue, newValue) ->
-      pseudoClassStateChanged(SELECTED, newValue)
+        pseudoClassStateChanged(SELECTED, newValue)
     );
   }
 
