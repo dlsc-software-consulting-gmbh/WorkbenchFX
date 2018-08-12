@@ -45,8 +45,8 @@ TODO: description
 - Easy to use, especially for developers which have not much experience in working with JavaFX
 - A well designed, adaptable UI, inspired by the material design standards
 - Multiple, independent `Workbench modules`, displayed in Tabs combine into one great application
-- The `jdk8` branch works well with `JPRO`
-- `SceneBuilder` support
+- The `jdk8` branch works well with [JPRO](https://www.jpro.one/)
+- FXML & [Scene Builder](https://gluonhq.com/products/scene-builder/) support
 
 # Main Components
 The most important components are noted in the picture and the corresponding table below:
@@ -55,106 +55,106 @@ The most important components are noted in the picture and the corresponding tab
 
 Nr. | Component           | Description
 --- | ------------------- | -----------
- _  | `Workbench module`  | The complete workbench application consists of multiple modules. It contains the title, an icon and the content to be displayed in the `Workbench`
- 2  | `Tile`              | Using the `Workbench module`, a `Tile` will be created. It is basically a button which allows to open a module or switch to it, if it's already open.
- 3  | `Tab`               | Together with the `Tile`, a `Tab` will be generated. It will be displayed in the `Tabbar` as long as the module is open. The `Tab` is used to navigate through the open modules and to close them
- 4  | `Tabbar`            | The upper section of the window, where the `Tabs` of the current open modules are displayed. On the right end of the bar, the `Add button` is displayed
+ _  | `WorkbenchModule`   | The complete workbench application consists of one or multiple modules. It contains a title, an icon and the content to be displayed in the `Workbench`
+ 2  | `Tile`              | For each `WorkbenchModule` a `Tile` will be created. Clicking on the `Tile` opens the corresponding module.
+ 3  | `Tab`               | A `Tab` will be displayed for each open module. Clicking on a `Tab` opens and shows the corresponding module. Pressing the `x` button closes the module.
+ 4  | `TabBar`            | The upper section of the window, where the `Tab`s of the current open modules are displayed. On the right end of the bar, the `Add button` is displayed
  5  | `Add button`        | The button used to open a new module. It opens an overview of all available modules.
- 6  | `Pagination`        | Stores all the `Pages` on which the `Tiles` are displayed
- 7  | `Page`              | When having more modules as are defined in the `modulesPerPage()` attribute, the `Workbench` creates multiple `Pages` on which the `Tiles` are displayed
- 8  | `Pagination dots`   | are only displayed when having multiple `Pages` and can be used for navigating through them
- 9  | `Toolbar`           | It contains `Toolbar items`. If the bar does not contain any items, the `Toolbar` will be hidden automatically.
-10  | `Toolbar item`      | Depending on the attributes defined, the item adapts the behaviour of either a JavaFX `Label`, `Button` or `MenuButton`
-11  | `Menu button`       | It opens the `Navigation drawer`. The position of the button varies depending on the amount of items in the `Toolbar` and the `Navigation drawer`. If the `Navigation drawer` does not contain any items, the button will not be displayed at all. If any items are in the `Toolbar`, it will be displayed on the left side of the `Toolbar`, otherwise on the left side of the `Tabbar`
+ 6  | `AddModulePage`     | Stores all the `Page`s on which the `Tile`s are displayed
+ 7  | `Page`              | When more modules are loaded than defined in the `modulesPerPage()` attribute, the `Workbench` creates multiple `Page`s on which the `Tile`s are displayed
+ 8  | `Pagination dots`   | Are only displayed when having multiple `Page`s and can be used for navigating through them
+ 9  | `Toolbar`           | It contains `ToolbarItem`s. If the bar does not contain any items, the `Toolbar` will be hidden automatically.
+10  | `ToolbarItem`       | Depending on the defined attributes, the item behaves like a JavaFX `Label`, `Button` or `MenuButton`
+11  | `Menu button`       | It opens the `NavigationDrawer`. The position of the button varies depending on the amount of items in the `Toolbar` and the `NavigationDrawer`. If the `NavigationDrawer` does not contain any items, the button will not be displayed at all. If any items are in the `Toolbar`, it will be displayed on the left side of the `Toolbar`, otherwise on the left side of the `TabBar`
 
 ![screenshot of the navigationDrawer](docs/images/components/navigationDrawer.png)
 
 Nr. | Component           | Description
 --- | ------------------- | -----------
-12  | `Navigation drawer` | It displays a logo which can be set in the stylesheet and the defined items. The default hover behaviour over its items can be adjusted using the method call `setMenuHoverBehavior()` on the drawer. It can be closed by clicking on the `Glass pane`
-13  | `Glass pane`        | The `Glass pane` prevents click events on the components below. Clicking on the `Glass pane` often closes the showing `Drawer` or `Dialog` unless its `blocking` attribute prevents it from closing
+12  | `NavigationDrawer`  | It displays a logo which can be set in the stylesheet and the defined `MenuItem`s. The default hover behavior over its items can be changed using the method call `setMenuHoverBehavior()` on `NavigationDrawer`. It can be closed by clicking on the `GlassPane` or by pressing the back arrow button.
+13  | `GlassPane`         | The `GlassPane` prevents click events on the components below and adds a scrim to the background. Unless a blocking (modal) overlay is being displayed, clicking on the `GlassPane` closes the overlay.
 
 ![screenshot of the drawer](docs/images/components/drawer.png)
 
 Nr. | Component           | Description
 --- | ------------------- | -----------
-14  | `Drawer`            | It is possible to use the optional `showDrawer()` call on the `Workbench` to create additional drawers with custom content. All four window sides are supported
+14  | `Drawer`            | It is possible to use the `showDrawer()` call on the `Workbench` to show drawers with custom content. All four sides of the window are supported
 
 ![screenshot of the dialog](docs/images/components/dialog.png)
 
 Nr. | Component           | Description
 --- | ------------------- | -----------
-15  | `Workbench dialog`  | When calling `showDialog()` on the `Workbench`, there is the possibility to create a custom dialog, or using a variety of predefined dialogs like `error-, confirmation-, information-dialog, etc.`
+15  | `DialogControl`     | Dialogs can be shown using a variety of predefined dialog types like `showInformationDialog()`, `showErrorDialog`, etc. Calling `showDialog(WorkbenchDialog)` on the `Workbench` shows a custom dialog.
 
 ![screenshot of the moduleToolbar](docs/images/components/moduleToolbar.png)
 
 Nr. | Component           | Description
 --- | ------------------- | -----------
-16  | `Module toolbar`    | Calling `getToolbarControlsLeft()` or `getToolbarControlsRight()` on a `Workbench module` gives access to its `Toolbar items`. Adding them will automatically generate a unique toolbar for it
+16  | `Module toolbar`    | Calling `getToolbarControlsLeft()` or `getToolbarControlsRight()` in a `WorkbenchModule` gives access to their respective lists of `ToolbarItem`s. Adding to them will automatically show a module-specific toolbar
 
-For further information about the several components we refer to the `Javadoc`
+For further information about the components, refer to the `Javadoc`
 
 # Documentation
-This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following *maven* task:
+This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following `maven` lifecycle:
 ```Maven
-package
+prepare-package -DskipTests
 ```
 Afterwards, the documentation is located in the `target/generated-docs/` subdirectory.
 
 # Basic Structure
 ## Workbench Concept
-WorkbenchFX uses the builder pattern to create the application, since one can use plenty of optional features.
-The minimal usage requires only the definition of a custom extension from the `WorkbenchModule`.
-Afterwards one can define further functionality calling the equivalent methods.
+WorkbenchFX uses the builder pattern to create the `Workbench`, since it allows to use optional features in a flexible way.
+The minimal usage requires only to specify the `WorkbenchModule` objects to be used in the `Workbench`.
+Afterwards, optional features can be defined using their respective method call before calling `build()`.
 
-For better illustration, the basic concept of creating a workbench application is shown below:
+For better illustration, the basic concept of creating a `Workbench` object is shown below:
 ```Java
 Workbench workbench = 
     Workbench.builder( // Using the static method call
-        new CustomWorkbenchModule() // Extension of the WorkbenchModule
+        new CustomWorkbenchModule() // class CustomWorkbenchModule extends WorkbenchModule
         ...
     )
-    // .toolbarRight(...) // optional usage of additional features eg. navigationDrawer(), modulesPerPage(), etc.
-    .build(); // The build call finishes and returns the workbench
+    // .toolbarRight(...) // optional usage of additional features like navigationDrawer(), modulesPerPage(), etc.
+    .build(); // The build call creates, initializes and returns the Workbench object
 ```
 
 Note:
 - The result of the `build()` call is a `Control` which can be set in a scene.
-- It is also possible to use the default constructor `new Workbench()` and add the `WorkbenchModules` and features afterwards. But it is recommended to use the builder pattern, since it is much easier to create the `Workbench`. The default constructor comes in use when the API is used with `SceneBuilder`.
+- For use with FXML & [Scene Builder](https://gluonhq.com/products/scene-builder/), there is also a default constructor `new Workbench()`. However, in this case, modules and other optional features need to be defined separately afterwards.
 
 ## Module Lifecycle
-The full documentation about the module lifecycle can be found in the subdirectory *docs/index.adoc#workbenchmodule-lifecycle*
+The full documentation about the module lifecycle can be found in the documentation file `docs/index.adoc`, in the section *WorkbenchModule Lifecycle*.
 
-The abstract class `WorkbenchModule` contains four different methods which can be overridden:
+The abstract class `WorkbenchModule` contains four different lifecycle methods which can be overridden:
 
 Method         | Description
 -------------- | -----------
 `init()`       | Gets called when the module is being opened from the overview for the first time
 `activate()`   | Gets called whenever the currently displayed content is being switched to this module
-`deactivate()` | Gets called whenever this module is the currently displayed content and the content is being switched to another module
-`destroy()`    | Gets called when this module is explicitly being closed by the user in the toolbar
+`deactivate()` | Gets called whenever this module's currently displayed content is being switched to the content of another module
+`destroy()`    | Gets called when this module is explicitly being closed by the user by clicking on the `x` symbol in the `Tab`
 
-When extending a custom module, it is only required to override the `activate()` method.
+**When extending `WorkbenchModule`, it is only required to implement the `activate()` method.**
 
-Overriding the methods don't require any workbench related coding.
-When overriding one of the methods, only the module related stuff needs to be programmed.
+Overriding all other lifecycle methods is optional and only needs to be done to perform additional actions in the lifecycle.
+Besides a call to `super()`, no further workbench-related code is required when overriding a lifecycle method.
 
 Note:
 - A fifth method exists: `close()`. This method differs from the others, because it ignores the lifecycle and closes the module without calling `deactivate()` or `destroy()`. More about this method is written in the chapter about [prevent module from closing](#prevent-module-from-closing).
-- For further information we refer to our documentation or the `Javadoc`
+- For further information, refer to our documentation or the `Javadoc`
 
 # Demos
-We created several demos to visualize the capabilities of `WorkbenchFX` in the `workbench-fx-demo` folder:
+We created several demos to visualize the capabilities of WorkbenchFX in the `workbenchfx-demo` folder:
 
 File                | Description
 ------------------- | -----------
-`StandardDemo.java` | Shows the simplest usage of `WorkbenchFX` with only three modules and no optional features  
-`CustomDemo.java`   | A workbench application which uses all features, to demonstrate the full capability of `WorkbenchFX`
-`FXMLDemo.java`     | A proof of concept, if the API also works with `SceneBuilder` and a `FXML` file
+`StandardDemo.java` | Shows the simplest usage of WorkbenchFX with only three modules and no optional features used
+`CustomDemo.java`   | A workbench application which uses all features, to demonstrate the full capability of WorkbenchFX
+`FXMLDemo.java`     | A minimal example of how to use the `Workbench` with FXML & [Scene Builder](https://gluonhq.com/products/scene-builder/)
 
 # Getting started
 ## Extending the `WorkbenchModule`
-An extension of the abstract class `WorkbenchModule` is required in order to create an application:
+It is required to create a new class and extend `WorkbenchModule`, in order to create a custom module:
 
 ```Java
 public class CustomModule extends WorkbenchModule {
@@ -162,11 +162,11 @@ public class CustomModule extends WorkbenchModule {
 }
 ```
 
-It is then required to call the `super()` constructor and hand over a `String` as name and either an `Image`, `FontawesomeIcon` or `MaterialDesignIcon` as icon for the module:
+It is then required to call the `super()` constructor and pass in a `String` as the name and either an `Image`, `FontAwesomeIcon` or `MaterialDesignIcon` as an icon for the module:
 
 ```Java
 public CustomModule() {
-  super("My first Workbench module", MaterialDesignIcon.THUMB_UP); // A name and an icon is required
+  super("My first Workbench module", MaterialDesignIcon.THUMB_UP); // a name and an icon is required
 }
 ```
 
@@ -174,9 +174,8 @@ Cheatsheets for using the icons are available at:
 - [materialdesignicons.com](https://materialdesignicons.com/)
 - [fontawesome.com](https://fontawesome.com/v4.7.0/)
 
-
 Furthermore, overriding the `activate()` method is also required.
-This method will be called when clicking on the `Tile` to open the module (further information about the [Module Lifecycle](#module-lifecycle)):
+This lifecycle method will be called when clicking on the `Tile` to open the module (see [Module Lifecycle](#module-lifecycle)):
 
 ```Java
 @Override
@@ -187,7 +186,7 @@ public Node activate() {
 
 The minimal implementation of a custom `WorkbenchModule` finally looks like the code snippet below.
 Returning a *Hello World Label* represents the view which will be displayed in the final application.
-For further information we refer to the `Javadoc`.
+For further information, refer to the `Javadoc`.
 
 ```Java
 public class CustomModule extends WorkbenchModule {
@@ -202,17 +201,17 @@ public class CustomModule extends WorkbenchModule {
 ```
 
 ## Creating the `Workbench`
-After extending the `WorkbenchModule`, the application can be created.
-To do this, one can access the `WorkbenchBuilder` by calling `Workbench.builder()`, setting the previously written module and build the `Workbench` by calling the `build()` method:
+After extending the `WorkbenchModule`, the `Workbench` can be created.
+To do this, access the `WorkbenchBuilder` by calling `Workbench.builder()`, passing in the previously created module as an object and build the `Workbench` by calling the `build()` method:
 
 ```Java
 // Creating the Workbench
-Workbench customWorkbench = Workbench.builder( // Accessing the WorkbenchBuilder
-    new CustomModule() // Adding the CustomModule
-).build(); // Building the Workbench
+Workbench customWorkbench = Workbench.builder( // Getting a WorkbenchBuilder
+    new CustomModule()                         // Adding the CustomModule
+).build();                                     // Building the Workbench
 ```
 
-It then can be set into a scene:
+For the *final application*, it can then be used in a `Scene` as follows:
 
 ```Java
 public class CustomDemo extends Application {
@@ -223,10 +222,9 @@ public class CustomDemo extends Application {
   @Override
   public void start(Stage primaryStage) {
     
-    // Creating the Workbench
-    Workbench customWorkbench = Workbench.builder( // Accessing the WorkbenchBuilder
-        new CustomModule() // Adding the CustomModule
-    ).build(); // Building the Workbench
+    Workbench customWorkbench = Workbench.builder(
+        new CustomModule()
+    ).build();
     
     Scene myScene = new Scene(customWorkbench);
     primaryStage.setScene(myScene);
@@ -237,13 +235,14 @@ public class CustomDemo extends Application {
 }
 ```
 
-This code snippet results to the following application:
+This code snippet results in the following application:
 
 ![custom workbench](docs/images/customWorkbench.png)
 
 The default implementation comes with a clickable `Tile` to open the module.
-Opening the module, creates a `Tab` with the defined Icon and text and the content returned in the activate() method is displayed in the center.
-By clicking on the `+` button, one gets back to the `AddModulePage`.
+Opening the module, creates a `Tab` with the defined icon and text.
+The content returned in the `activate()` method is displayed in the center.
+By clicking on the `+` button, you can get back to the `AddModulePage`.
 Closing the opened module is achieved through clicking on the close button in the `Tab`.
 
 ## Optionals
@@ -256,63 +255,63 @@ Workbench workbench = Workbench.builder(...)
 .build();
 ```
 
-The following parameters are optionally available to further configure the application:
+The following methods are optionally available to further configure the `Workbench`:
 
-Method (WorkbenchBuilder) | Description
------------------- | -----------
-`modulesPerPage()` | Define the amount of `Tiles` which are displayed at the `AddModulePage`
-`navigationDrawerItems()` | Allows setting multiple `MenuItems` which are then displayed in the `NavigationDrawer`. The button to open and close the drawer appears alway in the top-left corner
-`toolbarLeft()` | Allows setting multiple `ToolbarItems` on the left side of the toolbar on top of the `Tabs`
-`toolbarRight()` | Allows setting multiple `ToolbarItems` on the right side of the toolbar on top of the `Tabs`
+Method in WorkbenchBuilder | Description
+-------------------------- | -----------
+`modulesPerPage()`         | Defines the amount of `Tile`s that should be shown per `Page` in `AddModulePage`
+`navigationDrawerItems()`  | Allows to add `MenuItem`s which are then displayed in the `NavigationDrawer`.
+`toolbarLeft()`            | Allows to add `ToolbarItem`s on the left side of the toolbar on top of the `Tab`s
+`toolbarRight()`           | Allows to add `ToolbarItem`s on the right side of the toolbar on top of the `Tab`s
 
-When the default layout of `Page`, `Tab`, `Tile` or `NavigationDrawer` doesn't fulfill the desired requirements, it is possible to replace them:
+When the default layout of `Page`, `Tab`, `Tile` or `NavigationDrawer` don't fulfill the desired requirements, it is possible to replace them:
 
-Method (WorkbenchBuilder) | Description
------------------- | -----------
-`navigationDrawer()` | Allows setting a custom implementation of the `NavigationDrawer` control, which will then be used
-`pageFactory()` | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Page` control
-`tabFactory()` | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Tab` control
-`tileFactory()` | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Tile` control
+Method in WorkbenchBuilder | Description
+-------------------------- | -----------
+`navigationDrawer()`       | Allows setting a custom implementation of the `NavigationDrawer` control, which will then be used
+`pageFactory()`            | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Page` control
+`tabFactory()`             | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Tab` control
+`tileFactory()`            | Requires a `Callback` function which takes a `Workbench` and then returns a custom implementation of a `Tile` control
 
 ### `Workbench`
-After the `build()` call on the builder, the `Workbench` is created.
-Following useful calls might be of interest:
+After the `build()` call on `WorkbenchBuilder`, the `Workbench` is created.
+The following useful calls might be of interest:
 
-Method (Workbench) | Description
------------------- | -----------
-`getNavigationDrawer()`      | Returns the `Navigation drawer`
-`getNavigationDrawerItems()` | Returns the `ObservableList` of the drawers `ToolbarItems`
+Method in Workbench          | Description
+---------------------------- | -----------
+`getNavigationDrawer()`      | Returns the `NavigationDrawer`
+`getNavigationDrawerItems()` | Returns the `ObservableList` of the drawer's `ToolbarItem`s
 `show...Dialog()`            | Shows a [predefined dialog](#predefined-dialogs)
 `showDialog()`               | Shows a [custom dialog](#custom-dialog)
 `showDrawer()`               | Shows a [custom drawer](#drawer)
-`getToolbarControlsLeft()`   | Grants access to the items on the left of the `Toolbar`
-`getToolbarControlsRight()`  | Grants access to the items on the right of the `Toolbar`
+`getToolbarControlsLeft()`   | Returns the list of items on the left of the `Toolbar`
+`getToolbarControlsRight()`  | Returns the list of items on the right of the `Toolbar`
 `showOverlay()`              | Shows a [custom overlay](#custom-overlay)
 
 ### `WorkbenchModule`
 The `WorkbenchModule` also provides useful functionality.
-It is possible to add `ToolbarItems` to the toolbar of the module (just like in the workbench):
+It is possible to add `ToolbarItem`s to the toolbar of the module (just like in the workbench):
 
 Method (WorkbenchModule)    | Description
 --------------------------- | -----------
-`getToolbarControlsLeft()`  | Calling this method returns an `ObservableList` of `ToolbarItems`. Adding items to the list will automatically create a toolbar between the `Tab` and the module content and adds the items on the left side
-`getToolbarControlsRight()` | Calling this method returns an `ObservableList` of `ToolbarItems`. Adding items to the list will automatically create a toolbar between the `Tab` and the module content and adds the items on the right side
-`close()`                   | Will immediately close the module, ignoring the [Module Lifecycle](#module-lifecycle)
-`getWorkbench()`            | In the `init()` call, the `Workbench` is stored in the module. Calling this returns it
+`getWorkbench()`            | In the `init()` call, the `Workbench` is stored in the module. Calling this enables to call methods on the `Workbench` within the `WorkbenchModule`.
+`getToolbarControlsLeft()`  | Returns a list of `ToolbarItem`s. Adding items to the list will automatically create a toolbar between the tab bar and the module content and show the items on the left side
+`getToolbarControlsRight()` | Returns a list of `ToolbarItem`s. Adding items to the list will automatically create a toolbar between the tab bar and the module content and show the items on the right side
+`close()`                   | Will immediately close the module, without calling `destroy()` first (see [Module Lifecycle](#module-lifecycle))
 
 # Using the Components
 ## ToolbarItem
-The `Toolbar items` which can be set in the toolbars of either the workbench or the module are styled and behave differently based on their content.
-If for example the item contains a `String` as text and a `MenuItem` it is automatically assumed that the styling and behaviour of a `MenuButton` is needed.
-If on the other hand only an `IconView` is defined, it is assumed, the behaviour of a `Label` is desired.
+The `ToolbarItem`s which can be set in the toolbars of either the workbench or the module are styled and behave differently based on their content.
+If for example the item contains a `String` as text and a `MenuItem` it is automatically assumed that the styling and behavior of a `MenuButton` is needed.
+If on the other hand only an `IconView` is defined, it is assumed, the behavior of a `Label` is desired.
 
-Adding different attributes to the `ToolbarItem` results in different outcomes: 
+Adding different attributes to the `ToolbarItem` results in different representations: 
 They can also be seen in the `toolbar` of the `CustomDemo`
 
 <table>
     <tr>
         <th>Syntax</th>
-        <th>Outcome</th>
+        <th>Representation</th>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -416,10 +415,10 @@ ToolbarItem toolbarItem = new ToolbarItem(
 ## Dialog
 A demo of the dialogs can be found in the `DialogTestModule` of the [Custom Demo](#demos) 
 
-### Predefined Dialogs
-`WorkbenchFX` comes with a lot of predefined dialogs.
+### Predefined Dialog Types
+WorkbenchFX comes with a lot of predefined dialog types.
 Using them is as simple as calling `(Workbench).show...Dialog()` with the desired dialog type.
-Every dialog type returns after clicking on a `Button` the corresponding `ButtonType` as a result.
+After clicking on one of the `Button`s of a dialog, the corresponding `ButtonType` is returned as the result of the dialog.
 Therefore it is required to define a `Consumer<ButtonType>` for every dialog to validate the answer.
 A few examples on how to use them are listed below: 
 
@@ -462,7 +461,7 @@ dialogBtn.setOnAction(event ->
     </tr>
     <tr>
         <td><pre lang="java">
-// Error Dialog on exception
+// Error Dialog with exception
 dialogBtn = null; // Provokes an exception
 try {
   dialogBtn.setOnAction(
@@ -617,7 +616,7 @@ public boolean destroy() {
 ```
 
 ## Drawer
-Using the `workbench` call `showDrawer()` one can define a custom drawer just like the `Navigation drawer`.
+Using the `workbench` call `showDrawer()` one can define a custom drawer just like the `NavigationDrawer`.
 There are two different possibilities to define a drawer: 
 
     workbench.showDrawer(
@@ -641,7 +640,7 @@ Examples of drawers can be found in the [Custom Demo](#demos)
 ## Custom Overlay
 The foundation of [Dialogs](#dialog) and [Drawers](#drawer) are `Overlays`.
 It is possible to define a custom one using the method `showOverlay()` in the `workbench`.
-The defined overlay will be stacked on a `Glass pane`.
+The defined overlay will be stacked on a `GlassPane`.
 
     workbench.showOverlay(
         Region overlay,  // The overlay to be shown
