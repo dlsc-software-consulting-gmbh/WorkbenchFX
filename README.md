@@ -310,107 +310,105 @@ Adding different attributes to the `ToolbarItem` results in different representa
 They can also be seen in the `toolbar` of the `CustomDemo`
 
 <table>
-    <tr>
-        <th>Syntax</th>
-        <th>Representation</th>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+  <tr>
+    <th>Syntax</th>
+    <th>Representation</th>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // Label with text
 ToolbarItem toolbarItem = new ToolbarItem("Hello World");</td>
-        <td><img src="docs/images/toolbarItems/label_text.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+    <td><img src="docs/images/toolbarItems/label_text.png"/></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // Label with graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP)
+  new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP)
 );</td>
-        <td><img src="docs/images/toolbarItems/label_icon.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+    <td><img src="docs/images/toolbarItems/label_icon.png"/></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // Label with text and graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    "Hello World",
-    new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP)
+  "Hello World",
+  new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP)
 );</td>
-        <td><img src="docs/images/toolbarItems/label_text_icon.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+    <td><img src="docs/images/toolbarItems/label_text_icon.png"/></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // Button with text
 ToolbarItem toolbarItem = new ToolbarItem(
-    "Hello World", event -> System.out.println("Hello World")
+  "Hello World", event -> System.out.println("Hello World")
 );</td>
-        <td><img src="docs/images/toolbarItems/button_text.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+    <td><img src="docs/images/toolbarItems/button_text.png"/></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // Button with graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
-    event -> System.out.println("Hello World")
+  new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
+  event -> System.out.println("Hello World")
 );</td>
-        <td><img src="docs/images/toolbarItems/button_icon.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+    <td><img src="docs/images/toolbarItems/button_icon.png"/></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // Button with text and graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    "Hello World",
-    new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
-    event -> System.out.println("Hello World")
+  "Hello World",
+  new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
+  event -> System.out.println("Hello World")
 );</td>
-        <td><img src="docs/images/toolbarItems/button_text_icon.png"></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+    <td><img src="docs/images/toolbarItems/button_text_icon.png"></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // MenuButton with text
 ToolbarItem toolbarItem = new ToolbarItem(
-    "Hello World",
-    new MenuItem("Content 1"), new MenuItem("Content 2")
+  "Hello World",
+  new MenuItem("Content 1"), new MenuItem("Content 2")
 );</td>
-        <td><img src="docs/images/toolbarItems/menuButton_text.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+    <td><img src="docs/images/toolbarItems/menuButton_text.png"/></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // MenuButton with graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
-    new MenuItem("Content 1"), new MenuItem("Content 2")
+  new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
+  new MenuItem("Content 1"), new MenuItem("Content 2")
 );</td>
-        <td><img src="docs/images/toolbarItems/menuButton_icon.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+    <td><img src="docs/images/toolbarItems/menuButton_icon.png"/></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // MenuButton with text and graphic
 ToolbarItem toolbarItem = new ToolbarItem(
-    "Hello World",
-    new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
-    new MenuItem("Content 1"), new MenuItem("Content 2")
+  "Hello World",
+  new MaterialDesignIconView(MaterialDesignIcon.THUMB_UP),
+  new MenuItem("Content 1"), new MenuItem("Content 2")
 );</td>
-        <td><img src="docs/images/toolbarItems/menuButton_text_icon.png"/></td>
-    </tr>
-    <tr>
-    <tr>
-        <td><pre lang="java">
+    <td><img src="docs/images/toolbarItems/menuButton_text_icon.png"/></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // MenuButton with a MenuItem containing custom content
 ToolbarItem toolbarItem = new ToolbarItem(
-    "Account",
-    new MaterialDesignIconView(MaterialDesignIcon.ACCOUNT),
-    new MenuItem("",
-        new HBox(
-            new Label("Login: "),
-            new TextField(),
-            new Button("", new MaterialDesignIconView(
-                MaterialDesignIcon.PLUS))
-        )
+  "Account",
+  new MaterialDesignIconView(MaterialDesignIcon.ACCOUNT),
+  new MenuItem("",
+    new HBox(
+      new Label("Login: "),
+      new TextField(),
+      new Button("", new MaterialDesignIconView(
+        MaterialDesignIcon.PLUS))
     )
+  )
 );</td>
-        <td><img src="docs/images/toolbarItems/custom_content.png"/></td>
-    </tr>
-    <tr>
+    <td><img src="docs/images/toolbarItems/custom_content.png"/></td>
+  </tr>
 </table>
 
 ## Dialog
@@ -430,95 +428,95 @@ Button dialogBtn = new Button("Show Dialog"); // Assuming the button is used in 
 ```
 
 <table>
-    <tr>
-        <th>Syntax</th>
-        <th>Outcome</th>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+  <tr>
+    <th>Syntax</th>
+    <th>Outcome</th>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // Confirmation Dialog
 dialogBtn.setOnAction(event ->
-    workbench.showConfirmationDialog(
-       "Continue without saving?",
-       "Are you sure you want to continue without saving" +
-       "your document?",
-       buttonType -> { // Proceed and validate the result }
-    )
+  workbench.showConfirmationDialog(
+    "Continue without saving?",
+    "Are you sure you want to continue without saving" +
+    "your document?",
+    buttonType -> { // Proceed and validate the result }
+  )
 );</td>
-        <td><img src="docs/images/dialogs/confirmation.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+    <td><img src="docs/images/dialogs/confirmation.png"/></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // Error Dialog
 dialogBtn.setOnAction(event ->
-    workbench.showErrorDialog(
-       "Button click failed!",
-       "During the click of this button, something went" +
-       "horribly wrong.",
-       buttonType -> { // Proceed and validate the result }
-    )
+  workbench.showErrorDialog(
+    "Button click failed!",
+    "During the click of this button, something went" +
+    "horribly wrong.",
+    buttonType -> { // Proceed and validate the result }
+  )
 );</td>
-        <td><img src="docs/images/dialogs/error.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+    <td><img src="docs/images/dialogs/error.png"/></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // Error Dialog with exception
 dialogBtn = null; // Provokes an exception
 try {
   dialogBtn.setOnAction(
-     event -> System.out.println("Throws NPE!"));
+    event -> System.out.println("Throws NPE!"));
 } catch (NullPointerException exception) {
   workbench.showErrorDialog(
-     "Button click failed!",
-     "During the click of this button, something went" +
-     "horribly wrong. Please forward the content below" +
-     "to anyone but the WorkbenchFX developers to" +
-     "track down the issue:",
-     exception
-     buttonType -> { // Proceed and validate the result }
+    "Button click failed!",
+    "During the click of this button, something went" +
+    "horribly wrong. Please forward the content below" +
+    "to anyone but the WorkbenchFX developers to" +
+    "track down the issue:",
+    exception
+    buttonType -> { // Proceed and validate the result }
   );
 }</td>
-        <td><img src="docs/images/dialogs/exception.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+    <td><img src="docs/images/dialogs/exception.png"/></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // Error Dialog with description
 dialogBtn.setOnAction(event ->
-    workbench.showErrorDialog(
-       "Button click failed!",
-       "During the click of this button, something went" +
-       "horribly wrong.",
-       "Details about this exception are not present."
-       buttonType -> { // Proceed and validate the result }
-    );
-}</td>
-        <td><img src="docs/images/dialogs/details.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+  workbench.showErrorDialog(
+    "Button click failed!",
+    "During the click of this button, something went" +
+    "horribly wrong.",
+    "Details about this exception are not present.",
+    buttonType -> { // Proceed and validate the result }
+  )
+);</td>
+    <td><img src="docs/images/dialogs/details.png"/></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // Warning Dialog
 dialogBtn.setOnAction(event ->
-    workbench.showWarningDialog(
-       "Reset settings?",
-       "This will reset your device to its default" +
-       "factory settings.",
-       buttonType -> { // Proceed and validate the result }
-    )
+  workbench.showWarningDialog(
+    "Reset settings?",
+    "This will reset your device to its default" +
+    "factory settings.",
+    buttonType -> { // Proceed and validate the result }
+  )
 );</td>
-        <td><img src="docs/images/dialogs/warning.png"/></td>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+    <td><img src="docs/images/dialogs/warning.png"/></td>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // Information Dialog
 dialogBtn.setOnAction(event ->
-    workbench.showInformationDialog(
-       "Just to let you know",
-       "(This is an information dialog)",
-       buttonType -> { // Proceed and validate the result }
-    )
+  workbench.showInformationDialog(
+    "Just to let you know",
+    "(This is an information dialog)",
+    buttonType -> { // Proceed and validate the result }
+  )
 );</td>
-        <td><img src="docs/images/dialogs/information.png"/></td>
-    </tr>
+    <td><img src="docs/images/dialogs/information.png"/></td>
+  </tr>
 </table>
 
 ### Custom Dialog
@@ -564,12 +562,12 @@ Button dialogBtn = new Button("Show Dialog"); // Assuming the button is used in 
 ```
 
 <table>
-    <tr>
-        <th>Syntax</th>
-        <th>Outcome</th>
-    </tr>
-    <tr>
-        <td><pre lang="java">
+  <tr>
+    <th>Syntax</th>
+    <th>Outcome</th>
+  </tr>
+  <tr>
+    <td><pre lang="java">
 // Dialog which requires input to proceed
 // Create a CheckBox which will be set as content
 CheckBox checkBox = 
@@ -578,8 +576,8 @@ dialogBtn.setOnAction(event -> {
   // Building the dialog with the CheckBox as content
   WorkbenchDialog dialog = WorkbenchDialog.builder(
   "Check the box to continue", checkBox, ButtonType.OK)
-      .blocking(true)
-      .build();
+    .blocking(true)
+    .build();
   // Bind the OK button to the CheckBox
   dialog.setOnShown(event1 -> {
     dialog.getButton(ButtonType.OK).ifPresent(
@@ -588,8 +586,8 @@ dialogBtn.setOnAction(event -> {
   });
   getWorkbench().showDialog(dialog);
 });</td>
-        <td><img src="docs/images/dialogs/conditional.png"/></td>
-    </tr>
+    <td><img src="docs/images/dialogs/conditional.png"/></td>
+  </tr>
 </table>
 
 Other examples can be found in the `DialogTestModule` of the [Custom Demo](#demos) 
