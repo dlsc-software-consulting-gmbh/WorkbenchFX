@@ -1,0 +1,20 @@
+= Miscellaneous Reference
+François Martin; Marco Sanfratello
+
+== Codecov.io Exceptions (codecov.yml)
+[source,java]
+----
+include::../codecov.yml[]
+----
+
+== Close Modules
+[source,java]
+----
+include::{dir-test-java}/WorkbenchTest.java[tags=closeModule]
+----
+
+== Close Modules Interrupted
+[source,java]
+----
+include::{dir-test-java}/WorkbenchTest.java[tags=closeModuleInterrupt]
+----
