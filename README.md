@@ -651,7 +651,7 @@ It represents the percentage of the window the drawer covers when showing.
 Examples of drawers can be found in the [Custom Demo](#demos)
 
 ## Custom Overlay
-The foundation of [Dialogs](#dialog) and [Drawers](#drawer) are *overlays*.
+The foundation of [Dialogs](#dialog) and [Drawers](#drawer) are **overlays**.
 It is possible to define a custom overlay by using the method `showOverlay()` on the `workbench`.
 The defined overlay will be stacked on top of a `GlassPane`.
 
@@ -671,21 +671,20 @@ StackPane.setAlignment(overlay, Pos.CENTER); // is needed to center the overlay 
 # Restyling
 ## Basic Styling
 First of all:
-`WorkbenchFX` does not interrupt with the styles of the modules.
-This way each module can be styled independently and one does not have to worry about the workbench taking influence on the styling.
+**WorkbenchFX does not interfere with the styles of the individual modules.**
+This way each module can be styled independently and you do not have to worry about the workbench influencing the styling.
 
 But it is possible to alter the styles of the workbench itself.
-`WorkbenchFX` comes with an out of the box styling.
-It is strongly inspired by the [material design standards](https://material.io/).
+WorkbenchFX comes with an out of the box styling.
+It is strongly inspired by [Material Design](https://material.io/).
 
-In the [CustomDemo.java](#demos) file a stylesheet is referenced:
-      
+The workbench's styling can be altered by referencing a stylesheet, like in the [Custom Demo](#demos):
+
 ```Java
 workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 ```
 
-This way, the workbench styling can be altered.
-In the `customTheme.css` file are some default colors referenced:
+In the file `customTheme.css`, some default colors are referenced:
 
 ```css
 * {
@@ -709,21 +708,21 @@ In the `customTheme.css` file are some default colors referenced:
 }
 ```
 
-Their naming and the way they are used is directly taken from the [material design standards](https://material.io/design/color/the-color-system.html#color-theme-creation).
-Changing those colors leads to a complete restyling of the application.
-For example A `darkTheme.css` is also referenced in the demo:
+The colors are named according to the [Material Design guidelines](https://material.io/design/color/the-color-system.html#color-theme-creation).
+Changing those colors leads to a complete restyling of the workbench.
+For example, a file `darkTheme.css` is also referenced in the demo and leads to the following result:
 
-![screenshot of the workbenches darkTheme version](docs/images/workbenchFX_in_use_dark.png)
+![screenshot of the workbench's darkTheme version](docs/images/workbenchFX_in_use_dark.png)
 
 ### Changing Colors
 
-If someone would like to change the colors of the application, he creates a new css file `customTheme.css` and refers to it in the workbench:
+If you want to change the colors of the application, create a new css file `customTheme.css` and add it to the workbench:
 
 ```Java
 customWorkbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 ``` 
 
-In context the code looks like this:
+In context, the code looks like this:
 
 ```Java
 public class CustomDemo extends Application {
@@ -734,10 +733,9 @@ public class CustomDemo extends Application {
   @Override
   public void start(Stage primaryStage) {
     
-    // Creating the Workbench
-    Workbench customWorkbench = Workbench.builder( // Accessing the WorkbenchBuilder
-        new CustomModule() // Adding the CustomModule
-    ).build(); // Building the Workbench
+    Workbench customWorkbench = Workbench.builder(
+        new CustomModule()
+    ).build();
     
     // Adding the stylesheet to the workbench to restyle it
     customWorkbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
@@ -776,65 +774,65 @@ Leads to following design:
 
 ### Setting a Logo
 
-In the upper section of the `Navigation drawer` is a section for a logo defined.
-The logo is defined by refering to it in the custom stylesheet (how to create and reference is described in previous chapter).
+In the upper section of the `NavigationDrawer`, there is a section for a logo.
+The logo is defined in the custom stylesheet (how to create one and reference it is described in the previous chapter).
 An example implementation of the logo can be found in the `customTheme.css` of the [Custom Demo](#demos):
 
 ```css
 .logo {
-  /* Reference to the applications logo */
+  /* Reference to the application's logo */
   -fx-graphic: url("logo.png");
 }
 ```
 
-Changing the logo can be easy done by adding an image with the fitting size in the sources folder and referring its name in the stylesheet:
+Changing the logo can easily be done by adding an image with the correct size in the `resources` folder and referring to its name in the stylesheet:
 
 ```css
 .logo {
   /* Reference to the applications logo */
-  -fx-graphic: url("myCustomLogo.png"); /* Exchanging logo.png with another image. */
+  -fx-graphic: url("myCustomLogo.png"); /* Replacing logo.png with a different image. */
 }
 ```
 
 Note:
-- `WorkbenchFX` does not resize the image. We suggest a maximal image height of 250px
+- WorkbenchFX does not resize the image.
+We suggest a maximum image height of 250px
 
 ## Advanced Styling
 Sometimes just changing the colors is not enough.
-Every component in the workbench has its own `class` or `id`.
+Every component in the workbench has its own `.class` or `#id`.
 This way, the components can be restyled if needed.
 
-For example every generated `Tab` and `Tile` has its own unique `id`.
-the naming convention for the `id` is set to:
-- Prefix: `tab/tile` (depending on the component)
-- body: the defined name of the module
-  - with any special letters removed
-  - all ' ' spaces replaced with '-' hyphens
-  - uppercase letters converted to lowercase
+For example, every generated `Tab` and `Tile` has its own unique `#id`.
+The naming conventions for the `#id` are defined as:
+- Prefix: `tab` / `tile` (depending on the component)
+- Body: the name of the module
+  - all special characters besides hyphens are removed
+  - all spaces are replaced by hyphens (`-`)
+  - uppercase letters are converted to lowercase
 
+Setting the LOGGER level to debug will print each module's tab and tile id as soon as they are set:
+- Set Tab-ID of '(MODULE NAME)' to: '(TAB ID)'
+- Set Tile-ID of '(MODULE NAME)' to: '(TILE ID)'
 
-    Setting the LOGGER level to debug will print each modules tab- and tile-ID as soon as they are set:
-    - Set Tab-ID of '(MODULE NAME)' to: '(TAB ID)'
-    - Set Tile-ID of '(MODULE NAME)' to: '(TILE ID)'
+For further information, refer to the Javadoc of `WorkbenchUtils.convertToId()`
 
-For further information we refer to the Javadoc `WorkbenchUtils.convertToId()`
-
-`id` example:
+`#id` example:
 
     Module name:
         François' Module
         
-    Results to:
-        tab-franois-module // Tab-ID
-        tile-franois-module // Tile-ID
+    Results in:
+        tab-franois-module // Tab id
+        tile-franois-module // Tile id
         
-    And a LOGGER output of:
+    LOGGER output:
         Set Tab-ID of 'François' Module' to: 'tab-franois-module'
         Set Tile-ID of 'François' Module' to: 'tile-franois-module'
 
 Referring to the custom workbench in the chapter [Getting Started](#getting-started):
 
-Assuming the `Tab` and `Tile` are needed to be restyled: Adding following code snippet to the `customTheme.css` 
+Assuming the `Tab` and `Tile` need to be restyled, add the following code snippet to the `customTheme.css` file:
 
 ```css
 /* Styling the Tile */
@@ -868,9 +866,9 @@ Leads to following styling:
 ![screenshot of the custom css](docs/images/custom_css_2.png)
 
 Note:
-- The `color-variables` still can be used in the `customTheme.css` file
-- Since the styling of the workbench is superior, the `!important` tag is required when restyling the workbench
-- A tool like [ScenicView](http://fxexperience.com/scenic-view/) works well to determine the style classes
+- The css color variables can still be used in the `customTheme.css` file
+- Since the styling of the workbench is more specific, the `!important` tag is required when styling the workbench
+- A tool like [ScenicView](http://fxexperience.com/scenic-view/) helps to determine the style classes
 
 # Team
 - Marco Sanfratello
