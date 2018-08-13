@@ -24,7 +24,7 @@
 - [Using the Components](#using-the-components)
   - [ToolbarItem](#toolbaritem)
   - [Dialog](#dialog)
-    - [Predefined Dialogs](#predefined-dialogs)
+    - [Predefined Dialog Types](#predefined-dialog-types)
     - [Custom Dialog](#custom-dialog)
   - [Prevent module from closing](#prevent-module-from-closing)
   - [Drawer](#drawer)
