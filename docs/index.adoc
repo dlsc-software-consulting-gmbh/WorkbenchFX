@@ -14,7 +14,6 @@ Customer: http://www.dlsc.com[Dirk Lemmermann Software & Consulting]
 
 == Introduction
 The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
-This will end with a citation cite:[noauthor_system_nodate].
 
 == The way to WorkbenchFX
 
