@@ -31,6 +31,8 @@
   - [Custom Overlay](#custom-overlay)
 - [Restyling](#restyling)
   - [Basic Styling](#basic-styling)
+    - [Changing Colors](#changing-colors)
+    - [Setting a Logo](#setting-a-logo)
   - [Advanced Styling](#advanced-styling)
 - [Team](#team)
 
@@ -71,7 +73,7 @@ Nr. | Component           | Description
 
 Nr. | Component           | Description
 --- | ------------------- | -----------
-12  | `NavigationDrawer`  | It displays a logo which can be set in the stylesheet and the defined `MenuItem`s. The default hover behavior over its items can be changed using the method call `setMenuHoverBehavior()` on `NavigationDrawer`. It can be closed by clicking on the `GlassPane` or by pressing the back arrow button
+12  | `NavigationDrawer`  | It displays a logo which can be set in the stylesheet (described in chapter [Setting a Logo](#setting-a-logo)) and the defined `MenuItems`. The default hover behavior over its items can be changed using the method call `setMenuHoverBehavior()` on `NavigationDrawer`. It can be closed by clicking on the `GlassPane` or by pressing the back arrow button
 13  | `GlassPane`         | The `GlassPane` prevents click events on the components below and adds a scrim to the background. Unless a blocking (modal) overlay is being displayed, clicking on the `GlassPane` closes the overlay
 
 ![screenshot of the drawer](docs/images/components/drawer.png)
@@ -702,6 +704,8 @@ For example A `darkTheme.css` is also referenced in the demo:
 
 ![screenshot of the workbenches darkTheme version](docs/images/workbenchFX_in_use_dark.png)
 
+### Changing Colors
+
 If someone would like to change the colors of the application, he creates a new css file `customTheme.css` and refers to it in the workbench:
 
 ```Java
@@ -758,6 +762,31 @@ Changing the colors in the `css` file to something like this:
 Leads to following design:
 
 ![screenshot of the custom css](docs/images/custom_css_1.png)
+
+### Setting a Logo
+
+In the upper section of the `Navigation drawer` is a section for a logo defined.
+The logo is defined by refering to it in the custom stylesheet (how to create and reference is described in previous chapter).
+An example implementation of the logo can be found in the `customTheme.css` of the [Custom Demo](#demos):
+
+```css
+.logo {
+  /* Reference to the applications logo */
+  -fx-graphic: url("logo.png");
+}
+```
+
+Changing the logo can be easy done by adding an image with the fitting size in the sources folder and referring its name in the stylesheet:
+
+```css
+.logo {
+  /* Reference to the applications logo */
+  -fx-graphic: url("myCustomLogo.png"); /* Exchanging logo.png with another image. */
+}
+```
+
+Note:
+- `WorkbenchFX` does not resize the image. We suggest a maximal image height of 250px
 
 ## Advanced Styling
 Sometimes just changing the colors is not enough.
