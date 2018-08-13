@@ -480,7 +480,7 @@ try {
   </tr>
   <tr>
     <td><pre lang="java">
-// Error Dialog with description
+// Error Dialog with details
 dialogBtn.setOnAction(event ->
   workbench.showErrorDialog(
     "Button click failed!",
