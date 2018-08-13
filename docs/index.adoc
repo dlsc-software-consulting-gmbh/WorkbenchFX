@@ -674,8 +674,7 @@ In the end, we were able to reach a code coverage of *94.67%*.
 
 We realized code coverage is a tool, but metrics aren't always correct.
 For example, if we added a lot of new fields with mutators and accessors, we noticed we almost always weren't able to meet the goals defined by codecov.io in the GitHub checks.
-// TODO source?
-This is because getters and setters are not tested.
+This is because getters and setters are not tested cite:[osherove_art_2013, page=11].
 This leads to the coverage results getting skewed, since there is more code that is also not covered, reducing the code coverage.
 In this case, it is the creator of the pull request's responsibility to check, whether there is untested code that needs to be covered or if it is just the mentioned effect.
 Also, it is the reviewer's responsibility to validate the creator's decision in this regard, as sometimes checking the code coverage can be forgotten.
