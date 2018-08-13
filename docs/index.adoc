@@ -692,7 +692,7 @@ We still need to check whether all of the edge cases have been tested and if the
 
 However, using codecov.io proved to be really useful for us.
 We had a quick overview over the code coverage and as with Travis, it was one step less in our code review process.
-We didn't have to always build the branch to see the code coverage and the check on GitHub was at the same time kind of a reminder, to take a look at the code coverage as well.
+We didn't always have to build the branch to see the code coverage and the checks on GitHub doubled as a reminder to have a look at the code coverage.
 
 .Example comment on GitHub by the Codecov.io bot
 [#codecov-comment]
