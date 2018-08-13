@@ -522,31 +522,31 @@ dialogBtn.setOnAction(event ->
 ### Custom Dialog
 Sometimes just using the default dialog types are not enough.
 For such special cases, the `showDialog()` method can be used.
-With a `WorkbenchDialog.builder()` a custom dialog can be created.
+With `WorkbenchDialog.builder()` a custom dialog can be created.
 The builder provides some useful methods which can be used:
 
 WorkbenchDialog.builder(*Parameters*) | Description
 ------------------------------------- | -----------
 `String title`                        | Required and defines the `title` of the dialog
-`String message`                      | Optional either a message or a content can be added. The `message` is located below the `title`
-`Node content`                        | A `Node` as custom content
-`Type type`                           | Defines one of the default dialog types like `error`, `information`, etc. The corresponding buttons will automatically be set
-`ButtonType... buttonTypes`           | All the defined button types will be set (eg. `OK`, `CANCEL` and `APPLY` for a preferences dialog)
+`String message`                      | Optionally either `message` or `content` can be defined. The `message` is located below the `title`
+`Node content`                        | A `Node` with custom content
+`Type type`                           | Defines one of the default dialog types like `Type.ERROR`, `Type.INFORMATION`, etc. The corresponding buttons and style class will automatically be set
+`ButtonType... buttonTypes`           | All the specified button types will be set (eg. `OK`, `CANCEL` and `APPLY` for a preferences dialog)
 
 Note: 
-- Defining a `content` will prevent any further definition of `messages` or `exceptions`
+- Defining `content` will override further definitions of `message` or `exception`
 
 WorkbenchDialog.builder().*Parameters* | Description
 -------------------------------------- | -----------
-`blocking(boolean)`                    | Defines whether clicking on the `Glasspane` closes the dialog or not (eg. forcing a decision)
-`onResult(Consumer<ButtonType>)`       | Clicking on a dialog, the clicked `ButtonType` is returned. On result proceeds the answer
-`details(String)`                      | Adding details (@see the note on top)
-`exception(Exception)`                 | Adding an `Exception` (@see the note on top)
-`maximized(boolean)`                   | Defines whether the dialogs size should take the full screen or only as much as it fits the content
-`showButtonsBar(boolean)`              | Defines whether the dialogs buttons should be shown or not
+`blocking(boolean)`                    | Defines whether clicking on the `GlassPane` closes the dialog or not (i.e. forcing a decision when blocking)
+`onResult(Consumer<ButtonType>)`       | After clicking on a dialog button, the clicked `ButtonType` is returned. Enables to define an action to be performed when a dialog button was pressed
+`details(String)`                      | Adding details (see the note on top)
+`exception(Exception)`                 | Adding an `Exception` (see the note on top)
+`maximized(boolean)`                   | Defines whether the dialog's size should take up the whole window or only as much as needed by the content
+`showButtonsBar(boolean)`              | Defines whether the dialog's buttons should be shown or not
 `onShown(EventHandler<Event>)`         | The `EventHandler` which is called when the dialog is showing
 `onHidden(EventHandler<Event>)`        | The `EventHandler` which is called when the dialog is hidden
-`dialogControl(DialogControl)`         | It is possible to set a custom `DialogControl`
+`dialogControl(DialogControl)`         | Makes it possible to define a custom `DialogControl`
 `build()`                              | Builds the `WorkbenchDialog`
 
 WorkbenchDialog                    | Description
@@ -594,14 +594,13 @@ Other examples can be found in the `DialogTestModule` of the [Custom Demo](#demo
 
 ## Prevent module from closing
 In some cases it is necessary to prevent a module from closing.
-For example following dialog asks for saving before closing:
+For example, the following dialog asks about saving before closing:
 
-![Image of a dialog which asks for saving before closing the module](docs/images/dialogs/save.png)
+![Image of a dialog which asks about saving before closing the module](docs/images/dialogs/save.png)
 
-In the [Module Lifecycle](#module-lifecycle) it is stated, that the `destroy()` method will be called when closing the module.
+As mentioned in [Module Lifecycle](#module-lifecycle), the `destroy()` method will be called when closing the module.
 The module will be closed as soon as the `destroy()` method returns `true`.
-If someone wants to prevent the module from closing he has to return `false` and then close the module manually as soon as he is ready to.
-This is done by calling the method `close()`.
+If you want to prevent the module from closing, return `false` and then close the module by calling `close()`, as soon as you are ready.
 
 The code snippet below results in the dialog displayed in the image on top:
 
@@ -609,7 +608,7 @@ The code snippet below results in the dialog displayed in the image on top:
 @Override
 public boolean destroy() {
   
-  // Do some asynchronous task (in our case showing a dialog and waiting for input)
+  // Perform an asynchronous task (in our case showing a dialog)
   getWorkbench().showDialog(WorkbenchDialog.builder(
       "Save before closing?",
       "Do you want to save your progress? Otherwise it will be lost.",
@@ -629,43 +628,44 @@ public boolean destroy() {
 ```
 
 ## Drawer
-Using the `workbench` call `showDrawer()` one can define a custom drawer just like the `NavigationDrawer`.
-There are two different possibilities to define a drawer: 
+Using the `workbench`, by calling `showDrawer()`, you can show a custom drawer just like the `NavigationDrawer`.
+There are two possibilities for showing a drawer: 
 
     workbench.showDrawer(
-        Region drawer, // The drawer to be shown
-        Sider side     // Defines from which side the drawer should come
+        Region drawer, // Drawer to be shown
+        Side side      // From which side the drawer should come from
     );
 
 Calling this, the width of the drawer is calculated automatically and takes the width which fits best for the drawer content defined.
 The other possibility comes into action when a specific width is desired:
     
     workbench.showDrawer(
-        Region drawer, // The drawer to be shown
-        Sider side     // Defines from which side the drawer should come
+        Region drawer, // Drawer to be shown
+        Side side      // From which side the drawer should come from
         int percentage // Defines how much of the screen should be covered
     );
 
-The `percentage` can be defined in range `0` to `100` and represents the percentage of the window the drawer covers when showing.  
+The `percentage` can be defined in a range between `0` and `100`.
+It represents the percentage of the window the drawer covers when showing.  
 
 Examples of drawers can be found in the [Custom Demo](#demos)
 
 ## Custom Overlay
-The foundation of [Dialogs](#dialog) and [Drawers](#drawer) are `Overlays`.
-It is possible to define a custom one using the method `showOverlay()` in the `workbench`.
-The defined overlay will be stacked on a `GlassPane`.
+The foundation of [Dialogs](#dialog) and [Drawers](#drawer) are *overlays*.
+It is possible to define a custom overlay by using the method `showOverlay()` on the `workbench`.
+The defined overlay will be stacked on top of a `GlassPane`.
 
     workbench.showOverlay(
-        Region overlay,  // The overlay to be shown
-        boolean blocking // true, if the overlay should not be closed when clicking on the glasspane
+        Region overlay,  // Overlay to be shown
+        boolean blocking // true, if the overlay should not be closed when clicking on the GlassPane
     );
     
-The overlay can essentially be any `Region` (for example a `Custom Control`).
-As default, the defined content will be displayed in the top-left corner of the window.
-If it is desired to center the content, the following call inside the overlay is needed: 
+The overlay can essentially be any `Region` (for example a custom `Control`).
+Per default, the defined content will be displayed in the top-left corner of the window.
+To center the content of an overlay, perform the following call on the overlay:
 
 ```Java
-StackPane.setAlignment(this, Pos.CENTER); // This call is needed to center the overlay on screen
+StackPane.setAlignment(overlay, Pos.CENTER); // is needed to center the overlay on the screen
 ```
 
 # Restyling
