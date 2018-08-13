@@ -510,7 +510,7 @@ In case of a confirmation dialog before closing the module, the implementor can 
 === Customizability
 Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
 Of course, the resulting API design from this needs to work with our implementation as well.
-When we implemented the pagination in the home screen, we wanted the API user to be able to choose the amount of modules shown per page.
+When we implemented the pagination on the add module page, we wanted the API user to be able to choose the amount of modules shown per page.
 To do so, our initial idea was to design the API for creating a `Workbench` object like this:
 [source,java]
 ----
