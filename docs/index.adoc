@@ -664,6 +664,36 @@ Also, codecov.io would show a "check" in GitHub and would only pass if certain c
 One of those is that the code coverage must not be lower than it previously was (<<codecov-check>>).
 The other one was the `diff` coverage, that measured how much of the added code was covered (<<codecov-check>>).
 
+Codecov.io also enables to set exceptions on certain classes, which should not be taken into account for the code coverage.
+We mainly did this for view classes, since they cannot really be unit-tested.
+Also, we added abstract classes and interfaces to the exceptions, since it wasn't possible for JaCoCo to recognize executions of lines in them.
+See <<misc-reference.adoc#_codecov_io_exceptions_codecov_yml,Codecov.io Exceptions>> for all of the concrete classes we removed from code coverage.
+
+We didn't set a goal for the code coverage per se, since we didn't want it to lead us to try to test everything.
+But in general, we tried to keep the code coverage over 90%, which is already quite high.
+In the end, we were able to reach a code coverage of *94.67%*.
+
+We realized code coverage is a tool, but metrics aren't always correct.
+For example, if we added a lot of new fields with mutators and accessors, we noticed we almost always weren't able to meet the goals defined by codecov.io in the GitHub checks.
+// TODO source?
+This is because getters and setters are not tested.
+This leads to the coverage results getting skewed, since there is more code that is also not covered, reducing the code coverage.
+In this case, it is the creator of the pull request's responsibility to check, whether there is untested code that needs to be covered or if it is just the mentioned effect.
+Also, it is the reviewer's responsibility to validate the creator's decision in this regard, as sometimes checking the code coverage can be forgotten.
+If the results were skewed, we went with the pragmatic approach and chose to still merge the pull request.
+This approach worked very well for us and our decision payed off, given the high code coverage we reached.
+
+Still, code coverage is a double edged sword.
+As we saw, a lower code coverage doesn't always equal less code quality.
+As we realized, this is also true for the opposite.
+Simply because a line of code was executed during a test, doesn't necessarily mean it was tested properly.
+That's where code review comes in, and we had to remind ourselves constantly to not rely on code coverage *too* much.
+We still need to check whether all of the edge cases have been tested and if the tests really perform all necessary verifications.
+
+However, using codecov.io proved to be really useful for us.
+We had a quick overview over the code coverage and as with Travis, it was one step less in our code review process.
+We didn't have to always build the branch to see the code coverage and the check on GitHub was at the same time kind of a reminder, to take a look at the code coverage as well.
+
 .Example comment on GitHub by the Codecov.io bot
 [#codecov-comment]
 image::include/codecov-comment.png[Example comment on GitHub by the Codecov.io bot]
