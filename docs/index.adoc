@@ -704,7 +704,10 @@ image::include/codecov-check.png[Check by codecov.io on a GitHub pull request]
 
 === Release Automation
 We also automated part of the release process with Travis.
-If ... // TODO
+When we push a git tag on the master branch, Travis will run `mvn install`, make zips of the documentation and javadoc, followed by creating a release on GitHub and uploading the zips along with the built `jar`s.
+The only thing left is to edit the title and description with the release and its changelog, respectively.
+
+This made releasing quicker and meant less repetitive effort on our side.
 
 == Lessons learned
 
