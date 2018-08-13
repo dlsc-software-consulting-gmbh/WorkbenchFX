@@ -169,7 +169,7 @@ When we added the module toolbar, we also thought it would make the most sense t
 Generally, we decided to not include anything that wasn't strictly specific to a `WorkbenchModule`.
 
 For example, we discussed whether or not to include a list with `WorkbenchModule` specific `MenuItem`{empty}s to be shown in the `NavigationDrawer`.
-In the end, we decided against it, since the `NavigationDrawer` contains global `MenuItem`s.
+In the end, we decided against it, since the `NavigationDrawer` contains global `MenuItem`{empty}s.
 If there was one list in `Workbench` and one in each `WorkbenchModule`, API users could get confused.
 API users who don't know of the global list in the `Workbench`, could falsely think the `NavigationDrawer` is specific to each module, causing them to add the same `MenuItem`{empty}s in each `WorkbenchModule`.
 Additionally, some possible open questions it could cause would be:
@@ -702,7 +702,7 @@ image::include/codecov-check.png[Check by codecov.io on a GitHub pull request]
 
 === Release Automation
 We also automated part of the release process with Travis.
-When we push a git tag on the master branch, Travis will run `mvn install`, make zips of the documentation and javadoc, followed by creating a release on GitHub and uploading the zips along with the built `jar`s.
+When we push a git tag on the master branch, Travis will run `mvn install`, make zips of the documentation and javadoc, followed by creating a release on GitHub and uploading the zips along with the built `jar`{empty}s.
 The only thing left is to edit the title and description with the release and its changelog, respectively.
 
 This made releasing quicker and meant less repetitive effort on our side.
