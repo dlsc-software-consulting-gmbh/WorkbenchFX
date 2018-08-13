@@ -121,12 +121,10 @@ Workbench workbench =
 ```
 
 Note:
-- The result of the `build()` call is a `Control` which can be set in a scene.
-- For use with FXML & [Scene Builder](https://gluonhq.com/products/scene-builder/), there is also a default constructor `new Workbench()`. However, in this case, modules and other optional features need to be defined separately afterwards.
+- The result of the `build()` call is a `Control` which can be set in a scene
+- For use with FXML & [Scene Builder](https://gluonhq.com/products/scene-builder/), there is also a default constructor `new Workbench()`. However, in this case, modules and other optional features need to be defined separately afterwards
 
 ## Module Lifecycle
-The full documentation about the module lifecycle can be found in the documentation file `docs/index.adoc`, in the section *WorkbenchModule Lifecycle*.
-
 The abstract class `WorkbenchModule` contains four different lifecycle methods which can be overridden:
 
 Method         | Description
@@ -142,8 +140,9 @@ Overriding all other lifecycle methods is optional and only needs to be done to 
 Besides a call to `super()`, no further workbench-related code is required when overriding a lifecycle method.
 
 Note:
-- A fifth method exists: `close()`. This method differs from the others, because it ignores the lifecycle and closes the module without calling `deactivate()` or `destroy()`. More about this method is written in the chapter about [prevent module from closing](#prevent-module-from-closing).
+- A fifth method exists: `close()`. This method differs from the others, because it ignores the lifecycle and closes the module without calling `deactivate()` or `destroy()`. More about this method is written in the chapter about [prevent module from closing](#prevent-module-from-closing)
 - For further information, refer to our documentation or the `Javadoc`
+- The full documentation about the module lifecycle can be found in the documentation file `docs/index.adoc`, in the section *WorkbenchModule Lifecycle*
 
 # Demos
 We created several demos to visualize the capabilities of WorkbenchFX in the `workbenchfx-demo` folder:
