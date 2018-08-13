@@ -56,14 +56,14 @@ The most important components are noted in the picture and the corresponding tab
 Nr. | Component           | Description
 --- | ------------------- | -----------
  _  | `WorkbenchModule`   | The complete workbench application consists of one or multiple modules. It contains a title, an icon and the content to be displayed in the `Workbench`
- 2  | `Tile`              | For each `WorkbenchModule` a `Tile` will be created. Clicking on the `Tile` opens the corresponding module.
- 3  | `Tab`               | A `Tab` will be displayed for each open module. Clicking on a `Tab` opens and shows the corresponding module. Pressing the `x` button closes the module.
+ 2  | `Tile`              | For each `WorkbenchModule` a `Tile` will be created. Clicking on the `Tile` opens the corresponding module
+ 3  | `Tab`               | A `Tab` will be displayed for each open module. Clicking on a `Tab` opens and shows the corresponding module. Pressing the `x` button closes the module
  4  | `TabBar`            | The upper section of the window, where the `Tab`s of the current open modules are displayed. On the right end of the bar, the `Add button` is displayed
- 5  | `Add button`        | The button used to open a new module. It opens an overview of all available modules.
+ 5  | `Add button`        | The button used to open a new module. It opens an overview of all available modules
  6  | `AddModulePage`     | Stores all the `Page`s on which the `Tile`s are displayed
  7  | `Page`              | When more modules are loaded than defined in the `modulesPerPage()` attribute, the `Workbench` creates multiple `Page`s on which the `Tile`s are displayed
  8  | `Pagination dots`   | Are only displayed when having multiple `Page`s and can be used for navigating through them
- 9  | `Toolbar`           | It contains `ToolbarItem`s. If the bar does not contain any items, the `Toolbar` will be hidden automatically.
+ 9  | `Toolbar`           | It contains `ToolbarItem`s. If the bar does not contain any items, the `Toolbar` will be hidden automatically
 10  | `ToolbarItem`       | Depending on the defined attributes, the item behaves like a JavaFX `Label`, `Button` or `MenuButton`
 11  | `Menu button`       | It opens the `NavigationDrawer`. The position of the button varies depending on the amount of items in the `Toolbar` and the `NavigationDrawer`. If the `NavigationDrawer` does not contain any items, the button will not be displayed at all. If any items are in the `Toolbar`, it will be displayed on the left side of the `Toolbar`, otherwise on the left side of the `TabBar`
 
@@ -71,8 +71,8 @@ Nr. | Component           | Description
 
 Nr. | Component           | Description
 --- | ------------------- | -----------
-12  | `NavigationDrawer`  | It displays a logo which can be set in the stylesheet and the defined `MenuItem`s. The default hover behavior over its items can be changed using the method call `setMenuHoverBehavior()` on `NavigationDrawer`. It can be closed by clicking on the `GlassPane` or by pressing the back arrow button.
-13  | `GlassPane`         | The `GlassPane` prevents click events on the components below and adds a scrim to the background. Unless a blocking (modal) overlay is being displayed, clicking on the `GlassPane` closes the overlay.
+12  | `NavigationDrawer`  | It displays a logo which can be set in the stylesheet and the defined `MenuItem`s. The default hover behavior over its items can be changed using the method call `setMenuHoverBehavior()` on `NavigationDrawer`. It can be closed by clicking on the `GlassPane` or by pressing the back arrow button
+13  | `GlassPane`         | The `GlassPane` prevents click events on the components below and adds a scrim to the background. Unless a blocking (modal) overlay is being displayed, clicking on the `GlassPane` closes the overlay
 
 ![screenshot of the drawer](docs/images/components/drawer.png)
 
@@ -84,7 +84,7 @@ Nr. | Component           | Description
 
 Nr. | Component           | Description
 --- | ------------------- | -----------
-15  | `DialogControl`     | Dialogs can be shown using a variety of predefined dialog types like `showInformationDialog()`, `showErrorDialog`, etc. Calling `showDialog(WorkbenchDialog)` on the `Workbench` shows a custom dialog.
+15  | `DialogControl`     | Dialogs can be shown using a variety of predefined dialog types like `showInformationDialog()`, `showErrorDialog`, etc. Calling `showDialog(WorkbenchDialog)` on the `Workbench` shows a custom dialog
 
 ![screenshot of the moduleToolbar](docs/images/components/moduleToolbar.png)
 
