@@ -135,12 +135,12 @@ Method         | Description
 `destroy()`    | Gets called when this module is explicitly being closed by the user by clicking on the `x` symbol in the `Tab`
 
 **When extending `WorkbenchModule`, it is only required to implement the `activate()` method.**
+([Extending the `WorkbenchModule`](#extending-the-workbenchmodule))
 
 Overriding all other lifecycle methods is optional and only needs to be done to perform additional actions in the lifecycle.
 Besides a call to `super()`, no further workbench-related code is required when overriding a lifecycle method.
 
 Note:
-- A fifth method exists: `close()`. This method differs from the others, because it ignores the lifecycle and closes the module without calling `deactivate()` or `destroy()`. More about this method is written in the chapter about [prevent module from closing](#prevent-module-from-closing)
 - For further information, refer to our documentation or the `Javadoc`
 - The full documentation about the module lifecycle can be found in the documentation file `docs/index.adoc`, in the section *WorkbenchModule Lifecycle*
 
@@ -248,11 +248,11 @@ Closing the opened module is achieved through clicking on the close button in th
 
 ## Optionals
 ### `WorkbenchBuilder`
-These optionals are called after adding the custom modules to the builder:
+These optional method calls are called after adding the custom modules to the builder:
 
 ```Java
 Workbench workbench = Workbench.builder(...)
-.modulesPerPage(6) // call the optionals
+.modulesPerPage(6) // call the optional methods
 .build();
 ```
 
@@ -440,8 +440,8 @@ Button dialogBtn = new Button("Show Dialog"); // Assuming the button is used in 
 dialogBtn.setOnAction(event ->
     workbench.showConfirmationDialog(
        "Continue without saving?",
-       "Are you sure you want to continue without saving +
-       your document?",
+       "Are you sure you want to continue without saving" +
+       "your document?",
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
@@ -453,8 +453,8 @@ dialogBtn.setOnAction(event ->
 dialogBtn.setOnAction(event ->
     workbench.showErrorDialog(
        "Button click failed!",
-       "During the click of this button, something went +
-       horribly wrong.",
+       "During the click of this button, something went" +
+       "horribly wrong.",
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
@@ -470,11 +470,11 @@ try {
 } catch (NullPointerException exception) {
   workbench.showErrorDialog(
      "Button click failed!",
-     "During the click of this button, something went +
-     horribly wrong. Please forward the content below +
-     to anyone but the WorkbenchFX developers to track +
-     down the issue:",
-     exception // Could also be just a String
+     "During the click of this button, something went" +
+     "horribly wrong. Please forward the content below" +
+     "to anyone but the WorkbenchFX developers to" +
+     "track down the issue:",
+     exception
      buttonType -> { // Proceed and validate the result }
   );
 }</td>
@@ -482,12 +482,26 @@ try {
     </tr>
     <tr>
         <td><pre lang="java">
+// Error Dialog with description
+dialogBtn.setOnAction(event ->
+    workbench.showErrorDialog(
+       "Button click failed!",
+       "During the click of this button, something went" +
+       "horribly wrong.",
+       "Details about this exception are not present."
+       buttonType -> { // Proceed and validate the result }
+    );
+}</td>
+        <td><img src="docs/images/dialogs/details.png"/></td>
+    </tr>
+    <tr>
+        <td><pre lang="java">
 // Warning Dialog
 dialogBtn.setOnAction(event ->
     workbench.showWarningDialog(
        "Reset settings?",
-       "This will reset your device to its default +
-       factory settings.",
+       "This will reset your device to its default" +
+       "factory settings.",
        buttonType -> { // Proceed and validate the result }
     )
 );</td>
