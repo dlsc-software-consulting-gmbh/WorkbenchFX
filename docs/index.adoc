@@ -645,12 +645,32 @@ In order to get build results from Travis faster we enabled "Auto Cancellation".
 If there are a lot of pushes from the same branch or pull request, Travis will then cancel all but the most recent build in the queue for each branch or pull request.
 
 Travis makes two checks each time you make a push to the repository.
-The first check is the "push-check", which tests the compatibility of the current branch cite:[noauthor_travis_nodate].
-The second one is the "pr-check", which emulates a merge with the target branch in order to check if the merge leads to errors making the build fail cite:[noauthor_travis_nodate].
+The first check is the "push-check", which tests the compatibility of the current branch (<<travis-check>>) cite:[noauthor_travis_nodate].
+The second one is the "pr-check", which emulates a merge with the target branch in order to check if the merge leads to errors making the build fail (<<travis-check>>) cite:[noauthor_travis_nodate].
 This has the huge advantage that our work is not only easier but also safer to accomplish.
 
+.Check by Travis CI on a GitHub pull request
+[#travis-check]
+image::include/travis-check.png[Check by Travis CI on a GitHub pull request]
+
 === Codecov.io
-// TODO
+Since testing was one of our main tools to ensure good code quality, we wanted to also make use of code coverage.
+This is where codecov.io came in.
+It's a platform that visualizes code coverage and also integrates nicely with GitHub and Travis.
+The code coverage itself is measured by https://www.eclemma.org/jacoco/[JaCoCo] and is specified in the `pom.xml` of `workbenchfx-core`.
+We set it up so that every successful Travis build would push the code coverage to codecov.io.
+Thanks to the GitHub integration, a codecov bot would create a comment on every pull request, that gets updated with pushes to the branch of the pull request (<<codecov-comment>>).
+Also, codecov.io would show a "check" in GitHub and would only pass if certain conditions are met.
+One of those is that the code coverage must not be lower than it previously was (<<codecov-check>>).
+The other one was the `diff` coverage, that measured how much of the added code was covered (<<codecov-check>>).
+
+.Example comment on GitHub by the Codecov.io bot
+[#codecov-comment]
+image::include/codecov-comment.png[Example comment on GitHub by the Codecov.io bot]
+
+.Check by codecov.io on a GitHub pull request
+[#codecov-check]
+image::include/codecov-check.png[Check by codecov.io on a GitHub pull request]
 
 === Release Automation
 We also automated part of the release process with Travis.
