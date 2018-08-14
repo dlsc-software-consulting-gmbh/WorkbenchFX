@@ -37,6 +37,7 @@ The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
 === Naming
 
 ==== Navigation Drawer
+// TODO
 Comes from Material Design: https://material.io/guidelines/patterns/navigation-drawer.html
 
 ==== Module Naming
@@ -161,7 +162,8 @@ We decided for a `WorkbenchModule` to have a *name* and an *icon*.
 They are necessary, because they are shown in tabs and tiles representing each `WorkbenchModule`.
 
 Every `WorkbenchModule` also has a reference to the `Workbench` object.
-This makes it possible to individually adapt the `Workbench` to the needs of a `WorkbenchModule` or to execute tasks like switching to another module.
+This makes it possible to individually adapt the `Workbench` by calling `getWorkbench()`.
+This enables the `WorkbenchModule` to have full control over the `Workbench`, for example to switch to other modules.
 
 When we added the module toolbar, we also thought it would make the most sense to include the lists with the `ToolbarItem`{empty}s in the `WorkbenchModule` itself, as they are specific for each module.
 
