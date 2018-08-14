@@ -291,9 +291,10 @@ This would work, however it has some disadvantages.
 For example, the readability suffers: "What does that 10 mean again?".
 Also, since we want the API user to be able to define their own controls for the tabs and tiles using factories, we noticed that we also need to pass those factories in the same way.
 This would not only make the readability worse, but this also means that if we want to stick to our paradigm, we would need to add multiple overloaded `of()` methods.
-With 3 parameters (modules per page, tab and tile factory) this would result in the following combinations:
+With 3 parameters (modules per page, tab and tile factory) this would result in the combinations in <<combinations-overloaded-workbench>>.
 
 .Combinations of overloaded Workbench.of() methods
+[#combinations-overloaded-workbench]
 |===
 |No. |Modules per Page |Tab Factory |Tile Factory
 
