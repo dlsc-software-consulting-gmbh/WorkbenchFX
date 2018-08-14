@@ -1,7 +1,9 @@
-= Technical Report: WorkbenchFX
+= Bachelor Thesis: WorkbenchFX
 François Martin; Marco Sanfratello
 
-17th of August 2018
+FHNW University of Applied Sciences, Windisch
+
+17^th^ of August 2018
 
 Customer: http://www.dlsc.com[Dirk Lemmermann Software & Consulting] +
 Advisor: mailto:dieter.holz@fhnw.ch[Dieter Holz] +
