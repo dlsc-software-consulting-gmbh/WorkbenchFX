@@ -6,7 +6,7 @@ FHNW University of Applied Sciences, Windisch
 17^th^ of August 2018
 
 Customer: http://www.dlsc.com[Dirk Lemmermann Software & Consulting] +
-Advisor: mailto:dieter.holz@fhnw.ch[Dieter Holz] +
+Advisor: mailto:dieter.holz@fhnw.ch[Dieter Holz, FHNW University of Applied Sciences] +
 Examiner: https://www.inventage.com/[Edwin Steiner, Inventage]
 
 // Check symbol
