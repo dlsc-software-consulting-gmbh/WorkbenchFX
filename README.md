@@ -17,7 +17,7 @@
 - [Getting Started](#getting-started)
   - [Extending the `WorkbenchModule`](#extending-the-workbenchmodule)
   - [Creating the `Workbench`](#creating-the-workbench)
-  - [Optionals](#optionals)
+  - [Optional Methods](#optional-methods)
     - [`WorkbenchBuilder`](#workbenchbuilder)
     - [`Workbench`](#workbench)
     - [`WorkbenchModule`](#workbenchmodule)
@@ -82,10 +82,10 @@ The most important components are noted in the picture and the corresponding tab
 
 Nr. | Component           | Description
 --- | ------------------- | -----------
- _  | `WorkbenchModule`   | The complete workbench application consists of one or multiple modules. It contains a title, an icon and the content to be displayed in the `Workbench`. It represents your *views* mentioned in chapter [What is WorkbenchFX?](#what-is-workbenchfx)
+ _  | `WorkbenchModule`   | A workbench consists of multiple modules. It contains a title, an icon and the content to be displayed in the workbench. It represents the *views* mentioned in chapter [What is WorkbenchFX?](#what-is-workbenchfx)
  2  | `Tile`              | For each `WorkbenchModule` a `Tile` will be created. Clicking on the `Tile` opens the corresponding module
  3  | `Tab`               | A `Tab` will be displayed for each open module. Clicking on a `Tab` opens and shows the corresponding module. Pressing the `x` button closes the module
- 4  | `TabBar`            | The upper section of the window, where the `Tab`s of the current open modules are displayed. On the right end of the bar, the `Add button` is displayed
+ 4  | `TabBar`            | The upper section of the window, where the `Tab`s of the current open modules are displayed
  5  | `Add button`        | The button used to open a new module. It opens an overview of all available modules
  6  | `AddModulePage`     | Stores all the `Page`s on which the `Tile`s are displayed
  7  | `Page`              | When more modules are loaded than defined in the `modulesPerPage()` attribute, the `Workbench` creates multiple `Page`s on which the `Tile`s are displayed
@@ -117,7 +117,7 @@ Nr. | Component           | Description
 
 Nr. | Component           | Description
 --- | ------------------- | -----------
-16  | `Module toolbar`    | Calling `getToolbarControlsLeft()` or `getToolbarControlsRight()` in a `WorkbenchModule` gives access to their respective lists of `ToolbarItem`s. Adding to them will automatically show a module-specific toolbar
+16  | `Module toolbar`    | Displays the module's toolbar items ([Workbench Module](#workbenchmodule)). The toolbar will automatically be shown as soon as there are items to be displayed and it will be hidden when there are none
 
 For further information about the components, refer to the `Javadoc`
 
@@ -271,7 +271,7 @@ The content returned in the `activate()` method is displayed in the center.
 By clicking on the `+` button, you can get back to the `AddModulePage`.
 Closing the opened module is achieved through clicking on the close button in the `Tab`.
 
-## Optionals
+## Optional Methods
 ### `WorkbenchBuilder`
 These optional method calls are called after adding the custom modules to the builder:
 
@@ -285,7 +285,7 @@ The following methods are optionally available to further configure the `Workben
 
 Method in WorkbenchBuilder | Description
 -------------------------- | -----------
-`modulesPerPage()`         | Defines the amount of `Tile`s that should be shown per `Page` in `AddModulePage`
+`modulesPerPage()`         | Defines the amount of `Tile`s that should be shown per `Page` in `AddModulePage`. The default value is set to 6
 `navigationDrawerItems()`  | Allows to add `MenuItem`s which are then displayed in the `NavigationDrawer`.
 `toolbarLeft()`            | Allows to add `ToolbarItem`s on the left side of the toolbar on top of the `Tab`s
 `toolbarRight()`           | Allows to add `ToolbarItem`s on the right side of the toolbar on top of the `Tab`s
