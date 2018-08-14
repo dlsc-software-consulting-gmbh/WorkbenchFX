@@ -10,8 +10,6 @@ Examiner: https://www.inventage.com/[Edwin Steiner, Inventage]
 // Ensures references are displayed in "Figure x" format
 :xrefstyle: short
 
-// TODO: differentiate somewhere the terms "implementor", "user" and "API user"
-
 == Abstract
 
 == Acknowledgements
@@ -19,6 +17,8 @@ Examiner: https://www.inventage.com/[Edwin Steiner, Inventage]
 == Introduction (MARCO)
 // TODO: (=>Kopie von Readme mit Open source)
 The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
+
+// TODO: differentiate somewhere the terms "implementor", "user" and "API user"
 
 == Motivation (MARCO)
 // TODO: Ausgangslage / Vision
