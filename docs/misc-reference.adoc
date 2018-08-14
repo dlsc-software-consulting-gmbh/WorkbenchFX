@@ -6,15 +6,3 @@ François Martin; Marco Sanfratello
 ----
 include::../codecov.yml[]
 ----
-
-== Close Modules
-[source,java]
-----
-include::{dir-test-java}/WorkbenchTest.java[tags=closeModule]
-----
-
-== Close Modules Interrupted
-[source,java]
-----
-include::{dir-test-java}/WorkbenchTest.java[tags=closeModuleInterrupt]
-----
