@@ -1,6 +1,8 @@
 = Technical Report: WorkbenchFX
 François Martin; Marco Sanfratello
 
+17th of August 2018
+
 Customer: http://www.dlsc.com[Dirk Lemmermann Software & Consulting]
 Advisor: mailto:dieter.holz@fhnw.ch[Dieter Holz]
 Examiner: https://www.inventage.com/[Edwin Steiner, Inventage]
