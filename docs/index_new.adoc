@@ -1,13 +1,14 @@
 
 
 
-== Abstract / Management summary
+== Abstract
 
 == Acknowledgements
 
-== Introduction (=>Kopie von Readme mit Open source) MARCO
+== Introduction (MARCO)
+// TODO: (=>Kopie von Readme mit Open source)
 
-== Motivation M
+== Motivation (MARCO)
 // TODO: Ausgangslage / Vision
 
 == Analysis
@@ -16,61 +17,70 @@
 
 === Applications !
 
-==== Blender (Tool for creating 3D models) ! MARCO
+==== Blender (Tool for creating 3D models) ! (MARCO)
 
-==== Photoshop / Illustrator (Design tools) ! MARCO
+==== Photoshop / Illustrator (Design tools) ! (MARCO)
 
-==== IntelliJ ! MARCO
+==== IntelliJ ! (MARCO)
 
-==== Adobe XD (mehr fokus auf ist eifach, keine docking elemente usw., was unterscheidet von anderen) MARCO
+==== Adobe XD (MARCO)
+// TODO: (mehr fokus auf ist eifach, keine docking elemente usw., was unterscheidet von anderen)
 
-==== To IDE or not to IDE? (nur grob erklären, was erkenntniss, bei IDE: docking framework notwendig, modular approach hineinnehmen) MARCO
+==== To IDE or not to IDE? (MARCO)
+// TODO: (nur grob erklären, was erkenntniss, bei IDE: docking framework notwendig, modular approach hineinnehmen)
 
-=== User Stories (Workshop with Customer, was very effective, Dieter Zitat, was especially effective because customer mentioned a different persona which changed everything) MARCO
+=== User Stories (MARCO)
+// TODO: (Workshop with Customer, was very effective, Dieter Zitat, was especially effective because customer mentioned a different persona which changed everything)
 
-==== IDE Decision MARCO
+==== IDE Decision (MARCO)
 
-==== Differentiation to Eclipse RCP MARCO
+==== Differentiation to Eclipse RCP (MARCO)
 
-=== Minimum Viable product (MVP) ! MARCO
+=== Minimum Viable product (MVP) ! (MARCO)
 
 === Naming
 
-==== Module Naming ! (link to Add Module Page)
+==== Module Naming !
+// TODO: (link to Add Module Page)
 
 ==== Navigation Drawer !
 
 === API Design (Simple Approach) !
 
-=== Usability Tests MARCO
+=== Usability Tests (MARCO)
 
-==== Dieter Holz, Advisor MARCO
+==== Dieter Holz, Advisor (MARCO)
 
-===== Tabs mit Module TOolbar zusammen => gemeinsame Designsprache automatisch
+===== Tabs mit Module TOolbar zusammen => gemeinsame Designsprache automatisch TODO
 
-==== Manuel Cotone, UX Expert MARCO
+==== Manuel Cotone, UX Expert (MARCO)
 
 ===== Home Icon => HomeView, then AddModuleView => + icon
 
-==== Annelore Egger, User Group MARCO
+==== Annelore Egger, User Group (MARCO)
 
 ===== Dropdown => ToolbarItem
 
 ===== 2 Bars instead of 1 Bar
 
-== Implementation (in the beginning, say that have a look at test modules, and implementation to see all features exactly in details, in action)
+== Implementation
+// TODO: (in the beginning, say that have a look at test modules, and implementation to see all features exactly in details, in action)
 
-=== Layout  MARCO
+=== Layout (MARCO)
 
-==== Add Module Page (familiar from smartphones => Modulares konzept, mehrere kleine Applikationen, aber Application macht nicht Sinn als Name, verlinken auf Module Naming)
+==== Add Module Page
+// TODO: (familiar from smartphones => Modulares konzept, mehrere kleine Applikationen, aber Application macht nicht Sinn als Name, verlinken auf Module Naming)
 
-==== Tabs (from browsers etc., is more familiar)
+==== Tabs
+// TODO: (from browsers etc., is more familiar)
 
-==== Changes across Versions (visual, with screenshots), tabbar scrollbar why
+==== Changes across Versions
+// TODO: (visual, with screenshots), tabbar scrollbar why
 
-==== Easy Styling (durch Fabian einfach Stylebar, war fokus, dann beispiel dark theme, von wegen ist so einfach machbar! betonen)
+==== Easy Styling
+// TODO: (durch Fabian einfach Stylebar, war fokus, dann beispiel dark theme, von wegen ist so einfach machbar! betonen)
 
-=== Architecture FRANçOIS
+=== Architecture (FRANçOIS)
 
 ==== Constructing the Workbench (Challenge => Customizability) !
 
@@ -92,7 +102,8 @@
 
 ===== Image !
 
-==== MVP (minimal überarbeiten, weil control overkill, aber trotzdem separierung in view and presenter, good experience in PreferencesFX)
+==== MVP
+// TODO: (minimal überarbeiten, weil control overkill, aber trotzdem separierung in view and presenter, good experience in PreferencesFX)
 
 ==== Overlays !
 
@@ -102,15 +113,17 @@
 
 === Development
 
-==== SCSS instead of CSS ! MARCO
+==== SCSS instead of CSS ! (MARCO)
 
-==== General Conventions ! (CSS, PreferencesFX kopieren GOogle Java style guide) MARCO
+==== General Conventions ! (MARCO)
+// TODO: (CSS, PreferencesFX kopieren GOogle Java style guide)
 
-=== Testing FRANçOIS
+=== Testing (FRANçOIS)
 
 ==== Spock vs JUnit !
 
-==== Testing Utilities (kurz erwähnen, was verwendet und wieso?) => mockito und awaitility => bisschen wegen concurrency, TESTFX!!!! Integration tests
+==== Testing Utilities
+// TODO: (kurz erwähnen, was verwendet und wieso?) => mockito und awaitility => bisschen wegen concurrency, TESTFX!!!! Integration tests
 
 === Building
 
@@ -122,31 +135,38 @@
 
 ==== Codecov.io !
 
-=== Releasing FRANçOIS
+=== Releasing (FRANçOIS)
 
 ==== Process Explanation
 
 ==== Release Automation !
 
-== Lessons learned (we did already in the start was good idea since lots of things improved, erwähnen PreferencesFX Lessons Learned => refactoring, testing, usw, checkstyle, javadoc gerade gemacht)
+== Lessons learned
+// TODO: (we did already in the start was good idea since lots of things improved, erwähnen PreferencesFX Lessons Learned => refactoring, testing, usw, checkstyle, javadoc gerade gemacht)
 
-=== Value of User Stories (How good was workshop etc.) MARCO
+=== Value of User Stories (MARCO)
+// TODO: (How good was workshop etc.)
 
 === Working Agile (Secret Weapon) !
 
-=== Hacking Day (Dirk hat selber erkannt, dass nicht so einfach wie man es sich vorstellt, dass es Dirk auch etwas gebracht hat zu erkennen => besser im Projekt eingebunden, besser gemerkt wo Probleme sind) MARCO
+=== Hacking Day (MARCO)
+// TODO: (Dirk hat selber erkannt, dass nicht so einfach wie man es sich vorstellt, dass es Dirk auch etwas gebracht hat zu erkennen => besser im Projekt eingebunden, besser gemerkt wo Probleme sind)
 
-=== Animations (Wirking auf User Experience unterschätzt, da so gut, nicht abschaltbar, da keinen Sinn macht sonst) FRANçOIS
+=== Animations (FRANçOIS)
+// TODO: (Wirking auf User Experience unterschätzt, da so gut, nicht abschaltbar, da keinen Sinn macht sonst)
 
-=== Gradle -> Maven FRANçOIS
+=== Gradle -> Maven (FRANçOIS)
 
-=== Build Automation (see hotfix release, von anfang an, damit probleme vermeiden, war super, automatisierte alles am anfang) FRANçOIS
+=== Build Automation (FRANçOIS)
+// TODO: (see hotfix release, von anfang an, damit probleme vermeiden, war super, automatisierte alles am anfang)
 
-=== Java 8 / 9 / 10 (Paradebeispiel, Rückstand von Technologie wegen anderen, da andere es noch nicht verwenden..., Dokumentieren Situation geändert wegen Java 9 deprecated) FRANçOIS
+=== Java 8 / 9 / 10 (FRANçOIS)
+// TODO: (Paradebeispiel, Rückstand von Technologie wegen anderen, da andere es noch nicht verwenden..., Dokumentieren Situation geändert wegen Java 9 deprecated)
 
-=== Don't underestimate the seemingly most simple tasks (Closing of modules, how hard it was, completablefuture...) FRANçOIS
+=== Don't underestimate the seemingly most simple tasks (FRANçOIS)
+// TODO: (Closing of modules, how hard it was, completablefuture...)
 
-== Summary MARCO
+== Summary (MARCO)
 
 === Future Implications (what features can be done later?)
 
