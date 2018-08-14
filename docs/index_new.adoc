@@ -1,0 +1,154 @@
+
+
+
+== Abstract / Management summary
+
+== Danksagung
+
+== Introduction (=>Kopie von Readme mit Open source) MARCO
+
+== (Ausgangslage) (Vision) MARCO
+
+== Analysis
+
+=== Persona !
+
+=== Applications !
+
+==== Blender (Tool for creating 3D models) ! MARCO
+
+==== Photoshop / Illustrator (Design tools) ! MARCO
+
+==== IntelliJ ! MARCO
+
+==== Adobe XD (mehr fokus auf ist eifach, keine docking elemente usw., was unterscheidet von anderen) MARCO
+
+==== To IDE or not to IDE? (nur grob erklären, was erkenntniss, bei IDE: docking framework notwendig, modular approach hineinnehmen) MARCO
+
+=== User Stories (Workshop with Customer, was very effective, Dieter Zitat, was especially effective because customer mentioned a different persona which changed everything) MARCO
+
+==== IDE Decision MARCO
+
+==== Abgrenzung Eclipse RCP MARCO
+
+=== Minimum Viable product (MVP) ! MARCO
+
+=== Naming
+
+==== Module Naming ! (link to Add Module Page)
+
+==== Navigation Drawer !
+
+=== API Design (Simple Approach) !
+
+=== Usability Tests MARCO
+
+==== Dieter MARCO
+
+===== Tabs mit Module TOolbar zusammen => gemeinsame Designsprache automatisch
+
+==== UX MARCO
+
+===== Home Icon => HomeView, then AddModuleView => + icon
+
+==== Annelore MARCO
+
+===== Dropdown => ToolbarItem
+
+===== 2 Bars instead of 1 Bar
+
+== Implementation (in the beginning, say that have a look at test modules, and implementation to see all features exactly in details, in action)
+
+=== Layout  MARCO
+
+==== Add Module Page (familiar from smartphones => Modulares konzept, mehrere kleine Applikationen, aber Application macht nicht Sinn als Name, verlinken auf Module Naming)
+
+==== Tabs (from browsers etc., is more familiar)
+
+==== Changes over Versions (visual, with screenshots), tabbar scrollbar why
+
+==== Easy Styling (durch Fabian einfach Stylebar, war fokus, dann beispiel dark theme, von wegen ist so einfach machbar! betonen)
+
+=== Architecture FRANçOIS
+
+==== Constructing the Workbench (Challenge => Customizability) !
+
+==== WorkbenchModule Lifecycle !
+
+===== Challenges (=> Module Lifecycle) !
+
+==== API Design of WorkbenchModule !
+
+===== Added API !
+
+===== Rejected API !
+
+==== Icon: Node vs File vs Image !
+
+===== Node !
+
+===== File !
+
+===== Image !
+
+==== MVP (minimal überarbeiten, weil control overkill, aber trotzdem separierung in view and presenter, good experience in PreferencesFX)
+
+==== Overlays !
+
+===== Challenges ! (Discarded Implementations)
+
+== Processes
+
+=== Development
+
+==== SCSS instead of CSS ! MARCO
+
+==== General Conventions ! (CSS, PreferencesFX kopieren GOogle Java style guide) MARCO
+
+=== Testing FRANçOIS
+
+==== Spock vs JUnit !
+
+==== Testing Utilities (kurz erwähnen, was verwendet und wieso?) => mockito und awaitility => bisschen wegen concurrency, TESTFX!!!! Integration tests
+
+=== Building
+
+==== GitHub !
+
+==== Code Review !
+
+==== Travis CI !
+
+==== Codecov.io !
+
+=== Releasing FRANçOIS
+
+==== Process Explanation
+
+==== Release Automation !
+
+== Lessons learned (we did already in the start was good idea since lots of things improved, erwähnen PreferencesFX Lessons Learned => refactoring, testing, usw, checkstyle, javadoc gerade gemacht)
+
+=== Value of User Stories (How good was workshop etc.) MARCO
+
+=== Working Agile (Secret Weapon) !
+
+=== Hacking Day (Dirk hat selber erkannt, dass nicht so einfach wie man es sich vorstellt, dass es Dirk auch etwas gebracht hat zu erkennen => besser im Projekt eingebunden, besser gemerkt wo Probleme sind) MARCO
+
+=== Animations (Wirking auf User Experience unterschätzt, da so gut, nicht abschaltbar, da keinen Sinn macht sonst) FRANçOIS
+
+=== Gradle -> Maven FRANçOIS
+
+=== Build Automation (see hotfix release, von anfang an, damit probleme vermeiden, war super, automatisierte alles am anfang) FRANçOIS
+
+=== Java 8 / 9 / 10 (Paradebeispiel, Rückstand von Technologie wegen anderen, da andere es noch nicht verwenden..., Dokumentieren Situation geändert wegen Java 9 deprecated) FRANçOIS
+
+=== Don't underestimate the seemingly most simple tasks (Closing of modules, how hard it was, completablefuture...) FRANçOIS
+
+== Summary MARCO
+
+=== Future Implications (what features can be done later?)
+
+== Bibliography
+
+== Honesty Declaration
