@@ -55,6 +55,7 @@ public class NavigationDrawer extends Control {
    *            After that, hovering over other Items shows their submenus automatically
    * NEVER:     No hover behaviour on the {@link MenuItem}s
    * @defaultValue Priority.ALWAYS
+   * @return the property of the menu hover behavior
    */
   public final ObjectProperty<Priority> menuHoverBehaviorProperty() {
     return menuHoverBehavior;

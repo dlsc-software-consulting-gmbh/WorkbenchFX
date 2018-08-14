@@ -21,6 +21,7 @@ public final class ContentView extends BorderPane implements View {
 
   /**
    * Creates a new {@link ContentView}.
+   * @param addModuleView containing the created modules as tiles
    */
   public ContentView(AddModuleView addModuleView) {
     this.addModuleView = addModuleView;
