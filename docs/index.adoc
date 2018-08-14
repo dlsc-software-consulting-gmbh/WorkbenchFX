@@ -236,7 +236,7 @@ This includes features, usability and general appearance of the specific workben
 ==== Easy Styling
 // TODO: (durch Fabian einfach Stylebar, war fokus, dann beispiel dark theme, von wegen ist so einfach machbar! betonen)
 
-=== Architecture (FRANçOIS)
+=== Architecture (FRANÇOIS)
 
 ==== Constructing the Workbench (Challenge => Customizability) !
 Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
@@ -492,7 +492,7 @@ Also, since the design of WorkbenchFX is highly influenced by Material Design, w
 FontAwesomeFX offers support for the https://material.io/tools/icons/?style=baseline[official Material Design Icons by Google] and also https://materialdesignicons.com/[Material Design Icons] cite:[noauthor_fontawesomefx_nodate].
 Since all of the icons from the https://material.io/tools/icons/?style=baseline[official Material Design Icons by Google] are included, along with many others in the icon set of https://materialdesignicons.com/[Material Design Icons], we also included a constructor option for https://materialdesignicons.com/[Material Design Icons].
 
-==== MVP (FRANçOIS)
+==== MVP (FRANÇOIS)
 // TODO: (minimal überarbeiten, weil control overkill, aber trotzdem separierung in view and presenter, good experience in PreferencesFX)
 MVP (Model View Presenter) was used as general architecture pattern.
 // TODO: why?
@@ -641,7 +641,7 @@ Using the `@include` tag looks like this:
 ----
 The files to be included are named with an underscore as prefix: `_file1.scss`.
 
-=== Testing (FRANçOIS)
+=== Testing (FRANÇOIS)
 // TODO: what do we want to cover?
 // TODO: Idea: Anzahl Zeilen Code mit Anzahl Zeilen Tests vergleichen
 
@@ -725,7 +725,7 @@ image::include/codecov-comment.png[Example comment on GitHub by the Codecov.io b
 [#codecov-check]
 image::include/codecov-check.png[Check by codecov.io on a GitHub pull request]
 
-=== Releasing (FRANçOIS)
+=== Releasing (FRANÇOIS)
 
 ==== Process Explanation
 
@@ -756,18 +756,18 @@ Thanks to the agile way, we could resolve this quickly and early on in the proje
 === Hacking Day (MARCO)
 // TODO: (Dirk hat selber erkannt, dass nicht so einfach wie man es sich vorstellt, dass es Dirk auch etwas gebracht hat zu erkennen => besser im Projekt eingebunden, besser gemerkt wo Probleme sind)
 
-=== Animations (FRANçOIS)
+=== Animations (FRANÇOIS)
 // TODO: (Wirking auf User Experience unterschätzt, da so gut, nicht abschaltbar, da keinen Sinn macht sonst)
 
-=== Gradle -> Maven (FRANçOIS)
+=== Gradle -> Maven (FRANÇOIS)
 
-=== Build Automation (FRANçOIS)
+=== Build Automation (FRANÇOIS)
 // TODO: (see hotfix release, von anfang an, damit probleme vermeiden, war super, automatisierte alles am anfang)
 
-=== Java 8 / 9 / 10 (FRANçOIS)
+=== Java 8 / 9 / 10 (FRANÇOIS)
 // TODO: (Paradebeispiel, Rückstand von Technologie wegen anderen, da andere es noch nicht verwenden..., Dokumentieren Situation geändert wegen Java 9 deprecated)
 
-=== Don't underestimate the seemingly most simple tasks (FRANçOIS)
+=== Don't underestimate the seemingly most simple tasks (FRANÇOIS)
 // TODO: (Closing of modules, how hard it was, completablefuture...)
 
 == Summary (MARCO)
