@@ -25,7 +25,7 @@ The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
 
 == Analysis
 
-=== Persona !
+=== Persona
 Who are the persona?
 
 [cols="1,1,1"]
