@@ -11,270 +11,21 @@ Examiner: https://www.inventage.com/[Edwin Steiner, Inventage]
 :xrefstyle: short
 
 // TODO: differentiate somewhere the terms "implementor", "user" and "API user"
-// TODO: explain persona early, so it can be referenced later in the text
-== Abstract / Management summary
 
-== Introduction
+== Abstract
+
+== Acknowledgements
+
+== Introduction (MARCO)
+// TODO: (=>Kopie von Readme mit Open source)
 The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
 
-== The way to WorkbenchFX
-
-=== Briefing
-
-=== Syntax
-// TODO: Fluent API or not?
-
-=== First thoughts
-
-=== Why should someone use our Workbench instead of coding on their own?
-* Simple Design
-* Fast
-* Fast learning curve
-* Easy to use
-* Modular
-* Extendable
+== Motivation (MARCO)
+// TODO: Ausgangslage / Vision
 
 == Analysis
 
-=== Naming
-
-==== Navigation Drawer
-We chose the name "Navigation Drawer" to be consistent with the naming in the https://material.io/guidelines/patterns/navigation-drawer.html[Material Design guidelines].
-This makes sure we use the naming that will be the most familiar among other developers and is easily understandable.
-An additional benefit is that if someone doesn't know what it means, they can simply look it up in the https://material.io/guidelines/patterns/navigation-drawer.html[Material Design guidelines].
-
-==== Module Naming
-To plug in functionality by the API user, we use modules.
-However, the name `Module` is not ideal, since that name already has a lot of associations.
-Additionally, when typing `extends Module` in an IDE, it will automatically imports Java's `Module`.
-This makes it frustrating, as the implementor has to manually change the import.
-
-To avoid confusion, we want to come up with a name which makes it clearer and less ambiguous.
-We did a brainstorming to come up with ideas for possible names for `Module` (<<img-brainstorming-module>>).
-
-.Brainstorming of possible names for `Module`.
-[#img-brainstorming-module]
-image::include/brainstorming_module.jpg[Module Brainstorming]
-
-We discussed this with our customer and even though we did the brainstorming and came up with a lot of names, none of them seemed to feel "right".
-Even though the name `Module` has a lot of associations, it's the only name that makes sense for what it stands for.
-In the end, we decided to rename `Module` to `WorkbenchModule`.
-We thought it would be easier to understand for our API users and that was the most important factor for us in this decision.
-This is why we decided to stick with the word `Module`.
-However, we decided to add the `Workbench` prefix, to remedy the importing issue mentioned above and to clearly separate it from the other `Module` classes in the JDK.
-
-== Architecture
-// TODO: rework entirely, separate docking etc. from "simple approach" text, and merge it with the evaluation of tools etc.
-
-API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
-//They want to be able to define their own design to ensure it blends in with the design of their components.
-//The standard for custom controls in JavaFX is to use an implementation based on a control, separated from the skin. TODO: source?
-//TODO: maybe explain a little with graphics how this structure works?
-
-
-=== Modular Approach
-Power users need the utmost of customizability, to ensure they can adapt the workspace to be the most ergonomic to fit their workflow.
-In terms of the architecture, it could mean that it would need to allow the following:
-
-* Separation between `Control` and `Skin`
-** Skin can be replaced by API users, if they want to use a custom style
-* Flexible panes
-** can be rearranged across the whole window
-** different modes for fixation
-*** Pinned mode
-*** Docked mode
-*** Floating mode
-*** Window mode
-*** Split mode
-
-=== Simple Approach
-Our customer states that the intended API user would not have the need to entirely replace the `Skin`, as it is rarely done.
-At first we didn't separate between `Control` and `Skin` for this reason.
-Later on, our customer told us he would still consider the `Workbench` to be a `Control`, and that it would make more sense if used with https://gluonhq.com/products/scene-builder/[Scene Builder].
-This is why we decided to have the `Workbench` extend `Control` and split it up into `Workbench` and `WorkbenchSkin`.
-However, since we decided the API user would not want to replace the `WorkbenchSkin`, we decided to make `Workbench` and `WorkbenchSkin` final.
-With this, we make it clear that `Workbench` and `WorkbenchSkin` are not designed to be subclassed.
-
-This also means that we don't need to design the panes we use internally to be replaceable by the API user.
-It is more important that the user experience is straightforward.
-Still, the possibility of extending the workbench using modules is important to our customer.
-
-=== WorkbenchModule Lifecycle
-The following UML diagrams explain how the lifecycle of a `WorkbenchModule` works.
-The diagrams are simplified to a degree that is relevant for the implementor of a `WorkbenchModule` and are *not* complete and *not* exhaustive by design.
-The goal is to explain the principle of interactions on modules when using `Workbench#openModule(WorkbenchModule)` and `Workbench#closeModule(WorkbenchModule)` with a minimal amount of examples.
-
-*Generally*, when clicking on a tile in the `AddModuleView`, `Workbench#openModule(WorkbenchModule)` gets called. +
-When clicking on the `x` icon of a tab, `Workbench#closeModule(WorkbenchModule)` gets called.
-
-Overview of the lifecycle in a state diagram, showing all state changes that can occur (<<img-module-lifecycle>>).
-
-.Module Lifecycle.
-[#img-module-lifecycle]
-image::include/UML/svg/Module Lifecycle.svg[Module Lifecycle]
-
-Process of opening two modules in sequence, followed by opening the first module again (<<img-open-module>>).
-
-.Opening of modules.
-[#img-open-module]
-image::include/UML/svg/Opening of Modules.svg[Opening of Modules]
-
-Two open modules, closing of the active module (<<img-close-module-active>>).
-
-.Closing of modules, active module.
-[#img-close-module-active]
-image::include/UML/svg/Close Module Active.svg[Close Module Active]
-
-Two open modules, closing of the inactive module (<<img-close-module-inactive>>).
-
-.Closing of modules, inactive module.
-[#img-close-module-inactive]
-image::include/UML/svg/Close Module Inactive.svg[Close Module Inactive]
-
-Two open modules, closing of the active module, where the call to `WorkbenchModule#destroy()` returns false (<<img-close-module-interrupt-active>>).
-This leads to the closing process getting interrupted.
-The implementor of `WorkbenchModule` can then choose to do cleanup actions or open a confirmation dialog, following a call to `WorkbenchModule#close()`, when the module should definitely be closed.
-
-.Closing of modules interrupted, active module.
-[#img-close-module-interrupt-active]
-image::include/UML/svg/Close Module Interrupted Active.svg[Close Module Interrupted Active]
-
-Two open modules, closing of the inactive module, where the call to `WorkbenchModule#destroy()` returns false (<<img-close-module-interrupt-inactive>>).
-This leads to the closing process getting interrupted.
-The module which interrupted the closing process will be opened, so that the user's attention will be directed towards the interrupting module, so they can take appropriate actions.
-
-.Closing of modules interrupted, inactive module.
-[#img-close-module-interrupt-inactive]
-image::include/UML/svg/Close Module Interrupted Inactive.svg[Close Module Interrupted Inactive]
-
-To learn more about the interactions in detail, look at the tests below, since the tests verify the exact order of the calls and cover more situations in detail:
-
-* <<test-reference.adoc#_open_modules,Opening of Modules>>
-* <<test-reference.adoc#_close_modules,Closing of Modules>>
-* <<test-reference.adoc#_close_modules_interrupted,Closing of Modules Interrupted>>
-
-=== API Design of WorkbenchModule
-As with the design of the lifecycle, having a simple and easy to understand API overall for `WorkbenchModule` is very important to us.
-If there is a lot of code with a lot of methods in the `WorkbenchModule` class, it could make it harder for people to understand how to use the API and how it works.
-This is why we very carefully introduced complexity into a `WorkbenchModule`, and only added what really enhanced the user experience to a point that would justify the added code.
-We also considered to only add methods which are needed to fulfill a certain use case, which is likely to occur.
-
-==== Added API
-One part of a `WorkbenchModule` are its identifying properties.
-We decided for a `WorkbenchModule` to have a *name* and an *icon*.
-They are necessary, because they are shown in tabs and tiles representing each `WorkbenchModule`.
-
-Every `WorkbenchModule` also has a reference to the `Workbench` object.
-This makes it possible to individually adapt the `Workbench` by calling `getWorkbench()`.
-This enables the `WorkbenchModule` to have full control over the `Workbench`, for example to switch to other modules.
-
-When we added the module toolbar, we also thought it would make the most sense to include the lists with the `ToolbarItem`{empty}s in the `WorkbenchModule` itself, as they are specific for each module.
-
-==== Rejected API
-Generally, we decided to not include anything that wasn't strictly specific to a `WorkbenchModule`.
-
-For example, we discussed whether or not to include a list with `WorkbenchModule` specific `MenuItem`{empty}s to be shown in the `NavigationDrawer`.
-In the end, we decided against it, since the `NavigationDrawer` contains global `MenuItem`{empty}s.
-If there was one list in `Workbench` and one in each `WorkbenchModule`, API users could get confused.
-API users who don't know of the global list in the `Workbench`, could falsely think the `NavigationDrawer` is specific to each module, causing them to add the same `MenuItem`{empty}s in each `WorkbenchModule`.
-Additionally, some possible open questions it could cause would be:
-
-* Is there a separate module-specific `NavigationDrawer`?
-* Does the list of `MenuItem`{empty}s in the `WorkbenchModule` override or augment the list in the `Workbench`?
-* How are the module-specific and global `MenuItem`{empty}s separated?
-* Are the module-specific `MenuItem`{empty}s inserted on the top or the bottom?
-
-API users are still able to define module-specific `MenuItem`{empty}s with the already existing API, by adding them to the global list in `activate()` and removing them in `deactivate()`.
-This way, we give the API users the choice of how to include them and they don't miss out on any functionality.
-It also eliminates the "guessing" of how it was implemented, as it can be observed above in the possible open questions.
-
-=== Icon: Node vs File vs Image
-To specify an icon for a `WorkbenchModule`, there are different ways to implement this in the API.
-
-==== Node
-The most generic option would be to have the API user pass in a `Node` in the constructor to use as the icon.
-
-The problem is that we display the icon in two places: one in the `Tab` and one in the `Tile`.
-The JavaFX API of `Node` is designed to have zero or one parent cite:[noauthor_node_nodate].
-This means the API user would need to pass in two `Node` objects, one for the icon of the `Tab`, and one for the `Tile`.
-
-Since the icon will always be the same for the `Tab` and the `Tile`, this feels very redundant and is very error-prone.
-Should the implementor not know about this, they could pass in the same `Node` twice and wonder why only one icon is being displayed.
-This could cause the implementors to believe this to be a bug.
-Sure, we could check in the constructor if both `Node`{empty}s are referring to the same object, but it's still not very user-friendly.
-
-==== File
-Another option would be to have the API user pass in a file, referring to the path of the icon.
-This way, we don't have the same issues as mentioned in <<_node>>.
-However, it is quite limiting, since if the API user wants to use an icon from Font Awesome or Material Design Icons, they would need to find the icon as an image and refer to the file.
-This is quite cumbersome, compared to using the `FontAwesomeFX` library and simply specifying `FontAwesomeIcon.GEAR` for example.
-Also, this would not allow API users to make use of JavaFX' support for image files with multiple scaling factors, to account for different display resolutions cite:[lemmermann_javafx_2017].
-
-==== Image
-We decided to use `Image` as one of the options of passing in an icon in the constructor of `WorkbenchModule`.
-There are none of the issues mentioned in <<_node>>, since the `Image` will be wrapped in an `ImageView`, when `WorkbenchModule#getIcon()` gets called by the `Tab` and `Tile`.
-Also, it allows API users to make use of JavaFX' support for image files with multiple scaling factors cite:[lemmermann_javafx_2017].
-
-Unfortunately, it doesn't solve the issues with icons from libraries, as mentioned in <<_image>>.
-To solve this, we looked at what were the most widely used icon libraries.
-Font Awesome is the most popular icon set, which is why we chose to include it as another option in the constructor cite:[noauthor_font_nodate].
-
-Also, since the design of WorkbenchFX is highly influenced by Material Design, we wanted to include an icon set that would include Material Design icons.
-FontAwesomeFX offers support for the https://material.io/tools/icons/?style=baseline[official Material Design Icons by Google] and also https://materialdesignicons.com/[Material Design Icons] cite:[noauthor_fontawesomefx_nodate].
-Since all of the icons from the https://material.io/tools/icons/?style=baseline[official Material Design Icons by Google] are included, along with many others in the icon set of https://materialdesignicons.com/[Material Design Icons], we also included a constructor option for https://materialdesignicons.com/[Material Design Icons].
-
-=== MVP
-MVP (Model View Presenter) was used as general architecture pattern.
-// TODO: why?
-At first, we used a separate `WorkbenchModel` object for the model.
-Our customer suggests that it would be easier to skip the `WorkbenchModel` class and just put the logic in `Workbench`, since that's the place where he would expect such logic.
-We decide to change it in a way that `Workbench` is the model object in the MVP pattern in our case.
-This simplifies the architecture and readability is improved, since methods are where they would be expected.
-
-// TODO: used view and presenter class, with view being interface and presenter being abstract.
-`View` is an interface, because it's used as a mixin.
-We implemented it this way because every view needs to already extend a certain JavaFX class and multiple inheritance is not possible in Java, so using an abstract class here isn't an option.
-This makes it possible to initialize all views in the same way while also resulting in less code duplication, since the `init()` method and the JavaDoc doesn't need to be rewritten over and over again.
-`Presenter` is abstract, because it acts more like a "super class" of all the presenters.
-Since all presenters don't need to extend anything else, using an abstract class here is possible.
-
-=== Overlays
-To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `Workbench#showOverlay()` and `Workbench#hideOverlay()` methods.
-
-The GUI of WorkbenchFX is organized in layers.
-At all times, there is a layer of the general WorkbenchFX GUI, which is being represented by the view class `WorkbenchView`.
-
-When showing an overlay, a `GlassPane` is added to the scene graph and shown on top of the WorkbenchFX GUI, followed by the overlay itself on top of the `GlassPane`.
-This ensures there is a "scrim"cite:[noauthor_elevation_nodate] between the WorkbenchFX GUI and the overlay (<<overlay-scrim>>).
-
-.Overlay with scrimmed background
-[#overlay-scrim]
-image::include/overlay.png[Overlay with scrimmed background]
-
-When hiding an overlay, it is made invisible and is not removed from the scene graph, so recurring overlays don't need to be re-inserted into the scene graph again.
-This is more efficient and especially overlays with animations profit from this design, since they run smoother when shown and hidden multiple times.
-In case of an application with very memory-intensive overlays, there is a possibility to call `Workbench#clearOverlays()`, which will remove all overlays from the scene graph and free them up to be garbage collected.
-
-Each overlay has its own `GlassPane` and it is possible to open multiple overlays on top of each other.
-While it is not recommended to open an overlay on top of another overlay, it frees the API user from having to account for timing / concurrency issues (see <<_discarded_implementations>>) during transitions between overlays.
-
-==== Discarded Implementations
-At first, we designed the API to not allow multiple overlays to be shown on top of each other.
-This enabled us to have one `GlassPane` to use for all overlays and prevented the API user from showing multiple overlays on top of each other, which is bad practice. +
-However, this lead to timing / concurrency issues when switching from one overlay to another.
-When closing the stage with two open modules, which both would interrupt the closing process with a closing dialog, confirming the close on the first dialog would cause no dialog to be shown at all, even though the closing dialog of the second module should've been shown.
-It turned out `showOverlay()` to show the second dialog was called fractions of a second earlier than `hideOverlay()`.
-This resulted in the second dialog to be shown first, which was then hidden with the call to `hideOverlay()`.
-Since the whole process is asynchronous and highly depends on the changes in JavaFX's scene graph that are out of our control, we decided to allow multiple overlays to be shown on top of each other.
-Since the overlap during the transition between two overlays is so minimal that it can't be seen, this is not a problem visually.
-Even if we would've gotten the synchronization right internally, it would still mean an API user choosing to show two subsequent overlays would need to account for timing / concurrency issues as well, which was not acceptable for us.
-
-Initially we also designed the API in a way that would require overlays to be loaded, either with a separate method call or during the creation of `Workbench`, before they could be shown.
-While this resulted in the best performance possible, since the overlays could be loaded hidden with the start of the application, it made the API more complex.
-Since changes in the scene graph can be performed quite quickly by JavaFX, resulting in the performance benefits to not be significant, we decided to change the API to load the overlays into the scene graph as they are being shown.
-But we decided to go for a compromise: we would still not remove the overlays when they are being hidden, to make sure they can be loaded faster the next time they are being shown, since they already have been added to the scene graph.
-
-== Persona
+=== Persona !
 Who are the persona?
 
 [cols="1,1,1"]
@@ -285,23 +36,10 @@ Who are the persona?
 |link:include/persona/anna_leutner.pdf[image:include/persona/anna_leutner.png[Anna Leutner]]
 |===
 
-== Layout
-Challenge:
-// TODO: ????
-
-* Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
-* Unique glossary --> Like in the previous project, we aknowledge, that a shared understanding with the customer is needed.
-
-Thus, we're going to define a unique glossary.
-So everyone talks the same language.
-
-To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
-This includes features, usability and general appearance of the specific workbench.
-
-== Analysis of existing Applications
+=== Applications !
 // TODO: add text here
 
-=== Blender (Tool for creating 3D models)
+==== Blender (Tool for creating 3D models) ! (MARCO)
 * Blender is divided up into five sections.
 ** Header --> Most important and the common settings
 ** Left Bar --> Tools
@@ -324,7 +62,7 @@ The bar itself is fixed and can't be moved.
 * When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
 // TODO: use table instead of + and -?
 
-=== Photoshop / Illustrator (Design tools)
+==== Photoshop / Illustrator (Design tools) ! (MARCO)
 * Photoshop (Image tool, Pixel based)
 **
 
@@ -342,7 +80,7 @@ Multiple workspaces can be stored and it can be switched to. (+)
 **4
 // TODO: use table instead of + and -?
 
-=== IntelliJ
+==== IntelliJ ! (MARCO)
 * all possibilities available,
 Right click on the tab, then one can decide the behaviour of it.
 * "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
@@ -351,11 +89,34 @@ Right click on the tab, then one can decide the behaviour of it.
 *
 // TODO: use table instead of + and -?
 
-=== MSOffice
+==== Adobe XD (MARCO)
+// TODO: (mehr fokus auf ist eifach, keine docking elemente usw., was unterscheidet von anderen)
 
-=== Sublime Text
+==== To IDE or not to IDE? (MARCO)
+// TODO: (nur grob erklären, was erkenntniss, bei IDE: docking framework notwendig, modular approach hineinnehmen)
+// TODO:
+Power users need the utmost of customizability, to ensure they can adapt the workspace to be the most ergonomic to fit their workflow.
+In terms of the architecture, it could mean that it would need to allow the following:
 
-== Minimum Viable product (MVP)
+* Separation between `Control` and `Skin`
+** Skin can be replaced by API users, if they want to use a custom style
+* Flexible panes
+** can be rearranged across the whole window
+** different modes for fixation
+*** Pinned mode
+*** Docked mode
+*** Floating mode
+*** Window mode
+*** Split mode
+
+=== User Stories (MARCO)
+// TODO: (Workshop with Customer, was very effective, Dieter Zitat, was especially effective because customer mentioned a different persona which changed everything)
+
+==== IDE Decision (MARCO)
+
+==== Differentiation to Eclipse RCP (MARCO)
+
+=== Minimum Viable product (MVP) ! (MARCO)
 As a result of our research we have enough information to create the minimum viable workbench for our use case.
 Nonetheless we need to break down the functionality to it's simplest scenario.
 // Kunde weiss, dass er ein minimales PRodukt erhält, welches er benutzen kann
@@ -388,130 +149,96 @@ Below it is shown the final prototype:
 |link:include/mvp/module.png[image:include/mvp/module.png[Module Screen]]
 |===
 
-== Development Processes
+=== Naming
 
-=== SCSS instead of CSS
-// TODO: Explain reason why we use SCSS instead of CSS
-Less code.
-Easier to read.
-Plugin for IntelliJ which translates SCSS code into CSS:
-https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[SCSS to CSS]
+==== Module Naming !
+// TODO: (link to Add Module Page)
+To plug in functionality by the API user, we use modules.
+However, the name `Module` is not ideal, since that name already has a lot of associations.
+Additionally, when typing `extends Module` in an IDE, it will automatically imports Java's `Module`.
+This makes it frustrating, as the implementor has to manually change the import.
 
-There is no margin in JavaFX CSS.
-We've made a workaround using a `SCSS Mixin` which looks like this:
+To avoid confusion, we want to come up with a name which makes it clearer and less ambiguous.
+We did a brainstorming to come up with ideas for possible names for `Module` (<<img-brainstorming-module>>).
 
-Creating the `Mixin`:
-[source,sass]
-----
-@mixin margin-all($margin) {
-  -fx-padding: $margin;
-  -fx-border-insets: $margin;
-  -fx-background-insets: $margin;
-}
-----
+.Brainstorming of possible names for `Module`.
+[#img-brainstorming-module]
+image::include/brainstorming_module.jpg[Module Brainstorming]
 
-Using the `Mixin` in code:
-[source,sass]
-----
-.my-class {
-  @include margin-all(1.5em);
-}
-----
+We discussed this with our customer and even though we did the brainstorming and came up with a lot of names, none of them seemed to feel "right".
+Even though the name `Module` has a lot of associations, it's the only name that makes sense for what it stands for.
+In the end, we decided to rename `Module` to `WorkbenchModule`.
+We thought it would be easier to understand for our API users and that was the most important factor for us in this decision.
+This is why we decided to stick with the word `Module`.
+However, we decided to add the `Workbench` prefix, to remedy the importing issue mentioned above and to clearly separate it from the other `Module` classes in the JDK.
 
-A `Mixin` includes code, created by the `Mixin` and puts it in the place where it was called.
-Link: http://thesassway.com/advanced/pure-sass-functions[SCSS - Mixin]
+==== Navigation Drawer !
+We chose the name "Navigation Drawer" to be consistent with the naming in the https://material.io/guidelines/patterns/navigation-drawer.html[Material Design guidelines].
+This makes sure we use the naming that will be the most familiar among other developers and is easily understandable.
+An additional benefit is that if someone doesn't know what it means, they can simply look it up in the https://material.io/guidelines/patterns/navigation-drawer.html[Material Design guidelines].
 
-=== General Conventions
-We have decided to define some general conventions:
+=== API Design (Simple Approach) !
+API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
 
-In CSS it is possible to give multiple classes the same layout.
-For example:
-[source,sass]
-----
-.myClass-1, .myClass-2 {
-  -fx-padding: 1em;
-  -fx-border-insets: 1em;
-  -fx-background-insets: 1em;
-}
-----
-this is possible, but it's readability is not that good.
-SCSS provides a special tag for such situations, the `@extend`-tag:
-[source,sass]
-----
-.myClass-1 {
-  -fx-padding: 1em;
-  -fx-border-insets: 1em;
-  -fx-background-insets: 1em;
-}
+Our customer states that the intended API user would not have the need to entirely replace the `Skin`, as it is rarely done.
+At first we didn't separate between `Control` and `Skin` for this reason.
+Later on, our customer told us he would still consider the `Workbench` to be a `Control`, and that it would make more sense if used with https://gluonhq.com/products/scene-builder/[Scene Builder].
+This is why we decided to have the `Workbench` extend `Control` and split it up into `Workbench` and `WorkbenchSkin`.
+However, since we decided the API user would not want to replace the `WorkbenchSkin`, we decided to make `Workbench` and `WorkbenchSkin` final.
+With this, we make it clear that `Workbench` and `WorkbenchSkin` are not designed to be subclassed.
 
-.myClass-2 {
-  @extend .myClass-1;
-}
-----
-In both cases, both classes have the same attributes.
-But the readability is much better in the second example.
-Plus, there is the possibility to add another attributes in `.myClass-2`.
-[source,sass]
-----
-.myClass-2 {
-  @extend .myClass-1;
-  -fx-color: RED;
-}
-----
-`.myClass-2` inherits from `.myClass-1` and can be extended.
-https://sass-lang.com/guide[SCSS - @extend]
-
-Another convention we use is the separation of all scss-files.
-For readability we have the `main.scss` file separated into multiple scss files.
-In the `main.scss` we include all those other files and this "main file" will be compiled as a css file.
-Using the `@include` tag looks like this:
-[source,sass]
-----
-@include file1;
-@include file2;
-@include file3;
-----
-The files to be included are named with an underscore as prefix: `_file1.scss`.
-
-== Challenges
+This also means that we don't need to design the panes we use internally to be replaceable by the API user.
+It is more important that the user experience is straightforward.
+Still, the possibility of extending the workbench using modules is important to our customer.
 
 
-=== Module Lifecycle
-Designing the module lifecycle was a challenge we didn't expect.
-There were a few goals we wanted to achieve:
+=== Usability Tests (MARCO)
 
-* Easy to understand
-* Self-explanatory sequence and ordering
-* Require the least amount of work from Fabian to use it
-* Fulfill the needs of Steffi, cover as many use-cases as possible
-* Easy to use, even for complex scenarios
+==== Dieter Holz, Advisor (MARCO)
 
-If we make it too complex, Fabian could get confused. +
-If we require lots of work to use it, Fabian could get frustrated. +
-However, if we make it too easy, Steffi can't cover all of her use cases. +
-At the same time, making it more complex potentially makes it less self-explanatory, which in turn makes it harder to use.
+===== Tabs mit Module TOolbar zusammen => gemeinsame Designsprache automatisch TODO
 
-The challenge was to strike a balance between complex and easy, ensuring both Fabian and Steffi would be happy with the API.
+==== Manuel Cotone, UX Expert (MARCO)
 
-The first design decision we made was to have it as an abstract class.
-This way, we can already pre-define as many lifecycle methods as possible, so Fabian has the least amount of work.
-Still, we enable Steffi or even Fabian in some more advanced use cases to override the lifecycle methods they need, to augment or replace the implementation with their own.
-The compromise here was to have `#activate()` as the only lifecycle method that *must* be implemented, as it returns the view of the module that should be displayed.
-But, since the only thing Fabian has to define is `return view;`, which is acceptable.
+===== Home Icon => HomeView, then AddModuleView => + icon
 
-We realized every module needs a reference to the `Workbench`, but we can't pass it in the constructor, since at the time of the construction of a `WorkbenchModule`, the `Workbench` doesn't exist yet.
-This lead to the `#init(Workbench)` lifecycle method, which initially sets the `workbench` reference, but also allows implementors to initialize their module.
+==== Annelore Egger, User Group (MARCO)
 
-Then, we knew we needed lifecycle methods, so the implementor can know whether their module is the currently active module, which lead us to `#activate()` and `#deactivate()`.
-This makes it possible for example to have certain module-specific menu-items in the `NavigationDrawer` or `ToolbarItem`{empty}s in the Toolbar, by adding them with `#activate()` and removing them with `#deactivate()`.
+===== Dropdown => ToolbarItem
 
-Finally, we need to allow the implementor to free up resources when a module is closed, which lead us to the `#destroy()` lifecycle method.
-This was a bit of a challenge itself though, since initially we thought it would be enough to have `void` as the return type.
-Then we realized there could be a use case, in which the implementor may want to open a confirmation dialog before a module is being closed.
-Again, we thought about different possible solutions and decided to return a `boolean`, allowing the implementor to specify whether the module can be closed or not.
-In case of a confirmation dialog before closing the module, the implementor can simply return `false`, causing the closing of the module to get interrupted.
+===== 2 Bars instead of 1 Bar
 
-=== Customizability
+== Implementation
+// TODO: (in the beginning, say that have a look at test modules, and implementation to see all features exactly in details, in action)
+
+=== Layout (MARCO)
+Challenge:
+// TODO: ????
+
+* Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
+* Unique glossary --> Like in the previous project, we aknowledge, that a shared understanding with the customer is needed.
+
+Thus, we're going to define a unique glossary.
+So everyone talks the same language.
+
+To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
+This includes features, usability and general appearance of the specific workbench.
+
+==== Add Module Page
+// TODO: (familiar from smartphones => Modulares konzept, mehrere kleine Applikationen, aber Application macht nicht Sinn als Name, verlinken auf Module Naming)
+
+==== Tabs
+// TODO: (from browsers etc., is more familiar)
+
+==== Changes across Versions
+// TODO: (visual, with screenshots), tabbar scrollbar why
+
+==== Easy Styling
+// TODO: (durch Fabian einfach Stylebar, war fokus, dann beispiel dark theme, von wegen ist so einfach machbar! betonen)
+
+=== Architecture (FRANçOIS)
+
+==== Constructing the Workbench (Challenge => Customizability) !
 Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
 Of course, the resulting API design from this needs to work with our implementation as well.
 When we implemented the pagination on the add module page, we wanted the API user to be able to choose the amount of modules shown per page.
@@ -606,33 +333,326 @@ It's expandable to a large amount of parameters.
 It allows for maximum flexibility, i. e. any combination of the parameters in any order can be specified.
 We decided against keeping the original `Workbench.of(module1, module2)` notation, since using the builder doesn't require a lot more code and doesn't introduce more complexity.
 
-=== Secret Weapon: Agile
-Even though we had to face a lot of challenges, there is one thing we are especially grateful about: working in an agile way. +
-Because of the agile approach and having the whole development process transparently on GitHub, we were able to get constant feedback from our customer.
-This way, issues or misunderstandings in communication quickly became obvious and we were able to adjust the implementation accordingly right away.
-This enabled us to develop a product of very high quality, which meets the demands of our customer and future users alike. +
-So in the end, working agile enabled us to quickly identify and resolve challenges.
+==== WorkbenchModule Lifecycle !
+The following UML diagrams explain how the lifecycle of a `WorkbenchModule` works.
+The diagrams are simplified to a degree that is relevant for the implementor of a `WorkbenchModule` and are *not* complete and *not* exhaustive by design.
+The goal is to explain the principle of interactions on modules when using `Workbench#openModule(WorkbenchModule)` and `Workbench#closeModule(WorkbenchModule)` with a minimal amount of examples.
 
-For example, the separation between `Workbench` and `WorkbenchSkin` only became obvious later in the project (see <<_simple_approach>>).
-If we didn't get constant feedback from our customer, we would probably only have recognized this when it was too late - at the end of the project.
-Thanks to the agile way, we could resolve this quickly and early on in the project.
+*Generally*, when clicking on a tile in the `AddModuleView`, `Workbench#openModule(WorkbenchModule)` gets called. +
+When clicking on the `x` icon of a tab, `Workbench#closeModule(WorkbenchModule)` gets called.
 
-== Testing
+Overview of the lifecycle in a state diagram, showing all state changes that can occur (<<img-module-lifecycle>>).
+
+.Module Lifecycle.
+[#img-module-lifecycle]
+image::include/UML/svg/Module Lifecycle.svg[Module Lifecycle]
+
+Process of opening two modules in sequence, followed by opening the first module again (<<img-open-module>>).
+
+.Opening of modules.
+[#img-open-module]
+image::include/UML/svg/Opening of Modules.svg[Opening of Modules]
+
+Two open modules, closing of the active module (<<img-close-module-active>>).
+
+.Closing of modules, active module.
+[#img-close-module-active]
+image::include/UML/svg/Close Module Active.svg[Close Module Active]
+
+Two open modules, closing of the inactive module (<<img-close-module-inactive>>).
+
+.Closing of modules, inactive module.
+[#img-close-module-inactive]
+image::include/UML/svg/Close Module Inactive.svg[Close Module Inactive]
+
+Two open modules, closing of the active module, where the call to `WorkbenchModule#destroy()` returns false (<<img-close-module-interrupt-active>>).
+This leads to the closing process getting interrupted.
+The implementor of `WorkbenchModule` can then choose to do cleanup actions or open a confirmation dialog, following a call to `WorkbenchModule#close()`, when the module should definitely be closed.
+
+.Closing of modules interrupted, active module.
+[#img-close-module-interrupt-active]
+image::include/UML/svg/Close Module Interrupted Active.svg[Close Module Interrupted Active]
+
+Two open modules, closing of the inactive module, where the call to `WorkbenchModule#destroy()` returns false (<<img-close-module-interrupt-inactive>>).
+This leads to the closing process getting interrupted.
+The module which interrupted the closing process will be opened, so that the user's attention will be directed towards the interrupting module, so they can take appropriate actions.
+
+.Closing of modules interrupted, inactive module.
+[#img-close-module-interrupt-inactive]
+image::include/UML/svg/Close Module Interrupted Inactive.svg[Close Module Interrupted Inactive]
+
+To learn more about the interactions in detail, look at the tests below, since the tests verify the exact order of the calls and cover more situations in detail:
+
+* <<test-reference.adoc#_open_modules,Opening of Modules>>
+* <<test-reference.adoc#_close_modules,Closing of Modules>>
+* <<test-reference.adoc#_close_modules_interrupted,Closing of Modules Interrupted>>
+
+===== Challenges (=> Module Lifecycle) !
+Designing the module lifecycle was a challenge we didn't expect.
+There were a few goals we wanted to achieve:
+
+* Easy to understand
+* Self-explanatory sequence and ordering
+* Require the least amount of work from Fabian to use it
+* Fulfill the needs of Steffi, cover as many use-cases as possible
+* Easy to use, even for complex scenarios
+
+If we make it too complex, Fabian could get confused. +
+If we require lots of work to use it, Fabian could get frustrated. +
+However, if we make it too easy, Steffi can't cover all of her use cases. +
+At the same time, making it more complex potentially makes it less self-explanatory, which in turn makes it harder to use.
+
+The challenge was to strike a balance between complex and easy, ensuring both Fabian and Steffi would be happy with the API.
+
+The first design decision we made was to have it as an abstract class.
+This way, we can already pre-define as many lifecycle methods as possible, so Fabian has the least amount of work.
+Still, we enable Steffi or even Fabian in some more advanced use cases to override the lifecycle methods they need, to augment or replace the implementation with their own.
+The compromise here was to have `#activate()` as the only lifecycle method that *must* be implemented, as it returns the view of the module that should be displayed.
+But, since the only thing Fabian has to define is `return view;`, which is acceptable.
+
+We realized every module needs a reference to the `Workbench`, but we can't pass it in the constructor, since at the time of the construction of a `WorkbenchModule`, the `Workbench` doesn't exist yet.
+This lead to the `#init(Workbench)` lifecycle method, which initially sets the `workbench` reference, but also allows implementors to initialize their module.
+
+Then, we knew we needed lifecycle methods, so the implementor can know whether their module is the currently active module, which lead us to `#activate()` and `#deactivate()`.
+This makes it possible for example to have certain module-specific menu-items in the `NavigationDrawer` or `ToolbarItem`{empty}s in the Toolbar, by adding them with `#activate()` and removing them with `#deactivate()`.
+
+Finally, we need to allow the implementor to free up resources when a module is closed, which lead us to the `#destroy()` lifecycle method.
+This was a bit of a challenge itself though, since initially we thought it would be enough to have `void` as the return type.
+Then we realized there could be a use case, in which the implementor may want to open a confirmation dialog before a module is being closed.
+Again, we thought about different possible solutions and decided to return a `boolean`, allowing the implementor to specify whether the module can be closed or not.
+In case of a confirmation dialog before closing the module, the implementor can simply return `false`, causing the closing of the module to get interrupted.
+
+==== API Design of WorkbenchModule !
+As with the design of the lifecycle, having a simple and easy to understand API overall for `WorkbenchModule` is very important to us.
+If there is a lot of code with a lot of methods in the `WorkbenchModule` class, it could make it harder for people to understand how to use the API and how it works.
+This is why we very carefully introduced complexity into a `WorkbenchModule`, and only added what really enhanced the user experience to a point that would justify the added code.
+We also considered to only add methods which are needed to fulfill a certain use case, which is likely to occur.
+
+===== Added API !
+One part of a `WorkbenchModule` are its identifying properties.
+We decided for a `WorkbenchModule` to have a *name* and an *icon*.
+They are necessary, because they are shown in tabs and tiles representing each `WorkbenchModule`.
+
+Every `WorkbenchModule` also has a reference to the `Workbench` object.
+This makes it possible to individually adapt the `Workbench` by calling `getWorkbench()`.
+This enables the `WorkbenchModule` to have full control over the `Workbench`, for example to switch to other modules.
+
+When we added the module toolbar, we also thought it would make the most sense to include the lists with the `ToolbarItem`{empty}s in the `WorkbenchModule` itself, as they are specific for each module.
+
+===== Rejected API !
+Generally, we decided to not include anything that wasn't strictly specific to a `WorkbenchModule`.
+
+For example, we discussed whether or not to include a list with `WorkbenchModule` specific `MenuItem`{empty}s to be shown in the `NavigationDrawer`.
+In the end, we decided against it, since the `NavigationDrawer` contains global `MenuItem`{empty}s.
+If there was one list in `Workbench` and one in each `WorkbenchModule`, API users could get confused.
+API users who don't know of the global list in the `Workbench`, could falsely think the `NavigationDrawer` is specific to each module, causing them to add the same `MenuItem`{empty}s in each `WorkbenchModule`.
+Additionally, some possible open questions it could cause would be:
+
+* Is there a separate module-specific `NavigationDrawer`?
+* Does the list of `MenuItem`{empty}s in the `WorkbenchModule` override or augment the list in the `Workbench`?
+* How are the module-specific and global `MenuItem`{empty}s separated?
+* Are the module-specific `MenuItem`{empty}s inserted on the top or the bottom?
+
+API users are still able to define module-specific `MenuItem`{empty}s with the already existing API, by adding them to the global list in `activate()` and removing them in `deactivate()`.
+This way, we give the API users the choice of how to include them and they don't miss out on any functionality.
+It also eliminates the "guessing" of how it was implemented, as it can be observed above in the possible open questions.
+
+==== Icon: Node vs File vs Image !
+To specify an icon for a `WorkbenchModule`, there are different ways to implement this in the API.
+
+===== Node !
+The most generic option would be to have the API user pass in a `Node` in the constructor to use as the icon.
+
+The problem is that we display the icon in two places: one in the `Tab` and one in the `Tile`.
+The JavaFX API of `Node` is designed to have zero or one parent cite:[noauthor_node_nodate].
+This means the API user would need to pass in two `Node` objects, one for the icon of the `Tab`, and one for the `Tile`.
+
+Since the icon will always be the same for the `Tab` and the `Tile`, this feels very redundant and is very error-prone.
+Should the implementor not know about this, they could pass in the same `Node` twice and wonder why only one icon is being displayed.
+This could cause the implementors to believe this to be a bug.
+Sure, we could check in the constructor if both `Node`{empty}s are referring to the same object, but it's still not very user-friendly.
+
+===== File !
+Another option would be to have the API user pass in a file, referring to the path of the icon.
+This way, we don't have the same issues as mentioned in <<_node>>.
+However, it is quite limiting, since if the API user wants to use an icon from Font Awesome or Material Design Icons, they would need to find the icon as an image and refer to the file.
+This is quite cumbersome, compared to using the `FontAwesomeFX` library and simply specifying `FontAwesomeIcon.GEAR` for example.
+Also, this would not allow API users to make use of JavaFX' support for image files with multiple scaling factors, to account for different display resolutions cite:[lemmermann_javafx_2017].
+
+===== Image !
+We decided to use `Image` as one of the options of passing in an icon in the constructor of `WorkbenchModule`.
+There are none of the issues mentioned in <<_node>>, since the `Image` will be wrapped in an `ImageView`, when `WorkbenchModule#getIcon()` gets called by the `Tab` and `Tile`.
+Also, it allows API users to make use of JavaFX' support for image files with multiple scaling factors cite:[lemmermann_javafx_2017].
+
+Unfortunately, it doesn't solve the issues with icons from libraries, as mentioned in <<_image>>.
+To solve this, we looked at what were the most widely used icon libraries.
+Font Awesome is the most popular icon set, which is why we chose to include it as another option in the constructor cite:[noauthor_font_nodate].
+
+Also, since the design of WorkbenchFX is highly influenced by Material Design, we wanted to include an icon set that would include Material Design icons.
+FontAwesomeFX offers support for the https://material.io/tools/icons/?style=baseline[official Material Design Icons by Google] and also https://materialdesignicons.com/[Material Design Icons] cite:[noauthor_fontawesomefx_nodate].
+Since all of the icons from the https://material.io/tools/icons/?style=baseline[official Material Design Icons by Google] are included, along with many others in the icon set of https://materialdesignicons.com/[Material Design Icons], we also included a constructor option for https://materialdesignicons.com/[Material Design Icons].
+
+==== MVP (FRANçOIS)
+// TODO: (minimal überarbeiten, weil control overkill, aber trotzdem separierung in view and presenter, good experience in PreferencesFX)
+MVP (Model View Presenter) was used as general architecture pattern.
+// TODO: why?
+At first, we used a separate `WorkbenchModel` object for the model.
+Our customer suggests that it would be easier to skip the `WorkbenchModel` class and just put the logic in `Workbench`, since that's the place where he would expect such logic.
+We decide to change it in a way that `Workbench` is the model object in the MVP pattern in our case.
+This simplifies the architecture and readability is improved, since methods are where they would be expected.
+
+// TODO: used view and presenter class, with view being interface and presenter being abstract.
+`View` is an interface, because it's used as a mixin.
+We implemented it this way because every view needs to already extend a certain JavaFX class and multiple inheritance is not possible in Java, so using an abstract class here isn't an option.
+This makes it possible to initialize all views in the same way while also resulting in less code duplication, since the `init()` method and the JavaDoc doesn't need to be rewritten over and over again.
+`Presenter` is abstract, because it acts more like a "super class" of all the presenters.
+Since all presenters don't need to extend anything else, using an abstract class here is possible.
+
+==== Overlays !
+To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `Workbench#showOverlay()` and `Workbench#hideOverlay()` methods.
+
+The GUI of WorkbenchFX is organized in layers.
+At all times, there is a layer of the general WorkbenchFX GUI, which is being represented by the view class `WorkbenchView`.
+
+When showing an overlay, a `GlassPane` is added to the scene graph and shown on top of the WorkbenchFX GUI, followed by the overlay itself on top of the `GlassPane`.
+This ensures there is a "scrim"cite:[noauthor_elevation_nodate] between the WorkbenchFX GUI and the overlay (<<overlay-scrim>>).
+
+.Overlay with scrimmed background
+[#overlay-scrim]
+image::include/overlay.png[Overlay with scrimmed background]
+
+When hiding an overlay, it is made invisible and is not removed from the scene graph, so recurring overlays don't need to be re-inserted into the scene graph again.
+This is more efficient and especially overlays with animations profit from this design, since they run smoother when shown and hidden multiple times.
+In case of an application with very memory-intensive overlays, there is a possibility to call `Workbench#clearOverlays()`, which will remove all overlays from the scene graph and free them up to be garbage collected.
+
+Each overlay has its own `GlassPane` and it is possible to open multiple overlays on top of each other.
+While it is not recommended to open an overlay on top of another overlay, it frees the API user from having to account for timing / concurrency issues (see <<_discarded_implementations>>) during transitions between overlays.
+
+===== Challenges ! (Discarded Implementations)
+At first, we designed the API to not allow multiple overlays to be shown on top of each other.
+This enabled us to have one `GlassPane` to use for all overlays and prevented the API user from showing multiple overlays on top of each other, which is bad practice. +
+However, this lead to timing / concurrency issues when switching from one overlay to another.
+When closing the stage with two open modules, which both would interrupt the closing process with a closing dialog, confirming the close on the first dialog would cause no dialog to be shown at all, even though the closing dialog of the second module should've been shown.
+It turned out `showOverlay()` to show the second dialog was called fractions of a second earlier than `hideOverlay()`.
+This resulted in the second dialog to be shown first, which was then hidden with the call to `hideOverlay()`.
+Since the whole process is asynchronous and highly depends on the changes in JavaFX's scene graph that are out of our control, we decided to allow multiple overlays to be shown on top of each other.
+Since the overlap during the transition between two overlays is so minimal that it can't be seen, this is not a problem visually.
+Even if we would've gotten the synchronization right internally, it would still mean an API user choosing to show two subsequent overlays would need to account for timing / concurrency issues as well, which was not acceptable for us.
+
+Initially we also designed the API in a way that would require overlays to be loaded, either with a separate method call or during the creation of `Workbench`, before they could be shown.
+While this resulted in the best performance possible, since the overlays could be loaded hidden with the start of the application, it made the API more complex.
+Since changes in the scene graph can be performed quite quickly by JavaFX, resulting in the performance benefits to not be significant, we decided to change the API to load the overlays into the scene graph as they are being shown.
+But we decided to go for a compromise: we would still not remove the overlays when they are being hidden, to make sure they can be loaded faster the next time they are being shown, since they already have been added to the scene graph.
+
+== Processes
+
+=== Development
+
+==== SCSS instead of CSS ! (MARCO)
+// TODO: Explain reason why we use SCSS instead of CSS
+Less code.
+Easier to read.
+Plugin for IntelliJ which translates SCSS code into CSS:
+https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[SCSS to CSS]
+
+There is no margin in JavaFX CSS.
+We've made a workaround using a `SCSS Mixin` which looks like this:
+
+Creating the `Mixin`:
+[source,sass]
+----
+@mixin margin-all($margin) {
+  -fx-padding: $margin;
+  -fx-border-insets: $margin;
+  -fx-background-insets: $margin;
+}
+----
+
+Using the `Mixin` in code:
+[source,sass]
+----
+.my-class {
+  @include margin-all(1.5em);
+}
+----
+
+A `Mixin` includes code, created by the `Mixin` and puts it in the place where it was called.
+Link: http://thesassway.com/advanced/pure-sass-functions[SCSS - Mixin]
+
+==== General Conventions ! (MARCO)
+// TODO: (CSS, PreferencesFX kopieren GOogle Java style guide)
+We have decided to define some general conventions:
+
+In CSS it is possible to give multiple classes the same layout.
+For example:
+[source,sass]
+----
+.myClass-1, .myClass-2 {
+  -fx-padding: 1em;
+  -fx-border-insets: 1em;
+  -fx-background-insets: 1em;
+}
+----
+this is possible, but it's readability is not that good.
+SCSS provides a special tag for such situations, the `@extend`-tag:
+[source,sass]
+----
+.myClass-1 {
+  -fx-padding: 1em;
+  -fx-border-insets: 1em;
+  -fx-background-insets: 1em;
+}
+
+.myClass-2 {
+  @extend .myClass-1;
+}
+----
+In both cases, both classes have the same attributes.
+But the readability is much better in the second example.
+Plus, there is the possibility to add another attributes in `.myClass-2`.
+[source,sass]
+----
+.myClass-2 {
+  @extend .myClass-1;
+  -fx-color: RED;
+}
+----
+`.myClass-2` inherits from `.myClass-1` and can be extended.
+https://sass-lang.com/guide[SCSS - @extend]
+
+Another convention we use is the separation of all scss-files.
+For readability we have the `main.scss` file separated into multiple scss files.
+In the `main.scss` we include all those other files and this "main file" will be compiled as a css file.
+Using the `@include` tag looks like this:
+[source,sass]
+----
+@include file1;
+@include file2;
+@include file3;
+----
+The files to be included are named with an underscore as prefix: `_file1.scss`.
+
+=== Testing (FRANçOIS)
 // TODO: what do we want to cover?
 // TODO: Idea: Anzahl Zeilen Code mit Anzahl Zeilen Tests vergleichen
 
-== Build Process
+==== Spock vs JUnit !
 
-=== GitHub
+==== Testing Utilities
+// TODO: (kurz erwähnen, was verwendet und wieso?) => mockito und awaitility => bisschen wegen concurrency, TESTFX!!!! Integration tests
+
+=== Building
+
+==== GitHub ! (TODO: MOVE!!!)
 The programming is being done in a GitHub repository.
 We work using the git flow branching model cite:[noauthor_successful_nodate].
 Every change is represented in a pull request to develop from the feature branches.
 
-=== Code Review
+==== Code Review ! (NOTHING WITH BUILDING?? TODO)
 To improve the quality of the code and also ensure https://www.agilealliance.org/glossary/collective-ownership/[collective code ownership], every pull request gets code reviewed by the other person.
 This worked very well for us, since comments that were made by the other person always lead to improvements and code of higher quality.
 
-=== Travis CI
+==== Travis CI !
 To simplify the code review process, we are using Travis CI.
 Travis CI is a build server similar to Jenkins.
 Compared with Jenkins, it runs in the cloud and is much more straight forward to set up in our experience.
@@ -657,7 +677,7 @@ This has the huge advantage that our work is not only easier but also safer to a
 [#travis-check]
 image::include/travis-check.png[Check by Travis CI on a GitHub pull request]
 
-=== Codecov.io
+==== Codecov.io !
 Since testing was one of our main tools to ensure good code quality, we wanted to also make use of code coverage.
 This is where codecov.io came in.
 It's a platform that visualizes code coverage and also integrates nicely with GitHub and Travis.
@@ -686,7 +706,7 @@ Also, it is the reviewer's responsibility to validate the creator's decision in 
 If the results were skewed, we went with the pragmatic approach and chose to still merge the pull request.
 This approach worked very well for us and our decision payed off, given the high code coverage we reached.
 
-Still, code coverage is a double edged sword.
+Still, code coverage can be a double-edged sword.
 As we saw, a lower code coverage doesn't always equal less code quality.
 As we realized, this is also true for the opposite.
 Simply because a line of code was executed during a test, doesn't necessarily mean it was tested properly.
@@ -705,7 +725,11 @@ image::include/codecov-comment.png[Example comment on GitHub by the Codecov.io b
 [#codecov-check]
 image::include/codecov-check.png[Check by codecov.io on a GitHub pull request]
 
-=== Release Automation
+=== Releasing (FRANçOIS)
+
+==== Process Explanation
+
+==== Release Automation !
 We also automated part of the release process with Travis.
 When we push a git tag on the master branch, Travis will run `mvn install`, make zips of the documentation and javadoc, followed by creating a release on GitHub and uploading the zips along with the built `jar`{empty}s.
 The only thing left is to edit the title and description with the release and its changelog, respectively.
@@ -713,8 +737,42 @@ The only thing left is to edit the title and description with the release and it
 This made releasing quicker and meant less repetitive effort on our side.
 
 == Lessons learned
+// TODO: (we did already in the start was good idea since lots of things improved, erwähnen PreferencesFX Lessons Learned => refactoring, testing, usw, checkstyle, javadoc gerade gemacht)
 
-== Summary
+=== Value of User Stories (MARCO)
+// TODO: (How good was workshop etc.)
+
+=== Working Agile (Secret Weapon) !
+Even though we had to face a lot of challenges, there is one thing we are especially grateful about: working in an agile way. +
+Because of the agile approach and having the whole development process transparently on GitHub, we were able to get constant feedback from our customer.
+This way, issues or misunderstandings in communication quickly became obvious and we were able to adjust the implementation accordingly right away.
+This enabled us to develop a product of very high quality, which meets the demands of our customer and future users alike. +
+So in the end, working agile enabled us to quickly identify and resolve challenges.
+
+For example, the separation between `Workbench` and `WorkbenchSkin` only became obvious later in the project (see <<_simple_approach>>).
+If we didn't get constant feedback from our customer, we would probably only have recognized this when it was too late - at the end of the project.
+Thanks to the agile way, we could resolve this quickly and early on in the project.
+
+=== Hacking Day (MARCO)
+// TODO: (Dirk hat selber erkannt, dass nicht so einfach wie man es sich vorstellt, dass es Dirk auch etwas gebracht hat zu erkennen => besser im Projekt eingebunden, besser gemerkt wo Probleme sind)
+
+=== Animations (FRANçOIS)
+// TODO: (Wirking auf User Experience unterschätzt, da so gut, nicht abschaltbar, da keinen Sinn macht sonst)
+
+=== Gradle -> Maven (FRANçOIS)
+
+=== Build Automation (FRANçOIS)
+// TODO: (see hotfix release, von anfang an, damit probleme vermeiden, war super, automatisierte alles am anfang)
+
+=== Java 8 / 9 / 10 (FRANçOIS)
+// TODO: (Paradebeispiel, Rückstand von Technologie wegen anderen, da andere es noch nicht verwenden..., Dokumentieren Situation geändert wegen Java 9 deprecated)
+
+=== Don't underestimate the seemingly most simple tasks (FRANçOIS)
+// TODO: (Closing of modules, how hard it was, completablefuture...)
+
+== Summary (MARCO)
+
+=== Future Implications (what features can be done later?)
 
 == Bibliography
 bibliography::[]
