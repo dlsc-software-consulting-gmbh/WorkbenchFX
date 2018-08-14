@@ -167,7 +167,6 @@ Below it is shown the final prototype:
 === Naming
 
 ==== Module Naming
-// TODO: (link to Add Module Page)
 To plug in functionality by the API user, we use modules.
 However, the name `Module` is not ideal, since that name already has a lot of associations.
 Additionally, when typing `extends Module` in an IDE, it will automatically imports Java's `Module`.
@@ -186,6 +185,8 @@ In the end, we decided to rename `Module` to `WorkbenchModule`.
 We thought it would be easier to understand for our API users and that was the most important factor for us in this decision.
 This is why we decided to stick with the word `Module`.
 However, we decided to add the `Workbench` prefix, to remedy the importing issue mentioned above and to clearly separate it from the other `Module` classes in the JDK.
+
+See the chapter <<_add_module_page>> for the explanation of what a module is.
 
 ==== Navigation Drawer
 We chose the name "Navigation Drawer" to be consistent with the naming in the https://material.io/guidelines/patterns/navigation-drawer.html[Material Design guidelines].
