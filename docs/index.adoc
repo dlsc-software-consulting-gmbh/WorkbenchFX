@@ -177,7 +177,7 @@ We chose the name "Navigation Drawer" to be consistent with the naming in the ht
 This makes sure we use the naming that will be the most familiar among other developers and is easily understandable.
 An additional benefit is that if someone doesn't know what it means, they can simply look it up in the https://material.io/guidelines/patterns/navigation-drawer.html[Material Design guidelines].
 
-=== API Design (Simple Approach)
+=== API Design
 API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
 
 Our customer states that the intended API user would not have the need to entirely replace the `Skin`, as it is rarely done.
@@ -196,7 +196,7 @@ Still, the possibility of extending the workbench using modules is important to 
 
 ==== Dieter Holz, Advisor (MARCO)
 
-===== Tabs mit Module TOolbar zusammen => gemeinsame Designsprache automatisch TODO
+===== Tabs mit Module Toolbar zusammen => gemeinsame Designsprache automatisch TODO
 
 ==== ***REMOVED***, UX Expert (MARCO)
 
@@ -759,7 +759,7 @@ Thanks to the agile way, we could resolve this quickly and early on in the proje
 === Animations (FRANÇOIS)
 // TODO: (Wirking auf User Experience unterschätzt, da so gut, nicht abschaltbar, da keinen Sinn macht sonst)
 
-=== Gradle -> Maven (FRANÇOIS)
+=== Switch from Gradle to Maven (FRANÇOIS)
 
 === Build Automation (FRANÇOIS)
 // TODO: (see hotfix release, von anfang an, damit probleme vermeiden, war super, automatisierte alles am anfang)
