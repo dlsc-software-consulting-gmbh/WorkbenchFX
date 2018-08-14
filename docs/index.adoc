@@ -36,10 +36,10 @@ Who are the persona?
 |link:include/persona/anna_leutner.pdf[image:include/persona/anna_leutner.png[Anna Leutner]]
 |===
 
-=== Applications !
+=== Applications
 // TODO: add text here
 
-==== Blender (Tool for creating 3D models) ! (MARCO)
+==== Blender (Tool for creating 3D models) (MARCO)
 * Blender is divided up into five sections.
 ** Header --> Most important and the common settings
 ** Left Bar --> Tools
@@ -62,7 +62,7 @@ The bar itself is fixed and can't be moved.
 * When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
 // TODO: use table instead of + and -?
 
-==== Photoshop / Illustrator (Design tools) ! (MARCO)
+==== Photoshop / Illustrator (Design tools) (MARCO)
 * Photoshop (Image tool, Pixel based)
 **
 
@@ -80,7 +80,7 @@ Multiple workspaces can be stored and it can be switched to. (+)
 **4
 // TODO: use table instead of + and -?
 
-==== IntelliJ ! (MARCO)
+==== IntelliJ (MARCO)
 * all possibilities available,
 Right click on the tab, then one can decide the behaviour of it.
 * "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
@@ -116,7 +116,7 @@ In terms of the architecture, it could mean that it would need to allow the foll
 
 ==== Differentiation to Eclipse RCP (MARCO)
 
-=== Minimum Viable product (MVP) ! (MARCO)
+=== Minimum Viable product (MVP) (MARCO)
 As a result of our research we have enough information to create the minimum viable workbench for our use case.
 Nonetheless we need to break down the functionality to it's simplest scenario.
 // Kunde weiss, dass er ein minimales PRodukt erhält, welches er benutzen kann
@@ -151,7 +151,7 @@ Below it is shown the final prototype:
 
 === Naming
 
-==== Module Naming !
+==== Module Naming
 // TODO: (link to Add Module Page)
 To plug in functionality by the API user, we use modules.
 However, the name `Module` is not ideal, since that name already has a lot of associations.
@@ -172,12 +172,12 @@ We thought it would be easier to understand for our API users and that was the m
 This is why we decided to stick with the word `Module`.
 However, we decided to add the `Workbench` prefix, to remedy the importing issue mentioned above and to clearly separate it from the other `Module` classes in the JDK.
 
-==== Navigation Drawer !
+==== Navigation Drawer
 We chose the name "Navigation Drawer" to be consistent with the naming in the https://material.io/guidelines/patterns/navigation-drawer.html[Material Design guidelines].
 This makes sure we use the naming that will be the most familiar among other developers and is easily understandable.
 An additional benefit is that if someone doesn't know what it means, they can simply look it up in the https://material.io/guidelines/patterns/navigation-drawer.html[Material Design guidelines].
 
-=== API Design (Simple Approach) !
+=== API Design (Simple Approach)
 API Users of WorkbenchFX don't only care about the API design, but also about the customizibility.
 
 Our customer states that the intended API user would not have the need to entirely replace the `Skin`, as it is rarely done.
@@ -238,7 +238,7 @@ This includes features, usability and general appearance of the specific workben
 
 === Architecture (FRANÇOIS)
 
-==== Constructing the Workbench (Challenge => Customizability) !
+==== Constructing the Workbench
 Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
 Of course, the resulting API design from this needs to work with our implementation as well.
 When we implemented the pagination on the add module page, we wanted the API user to be able to choose the amount of modules shown per page.
@@ -333,7 +333,7 @@ It's expandable to a large amount of parameters.
 It allows for maximum flexibility, i. e. any combination of the parameters in any order can be specified.
 We decided against keeping the original `Workbench.of(module1, module2)` notation, since using the builder doesn't require a lot more code and doesn't introduce more complexity.
 
-==== WorkbenchModule Lifecycle !
+==== WorkbenchModule Lifecycle
 The following UML diagrams explain how the lifecycle of a `WorkbenchModule` works.
 The diagrams are simplified to a degree that is relevant for the implementor of a `WorkbenchModule` and are *not* complete and *not* exhaustive by design.
 The goal is to explain the principle of interactions on modules when using `Workbench#openModule(WorkbenchModule)` and `Workbench#closeModule(WorkbenchModule)` with a minimal amount of examples.
@@ -387,7 +387,7 @@ To learn more about the interactions in detail, look at the tests below, since t
 * <<test-reference.adoc#_close_modules,Closing of Modules>>
 * <<test-reference.adoc#_close_modules_interrupted,Closing of Modules Interrupted>>
 
-===== Challenges (=> Module Lifecycle) !
+===== Challenges
 Designing the module lifecycle was a challenge we didn't expect.
 There were a few goals we wanted to achieve:
 
@@ -422,13 +422,13 @@ Then we realized there could be a use case, in which the implementor may want to
 Again, we thought about different possible solutions and decided to return a `boolean`, allowing the implementor to specify whether the module can be closed or not.
 In case of a confirmation dialog before closing the module, the implementor can simply return `false`, causing the closing of the module to get interrupted.
 
-==== API Design of WorkbenchModule !
+==== API Design of WorkbenchModule
 As with the design of the lifecycle, having a simple and easy to understand API overall for `WorkbenchModule` is very important to us.
 If there is a lot of code with a lot of methods in the `WorkbenchModule` class, it could make it harder for people to understand how to use the API and how it works.
 This is why we very carefully introduced complexity into a `WorkbenchModule`, and only added what really enhanced the user experience to a point that would justify the added code.
 We also considered to only add methods which are needed to fulfill a certain use case, which is likely to occur.
 
-===== Added API !
+===== Added API
 One part of a `WorkbenchModule` are its identifying properties.
 We decided for a `WorkbenchModule` to have a *name* and an *icon*.
 They are necessary, because they are shown in tabs and tiles representing each `WorkbenchModule`.
@@ -439,7 +439,7 @@ This enables the `WorkbenchModule` to have full control over the `Workbench`, fo
 
 When we added the module toolbar, we also thought it would make the most sense to include the lists with the `ToolbarItem`{empty}s in the `WorkbenchModule` itself, as they are specific for each module.
 
-===== Rejected API !
+===== Rejected API
 Generally, we decided to not include anything that wasn't strictly specific to a `WorkbenchModule`.
 
 For example, we discussed whether or not to include a list with `WorkbenchModule` specific `MenuItem`{empty}s to be shown in the `NavigationDrawer`.
@@ -457,10 +457,10 @@ API users are still able to define module-specific `MenuItem`{empty}s with the a
 This way, we give the API users the choice of how to include them and they don't miss out on any functionality.
 It also eliminates the "guessing" of how it was implemented, as it can be observed above in the possible open questions.
 
-==== Icon: Node vs File vs Image !
+==== Icon: Node vs File vs Image
 To specify an icon for a `WorkbenchModule`, there are different ways to implement this in the API.
 
-===== Node !
+===== Node
 The most generic option would be to have the API user pass in a `Node` in the constructor to use as the icon.
 
 The problem is that we display the icon in two places: one in the `Tab` and one in the `Tile`.
@@ -472,14 +472,14 @@ Should the implementor not know about this, they could pass in the same `Node` t
 This could cause the implementors to believe this to be a bug.
 Sure, we could check in the constructor if both `Node`{empty}s are referring to the same object, but it's still not very user-friendly.
 
-===== File !
+===== File
 Another option would be to have the API user pass in a file, referring to the path of the icon.
 This way, we don't have the same issues as mentioned in <<_node>>.
 However, it is quite limiting, since if the API user wants to use an icon from Font Awesome or Material Design Icons, they would need to find the icon as an image and refer to the file.
 This is quite cumbersome, compared to using the `FontAwesomeFX` library and simply specifying `FontAwesomeIcon.GEAR` for example.
 Also, this would not allow API users to make use of JavaFX' support for image files with multiple scaling factors, to account for different display resolutions cite:[lemmermann_javafx_2017].
 
-===== Image !
+===== Image
 We decided to use `Image` as one of the options of passing in an icon in the constructor of `WorkbenchModule`.
 There are none of the issues mentioned in <<_node>>, since the `Image` will be wrapped in an `ImageView`, when `WorkbenchModule#getIcon()` gets called by the `Tab` and `Tile`.
 Also, it allows API users to make use of JavaFX' support for image files with multiple scaling factors cite:[lemmermann_javafx_2017].
@@ -508,7 +508,7 @@ This makes it possible to initialize all views in the same way while also result
 `Presenter` is abstract, because it acts more like a "super class" of all the presenters.
 Since all presenters don't need to extend anything else, using an abstract class here is possible.
 
-==== Overlays !
+==== Overlays
 To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `Workbench#showOverlay()` and `Workbench#hideOverlay()` methods.
 
 The GUI of WorkbenchFX is organized in layers.
@@ -528,7 +528,7 @@ In case of an application with very memory-intensive overlays, there is a possib
 Each overlay has its own `GlassPane` and it is possible to open multiple overlays on top of each other.
 While it is not recommended to open an overlay on top of another overlay, it frees the API user from having to account for timing / concurrency issues (see <<_discarded_implementations>>) during transitions between overlays.
 
-===== Challenges ! (Discarded Implementations)
+===== Challenges
 At first, we designed the API to not allow multiple overlays to be shown on top of each other.
 This enabled us to have one `GlassPane` to use for all overlays and prevented the API user from showing multiple overlays on top of each other, which is bad practice. +
 However, this lead to timing / concurrency issues when switching from one overlay to another.
@@ -548,16 +548,16 @@ But we decided to go for a compromise: we would still not remove the overlays wh
 
 === Development
 
-==== GitHub !
+==== GitHub
 The programming is being done in a GitHub repository.
 We work using the git flow branching model cite:[noauthor_successful_nodate].
 Every change is represented in a pull request to develop from the feature branches.
 
-==== Code Review !
+==== Code Review
 To improve the quality of the code and also ensure https://www.agilealliance.org/glossary/collective-ownership/[collective code ownership], every pull request gets code reviewed by the other person.
 This worked very well for us, since comments that were made by the other person always lead to improvements and code of higher quality.
 
-==== SCSS instead of CSS ! (MARCO)
+==== SCSS instead of CSS (MARCO)
 // TODO: Explain reason why we use SCSS instead of CSS
 Less code.
 Easier to read.
@@ -588,7 +588,7 @@ Using the `Mixin` in code:
 A `Mixin` includes code, created by the `Mixin` and puts it in the place where it was called.
 Link: http://thesassway.com/advanced/pure-sass-functions[SCSS - Mixin]
 
-==== General Conventions ! (MARCO)
+==== General Conventions (MARCO)
 // TODO: (CSS, PreferencesFX kopieren GOogle Java style guide)
 We have decided to define some general conventions:
 
@@ -645,14 +645,14 @@ The files to be included are named with an underscore as prefix: `_file1.scss`.
 // TODO: what do we want to cover?
 // TODO: Idea: Anzahl Zeilen Code mit Anzahl Zeilen Tests vergleichen
 
-==== Spock vs JUnit !
+==== Spock vs JUnit
 
 ==== Testing Utilities
 // TODO: (kurz erwähnen, was verwendet und wieso?) => mockito und awaitility => bisschen wegen concurrency, TESTFX!!!! Integration tests
 
 === Building
 
-==== Travis CI !
+==== Travis CI
 To simplify the code review process, we are using Travis CI.
 Travis CI is a build server similar to Jenkins.
 Compared with Jenkins, it runs in the cloud and is much more straight forward to set up in our experience.
@@ -677,7 +677,7 @@ This has the huge advantage that our work is not only easier but also safer to a
 [#travis-check]
 image::include/travis-check.png[Check by Travis CI on a GitHub pull request]
 
-==== Codecov.io !
+==== Codecov.io
 Since testing was one of our main tools to ensure good code quality, we wanted to also make use of code coverage.
 This is where codecov.io came in.
 It's a platform that visualizes code coverage and also integrates nicely with GitHub and Travis.
@@ -729,7 +729,7 @@ image::include/codecov-check.png[Check by codecov.io on a GitHub pull request]
 
 ==== Process Explanation
 
-==== Release Automation !
+==== Release Automation
 We also automated part of the release process with Travis.
 When we push a git tag on the master branch, Travis will run `mvn install`, make zips of the documentation and javadoc, followed by creating a release on GitHub and uploading the zips along with the built `jar`{empty}s.
 The only thing left is to edit the title and description with the release and its changelog, respectively.
@@ -742,7 +742,7 @@ This made releasing quicker and meant less repetitive effort on our side.
 === Value of User Stories (MARCO)
 // TODO: (How good was workshop etc.)
 
-=== Working Agile (Secret Weapon) !
+=== Working Agile
 Even though we had to face a lot of challenges, there is one thing we are especially grateful about: working in an agile way. +
 Because of the agile approach and having the whole development process transparently on GitHub, we were able to get constant feedback from our customer.
 This way, issues or misunderstandings in communication quickly became obvious and we were able to adjust the implementation accordingly right away.
@@ -772,7 +772,8 @@ Thanks to the agile way, we could resolve this quickly and early on in the proje
 
 == Summary (MARCO)
 
-=== Future Implications (what features can be done later?)
+=== Future Implications
+// TODO: (what features can be done later?)
 
 == Bibliography
 bibliography::[]
