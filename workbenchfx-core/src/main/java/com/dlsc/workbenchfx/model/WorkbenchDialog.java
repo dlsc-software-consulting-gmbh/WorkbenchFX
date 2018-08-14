@@ -563,6 +563,9 @@ public final class WorkbenchDialog {
    * {@link KeyCode#ESCAPE}, the result will be the {@link ButtonType} of
    * {@link Button#isCancelButton()} in the dialog.<br>
    * If there is no {@link Button#isCancelButton()}, the result will be {@link ButtonType#CANCEL}.
+   * <br>If there is no {@link Button#isDefaultButton()} and there is only one {@link Button} in the
+   * dialog, pressing {@link KeyCode#ENTER} will close the dialog with the result of
+   * this {@link Button}.
    *
    * @param onResult action to be performed
    * @implNote If {@code onResult} is null, an empty consumer will be set instead, to avoid
