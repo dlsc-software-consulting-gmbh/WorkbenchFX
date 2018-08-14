@@ -37,7 +37,54 @@
 - [Team](#team)
 
 # What is WorkbenchFX?
-TODO: description
+WorkbenchFX is an out of the box solution to build large applications from multiple views, called modules.
+It offers you good user experience and a beautiful design.
+...
+
+
+Als Entwickler baut anfangs mehrere Views, danach stellt sich die Frage, wie man das nun in eine Applikation bringt.
+WorkbenchFX verpackt deine Views in eine professionell aussehende Applikation.
+Hier kommt WorkbenchFX ins Spiel: Wir bieten deinen Views ein Zuhause und erledigen alles drum herum für dich.
+WorkbenchFX sorgt out of the box für ein gutes user experience und Design, damit du dich auf deine Views konzentrieren kannst.
+WorkbenchFX skaliert auch mit steigenden Anforderungen. Am Anfang möchtest du erstmal einfach zwischen den Views navigieren können, später möchtest du aber vielleicht ein Menu oder eine Toolbar nutzen, und auch das bieten wir dir, ohne dass du es selber programmieren musst.
+Wenn dir die Decke auf den Kopf fällt, dann kannst du sogar ganze Teile der Workbench mit deinen eigenen Implementationen austauschen, ohne gleich die ganze Workbench selber schreiben zu müssen.
+
+
+Wenn du an dein Zuhause denkst, denkst du wahrscheinlich an die Zimmer, die Inneneinrichtung, Dekoration, Erlebnisse die du dort erlebt hast, schöne Gefühle die du ...
+Und nicht an die Fassade, das FUndament, wie die Wände beschaffen sind, wie die Stromleitungen verlegt sind usw.
+(Dasselbe gilt auch in der Softwareentwicklung)
+Wenn du an die Entwicklung einer Applikation denkst, denkst du an die verschiedenen Views, Features,...
+Und nicht an die Navigation, das Wechseln zwischen der Views...
+
+
+Wir ermöglichen dir, dich auf die Zimmereinrichtung zu konzentrieren, während wir für dich das Haus drumherum bauen.
+Und dieses Haus wächst auch mit wachsenden Anforderungen, ohne dass du dafür etwas tun musst.
+
+
+Schritte um ein Haus zu bauen:
+1. Grundriss zeichnen
+2. Grösse der Zimmer festlegen und Zimmer einzeichnen
+3. Wände zeichnen
+4. Türen und Fenster einzeichnen
+5. Strom, Wasserrohre einzeichnen
+6. ...
+7. Haus bauen
+8. Fundament aufbauen
+9. Schalung aufbauen
+10. Betonieren
+11. Fenster und Tèren einbauen
+12. ...
+13. Als Besitzer ins Haus gehen
+14. Zimmer einrichten
+
+Schritte um ein Haus zu bauen (mit WorkbenchFX):
+1. Zimmer einrichten
+
+Haus passt sich deinen Zimmern an, ohne dass alle Schritte wiederholt werden müssen
+
+
+WorkbenchFX - das Haus passt sich deinen Zimmern an, damit du nicht die Zimmer aufgrund des Hauses aufbauen musst
+
 
 # Advantages
 - Less error-prone
