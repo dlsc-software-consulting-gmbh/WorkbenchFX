@@ -526,7 +526,7 @@ This is more efficient and especially overlays with animations profit from this 
 In case of an application with very memory-intensive overlays, there is a possibility to call `Workbench#clearOverlays()`, which will remove all overlays from the scene graph and free them up to be garbage collected.
 
 Each overlay has its own `GlassPane` and it is possible to open multiple overlays on top of each other.
-While it is not recommended to open an overlay on top of another overlay, it frees the API user from having to account for timing / concurrency issues (see <<_discarded_implementations>>) during transitions between overlays.
+While it is not recommended to open an overlay on top of another overlay, it frees the API user from having to account for timing / concurrency issues (see <<_challenges_2>>) during transitions between overlays.
 
 ===== Challenges
 At first, we designed the API to not allow multiple overlays to be shown on top of each other.
@@ -749,7 +749,7 @@ This way, issues or misunderstandings in communication quickly became obvious an
 This enabled us to develop a product of very high quality, which meets the demands of our customer and future users alike. +
 So in the end, working agile enabled us to quickly identify and resolve challenges.
 
-For example, the separation between `Workbench` and `WorkbenchSkin` only became obvious later in the project (see <<_simple_approach>>).
+For example, the separation between `Workbench` and `WorkbenchSkin` only became obvious later in the project (see <<_api_design>>).
 If we didn't get constant feedback from our customer, we would probably only have recognized this when it was too late - at the end of the project.
 Thanks to the agile way, we could resolve this quickly and early on in the project.
 
