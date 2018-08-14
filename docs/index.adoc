@@ -674,7 +674,7 @@ We didn't set a goal for the code coverage per se, since we didn't want it to le
 But in general, we tried to keep the code coverage over 90%, which is already quite high.
 In the end, we were able to reach a code coverage of *94.67%*.
 
-We realized code coverage is a tool, but metrics aren't always correct.
+We realized code coverage is a useful tool, but you can't solely rely on it.
 For example, if we added a lot of new fields with mutators and accessors, we noticed we almost always weren't able to meet the goals defined by codecov.io in the GitHub checks.
 This is because getters and setters are not tested cite:[osherove_art_2013, page=11].
 This leads to the coverage results getting skewed, since there is more code that is also not covered, reducing the code coverage.
