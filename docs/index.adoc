@@ -163,23 +163,23 @@ They are necessary, because they are shown in tabs and tiles representing each `
 Every `WorkbenchModule` also has a reference to the `Workbench` object.
 This makes it possible to individually adapt the `Workbench` to the needs of a `WorkbenchModule` or to execute tasks like switching to another module.
 
-When we added the module toolbar, we also thought it would make the most sense to include the lists with the `ToolbarItem`s in the `WorkbenchModule` itself, as they are specific for each module.
+When we added the module toolbar, we also thought it would make the most sense to include the lists with the `ToolbarItem`{empty}s in the `WorkbenchModule` itself, as they are specific for each module.
 
 ==== Rejected API
 Generally, we decided to not include anything that wasn't strictly specific to a `WorkbenchModule`.
 
-For example, we discussed whether or not to include a list with `WorkbenchModule` specific `MenuItem`s to be shown in the `NavigationDrawer`.
-In the end, we decided against it, since the `NavigationDrawer` contains global `MenuItem`s.
+For example, we discussed whether or not to include a list with `WorkbenchModule` specific `MenuItem`{empty}s to be shown in the `NavigationDrawer`.
+In the end, we decided against it, since the `NavigationDrawer` contains global `MenuItem`{empty}s.
 If there was one list in `Workbench` and one in each `WorkbenchModule`, API users could get confused.
-API users who don't know of the global list in the `Workbench`, could falsely think the `NavigationDrawer` is specific to each module, causing them to add the same `MenuItem`s in each `WorkbenchModule`.
+API users who don't know of the global list in the `Workbench`, could falsely think the `NavigationDrawer` is specific to each module, causing them to add the same `MenuItem`{empty}s in each `WorkbenchModule`.
 Additionally, some possible open questions it could cause would be:
 
 * Is there a separate module-specific `NavigationDrawer`?
-* Does the list of `MenuItem`s in the `WorkbenchModule` override or augment the list in the `Workbench`?
-* How are the module-specific and global `MenuItem`s separated?
-* Are the module-specific `MenuItem`s inserted on the top or the bottom?
+* Does the list of `MenuItem`{empty}s in the `WorkbenchModule` override or augment the list in the `Workbench`?
+* How are the module-specific and global `MenuItem`{empty}s separated?
+* Are the module-specific `MenuItem`{empty}s inserted on the top or the bottom?
 
-API users are still able to define module-specific `MenuItem`s with the already existing API, by adding them to the global list in `activate()` and removing them in `deactivate()`.
+API users are still able to define module-specific `MenuItem`{empty}s with the already existing API, by adding them to the global list in `activate()` and removing them in `deactivate()`.
 This way, we give the API users the choice of how to include them and they don't miss out on any functionality.
 It also eliminates the "guessing" of how it was implemented, as it can be observed above in the possible open questions.
 
@@ -196,7 +196,7 @@ This means the API user would need to pass in two `Node` objects, one for the ic
 Since the icon will always be the same for the `Tab` and the `Tile`, this feels very redundant and is very error-prone.
 Should the implementor not know about this, they could pass in the same `Node` twice and wonder why only one icon is being displayed.
 This could cause the implementors to believe this to be a bug.
-Sure, we could check in the constructor if both `Node`s are referring to the same object, but it's still not very user-friendly.
+Sure, we could check in the constructor if both `Node`{empty}s are referring to the same object, but it's still not very user-friendly.
 
 ==== File
 Another option would be to have the API user pass in a file, referring to the path of the icon.
@@ -498,7 +498,7 @@ We realized every module needs a reference to the `Workbench`, but we can't pass
 This lead to the `#init(Workbench)` lifecycle method, which initially sets the `workbench` reference, but also allows implementors to initialize their module.
 
 Then, we knew we needed lifecycle methods, so the implementor can know whether their module is the currently active module, which lead us to `#activate()` and `#deactivate()`.
-This makes it possible for example to have certain module-specific menu-items in the `NavigationDrawer` or `ToolbarItem`s in the Toolbar, by adding them with `#activate()` and removing them with `#deactivate()`.
+This makes it possible for example to have certain module-specific menu-items in the `NavigationDrawer` or `ToolbarItem`{empty}s in the Toolbar, by adding them with `#activate()` and removing them with `#deactivate()`.
 
 Finally, we need to allow the implementor to free up resources when a module is closed, which lead us to the `#destroy()` lifecycle method.
 This was a bit of a challenge itself though, since initially we thought it would be enough to have `void` as the return type.
@@ -702,7 +702,7 @@ image::include/codecov-check.png[Check by codecov.io on a GitHub pull request]
 
 === Release Automation
 We also automated part of the release process with Travis.
-When we push a git tag on the master branch, Travis will run `mvn install`, make zips of the documentation and javadoc, followed by creating a release on GitHub and uploading the zips along with the built `jar`s.
+When we push a git tag on the master branch, Travis will run `mvn install`, make zips of the documentation and javadoc, followed by creating a release on GitHub and uploading the zips along with the built `jar`{empty}s.
 The only thing left is to edit the title and description with the release and its changelog, respectively.
 
 This made releasing quicker and meant less repetitive effort on our side.
