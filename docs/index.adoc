@@ -37,8 +37,9 @@ The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
 === Naming
 
 ==== Navigation Drawer
-// TODO
-Comes from Material Design: https://material.io/guidelines/patterns/navigation-drawer.html
+We chose the name "Navigation Drawer" to be consistent with the naming in the https://material.io/guidelines/patterns/navigation-drawer.html[Material Design guidelines].
+This makes sure we use the naming that will be the most familiar among other developers and is easily understandable.
+An additional benefit is that if someone doesn't know what it means, they can simply look it up in the https://material.io/guidelines/patterns/navigation-drawer.html[Material Design guidelines].
 
 ==== Module Naming
 To plug in functionality by the API user, we use modules.
