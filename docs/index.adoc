@@ -14,13 +14,15 @@ Examiner: https://www.inventage.com/[Edwin Steiner, Inventage]
 
 == Acknowledgements
 
-== Introduction (MARCO)
+== Introduction
+// TODO: (MARCO)
 // TODO: (=>Kopie von Readme mit Open source)
 The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
 
 // TODO: differentiate somewhere the terms "implementor", "user" and "API user"
 
-== Motivation (MARCO)
+== Motivation
+// TODO: (MARCO)
 // TODO: Ausgangslage / Vision
 
 == Analysis
@@ -39,7 +41,8 @@ Who are the persona?
 === Applications
 // TODO: add text here
 
-==== Blender (Tool for creating 3D models) (MARCO)
+==== Blender (Tool for creating 3D models)
+// TODO: (MARCO)
 * Blender is divided up into five sections.
 ** Header --> Most important and the common settings
 ** Left Bar --> Tools
@@ -62,7 +65,8 @@ The bar itself is fixed and can't be moved.
 * When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
 // TODO: use table instead of + and -?
 
-==== Photoshop / Illustrator (Design tools) (MARCO)
+==== Photoshop / Illustrator (Design tools)
+// TODO: (MARCO)
 * Photoshop (Image tool, Pixel based)
 **
 
@@ -80,7 +84,8 @@ Multiple workspaces can be stored and it can be switched to. (+)
 **4
 // TODO: use table instead of + and -?
 
-==== IntelliJ (MARCO)
+==== IntelliJ
+// TODO: (MARCO)
 * all possibilities available,
 Right click on the tab, then one can decide the behaviour of it.
 * "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
@@ -89,10 +94,12 @@ Right click on the tab, then one can decide the behaviour of it.
 *
 // TODO: use table instead of + and -?
 
-==== Adobe XD (MARCO)
+==== Adobe XD
+// TODO: (MARCO)
 // TODO: (mehr fokus auf ist eifach, keine docking elemente usw., was unterscheidet von anderen)
 
-==== To IDE or not to IDE? (MARCO)
+==== To IDE or not to IDE?
+// TODO: (MARCO)
 // TODO: (nur grob erklären, was erkenntniss, bei IDE: docking framework notwendig, modular approach hineinnehmen)
 // TODO:
 Power users need the utmost of customizability, to ensure they can adapt the workspace to be the most ergonomic to fit their workflow.
@@ -109,14 +116,18 @@ In terms of the architecture, it could mean that it would need to allow the foll
 *** Window mode
 *** Split mode
 
-=== User Stories (MARCO)
+=== User Stories
+// TODO: (MARCO)
 // TODO: (Workshop with Customer, was very effective, Dieter Zitat, was especially effective because customer mentioned a different persona which changed everything)
 
-==== IDE Decision (MARCO)
+==== IDE Decision
+// TODO: (MARCO)
 
-==== Differentiation to Eclipse RCP (MARCO)
+==== Differentiation to Eclipse RCP
+// TODO: (MARCO)
 
-=== Minimum Viable product (MVP) (MARCO)
+=== Minimum Viable product (MVP)
+// TODO: (MARCO)
 As a result of our research we have enough information to create the minimum viable workbench for our use case.
 Nonetheless we need to break down the functionality to it's simplest scenario.
 // Kunde weiss, dass er ein minimales PRodukt erhält, welches er benutzen kann
@@ -192,17 +203,21 @@ It is more important that the user experience is straightforward.
 Still, the possibility of extending the workbench using modules is important to our customer.
 
 
-=== Usability Tests (MARCO)
+=== Usability Tests
+// TODO: (MARCO)
 
-==== Dieter Holz, Advisor (MARCO)
+==== Dieter Holz, Advisor
+// TODO: (MARCO)
 
 ===== Tabs mit Module Toolbar zusammen => gemeinsame Designsprache automatisch TODO
 
-==== ***REMOVED***, UX Expert (MARCO)
+==== ***REMOVED***, UX Expert
+// TODO: (MARCO)
 
 ===== Home Icon => HomeView, then AddModuleView => + icon
 
-==== Annelore Egger, User Group (MARCO)
+==== Annelore Egger, User Group
+// TODO: (MARCO)
 
 ===== Dropdown => ToolbarItem
 
@@ -211,7 +226,8 @@ Still, the possibility of extending the workbench using modules is important to 
 == Implementation
 // TODO: (in the beginning, say that have a look at test modules, and implementation to see all features exactly in details, in action)
 
-=== Layout (MARCO)
+=== Layout
+// TODO: (MARCO)
 Challenge:
 // TODO: ????
 
@@ -236,7 +252,8 @@ This includes features, usability and general appearance of the specific workben
 ==== Easy Styling
 // TODO: (durch Fabian einfach Stylebar, war fokus, dann beispiel dark theme, von wegen ist so einfach machbar! betonen)
 
-=== Architecture (FRANÇOIS)
+=== Architecture
+// TODO: (FRANÇOIS)
 
 ==== Constructing the Workbench
 Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
@@ -492,7 +509,8 @@ Also, since the design of WorkbenchFX is highly influenced by Material Design, w
 FontAwesomeFX offers support for the https://material.io/tools/icons/?style=baseline[official Material Design Icons by Google] and also https://materialdesignicons.com/[Material Design Icons] cite:[noauthor_fontawesomefx_nodate].
 Since all of the icons from the https://material.io/tools/icons/?style=baseline[official Material Design Icons by Google] are included, along with many others in the icon set of https://materialdesignicons.com/[Material Design Icons], we also included a constructor option for https://materialdesignicons.com/[Material Design Icons].
 
-==== MVP (FRANÇOIS)
+==== MVP
+// TODO: (FRANÇOIS)
 // TODO: (minimal überarbeiten, weil control overkill, aber trotzdem separierung in view and presenter, good experience in PreferencesFX)
 MVP (Model View Presenter) was used as general architecture pattern.
 // TODO: why?
@@ -557,7 +575,8 @@ Every change is represented in a pull request to develop from the feature branch
 To improve the quality of the code and also ensure https://www.agilealliance.org/glossary/collective-ownership/[collective code ownership], every pull request gets code reviewed by the other person.
 This worked very well for us, since comments that were made by the other person always lead to improvements and code of higher quality.
 
-==== SCSS instead of CSS (MARCO)
+==== SCSS instead of CSS
+// TODO: (MARCO)
 // TODO: Explain reason why we use SCSS instead of CSS
 Less code.
 Easier to read.
@@ -588,7 +607,8 @@ Using the `Mixin` in code:
 A `Mixin` includes code, created by the `Mixin` and puts it in the place where it was called.
 Link: http://thesassway.com/advanced/pure-sass-functions[SCSS - Mixin]
 
-==== General Conventions (MARCO)
+==== General Conventions
+// TODO: (MARCO)
 // TODO: (CSS, PreferencesFX kopieren GOogle Java style guide)
 We have decided to define some general conventions:
 
@@ -641,7 +661,8 @@ Using the `@include` tag looks like this:
 ----
 The files to be included are named with an underscore as prefix: `_file1.scss`.
 
-=== Testing (FRANÇOIS)
+=== Testing
+// TODO: (FRANÇOIS)
 // TODO: what do we want to cover?
 // TODO: Idea: Anzahl Zeilen Code mit Anzahl Zeilen Tests vergleichen
 
@@ -725,7 +746,8 @@ image::include/codecov-comment.png[Example comment on GitHub by the Codecov.io b
 [#codecov-check]
 image::include/codecov-check.png[Check by codecov.io on a GitHub pull request]
 
-=== Releasing (FRANÇOIS)
+=== Releasing
+// TODO: (FRANÇOIS)
 
 ==== Process Explanation
 
@@ -739,7 +761,8 @@ This made releasing quicker and meant less repetitive effort on our side.
 == Lessons learned
 // TODO: (we did already in the start was good idea since lots of things improved, erwähnen PreferencesFX Lessons Learned => refactoring, testing, usw, checkstyle, javadoc gerade gemacht)
 
-=== Value of User Stories (MARCO)
+=== Value of User Stories
+// TODO: (MARCO)
 // TODO: (How good was workshop etc.)
 
 === Working Agile
@@ -753,24 +776,31 @@ For example, the separation between `Workbench` and `WorkbenchSkin` only became 
 If we didn't get constant feedback from our customer, we would probably only have recognized this when it was too late - at the end of the project.
 Thanks to the agile way, we could resolve this quickly and early on in the project.
 
-=== Hacking Day (MARCO)
+=== Hacking Day
+// TODO: (MARCO)
 // TODO: (Dirk hat selber erkannt, dass nicht so einfach wie man es sich vorstellt, dass es Dirk auch etwas gebracht hat zu erkennen => besser im Projekt eingebunden, besser gemerkt wo Probleme sind)
 
-=== Animations (FRANÇOIS)
+=== Animations
+// TODO: (FRANÇOIS)
 // TODO: (Wirking auf User Experience unterschätzt, da so gut, nicht abschaltbar, da keinen Sinn macht sonst)
 
-=== Switch from Gradle to Maven (FRANÇOIS)
+=== Switch from Gradle to Maven
+// TODO: (FRANÇOIS)
 
-=== Build Automation (FRANÇOIS)
+=== Build Automation
+// TODO: (FRANÇOIS)
 // TODO: (see hotfix release, von anfang an, damit probleme vermeiden, war super, automatisierte alles am anfang)
 
-=== Java 8 / 9 / 10 (FRANÇOIS)
+=== Java 8 / 9 / 10
+// TODO: (FRANÇOIS)
 // TODO: (Paradebeispiel, Rückstand von Technologie wegen anderen, da andere es noch nicht verwenden..., Dokumentieren Situation geändert wegen Java 9 deprecated)
 
-=== Don't underestimate the seemingly most simple tasks (FRANÇOIS)
+=== Don't underestimate the seemingly most simple tasks
+// TODO: (FRANÇOIS)
 // TODO: (Closing of modules, how hard it was, completablefuture...)
 
-== Summary (MARCO)
+== Summary
+// TODO: (MARCO)
 
 === Future Implications
 // TODO: (what features can be done later?)
