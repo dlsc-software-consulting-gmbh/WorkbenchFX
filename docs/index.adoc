@@ -1,8 +1,9 @@
 = Technical Report: WorkbenchFX
 François Martin; Marco Sanfratello
 
-Advisor: mailto:dieter.holz@fhnw.ch[Dieter Holz]
 Customer: http://www.dlsc.com[Dirk Lemmermann Software & Consulting]
+Advisor: mailto:dieter.holz@fhnw.ch[Dieter Holz]
+Examiner: https://www.inventage.com/[Edwin Steiner, Inventage]
 
 // Check symbol
 :y: &#10003;
