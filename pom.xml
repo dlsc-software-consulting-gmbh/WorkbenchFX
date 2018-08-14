@@ -109,6 +109,7 @@
                                 <icons>font</icons>
                                 <linkattrs>true</linkattrs>
                                 <encoding>utf-8</encoding>
+                                <sectnums>true</sectnums>
                             </attributes>
                         </configuration>
                     </execution>
