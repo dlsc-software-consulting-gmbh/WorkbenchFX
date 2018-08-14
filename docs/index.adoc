@@ -548,6 +548,15 @@ But we decided to go for a compromise: we would still not remove the overlays wh
 
 === Development
 
+==== GitHub !
+The programming is being done in a GitHub repository.
+We work using the git flow branching model cite:[noauthor_successful_nodate].
+Every change is represented in a pull request to develop from the feature branches.
+
+==== Code Review !
+To improve the quality of the code and also ensure https://www.agilealliance.org/glossary/collective-ownership/[collective code ownership], every pull request gets code reviewed by the other person.
+This worked very well for us, since comments that were made by the other person always lead to improvements and code of higher quality.
+
 ==== SCSS instead of CSS ! (MARCO)
 // TODO: Explain reason why we use SCSS instead of CSS
 Less code.
@@ -642,15 +651,6 @@ The files to be included are named with an underscore as prefix: `_file1.scss`.
 // TODO: (kurz erwähnen, was verwendet und wieso?) => mockito und awaitility => bisschen wegen concurrency, TESTFX!!!! Integration tests
 
 === Building
-
-==== GitHub ! (TODO: MOVE!!!)
-The programming is being done in a GitHub repository.
-We work using the git flow branching model cite:[noauthor_successful_nodate].
-Every change is represented in a pull request to develop from the feature branches.
-
-==== Code Review ! (NOTHING WITH BUILDING?? TODO)
-To improve the quality of the code and also ensure https://www.agilealliance.org/glossary/collective-ownership/[collective code ownership], every pull request gets code reviewed by the other person.
-This worked very well for us, since comments that were made by the other person always lead to improvements and code of higher quality.
 
 ==== Travis CI !
 To simplify the code review process, we are using Travis CI.
