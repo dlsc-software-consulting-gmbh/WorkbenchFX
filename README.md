@@ -496,7 +496,7 @@ dialogBtn.setOnAction(event ->
 );</td>
     <td><img src="docs/images/dialogs/confirmation.png"/></td>
   </tr>
-  <tr id="exception-dialog">
+  <tr>
     <td><pre lang="java">
 // Error Dialog
 dialogBtn.setOnAction(event ->
@@ -509,7 +509,7 @@ dialogBtn.setOnAction(event ->
 );</td>
     <td><img src="docs/images/dialogs/error.png"/></td>
   </tr>
-  <tr>
+  <tr id="exception-dialog">
     <td><pre lang="java">
 // Error Dialog with exception
 dialogBtn = null; // Provokes an exception
