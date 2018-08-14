@@ -3,11 +3,12 @@
 
 == Abstract / Management summary
 
-== Danksagung
+== Acknowledgements
 
 == Introduction (=>Kopie von Readme mit Open source) MARCO
 
-== (Ausgangslage) (Vision) MARCO
+== Motivation M
+// TODO: Ausgangslage / Vision
 
 == Analysis
 
@@ -29,7 +30,7 @@
 
 ==== IDE Decision MARCO
 
-==== Abgrenzung Eclipse RCP MARCO
+==== Differentiation to Eclipse RCP MARCO
 
 === Minimum Viable product (MVP) ! MARCO
 
@@ -43,15 +44,15 @@
 
 === Usability Tests MARCO
 
-==== Dieter MARCO
+==== Dieter Holz, Advisor MARCO
 
 ===== Tabs mit Module TOolbar zusammen => gemeinsame Designsprache automatisch
 
-==== UX MARCO
+==== ***REMOVED***, UX Expert MARCO
 
 ===== Home Icon => HomeView, then AddModuleView => + icon
 
-==== Annelore MARCO
+==== Annelore Egger, User Group MARCO
 
 ===== Dropdown => ToolbarItem
 
@@ -65,7 +66,7 @@
 
 ==== Tabs (from browsers etc., is more familiar)
 
-==== Changes over Versions (visual, with screenshots), tabbar scrollbar why
+==== Changes across Versions (visual, with screenshots), tabbar scrollbar why
 
 ==== Easy Styling (durch Fabian einfach Stylebar, war fokus, dann beispiel dark theme, von wegen ist so einfach machbar! betonen)
 
