@@ -323,18 +323,22 @@ Method in WorkbenchBuilder | Description
 
 ### `Workbench`
 After the `build()` call on `WorkbenchBuilder`, the `Workbench` is created.
-The following useful calls might be of interest:
+The following selective calls might be of interest:
 
 Method in Workbench          | Description
 ---------------------------- | -----------
+`showNavigationDrawer()`     | Shows the `NavigationDrawer`
 `getNavigationDrawer()`      | Returns the `NavigationDrawer`
 `getNavigationDrawerItems()` | Returns the `ObservableList` of the drawer's `ToolbarItem`s
+`openModule()`               | Opens the specified module
+`getModules()`               | Returns a list of all modules stored in the workbench
 `show...Dialog()`            | Shows a [predefined dialog](#predefined-dialogs)
 `showDialog()`               | Shows a [custom dialog](#custom-dialog)
 `showDrawer()`               | Shows a [custom drawer](#drawer)
 `getToolbarControlsLeft()`   | Returns the list of items on the left of the `Toolbar`
 `getToolbarControlsRight()`  | Returns the list of items on the right of the `Toolbar`
 `showOverlay()`              | Shows a [custom overlay](#custom-overlay)
+`hideOverlay()`              | Hides a [custom overlay](#custom-overlay)
 
 ### `WorkbenchModule`
 The `WorkbenchModule` also provides useful functionality.
@@ -492,7 +496,7 @@ dialogBtn.setOnAction(event ->
 );</td>
     <td><img src="docs/images/dialogs/confirmation.png"/></td>
   </tr>
-  <tr>
+  <tr id="exception-dialog">
     <td><pre lang="java">
 // Error Dialog
 dialogBtn.setOnAction(event ->
@@ -525,7 +529,7 @@ try {
 }</td>
     <td><img src="docs/images/dialogs/exception.png"/></td>
   </tr>
-  <tr>
+  <tr id="details-dialog">
     <td><pre lang="java">
 // Error Dialog with details
 dialogBtn.setOnAction(event ->
@@ -581,14 +585,14 @@ WorkbenchDialog.builder(*Parameters*) | Description
 `ButtonType... buttonTypes`           | All the specified button types will be set (eg. `OK`, `CANCEL` and `APPLY` for a preferences dialog)
 
 Note: 
-- Defining `content` will override further definitions of `message` or `exception`
+- Defining `content` will override further definitions of `message`, `details` or `exception`
 
 WorkbenchDialog.builder().*Parameters* | Description
 -------------------------------------- | -----------
 `blocking(boolean)`                    | Defines whether clicking on the `GlassPane` closes the dialog or not (i.e. forcing a decision when blocking)
 `onResult(Consumer<ButtonType>)`       | After clicking on a dialog button, the clicked `ButtonType` is returned. Enables to define an action to be performed when a dialog button was pressed
-`details(String)`                      | Adding details (see the note on top)
-`exception(Exception)`                 | Adding an `Exception` (see the note on top)
+`details(String)`                      | The dialog will display the specified error message ([Error Dialog With Details](#details-dialog)). Will not be displayed when defining a content
+`exception(Exception)`                 | The dialog will display the stacktrace of a specified `Exception` ([Error Dialog With Exception](#exception-dialog)). Will not be displayed when defining a content
 `maximized(boolean)`                   | Defines whether the dialog's size should take up the whole window or only as much as needed by the content
 `showButtonsBar(boolean)`              | Defines whether the dialog's buttons should be shown or not
 `onShown(EventHandler<Event>)`         | The `EventHandler` which is called when the dialog is showing
@@ -766,7 +770,7 @@ For example, a file `darkTheme.css` is also referenced in the demo and leads to 
 If you want to change the colors of the application, create a new css file `customTheme.css` and add it to the workbench:
 
 ```Java
-customWorkbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
+workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
 ``` 
 
 In context, the code looks like this:
@@ -877,7 +881,7 @@ For further information, refer to the Javadoc of `WorkbenchUtils.convertToId()`
         Set Tab-ID of 'François' Module' to: 'tab-franois-module'
         Set Tile-ID of 'François' Module' to: 'tile-franois-module'
 
-Referring to the custom workbench in the chapter [Getting Started](#getting-started):
+Starting with the result after chapter [Getting Started](#getting-started):
 
 Assuming the `Tab` and `Tile` need to be restyled, add the following code snippet to the `customTheme.css` file:
 
