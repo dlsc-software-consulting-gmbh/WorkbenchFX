@@ -91,34 +91,67 @@ We'll refer to their names in the documentation.
 |===
 
 === Applications
-// TODO: add text here
+One of our fist steps in the project was gathering information about existing applications.
+Because there are lots of applications available, we tried to look at a variety of them to gain a good overview.
+The following sub chapters are showing each an image of the analyzed program and a table with its characteristics and (if there) some positive or negative impressions.
 
 ==== Blender (Tool for creating 3D models)
-// TODO: (MARCO)
-* Blender is divided up into five sections.
-** Header --> Most important and the common settings
-** Left Bar --> Tools
-** Right Bar --> Tools
-** Footer --> Animation, and view-modes
-** Center --> The model, which is created
-* All sections are resizable
-* If their size becomes 0, they disappear but can be restored using the short code (-)
-* Using short codes to show/hide the bars. (+)
-Each bar has it's own short code.
-There is no animation, when showing or hiding.
-No possibility to show/hide the bars manually (-)
-* Top right corner --> drag and create so a new window.
-Each window shows the same part, but it's view is independent. (+)
-To delete the window: Drag the corner back (-)
-* Items in a bar can be moved manually, but only in the bar itself.
-The bar itself is fixed and can't be moved.
-* Items in the bar can be collapsed, in order to save space and make it cleaner.
-* The tools in the toolbar are stored in tabs.
-* When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
-// TODO: use table instead of + and -?
+Blender is a tool for creating 3D models which are used in animation movies or in game development.
+It is a tool which requires a lot of skill and is not an "every day" program.
+The image below gives a short impression of the tool and the table below shows our findings for this tool.
+// TODO: Insert image
+
+.Characteristics of Blender
+[#characteristics-blender]
+|===
+|Characteristics |Positive Impressions |Negative Impressions
+|Blender is divided up into five sections:
+
+- Header: The most important and common settings
+
+- Left bar: Several tools
+
+- Right bar: Several tools
+
+- Footer: Animation, and view-modes
+
+- Center: The model which is created (main work)
+|
+|
+|All sections are resizable
+|
+|If their size becomes 0, they disappear.
+ They can be restored, but only by using a short code
+|The sections can be shown and hidden as they are not used anymore
+|Using short codes to show/hide the bars.
+|- There is no animation, when showing or hiding.
+
+- No possibility to show/hide the bars manually
+|In the top right corner: Dragging a triangle creates a new window
+|Each view shows the same part, but it's view is independent
+(Interesting feature, but as it is a very specific feature probably not usable for WorkbenchFX)
+|To remove the view one has to drag the corner back in a certain way, which is very unintuitive
+|Items in a bar can be moved manually, but only in the bar itself
+|
+|
+|The bar itself is fixed and can't be moved
+|
+|
+|Items in the bar can be collapsed, in order to save space and make it cleaner (like a drawer inside a drawer)
+|
+|
+|The tools in the toolbar are stored in tabs
+|
+|
+|When creating a new project, all settings are restored to default
+|If the workspace becomes a 'mess', one can simply open a new window and everything is restored.
+(probably give a setting to turn this feature on and off)
+|When a user is used to work a certain way he has to change the workspace every time he starts a new project
+|===
 
 ==== Photoshop / Illustrator (Design tools)
-// TODO: (MARCO)
+// TODO: Insert image
+
 * Photoshop (Image tool, Pixel based)
 **
 
@@ -137,7 +170,8 @@ Multiple workspaces can be stored and it can be switched to. (+)
 // TODO: use table instead of + and -?
 
 ==== IntelliJ
-// TODO: (MARCO)
+// TODO: Insert image
+
 * all possibilities available,
 Right click on the tab, then one can decide the behaviour of it.
 * "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
@@ -147,11 +181,13 @@ Right click on the tab, then one can decide the behaviour of it.
 // TODO: use table instead of + and -?
 
 ==== Adobe XD
-// TODO: (MARCO)
+// TODO: Insert image
+
 // TODO: (mehr fokus auf ist eifach, keine docking elemente usw., was unterscheidet von anderen)
 
 ==== To IDE or not to IDE?
-// TODO: (MARCO)
+// TODO: Insert image
+
 // TODO: (nur grob erklären, was erkenntniss, bei IDE: docking framework notwendig, modular approach hineinnehmen)
 // TODO:
 Power users need the utmost of customizability, to ensure they can adapt the workspace to be the most ergonomic to fit their workflow.
