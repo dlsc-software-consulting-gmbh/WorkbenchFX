@@ -377,9 +377,8 @@ TIP: The https://www.figma.com/proto/LY7jPWrDVQ5GG1zmvBdlA2MT/WorkbenchFX?scalin
 === Naming
 
 ==== Module Naming
-// TODO: (link to Add Module Page)
 To plug in functionality by the API user, we use modules.
-However, the name `Module` is not ideal, since that name already has a lot of associations.
+However, as stated in chapter link:#add_module_page[Add Module Page] the name `Module` is not ideal, since that name already has a lot of associations.
 Additionally, when typing `extends Module` in an IDE, it will automatically imports Java's `Module`.
 This makes it frustrating, as the implementor has to manually change the import.
 
@@ -454,11 +453,32 @@ So everyone talks the same language.
 To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
 This includes features, usability and general appearance of the specific workbench.
 
-==== Add Module Page
-// TODO: (familiar from smartphones => Modulares konzept, mehrere kleine Applikationen, aber Application macht nicht Sinn als Name, verlinken auf Module Naming)
-
 ==== Tabs
-// TODO: (from browsers etc., is more familiar)
+We stuck early to the modular concept of having multiple views and switching between them using tabs.
+This concept is widely used.
+Most of the applications analyzed in chapter link:#_applications[Applications] use the tab concept to switch between their files.
+Also common internet browsers like https://www.google.com/intl/de_ALL/chrome/[Google Chrome] or https://www.mozilla.org/de/firefox/new/[Firefox] use the tab system too.
+
+==== Add Module Page
+Having a page which allows the user to open a new module is also commonly used.
+For example smartphone operating systems use such a concept, when they display icons of installed apps and open them on click.
+
+For this reason we decided to go with a system, where the user could click on a certain button to open a module.
+After clicking on this button, a page would open on which all the available modules are displayed on a grid.
+Clicking on one of those "Tiles" (since the rectangular button to open the module looks like a tile, we agreed to go with this name) would open the module.
+This way, the user has a good overview on all the modules and could easily open them.
+
+Going with this concept triggered a discussion about naming the components.
+When we described the concept, we struggled with naming the module.
+Viewed objectively the complete application built with WorkbenchFX consists of multiple "mini applications".
+For obvious reasons we could not name the module "MiniApplication".
+Fabian for instance would be very confused when he should implement a "MiniApplication".
+So we had to find a better name.
+In the end we came up with WorkbenchModule which was also not the best solution, since a lot of associations stick with the name module.
+But it is definitely a better choice than "Application" (the complete naming process is described in chapter link:#module_naming[Module Naming]).
+
+When having a lot of modules, the available space on the page would fast shrink and the usability would also decrease.
+For that reason we introduced a pagination to have only a restricted amount of modules displayed on the page.
 
 ==== Changes across Versions
 // TODO: (visual, with screenshots), tabbar scrollbar why
