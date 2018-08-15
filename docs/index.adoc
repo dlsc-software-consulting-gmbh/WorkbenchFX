@@ -515,7 +515,7 @@ Also, since the design of WorkbenchFX is highly influenced by Material Design, w
 FontAwesomeFX offers support for the https://material.io/tools/icons/?style=baseline[official Material Design Icons by Google] and also https://materialdesignicons.com/[Material Design Icons] cite:[noauthor_fontawesomefx_nodate].
 Since all of the icons from the https://material.io/tools/icons/?style=baseline[official Material Design Icons by Google] are included, along with many others in the icon set of https://materialdesignicons.com/[Material Design Icons], we also included a constructor option for https://materialdesignicons.com/[Material Design Icons].
 
-==== MVP
+==== Model View Presenter (MVP)
 // TODO: (FRANÇOIS)
 // TODO: (minimal überarbeiten, weil control overkill, aber trotzdem separierung in view and presenter, good experience in PreferencesFX)
 MVP (Model View Presenter) was used as general architecture pattern.
