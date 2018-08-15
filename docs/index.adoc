@@ -434,7 +434,8 @@ But during the usability test our advisor mentioned the complexity of using `Com
 It is also unlikely, that Fabian would know what `CompletableFutures` are and we didn't wanted him to have an unnecessary barrier to achieve his goal.
 
 So we figured out a much simpler solution.
-A detailed chapter about interrupt closing a module can be found in the readme.md of WorkbenchFX.
+
+NOTE: A detailed chapter about interrupt closing a module can be found in the readme.md of WorkbenchFX.
 
 ===== Module Toolbar
 Our advisor's module had a dark background, but the tab's color was white.
@@ -451,7 +452,7 @@ This way it is ensured, that an implementor always has the possibility to mainta
 The biggest impact on the WorkbenchFX styling came from this UX expert.
 A lot of the feedback he gave us was really helpful and we decided to adapt a lot of it.
 
-// TODO: reference the material design
+// TODO: reference the material design?
 * The active tab should be more styled like a real tab in a browser (at this time our active tabs had simply a white border on bottom of the tab https://material.io/design/components/tabs.html[Material Design]).
 * The tabs should be styleable with unique colors (which can now be done using the unique `#id`)
 * Get rid of the home button and replace it with a `+` button on the right end of the toolbar
@@ -487,18 +488,7 @@ Those modules can be checked out when launching the `CustomDemo` in the `workben
 This way, all the features can be seen exactly in details and in action.
 
 === Layout
-// TODO: (MARCO)
-Challenge:
-// TODO: ????
-
-* Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
-* Unique glossary --> Like in the previous project, we aknowledge, that a shared understanding with the customer is needed.
-
-Thus, we're going to define a unique glossary.
-So everyone talks the same language.
-
-To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
-This includes features, usability and general appearance of the specific workbench.
+Following chapters cover some of the most interesting topics and design decisions we encountered during the layout process.
 
 ==== Tabs
 We stuck early to the modular concept of having multiple views and switching between them using tabs.
@@ -530,8 +520,35 @@ For that reason we introduced a pagination to have only a restricted amount of m
 ==== Changes across Versions
 // TODO: (visual, with screenshots), tabbar scrollbar why
 
+There are three major changes mentionable which appeared during the project:
+
+* The phase when we were writing our own stylesheet without any help of external sources.
+* The phase where we switched over using the Material Design standards.
+* The phase after the usability tests, where we separated the single bar on top into the toolbar and the tab bar and went full material
+
 ==== Easy Styling
-// TODO: (durch Fabian einfach Stylebar, war fokus, dann beispiel dark theme, von wegen ist so einfach machbar! betonen)
+// TODO: source reference of using variables and source of variable naming of MD
+Our superior goal was to enable Fabian a simple way to style his application in a very simple way.
+Of course he would not take advantage of all of the styling possibilities.
+But we thought he might want to change at least the default color theme of the workbench.
+
+We went with the idea of Fabian changing only a few color values and the whole application would be restyled.
+To achieve this we worked with css variables.
+We defined all of the color variables in the `* / .root` selector of the `css` file and used throughout the whole stylesheet only those variables.
+
+During defining the color variables, we discussed their names and usage in the workbench.
+In the end we decided to rely on the Material Design naming convention of colors and to use them as defined.
+This way, every API user is able to research on how to use our variables and in which context they are used.
+
+By simply using the color variables, Fabian can create a custom stylesheet, assign it to the workbench and overwrite the colors he'd like to change.
+
+TIP: To visualize the simplicity of changing styles, a `darkTheme.css` is referenced in the `CustomDemo.java` file located in the `workbenchfx-demo` package.
+
+SteffiFX on the other hand might want to style the application a bit more.
+For this case we gave every component used in the workbench either an `#id` or a `.class` name.
+This way SteffiFX is able to restyle the complete application if she'd like to.
+
+NOTE: A detailed chapter about restyling the application can be found in the readme.md of WorkbenchFX.
 
 === Architecture
 // TODO: (FRANÇOIS)
