@@ -680,24 +680,55 @@ One of the criteria in the definition of done is having unit tests for the code.
 We would not merge a pull request before the tests are all done and passed.
 This improved the code quality by a lot, since we found around two bugs (sometimes less, sometimes more) per pull request during testing.
 
-We thought about using Test Driven Development (TDD), but beause the framework is new, the API was not clear from the beginning.
+We thought about using Test Driven Development (TDD), but because the framework is new, the API was not clear from the beginning.
 Since we had a focus on good "usability" of the API for the API users, the API would change a lot during development.
 This is why we decided not to do TDD, because it meant we would have needed to constantly adapt the tests to the changing API in the beginning of the development, which would be very inefficient.
 
 ==== JUnit vs Spock
 Most of our unit testing, especially in the beginning, was done by using JUnit.
-However, when there were some test cases that were very data driven.
+However, when there were some test cases that were data driven.
 // TODO: add source and maybe code snippet of data driven testing with junit?
-JUnit 5 does have data driven testing capabilities, but the way tests have to be implemented to be data driven is not very readable.
+JUnit 5 does have data driven testing capabilities, but it doesn't offer much flexibility and the way tests have to be implemented to be data driven is not very readable.
 // TODO: add source
 Also, JUnit 5's data driven testing API is still considered "experimental".
 We didn't want to risk all of our data driven tests becoming obsolete, should JUnit later choose to change the concept entirely.
 Combined with the readability argument, we decided not to do data driven testing with JUnit.
 
 // TODO: reference to picture
-At first, we proceeded to write the data driven tests in JUnit, but the tests looked really bad.
-They had lots of duplicated code and therefore were not very maintainable.
-// TODO: include image
+At first, we proceeded to write the data driven tests as usual in JUnit.
+But they had lots of duplicated code and therefore were not very maintainable.
+We decided to invest some time to find a better solution.
+
+// TODO: add link to spock
+We already knew Spock as a testing framework, but we have never used it before in a Java context, since Spock is written in Groovy.
+// TODO: very well implemented => source?
+However, Spock has one big advantage over JUnit: Data driven testing is very well implemented.
+Parameters in data driven tests are implemented in a table-like format.
+// TODO: fully parametrized??
+A test case can be built fully parametric, which means the tested method and assertions only need to be written once.
+Spock will then dynamically run the test case multiple times with each row of the table-like data structure as parameters.
+This makes the code much more readable and maintainable.
+It also means adding another data set after the fact just means adding another row to the data, not copying and modifying unit test code over and over again.
+
+However, it was still unclear whether we could use Spock to test Java code and even more so JavaFX applications, which are already more difficult to test.
+// TODO: add source
+A quick research proved that in theory it could be possible.
+Even TestFX (see <<_testing_utilities>>) offers support for Spock, so it seemed like a viable option.
+We did some research in GitHub, but we didn't find any Java projects which used *JUnit 5* together with Spock.
+After a lot of challenges, we were able to make it work.
+// TODO: source for junit vintage => junit 4
+The key part to the solution, was that we needed to add the JUnit Vintage Engine, which is the engine from JUnit 4.
+Everything that was needed to make it work can be seen in the <<misc-reference.adoc#_maven_code_pom_xml_code_workbenchfx_core,`pom.xml` file of `workbenchfx-core`>>
+
+However, the end result was well worth the effort.
+We rewrote the data driven JUnit 5 test with lots of duplicated code mentioned above with Spock and compared both in <<comparison-junit-spock>>.
+
+.Comparison of a Data Driven Unit Test with JUnit 5 and Spock
+[#comparison-junit-spock]
+image::include/comparison_junit_spock/comparison_junit_spock.png[Comparison of a Data Driven Unit Test with JUnit 5 and Spock]
+
+Not only is the unit test written with Spock much more readable, but also easier to maintain.
+The output is much easier to read with Spock as well, since it creates a separate test for every row in the parameters.
 
 ==== Testing Utilities
 // TODO: (kurz erwähnen, was verwendet und wieso?) => mockito und awaitility => bisschen wegen concurrency, TESTFX!!!! Integration tests
