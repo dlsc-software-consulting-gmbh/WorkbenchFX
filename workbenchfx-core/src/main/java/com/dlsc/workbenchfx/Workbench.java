@@ -501,9 +501,9 @@ public final class Workbench extends Control {
   }
 
   /**
-   * Goes back to the home screen where the user can choose between modules.
+   * Goes back to the AddModulePage screen where the user can choose between modules.
    */
-  public final void openHomeScreen() {
+  public final void openAddModulePage() {
     activeModule.setValue(null);
   }
 

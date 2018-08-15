@@ -13,13 +13,16 @@
       -fx-fill: -on-surface-color; }
     .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .label, #toolbar #top-box .context-menu .menu-item .label,
     .root #workbench #content-view .toolbar-control .context-menu .menu-item .label {
-      -fx-padding: 0 2em 0 .25em; }
+      -fx-padding: 0 .5em 0 0; }
       .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .label .text, #toolbar #top-box .context-menu .menu-item .label .text,
       .root #workbench #content-view .toolbar-control .context-menu .menu-item .label .text {
         -fx-fill: -on-surface-color !important; }
-    .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .right-container > .arrow, #toolbar #top-box .context-menu .menu-item .right-container > .arrow,
-    .root #workbench #content-view .toolbar-control .context-menu .menu-item .right-container > .arrow {
-      -fx-background-color: -on-surface-color; }
+    .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .right-container, #toolbar #top-box .context-menu .menu-item .right-container,
+    .root #workbench #content-view .toolbar-control .context-menu .menu-item .right-container {
+      -fx-padding: 0 0 0 2em; }
+      .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item .right-container > .arrow, #toolbar #top-box .context-menu .menu-item .right-container > .arrow,
+      .root #workbench #content-view .toolbar-control .context-menu .menu-item .right-container > .arrow {
+        -fx-background-color: -on-surface-color; }
     .navigation-drawer .drawer-box .pretty-scroll-pane .viewport .menu-container .context-menu .menu-item:focused, #toolbar #top-box .context-menu .menu-item:focused,
     .root #workbench #content-view .toolbar-control .context-menu .menu-item:focused {
       -fx-background-color: rgba(0, 0, 0, 0.075); }
@@ -64,7 +67,10 @@
     -fx-padding: .6em .65em .6em .65em; }
     #toolbar #top-box .context-menu .menu-item .label,
     .root #workbench #content-view .toolbar-control .context-menu .menu-item .label {
-      -fx-padding: 0 1.6em 0 .2em; }
+      -fx-padding: 0 .4 0 0; }
+    #toolbar #top-box .context-menu .menu-item .right-container,
+    .root #workbench #content-view .toolbar-control .context-menu .menu-item .right-container {
+      -fx-padding: 0 0 0 1.6em; }
   #toolbar #top-box .context-menu > .scroll-arrow,
   .root #workbench #content-view .toolbar-control .context-menu > .scroll-arrow {
     -fx-padding: .8em; }
