@@ -92,7 +92,7 @@ public final class ToolbarPresenter extends Presenter {
   @Override
   public final void setupEventHandlers() {
     // When the home button is clicked, the view changes
-    view.addModuleBtn.setOnAction(event -> model.openHomeScreen());
+    view.addModuleBtn.setOnAction(event -> model.openAddModulePage());
     // When the menu button is clicked, the navigation drawer gets shown
     view.menuBtn.setOnAction(event -> model.showNavigationDrawer());
   }
@@ -124,7 +124,7 @@ public final class ToolbarPresenter extends Presenter {
       if (!Objects.isNull(newModule)) {
         model.openModule(newModule);
       } else {
-        model.openHomeScreen();
+        model.openAddModulePage();
       }
     });
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {

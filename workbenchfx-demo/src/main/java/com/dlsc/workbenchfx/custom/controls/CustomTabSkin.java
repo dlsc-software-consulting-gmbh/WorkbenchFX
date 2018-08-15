@@ -23,9 +23,6 @@ import org.apache.logging.log4j.Logger;
 public class CustomTabSkin extends SkinBase<CustomTab> {
 
   private static final Logger LOGGER = LogManager.getLogger(CustomTabSkin.class.getName());
-  private static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
-
-  private final ReadOnlyObjectProperty<WorkbenchModule> module;
 
   private HBox controlBox;
   private StackPane closeIconShape;
@@ -33,7 +30,6 @@ public class CustomTabSkin extends SkinBase<CustomTab> {
 
   private Label nameLbl;
 
-  private final ReadOnlyBooleanProperty activeTab;
   private final ReadOnlyStringProperty name;
   private final ReadOnlyObjectProperty<Node> icon;
 
@@ -44,8 +40,6 @@ public class CustomTabSkin extends SkinBase<CustomTab> {
    */
   public CustomTabSkin(CustomTab tab) {
     super(tab);
-    module = tab.moduleProperty();
-    activeTab = tab.activeTabProperty();
     name = tab.nameProperty();
     icon = tab.iconProperty();
 
@@ -77,7 +71,6 @@ public class CustomTabSkin extends SkinBase<CustomTab> {
     nameLbl.getStyleClass().add("tab-name-lbl");
 
     controlBox.getStyleClass().add("tab-control");
-    controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
   }
 
   private void setupBindings() {
@@ -89,19 +82,6 @@ public class CustomTabSkin extends SkinBase<CustomTab> {
   }
 
   private void setupValueChangedListeners() {
-    // add or remove "active tab" style class, depending on state
-    activeTab.addListener((observable, wasActive, isActive) -> {
-      LOGGER.trace("Tab Factory - Was active: " + wasActive);
-      LOGGER.trace("Tab Factory - Is active: " + isActive);
-      if (isActive) {
-        controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-        LOGGER.trace("STYLE SET");
-      } else {
-        // switch from this to other tab
-        controlBox.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
-      }
-    });
-
     // handle icon changes
     icon.addListener((observable, oldIcon, newIcon) -> {
       if (oldIcon != newIcon) {
