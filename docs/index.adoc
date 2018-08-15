@@ -691,37 +691,42 @@ We employed the pattern of _Dependency Injection_ whenever we could, since that 
 ==== JUnit vs Spock
 Most of our unit testing, especially in the beginning, was done by using JUnit.
 However, when there were some test cases that were data-driven.
-// TODO: add source and maybe code snippet of data-driven testing with junit?
-JUnit 5 does have data-driven testing capabilities, but it doesn't offer much flexibility and the way tests have to be implemented to be data-driven is not very readable.
-// TODO: add source
-Also, JUnit 5's data-driven testing API is still considered "experimental".
+JUnit 5 does have data-driven testing capabilities, but it doesn't offer much flexibility and the way tests have to be implemented to be data-driven is not very readable cite:[bechtold_junit_nodate].
+An example can be seen in <<junit-parameterized>>.
+
+.Parameterized Tests with JUnit 5
+[source,java]
+[#junit-parameterized]
+----
+@ParameterizedTest
+@ValueSource(strings = { "racecar", "radar", "able was I ere I saw elba" })
+void palindromes(String candidate) {
+    assertTrue(isPalindrome(candidate));
+}
+----
+
+Also, JUnit 5's data-driven testing API is still considered "experimental" cite:[bechtold_junit_nodate].
 We didn't want to risk all of our data-driven tests becoming obsolete, should JUnit later choose to change the concept entirely.
 Combined with the readability argument, we decided not to do data-driven testing with JUnit.
 
-// TODO: reference to picture
 At first, we proceeded to write the data-driven tests as usual in JUnit.
-But they had lots of duplicated code and therefore were not very maintainable.
+But they had lots of duplicated code and therefore were not very maintainable (see <<comparison-junit-spock>>).
 We decided to invest some time to find a better solution.
 
-// TODO: add link to spock
 We already knew Spock as a testing framework, but we have never used it before in a Java context, since Spock is written in Groovy.
-// TODO: very well implemented => source?
 However, Spock has one big advantage over JUnit: Data driven testing is very well implemented.
-Parameters in data-driven tests are implemented in a table-like format.
-// TODO: fully parametrized??
-A test case can be built fully parametric, which means the tested method and assertions only need to be written once.
-Spock will then dynamically run the test case multiple times with each row of the table-like data structure as parameters.
+Parameters in data-driven tests are implemented in a table-like format (see <<comparison-junit-spock>>).
+A test case can be built fully parameterized, which means the tested method and assertions only need to be written once.
+Spock will then dynamically run the test case multiple times with each row of the table-like data structure as parameters cite:[niederwieser_data_nodate].
 This makes the code much more readable and maintainable.
 It also means adding another data set after the fact just means adding another row to the data, not copying and modifying unit test code over and over again.
 
 However, it was still unclear whether we could use Spock to test Java code and even more so JavaFX applications, which are already more difficult to test.
-// TODO: add source
-A quick research proved that in theory it could be possible.
-Even TestFX (see <<_testing_utilities>>) offers support for Spock, so it seemed like a viable option.
-We did some research in GitHub, but we didn't find any Java projects which used *JUnit 5* together with Spock.
+In theory it should be possible, as Spock claims on their website cite:[noauthor_spock_nodate].
+At least TestFX (see <<_testing_utilities>>) offers support for Spock, so it seemed like a viable option.
+We did some research on GitHub, but we didn't find any Java projects which used *JUnit 5* together with Spock and *Maven*.
 After a lot of challenges, we were able to make it work.
-// TODO: source for junit vintage => junit 4
-The key part to the solution, was that we needed to add the JUnit Vintage Engine, which is the engine from JUnit 4.
+The key part to the solution, was that we needed to add the JUnit Vintage Engine, which is the engine that enables to run JUnit 3 and 4 tests cite:[bechtold_junit_nodate].
 Everything that was needed to make it work can be seen in the <<misc-reference.adoc#_maven_code_pom_xml_code_workbenchfx_core,`pom.xml` file of `workbenchfx-core`>>
 
 However, the end result was well worth the effort.
@@ -735,7 +740,6 @@ Not only is the unit test written with Spock much more readable, but also easier
 The output is much easier to read with Spock as well, since it creates a separate test for every row in the parameters.
 
 ==== Testing Utilities
-// TODO: (kurz erwähnen, was verwendet und wieso?) => mockito und awaitility => bisschen wegen concurrency, TESTFX!!!! Integration tests
 There were a few testing utilities we used to augment the already existing features of JUnit and Spock.
 
 ===== Mockito
@@ -745,8 +749,7 @@ For example, it allowed us to mock the view classes, so we could test presenter 
 
 ===== TestFX
 Using TestFX made it even possible to test JavaFX code.
-// TODO: source for toolkit not initialized, exact message
-Without it, JavaFX will throw `Toolkit not initialized` exceptions for all method calls that run on the GUI thread.
+Without it, JavaFX will throw `IllegalStateException: Toolkit not initialized` for all method calls that run on the GUI thread.
 TestFX also offers the possibility of automated GUI testing, which we decided not to make use of because of the fragile nature of those tests.
 We used unit tests whenever possible and when it wasn't, we used integration tests.
 See the tests in `workbenchfx-core/src/test` for more information.
