@@ -672,7 +672,6 @@ Using the `@include` tag looks like this:
 The files to be included are named with an underscore as prefix: `_file1.scss`.
 
 === Testing
-// TODO: (FRANÇOIS)
 Code quality is one of our main priorities in this project.
 Since the framework is meant to be used in enterprise applications as well, WorkbenchFX needs to be robust.
 Also, we wanted to rather have less features, but of better quality.
@@ -849,16 +848,51 @@ image::include/codecov-comment.png[Example comment on GitHub by the Codecov.io b
 image::include/codecov-check.png[Check by codecov.io on a GitHub pull request]
 
 === Releasing
-// TODO: (FRANÇOIS)
+When working agile, releasing often is important cite:[raymond_cathedral_2001, page=28].
+Since we are only in a team of two, we think it wouldn't make sense to have a strict release plan.
+Instead, we opted to release whenever it makes sense.
+This was mainly for example when a new major feature was introduced and there are no other major features expected in the next few days.
 
-==== Process Explanation
+Concerning the version numbering scheme, we chose to adhere to the following: vX.Y.Z
+
+* X
+** 0 -> before we reached the MVP
+** 1 -> after we reached the MVP
+** 2 -> final version to hand in for the bachelor thesis
+* Y
+** Starting from 0, incremented by 1 with every major release
+* Z
+** Starting from 0, incremented by 1 with every hotfix release
+
+==== Process
+Over time, we established the following process for releases:
+
+. Checkout `develop`, pull and start a release with git flow
+.. Example branch name `release/v0.7.1` for version v0.7.1
+. Create a pull request (PR) from `release` branch to `master`
+.. Title: version number (for example "_Release v0.7.1_")
+.. Description: enter what has changed since the last release
+. In the `pom.xml` file of `workbenchfx-parent`:
+.. Update the property `workbenchfx.version` with the new version number (for example `0.7.1`)
+. Run `mvn install -DskipTests` to automatically propagate the new version number to all files
+. Commit and push to the release branch
+. Have the release PR approved by a member different from the one creating the PR
+. Merge the pull request
+. Checkout `master`
+. Run `git tag v0.7.1`, followed by `git push origin v0.7.1` (each with the new version number)
+. Go to releases on Github and edit the release when Travis has finished the deployment
+.. Edit title and description to match the one of the release PR
+. Checkout develop
+. Merge master into develop to ensure the version changes are also present there
 
 ==== Release Automation
 We also automated part of the release process with Travis.
 When we push a git tag on the master branch, Travis will run `mvn install`, make zips of the documentation and javadoc, followed by creating a release on GitHub and uploading the zips along with the built `jar`{empty}s.
-The only thing left is to edit the title and description with the release and its changelog, respectively.
+The only thing left is to edit the title and description with the release and its changelog, respectively (see <<_process>>).
 
 This made releasing quicker and meant less repetitive effort on our side.
+
+Details on the implementation can be found in the `.travis.yml` file.
 
 == Lessons learned
 // TODO: (we did already in the start was good idea since lots of things improved, erwähnen PreferencesFX Lessons Learned => refactoring, testing, usw, checkstyle, javadoc gerade gemacht)
