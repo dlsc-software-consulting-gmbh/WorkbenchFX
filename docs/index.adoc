@@ -877,11 +877,78 @@ This worked very well for us, since comments that were made by the other person 
 ==== SCSS instead of CSS
 // TODO: (MARCO)
 // TODO: Explain reason why we use SCSS instead of CSS
-Less code.
-Easier to read.
-Plugin for IntelliJ which translates SCSS code into CSS:
-https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[SCSS to CSS]
+In web development the transpiler `SCSS` to `CSS` is commonly used.
+But we were not finding much information about using it with `JavaFX` projects.
+Because `SCSS` is:
 
+* much easier to write
+* easier to read
+* less code is needed the more complex the styling becomes
+* provides much more features compared to `CSS`
+
+we decided to give it a try.
+
+For example lets say we're having an application with two views fit in one larger view.
+All three views have some default colors.
+If we want to change the colors on hover we had to write following `CSS` code:
+
+[source,css]
+----
+.myClass {
+  -fx-background-color: RED;
+}
+.myClass .innerClass {
+  -fx-background-color: BLACK;
+}
+.myClass .otherInnerClass {
+  -fx-background-color: WHITE;
+}
+.myClass:hover {
+  -fx-background-color: BLUE; /* Change from RED to BLUE on hover */
+}
+.myClass:hover .innerClass {
+  -fx-background-color: WHITE; /* Change from BLACK to WHITE on hover */
+}
+.myClass:hover .otherInnerClass {
+  -fx-background-color: BLACK; /* Change from WHITE to BLACK on hover */
+}
+----
+
+The code appears to be redundant and very flat, bad to read.
+`SCSS` on the other hand:
+
+[source,sass]
+----
+.myClass {
+  -fx-background-color: RED;
+  & .innerClass {
+    -fx-background-color: BLACK;
+  }
+  & .otherInnerClass {
+    -fx-background-color: WHITE;
+  }
+
+  &:hover {
+  -fx-background-color: BLUE; /* Change from RED to BLUE on hover */
+    & .innerClass {
+      -fx-background-color: WHITE; /* Change from BLACK to WHITE on hover */
+    }
+    & .otherInnerClass {
+      -fx-background-color: BLACK; /* Change from WHITE to BLACK on hover */
+    }
+  }
+}
+----
+
+// TODO: Verschachtelt to english
+Is much easier to read thanks to the folded code writing.
+The code is also adaptable.
+If additional stylings are required, they can simply be added.
+`SCSS` will become handier and more powerful as the complexity of the stylesheet grows.
+
+TIP: IntelliJ plugin to transpile https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[SCSS to CSS]
+
+// TODO: Replace with useful examples
 There is no margin in JavaFX CSS.
 We've made a workaround using a `SCSS Mixin` which looks like this:
 
