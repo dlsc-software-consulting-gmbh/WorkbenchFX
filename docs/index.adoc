@@ -276,7 +276,6 @@ The image below gives a short impression of the program and the table below show
 ==== Figma
 // TODO: Insert image
 // TODO: Write Chapter
-
 // TODO: (mehr fokus auf ist eifach, keine docking elemente usw., was unterscheidet von anderen)
 Like the tool in previous chapter, Figma is a tool used for prototyping.
 Using it is also very easy and intuitive.
@@ -350,7 +349,7 @@ So we had to focus on simple, easy to understand features which are intuitive to
 ==== Differentiation to Eclipse RCP
 // TODO: (MARCO)
 
-=== Minimum Viable product (MVP)
+=== Minimum Viable Product (MVP)
 // TODO: Include resource reference?
 To ensure a shared understanding between the customer and ourselves, we agreed on a minimum viable product (MVP).
 The outcome resulted in a very minimalistic version of the workbench, which still provides an added value comparing to writing it manually.
@@ -415,14 +414,38 @@ This also means that we don't need to design the panes we use internally to be r
 It is more important that the user experience is straightforward.
 Still, the possibility of extending the workbench using modules is important to our customer.
 
-
 === Usability Tests
-// TODO: (MARCO)
+During the project we continuously got feedback from different kinds of people.
+In the following chapters are the most important outcomes from usability tests listed.
 
 ==== Dieter Holz, Advisor
-// TODO: (MARCO)
+During the "Hacking Days" we've made from time to time (more about them in chapter link:#_hacking_day[Hacking Day]), our advisor tested the API by implementing a module on his own.
+This showed us some weaknesses in the API.
+Two very important findings were discovered:
 
-===== Tabs mit Module Toolbar zusammen => gemeinsame Designsprache automatisch TODO
+===== Interrupt Closing a Module
+It is possible to interrupt closing a module.
+For instance if someone wants to ask the user if the progress should be saved before closing, the module should not be closed immediately.
+During the implementation of the dialogs we used `CompletableFutures`.
+we used them also to achieve the interrupt closing process since a dialog would be shown in our example.
+
+First it made sense and it also worked.
+But during the usability test our advisor mentioned the complexity of using `CompletableFutures`.
+It is also unlikely, that Fabian would know what `CompletableFutures` are and we didn't wanted him to have an unnecessary barrier to achieve his goal.
+
+So we figured out a much simpler solution.
+A detailed chapter about interrupt closing a module can be found in the readme.md of WorkbenchFX.
+
+===== Module Toolbar
+Our advisor's module had a dark background, but the tab's color was white.
+This lead to an inconsistent coloring and destroyed the tab like look and feel.
+Having to restyle everything manually was tedious and boring, so we came up with a different idea.
+
+Since the most modules would have some toolbar items we introduced the module toolbar.
+It is now possible to add `ToolbarItems` to the module.
+As soon as there are items to be displayed, WorkbenchFX creates automatically a toolbar and puts it below the tab.
+
+This way it is ensured, that an implementor always has the possibility to maintain a consistent look and feel.
 
 ==== Manuel Cotone, UX Expert
 // TODO: (MARCO)
