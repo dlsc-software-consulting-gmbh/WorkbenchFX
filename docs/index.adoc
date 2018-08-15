@@ -673,8 +673,16 @@ The files to be included are named with an underscore as prefix: `_file1.scss`.
 
 === Testing
 // TODO: (FRANÇOIS)
-// TODO: what do we want to cover?
-// TODO: Idea: Anzahl Zeilen Code mit Anzahl Zeilen Tests vergleichen
+Code quality is one of our main priorities in this project.
+Since the framework is meant to be used in enterprise applications as well, WorkbenchFX needs to be robust.
+Also, we wanted to rather have less features, but of better quality.
+One of the criteria in the definition of done is having unit tests for the code.
+We would not merge a pull request before the tests are all done and passed.
+This improved the code quality by a lot, since we found around two bugs (sometimes less, sometimes more) per pull request during testing.
+
+We thought about using Test Driven Development (TDD), but beause the framework is new, the API was not clear from the beginning.
+Since we had a focus on good "usability" of the API for the API users, the API would change a lot during development.
+This is why we decided not to do TDD, because it meant we would have needed to constantly adapt the tests to the changing API in the beginning of the development, which would be very inefficient.
 
 ==== Spock vs JUnit
 
