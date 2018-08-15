@@ -98,7 +98,7 @@ The following sub chapters are showing each an image of the analyzed program and
 ==== Blender (Tool for creating 3D models)
 Blender is a tool for creating 3D models which are used in animation movies or in game development.
 It is a tool which requires a lot of skill and is not an "every day" program.
-The image below gives a short impression of the tool and the table below shows our findings for this tool.
+The image below gives a short impression of the tool and the table below shows our findings.
 // TODO: Insert image
 
 .Characteristics of Blender
@@ -150,23 +150,51 @@ The image below gives a short impression of the tool and the table below shows o
 |===
 
 ==== Photoshop / Illustrator (Design tools)
+Adobe Photoshop and Illustrator are probably the most widely used tools when it comes to photo manipulation (Photoshop) and creation of vector art (Illustrator).
+Both tools are made for power user and require a little experience for using them.
+Thus both tools are very similar, they are analyzed in one chapter.
+The image below gives a short impression of the tools and the table below shows our findings.
 // TODO: Insert image
 
-* Photoshop (Image tool, Pixel based)
-**
+.Photoshop (Image tool, Pixel based) / Illustrator (Design tool, Vector based)
+[#characteristics-photoshop-illustrator]
+|===
+|Characteristics |Positive Impressions |Negative Impressions
+|The workspace is divided up into five sections:
 
-* Illustrator (Design tool, Vector based)
-** Multiple windows possible. Are per default in the background opened. Navigation is done by tabs. (+)
-** Tabs can be navigated to other places.
-This is done by drag and drop
-** Tabs can be placed anywhere in the application (- Needs for sure to be discussed. Has certainly it's advantages)
-** Workspace can be restored to default using the equivalent setting. (+)
-Custom workspaces can be stored. (+)
-Multiple workspaces can be stored and it can be switched to. (+)
-** Tabs
-*** When double-clicking on the Tabs, they collapse (+)
-*** They have 3 states (not likely to understand) and it's collapsing behaviour is not intuitive. (-)
-**4
+- Header: A menu bar with all the different settings
+
+- Toolbar: Detailed adjustments for the currently selected tool
+
+- Left bar: The most important and common tools
+
+- Right bar: More specific and special tools
+
+- Center: The files which are worked on
+|
+|
+|- Multiple windows possible
+
+- Navigation is done by tabs
+|Tabs are saving space and show still tho open files
+|
+|Tabs can be navigated to other places (even "un dock" them from the tab bar)
+|Sometimes useful when wanting to see two views next to each other
+|Not really necessary (rarely used)
+|Tabs / Tools can be placed anywhere in the application
+|When using the tools it is sometimes handy to move a tool in range
+|It has advantages, but is also a little diffuse to use. This feature needs for sure to be discussed
+|The workspace can be restored to default using the equivalent setting button
+|Good solution
+|
+|Custom workspaces can be stored, and switched as needed
+|Nice balance between a default workspace and a power user
+|
+|The tools are stored in tabs and drawers
+|When double-clicking on the Tabs, they collapse
+|They have 3 states (not likely to understand) and the collapsing behaviour is not intuitive
+|===
+
 // TODO: use table instead of + and -?
 
 ==== IntelliJ
