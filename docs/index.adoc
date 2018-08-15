@@ -354,6 +354,7 @@ So we had to focus on simple, easy to understand features which are intuitive to
 // TODO: Include resource reference?
 To ensure a shared understanding between the customer and ourselves, we agreed on a minimum viable product (MVP).
 The outcome resulted in a very minimalistic version of the workbench, which still provides an added value comparing to writing it manually.
+The final prototype is displayed in <<mvp>> below.
 
 The MVP consists of:
 
@@ -361,11 +362,6 @@ The MVP consists of:
 * The link:#_workbenchmodule_lifecycle[module lifecycle] which enables the user to open, deactivate and close the module
 * Switching modules using tabs
 
-The MVP is designed with the prototyping tool `Figma`.
-A clickable prototype can be found at:
-https://www.figma.com/proto/LY7jPWrDVQ5GG1zmvBdlA2MT/WorkbenchFX?scaling=contain&node-id=47%3A129[figma prototype]
-
-The <<mvp>> below shows the final prototype:
 [cols="1,1"]
 .Minimum Viable Product (MVP)
 [#mvp]
@@ -375,6 +371,8 @@ The <<mvp>> below shows the final prototype:
 |===
 
 NOTE: It is interesting, that the MVP is still recognizable when using only the minimal feature of WorkbenchFX: Adding just modules to the workbench. The outcome represents exactly the MVP.
+
+TIP: The https://www.figma.com/proto/LY7jPWrDVQ5GG1zmvBdlA2MT/WorkbenchFX?scaling=contain&node-id=47%3A129[clickable MVP] is designed using the prototyping tool `Figma`.
 
 === Naming
 
