@@ -684,7 +684,7 @@ We thought about using Test Driven Development (TDD), but beause the framework i
 Since we had a focus on good "usability" of the API for the API users, the API would change a lot during development.
 This is why we decided not to do TDD, because it meant we would have needed to constantly adapt the tests to the changing API in the beginning of the development, which would be very inefficient.
 
-==== Spock vs JUnit
+==== JUnit vs Spock
 
 ==== Testing Utilities
 // TODO: (kurz erwähnen, was verwendet und wieso?) => mockito und awaitility => bisschen wegen concurrency, TESTFX!!!! Integration tests
