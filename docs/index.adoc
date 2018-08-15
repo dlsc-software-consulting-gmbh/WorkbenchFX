@@ -799,7 +799,17 @@ The suggested movement of the drawers is a key element to the user experience an
 Even though the implementation of the animations was quite complicated, the end result was well worth the effort.
 
 === Switch from Gradle to Maven
-// TODO: (FRANÇOIS)
+Initially, we used Gradle, since we already used it in https://github.com/dlemmermann/PreferencesFX[PreferencesFX] and it was more convenient to re-use the already existing `build.gradle`.
+However, when it came to publishing PreferencesFX to Maven Central, we noticed it was significantly more complex to set it up with Gradle than with Maven cite:[noauthor_contribute_2018].
+Since our customer mainly uses Maven for his projects and already knows how to set it up for publishing to Maven Central, we decided to switch to Maven for PreferencesFX.
+Since we did it for PreferencesFX and we knew the day would come when we would face the same issue with WorkbenchFX as well.
+This is why we switched WorkbenchFX to using Maven as well.
+
+We didn't regret the change at all, especially since our team and our customer had struggled quite a lot with resolving dependencies with Gradle.
+We would run into issues which required us to re-import the project every now and then, which was quite cumbersome with time.
+Sure, we also faced our issues with Maven as well, but we feel like it is much less than it used to be with Gradle.
+
+This is why in the next project we would start with Maven right away.
 
 === Build Automation
 // TODO: (FRANÇOIS)
