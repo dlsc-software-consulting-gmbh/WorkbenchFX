@@ -482,7 +482,9 @@ If an API user still wants to add a custom `Node`, he can use the constructor wh
 This way it is clear what to use and no misunderstandings are possible.
 
 == Implementation
-// TODO: (in the beginning, say that have a look at test modules, and implementation to see all features exactly in details, in action)
+During development of the API we've built a lot of demo modules to test it.
+Those modules can be checked out when launching the `CustomDemo` in the `workbenchfx-demo` package.
+This way, all the features can be seen exactly in details and in action.
 
 === Layout
 // TODO: (MARCO)
