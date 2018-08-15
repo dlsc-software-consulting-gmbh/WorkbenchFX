@@ -1,0 +1,22 @@
+= Sample usage of asciidoctor-bibliography
+:bibliography-database: biblio.bib
+:bibliography-tex-style: numeric
+:bibliography-style: ieee
+:bibliography-sort: { macro: author, sort: descending }
+
+
+## Citations
+
+
+cite:[Lane12a]
+
+cite:[Lane12b]
+
+cite:[Anderson04]
+
+
+## Bibliography
+
+
+bibliography::[]
+

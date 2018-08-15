@@ -1,20 +1,22 @@
 // Color Theme - https://material.io/design/color/the-color-system.html#color-theme-creation
+
 $primary-color: #6200EE;
 $primary-variant-color: #3700B3;
-$secondary-color: #03DAC6;
-$secondary-variant-color: #018786;
+$secondary-color: #6300ff;
+$secondary-variant-color: #1e005f;
 
 $background-color: #FFFFFF;
 $surface-color: #FFFFFF;
 $error-color: #B00020;
 
 $on-primary-color: #FFFFFF;
-$on-secondary-color: #000000;
+$on-secondary-color: #FFFFFF;
 $on-background-color: #000000;
 $on-surface-color: #000000;
 $on-error-color: #FFFFFF;
 
-.root {
+// Workaround to make global declarations work with FXML and standard JavaFX. See https://stackoverflow.com/a/49207678
+.root > * {
   -primary-color: $primary-color;
   -primary-variant-color: $primary-variant-color;
   -secondary-color: $secondary-color;
@@ -36,7 +38,6 @@ $on-error-color: #FFFFFF;
 
   -shadow: dropshadow(gaussian, rgba(0, 0, 0, .1), 6, 0.2, 0, 0);
 
-  -icons-color: -on-primary-color; // TODO: how to handle this?
   -fx-font-family: "Roboto", sans-serif;
   -fx-font-size: 14px;
 }
@@ -44,26 +45,17 @@ $on-error-color: #FFFFFF;
 // Default styling of icons. This enables changing the icons styles later on
 .glyph-icon {
   -fx-text-fill: -on-primary-color;
-  -fx-fill: -icons-color;
-  -fx-font-size: 1.5em !important;
+  -fx-fill: -on-primary-color;
+  -fx-font-size: 1em / 14 * 16 !important; // equals 16px when root 14px
 }
 
-$border: 1px;
-$pref-size: 3em;
-$darken-percentage: -10%;
-$radius: 5px;
-
 @import "fonts";
-//@import "includes";
+@import "includes";
 @import "workbench";
-@import "addModulePage";
+@import "add-module-page";
+@import "content-view";
 @import "toolbar";
-@import "glassPane";
-@import "navigationDrawer";
+@import "glass-pane";
+@import "navigation-drawer";
 @import "dialog";
-//@import "contentView";
-//@import "tabBar";
-//@import "module";
-//@import "dropdown";
-//@import "prettyScrollPane";
-//@import "activeTools";
+@import "drawer";

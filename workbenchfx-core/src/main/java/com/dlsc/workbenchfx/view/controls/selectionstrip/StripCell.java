@@ -64,42 +64,40 @@ public class StripCell<T> extends Label {
     this.selectionStrip.set(selectionStrip);
   }
 
-  private BooleanProperty selected;
+  private BooleanProperty selected = new BooleanPropertyBase() {
+    @Override
+    protected void invalidated() {
+      final boolean selected = get();
+      pseudoClassStateChanged(PSEUDO_CLASS_SELECTED, selected);
+      notifyAccessibleAttributeChanged(AccessibleAttribute.SELECTED);
+    }
+
+    @Override
+    public Object getBean() {
+      return StripCell.this;
+    }
+
+    @Override
+    public String getName() {
+      return "selected";
+    }
+  };
 
   public final void setSelected(boolean value) {
     selectedProperty().set(value);
   }
 
   public final boolean isSelected() {
-    return selected != null && selected.get();
+    return selected.get();
   }
 
   /**
-   * Returns the property of the {@link StripCell}s item which defines whether it's selected or not.
+   * Returns the property of the {@link StripCell}s item which defines whether it's selected or
+   * not.
    *
    * @return the property which changes the value when the item is selected
    */
   public final BooleanProperty selectedProperty() {
-    if (selected == null) {
-      selected = new BooleanPropertyBase() {
-        @Override
-        protected void invalidated() {
-          final boolean selected = get();
-          pseudoClassStateChanged(PSEUDO_CLASS_SELECTED, selected);
-          notifyAccessibleAttributeChanged(AccessibleAttribute.SELECTED);
-        }
-
-        @Override
-        public Object getBean() {
-          return StripCell.this;
-        }
-
-        @Override
-        public String getName() {
-          return "selected";
-        }
-      };
-    }
     return selected;
   }
 

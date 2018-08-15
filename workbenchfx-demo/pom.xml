@@ -7,14 +7,34 @@
   <parent>
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-parent</artifactId>
-    <version>1.4.0</version>
+    <version>1.7.0</version>
   </parent>
 
   <groupId>com.dlsc.workbenchfx</groupId>
   <artifactId>workbenchfx-demo</artifactId>
-  <version>1.4.0</version>
+  <version>1.7.0</version>
   <packaging>jar</packaging>
 
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-jerady-maven</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/jerady/maven</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-jerady-maven</id>
+            <name>bintray-plugins</name>
+            <url>https://dl.bintray.com/jerady/maven</url>
+        </pluginRepository>
+    </pluginRepositories>
 
   <properties>
     <maven.deploy.skip>true</maven.deploy.skip>
@@ -39,10 +59,16 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
+        <version>3.8.0</version>
         <configuration>
+          <!-- Java 8 only -->
+          <source>1.8</source>
+          <target>1.8</target>
+
+          <!-- Java 9 only
           <source>1.9</source>
           <target>1.9</target>
+          -->
         </configuration>
       </plugin>
 
@@ -60,7 +86,7 @@
               <transformers>
                 <transformer
                   implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>com.dlsc.workbenchfx.AppStarter</mainClass>
+                  <mainClass>com.dlsc.workbenchfx.custom.CustomDemo</mainClass>
                 </transformer>
               </transformers>
             </configuration>
@@ -71,19 +97,10 @@
   </build>
 
   <dependencies>
-    <!-- Live reloading css: Remove before publishing -->
-    <dependency>
-      <groupId>org.fxmisc.cssfx</groupId>
-      <artifactId>cssfx</artifactId>
-      <version>1.1.0</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/../lib/cssfx-1.1.0.jar</systemPath>
-    </dependency>
-
     <dependency>
       <groupId>com.dlsc.workbenchfx</groupId>
       <artifactId>workbenchfx-core</artifactId>
-      <version>1.4.0</version>
+      <version>1.7.0</version>
     </dependency>
 
     <dependency>
@@ -91,5 +108,50 @@
       <artifactId>GMapsFX</artifactId>
       <version>2.12.0</version>
     </dependency>
+
+    <!-- Java 8 only -->
+    <dependency>
+      <groupId>org.controlsfx</groupId>
+      <artifactId>controlsfx</artifactId>
+      <version>8.40.14</version>
+    </dependency>
+    <dependency>
+      <groupId>de.jensd</groupId>
+      <artifactId>fontawesomefx-commons</artifactId>
+      <version>8.15</version>
+    </dependency>
+    <dependency>
+      <groupId>de.jensd</groupId>
+      <artifactId>fontawesomefx-fontawesome</artifactId>
+      <version>4.7.0-5</version>
+    </dependency>
+    <dependency>
+      <groupId>de.jensd</groupId>
+      <artifactId>fontawesomefx-materialdesignfont</artifactId>
+      <version>1.7.22-4</version>
+    </dependency>
+
+    <!-- Java 9 only
+    <dependency>
+        <groupId>org.controlsfx</groupId>
+        <artifactId>controlsfx</artifactId>
+        <version>9.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>de.jensd</groupId>
+        <artifactId>fontawesomefx-commons</artifactId>
+        <version>9.1.2</version>
+    </dependency>
+    <dependency>
+        <groupId>de.jensd</groupId>
+        <artifactId>fontawesomefx-fontawesome</artifactId>
+        <version>4.7.0-9.1.2</version>
+    </dependency>
+    <dependency>
+        <groupId>de.jensd</groupId>
+        <artifactId>fontawesomefx-materialdesignfont</artifactId>
+        <version>2.0.26-9.1.2</version>
+    </dependency>
+    -->
   </dependencies>
 </project>

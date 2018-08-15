@@ -1,21 +1,22 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SkinBase;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the skin of the corresponding {@link NavigationDrawer}.
@@ -26,14 +27,16 @@ import javafx.scene.layout.VBox;
  */
 public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
+  private static final Logger LOGGER = LogManager.getLogger(NavigationDrawerSkin.class.getName());
+
   private VBox menuContainer;
   private NavigationDrawer navigationDrawer;
   private VBox drawerBox;
   private BorderPane header;
   private PrettyScrollPane scrollPane;
+  private StackPane backIconShape;
   private Button backBtn;
-  private ImageView companyLogo;
-  private ReadOnlyDoubleProperty workbenchWidth;
+  private Label companyLogo;
 
   /**
    * Creates the skin for the {@link NavigationDrawer} control.
@@ -44,26 +47,12 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     super(navigationDrawer);
     this.navigationDrawer = navigationDrawer;
 
-    initializeSelf();
     initializeParts();
     layoutParts();
-    setupBindings();
     setupEventHandlers();
     setupValueChangedListeners();
 
     buildMenu();
-  }
-
-  private void setupBindings() {
-    workbenchWidth = navigationDrawer.workbenchWidthProperty(); // strong reference to avoid GC
-    navigationDrawer.maxWidthProperty().bind(workbenchWidth.multiply(.333));
-  }
-
-  /**
-   * Initializes the skin.
-   */
-  private void initializeSelf() {
-    navigationDrawer.getStyleClass().add("navigation-drawer");
   }
 
   /**
@@ -81,13 +70,13 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
     scrollPane = new PrettyScrollPane(menuContainer);
 
-    FontAwesomeIconView backIconView = new FontAwesomeIconView(FontAwesomeIcon.ARROW_LEFT);
-    backIconView.setId("back-icon-view");
-    backIconView.getStyleClass().add("icon-view");
-    backBtn = new Button("", backIconView);
+    backIconShape = new StackPane();
+    backIconShape.getStyleClass().add("shape");
+    backBtn = new Button("", backIconShape);
+    backBtn.getStyleClass().add("icon");
     backBtn.setId("back-button");
 
-    companyLogo = new ImageView();
+    companyLogo = new Label();
     companyLogo.getStyleClass().add("logo");
   }
 
@@ -99,14 +88,10 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
     menuContainer.setFillWidth(true);
 
-    BorderPane.setAlignment(backBtn, Pos.CENTER_LEFT);
-
     header.setTop(backBtn);
     header.setCenter(companyLogo);
 
     getChildren().add(drawerBox);
-
-    StackPane.setAlignment(navigationDrawer, Pos.TOP_LEFT);
   }
 
   private void setupEventHandlers() {
@@ -130,6 +115,9 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     }
   }
 
+  private MenuButton hoveredBtn;
+  private boolean isTouchUsed = false;
+
   private MenuButton buildSubmenu(MenuItem item) {
     Menu menu = (Menu) item;
     MenuButton menuButton = new MenuButton();
@@ -140,6 +128,30 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     menuButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     menuButton.getStyleClass().addAll(item.getStyleClass());
     Bindings.bindContent(menuButton.getItems(), menu.getItems());
+
+    // To determine if a TOUCH_RELEASED event happens.
+    // The MOUSE_ENTERED results in an unexpected behaviour on touch events.
+    // Event filter triggers before the handler.
+    menuButton.addEventFilter(TouchEvent.TOUCH_RELEASED, e -> isTouchUsed = true);
+
+    // Only when ALWAYS or SOMETIMES
+    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehavior())) {
+      menuButton.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Menu
+        if (isTouchUsed) {
+          isTouchUsed = false;
+          return;
+        }
+        // When ALWAYS, then trigger immediately. Else check if clicked before (case: SOMETIMES)
+        if (Priority.ALWAYS.equals(getSkinnable().getMenuHoverBehavior())
+            || (hoveredBtn != null && hoveredBtn.isShowing())) {
+          menuButton.show(); // Shows the context-menu
+          if (hoveredBtn != null && hoveredBtn != menuButton) {
+            hoveredBtn.hide(); // Hides the previously hovered Button if not null and not self
+          }
+        }
+        hoveredBtn = menuButton; // Add the button as previously hovered
+      });
+    }
     return menuButton;
   }
 
@@ -151,6 +163,18 @@ public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
     button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     button.getStyleClass().addAll(item.getStyleClass());
     button.setOnAction(item.getOnAction());
+
+    // Only in cases ALWAYS and SOMETIMES: hide previously hovered button
+    if (!Priority.NEVER.equals(getSkinnable().getMenuHoverBehavior())) {
+      button.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> { // Triggers on hovering over Button
+        if (!isTouchUsed) {
+          if (hoveredBtn != null) {
+            hoveredBtn.hide(); // Hides the previously hovered Button if not null
+          }
+          hoveredBtn = null; // Sets it to null
+        }
+      });
+    }
     return button;
   }
 }

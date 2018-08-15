@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx.standard;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.custom.test.ToolbarItemTestModule;
 import com.dlsc.workbenchfx.extended.calendar.CalendarModule;
 import com.dlsc.workbenchfx.extended.notes.NotesModule;
 import com.dlsc.workbenchfx.extended.preferences.PreferencesModule;
@@ -11,6 +12,9 @@ import javafx.stage.Stage;
 public class StandardDemo extends Application {
 
   public Workbench workbench;
+  private PreferencesModule preferencesModule = new PreferencesModule();
+  private CalendarModule calendarModule = new CalendarModule();
+  private NotesModule notesModule = new NotesModule();
 
   public static void main(String[] args) {
     launch(args);
@@ -26,13 +30,18 @@ public class StandardDemo extends Application {
     primaryStage.setHeight(700);
     primaryStage.show();
     primaryStage.centerOnScreen();
+
+    // open calendar module by default
+    workbench.openModule(calendarModule);
   }
 
   private Workbench initWorkbench() {
-    return workbench = Workbench.builder(
-        new PreferencesModule(),
-        new CalendarModule(),
-        new NotesModule()
+    workbench = Workbench.builder(
+        calendarModule,
+        notesModule,
+        preferencesModule,
+        new ToolbarItemTestModule()
     ).build();
+    return workbench;
   }
 }

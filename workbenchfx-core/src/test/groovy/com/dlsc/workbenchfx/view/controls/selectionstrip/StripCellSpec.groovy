@@ -1,33 +1,47 @@
 package com.dlsc.workbenchfx.view.controls.selectionstrip
 
 import com.dlsc.workbenchfx.model.WorkbenchModule
-import javafx.beans.WeakInvalidationListener
-import javafx.beans.property.ObjectProperty
+import com.dlsc.workbenchfx.testing.MockSelectionStrip
+import javafx.css.PseudoClass
 import javafx.scene.Scene
+import javafx.scene.input.MouseButton
 import javafx.stage.Stage
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
+import spock.lang.Shared
+import spock.lang.Unroll
 
 class StripCellSpec extends ApplicationSpec {
 
+    @Shared
+    private WorkbenchModule mockModule = Mock()
+    @Shared
+    private String expectedToString = "mock_module"
+
+    @Override
+    FxRobot clickOn(MouseButton... param0) {
+        return super.clickOn(param0)
+    }
     private StripCell<WorkbenchModule> stripCell
-//    ObjectProperty<WorkbenchModule> property
-//    SelectionStrip<WorkbenchModule> selectionStrip
+    private SelectionStrip<WorkbenchModule> mockSelectionStrip
+    private static final PseudoClass PSEUDO_CLASS_SELECTED = PseudoClass.getPseudoClass("selected")
+
     private FxRobot robot
 
     @Override
     void start(Stage stage) throws Exception {
         stripCell = new StripCell<>()
-//        property = Mock()
-//        property.addListener(_ as WeakInvalidationListener)
-//        selectionStrip = Mock()
-//        selectionStrip.selectedItemProperty() >> property
+        mockSelectionStrip = new MockSelectionStrip()
 
         robot = new FxRobot()
 
         Scene scene = new Scene(stripCell, 100, 100)
         stage.setScene(scene)
         stage.show()
+    }
+
+    def setupSpec() {
+        mockModule.toString() >> expectedToString
     }
 
     def "test if styleclass was set correctly"() {
@@ -43,7 +57,7 @@ class StripCellSpec extends ApplicationSpec {
 
     def "test if maxWidth and Height were set correctly"() {
         given: "Double value of max and min which shall be set"
-        double val = Double.MAX_VALUE;
+        double val = Double.MAX_VALUE
 
         when: "the cell is created"
         stripCell = new StripCell<>()
@@ -53,60 +67,74 @@ class StripCellSpec extends ApplicationSpec {
         val == stripCell.getMaxHeight()
     }
 
-//    def "Initialization of a Dialog with Type #type has exactly the ButtonTypes #buttonTypes"(
-//            Type type, ButtonType[] buttonTypes) {
-//        given:
-//        dialog = WorkbenchDialog.builder(TITLE, content, type).build()
-//
-//        expect:
-//        type == dialog.getType()
-//        buttonTypes.length == dialog.getButtonTypes().size()
-//        buttonTypes == dialog.getButtonTypes().toArray()
-//
-//        where:
-//        type              || buttonTypes
-//        Type.INPUT        || [ButtonType.OK, ButtonType.CANCEL] as ButtonType[]
+    def "test selectionStripSelectionListener"() {
 
-    def "test listener when setting the selectionStrip"() {
-        given: "SelectionStrip as Mock"
-        ObjectProperty<WorkbenchModule> property = Mock()
-        SelectionStrip<WorkbenchModule> selectionStrip = Mock()
-        selectionStrip.selectedItemProperty() >> { args -> property }
-
-        when: "initial setup"
+        when: "the selected item of the selectionStrip changes"
         robot.interact {
-            stripCell = new StripCell<>()
+            stripCell.setSelectionStrip(mockSelectionStrip)
+            stripCell.setItem(mockModule)
+            mockSelectionStrip.setSelectedItem(mockModule)
         }
 
-        then: "selectionStripProperty is null"
-        Objects.isNull(stripCell.getSelectionStrip())
+        then: "the selectionlistener triggers and executes updateSelection()"
+        stripCell.isSelected()
+        stripCell.getPseudoClassStates().contains(PSEUDO_CLASS_SELECTED)
+    }
 
-        when: "old null and new null"
+    def "test selectionStripListener"() {
+        given: "selectionstrip was set"
+        SelectionStrip<WorkbenchModule> mockSelectionStrip2 = new MockSelectionStrip()
+        robot.interact {
+            mockSelectionStrip2.setSelectedItem(mockModule)
+            stripCell.setSelectionStrip(mockSelectionStrip)
+            stripCell.setItem(mockModule)
+        }
+
+        when: "a new selectionStrip with the same module is set"
+        robot.interact {
+            stripCell.setSelectionStrip(mockSelectionStrip2)
+        }
+
+        then: "the selectionStripProperty listener triggers and executes updateSelection()"
+        stripCell.isSelected()
+        stripCell.getPseudoClassStates().contains(PSEUDO_CLASS_SELECTED)
+
+        when: "a selectionStrip with null is set"
         robot.interact {
             stripCell.setSelectionStrip(null)
         }
 
-        then: "nothing shall happen (selectionStripProperty is still null)"
-        Objects.isNull(stripCell.getSelectionStrip())
-
-        when: "old null and new !null"
-        robot.interact {
-            stripCell.setSelectionStrip(selectionStrip)
-        }
-
-        then: ""
-        1 * selectionStrip.selectedItemProperty()
-        1 * property.addListener(_ as WeakInvalidationListener)
+        then: "nothing should happen, because no selectionstrip is set -> all old states are remaining"
+        stripCell.isSelected()
+        stripCell.getPseudoClassStates().contains(PSEUDO_CLASS_SELECTED)
     }
 
-    /*
-    listener: 4 möglichkeiten -> selectionstrip-mock -> abfragen ob gecallt worden
-    sttext aufgerufen?
-    getitem.toString aufgerufen?
+    @Unroll
+    def "test item listener: '#item' as item, '#selectedItem' as selected item => '#expectedText' as expectedText, '#isSelected' as selection state"(
+            WorkbenchModule item,
+            WorkbenchModule selectedItem,
+            String expectedText,
+            boolean isSelected
+    ) {
+        given:
+        robot.interact {
+            mockSelectionStrip.setSelectedItem(selectedItem)
+            stripCell.setSelectionStrip(mockSelectionStrip)
+            stripCell.setItem(item)
+        }
 
-    wird getSelectedItem auf selectionstrip aufgerufen?
-    ist aktuelles item selektiert?
+        expect:
+        expectedText == stripCell.getText()
+        isSelected == stripCell.isSelected()
+        isSelected == stripCell.getPseudoClassStates().contains(PSEUDO_CLASS_SELECTED)
+        stripCell == stripCell.selectedProperty().getBean()
+        "selected" == stripCell.selectedProperty().getName()
 
-    pseudoclassstate -> wird richtige gesetzt?
-     */
+        where:
+        item       | selectedItem || expectedText     | isSelected
+        null       | null         || ""               | true
+        null       | mockModule   || ""               | false
+        mockModule | mockModule   || expectedToString | true
+        mockModule | null         || expectedToString | false
+    }
 }

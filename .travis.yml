@@ -1,19 +1,22 @@
-notification:
-    email: false
 language: java
 
 sudo: false   # Linux OS: run in container
 
-jdk: oraclejdk9
-
-env:
-  global:
-    - CODECOV_TOKEN=127975b3-f83a-48d5-8594-69981bfbab1a
+# Java 8 only
+jdk: oraclejdk8
+# Java 9 only
+#jdk: oraclejdk9
 
 addons:
   apt:
     packages:
-      - oracle-java9-installer
+    - p7zip-full
+#    - oracle-java9-installer
+# Java 9 only
+
+env:
+  global:
+    - CODECOV_TOKEN=127975b3-f83a-48d5-8594-69981bfbab1a
 
 before_install:
   - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start; fi
@@ -21,13 +24,32 @@ before_install:
 install: true
 
 before_script:
-  - if [[ "${TRAVIS_OS_NAME}" == osx ]]; then brew update; brew cask reinstall caskroom/versions/java9; fi
+#  - if [[ "${TRAVIS_OS_NAME}" == osx ]]; then brew update; brew cask reinstall caskroom/versions/java9; fi
+# Java 9 only
 
 cache:
   directories:
   - $HOME/.m2
 
-script: mvn -pl "!workbenchfx-dirk" test -B
+script: mvn test -B
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+before_deploy:
+  - ./before_deploy.sh
+deploy:
+  provider: releases
+  api_key:
+    secure: VNCxklOYn6kDXNNaBOh/mPKo7X9RQ0FSWDeyAcTVZLhry8Q9srGkf8tqmuYRDJIdBlDGmjNEU93Rin+RwL10IIQoduIozTMmpB+Di1YfkTLNe4LZo/2WHLgViwDRauHJ+dECSSG3zFEZndzsndyqINkw9zLfD4I136L5Vue27foTLNiRSp0J2qWw5Frnyq5dKzX9Y/JEVdVa5s7SHAFvukjeHE5gW0HUtF+gfghw7fnawUyAKJJkpc/Nr11ij8vD9/ifZuzEJkKiQ2nSvKT082btD+tIHhh6jRKed8kCEOR+uJxFc93ZXFLH2GsUvKMgUrKdeGXfGbMET2+7K6KmOvjP73a79Z911QwBEDsek34ldO7vVIG9NUD7L58W15nB/gJhH5COGfP3C/iO5M4+fvaddvJ+tYz/JtNDkHFiUqlrjnptFloWEgJqaVfnLnL1v05JYvKYutbBWL9uTRC8UAMlMJkK4tu0Yc1HyQWp2I69klgWYMHbrQhONDTlgE0clkLhA5kIjFXnbxul6M6IaWogPbAXkFZA+CH9Y1kj3znJo9U6txiBvnAznm/Sk0I9g/+zq3Xa/yEO3SN+b8iKX21iXrOsBe7bsJQoVvAnlJ8NEvPwRwgo+TzDzAWiCNx310WonbNnIw0MFqw3A8X4OwVbFvzRfkmjnlgztvx41HY=
+  file_glob: true
+  file:
+    - javadoc.zip
+    - workbenchfx-core/target/*core*
+    - workbenchfx-demo/target/*demo*
+    - documentation.zip
+  skip_cleanup: true
+  on:
+    repo: FHNW-IP5-IP6/WorkbenchFX
+    tags: true
+    branch: master

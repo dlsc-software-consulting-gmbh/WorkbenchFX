@@ -1,0 +1,8 @@
+= Miscellaneous Reference
+François Martin; Marco Sanfratello
+
+== Codecov.io Exceptions (codecov.yml)
+[source,java]
+----
+include::../codecov.yml[]
+----

@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.testing.MockTab;
+import java.util.concurrent.CompletableFuture;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -21,6 +22,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -40,8 +43,13 @@ class TabTest extends ApplicationTest {
 
   private MockTab tab;
 
+  @Mock
+  private CompletableFuture<Boolean> mockModuleCloseable;
+
   @Override
   public void start(Stage stage) {
+    MockitoAnnotations.initMocks(this);
+
     robot = new FxRobot();
 
     mockBench = mock(Workbench.class);
@@ -52,7 +60,10 @@ class TabTest extends ApplicationTest {
     }
 
     for (int i = 0; i < mockModules.length; i++) {
-      mockModules[i] = createMockModule(moduleNodes[i], moduleIcons[i], true, "Module " + i);
+      mockModules[i] = createMockModule(
+          moduleNodes[i], moduleIcons[i], true, "Module " + i, mockBench,
+          FXCollections.observableArrayList(), FXCollections.observableArrayList()
+      );
     }
 
     modulesList = FXCollections.observableArrayList(mockModules);
@@ -90,12 +101,26 @@ class TabTest extends ApplicationTest {
   @Test
   void testModuleListener() {
     assertEquals("Module 0", tab.getName());
-    assertEquals("Module Icon 0", ((Label)tab.getIcon()).getText());
+    assertEquals("Module Icon 0", ((Label) tab.getIcon()).getText());
+    assertEquals("tab-module-0", tab.getId());
 
     // change to module 1
     tab.setModule(mockModules[1]);
     assertEquals("Module 1", tab.getName());
-    assertEquals("Module Icon 1", ((Label)tab.getIcon()).getText());
+    assertEquals("Module Icon 1", ((Label) tab.getIcon()).getText());
+    assertEquals("tab-module-1", tab.getId());
+  }
+
+  @Test
+  void testAddingNewLineAsName() {
+    WorkbenchModule mockModule = createMockModule(
+        new Label(""), new Label(""),true,
+        "Name\nwith\nbreaks", // A name with newlines which should be replaced with ' '
+        mockBench, FXCollections.observableArrayList(), FXCollections.observableArrayList()
+    );
+    tab.setModule(mockModule);
+    assertEquals("Name with breaks", tab.getName());
+    assertEquals("tab-namewithbreaks", tab.getId());
   }
 
   @Test
