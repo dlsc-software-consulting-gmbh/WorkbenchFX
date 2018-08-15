@@ -295,7 +295,7 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(first).activate();
       verify(first, times(2)).activate();
       // Switch to home screen
-      workbench.openHomeScreen();
+      workbench.openAddModulePage();
       assertSame(null, workbench.getActiveModule());
       assertSame(null, workbench.getActiveModuleView());
       assertEquals(2, workbench.getOpenModules().size());

@@ -22,7 +22,6 @@ import org.apache.logging.log4j.Logger;
 public class TabSkin extends SkinBase<Tab> {
 
   private static final Logger LOGGER = LogManager.getLogger(TabSkin.class.getName());
-  private static final String STYLE_CLASS_ACTIVE_TAB = "active-tab";
 
   private HBox controlBox;
   private StackPane closeIconShape;
@@ -30,7 +29,6 @@ public class TabSkin extends SkinBase<Tab> {
 
   private Label nameLbl;
 
-  private final ReadOnlyBooleanProperty activeTab;
   private final ReadOnlyStringProperty name;
   private final ReadOnlyObjectProperty<Node> icon;
 
@@ -41,7 +39,6 @@ public class TabSkin extends SkinBase<Tab> {
    */
   public TabSkin(Tab tab) {
     super(tab);
-    activeTab = tab.activeTabProperty();
     name = tab.nameProperty();
     icon = tab.iconProperty();
 
@@ -66,7 +63,7 @@ public class TabSkin extends SkinBase<Tab> {
     nameLbl.getStyleClass().add("tab-name-lbl");
 
     controlBox = new HBox();
-    controlBox.getStyleClass().addAll("tab-box", STYLE_CLASS_ACTIVE_TAB);
+    controlBox.getStyleClass().add("tab-box");
   }
 
   private void layoutParts() {
@@ -83,19 +80,6 @@ public class TabSkin extends SkinBase<Tab> {
   }
 
   private void setupValueChangedListeners() {
-    // add or remove "active tab" style class, depending on state
-    activeTab.addListener((observable, wasActive, isActive) -> {
-      LOGGER.trace("Tab Factory - Was active: " + wasActive);
-      LOGGER.trace("Tab Factory - Is active: " + isActive);
-      if (isActive) {
-        controlBox.getStyleClass().add(STYLE_CLASS_ACTIVE_TAB);
-        LOGGER.trace("STYLE SET");
-      } else {
-        // switch from this to other tab
-        controlBox.getStyleClass().remove(STYLE_CLASS_ACTIVE_TAB);
-      }
-    });
-
     // handle icon changes
     icon.addListener((observable, oldIcon, newIcon) -> {
       if (oldIcon != newIcon) {

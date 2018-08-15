@@ -17,7 +17,11 @@
       -fx-padding: .6em .65em .6em .65em;
 
       & .label {
-        -fx-padding: 0 1.6em 0 .2em;
+        -fx-padding: 0 .4 0 0;
+      }
+
+      & .right-container {
+        -fx-padding: 0 0 0 1.6em;
       }
     }
 
