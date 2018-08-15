@@ -786,10 +786,17 @@ Thanks to the agile way, we could resolve this quickly and early on in the proje
 // TODO: (Dirk hat selber erkannt, dass nicht so einfach wie man es sich vorstellt, dass es Dirk auch etwas gebracht hat zu erkennen => besser im Projekt eingebunden, besser gemerkt wo Probleme sind)
 
 === Animations
-// TODO: (FRANÇOIS)
 One thing we underestimated by far was the power of animations.
-In its initial implementation,
-// TODO: (Wirking auf User Experience unterschätzt, da so gut, nicht abschaltbar, da keinen Sinn macht sonst)
+Initially, we didn't have animations on the drawers.
+// TODO: maybe add link / reference to above somewhere?
+In a usability test with Dieter Holz we noticed that especially with the drawers that covered most of the screen, it was not clear where they were coming from or that they even were drawers.
+
+When we implemented the drawer animations, we were shocked to see how much of a difference it made.
+We expected it to make a slight difference, but it really improved the user experience by a lot.
+Since it makes that much of a difference, we think that even if there was an option to turn off animations in the future, it should not be possible to turn off drawer animations.
+The suggested movement of the drawers is a key element to the user experience and must not be removed.
+
+Even though the implementation of the animations was quite complicated, the end result was well worth the effort.
 
 === Switch from Gradle to Maven
 // TODO: (FRANÇOIS)
