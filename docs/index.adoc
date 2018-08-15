@@ -685,6 +685,19 @@ Since we had a focus on good "usability" of the API for the API users, the API w
 This is why we decided not to do TDD, because it meant we would have needed to constantly adapt the tests to the changing API in the beginning of the development, which would be very inefficient.
 
 ==== JUnit vs Spock
+Most of our unit testing, especially in the beginning, was done by using JUnit.
+However, when there were some test cases that were very data driven.
+// TODO: add source and maybe code snippet of data driven testing with junit?
+JUnit 5 does have data driven testing capabilities, but the way tests have to be implemented to be data driven is not very readable.
+// TODO: add source
+Also, JUnit 5's data driven testing API is still considered "experimental".
+We didn't want to risk all of our data driven tests becoming obsolete, should JUnit later choose to change the concept entirely.
+Combined with the readability argument, we decided not to do data driven testing with JUnit.
+
+// TODO: reference to picture
+At first, we proceeded to write the data driven tests in JUnit, but the tests looked really bad.
+They had lots of duplicated code and therefore were not very maintainable.
+// TODO: include image
 
 ==== Testing Utilities
 // TODO: (kurz erwähnen, was verwendet und wieso?) => mockito und awaitility => bisschen wegen concurrency, TESTFX!!!! Integration tests
