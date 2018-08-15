@@ -162,7 +162,7 @@ The image below gives a short impression of the tools and the table below shows 
 |Characteristics |Positive Impressions |Negative Impressions
 |The workspace is divided up into five sections:
 
-- Header: A menu bar with all the different settings
+- Header: A menu bar with all the different settings available
 
 - Toolbar: Detailed adjustments for the currently selected tool
 
@@ -197,16 +197,62 @@ The image below gives a short impression of the tools and the table below shows 
 
 // TODO: use table instead of + and -?
 
-==== IntelliJ
+==== IntelliJ IDEA
+An integrated development environment (IDE) which is used to develop a variety of programs.
+The tool is made for software developers and can only be used if someone is familiar with programming.
+The image below gives a short impression of the program and the table below shows our findings.
 // TODO: Insert image
 
-* all possibilities available,
-Right click on the tab, then one can decide the behaviour of it.
-* "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
-* "Restore default layout" doesn't restore all layout changes (-)
-* Layout changes should be stored at one place.
-*
-// TODO: use table instead of + and -?
+.IntelliJ IDEA (IDE)
+[#characteristics-intellij]
+|===
+|Characteristics |Positive Impressions |Negative Impressions
+|The workspace is divided up into six sections:
+
+- Header: A menu bar with all the different settings available
+
+- Toolbar: Buttons which are often used during development of the product
+
+- Left bar: Drawers used for navigating through the project. Structural features
+
+- Right bar: Space for drawers. Used to display build functionality
+
+- Bottom bar: Additional space for drawers and tools. Widely used for terminal inputs
+
+- Status bar: At the bottom of the window. Displays additional information
+
+- Center: The current open file to work with
+|
+|
+|Navigation via tabs
+|
+|
+|All possibilities available, regarding the tab:
+
+- Right click on the tab, then one can decide its behaviour
+|Nearly every state is supported
+
+- Pinned
+
+- Docked
+
+- Floating
+
+- Windowed
+
+- ...
+|
+|The "Remove from sidebar" button removes the targeted feature from the sidebar
+|
+|- It's not intuitive to undo this call
+
+- While trying to restore the feature, we discovered the option "Restore default layout", but this doesn't restore all layout changes
+
+-> Lesson learned: Layout changes should be stored at one place
+|
+|
+|
+|===
 
 ==== Adobe XD
 // TODO: Insert image
