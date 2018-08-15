@@ -59,7 +59,7 @@ In following <<terms-declaration>> it is shown in what context they are used.
 [#terms-declaration]
 |===
 |Term        |Explanation
-|Module      |The workbench object consists of multiple views. The object which contains the view is called Module.
+|Module      |The workbench object consists of multiple views. The object which contains the view is called Module. (More information about link:#_module_naming[module naming])
 |Implementor |The person which creates a custom implementation of a module
 |User        |The person which uses the final software created with WorkbenchFX
 |API user    |The person which uses the WorkbenchFX API and all its features to develop the software
@@ -197,8 +197,6 @@ The image below gives a short impression of the tools and the table below shows 
 |They have 3 states (not likely to understand) and the collapsing behaviour is not intuitive
 |===
 
-// TODO: use table instead of + and -?
-
 ==== IntelliJ IDEA
 An integrated development environment (IDE) which is used to develop a variety of programs.
 The tool is made for software developers and can only be used if someone is familiar with programming.
@@ -258,14 +256,13 @@ The image below gives a short impression of the program and the table below show
 
 ==== Adobe XD
 // TODO: Insert image
-
+// TODO: Write Chapter
 // TODO: (mehr fokus auf ist eifach, keine docking elemente usw., was unterscheidet von anderen)
 Compared with its siblings (Photoshop and Illustrator), Adobe XD's visual appearance is much simpler and cleaner.
 It is a tool used for prototyping.
 Using it is much easier and intuitive than the other products tested before.
 It can also be used by non power users.
 The image below gives a short impression of the program and the table below shows our findings.
-// TODO: Insert image
 
 .Adobe XD
 [#characteristics-adobe-xd]
@@ -278,13 +275,13 @@ The image below gives a short impression of the program and the table below show
 
 ==== Figma
 // TODO: Insert image
+// TODO: Write Chapter
 
 // TODO: (mehr fokus auf ist eifach, keine docking elemente usw., was unterscheidet von anderen)
 Like the tool in previous chapter, Figma is a tool used for prototyping.
 Using it is also very easy and intuitive.
 It can used by non power users.
 The image below gives a short impression of the program and the table below shows our findings.
-// TODO: Insert image
 
 .Figma
 [#characteristics-figma]
@@ -325,17 +322,26 @@ In terms of the architecture, it could mean that it would need to allow the foll
 *** Floating mode
 *** Window mode
 *** Split mode
+* The application requires a modular approach to satisfy the needs of the user
 
 The other user type is the opposite to a power user:
-A user which has less or no experience in using a large application.
-// TODO: (nur grob erklären, was erkenntniss, bei IDE: docking framework notwendig, modular approach hineinnehmen)
+A user which has less or no experience in using a large application:
+
+* Simple design
+* Intuitive usage
+* Not much going on on the screen, so that the user can focus on the important parts of the application
+
+Depending on the required user type, the WorkbenchFX API would look totally different, because both use cases require a different approach on the API design.
 
 === User Stories
-// TODO: (MARCO)
-// TODO: (Workshop with Customer, was very effective, Dieter Zitat, was especially effective because customer mentioned a different persona which changed everything)
+To determine the approach of WorkbenchFX, we decided to make a workshop with our customer.
+In this workshop we worked with user stories.
+This way we could instantly verify if a feature was really necessary and useful or not, because the story needed to fit in the context and was not just a random requirement which came in mind, without verification.
+
+The user stories were especially effective, because during the meeting we discovered an additional persona which changed the whole purpose of our project.
+At first we thought, that it would be sufficient to design an API for a long time JavaFX programmers (SteffiFX), but with the third persona (Fabian) we had to especially keep an eye on developers with rare or no experience in frontend development.
 
 ==== IDE Decision
-// TODO: (MARCO)
 
 ==== Differentiation to Eclipse RCP
 // TODO: (MARCO)
