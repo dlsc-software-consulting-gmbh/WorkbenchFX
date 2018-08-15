@@ -52,7 +52,7 @@ The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
 // TODO: differentiate somewhere the terms "implementor", "user" and "API user"
 // TODO: Find better naming for "Weitere Ausführung", "Folgende Erläuterungen", etc.
 During following explanation, some terms are used.
-Following table shows in what context they are used <<terms-declaration>>:
+Following table (<<terms-declaration>>) shows in what context they are used:
 
 .Declaration of used terms during the document
 [#terms-declaration]
@@ -64,8 +64,11 @@ Following table shows in what context they are used <<terms-declaration>>:
 |===
 
 == Motivation
-// TODO: (MARCO)
-// TODO: Ausgangslage / Vision
+// TODO: Probably more about the Vision?
+Our customer told us about his latest project in which he creates a larger enterprise application.
+During the conversation he stated that he has to often program the same code sequences again and again to produce the same results.
+Larger enterprise applications share often similar functionality and therefore duplicate work is inevitable.
+Therefore the idea came up to create an API which allows the user to focus on the unique, interesting work and does all the boring, repetitive work for him.
 
 == Analysis
 
