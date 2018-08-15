@@ -19,11 +19,49 @@ Examiner: https://www.inventage.com/[Edwin Steiner, Inventage]
 == Acknowledgements
 
 == Introduction
-// TODO: (MARCO)
-// TODO: (=>Kopie von Readme mit Open source)
+What is WorkbenchFX?
+WorkbenchFX is an out of the box, open source solution to build large applications from multiple views, called modules.
+It offers good user experience and a beautiful design.
+
+A developer start often with building a view to show his customer first progress.
+Then comes always questions like:
+- "How do I bring all those views together?"
+- "How do I build the navigation between those views?"
+- "How do I ensure a consistent styling?"
+- "How do I establish a good user experience?"
+
+Exactly when those questions appear, WorkbenchFX comes into the game:
+It takes the views, and wraps the infrastructure around it.
+It does all the hard work for the developer.
+
+WorkbenchFX comes with an out of the box styling, a good user experience and builds a house around the views.
+It also scales depending on growing requests.
+In the beginning, a developer just wants to navigate through the views, but afterwards he'd probably like to use a menu or a toolbar.
+Even that is supported by WorkbenchFX and he don't have to build anything by himself.
+If everything fails and the blanket falls on his head, he can even replace whole parts of the workbench with own implementations, without having to rewrite the whole workbench.
+
+Thinking of a home, the rooms, the decor, or good memories come into mind.
+Probably not the facade, the base, where the power lines are or from what the walls are made of (the same applies to software development).
+Thinking of developing a new software, a developer thinks about the views, the features and not about on how to switch between those views, or the navigation in general.
+
+With WorkbenchFX it is possible to focus on designing the rooms and meanwhile WorkbenchFX is building the house around it.
+This house even adapts with growing requirements without having the developer to do anything.
+
 The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
 
 // TODO: differentiate somewhere the terms "implementor", "user" and "API user"
+// TODO: Find better naming for "Weitere Ausführung", "Folgende Erläuterungen", etc.
+During following explanation, some terms are used.
+Following table shows in what context they are used <<terms-declaration>>:
+
+.Declaration of used terms during the document
+[#terms-declaration]
+|===
+|Term        |Explanation
+|Implementor |
+|User        |The person which uses the final software created with WorkbenchFX
+|API user    |The person which uses the WorkbenchFX API to develop the software
+|===
 
 == Motivation
 // TODO: (MARCO)
