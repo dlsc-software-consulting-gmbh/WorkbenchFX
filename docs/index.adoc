@@ -448,16 +448,38 @@ As soon as there are items to be displayed, WorkbenchFX creates automatically a 
 This way it is ensured, that an implementor always has the possibility to maintain a consistent look and feel.
 
 ==== Manuel Cotone, UX Expert
-// TODO: (MARCO)
+The biggest impact on the WorkbenchFX styling came from this UX expert.
+A lot of the feedback he gave us was really helpful and we decided to adapt a lot of it.
 
-===== Home Icon => HomeView, then AddModuleView => + icon
+// TODO: reference the material design
+* The active tab should be more styled like a real tab in a browser (at this time our active tabs had simply a white border on bottom of the tab https://material.io/design/components/tabs.html[Material Design]).
+* The tabs should be styleable with unique colors (which can now be done using the unique `#id`)
+* Get rid of the home button and replace it with a `+` button on the right end of the toolbar
+* Shrink down the size of the close icon in the tabs
+* A small vertical border before and after the tabs would suggest the tab as an entity
+* The last opened tab could be still open when restarting the application (this can already be achieved through storing the open modules in preferences. For example using PreferencesFX)
+* A standard tab could be opened when starting the application (this can already be achieved by simplay defining one in the code before the `launch()` call)
+* For the tiles: Enlarge the icon, center it on top of the text
+* He also suggested to split the tabs and the toolbar into two separate bars
 
 ==== Annelore Egger, User Group
-// TODO: (MARCO)
+She was happy using the API which motivated and showed us, that we're on the right way.
 
-===== Dropdown => ToolbarItem
+===== Separating the Toolbar and Tab bar
+However during her usability test it was confirmed that separating the toolbar from the tab bar was really necessary.
+Having only one bar lead really fast to an overloading of items and tabs.
 
-===== 2 Bars instead of 1 Bar
+===== Introducing ToolbarItems
+As an addition to the overloaded bar on top, she was confused with the possibility of adding every `Node` to the toolbar.
+She also didn't recognized the Dropdown feature we were providing.
+
+For those reasons we decided to restrict the possibility of adding every `Node` to one simple object:
+The `ToolbarItem`.
+We replaced the Dropdown with this universal object.
+The idea behind the `ToolbarItem` is, that depending on its stored parameters it becomes either a `Label`, a `Button` or a `MenuButton`.
+If an API user still wants to add a custom `Node`, he can use the constructor which takes a `Node` as single parameter.
+
+This way it is clear what to use and no misunderstandings are possible.
 
 == Implementation
 // TODO: (in the beginning, say that have a look at test modules, and implementation to see all features exactly in details, in action)
