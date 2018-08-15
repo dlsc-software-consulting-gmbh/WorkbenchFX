@@ -258,7 +258,11 @@ This includes features, usability and general appearance of the specific workben
 // TODO: (durch Fabian einfach Stylebar, war fokus, dann beispiel dark theme, von wegen ist so einfach machbar! betonen)
 
 === Architecture
-// TODO: (FRANÇOIS)
+Since WorkbenchFX will be made open-source as a framework, the architecture is a critical part.
+We need to have a good architecture so it will be possible for contributors in the future to extend WorkbenchFX with new features via pull requests.
+Also, we need to think about which API's to expose, since these are the API's we need to support in the future.
+Once WorkbenchFX is launched to the public, changes to the public API need to ensure they are not breaking changes.
+This means we can only very carefully introduce changes later on, and need to make sure the architecture is already good enough, so it doesn't have to be fundamentally changed after the public release.
 
 ==== Constructing the Workbench
 Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
