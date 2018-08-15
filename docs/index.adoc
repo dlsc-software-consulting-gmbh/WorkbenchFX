@@ -52,7 +52,7 @@ The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
 // TODO: differentiate somewhere the terms "implementor", "user" and "API user"
 // TODO: Find better naming for "Weitere Ausführung", "Folgende Erläuterungen", etc.
 During following explanation, some terms are used.
-Following table (<<terms-declaration>>) shows in what context they are used:
+In following <<terms-declaration>> it is shown in what context they are used.
 
 .Declaration of used terms during the document
 [#terms-declaration]
@@ -73,10 +73,17 @@ Therefore the idea came up to create an API which allows the user to focus on th
 == Analysis
 
 === Persona
-Who are the persona?
+During the project, three persona have been created.
+They help a lot to focus on the main idea of the project.
+Thanks to those persona, we were also able to reveal hidden requirements.
+For example in the beginning of the project we had only two persona.
+But after the first meeting with our customer, we discovered together a third, which lead to different requirements.
+The final three persona are shown in <<persona>> below.
+We'll refer to their names in the documentation.
 
 [cols="1,1,1"]
 .Persona
+[#persona]
 |===
 |link:include/persona/stefanie_berner.pdf[image:include/persona/stefanie_berner.png[Stefanie Berner]]
 |link:include/persona/fabian_zimmer.pdf[image:include/persona/fabian_zimmer.png[Fabian Zimmer]]
