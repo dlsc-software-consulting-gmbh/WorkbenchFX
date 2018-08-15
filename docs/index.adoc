@@ -342,6 +342,10 @@ The user stories were especially effective, because during the meeting we discov
 At first we thought, that it would be sufficient to design an API for a long time JavaFX programmers (SteffiFX), but with the third persona (Fabian) we had to especially keep an eye on developers with rare or no experience in frontend development.
 
 ==== IDE Decision
+During the user stories meeting it was also decided which application type we would support.
+As it became clear that our third persona was going to be Anna, we knew that we would not develop an API which allows to build large power user applications like an IDE.
+Anna is a person which can use a computer, but she uses it only as a tool and is not familiar with complex applications.
+So we had to focus on simple, easy to understand features which are intuitive to use.
 
 ==== Differentiation to Eclipse RCP
 // TODO: (MARCO)
