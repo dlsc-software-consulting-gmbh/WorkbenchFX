@@ -736,6 +736,24 @@ The output is much easier to read with Spock as well, since it creates a separat
 
 ==== Testing Utilities
 // TODO: (kurz erwähnen, was verwendet und wieso?) => mockito und awaitility => bisschen wegen concurrency, TESTFX!!!! Integration tests
+There were a few testing utilities we used to augment the already existing features of JUnit and Spock.
+
+===== Mockito
+We used Mockito for mock testing with JUnit.
+Used in combination with the dependency injection pattern, it enabled us to test classes in a more isolated way.
+For example, it allowed us to mock the view classes, so we could test presenter logic separately.
+
+===== TestFX
+Using TestFX made it even possible to test JavaFX code.
+// TODO: source for toolkit not initialized, exact message
+Without it, JavaFX will throw `Toolkit not initialized` exceptions for all method calls that run on the GUI thread.
+TestFX also offers the possibility of automated GUI testing, which we decided not to make use of because of the fragile nature of those tests.
+We used unit tests whenever possible and when it wasn't, we used integration tests.
+See the tests in `workbenchfx-core/src/test` for more information.
+
+===== Awaitility
+After we implemented the animations for the drawers, some tests were failing.
+This was because the tests (and therefore the assertions as well) run very
 
 === Building
 
