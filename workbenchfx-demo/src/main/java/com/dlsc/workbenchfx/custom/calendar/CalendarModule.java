@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.custom.calendar;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import java.util.Objects;
 import javafx.scene.Node;
 
@@ -10,7 +10,7 @@ public class CalendarModule extends WorkbenchModule {
   private CalendarView calendarView;
 
   public CalendarModule() {
-    super("Calendar", FontAwesomeIcon.CALENDAR);
+    super("Calendar", MaterialDesignIcon.CALENDAR);
   }
 
   @Override
@@ -35,10 +35,8 @@ public class CalendarModule extends WorkbenchModule {
    */
   @Override
   public boolean destroy() {
-    if (calendarView != null) {
-      calendarView.stopClock();
-      calendarView = null;
-    }
+    calendarView.stopClock();
+    calendarView = null;
     return true;
   }
 }

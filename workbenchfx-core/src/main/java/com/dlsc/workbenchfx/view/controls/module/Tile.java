@@ -2,6 +2,7 @@ package com.dlsc.workbenchfx.view.controls.module;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -15,13 +16,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents the standard control used to display {@link WorkbenchModule}s as tiles in the
- * home screen.
+ * Represents the standard control used to display {@link WorkbenchModule}s as tiles
+ * in the add module screen screen.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
 public class Tile extends Control {
+
   private static final Logger LOGGER = LogManager.getLogger(Tile.class.getName());
 
   private final Workbench workbench;
@@ -37,10 +39,12 @@ public class Tile extends Control {
    */
   public Tile(Workbench workbench) {
     this.workbench = workbench;
-    module = new SimpleObjectProperty<>();
-    name = new SimpleStringProperty();
-    icon = new SimpleObjectProperty<>();
+    module = new SimpleObjectProperty<>(this, "module");
+    name = new SimpleStringProperty(this, "name");
+    icon = new SimpleObjectProperty<>(this, "icon");
     setupModuleListeners();
+    setupEventHandlers();
+    getStyleClass().add("tile-control");
   }
 
   private void setupModuleListeners() {
@@ -48,17 +52,26 @@ public class Tile extends Control {
       WorkbenchModule current = getModule();
       name.setValue(current.getName());
       icon.setValue(current.getIcon());
+
+      // Sets id with toString of module.
+      // Adds 'tab-', replaces spaces with hyphens and sets letters to lowercase.
+      // eg. Customer Management converts to tile-customer-management
+      setId(WorkbenchUtils.convertToId("tile-" + current.getName()));
     });
+  }
+
+  private void setupEventHandlers() {
+    setOnMouseClicked(event -> open());
   }
 
   /**
    * Opens the {@link WorkbenchModule} belonging to this {@link Tile}.
    */
-  public void open() {
+  public final void open() {
     workbench.openModule(getModule());
   }
 
-  public WorkbenchModule getModule() {
+  public final WorkbenchModule getModule() {
     return module.get();
   }
 
@@ -72,23 +85,23 @@ public class Tile extends Control {
     this.module.set(module);
   }
 
-  public ReadOnlyObjectProperty<WorkbenchModule> moduleProperty() {
+  public final ObjectProperty<WorkbenchModule> moduleProperty() {
     return module;
   }
 
-  public String getName() {
+  public final String getName() {
     return name.get();
   }
 
-  public ReadOnlyStringProperty nameProperty() {
+  public final ReadOnlyStringProperty nameProperty() {
     return name;
   }
 
-  public Node getIcon() {
+  public final Node getIcon() {
     return icon.get();
   }
 
-  public ReadOnlyObjectProperty<Node> iconProperty() {
+  public final ReadOnlyObjectProperty<Node> iconProperty() {
     return icon;
   }
 

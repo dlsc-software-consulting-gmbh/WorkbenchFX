@@ -1,12 +1,12 @@
 package com.dlsc.workbenchfx.view.controls.dialog;
 
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.view.controls.MultilineLabel;
 import java.util.Objects;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
@@ -29,14 +29,14 @@ public class DialogSkin extends SkinBase<DialogControl> {
       LogManager.getLogger(DialogSkin.class.getName());
   private static final double MARGIN_PERCENT = .1;
 
-  private ReadOnlyObjectProperty<WorkbenchDialog> dialog;
+  private final ReadOnlyObjectProperty<WorkbenchDialog> dialog;
 
   private Label dialogTitle;
   private VBox dialogPane;
   private HBox dialogHeader;
   private StackPane dialogContentPane;
   private ButtonBar dialogButtonBar;
-  private final ObservableList<Node> buttons;
+  private final ObservableList<Button> buttons;
 
   /**
    * Creates a new {@link DialogSkin} object for a corresponding {@link DialogControl}.
@@ -73,6 +73,7 @@ public class DialogSkin extends SkinBase<DialogControl> {
     dialogContentPane.getStyleClass().add("dialog-content-pane");
 
     dialogButtonBar = new ButtonBar();
+    dialogButtonBar.getStyleClass().add("dialog-button-bar");
   }
 
   private void layoutParts() {
@@ -81,7 +82,6 @@ public class DialogSkin extends SkinBase<DialogControl> {
 
     VBox.setVgrow(dialogContentPane, Priority.ALWAYS);
 
-    dialogHeader.setAlignment(Pos.CENTER_LEFT);
     dialogHeader.getChildren().setAll(dialogTitle);
 
     dialogTitle.setMaxWidth(Double.MAX_VALUE);
@@ -119,10 +119,10 @@ public class DialogSkin extends SkinBase<DialogControl> {
         dialogPane.getStyleClass().removeAll(oldDialog.getStyleClass());
       }
 
-      // if the new dialog is an error dialog which uses the standard DialogMessageContent control
+      // if the new dialog is an error dialog which uses the standard MultilineLabel control
       // wrap it in a DialogErrorContent control
       if (newDialog.getType() == WorkbenchDialog.Type.ERROR
-          && newDialog.getContent() instanceof DialogMessageContent) {
+          && newDialog.getContent() instanceof MultilineLabel) {
         newDialog.setContent(
             new DialogErrorContent(newDialog.getContent(), newDialog.getDetails())
         );
@@ -176,5 +176,4 @@ public class DialogSkin extends SkinBase<DialogControl> {
       dialogTitle.setMaxWidth(dialogPrefWidth);
     }
   }
-
 }

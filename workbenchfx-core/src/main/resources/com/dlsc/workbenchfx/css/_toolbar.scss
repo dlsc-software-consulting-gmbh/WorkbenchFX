@@ -1,211 +1,70 @@
 #toolbar {
+  @extend %icon-base; // All icons in the toolbar are targeted
   -fx-background-color: -primary-color;
 
-  & .button {
-    -fx-graphic-text-gap: .5em;
-
-    -fx-min-width: $pref-size;
-    -fx-pref-height: $pref-size;
-    -fx-background-color: -primary-color;
-    -fx-border-width: 0;
-    -fx-background-insets: 0; //needed to remove the focused border on bottom
-
-    & .glyph-icon {
-      -fx-font-size: 1.25em !important;
-      -fx-fill: -on-primary-color;
-    }
-
-    & .text {
-      -fx-fill: -on-primary-color;
-    }
-  }
-
   & #top-box {
-    -fx-pref-height: $pref-size;
+    -fx-padding: px(3);
+    -fx-spacing: px(3);
+    @include set-height(px(40)); // Setting min, pref and max-height
 
-    & #toolbar-control-right-box,
-    & #toolbar-control-left-box {
-      -fx-spacing: .25em;
+    @extend %menu-button; // The menu-button which opens the toolbar on the left
+
+    & #toolbar-control {
+      @extend %toolbar-control; // Target the toolbar where the menu items are stored
     }
 
-    & .dropdown {
-      -fx-pref-height: $pref-size;
-      -fx-background-color: -primary-color;
-      -fx-border-width: 0;
-      -fx-background-insets: 0; //needed to remove the focused border on bottom
+    // @extend %context-menu;
+    // The CSS for the context menu can be found in the context-menu.css file.
 
-      & .label {
-        -fx-graphic-text-gap: .5em;
-
-        & .glyph-icon {
-          -fx-font-size: 1.25em !important;
-          -fx-fill: -on-primary-color;
-        }
-        & .image-view {
-
-        }
-        & .text {
-          -fx-fill: -on-primary-color;
-        }
-      }
-
-      & .arrow-button {
-        & .glyph-icon {
-          //angle-down
-          -fx-font-size: .75em !important;
-          -fx-fill: -on-primary-color;
-        }
-      }
+    &:empty {
+      @include set-height(px(3)); // When the toolbar is empty -> change its height
     }
   }
 
   & #bottom-box {
-    -fx-pref-height: $pref-size;
-    -fx-min-height: $pref-size;
-    -fx-padding: 0 .35em 0 .35em;
+    -fx-alignment: CENTER;
+    -fx-pref-height: px(40);
+    -fx-padding: 0 px(4) 0 px(3);
+    -fx-spacing: px(3);
 
-    .selection-strip {
-      -fx-background-color: -primary-color;
-
-      & .strip-cell {
-        -fx-padding: 0;
-
-        &:hover {
-          -fx-cursor: hand;
-        }
-
-        &:pressed {
-          -fx-background-color: -primary-color;
-          -fx-border-width: 0 !important;
-        }
-
-        & .tab-control {
-          -fx-max-height: .111em;
-
-          -fx-alignment: center;
-
-          -fx-border-width: 0 $border 0 $border;
-          -fx-border-color: -primary-color -on-primary-color -primary-color -primary-color;
-
-          -fx-padding: 0 .25em 0 1.25em;
-
-          & .tab-icon {
-            -fx-fill: -on-primary-color;
-            -fx-font-size: 1.25em !important;
-          }
-
-          & .tab-name-lbl {
-            -fx-padding: 0 0 0 .35em;
-            & .text {
-              -fx-fill: -on-primary-color;
-            }
-          }
-
-          & .close-btn {
-            -fx-background-color: none;
-            -fx-min-width: 0;
-            -fx-padding: .111em 1em .111em 1em;
-
-            & .glyph-icon {
-              -fx-fill: -on-primary-color;
-              -fx-font-size: .75em !important;
-            }
-
-            &:hover {
-              -fx-cursor: hand;
-              & .glyph-icon {
-                -fx-fill: -error-color;
-              }
-            }
-          }
-        }
-
-        &:selected {
-          -fx-background-color: -background-color;
-          -fx-background-radius: $radius $radius 0 0;
-          -fx-border-radius: $radius $radius 0 0;
-          -fx-cursor: inherit;
-
-          & .tab-control {
-            -fx-border-color: -transparent;
-
-            & .tab-icon {
-              -fx-fill: -on-background-color;
-            }
-
-            & .tab-name-lbl {
-              & .text {
-                -fx-fill: -on-background-color;
-              }
-            }
-
-            & .close-btn {
-              & .glyph-icon {
-                -fx-fill: -on-background-color;
-              }
-              &:hover {
-                & .glyph-icon {
-                  -fx-fill: -error-color;
-                }
-              }
-            }
-          }
-        }
-      }
-
-      & .previous-cell {
-        & .tab-control {
-          -fx-border-color: -primary-color;
-        }
-      }
-
-      & .fader {
-        &.left {
-          -fx-background-color: linear-gradient(from 25 0 to 80 0, -primary-color, transparent);
-        }
-
-        &.right {
-          -fx-background-color: linear-gradient(from 0 0 to 55 0, transparent, -primary-color);
-        }
-      }
-
-      .scroller {
-        -fx-background-color: -on-primary-color;
-        -fx-pref-width: $pref-size/2.5;
-        -fx-pref-height: $pref-size;
-        -fx-background-insets: $pref-size/2.7 $pref-size/9.1 $pref-size/2.7 $pref-size/7.14;
-        -fx-shape: "M595 576q0 -13 -10 -23l-466 -466q-10 -10 -23 -10t-23 10l-50 50q-10 10 -10 23t10 23l393 393l-393 393q-10 10 -10 23t10 23l50 50q10 10 23 10t23 -10l466 -466q10 -10 10 -23z";
-
-        &.left {
-
-        }
-
-        &.right {
-
-        }
-      }
-    }
+    @extend %menu-button; // The menu-button which opens the toolbar on the left
+    //.selection-strip {...}
+    // The CSS for the context menu can be found in the selection-strip.css file.
 
     & #add-button {
-      -fx-padding: 0;
-      & #add-icon {
-        -fx-padding: 0;
+      -fx-background-insets: 0;
+
+      & .shape {
         -fx-background-color: -on-primary-color;
-        -fx-pref-width: 1.125em;
-        -fx-max-width: 1.125em;
-        -fx-pref-height: 1.125em;
-        -fx-max-height: 1.125em;
-        -fx-shape: "M11 0H9V9H0V11H9V20H11V11H20V9H11V0Z";
+        @extend %add-icon;
+      }
+
+      &:pressed {
+        -fx-background-radius: px(5) px(5) 0 0;
+        -fx-background-color: -primary-variant-color;
+      }
+
+      &:hover {
+        -fx-cursor: hand;
       }
     }
 
     & .active-add-button {
       -fx-background-color: -background-color;
-      -fx-background-radius: $radius $radius 0 0;
-      -fx-border-radius: $radius $radius 0 0;
+      -fx-background-radius: px(5) px(5) 0 0;
+      -fx-border-radius: px(5) px(5) 0 0;
+      -fx-background-insets: 0 -1px 0 -1px; // To remove the nearby tab's white border
 
-      & #add-icon {
+      & .shape {
         -fx-background-color: -on-background-color !important;
+      }
+
+      &:pressed {
+        -fx-background-color: -background-color !important;
+      }
+
+      &:hover {
+        -fx-cursor: inherit !important;
       }
     }
   }

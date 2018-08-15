@@ -1,9 +1,9 @@
 package com.dlsc.workbenchfx.custom.test;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import java.util.concurrent.CompletableFuture;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -13,7 +13,7 @@ public class InterruptClosingTestModule extends WorkbenchModule {
   boolean closePossible;
 
   public InterruptClosingTestModule() {
-    super("Interrupt Close", FontAwesomeIcon.QUESTION);
+    super("Interrupt Close", MaterialDesignIcon.HELP);
   }
 
   @Override
@@ -29,28 +29,23 @@ public class InterruptClosingTestModule extends WorkbenchModule {
 
   @Override
   public boolean destroy() {
-    if (!closePossible) {
-      getWorkbench().openModule(this);
-      CompletableFuture<ButtonType> dialogResult =
-          getWorkbench().showConfirmationDialog("Confirmation",
-              "Are you sure you want to close this module without saving?");
-      dialogResult.thenAccept(buttonType -> {
-        if (ButtonType.YES.equals(buttonType)) {
-          closePossible = true;
-          getWorkbench().closeModule(this);
-        }
-      });
-      return false;
-    } else {
-      return true;
-    }
+    System.out.println("DESTROY CALLED ON 1");
+
+    getWorkbench().showDialog(WorkbenchDialog.builder("Confirmation",
+        "Are you sure you want to close this module without saving?",
+        WorkbenchDialog.Type.CONFIRMATION)
+        .blocking(true)
+        .onResult(buttonType -> {
+          if (ButtonType.YES.equals(buttonType)) {
+            System.out.println("Pressed: YES");
+            close();
+          }
+        })
+        .build());
+
+    return false;
   }
 
-  public boolean isClosePossible() {
-    return closePossible;
-  }
 
-  public void setClosePossible(boolean closePossible) {
-    this.closePossible = closePossible;
-  }
+
 }

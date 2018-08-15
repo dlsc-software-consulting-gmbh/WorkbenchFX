@@ -21,7 +21,7 @@ public class SelectionStrip<T> extends Control {
   public SelectionStrip() {
     getStyleClass().add("selection-strip");
 
-    setPrefWidth(0);
+    setPrefWidth(400);
     setPrefHeight(50);
 
     setCellFactory(strip -> new StripCell<>());

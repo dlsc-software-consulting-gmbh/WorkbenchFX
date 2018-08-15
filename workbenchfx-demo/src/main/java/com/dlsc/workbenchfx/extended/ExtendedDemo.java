@@ -6,13 +6,12 @@ import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
 import com.dlsc.workbenchfx.extended.calendar.CalendarModule;
 import com.dlsc.workbenchfx.extended.notes.NotesModule;
 import com.dlsc.workbenchfx.extended.preferences.PreferencesModule;
-import com.dlsc.workbenchfx.view.controls.Dropdown;
+import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -78,42 +77,43 @@ public class ExtendedDemo extends Application {
     menu2.getItems().addAll(item21, item22);
     menu3.getItems().addAll(item31, item32, item33);
 
-    Button buttonLeft = new Button("Settings", new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+    ToolbarItem buttonLeft = new ToolbarItem("Settings",
+        new FontAwesomeIconView(FontAwesomeIcon.GEARS));
     buttonLeft.getStyleClass().add("button-inverted");
 
     workbench =
         Workbench.builder(
-                new PreferencesModule(),
-                new PreferencesModule(),
-                new PreferencesModule(),
-                new PreferencesModule(),
-                new PreferencesModule(),
-                new CalendarModule(),
-                new CalendarModule(),
-                new CalendarModule(),
-                new CalendarModule(),
-                new CalendarModule(),
-                new NotesModule(),
-                new NotesModule(),
-                new NotesModule(),
-                new NotesModule(),
-                new NotesModule())
+            new PreferencesModule(),
+            new PreferencesModule(),
+            new PreferencesModule(),
+            new PreferencesModule(),
+            new PreferencesModule(),
+            new CalendarModule(),
+            new CalendarModule(),
+            new CalendarModule(),
+            new CalendarModule(),
+            new CalendarModule(),
+            new NotesModule(),
+            new NotesModule(),
+            new NotesModule(),
+            new NotesModule(),
+            new NotesModule())
             .toolbarLeft(buttonLeft)
             .toolbarRight(
-                Dropdown.of(
+                new ToolbarItem(
                     new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))),
-                Dropdown.of(
-                    new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
+                new ToolbarItem(
+                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new Menu(
                         "Submenus",
                         new FontAwesomeIconView(FontAwesomeIcon.PLUS),
                         new MenuItem("Submenu 1"),
                         new CustomMenuItem(new Label("CustomMenuItem"), false))),
-                Dropdown.of(
+                new ToolbarItem(
                     "Text",
-                    new ImageView(CustomDemo.class.getResource("user_light.png").toExternalForm()),
+                    new ImageView(CustomDemo.class.getResource("user.png").toExternalForm()),
                     new CustomMenuItem(new Label("Content 1")),
                     new CustomMenuItem(new Label("Content 2"))))
             .navigationDrawerItems(
@@ -124,7 +124,7 @@ public class ExtendedDemo extends Application {
     CustomOverlay blockingCustomOverlay = new CustomOverlay(workbench, true);
     showOverlay.setOnAction(event -> workbench.showOverlay(customOverlay, false));
     showBlockingOverlay.setOnAction(event -> workbench.showOverlay(blockingCustomOverlay, true));
-    buttonLeft.setOnAction(event -> workbench.showOverlay(customOverlay, false));
+    buttonLeft.setOnClick(event -> workbench.showOverlay(customOverlay, false));
 
     // This sets the custom style. Comment this out to have a look at the default styles.
     // workbenchFx.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
