@@ -787,6 +787,8 @@ Thanks to the agile way, we could resolve this quickly and early on in the proje
 
 === Animations
 // TODO: (FRANÇOIS)
+One thing we underestimated by far was the power of animations.
+In its initial implementation,
 // TODO: (Wirking auf User Experience unterschätzt, da so gut, nicht abschaltbar, da keinen Sinn macht sonst)
 
 === Switch from Gradle to Maven
