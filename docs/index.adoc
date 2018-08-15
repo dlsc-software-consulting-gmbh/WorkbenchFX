@@ -516,16 +516,16 @@ FontAwesomeFX offers support for the https://material.io/tools/icons/?style=base
 Since all of the icons from the https://material.io/tools/icons/?style=baseline[official Material Design Icons by Google] are included, along with many others in the icon set of https://materialdesignicons.com/[Material Design Icons], we also included a constructor option for https://materialdesignicons.com/[Material Design Icons].
 
 ==== Model View Presenter (MVP)
-// TODO: (FRANÇOIS)
-// TODO: (minimal überarbeiten, weil control overkill, aber trotzdem separierung in view and presenter, good experience in PreferencesFX)
-MVP (Model View Presenter) was used as general architecture pattern.
-// TODO: why?
+MVP was used as general architecture pattern.
+We thought it was overkill to use the `Control` and `Skin` architecture from JavaFX for all internal views as well, especially since they don't have to be replaceable (see <<_api_design>>).
+But at the same time, we wanted the views to be separated to be more readable and maintainable.
+We chose the MVP pattern because we used in in the https://github.com/dlemmermann/PreferencesFX[PreferencesFX] project and it proved to be very good for those purposes.
+This is why we still chose to use the MVP pattern for all internal views.
 At first, we used a separate `WorkbenchModel` object for the model.
 Our customer suggests that it would be easier to skip the `WorkbenchModel` class and just put the logic in `Workbench`, since that's the place where he would expect such logic.
 We decide to change it in a way that `Workbench` is the model object in the MVP pattern in our case.
 This simplifies the architecture and readability is improved, since methods are where they would be expected.
 
-// TODO: used view and presenter class, with view being interface and presenter being abstract.
 `View` is an interface, because it's used as a mixin.
 We implemented it this way because every view needs to already extend a certain JavaFX class and multiple inheritance is not possible in Java, so using an abstract class here isn't an option.
 This makes it possible to initialize all views in the same way while also resulting in less code duplication, since the `init()` method and the JavaDoc doesn't need to be rewritten over and over again.
