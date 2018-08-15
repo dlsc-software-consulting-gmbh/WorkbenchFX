@@ -753,7 +753,22 @@ See the tests in `workbenchfx-core/src/test` for more information.
 
 ===== Awaitility
 After we implemented the animations for the drawers, some tests were failing.
-This was because the tests (and therefore the assertions as well) run very
+Because of the animations, there is a delay of 200 ms before the drawer gets hidden.
+The problem is, the assertions which check if the drawer is not visible run before the animation has finished (the drawer is hidden).
+
+This was quite a challenge, since things like `Thread.sleep()` didn't help at all, as they probably were just sleeping the GUI thread, which didn't help with the issue.
+We then stumbled upon _Awaitility_, which was made for testing asynchronous logic.
+By using it, we were able to specify a condition and a time frame, in which the condition(s) should be met (see <<awaitility-unit-test>>)
+Awaitility does the rest and performs the assertion.
+
+We found Awaitility to be quite useful for this purpose, as it worked flawlessly and was easy to use.
+
+.Unit test with Awaitility
+[source,java]
+[#awaitility-unit-test]
+----
+include::{dir-test-java}/WorkbenchTest.java[tags=awaitility]
+----
 
 === Building
 

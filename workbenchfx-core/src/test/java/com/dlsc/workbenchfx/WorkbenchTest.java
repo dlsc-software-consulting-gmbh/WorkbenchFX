@@ -1164,7 +1164,7 @@ class WorkbenchTest extends ApplicationTest {
       await().atMost(5, TimeUnit.SECONDS).until(() -> (navigationDrawer.isVisible()));
     });
   }
-  // asciidoctor Documentation - tag::awaitility[]
+  // asciidoctor Documentation - end::awaitility[]
 
   @Test
   void getNavigationDrawerItems() {
