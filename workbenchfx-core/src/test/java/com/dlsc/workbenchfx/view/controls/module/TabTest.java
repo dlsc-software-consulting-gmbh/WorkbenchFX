@@ -17,6 +17,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.PseudoClass;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -81,19 +82,24 @@ class TabTest extends ApplicationTest {
 
   @Test
   void testActiveTabListener() {
+    PseudoClass selected = PseudoClass.getPseudoClass("selected");
     assertFalse(tab.isActiveTab());
+    assertFalse(tab.getPseudoClassStates().contains(selected));
 
     // change it to be the active module tab
     activeModule.set(mockModules[0]);
     assertTrue(tab.isActiveTab());
+    assertTrue(tab.getPseudoClassStates().contains(selected));
 
     // change the module displayed by this tab, should not be the active tab now
     tab.setModule(mockModules[1]);
     assertFalse(tab.isActiveTab());
+    assertFalse(tab.getPseudoClassStates().contains(selected));
 
     // changing the active module tab now should make it active again
     activeModule.set(mockModules[1]);
     assertTrue(tab.isActiveTab());
+    assertTrue(tab.getPseudoClassStates().contains(selected));
 
     verify(mockBench, atLeastOnce()).activeModuleProperty();
   }
