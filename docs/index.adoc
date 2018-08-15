@@ -684,6 +684,10 @@ We thought about using Test Driven Development (TDD), but because the framework 
 Since we had a focus on good "usability" of the API for the API users, the API would change a lot during development.
 This is why we decided not to do TDD, because it meant we would have needed to constantly adapt the tests to the changing API in the beginning of the development, which would be very inefficient.
 
+Unit testing also had the advantage that it "forced" us to have a good architecture.
+If the architecture isn't good, it is very hard to test in an isolated way.
+We employed the pattern of _Dependency Injection_ whenever we could, since that made one of the biggest differences in testable code for us.
+
 ==== JUnit vs Spock
 Most of our unit testing, especially in the beginning, was done by using JUnit.
 However, when there were some test cases that were data driven.
