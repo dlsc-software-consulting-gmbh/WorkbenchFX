@@ -25,10 +25,11 @@ It offers good user experience and a beautiful design.
 
 A developer start often with building a view to show his customer first progress.
 Then comes always questions like:
-- "How do I bring all those views together?"
-- "How do I build the navigation between those views?"
-- "How do I ensure a consistent styling?"
-- "How do I establish a good user experience?"
+
+* "How do I bring all those views together?"
+* "How do I build the navigation between those views?"
+* "How do I ensure a consistent styling?"
+* "How do I establish a good user experience?"
 
 Exactly when those questions appear, WorkbenchFX comes into the game:
 It takes the views, and wraps the infrastructure around it.
@@ -51,16 +52,17 @@ The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
 
 // TODO: differentiate somewhere the terms "implementor", "user" and "API user"
 // TODO: Find better naming for "Weitere Ausführung", "Folgende Erläuterungen", etc.
-During following explanation, some terms are used.
+During the documentation, some terms are used.
 In following <<terms-declaration>> it is shown in what context they are used.
 
 .Declaration of used terms during the document
 [#terms-declaration]
 |===
 |Term        |Explanation
-|Implementor |
+|Module      |The workbench object consists of multiple views. The object which contains the view is called Module.
+|Implementor |The person which creates a custom implementation of a module
 |User        |The person which uses the final software created with WorkbenchFX
-|API user    |The person which uses the WorkbenchFX API to develop the software
+|API user    |The person which uses the WorkbenchFX API and all its features to develop the software
 |===
 
 == Motivation
@@ -293,11 +295,23 @@ The image below gives a short impression of the program and the table below show
 |
 |===
 
-==== To IDE or not to IDE?
-// TODO: Insert image
+==== Conclusion
+In conclusion after analyzing all those different programs, we can simplify them to the most important and frequent characteristics:
 
-// TODO: (nur grob erklären, was erkenntniss, bei IDE: docking framework notwendig, modular approach hineinnehmen)
-// TODO:
+* A menu bar on top of the application, where all the functionality of the application is stored.
+* Below the menu-bar is often a toolbar, which contains the current, or most important tools represented through buttons (without collapsing).
+* In center is often the window, in which the main work is done.
+* Usually there are on the left and right of the application bars, which can collapse.
+They contain either further tools, buttons or a tree-view for navigation.
+* Sometimes another bar which is collapsible is set below the main window.
+* Finally another toolbar is sometimes set on bottom of the application.
+It contains the least used tools, or tools which are needed at the end of the process.
+
+==== To IDE or not to IDE?
+During our research we discovered, that there are possibly two different kind of application types, created for two different types of users.
+
+One type of application is created for power users:
+
 Power users need the utmost of customizability, to ensure they can adapt the workspace to be the most ergonomic to fit their workflow.
 In terms of the architecture, it could mean that it would need to allow the following:
 
@@ -311,6 +325,10 @@ In terms of the architecture, it could mean that it would need to allow the foll
 *** Floating mode
 *** Window mode
 *** Split mode
+
+The other user type is the opposite to a power user:
+A user which has less or no experience in using a large application.
+// TODO: (nur grob erklären, was erkenntniss, bei IDE: docking framework notwendig, modular approach hineinnehmen)
 
 === User Stories
 // TODO: (MARCO)
@@ -331,17 +349,6 @@ Nonetheless we need to break down the functionality to it's simplest scenario.
 This way, we can assure our customer, that the minimal viable product as a result from this project. // TODO: ????
 The reason why we do this is, that this way both parties are talking the same language regarding the expectations of the outcome of the project.
 Furthermore it's an assurance for both of them.
-
-Characteristic for all programs is: // TODO: move up as conclusion of comparison of programs
-
-* A menu-bar on top of the application.
-* Below the menu-bar is often a tool-bar, which contains the current, or most important tools represented through buttons (without collapsing).
-* In center is often the window, in which the work is done.
-* Usually there are on the left and right of the application bars, which can collapse.
-They contain either further tools, buttons or a tree-view for navigation.
-* Sometimes another bar which is collapsible is set below the main-window.
-* Finally another tool-bar is set below the application.
-It contains the least used tools, or tools which are needed at the end of the process.
 
 The outcome of our research results in a minimalistic version of the workbench, our customer developed. // TODO: rewrite
 The MVP is designed with the prototyping-tool `Figma`.
