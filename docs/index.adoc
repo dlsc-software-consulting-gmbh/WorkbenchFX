@@ -1384,8 +1384,27 @@ Following <<best-practices>> lists all the conventions we consider the most valu
 |===
 
 === Value of User Stories
-// TODO: (MARCO)
-// TODO: (How good was workshop etc.)
+User stories communicate a concrete goal of the product.
+Comparing to just defining some features, user stories help to understand the reason for a feature.
+This way we can ensure that all of our implemented features satisfy a special need.
+
+In the beginning of the project we held a workshop with our customer where we defined the persona and afterwards the user stories to define the problems which our API should solve.
+Before the workshop it was rather unclear what WorkbenchFX exactly is.
+But after the workshop we all had a shared understanding about the project.
+
+Together with the persona and the user stories it felt almost like the written stories and persona are real.
+Exactly to achieve this feeling is what are user stories made for.
+
+During the project we could always refer to the persona and stories and ask ourselves:
+"Are we on the right way?" It helped us a lot to keep an eye on the real problem and to not loose ourselves in personal opinions and thoughts.
+
+[TIP]
+====
+For a future project we would definitely use persona and user stories again.
+
+Having three different persona is tricky to work with as we have to look after three different characters and needs.
+Of course having that much persona can happen but having only one central persona is crucial since we cannot always satisfy every desire and therefore have to make sometimes compromise.
+====
 
 === Working Agile
 Even though we had to face a lot of challenges, there is one thing we are especially grateful about: working in an agile way. +
