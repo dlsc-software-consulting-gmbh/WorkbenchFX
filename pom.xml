@@ -76,6 +76,7 @@
                 <configuration>
                     <sourceDirectory>docs</sourceDirectory>
                     <attributes>
+                        <dir-core>${project.basedir}/workbenchfx-core</dir-core>
                         <dir-test-java>${project.basedir}/workbenchfx-core/src/test/java/com/dlsc/workbenchfx</dir-test-java>
                         <dir-test-groovy>${project.basedir}/workbenchfx-core/src/test/groovy/com/dlsc/workbenchfx</dir-test-groovy>
                         <dir-source-core>${project.basedir}/workbenchfx-core/src/main/java/com/dlsc/workbenchfx</dir-source-core>
