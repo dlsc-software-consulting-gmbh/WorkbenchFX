@@ -1014,11 +1014,9 @@ To improve the quality of the code and also ensure https://www.agilealliance.org
 This worked very well for us, since comments that were made by the other person always lead to improvements and code of higher quality.
 
 ==== SCSS instead of CSS
-// TODO: (MARCO)
-// TODO: Explain reason why we use SCSS instead of CSS
 In web development the transpiler `SCSS` to `CSS` is commonly used.
 But we were not finding much information about using it with `JavaFX` projects.
-Because `SCSS` is:
+But because `SCSS` is:
 
 * much easier to write
 * easier to read
@@ -1086,72 +1084,42 @@ If additional stylings are required, they can simply be added.
 
 TIP: IntelliJ plugin to transpile https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[SCSS to CSS]
 
-// TODO: Replace with useful examples
-There is no margin in JavaFX CSS.
-We've made a workaround using a `SCSS Mixin` which looks like this:
-
-Creating the `Mixin`:
-[source,sass]
-----
-@mixin margin-all($margin) {
-  -fx-padding: $margin;
-  -fx-border-insets: $margin;
-  -fx-background-insets: $margin;
-}
-----
-
-Using the `Mixin` in code:
-[source,sass]
-----
-.my-class {
-  @include margin-all(1.5em);
-}
-----
-
-A `Mixin` includes code, created by the `Mixin` and puts it in the place where it was called.
-Link: http://thesassway.com/advanced/pure-sass-functions[SCSS - Mixin]
-
 ==== CSS Conventions
-// TODO: (MARCO)
-We have decided to define some general conventions:
+In order to maintain a well structured styling we agreed on several conventions.
+The most mentionable are described as follows.
 
-In CSS it is possible to give multiple classes the same layout.
-For example:
-[source,sass]
-----
-.myClass-1, .myClass-2 {
-  -fx-padding: 1em;
-  -fx-border-insets: 1em;
-  -fx-background-insets: 1em;
-}
-----
-this is possible, but it's readability is not that good.
-SCSS provides a special tag for such situations, the `@extend`-tag:
-[source,sass]
-----
-.myClass-1 {
-  -fx-padding: 1em;
-  -fx-border-insets: 1em;
-  -fx-background-insets: 1em;
-}
+===== Using the Material Design Variables
+// TODO: reference the variables
+As stated in chapter <<_easy_styling>> we wanted to have Fabian worrying about restyling as least as possible.
 
-.myClass-2 {
-  @extend .myClass-1;
-}
-----
-In both cases, both classes have the same attributes.
-But the readability is much better in the second example.
-Plus, there is the possibility to add another attribute in `.myClass-2`.
-[source,sass]
-----
-.myClass-2 {
-  @extend .myClass-1;
-  -fx-color: RED;
-}
-----
-`.myClass-2` inherits from `.myClass-1` and can be extended.
-https://sass-lang.com/guide[SCSS - @extend]
+Therefore we agreed on using only variables for styling, so that Fabian has to change only a variable to restyle the application.
+Of course not only Fabian profits from this convention but we too.
+Thanks to variables we didn't had to worry about color codes and changing them.
 
+Using the variable names and usage definition of `Material Design` will also be of use in future.
+This way we have not to worry about other, future developers not knowing on how the colors are used and how to use them.
+
+===== Replacing Pixels
+We agreed on using `em` as size measurement and not `px`.
+The simple reason to do this was agility.
+When changing the default size of the font, the overall styling can adapt the actual size.
+
+However sometimes it is more useful to write in pixels than in `em`.
+For instance it much simpler to write `60px` instead of `4.286em` (base font size: 14px).
+
+One of the features of `SCSS` is defining functions.
+We wrote a little <<pixel-converter>> which allowed us to convert pixels into `em` and agreed on using the function when working with a pixel value.
+[source,sass]
+
+.Pixel Converter Function
+[#pixel-converter]
+----
+@function px($px) {
+  @return 1em / 14 * $px; // 14px is defined by the default material design font-size
+}
+----
+
+===== Working With Imports
 Another convention we use is the separation of all scss-files.
 For readability we have the `main.scss` file separated into multiple scss files.
 In the `main.scss` we include all those other files and this "main file" will be compiled as a css file.
