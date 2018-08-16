@@ -1419,8 +1419,22 @@ If we didn't get constant feedback from our customer, we would probably only hav
 TIP: Thanks to the agile way, we could resolve challenges quickly and early on in the project.
 
 === Hacking Day
-// TODO: (MARCO)
-// TODO: (Dirk hat selber erkannt, dass nicht so einfach wie man es sich vorstellt, dass es Dirk auch etwas gebracht hat zu erkennen => besser im Projekt eingebunden, besser gemerkt wo Probleme sind)
+During the project we had several so called "Hacking Days" where we together with our customer and/or advisor worked on the project.
+Those hacking days completely differ from each other.
+
+When we had the hacking days together with our advisor, he took the role of Fabian and implemented his own module.
+This was great since we saw the usage of our API in real life with a person which was not that much involved into the development as we are and therefore had a neutral attitude.
+Thanks to those kind of hacking days we discovered several issues which we could eliminate then.
+
+Another hacking day was held with our customer.
+There we started implementing together the dialog feature.
+This had multiple advantages.
+First of all we integrated our customer in the project and it gave him insight into our project's progress.
+Another advantage was, that he gained awareness on how complex certain processes are.
+He stated for instance that is was not that easy as he thought to simply reuse his code of the dialog.
+
+However in the end we all profited from each other.
+We are really grateful about those hacking days since they really are helpful.
 
 === Animations
 One thing we underestimated by far was the power of animations.
