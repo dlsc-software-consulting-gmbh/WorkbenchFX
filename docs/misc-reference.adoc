@@ -6,3 +6,9 @@ François Martin; Marco Sanfratello
 ----
 include::../codecov.yml[]
 ----
+
+== Maven `pom.xml`: workbenchfx-core
+[source,java]
+----
+include::{dir-core}/pom.xml[]
+----

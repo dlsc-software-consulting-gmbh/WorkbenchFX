@@ -1,20 +1,28 @@
 = Test Reference
 François Martin; Marco Sanfratello
 
-== Open Modules
+== WorkbenchTest.java
+
+=== Open Modules
 [source,java]
 ----
 include::{dir-test-java}/WorkbenchTest.java[tags=openModule]
 ----
 
-== Close Modules
+=== Close Modules
 [source,java]
 ----
 include::{dir-test-java}/WorkbenchTest.java[tags=closeModule]
 ----
 
-== Close Modules Interrupted
+=== Close Modules Interrupted
 [source,java]
 ----
 include::{dir-test-java}/WorkbenchTest.java[tags=closeModuleInterrupt]
+----
+
+=== Close Stage Interrupted
+[source,java]
+----
+include::{dir-test-java}/WorkbenchTest.java[tags=stageClosing]
 ----
