@@ -186,7 +186,7 @@ We thought it would be easier to understand for our API users and that was the m
 This is why we decided to stick with the word `Module`.
 However, we decided to add the `Workbench` prefix, to remedy the importing issue mentioned above and to clearly separate it from the other `Module` classes in the JDK.
 
-See the chapter <<_add_module_page>> for the explanation of what a module is.
+NOTE: See the chapter <<_add_module_page>> for the explanation of what a module is.
 
 ==== Navigation Drawer
 We chose the name "Navigation Drawer" to be consistent with the naming in the https://material.io/guidelines/patterns/navigation-drawer.html[Material Design guidelines].
@@ -523,7 +523,7 @@ Since all of the icons from the https://material.io/tools/icons/?style=baseline[
 MVP was used as general architecture pattern.
 We thought it was overkill to use the `Control` and `Skin` architecture from JavaFX for all internal views as well, especially since they don't have to be replaceable (see <<_api_design>>).
 But at the same time, we wanted the views to be separated to be more readable and maintainable.
-We chose the MVP pattern because we used in in the https://github.com/dlemmermann/PreferencesFX[PreferencesFX] project and it proved to be very good for those purposes.
+We chose the MVP pattern because we used it in the https://github.com/dlemmermann/PreferencesFX[PreferencesFX] project and it proved to be very good for those purposes.
 This is why we still chose to use the MVP pattern for all internal views.
 At first, we used a separate `WorkbenchModel` object for the model.
 Our customer suggests that it would be easier to skip the `WorkbenchModel` class and just put the logic in `Workbench`, since that's the place where he would expect such logic.
@@ -680,7 +680,7 @@ We would not merge a pull request before the tests are all done and passed.
 This improved the code quality by a lot, since we found around two bugs (sometimes less, sometimes more) per pull request during testing.
 
 We thought about using Test Driven Development (TDD), but because the framework is new, the API was not clear from the beginning.
-Since we had a focus on good "usability" of the API for the API users, the API would change a lot during development.
+Since we had a focus on good "usability" of the API, it changed a lot during development.
 This is why we decided not to do TDD, because it meant we would have needed to constantly adapt the tests to the changing API in the beginning of the development, which would be very inefficient.
 
 Unit testing also had the advantage that it "forced" us to have a good architecture.
@@ -693,7 +693,7 @@ However, when there were some test cases that were data-driven.
 JUnit 5 does have data-driven testing capabilities, but it doesn't offer much flexibility and the way tests have to be implemented to be data-driven is not very readable cite:[bechtold_junit_nodate].
 An example can be seen in <<junit-parameterized>>.
 
-.Parameterized Tests with JUnit 5
+.Parameterized Tests with JUnit 5 cite:[bechtold_junit_nodate]
 [source,java]
 [#junit-parameterized]
 ----
@@ -758,7 +758,7 @@ After we implemented the animations for the drawers, some tests were failing.
 Because of the animations, there is a delay of 200 ms before the drawer gets hidden.
 The problem is, the assertions which check if the drawer is not visible run before the animation has finished (the drawer is hidden).
 
-This was quite a challenge, since things like `Thread.sleep()` didn't help at all, as they probably were just sleeping the GUI thread, which didn't help with the issue.
+This was quite a challenge, since `Thread.sleep()` and other strategies didn't help at all, as they probably were just sleeping the GUI thread, which didn't help with the issue.
 We then stumbled upon _Awaitility_, which was made for testing asynchronous logic.
 By using it, we were able to specify a condition and a time frame, in which the condition(s) should be met (see <<awaitility-unit-test>>)
 Awaitility does the rest and performs the assertion.
