@@ -450,6 +450,21 @@ As soon as there are items to be displayed, WorkbenchFX creates automatically a 
 
 This way it is ensured, that an implementor always has the possibility to maintain a consistent look and feel.
 
+===== Drawer Animations
+During a long period of time of the project we didn't focus on animations.
+One reason we never did that, is that using them in `JavaFX` is really cumbersome.
+
+One of our features are the drawers.
+An API user can call `workbench.showDrawer()` to show a drawer.
+The base idea of this feature is to create a custom `NavigationDrawer`.
+When showing or hiding ,those drawers were never showing any animation.
+They just (dis)appeared.
+
+However during the usability test we discovered that in case of drawers animations are required.
+The visual feedback was not there when we tested the drawers.
+A user wants to know from which position the drawer comes from and he is used to a sliding animation.
+So we decided to implement the drawers with animations (see <<_animations>>).
+
 ==== ***REMOVED***, UX Expert
 The biggest impact on the WorkbenchFX styling came from this UX expert.
 A lot of the feedback he gave us was really helpful and we decided to adapt a lot of it.
@@ -1286,8 +1301,7 @@ TIP: Thanks to the agile way, we could resolve challenges quickly and early on i
 === Animations
 One thing we underestimated by far was the power of animations.
 Initially, we didn't have animations on the drawers.
-// TODO: maybe add link / reference to above somewhere?
-In a usability test with Dieter Holz we noticed that especially with the drawers that covered most of the screen, it was not clear where they were coming from or that they even were drawers.
+In a usability test with Dieter Holz we noticed that especially with the drawers that covered most of the screen, it was not clear where they were coming from or that they even were drawers (see <<_drawer_animations>>).
 
 When we implemented the drawer animations, we were astounded to see how much of a difference it made.
 We expected it to make a slight difference, but it really improved the user experience by a lot.
