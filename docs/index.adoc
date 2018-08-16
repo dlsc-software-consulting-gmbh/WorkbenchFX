@@ -972,9 +972,36 @@ We can only imagine how much time we saved.
 Setting up Travis CI also took time, but we are sure it already saved us more time than the setup required.
 
 TIP: We only started using Travis CI with `v1.3.0`, in the next project we would use it from the beginning.
+
 === Java 8 / 9 / 10
 // TODO: (FRANÇOIS)
-// TODO: (Paradebeispiel, Rückstand von Technologie wegen anderen, da andere es noch nicht verwenden..., Dokumentieren Situation geändert wegen Java 9 deprecated)
+In the beginning of the project, Java 10 was just released.
+Our customer wanted us to use Java 10, because he noticed some JavaFX-related bugs in Java 9 that were fixed in Java 10.
+
+A bit later on in the project, he told us to switch back to Java 9, as he noticed dependencies were not ready for Java 10 yet, as most of the other developers have not switched to Java 10 yet.
+We used Java 9 for the longest time, but we started to worry because Oracle started to deprecate Java 9 cite:[noauthor_java_nodate] and it became more difficult to download, even requiring an Oracle login to do so.
+
+One of the user stories mentioned the ability to use WorkbenchFX with https://www.jpro.one/[jpro].
+To see if it works, we did a proof of concept with jpro and noticed that in fact it did not work.
+We thought it could be an issue with jpro not being compatible with Java 9 and decided to try it with Java 8.
+Luckily, we haven't used many Java 9 features in the code, so it was mainly switching from Java 9 versions of dependencies to Java 8 versions of them.
+And it worked!
+
+This is why we decided to go with Java 8.
+It resolves the issues of Java 9 being difficult to download and at the same time, it allows us to make use of a larger user group, as lots of developers are still using Java 8.
+We did however decide to leave comments in the `pom.xml` files with the Java 9 versions of the dependencies, so it is possible to publish two separate versions when WorkbenchFX goes open source.
+This is something quite a lot of JavaFX libraries and frameworks seem to do cite:[noauthor_controlsfx_2013]+[noauthor_scene_nodate]+[jfoenix_jfoenix_2018] , so we thought it would make the most sense.
+
+However, we don't think this is a good trend.
+It seems to us that instead of being open and trying to stay updated with the newer Java versions, most developers do the opposite and try to stay on older versions for as long as they can.
+This in turn forces developers of frameworks and libraries to also support the older versions of Java, which makes the problem worse.
+
+[TIP]
+====
+We're not entirely sure how we would decide in our next project.
+Since Java 11 will be released on the 25^th^ of August 2018 cite:[noauthor_jdk_nodate], which is very soon.
+Only time will tell how developers react to it, which could totally change any recommendations from our side, especially since Java 8 is starting to get deprecated, with Java 11 being a long term support release cite:[noauthor_oracle_2018].
+====
 
 === Don't underestimate the seemingly most simple tasks
 // TODO: (FRANÇOIS)
