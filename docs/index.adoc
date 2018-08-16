@@ -59,7 +59,7 @@ In following <<terms-declaration>> it is shown in what context they are used.
 [#terms-declaration]
 |===
 |Term        |Explanation
-|Module      |The workbench object consists of multiple views. The object which contains the view is called Module. (More information about link:#_module_naming[module naming])
+|Module      |The workbench object consists of multiple views. The object which contains the view is called Module. (More information about <<_module_naming>>)
 |Implementor |The person which creates a custom implementation of a module
 |User        |The person which uses the final software created with WorkbenchFX
 |API user    |The person which uses the WorkbenchFX API and all its features to develop the software
@@ -358,7 +358,7 @@ The final prototype is displayed in <<mvp>> below.
 The MVP consists of:
 
 * Able to add modules to the workbench object
-* The link:#_workbenchmodule_lifecycle[module lifecycle] which enables the user to open, deactivate and close the module
+* The <<_workbenchmodule_lifecycle>> which enables the user to open, deactivate and close the module
 * Switching modules using tabs
 
 [cols="1,1"]
@@ -421,7 +421,7 @@ During the project we continuously got feedback from different kinds of people.
 In the following chapters are the most important outcomes from usability tests listed.
 
 ==== Dieter Holz, Advisor
-During the "Hacking Days" we've made from time to time (more about them in chapter link:#_hacking_day[Hacking Day]), our advisor tested the API by implementing a module on his own.
+During the "Hacking Days" we've made from time to time (more about them in chapter <<_hacking_day>>), our advisor tested the API by implementing a module on his own.
 This showed us some weaknesses in the API.
 Two very important findings were discovered:
 
@@ -495,7 +495,7 @@ Following chapters cover some of the most interesting topics and design decision
 ==== Tabs
 We stuck early to the modular concept of having multiple views and switching between them using tabs.
 This concept is widely used.
-Most of the applications analyzed in chapter link:#_applications[Applications] use the tab concept to switch between their files.
+Most of the applications analyzed in chapter <<_applications>> use the tab concept to switch between their files.
 Also common internet browsers like https://www.google.com/intl/de_ALL/chrome/[Google Chrome] or https://www.mozilla.org/de/firefox/new/[Firefox] use the tab system too.
 
 ==== Add Module Page
@@ -874,6 +874,7 @@ But we decided to go for a compromise: we would still not remove the overlays wh
 == Processes
 
 === Development
+// TODO: Google Java style guidelines
 
 ==== GitHub
 The programming is being done in a GitHub repository.
@@ -950,8 +951,7 @@ The code appears to be redundant and very flat, bad to read.
 }
 ----
 
-// TODO: Verschachtelt to english
-Is much easier to read thanks to the folded code writing.
+Is much easier to read thanks to the nested code writing.
 The code is also adaptable.
 If additional stylings are required, they can simply be added.
 `SCSS` will become handier and more powerful as the complexity of the stylesheet grows.
