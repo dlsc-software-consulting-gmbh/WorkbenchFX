@@ -558,12 +558,13 @@ While it is not recommended to open an overlay on top of another overlay, it fre
 
 ===== Challenges
 At first, we designed the API to not allow multiple overlays to be shown on top of each other.
-// beschreiben one dialogcontrol, then switch model object, usw. => text ausgetauscht von dialog
-This enabled us to have one `GlassPane` to use for all overlays and prevented the API user from showing multiple overlays on top of each other, which is bad practice. +
+This enabled us to have one `GlassPane` and one `DialogControl` to use for all overlays.
+We would then simply exchange the `WorkbenchDialog` model object in `DialogControl`, which would cause the `DialogControl` to change accordingly.
+This prevented the API user from the bad practice of showing multiple overlays on top of each other. +
 However, this lead to timing / concurrency issues when switching from one overlay to another.
 
 When closing the stage with two open modules, which both would interrupt the closing process with a dialog, confirming the close on the first dialog would cause no dialog to be shown at all, even though the closing dialog of the second module should've been shown.
-It turned out calling `showOverlay()` to show the second dialog was called fractions of a second earlier than `hideOverlay()`. // TODO
+It turned out calling `showOverlay()` to show the second dialog was called fractions of a second earlier than `hideOverlay()`.
 This resulted in the second dialog to be shown first, which was then hidden with the call to `hideOverlay()`.
 Since the whole process is asynchronous and highly depends on the changes in JavaFX's scene graph that are out of our control, we decided to allow multiple overlays to be shown on top of each other.
 Since the overlap during the transition between two overlays is so minimal that it can't be seen, this is not a problem visually.
