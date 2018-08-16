@@ -421,7 +421,7 @@ We thought it would be easier to understand for our API users and that was the m
 This is why we decided to stick with the word `Module`.
 However, we decided to add the `Workbench` prefix, to remedy the importing issue mentioned above and to clearly separate it from the other `Module` classes in the JDK.
 
-NOTE: See the chapter <<_add_module_page>> for the explanation of what a module is.
+NOTE: <<_add_module_page>> explains what a module exactly is.
 
 ==== Navigation Drawer
 We chose the name "Navigation Drawer" to be consistent with the naming in the https://material.io/guidelines/patterns/navigation-drawer.html[Material Design guidelines].
@@ -536,7 +536,7 @@ Following chapters cover some of the most interesting topics and design decision
 ==== Tabs
 We stuck early to the modular concept of having multiple views and switching between them using tabs.
 This concept is widely used.
-Most of the applications analyzed in chapter <<_applications>> use the tab concept to switch between their files.
+Most of the applications analyzed in <<_applications>> use the tab concept to switch between their files.
 Also common internet browsers like https://www.google.com/intl/de_ALL/chrome/[Google Chrome] or https://www.mozilla.org/de/firefox/new/[Firefox] use the tab system too.
 
 ==== Add Module Page
@@ -1090,7 +1090,7 @@ The most mentionable are described as follows.
 
 ===== Using the Material Design Variables
 // TODO: reference the variables
-As stated in chapter <<_easy_styling, Easy Styling>> we wanted to have Fabian worrying about restyling as least as possible.
+As stated in <<_easy_styling, Easy Styling>> we wanted to have Fabian worrying about restyling as least as possible.
 
 Therefore we agreed on using only variables for styling, so that Fabian has to change only a variable to restyle the application.
 Of course not only Fabian profits from this convention but we too.
