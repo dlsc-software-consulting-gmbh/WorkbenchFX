@@ -403,7 +403,7 @@ TIP: The https://www.figma.com/proto/LY7jPWrDVQ5GG1zmvBdlA2MT/WorkbenchFX?scalin
 
 ==== Module Naming
 To plug in functionality by the API user, we use modules.
-However, as stated in chapter link:#add_module_page[Add Module Page] the name `Module` is not ideal, since that name already has a lot of associations.
+However, as stated in <<_add_module_page>> the name `Module` is not ideal, since that name already has a lot of associations.
 Additionally, when typing `extends Module` in an IDE, it will automatically imports Java's `Module`.
 This makes it frustrating, as the implementor has to manually change the import.
 
@@ -447,7 +447,7 @@ During the project we continuously got feedback from different kinds of people.
 In the following chapters are the most important outcomes from usability tests listed.
 
 ==== Dieter Holz, Advisor
-During the "Hacking Days" we've made from time to time (more about them in chapter <<_hacking_day>>), our advisor tested the API by implementing a module on his own.
+During the "Hacking Days" we've made from time to time (more about them in <<_hacking_day>>), our advisor tested the API by implementing a module on his own.
 This showed us some weaknesses in the API.
 Two very important findings were discovered:
 
@@ -555,7 +555,7 @@ For obvious reasons we could not name the module "MiniApplication".
 Fabian for instance would be very confused when he should implement a "MiniApplication".
 So we had to find a better name.
 In the end we came up with WorkbenchModule which was also not the best solution, since a lot of associations stick with the name module.
-But it is definitely a better choice than "Application" (the complete naming process is described in chapter link:#module_naming[Module Naming]).
+But it is definitely a better choice than "Application" (the complete naming process is described in <<_module_naming>>).
 
 When having a lot of modules, the available space on the page would fast shrink and the usability would also decrease.
 For that reason we introduced a pagination to have only a restricted amount of modules displayed on the page.
@@ -563,9 +563,9 @@ For that reason we introduced a pagination to have only a restricted amount of m
 ==== Changes across Versions
 There are three major changes mentionable which appeared during the project.
 
-* The phase when we were <<_writing_our_own_stylesheet>> without any help of external sources.
-* The phase where we were <<_switching_to_the_material_design_guidelines>>.
-* The phase after the usability tests, where we were <<_separating_the_toolbar>> into the toolbar on top and the tab bar below and went full material
+* The phase when we were <<_writing_our_own_stylesheet, writing our own stylesheet>> without any help of external sources.
+* The phase where we were <<_switching_to_the_material_design_guidelines, switching to the Material Design guidelines>>.
+* The phase after the usability tests, where we were <<_separating_the_toolbar, separating the toolbar>> into the toolbar on top and the tab bar below and went full material
 
 ===== Writing our own stylesheet
 // TODO: cite the material design guideleines
@@ -1090,7 +1090,7 @@ The most mentionable are described as follows.
 
 ===== Using the Material Design Variables
 // TODO: reference the variables
-As stated in chapter <<_easy_styling>> we wanted to have Fabian worrying about restyling as least as possible.
+As stated in chapter <<_easy_styling, Easy Styling>> we wanted to have Fabian worrying about restyling as least as possible.
 
 Therefore we agreed on using only variables for styling, so that Fabian has to change only a variable to restyle the application.
 Of course not only Fabian profits from this convention but we too.
