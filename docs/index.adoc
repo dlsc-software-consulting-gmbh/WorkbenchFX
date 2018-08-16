@@ -431,7 +431,7 @@ At the same time, making it more complex potentially makes it less self-explanat
 
 The challenge was to strike a balance between complex and easy, ensuring both Fabian and Steffi would be happy with the API.
 
-The first design decision we made was to have it as an abstract class.
+The first design decision we made was to have `WorkbenchModule` as an abstract class.
 This way, we can already pre-define as many lifecycle methods as possible, so Fabian has the least amount of work.
 Still, we enable Steffi or even Fabian in some more advanced use cases to override the lifecycle methods they need, to augment or replace the implementation with their own.
 The compromise here was to have `#activate()` as the only lifecycle method that *must* be implemented, as it returns the view of the module that should be displayed.
@@ -527,7 +527,7 @@ We chose the MVP pattern because we used it in the https://github.com/dlemmerman
 This is why we still chose to use the MVP pattern for all internal views.
 At first, we used a separate `WorkbenchModel` object for the model.
 Our customer suggests that it would be easier to skip the `WorkbenchModel` class and just put the logic in `Workbench`, since that's the place where he would expect such logic.
-We decide to change it in a way that `Workbench` is the model object in the MVP pattern in our case.
+We decided to change it in a way that `Workbench` is the model object in the MVP pattern in our case.
 This simplifies the architecture and readability is improved, since methods are where they would be expected.
 
 `View` is an interface, because it's used as a mixin.
@@ -558,10 +558,13 @@ While it is not recommended to open an overlay on top of another overlay, it fre
 
 ===== Challenges
 At first, we designed the API to not allow multiple overlays to be shown on top of each other.
-This enabled us to have one `GlassPane` to use for all overlays and prevented the API user from showing multiple overlays on top of each other, which is bad practice. +
+This enabled us to have one `GlassPane` and one `DialogControl` to use for all overlays.
+We would then simply exchange the `WorkbenchDialog` model object in `DialogControl`, which would cause the `DialogControl` to change accordingly.
+This prevented the API user from the bad practice of showing multiple overlays on top of each other. +
 However, this lead to timing / concurrency issues when switching from one overlay to another.
-When closing the stage with two open modules, which both would interrupt the closing process with a closing dialog, confirming the close on the first dialog would cause no dialog to be shown at all, even though the closing dialog of the second module should've been shown.
-It turned out `showOverlay()` to show the second dialog was called fractions of a second earlier than `hideOverlay()`.
+
+When closing the stage with two open modules, which both would interrupt the closing process with a dialog, confirming the close on the first dialog would cause no dialog to be shown at all, even though the closing dialog of the second module should've been shown.
+It turned out calling `showOverlay()` to show the second dialog was called fractions of a second earlier than `hideOverlay()`.
 This resulted in the second dialog to be shown first, which was then hidden with the call to `hideOverlay()`.
 Since the whole process is asynchronous and highly depends on the changes in JavaFX's scene graph that are out of our control, we decided to allow multiple overlays to be shown on top of each other.
 Since the overlap during the transition between two overlays is so minimal that it can't be seen, this is not a problem visually.
