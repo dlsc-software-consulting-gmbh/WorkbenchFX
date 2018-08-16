@@ -977,7 +977,7 @@ TIP: We only started using Travis CI with `v1.3.0`, in the next project we would
 In the beginning of the project, Java 10 was just released.
 Our customer wanted us to use Java 10, because he noticed some JavaFX-related bugs in Java 9 that were fixed in Java 10.
 
-A bit later on in the project, he told us to switch back to Java 9, as he noticed dependencies were not ready for Java 10 yet, as most of the other developers have not switched to Java 10 yet.
+A bit later on in the project, he told us to switch back to Java 9, as he noticed dependencies were not ready for Java 10 yet, since most of the other developers have not switched to Java 10 yet.
 We used Java 9 for the longest time, but we started to worry because Oracle started to deprecate Java 9 cite:[noauthor_java_nodate] and it became more difficult to download, even requiring an Oracle login to do so.
 
 One of the user stories mentioned the ability to use WorkbenchFX with https://www.jpro.one/[jpro].
@@ -1004,6 +1004,7 @@ Only time will tell how developers react to it, which could totally change any r
 
 === Don't underestimate the seemingly most simple tasks
 // TODO: (FRANÇOIS)
+
 // TODO: (Closing of modules, how hard it was, completablefuture...)
 
 == Summary
