@@ -1146,6 +1146,7 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
+  // asciidoctor Documentation - tag::awaitility[]
   @Test
   void hideNavigationDrawer() {
     robot.interact(() -> {
@@ -1163,6 +1164,7 @@ class WorkbenchTest extends ApplicationTest {
       await().atMost(5, TimeUnit.SECONDS).until(() -> (navigationDrawer.isVisible()));
     });
   }
+  // asciidoctor Documentation - end::awaitility[]
 
   @Test
   void getNavigationDrawerItems() {
