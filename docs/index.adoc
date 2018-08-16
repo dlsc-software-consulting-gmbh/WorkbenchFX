@@ -599,6 +599,7 @@ But we decided to go for a compromise: we would still not remove the overlays wh
 == Processes
 
 === Development
+// TODO: François
 
 ==== GitHub
 The programming is being done in a GitHub repository.
@@ -1037,7 +1038,7 @@ But even in general, there are many edge cases that need to be considered, as ca
 TIP: This taught us that we need to be careful and never assume that a feature is easy to implement, just because it seems like it should be.
 
 == Summary
-// TODO: (MARCO)
+// TODO: François
 
 === Future Implications
 There are a few things which we could see being useful in the future:
