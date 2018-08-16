@@ -128,7 +128,27 @@ In terms of the architecture, it could mean that it would need to allow the foll
 // TODO: (MARCO)
 
 ==== Differentiation to Eclipse RCP
-// TODO: (MARCO)
+WorkbenchFX is considered to be an enterprise application framework in JavaFX, just like Eclipse RCP is as well.
+However, besides Eclipse RCP being available on the Swing platform, the goals of either are completely different.
+WorkbenchFX is not meant to replace or augment Eclipse RCP for JavaFX.
+WorkbenchFX is also neither a successor to Eclipse RCP.
+
+The main focus for WorkbenchFX is to build applications like Customer Relation Management (CRM) software.
+While Eclipse RCP can also do that, the user group of Eclipse RCP is the *power user*.
+It allows flexible re-arrangement of parts of the GUI and features a docking framework.
+This is ideal for developers, who work entirely in their IDE's and want to have the most flexibility possible to customize everything.
+
+WorkbenchFX is not as flexible on purpose, since the *user group* is represented by *Anna* and she certainly isn't a power user.
+She doesn't want to bother with moving around parts of the GUI, she just wants to get her work done quickly with good user experience out of the box.
+
+Eclipse RCP offers lots of extension points.
+WorkbenchFX only selectively offers extension points where it makes sense, but still provides good defaults.
+The goal of WorkbenchFX is to quickly get an application up and running with minimal overhead.
+Also, it should be possible to use WorkbenchFX without working through hours of tutorials, programming with WorkbenchFX should feel intuitive.
+Eclipse RCP may offer more flexibility, but requires a lot more configuration and overhead.
+This also means greater complexity and being more difficult to learn.
+
+In the end, both can lead to the same goal, but they are meant to be used for different purposes.
 
 === Minimum Viable product (MVP)
 // TODO: (MARCO)
