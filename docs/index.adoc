@@ -1003,9 +1003,18 @@ Only time will tell how developers react to it, which could totally change any r
 ====
 
 === Don't underestimate the seemingly most simple tasks
-// TODO: (FRANÇOIS)
+API users will never know what kind of complexity we had to deal with during the development of WorkbenchFX, even for the seemingly most simple tasks.
 
-// TODO: (Closing of modules, how hard it was, completablefuture...)
+The best example would be the interrupted closing of modules.
+Everyone knows from software like Microsoft Word, if multiple documents are open with unsaved changes, closing the application leads to multiple closing dialogs.
+We wanted to give implementors the opportunity to also interrupt the closing of the application, should the user need to react in such cases.
+
+Lots of programs make use of closing dialogs and at first glance, it may seem like this would _need_ to be easy to implement.
+Unfortunately, that is far from the truth.
+It was very difficult to implement, especially in a generic way, so it is easy to understand and use for Fabian, but to still offer Steffi the complexity she needs.
+But even in general, there are many edge cases that need to be considered, as can be seen in the <<test-reference.adoc#_close_stage_interrupted,tests for this behavior>>.
+
+TIP: This taught us that we need to be careful and never assume that a feature is easy to implement, just because it seems like it should be.
 
 == Summary
 // TODO: (MARCO)
