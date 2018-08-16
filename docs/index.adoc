@@ -97,8 +97,12 @@ The following sub chapters are showing each an image of the analyzed program and
 ==== Blender
 Blender is a tool for creating 3D models which are used in animation movies or in game development.
 It is a tool which requires a lot of skill and is not an "every day" program.
-The image below gives a short impression of the tool and the table below shows our findings.
-// TODO: Insert image
+
+<<img-blender>> below gives a short impression of the program and <<characteristics-blender>> after shows our findings.
+
+.Blender
+[#img-blender]
+image::include/analysis/blender.png[Blender]
 
 .Characteristics of Blender
 [#characteristics-blender]
@@ -152,10 +156,13 @@ The image below gives a short impression of the tool and the table below shows o
 Adobe Photoshop and Illustrator are probably the most widely used tools when it comes to photo manipulation (Photoshop) and creation of vector art (Illustrator).
 Both tools are made for power user and require a little experience for using them.
 Thus both tools are very similar, they are analyzed in one chapter.
-The image below gives a short impression of the tools and the table below shows our findings.
-// TODO: Insert image
+<<img-photoshop>> below gives a short impression of the program and <<characteristics-photoshop-illustrator>> after shows our findings.
 
-.Photoshop / Illustrator
+.IntelliJ IDEA
+[#img-photoshop]
+image::include/analysis/photoshop.png[Adobe Photoshop]
+
+.Characteristics of Photoshop / Illustrator
 [#characteristics-photoshop-illustrator]
 |===
 |Characteristics |Positive Impressions |Negative Impressions
@@ -197,10 +204,14 @@ The image below gives a short impression of the tools and the table below shows 
 ==== IntelliJ IDEA
 IntelliJ is an integrated development environment (IDE) which is used to develop a variety of programs.
 The tool is made for software developers and can only be used if someone is familiar with programming.
-The image below gives a short impression of the program and the table below shows our findings.
-// TODO: Insert image
+
+<<img-intellij>> below gives a short impression of the program and <<characteristics-intellij>> after shows our findings.
 
 .IntelliJ IDEA
+[#img-intellij]
+image::include/analysis/intellij.png[IntelliJ IDEA]
+
+.Characteristics of IntelliJ IDEA
 [#characteristics-intellij]
 |===
 |Characteristics |Positive Impressions |Negative Impressions
