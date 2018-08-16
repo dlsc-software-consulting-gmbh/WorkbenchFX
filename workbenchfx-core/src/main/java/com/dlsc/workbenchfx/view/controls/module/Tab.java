@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.css.PseudoClass;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
@@ -34,6 +35,7 @@ public class Tab extends Control {
   private final StringProperty name;
   private final ObjectProperty<Node> icon;
   private final BooleanProperty activeTab;
+  private static final PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");
 
   /**
    * Constructs a new {@link Tab}.
@@ -63,10 +65,12 @@ public class Tab extends Control {
       name.setValue(current.getName().replace("\n", " "));
       icon.setValue(current.getIcon());
 
-      // Sets id with toString of module.
+      // Sets the id with toString of module.
       // Adds 'tab-', replaces spaces with hyphens and sets letters to lowercase.
       // eg. Customer Management converts to tab-customer-management
-      setId(WorkbenchUtils.convertToId("tab-" + current.getName()));
+      String tabId = WorkbenchUtils.convertToId("tab-" + current.getName());
+      LOGGER.debug("Set Tab-ID of '" + getModule() + "' to: '" + tabId + "'");
+      setId(tabId);
     });
   }
 
@@ -77,6 +81,9 @@ public class Tab extends Control {
       activeTab.unbind();
       activeTab.bind(Bindings.equal(getModule(), workbench.activeModuleProperty()));
     });
+    activeTab.addListener((observable, oldValue, newValue) ->
+        pseudoClassStateChanged(SELECTED, newValue)
+    );
   }
 
   /**

@@ -42,10 +42,6 @@ public class InterruptClosingTestModule extends WorkbenchModule {
           }
         })
         .build());
-
     return false;
   }
-
-
-
 }
