@@ -125,12 +125,12 @@ The image below gives a short impression of the tool and the table below shows o
 |If their size becomes 0, they disappear.
  They can be restored, but only by using a short code
 |The sections can be shown and hidden as they are not used anymore
-|Using short codes to show/hide the bars.
-|- There is no animation, when showing or hiding.
+|Using short codes to show/hide the bars
+|- There is no animation, when showing or hiding
 
 - No possibility to show/hide the bars manually
 |In the top right corner: Dragging a triangle creates a new window
-|Each view shows the same part, but it's view is independent
+|Each view shows the same part, but its view is independent
 (Interesting feature, but as it is a very specific feature probably not usable for WorkbenchFX)
 |To remove the view one has to drag the corner back in a certain way, which is very unintuitive
 |Items in a bar can be moved manually, but only in the bar itself
@@ -351,7 +351,7 @@ So we had to focus on simple, easy to understand features which are intuitive to
 
 === Minimum Viable Product (MVP)
 // TODO: Include resource reference?
-To ensure a shared understanding between the customer and ourselves, we agreed on a minimum viable product (MVP).
+To ensure shared understanding between the customer and ourselves, we agreed on a minimum viable product (MVP).
 The outcome resulted in a very minimalistic version of the workbench, which still provides an added value comparing to writing it manually.
 The final prototype is displayed in <<mvp>> below.
 
@@ -1004,7 +1004,7 @@ SCSS provides a special tag for such situations, the `@extend`-tag:
 ----
 In both cases, both classes have the same attributes.
 But the readability is much better in the second example.
-Plus, there is the possibility to add another attributes in `.myClass-2`.
+Plus, there is the possibility to add another attribute in `.myClass-2`.
 [source,sass]
 ----
 .myClass-2 {
