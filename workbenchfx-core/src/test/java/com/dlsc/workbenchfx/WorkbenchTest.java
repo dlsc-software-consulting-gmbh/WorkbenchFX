@@ -1266,6 +1266,7 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
+  // asciidoctor Documentation - tag::stageClosing[]
   /**
    * Test for {@link Workbench#setupCleanup()}.
    * Simulates all modules returning {@code true} when
@@ -1543,6 +1544,7 @@ class WorkbenchTest extends ApplicationTest {
         )
     );
   }
+  // asciidoctor Documentation - end::stageClosing[]
 
   @Test
   void initNavigationDrawer() {

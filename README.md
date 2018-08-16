@@ -40,29 +40,28 @@
 WorkbenchFX is an out of the box solution to build large applications from multiple views, called modules.
 It offers you good user experience and a beautiful design.
 
-As a developer, you often start with building a view to show your customer first progress.
-Then comes always questions like:
+As a developer, you often start with the views, so you can quickly show your progress to your customer.
+After that, some question may arise such as:
 - "How do I bring all those views together?"
 - "How do I build the navigation between those views?"
-- "How do I ensure a consistent styling?"
 - "How do I establish a good user experience?"
 
-Exactly when those questions appear *WorkbenchFX* comes into the game:
+Exactly when those questions appear, *WorkbenchFX* comes into play:
 We give your views a home and do all the hard work for you.
 
 *WorkbenchFX* comes with an out of the box styling, a good user experience and builds a house around your views.
-It also scales depending on your growing requests.
-In the beginning you just want to navigate through the views, but afterwards you'd probably like to use a menu or a toolbar.
+It also scales with growing requirements.
+In the beginning you just want to navigate through the views, but later on you probably would want to use a menu or a toolbar.
 Even that is supported by *WorkbenchFX* and you don't have to build anything by yourself.
-If everything fails and the blanket falls on your head, you can even replace whole parts of the workbench with your own implementations, without having to rewrite the whole workbench.
+If you still manage to start outgrowing the workbench, you can even replace whole parts of it with your own implementations, without having to rewrite the whole workbench.
 
-Thinking of your home, what comes into your mind?
-Maybe the rooms, the decor, or good memories.
-Probably not the facade, the base, where the power lines are or from what the walls are made of (the same applies to software development).
-If you're thinking of developing a new software, you think about the views, the features and not about on how to switch between those views, or the navigation in general.
+When you think of your home, what comes into your mind?
+Maybe the rooms, the decor or good memories.
+Probably not the facade, the base, where the power lines are or from what the walls are made of.
+If you're thinking of developing a new software, you think about the views, the features and not about how to switch between views, or the navigation in general.
 
-With *WorkbenchFX* you're able to focus on designing your room and meanwhile we're building the house around it.
-This house even adapts with growing requirements without having you to do anything.
+With *WorkbenchFX* you can focus on designing your room and meanwhile we're building the house around it.
+This house even adapts with growing requirements without you having to do anything.
 
 # Advantages
 - Less error-prone

@@ -554,7 +554,8 @@ This is more efficient and especially overlays with animations profit from this 
 In case of an application with very memory-intensive overlays, there is a possibility to call `Workbench#clearOverlays()`, which will remove all overlays from the scene graph and free them up to be garbage collected.
 
 Each overlay has its own `GlassPane` and it is possible to open multiple overlays on top of each other.
-While it is not recommended to open an overlay on top of another overlay, it frees the API user from having to account for timing / concurrency issues (see <<_challenges_2>>) during transitions between overlays.
+
+NOTE: While it is not recommended to open an overlay on top of another overlay, it frees the API user from having to account for timing / concurrency issues (see <<_challenges_2>>) during transitions between overlays.
 
 ===== Challenges
 At first, we designed the API to not allow multiple overlays to be shown on top of each other.
@@ -893,7 +894,7 @@ We also automated part of the release process with Travis.
 When we push a git tag on the master branch, Travis will run `mvn install`, make zips of the documentation and javadoc, followed by creating a release on GitHub and uploading the zips along with the built `jar`{empty}s.
 The only thing left is to edit the title and description with the release and its changelog, respectively (see <<_process>>).
 
-This made releasing quicker and meant less repetitive effort on our side.
+TIP: This made releasing quicker and meant less repetitive effort on our side.
 
 Details on the implementation can be found in the `.travis.yml` file.
 
@@ -913,30 +914,107 @@ So in the end, working agile enabled us to quickly identify and resolve challeng
 
 For example, the separation between `Workbench` and `WorkbenchSkin` only became obvious later in the project (see <<_api_design>>).
 If we didn't get constant feedback from our customer, we would probably only have recognized this when it was too late - at the end of the project.
-Thanks to the agile way, we could resolve this quickly and early on in the project.
+
+TIP: Thanks to the agile way, we could resolve challenges quickly and early on in the project.
 
 === Hacking Day
 // TODO: (MARCO)
 // TODO: (Dirk hat selber erkannt, dass nicht so einfach wie man es sich vorstellt, dass es Dirk auch etwas gebracht hat zu erkennen => besser im Projekt eingebunden, besser gemerkt wo Probleme sind)
 
 === Animations
-// TODO: (FRANÇOIS)
-// TODO: (Wirking auf User Experience unterschätzt, da so gut, nicht abschaltbar, da keinen Sinn macht sonst)
+One thing we underestimated by far was the power of animations.
+Initially, we didn't have animations on the drawers.
+// TODO: maybe add link / reference to above somewhere?
+In a usability test with Dieter Holz we noticed that especially with the drawers that covered most of the screen, it was not clear where they were coming from or that they even were drawers.
+
+When we implemented the drawer animations, we were astounded to see how much of a difference it made.
+We expected it to make a slight difference, but it really improved the user experience by a lot.
+Since it makes that much of a difference, we think that even if there was an option to turn off animations in the future, it should not be possible to turn off drawer animations.
+The suggested movement of the drawers is a key element to the user experience and must not be removed.
+
+TIP: Even though the implementation of the animations was quite complicated, the end result was well worth the effort.
 
 === Switch from Gradle to Maven
-// TODO: (FRANÇOIS)
+Initially, we used Gradle, since we already used it in https://github.com/dlemmermann/PreferencesFX[PreferencesFX] and it was more convenient to re-use the already existing `build.gradle`.
+However, when it came to publishing PreferencesFX to Maven Central, we noticed it was significantly more complex to set it up with Gradle than with Maven cite:[noauthor_contribute_2018].
+Since our customer mainly uses Maven for his projects and already knows how to set it up for publishing to Maven Central, we decided to switch to Maven for PreferencesFX.
+Since we did it for PreferencesFX and we knew the day would come when we would face the same issue with WorkbenchFX as well.
+This is why we switched WorkbenchFX to using Maven as well.
+
+We didn't regret the change at all, especially since our team and our customer had struggled quite a lot with resolving dependencies with Gradle.
+We would run into issues which required us to re-import the project every now and then, which was quite cumbersome with time.
+Sure, we also faced our issues with Maven as well, but we feel like it is much less than it used to be with Gradle.
+
+TIP: This is why in the next project we would start with Maven right away.
 
 === Build Automation
-// TODO: (FRANÇOIS)
-// TODO: (see hotfix release, von anfang an, damit probleme vermeiden, war super, automatisierte alles am anfang)
+The automated build we set up with Travis CI was very useful, in fact it would have been even more useful if had set it up from the beginning.
+
+When we released `v1.1.0`, while building the binaries for the release on GitHub, we noticed there was a checkstyle error which prevented the build from completing.
+This was embarrassing.
+The release already happened and the pull request was merged already, so there was no way back.
+We had to release a hotfix `v1.1.1` with the checkstyle fix in place, to be able to build the binaries.
+
+Even though we had a process in place (see <<_process>>), that should've prevented this situation, it happened.
+This proved again that having processes in place is good, but people make mistakes.
+It's easy to forget a step in a process or to forget running `mvn package` during code review.
+
+This is where automation comes in.
+It removes steps in repetitive processes and is especially useful when the steps are prone to error.
+Since the code review and releasing process is mostly the same, there are a lot of steps to forget and errors to make, as reviewing the code itself is already demanding enough.
+If we had already used Travis CI from the beginning, this mistake wouldn't have happened.
+Travis' checks on the release pull request would've failed and we would've instantly noticed that something is wrong.
+This would've enabled us to correct the error and then start the release process from anew.
+
+Automation doesn't only prevent errors, but also leads to substantial time savings in the long run.
+In the end, we had performed 85 pull requests and 11 releases, resulting in 1160 builds on Travis CI.
+We can only imagine how much time we saved.
+Setting up Travis CI also took time, but we are sure it already saved us more time than the setup required.
+
+TIP: We only started using Travis CI with `v1.3.0`, in the next project we would use it from the beginning.
 
 === Java 8 / 9 / 10
-// TODO: (FRANÇOIS)
-// TODO: (Paradebeispiel, Rückstand von Technologie wegen anderen, da andere es noch nicht verwenden..., Dokumentieren Situation geändert wegen Java 9 deprecated)
+In the beginning of the project, Java 10 was just released.
+Our customer wanted us to use Java 10, because he noticed some JavaFX-related bugs in Java 9 that were fixed in Java 10.
+
+A bit later on in the project, he told us to switch back to Java 9, as he noticed dependencies were not ready for Java 10 yet, since most of the other developers have not switched to Java 10 yet.
+We used Java 9 for the longest time, but we started to worry because Oracle started to deprecate Java 9 cite:[noauthor_java_nodate] and it became more difficult to download, even requiring an Oracle login to do so.
+
+One of the user stories mentioned the ability to use WorkbenchFX with https://www.jpro.one/[jpro].
+To see if it works, we did a proof of concept with jpro and noticed that in fact it did not work.
+We thought it could be an issue with jpro not being compatible with Java 9 and decided to try it with Java 8.
+Luckily, we haven't used many Java 9 features in the code, so it was mainly switching from Java 9 versions of dependencies to Java 8 versions of them.
+And it worked!
+
+This is why we decided to go with Java 8.
+It resolves the issues of Java 9 being difficult to download and at the same time, it allows us to make use of a larger user group, as lots of developers are still using Java 8.
+We did however decide to leave comments in the `pom.xml` files with the Java 9 versions of the dependencies, so it is possible to publish two separate versions when WorkbenchFX goes open source.
+This is something quite a lot of JavaFX libraries and frameworks seem to do cite:[noauthor_controlsfx_2013]+[noauthor_scene_nodate]+[jfoenix_jfoenix_2018] , so we thought it would make the most sense.
+
+However, we don't think this is a good trend.
+It seems to us that instead of being open and trying to stay updated with the newer Java versions, most developers do the opposite and try to stay on older versions for as long as they can.
+This in turn forces developers of frameworks and libraries to also support the older versions of Java, which makes the problem worse.
+
+[TIP]
+====
+We're not entirely sure how we would decide in our next project.
+Since Java 11 will be released on the 25^th^ of August 2018 cite:[noauthor_jdk_nodate], which is very soon.
+Only time will tell how developers react to it, which could totally change any recommendations from our side, especially since Java 8 is starting to get deprecated, with Java 11 being a long term support release cite:[noauthor_oracle_2018].
+====
 
 === Don't underestimate the seemingly most simple tasks
-// TODO: (FRANÇOIS)
-// TODO: (Closing of modules, how hard it was, completablefuture...)
+API users will never know what kind of complexity we had to deal with during the development of WorkbenchFX, even for the seemingly most simple tasks.
+
+The best example would be the interrupted closing of modules.
+Everyone knows from software like Microsoft Word, if multiple documents are open with unsaved changes, closing the application leads to multiple closing dialogs.
+We wanted to give implementors the opportunity to also interrupt the closing of the application, should the user need to react in such cases.
+
+Lots of programs make use of closing dialogs and at first glance, it may seem like this would _need_ to be easy to implement.
+Unfortunately, that is far from the truth.
+It was very difficult to implement, especially in a generic way, so it is easy to understand and use for Fabian, but to still offer Steffi the complexity she needs.
+But even in general, there are many edge cases that need to be considered, as can be seen in the <<test-reference.adoc#_close_stage_interrupted,tests for this behavior>>.
+
+TIP: This taught us that we need to be careful and never assume that a feature is easy to implement, just because it seems like it should be.
 
 == Summary
 // TODO: (MARCO)
