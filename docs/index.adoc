@@ -761,7 +761,7 @@ We also automated part of the release process with Travis.
 When we push a git tag on the master branch, Travis will run `mvn install`, make zips of the documentation and javadoc, followed by creating a release on GitHub and uploading the zips along with the built `jar`{empty}s.
 The only thing left is to edit the title and description with the release and its changelog, respectively.
 
-This made releasing quicker and meant less repetitive effort on our side.
+TIP: This made releasing quicker and meant less repetitive effort on our side.
 
 == Lessons learned
 // TODO: (we did already in the start was good idea since lots of things improved, erwähnen PreferencesFX Lessons Learned => refactoring, testing, usw, checkstyle, javadoc gerade gemacht)
@@ -779,7 +779,8 @@ So in the end, working agile enabled us to quickly identify and resolve challeng
 
 For example, the separation between `Workbench` and `WorkbenchSkin` only became obvious later in the project (see <<_api_design>>).
 If we didn't get constant feedback from our customer, we would probably only have recognized this when it was too late - at the end of the project.
-Thanks to the agile way, we could resolve this quickly and early on in the project.
+
+TIP: Thanks to the agile way, we could resolve challenges quickly and early on in the project.
 
 === Hacking Day
 // TODO: (MARCO)
@@ -796,7 +797,7 @@ We expected it to make a slight difference, but it really improved the user expe
 Since it makes that much of a difference, we think that even if there was an option to turn off animations in the future, it should not be possible to turn off drawer animations.
 The suggested movement of the drawers is a key element to the user experience and must not be removed.
 
-Even though the implementation of the animations was quite complicated, the end result was well worth the effort.
+TIP: Even though the implementation of the animations was quite complicated, the end result was well worth the effort.
 
 === Switch from Gradle to Maven
 Initially, we used Gradle, since we already used it in https://github.com/dlemmermann/PreferencesFX[PreferencesFX] and it was more convenient to re-use the already existing `build.gradle`.
@@ -809,10 +810,11 @@ We didn't regret the change at all, especially since our team and our customer h
 We would run into issues which required us to re-import the project every now and then, which was quite cumbersome with time.
 Sure, we also faced our issues with Maven as well, but we feel like it is much less than it used to be with Gradle.
 
-This is why in the next project we would start with Maven right away.
+TIP: This is why in the next project we would start with Maven right away.
 
 === Build Automation
 // TODO: (FRANÇOIS)
+
 // TODO: (see hotfix release, von anfang an, damit probleme vermeiden, war super, automatisierte alles am anfang)
 
 === Java 8 / 9 / 10
