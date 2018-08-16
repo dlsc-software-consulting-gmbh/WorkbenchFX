@@ -549,7 +549,8 @@ This is more efficient and especially overlays with animations profit from this 
 In case of an application with very memory-intensive overlays, there is a possibility to call `Workbench#clearOverlays()`, which will remove all overlays from the scene graph and free them up to be garbage collected.
 
 Each overlay has its own `GlassPane` and it is possible to open multiple overlays on top of each other.
-While it is not recommended to open an overlay on top of another overlay, it frees the API user from having to account for timing / concurrency issues (see <<_challenges_2>>) during transitions between overlays.
+
+NOTE: While it is not recommended to open an overlay on top of another overlay, it frees the API user from having to account for timing / concurrency issues (see <<_challenges_2>>) during transitions between overlays.
 
 ===== Challenges
 At first, we designed the API to not allow multiple overlays to be shown on top of each other.
@@ -813,10 +814,30 @@ Sure, we also faced our issues with Maven as well, but we feel like it is much l
 TIP: This is why in the next project we would start with Maven right away.
 
 === Build Automation
-// TODO: (FRANÇOIS)
+The automated build we set up with Travis CI was very useful, in fact it would have been even more useful if had set it up from the beginning.
 
-// TODO: (see hotfix release, von anfang an, damit probleme vermeiden, war super, automatisierte alles am anfang)
+When we released `v1.1.0`, while building the binaries for the release on GitHub, we noticed there was a checkstyle error which prevented the build from completing.
+This was embarrassing.
+The release already happened and the pull request was merged already, so there was no way back.
+We had to release a hotfix `v1.1.1` with the checkstyle fix in place, to be able to build the binaries.
 
+Even though we had a process in place (see <<_process>>), that should've prevented this situation, it happened.
+This proved again that having processes in place is good, but people make mistakes.
+It's easy to forget a step in a process or to forget running `mvn package` during code review.
+
+This is where automation comes in.
+It removes steps in repetitive processes and is especially useful when the steps are prone to error.
+Since the code review and releasing process is mostly the same, there are a lot of steps to forget and errors to make, as reviewing the code itself is already demanding enough.
+If we had already used Travis CI from the beginning, this mistake wouldn't have happened.
+Travis' checks on the release pull request would've failed and we would've instantly noticed that something is wrong.
+This would've enabled us to correct the error and then start the release process from anew.
+
+Automation doesn't only prevent errors, but also leads to substantial time savings in the long run.
+In the end, we had performed 85 pull requests and 11 releases, resulting in 1160 builds on Travis CI.
+We can only imagine how much time we saved.
+Setting up Travis CI also took time, but we are sure it already saved us more time than the setup required.
+
+TIP: We only started using Travis CI with `v1.3.0`, in the next project we would use it from the beginning.
 === Java 8 / 9 / 10
 // TODO: (FRANÇOIS)
 // TODO: (Paradebeispiel, Rückstand von Technologie wegen anderen, da andere es noch nicht verwenden..., Dokumentieren Situation geändert wegen Java 9 deprecated)
