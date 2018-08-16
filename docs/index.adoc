@@ -857,7 +857,7 @@ Since we are only in a team of two, we think it wouldn't make sense to have a st
 Instead, we opted to release whenever it makes sense.
 This was mainly for example when a new major feature was introduced and there are no other major features expected in the next few days.
 
-Concerning the version numbering scheme, we chose to adhere to the following: vX.Y.Z
+Concerning the version numbering scheme, we chose to adhere to the following: `vX.Y.Z`
 
 * X
 ** 0 -> before we reached the MVP
@@ -1020,7 +1020,19 @@ TIP: This taught us that we need to be careful and never assume that a feature i
 // TODO: (MARCO)
 
 === Future Implications
-// TODO: (what features can be done later?)
+There are a few things which we could see being useful in the future:
+
+* For the pagination to feel a bit more natural, it would be great to have arrows on the left and right side of the pagination, which can be used to flip through the pages.
+* Global status bar would be useful to display information that matters with every module
+* Extending the animation API to offer an easy to use API to add defined animations to overlays.
+* Make the dialogs appear and disappear with a scale and fade transition
+* Make it possible with https://gluonhq.com/products/mobile/[Gluon Mobile] or similar to build WorkbenchFX as an app
+* Add a "Worker" to facilitate API calls and handling of asynchronous logic
+* Make the `NavigationDrawer` even more flexible with support for different logo sizes
+* Make WorkbenchFX more accessible, include shortcut and tabbing behavior API
+* Add https://material.io/develop/web/components/snackbars/[snackbars & toasts] API for notifications
+* Animate more parts of the Workbench, like the `ToolbarItem`{empty}s
+* Automate release process further to be even more automatic
 
 == Bibliography
 bibliography::[]
