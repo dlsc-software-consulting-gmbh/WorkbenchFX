@@ -1120,6 +1120,7 @@ We wrote a little <<pixel-converter>> which allowed us to convert pixels into `e
 
 .Pixel Converter Function
 [#pixel-converter]
+[source,sass]
 ----
 @function px($px) {
   @return 1em / 14 * $px; // 14px is defined by the default material design font-size
