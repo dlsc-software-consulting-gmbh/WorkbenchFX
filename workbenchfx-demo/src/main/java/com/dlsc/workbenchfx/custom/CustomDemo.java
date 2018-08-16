@@ -5,6 +5,7 @@ import com.dlsc.workbenchfx.custom.calendar.CalendarModule;
 import com.dlsc.workbenchfx.custom.customer.CustomerModule;
 import com.dlsc.workbenchfx.custom.notes.NotesModule;
 import com.dlsc.workbenchfx.custom.overlay.CustomOverlay;
+import com.dlsc.workbenchfx.custom.patient.PatientModule;
 import com.dlsc.workbenchfx.custom.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.custom.test.DialogTestModule;
 import com.dlsc.workbenchfx.custom.test.DrawerTestModule;
@@ -102,6 +103,7 @@ public class CustomDemo extends Application {
     // WorkbenchFX
     workbench =
         Workbench.builder(
+            new PatientModule(),
             new CalendarModule(),
             new NotesModule(),
             new CustomerModule(),
