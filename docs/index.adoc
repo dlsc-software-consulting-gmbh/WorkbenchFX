@@ -128,7 +128,27 @@ In terms of the architecture, it could mean that it would need to allow the foll
 // TODO: (MARCO)
 
 ==== Differentiation to Eclipse RCP
-// TODO: (MARCO)
+WorkbenchFX is considered to be an enterprise application framework in JavaFX, just like Eclipse RCP is as well.
+However, besides Eclipse RCP being available on the Swing platform, the goals of either are completely different.
+WorkbenchFX is not meant to replace or augment Eclipse RCP for JavaFX.
+WorkbenchFX is also neither a successor to Eclipse RCP.
+
+The main focus for WorkbenchFX is to build applications like Customer Relation Management (CRM) software.
+While Eclipse RCP can also do that, the user group of Eclipse RCP is the *power user*.
+It allows flexible re-arrangement of parts of the GUI and features a docking framework.
+This is ideal for developers, who work entirely in their IDE's and want to have the most flexibility possible to customize everything.
+
+WorkbenchFX is not as flexible on purpose, since the *user group* is represented by *Anna* and she certainly isn't a power user.
+She doesn't want to bother with moving around parts of the GUI, she just wants to get her work done quickly with good user experience out of the box.
+
+Eclipse RCP offers lots of extension points.
+WorkbenchFX only selectively offers extension points where it makes sense, but still provides good defaults.
+The goal of WorkbenchFX is to quickly get an application up and running with minimal overhead.
+Also, it should be possible to use WorkbenchFX without working through hours of tutorials, programming with WorkbenchFX should feel intuitive.
+Eclipse RCP may offer more flexibility, but requires a lot more configuration and overhead.
+This also means greater complexity and being more difficult to learn.
+
+In the end, both can lead to the same goal, but they are meant to be used for different purposes.
 
 === Minimum Viable product (MVP)
 // TODO: (MARCO)
@@ -579,6 +599,7 @@ But we decided to go for a compromise: we would still not remove the overlays wh
 == Processes
 
 === Development
+// TODO: François
 
 ==== GitHub
 The programming is being done in a GitHub repository.
@@ -857,7 +878,7 @@ Since we are only in a team of two, we think it wouldn't make sense to have a st
 Instead, we opted to release whenever it makes sense.
 This was mainly for example when a new major feature was introduced and there are no other major features expected in the next few days.
 
-Concerning the version numbering scheme, we chose to adhere to the following: vX.Y.Z
+Concerning the version numbering scheme, we chose to adhere to the following: `vX.Y.Z`
 
 * X
 ** 0 -> before we reached the MVP
@@ -1017,10 +1038,22 @@ But even in general, there are many edge cases that need to be considered, as ca
 TIP: This taught us that we need to be careful and never assume that a feature is easy to implement, just because it seems like it should be.
 
 == Summary
-// TODO: (MARCO)
+// TODO: François
 
 === Future Implications
-// TODO: (what features can be done later?)
+There are a few things which we could see being useful in the future:
+
+* For the pagination to feel a bit more natural, it would be great to have arrows on the left and right side of the pagination, which can be used to flip through the pages.
+* Global status bar would be useful to display information that matters with every module
+* Extending the animation API to offer an easy to use API to add defined animations to overlays.
+* Make the dialogs appear and disappear with a scale and fade transition
+* Make it possible with https://gluonhq.com/products/mobile/[Gluon Mobile] or similar to build WorkbenchFX as an app
+* Add a "Worker" to facilitate API calls and handling of asynchronous logic
+* Make the `NavigationDrawer` even more flexible with support for different logo sizes
+* Make WorkbenchFX more accessible, include shortcut and tabbing behavior API
+* Add https://material.io/develop/web/components/snackbars/[snackbars & toasts] API for notifications
+* Animate more parts of the Workbench, like the `ToolbarItem`{empty}s
+* Automate release process further to be even more automatic
 
 == Bibliography
 bibliography::[]
