@@ -1364,7 +1364,24 @@ TIP: This made releasing quicker and meant less repetitive effort on our side.
 Details on the implementation can be found in the `.travis.yml` file.
 
 == Lessons learned
-// TODO: (we did already in the start was good idea since lots of things improved, erwähnen PreferencesFX Lessons Learned => refactoring, testing, usw, checkstyle, javadoc gerade gemacht)
+Before starting the project we did a retrospective on our previous project PreferencesFX.
+We agreed on maintaining the processes which went good and defined new conventions to do better in this project.
+Following <<best-practices>> lists all the conventions we consider the most valuables from this project.
+
+.Best Practices
+[#best-practices]
+|===
+|Convention        |Reason
+|Maintain code review |It worked very well in PreferencesFX, so we will keep it that way
+|Maintain Asciidoc documentation |Writing the documentation with Asciidoctor is a gem. We will never write documentations with other tools again
+|Writing the Javadoc before merging |In PreferencesFX we had to write nearly all the Javadoc at the end of the project
+|Merging only when checkstyle passes |Like the Javadoc we had to fix a lot of checkstyle error afterwards
+|Writing more tests |Since we're writing an API it would be necessary to write more tests to maintain better code quality and less errors
+|Using build tools |It makes the development much easier since we don't have to worry about running tests, checking checkstyle and javadoc.
+|Committing more often |It makes the development process more transparent. When problems occur it can easily be reverted
+|Work with persona |It helps to focus on the target group. This way the development process can always be readjusted
+|Work with user stories |It helps to verify the features and reveals the users needs which the product has to satisfy
+|===
 
 === Value of User Stories
 // TODO: (MARCO)
