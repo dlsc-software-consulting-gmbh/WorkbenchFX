@@ -974,7 +974,6 @@ Setting up Travis CI also took time, but we are sure it already saved us more ti
 TIP: We only started using Travis CI with `v1.3.0`, in the next project we would use it from the beginning.
 
 === Java 8 / 9 / 10
-// TODO: (FRANÇOIS)
 In the beginning of the project, Java 10 was just released.
 Our customer wanted us to use Java 10, because he noticed some JavaFX-related bugs in Java 9 that were fixed in Java 10.
 
