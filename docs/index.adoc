@@ -252,15 +252,20 @@ The image below gives a short impression of the program and the table below show
 |===
 
 ==== Figma
-// TODO: Insert image
-// TODO: Write Chapter
-// TODO: (mehr fokus auf ist eifach, keine docking elemente usw., was unterscheidet von anderen)
 Figma is a tool used for prototyping.
 Using it is very easy and intuitive.
 It can used by non power users.
 Compared to the other tools analyzed before its tools are fixed and defined.
 The tools can't be moved or removed.
-The design of the tool is straight forward and is kept very simple.
+The design of the software is straight forward and is kept very simple.
+
+It consists of five main sections
+
+* Menu bar on top where all the features are stored
+* Toolbar below the menu bar where the most important tools are stored
+* Left bar where the tree structure / navigation of the current active work is displayed
+* Right bar where all important information and attributes about the selected component is displayed
+* Center where the main work is being done
 
 <<img-figma>> below gives a short impression of the program.
 
@@ -269,23 +274,17 @@ The design of the tool is straight forward and is kept very simple.
 image::include/analysis/figma.png[Figma]
 
 ==== Adobe XD
-// TODO: Insert image
-// TODO: Write Chapter
-// TODO: (mehr fokus auf ist eifach, keine docking elemente usw., was unterscheidet von anderen)
-Compared with its siblings (Photoshop and Illustrator), Adobe XD's visual appearance is much simpler and cleaner.
-It is a tool used for prototyping.
-Using it is much easier and intuitive than the other products tested before.
-It can also be used by non power users.
+Like <<_figma>>, Adobe XD is a prototyping software.
+It is also very simple and intuitive.
+In fact there is not much that differs compared to Figma.
+So it can definitely being used by non power users.
 The image below gives a short impression of the program and the table below shows our findings.
 
+<<img-Adobe-xd>> below gives a short impression of the program.
+
 .Adobe XD
-[#characteristics-adobe-xd]
-|===
-|Characteristics |Positive Impressions |Negative Impressions
-|
-|
-|
-|===
+[#img-Adobe-xd]
+image::include/analysis/adobeXD.png[Adobe XD]
 
 ==== Conclusion
 In conclusion after analyzing all those different programs, we can simplify them to the most important and frequent characteristics:
