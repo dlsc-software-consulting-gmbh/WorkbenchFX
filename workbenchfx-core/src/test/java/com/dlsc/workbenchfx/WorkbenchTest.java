@@ -295,7 +295,7 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(first).activate();
       verify(first, times(2)).activate();
       // Switch to home screen
-      workbench.openHomeScreen();
+      workbench.openAddModulePage();
       assertSame(null, workbench.getActiveModule());
       assertSame(null, workbench.getActiveModuleView());
       assertEquals(2, workbench.getOpenModules().size());
@@ -1146,6 +1146,7 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
+  // asciidoctor Documentation - tag::awaitility[]
   @Test
   void hideNavigationDrawer() {
     robot.interact(() -> {
@@ -1163,6 +1164,7 @@ class WorkbenchTest extends ApplicationTest {
       await().atMost(5, TimeUnit.SECONDS).until(() -> (navigationDrawer.isVisible()));
     });
   }
+  // asciidoctor Documentation - end::awaitility[]
 
   @Test
   void getNavigationDrawerItems() {
@@ -1264,6 +1266,7 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
+  // asciidoctor Documentation - tag::stageClosing[]
   /**
    * Test for {@link Workbench#setupCleanup()}.
    * Simulates all modules returning {@code true} when
@@ -1541,6 +1544,7 @@ class WorkbenchTest extends ApplicationTest {
         )
     );
   }
+  // asciidoctor Documentation - end::stageClosing[]
 
   @Test
   void initNavigationDrawer() {
