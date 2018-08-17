@@ -828,15 +828,15 @@ Two open modules, closing of the inactive module (<<img-close-module-inactive>>)
 [#img-close-module-inactive]
 image::include/UML/svg/Close Module Inactive.svg[Close Module Inactive]
 
-Two open modules, closing of the active module, where the call to `WorkbenchModule#destroy()` returns false (<<img-close-module-interrupt-active>>).
+Two open modules, closing of the active module, where the call to `module.destroy()` returns false (<<img-close-module-interrupt-active>>).
 This leads to the closing process getting interrupted.
-The implementor of `WorkbenchModule` can then choose to do cleanup actions or open a confirmation dialog, following a call to `WorkbenchModule#close()`, when the module should definitely be closed.
+The implementor of `WorkbenchModule` can then choose to do cleanup actions or open a confirmation dialog, following a call to `module.close()`, when the module should definitely be closed.
 
 .Closing of modules interrupted, active module.
 [#img-close-module-interrupt-active]
 image::include/UML/svg/Close Module Interrupted Active.svg[Close Module Interrupted Active]
 
-Two open modules, closing of the inactive module, where the call to `WorkbenchModule#destroy()` returns false (<<img-close-module-interrupt-inactive>>).
+Two open modules, closing of the inactive module, where the call to `module.destroy()` returns false (<<img-close-module-interrupt-inactive>>).
 This leads to the closing process getting interrupted.
 The module which interrupted the closing process will be opened, so that the user's attention will be directed towards the interrupting module, so they can take appropriate actions.
 
@@ -944,7 +944,7 @@ Also, this would not allow API users to make use of JavaFX' support for image fi
 
 ===== Image
 We decided to use `Image` as one of the options of passing in an icon in the constructor of `WorkbenchModule`.
-There are none of the issues mentioned in <<_node>>, since the `Image` will be wrapped in an `ImageView`, when `WorkbenchModule#getIcon()` gets called by the `Tab` and `Tile`.
+There are none of the issues mentioned in <<_node>>, since the `Image` will be wrapped in an `ImageView`, when `module.getIcon()` gets called by the `Tab` and `Tile`.
 Also, it allows API users to make use of JavaFX' support for image files with multiple scaling factors cite:[lemmermann_javafx_2017].
 
 Unfortunately, it doesn't solve the issues with icons from libraries, as mentioned in <<_image>>.
