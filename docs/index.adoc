@@ -1380,18 +1380,18 @@ Following <<best-practices>> lists all the conventions we consider the most valu
 |===
 
 === Value of User Stories
-User stories communicate a concrete goal of the product.
-Comparing to just defining some features, user stories help to understand the reason for a feature.
-This way we can ensure that all of our implemented features satisfy a special need.
+As stated in <<_user_stories>> we held a workshop with our customer in the beginning of our project.
 
-In the <<_user_stories,user story workshop>> with our customer where we defined the persona and afterwards the user stories to define the problems which our API should solve.
 Before the workshop it was rather unclear what WorkbenchFX exactly is.
-But after the workshop we all had a shared understanding about the project.
+But after it we all had a shared understanding about the main goal of our project.
 
-Together with the persona and the user stories it felt almost like the written stories and persona are real.
-Exactly to achieve this feeling is what are user stories made for.
+The created user stories communicate a concrete desire our API must fulfill in order to succeed.
+Comparing to just defining some features, user stories helped us to understand the reason for a feature.
+This way we could ensure that all of our implemented features satisfy a special need.
 
-During the project we could always refer to the persona and stories and ask ourselves:
+Together with the persona and the user stories it felt almost like the written stories and persona are people with problems in real life.
+Exactly this feeling proved us that the user stories and persona are really helpful for us.
+Because during the project we could always refer to the persona and stories and ask ourselves:
 "Are we on the right way?" It helped us a lot to keep an eye on the real problem and to not loose ourselves in personal opinions and thoughts.
 
 [TIP]
