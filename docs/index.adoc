@@ -926,7 +926,7 @@ The only thing left is to edit the title and description with the release and it
 
 TIP: This made releasing quicker and meant less repetitive effort on our side.
 
-Details on the implementation can be found in the `.travis.yml` file.
+Details on the implementation can be found in the <<misc-reference.adoc#_travis_configuration_file_travis_yml,`.travis.yml`>> file.
 
 == Lessons learned
 // TODO: (we did already in the start was good idea since lots of things improved, erwähnen PreferencesFX Lessons Learned => refactoring, testing, usw, checkstyle, javadoc gerade gemacht)
