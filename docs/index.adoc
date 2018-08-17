@@ -462,8 +462,9 @@ But during the usability test our advisor mentioned the complexity of using `Com
 It is also unlikely, that Fabian would know what `CompletableFutures` are and we didn't wanted him to have an unnecessary barrier to achieve his goal.
 
 So we figured out a much simpler solution.
+Implementation details can be found in <<_workbenchmodule_lifecycle>>.
 
-NOTE: A detailed chapter about interrupt closing a module can be found in the readme.md of WorkbenchFX.
+NOTE: A detailed chapter can be found in the readme.md of WorkbenchFX in the chapter "Prevent module from closing".
 
 ===== Module Toolbar
 Our advisor's module had a dark background, but the tab's color was white.
