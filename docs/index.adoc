@@ -478,50 +478,50 @@ As soon as there are items to be displayed, WorkbenchFX automatically creates a 
 This way we can ensure that the implementor's modules maintain a consistent look and feel.
 
 ===== Drawer Animations
-During a long period of time of the project we didn't focus on animations.
-One reason we never did that, is that using them in `JavaFX` is really cumbersome.
+Up until the end of the project, we didn't focus on animations.
+One reason we never did that was that using them in JavaFX is really cumbersome compared to animations on the web.
 
-One of our features are the drawers.
-An API user can call `workbench.showDrawer()` to show a drawer.
-The base idea of this feature is to create a custom `NavigationDrawer`.
-When showing or hiding ,those drawers were never showing any animation.
+One of our features are drawers.
+To open a drawer, an API user can call `workbench.showDrawer()`.
+When showing or hiding, drawers like the `NavigationDrawer` were never showing any animation.
 They just (dis)appeared.
 
-However during the usability test we discovered that in case of drawers animations are required.
-The visual feedback was not there when we tested the drawers.
-A user wants to know from which position the drawer comes from and he is used to a sliding animation.
+However during the usability test we discovered that in case of other, larger drawers animations are required.
+The visual feedback where the drawers were coming from and that it even was a drawer was not present.
+A user wants to know from which position the drawer comes from and he is used to a sliding animation in this case.
 So we decided to implement the drawers with animations (see <<_animations>>).
 
 ==== UX Expert
-The biggest impact on the WorkbenchFX styling came from an UX expert.
+The biggest impact on the WorkbenchFX styling came from a UX expert.
 A lot of the feedback he gave us was really helpful and we decided to adapt a lot of it.
 
-* The active tab should be more styled like a real tab in a browser
+* The active tab should be more styled like a "real" tab in a browser
 * The tabs should be styleable with unique colors (which can now be done using the unique `#id`)
 * Get rid of the home button and replace it with a `+` button on the right end of the toolbar
-* Shrink down the size of the close icon in the tabs
+* Shrink down the size of the close icon in the tabs and make it thinner
 * A small vertical border before and after the tabs would suggest the tab as an entity
-* The last opened tab could be still open when restarting the application (this can already be achieved through storing the open modules in preferences. For example using PreferencesFX)
-* A standard tab could be opened when starting the application (this can already be achieved by simplay defining one in the code before the `launch()` call)
+* Offer the ability to have the same tabs open as when the application was last closed (this can already be achieved through storing the open modules in preferences, for example using PreferencesFX)
+* It should be possible to define a default tab to be opened when starting the application (this can already be achieved by simply calling `workbench.showModule(defaultModule)` in the code after the stage was shown)
 * For the tiles: Enlarge the icon, center it on top of the text
 * He also suggested to split the tabs and the toolbar into two separate bars
 
 ==== Annelore Egger, User Group
-She was happy using the API which motivated and showed us, that we're on the right way.
+She was happy using the API which motivated and showed us that we're on the right way.
 
 ===== Separating the Toolbar and Tab bar
-However during her usability test it was confirmed that separating the toolbar from the tab bar was really necessary.
-Having only one bar lead really fast to an overloading of items and tabs.
+When she looked at the top bar during the usability test, she thought all controls present in the bar were tabs and was confused what adding controls to the lists of the toolbar controls would do.
+This confirmed that separating the toolbar from the tab bar was really necessary.
+Having only one bar quickly lead to an overcrowding of items and tabs, which made it impossible to distinguish them.
 
 ===== Introducing ToolbarItems
-As an addition to the overloaded bar on top, she was confused with the possibility of adding every `Node` to the toolbar.
-She also didn't recognized the Dropdown feature we were providing.
+As an addition to the overcrowded bar on top, she was confused with the possibility of adding every `Node` to the toolbar.
+She also didn't realize the `Dropdown` control we were providing for convenience.
 
 For those reasons we decided to restrict the possibility of adding every `Node` to one simple object:
 The `ToolbarItem`.
-We replaced the Dropdown with this universal object.
-The idea behind the `ToolbarItem` is, that depending on its stored parameters it becomes either a `Label`, a `Button` or a `MenuButton`.
-If an API user still wants to add a custom `Node`, he can use the constructor which takes a `Node` as single parameter.
+We replaced the `Dropdown` class with this universal object.
+Depending on the defined parameters, the `ToolbarItem` either becomes a `Label`, a `Button` or a `MenuButton` with appropriate styling.
+If an API user still wants to use a custom `Node`, they can use the constructor which takes a `Node` as parameter.
 
 This way it is clear what to use and no misunderstandings are possible.
 
