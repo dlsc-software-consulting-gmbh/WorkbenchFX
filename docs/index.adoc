@@ -541,23 +541,22 @@ Also common internet browsers like https://www.google.com/intl/de_ALL/chrome/[Go
 
 ==== Add Module Page
 Having a page which allows the user to open a new module is also commonly used.
-For example smartphone operating systems use such a concept, when they display icons of installed apps and open them on click.
+For example smartphones use such a concept, when they display icons of installed apps on the home screen and open them on click.
 
-For this reason we decided to go with a system, where the user could click on a certain button to open a module.
-After clicking on this button, a page would open on which all the available modules are displayed on a grid.
-Clicking on one of those "Tiles" (since the rectangular button to open the module looks like a tile, we agreed to go with this name) would open the module.
-This way, the user has a good overview on all the modules and could easily open them.
+For this reason we decided to go with a system, where the user could click on a certain button which opens an overview with all of the modules in a grid.
+Clicking on one of those buttons (called `Tile`) would open the module.
+This way, the user has a good overview on all the modules and can easily open them.
 
 Going with this concept triggered a discussion about naming the components.
-When we described the concept, we struggled with naming the module.
-Viewed objectively the complete application built with WorkbenchFX consists of multiple "mini applications".
+When we described the concept, we struggled with the naming of the module.
+Viewed objectively, the complete application built with WorkbenchFX consists of multiple "mini applications".
 For obvious reasons we could not name the module "MiniApplication".
-Fabian for instance would be very confused when he should implement a "MiniApplication".
+An API user could be confused about the difference between the application itself and the "mini applications".
 So we had to find a better name.
-In the end we came up with WorkbenchModule which was also not the best solution, since a lot of associations stick with the name module.
+In the end we chose `WorkbenchModule`, which also was not the best solution, since the part "module" has a lot of associations.
 But it is definitely a better choice than "Application" (the complete naming process is described in <<_module_naming>>).
 
-When having a lot of modules, the available space on the page would fast shrink and the usability would also decrease.
+When having a lot of modules, the available space on the page would shrink quickly and the usability would also suffer.
 For that reason we introduced a pagination to have only a restricted amount of modules displayed on the page.
 
 ==== Changes across Versions
