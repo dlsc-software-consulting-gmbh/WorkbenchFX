@@ -1,5 +1,6 @@
 # WorkbenchFX
-[![Build Status](https://travis-ci.com/FHNW-IP5-IP6/WorkbenchFX.svg?token=8WqsSGJvE4SAqmHHx2Z7&branch=develop)](https://travis-ci.com/FHNW-IP5-IP6/WorkbenchFX)
+[![Travis CI Build Status](https://travis-ci.com/FHNW-IP5-IP6/WorkbenchFX.svg?token=8WqsSGJvE4SAqmHHx2Z7&branch=develop)](https://travis-ci.com/FHNW-IP5-IP6/WorkbenchFX)
+[![Codecov.io Code Coverage](https://img.shields.io/badge/coverage-95%25-green.svg)](https://codecov.io/gh/FHNW-IP5-IP6/WorkbenchFX)
 
 **The one and only library to build large JavaFX Applications!**
 

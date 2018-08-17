@@ -15,6 +15,11 @@ Examiner: https://www.inventage.com/[Edwin Steiner‚ Inventage]
 :xrefstyle: short
 
 == Abstract
+*WorkbenchFX* is an open source Java based JavaFX library designed to create large enterprise applications.
+Using it is really simple, since we focused on an intuitive way creating the API.
+We focused on a modular approach where the whole application consists of multiple views, called modules.
+The API provides a great user experience, combined with a good usability and a beautiful design inspired by the Material Design guidelines.
+Restyling the workbench can easily being done by simply changing `CSS` variables.
 
 == Acknowledgements
 
@@ -780,10 +785,14 @@ We decided against keeping the original `Workbench.of(module1, module2)` notatio
 ==== WorkbenchModule Lifecycle
 The following UML diagrams explain how the lifecycle of a `WorkbenchModule` works.
 The diagrams are simplified to a degree that is relevant for the implementor of a `WorkbenchModule` and are *not* complete and *not* exhaustive by design.
-The goal is to explain the principle of interactions on modules when using `Workbench#openModule(WorkbenchModule)` and `Workbench#closeModule(WorkbenchModule)` with a minimal amount of examples.
+The goal is to explain the principle of interactions on modules when using `workbench.openModule(WorkbenchModule)` and `workbench.closeModule(WorkbenchModule)` with a minimal amount of examples.
 
-*Generally*, when clicking on a tile in the `AddModuleView`, `Workbench#openModule(WorkbenchModule)` gets called. +
-When clicking on the `x` icon of a tab, `Workbench#closeModule(WorkbenchModule)` gets called.
+*Generally*, when clicking on a tile in the `AddModuleView`, `workbench.openModule(WorkbenchModule)` gets called. +
+When clicking on the `x` icon of a tab, `workbench.closeModule(WorkbenchModule)` gets called. +
+When a `WorkbenchModule` has to perform cleanup actions or needs to show a dialog before it can be closed, the closing process needs to be interrupted.
+To interrupt the closing process, the implementor has to return `false` on `module.destroy()`.
+When the closing process gets interrupted, the module will not be closed and will be set as the active module.
+The implementor doesn't have to call any of the lifecycle methods, the calls are being made by the `Workbench`.
 
 Overview of the lifecycle in a state diagram, showing all state changes that can occur (<<img-module-lifecycle>>).
 
@@ -809,15 +818,15 @@ Two open modules, closing of the inactive module (<<img-close-module-inactive>>)
 [#img-close-module-inactive]
 image::include/UML/svg/Close Module Inactive.svg[Close Module Inactive]
 
-Two open modules, closing of the active module, where the call to `WorkbenchModule#destroy()` returns false (<<img-close-module-interrupt-active>>).
+Two open modules, closing of the active module, where the call to `module.destroy()` returns false (<<img-close-module-interrupt-active>>).
 This leads to the closing process getting interrupted.
-The implementor of `WorkbenchModule` can then choose to do cleanup actions or open a confirmation dialog, following a call to `WorkbenchModule#close()`, when the module should definitely be closed.
+The implementor of `WorkbenchModule` can then choose to do cleanup actions or open a confirmation dialog, following a call to `module.close()`, when the module should definitely be closed.
 
 .Closing of modules interrupted, active module.
 [#img-close-module-interrupt-active]
 image::include/UML/svg/Close Module Interrupted Active.svg[Close Module Interrupted Active]
 
-Two open modules, closing of the inactive module, where the call to `WorkbenchModule#destroy()` returns false (<<img-close-module-interrupt-inactive>>).
+Two open modules, closing of the inactive module, where the call to `module.destroy()` returns false (<<img-close-module-interrupt-inactive>>).
 This leads to the closing process getting interrupted.
 The module which interrupted the closing process will be opened, so that the user's attention will be directed towards the interrupting module, so they can take appropriate actions.
 
@@ -925,7 +934,7 @@ Also, this would not allow API users to make use of JavaFX' support for image fi
 
 ===== Image
 We decided to use `Image` as one of the options of passing in an icon in the constructor of `WorkbenchModule`.
-There are none of the issues mentioned in <<_node>>, since the `Image` will be wrapped in an `ImageView`, when `WorkbenchModule#getIcon()` gets called by the `Tab` and `Tile`.
+There are none of the issues mentioned in <<_node>>, since the `Image` will be wrapped in an `ImageView`, when `module.getIcon()` gets called by the `Tab` and `Tile`.
 Also, it allows API users to make use of JavaFX' support for image files with multiple scaling factors cite:[lemmermann_javafx_2017].
 
 Unfortunately, it doesn't solve the issues with icons from libraries, as mentioned in <<_image>>.
@@ -954,7 +963,7 @@ This makes it possible to initialize all views in the same way while also result
 Since all presenters don't need to extend anything else, using an abstract class here is possible.
 
 ==== Overlays
-To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `Workbench#showOverlay()` and `Workbench#hideOverlay()` methods.
+To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `workbench.showOverlay()` and `workbench.hideOverlay()` methods.
 The `GlassPane` prevents click events on the components below and adds a scrim to the background.
 Unless a blocking (modal) overlay is being displayed, clicking on the `GlassPane` closes the overlay.
 
@@ -964,13 +973,13 @@ At all times, there is a layer of the general WorkbenchFX GUI, which is being re
 When showing an overlay, a `GlassPane` is added to the scene graph and shown on top of the WorkbenchFX GUI, followed by the overlay itself on top of the `GlassPane`.
 This ensures there is a "scrim"cite:[noauthor_elevation_nodate] between the WorkbenchFX GUI and the overlay (<<overlay-scrim>>).
 
-.Overlay with scrimmed background
+.Overlay with GlassPane (scrimmed background)
 [#overlay-scrim]
-image::include/overlay.png[Overlay with scrimmed background]
+image::include/overlay.png[Overlay with GlassPane (scrimmed background)]
 
 When hiding an overlay, it is made invisible and is not removed from the scene graph, so recurring overlays don't need to be re-inserted into the scene graph again.
 This is more efficient and especially overlays with animations profit from this design, since they run smoother when shown and hidden multiple times.
-In case of an application with very memory-intensive overlays, there is a possibility to call `Workbench#clearOverlays()`, which will remove all overlays from the scene graph and free them up to be garbage collected.
+In case of an application with very memory-intensive overlays, there is a possibility to call `workbench.clearOverlays()`, which will remove all overlays from the scene graph and free them up to be garbage collected.
 
 Each overlay has its own `GlassPane` and it is possible to open multiple overlays on top of each other.
 
@@ -1369,7 +1378,10 @@ Following <<best-practices>> lists all the conventions we consider the most valu
 |Perform code review |It worked very well in PreferencesFX, so we will keep it that way
 |Maintain Asciidoc documentation |Writing the documentation with asciidoctor is a gem. We will never write documentations with other tools again
 |Writing the Javadoc before merging |In PreferencesFX we had to write nearly all the Javadoc at the end of the project
-|Merging only when checkstyle passes |Like the Javadoc we had to fix a lot of checkstyle error in the end
+|Merging only when checkstyle passes |Like the Javadoc we had to fix a lot of checkstyle error afterwards
+|Writing the documentation early |If we'd write the documentation in the end, we'd have the problem of remembering all the content a half a year later.
+Therefore the details would be lost.
+Additionally we have no time pressure at the end of the project
 |Writing more tests |Since we're writing an API it would be necessary to write more tests to maintain better code quality and less errors
 |Using build tools |It makes the development much easier since we don't have to remember running tests, checking checkstyle and javadoc on our local machines during code review.
 |Committing more often |It makes the development process more transparent. When problems occur, they can easily be reverted
@@ -1526,14 +1538,30 @@ But even in general, there are many edge cases that need to be considered, as ca
 TIP: This taught us that we need to be careful and never assume that a feature is easy to implement, just because it seems like it should be.
 
 == Summary
-// TODO: François
+In conclusion we can say, that *WorkbenchFX* became a mature framework which can really be used in the industry.
+We finished the project in a way that we can say that we achieved all of our goals we set at the beginning.
+
+Besides writing the documentation early in the project we managed to keep all of the <<_lessons_learned,conventions>> we defined in the beginning of the project.
+They proofed to be worthwhile.
+
+Additionally we managed to satisfy the needs of our <<_persona,personas>>.
+Since we have three of them it was really tricky to maintain a good balance.
+Fabian gets a really simple and understandable API to use which satisfies out of the box all of his needs.
+While Steffi is able to replace a lot of features with her own implementations (see <<_constructing_the_workbench>>).
+And Anna is satisfied because she gets an application which is well styled and not overloaded with a lot of functionality.
+
+A huge set of tests, checkstyle, code coverage, managed by continuous integration and personal code review before each merge led to a high code quality.
+In the end, we were even able to reach a code coverage of *94.67%* (see <<_processes>>).
+
+All of the feedback we received up to now is really good.
+Even at the bachelor exhibition a lot of people stated that they really like the idea and that they probably would try working with *WorkbenchFX* cite:[noauthor_ausstellung_nodate].
 
 === Future Implications
 There are a few things which we could see being useful in the future:
 
-* For the pagination to feel a bit more natural, it would be great to have arrows on the left and right side of the pagination, which can be used to flip through the pages.
+* For the pagination to feel a bit more natural, it would be great to have arrows on the left and right side of the pagination, which can be used to flip through the pages
 * Global status bar would be useful to display information that matters with every module
-* Extending the animation API to offer an easy to use API to add defined animations to overlays.
+* Extending the animation API to offer an easy to use API to add defined animations to overlays
 * Make the dialogs appear and disappear with a scale and fade transition
 * Make it possible with https://gluonhq.com/products/mobile/[Gluon Mobile] or similar to build WorkbenchFX as an app
 * Add a "Worker" to facilitate API calls and handling of asynchronous logic
@@ -1542,6 +1570,8 @@ There are a few things which we could see being useful in the future:
 * Add https://material.io/develop/web/components/snackbars/[snackbars & toasts] API for notifications
 * Animate more parts of the Workbench, like the `ToolbarItem`{empty}s
 * Automate release process further to be even more automatic
+* Implementation of "remembering" the last open tabs on closing and reopening them when starting the application again.
+ This can be achieved by either using https://github.com/dlemmermann/PreferencesFX[PreferencesFX] or the Preferences API directly
 
 == Bibliography
 bibliography::[]
@@ -1551,4 +1581,4 @@ It is hereby declared that the contents of this report, unless otherwise stated,
 
 The signatures are delivered separately.
 
-// TODO: insert place and date here
+Windisch, 17^th^ of August 2018
