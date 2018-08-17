@@ -15,6 +15,25 @@ Examiner: https://www.inventage.com/[Edwin Steiner‚ Inventage]
 :xrefstyle: short
 
 == Abstract
+*WorkbenchFX* is an open source Java based JavaFX library designed to create large enterprise applications.
+Using it is really simple, since we focused on an intuitive way creating the API.
+We focused on a modular approach where the whole application consists of multiple views, called modules.
+The API provides a great user experience, combined with a good usability and a beautiful design inspired by the Material Design guidelines.
+Restyling the workbench can easily being done by simply changing `CSS` variables.
+
+API -
+Library -
+JavaFX -
+Java -
+User experience -
+enterprise applications -
+Module -
+Modular -
+Styling -
+Material Design -
+usability -
+simple -
+intuitive -
 
 == Acknowledgements
 
