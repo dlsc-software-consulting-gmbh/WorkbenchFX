@@ -468,14 +468,14 @@ NOTE: A detailed chapter can be found in the readme.md of WorkbenchFX in the cha
 
 ===== Module Toolbar
 Our advisor's module had a dark background, but the tab's color was white.
-This lead to an inconsistent coloring and destroyed the tab's look and feel.
-Having to restyle everything manually was tedious and boring, so we came up with a different idea.
+This lead to inconsistent coloring and ruined the tab's look and feel.
+Having Fabian to restyle everything manually was tedious and boring, so we came up with a different idea.
 
-Since the most modules would have some toolbar items we introduced the module toolbar.
-It is now possible to add `ToolbarItems` to the module.
-As soon as there are items to be displayed, WorkbenchFX creates automatically a toolbar and puts it below the tab.
+Since most modules would have some toolbar items, we introduced a module-specific toolbar.
+It is now possible to add `ToolbarItem`{empty}s to the module.
+As soon as there are items to be displayed, WorkbenchFX automatically creates a toolbar and displays it below the tab.
 
-This way it is ensured, that an implementor always has the possibility to maintain a consistent look and feel.
+This way we can ensure that the implementor's modules maintain a consistent look and feel.
 
 ===== Drawer Animations
 During a long period of time of the project we didn't focus on animations.
