@@ -142,9 +142,9 @@ image::include/analysis/blender.png[Blender]
 |All sections are resizable
 |
 |If their size becomes 0, they disappear.
- They can be restored, but only by using a short code
+ They can be restored, but only by using a shortcut
 |The sections can be shown and hidden when they are not used anymore
-|Using short codes to show/hide the bars
+|Using shortcuts to show/hide the bars
 |- There is no animation, during showing or hiding
 
 - No possibility to show/hide the bars manually
@@ -165,14 +165,13 @@ image::include/analysis/blender.png[Blender]
 |
 |
 |When creating a new project, all settings are restored to default
-|If the workspace becomes a 'mess', one can simply open a new window and everything is restored.
-(probably give a setting to turn this feature on and off)
+|If the workspace becomes a 'mess', one can simply open a new window and everything is restored
 |When a user is used to working in a certain way, they have to change the workspace every time they starts a new project
 |===
 
 ==== Adobe Photoshop
 Adobe Photoshop is probably one of the most widely used tools when it comes to photo manipulation and creation of digital art.
-Since it requires a little experience to use it properly we think it's made primarily for power users.
+Since it requires some experience to use it properly and therefore is made primary for power users.
 <<img-photoshop>> gives a short impression of the program and <<characteristics-photoshop>> shows our findings.
 
 .Adobe Photoshop
@@ -242,7 +241,7 @@ image::include/analysis/intellij.png[IntelliJ IDEA]
 
 - Right bar: Space for drawers. Used to display build functionality
 
-- Bottom bar: Additional space for drawers and tools. Widely used for terminal inputs
+- Bottom bar: Additional space for drawers and tools. Widely used for extra collapsible drawers
 
 - Status bar: At the bottom of the window. Displays additional information
 
@@ -252,9 +251,7 @@ image::include/analysis/intellij.png[IntelliJ IDEA]
 |Navigation via tabs
 |
 |
-|All possibilities available, regarding the tab:
-
-- Right click on the tab, then one can decide on its behaviour
+|When right clicking on the tab, its positioning behaviour can be decided
 |Nearly every possible state is supported
 
 - Pinned
