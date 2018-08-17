@@ -98,7 +98,7 @@ The following sub chapters are showing each an image of the analyzed program and
 Blender is a tool for creating 3D models which are used in animation movies or in game development.
 It is a tool which requires a lot of skill and is not an "every day" program.
 
-<<img-blender>> below gives a short impression of the program and <<characteristics-blender>> after shows our findings.
+<<img-blender>> below gives a short impression of the program and <<characteristics-blender>> after the image shows our findings.
 
 .Blender
 [#img-blender]
@@ -152,11 +152,10 @@ image::include/analysis/blender.png[Blender]
 |When a user is used to work a certain way he has to change the workspace every time he starts a new project
 |===
 
-==== Photoshop / Illustrator
-Adobe Photoshop and Illustrator are probably the most widely used tools when it comes to photo manipulation (Photoshop) and creation of vector art (Illustrator).
-Both tools are made for power user and require a little experience for using them.
-Thus both tools are very similar, they are analyzed in one chapter.
-<<img-photoshop>> below gives a short impression of the program and <<characteristics-photoshop-illustrator>> after shows our findings.
+==== Adobe Photoshop
+Adobe Photoshop is probably one of the most widely used tools when it comes to photo manipulation and creation of digital art.
+Since it requires a little experience to use it properly we think it's made primary for power users.
+<<img-photoshop>> below gives a short impression of the program and <<characteristics-photoshop-illustrator>> after the image shows our findings.
 
 .IntelliJ IDEA
 [#img-photoshop]
@@ -205,7 +204,7 @@ image::include/analysis/photoshop.png[Adobe Photoshop]
 IntelliJ is an integrated development environment (IDE) which is used to develop a variety of programs.
 The tool is made for software developers and can only be used if someone is familiar with programming.
 
-<<img-intellij>> below gives a short impression of the program and <<characteristics-intellij>> after shows our findings.
+<<img-intellij>> below gives a short impression of the program and <<characteristics-intellij>> after the image shows our findings.
 
 .IntelliJ IDEA
 [#img-intellij]
@@ -492,7 +491,7 @@ A user wants to know from which position the drawer comes from and he is used to
 So we decided to implement the drawers with animations (see <<_animations>>).
 
 ==== UX Expert
-The biggest impact on the WorkbenchFX styling came from this UX expert.
+The biggest impact on the WorkbenchFX styling came from an UX expert.
 A lot of the feedback he gave us was really helpful and we decided to adapt a lot of it.
 
 // TODO: reference the material design?
