@@ -19,36 +19,23 @@ Examiner: https://www.inventage.com/[Edwin Steiner‚ Inventage]
 == Acknowledgements
 
 == Introduction
-What is WorkbenchFX?
-WorkbenchFX is an out of the box, open source solution to build large applications from multiple views, called modules.
+WorkbenchFX is an out of the box solution to build large applications from multiple views, called modules.
 It offers good user experience and a beautiful design.
 
-A developer start often with building a view to show his customer first progress.
-Then comes always questions like:
+A developer often starts with the views, so they can quickly show their progress to their customer.
+After that, some question may arise such as:
+- "How do I bring all those views together?"
+- "How do I build the navigation between those views?"
+- "How do I establish a good user experience?"
 
-* "How do I bring all those views together?"
-* "How do I build the navigation between those views?"
-* "How do I ensure a consistent styling?"
-* "How do I establish a good user experience?"
+Exactly when those questions appear, *WorkbenchFX* comes into play:
+*WorkbenchFX* allows the developer to focus on designing the views and meanwhile we're building the application around them.
 
-Exactly when those questions appear, WorkbenchFX comes into the game:
-It takes the views, and wraps the infrastructure around it.
-It does all the hard work for the developer.
+*WorkbenchFX* also scales with growing requirements.
+In the beginning users just want to navigate through the views, but later on they probably would want to use a menu or a toolbar.
+Even that is supported by *WorkbenchFX* and the developer doesn't have to build anything by themselves.
 
-WorkbenchFX comes with an out of the box styling, a good user experience and builds a house around the views.
-It also scales depending on growing requests.
-In the beginning, a developer just wants to navigate through the views, but afterwards he'd probably like to use a menu or a toolbar.
-Even that is supported by WorkbenchFX and he don't have to build anything by himself.
-If everything fails and the blanket falls on his head, he can even replace whole parts of the workbench with own implementations, without having to rewrite the whole workbench.
-
-Thinking of a home, the rooms, the decor, or good memories come into mind.
-Probably not the facade, the base, where the power lines are or from what the walls are made of (the same applies to software development).
-Thinking of developing a new software, a developer thinks about the views, the features and not about on how to switch between those views, or the navigation in general.
-
-With WorkbenchFX it is possible to focus on designing the rooms and meanwhile WorkbenchFX is building the house around it.
-This house even adapts with growing requirements without having the developer to do anything.
-
-The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
+If the developer still manages to start outgrowing the workbench, they can even replace whole parts of it with their own implementations, without having to rewrite the whole workbench.
 
 Some of the used terms are explained in <<terms-declaration>>.
 
@@ -362,8 +349,6 @@ ____
 
 This way we could instantly verify if a feature was really necessary and useful or not.
 Because the story needed to fit in the context and was not just a random requirement which came in mind, without verification cite:[cohn_user_2004].
-
-// TODO: Image of Dieter?
 
 ==== IDE Decision
 During the user stories meeting it was also decided which application type we would support.
