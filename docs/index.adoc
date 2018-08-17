@@ -651,7 +651,7 @@ The colors of the tiles were also changed to white.
 Having the tiles in a color with a white background created an optical illusion where the brain imagines colored, blurred dots between the spaces of the tiles.
 An example of the created illusion is showed below (<<illusion>>).
 
-.v1.5.0
+.Optical Illusion
 [#illusion]
 image::include/versions/illusion.png[Optical illusion]
 
