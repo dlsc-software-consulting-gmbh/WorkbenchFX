@@ -652,17 +652,17 @@ An example of the created illusion is shown below (<<illusion>>).
 image::include/versions/illusion.png[Optical illusion]
 
 ==== Easy Styling
-Our superior goal was to enable Fabian a simple way to style his application in a very simple way.
+Our most important goal was to enable Fabian a simple way to style his application in a very simple way.
 Of course he would not take advantage of all of the styling possibilities.
 But we thought he might want to change at least the default color theme of the workbench.
 
-We went with the idea of Fabian changing only a few color values and the whole application would be restyled.
-To achieve this we worked with css variables.
-We defined all of the color variables in the `* / .root` selector of the `css` file and used throughout the whole stylesheet only those variables.
+We wanted to have Fabian only change a few color values which would restyle the whole application.
+To achieve this we worked with `CSS` variables.
+We defined all of the color variables in the `.root > *` selector of the `CSS` file and used  only those variables throughout the whole stylesheet.
 
-During defining the color variables, we discussed their names and usage in the workbench.
-In the end we decided to rely on the Material Design naming convention of colors and to use them as defined cite:[noauthor_color_nodate].
-This way, every API user is able to research on how to use our variables and in which context they are used.
+During the definition of the color variables, we discussed their names and usage in the workbench.
+In the end we decided to go with the Material Design naming convention of colors and to use them as defined cite:[noauthor_color_nodate].
+This way, every API user is able to research on how to use the variables and in which context they are used.
 
 By simply using the color variables, Fabian can create a custom stylesheet, assign it to the workbench and overwrite the colors he'd like to change.
 
@@ -955,6 +955,8 @@ Since all presenters don't need to extend anything else, using an abstract class
 
 ==== Overlays
 To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `Workbench#showOverlay()` and `Workbench#hideOverlay()` methods.
+The `GlassPane` prevents click events on the components below and adds a scrim to the background.
+Unless a blocking (modal) overlay is being displayed, clicking on the `GlassPane` closes the overlay.
 
 The GUI of WorkbenchFX is organized in layers.
 At all times, there is a layer of the general WorkbenchFX GUI, which is being represented by the view class `WorkbenchView`.
@@ -1016,7 +1018,7 @@ This worked very well for us, since comments that were made by the other person 
 
 ==== SCSS instead of CSS
 In web development the transpiler `SCSS` to `CSS` is commonly used.
-But we were not finding much information about using it with `JavaFX` projects.
+But we were not finding much information about using it in `JavaFX` projects.
 But because `SCSS` is:
 
 * much easier to write
@@ -1026,9 +1028,9 @@ But because `SCSS` is:
 
 we decided to give it a try.
 
-For example lets say we're having an application with two views fit in one larger view.
+For example, lets say we're having an application with two views fit in one larger view.
 All three views have some default colors.
-If we want to change the colors on hover we had to write following `CSS` code:
+If we want to change the colors on hover we would need to write the following `CSS` code:
 
 [source,css]
 ----
@@ -1052,7 +1054,7 @@ If we want to change the colors on hover we had to write following `CSS` code:
 }
 ----
 
-The code appears to be redundant and very flat, bad to read.
+The code appears to be redundant and not very readable.
 `SCSS` on the other hand:
 
 [source,sass]
@@ -1078,34 +1080,33 @@ The code appears to be redundant and very flat, bad to read.
 }
 ----
 
-Is much easier to read thanks to the nested code writing.
-The code is also adaptable.
+It is much easier to read thanks to the nested code writing.
+The code is also maintainable.
 If additional stylings are required, they can simply be added.
-`SCSS` will become handier and more powerful as the complexity of the stylesheet grows.
+`SCSS` will become handier and more powerful as the complexity of the stylesheet increases.
 
 TIP: IntelliJ plugin to transpile https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[SCSS to CSS]
 
 ==== CSS Conventions
 In order to maintain a well structured styling we agreed on several conventions.
-The most mentionable are described as follows.
+The most important are described as follows.
 
 ===== Using the Material Design Variables
-As stated in <<_easy_styling, Easy Styling>> we wanted to have Fabian worrying about restyling as least as possible.
+As stated in <<_easy_styling, Easy Styling>> we didn't want Fabian having to worry about restyling.
 
 Therefore we agreed on using only variables for styling, so that Fabian has to change only a variable to restyle the application.
-Of course not only Fabian profits from this convention but we too.
-Thanks to variables we didn't had to worry about color codes and changing them.
+Of course, not only Fabian profits from this convention but we do so too.
+Thanks to variables we didn't have to worry about color codes and changing them.
 
-Using the variable names and usage definition of `Material Design` will also be of use in future.
-This way we have not to worry about other, future developers not knowing on how the colors are used and how to use them cite:[noauthor_color_nodate].
+Using the variable names and using Material Design will also be of use in the future.
+This way we have not to worry about future developers not knowing how the colors are used and how to use them cite:[noauthor_color_nodate].
 
-===== Replacing Pixels
+===== Replacing Units
 We agreed on using `em` as size measurement and not `px`.
-The simple reason to do this was agility.
-When changing the default size of the font, the overall styling can adapt the actual size.
+This makes the views more responsive, since when changing the default size of the font, the overall styling automatically adapts the actual size.
 
-However sometimes it is more useful to write in pixels than in `em`.
-For instance it much simpler to write `60px` instead of `4.286em` (base font size: 14px).
+However, sometimes it is more useful to write in pixels than in `em`.
+For instance, it much simpler to write `60px` instead of `4.286em` (base font size: 14px).
 
 One of the features of `SCSS` is defining functions.
 We wrote a little <<pixel-converter>> which allowed us to convert pixels into `em` and agreed on using the function when working with a pixel value.
