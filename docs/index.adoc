@@ -50,41 +50,40 @@ This house even adapts with growing requirements without having the developer to
 
 The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
 
-Some of the used terms are explained in <<terms-declaration>>.
+Some of the used terms are explained in <<terms-definition>>.
 
-.Declaration of used terms during the document
-[#terms-declaration]
+.Definition of used terms during the documentation
+[#terms-definition]
 |===
-|Term        |Explanation
-|Module      |The workbench object consists of multiple views. The object which contains the view is called Module. (More information about <<_module_naming>>)
-|Implementor |The person which creates a custom implementation of a module
-|User        |The person which uses the final software created with WorkbenchFX
-|API user    |The person which uses the WorkbenchFX API and all its features to develop the software
+|Term        |Definition
+|Module      |The `workbench` object consists of multiple views. The object which contains the view is called `WorkbenchModule` (see <<_module_naming>>).
+|Implementor |The developer which creates a custom implementation of a module
+|User        |The person which uses the final application created with WorkbenchFX
+|API user    |The developer which uses the WorkbenchFX API to develop their application
 |===
 
 == Motivation
-// TODO: Probably more about the Vision?
 Our customer told us about his latest project in which he creates a larger enterprise application.
-During the conversation he stated that he has to often program the same code sequences again and again to produce the same results.
-Larger enterprise applications share often similar functionality and therefore duplicate work is inevitable.
-Therefore the idea came up to create an API which allows the user to focus on the unique, interesting work and does all the boring, repetitive work for him.
+He told us that with every new enterprise application he makes, the content is different, with the rest usually being about the same.
+Larger enterprise applications often share similar functionality and therefore duplicate work is inevitable.
+The idea was born to create a framework, which allows the API user to focus on the unique, interesting work, while the framework does all the boring, repetitive work for them.
 
 == Analysis
 
 === Persona
-During the project, three persona have been created.
+During the project, three personas have been created.
 They helped us a lot to focus on the main idea of the project.
 Since they represent our target group, we were able to clearly recognize the features which are crucial for the success of the project.
 
-At the start of the project we created two persona to focus on: SteffiFX and Anna (see <<persona>>).
-After the first meeting with our customer, we discovered together even a third persona, which led to additional features and changed the scope of our project.
-At first we thought, that it would be sufficient to design an API for long time JavaFX programmers, but then we had to especially keep an eye on developers with rare or even no experience in frontend development.
+In the beginning of the project we created two personas to focus on: SteffiFX and Anna (see <<persona>>).
+In the kickoff meeting with our customer, he shifted the main focus to a third, new persona, which led to different features and changed the scope of our project.
+At first we thought that it would be sufficient to design an API for long time JavaFX programmers, but then our main focus became developers with little to no experience in frontend development.
 
-The final three persona are shown in <<persona>> below.
-We'll refer to their names in the documentation.
+The final three personas are shown in <<persona>> below.
+We refer to their names throughout in this documentation.
 
 [cols="1,1,1"]
-.Persona
+.Personas
 [#persona]
 |===
 |link:include/persona/stefanie_berner.pdf[image:include/persona/stefanie_berner.png[Stefanie Berner]]
@@ -100,10 +99,10 @@ Because there are lots of applications available, we tried to look at a variety 
 The following sub chapters are showing each an image of the analyzed program and a table with its characteristics and (if there) some positive or negative impressions.
 
 ==== Blender
-Blender is a tool for creating 3D models which are used in animation movies or in game development.
+Blender is a tool for creating 3D models which are used in animated movies or in game development.
 It is a tool which requires a lot of skill and is not an "every day" program.
 
-<<img-blender>> below gives a short impression of the program and <<characteristics-blender>> after the image shows our findings.
+<<img-blender>> gives a short impression of the program and <<characteristics-blender>> shows our findings.
 
 .Blender
 [#img-blender]
@@ -113,7 +112,7 @@ image::include/analysis/blender.png[Blender]
 [#characteristics-blender]
 |===
 |Characteristics |Positive Impressions |Negative Impressions
-|Blender is divided up into five sections:
+|Blender is divided into five sections:
 
 - Header: The most important and common settings
 
@@ -121,24 +120,24 @@ image::include/analysis/blender.png[Blender]
 
 - Right bar: Several tools
 
-- Footer: Animation, and view-modes
+- Footer: Animation, and view modes
 
-- Center: The model which is created (main work)
+- Center: The model which is created (main working area)
 |
 |
 |All sections are resizable
 |
 |If their size becomes 0, they disappear.
  They can be restored, but only by using a short code
-|The sections can be shown and hidden as they are not used anymore
+|The sections can be shown and hidden when they are not used anymore
 |Using short codes to show/hide the bars
-|- There is no animation, when showing or hiding
+|- There is no animation, during showing or hiding
 
 - No possibility to show/hide the bars manually
 |In the top right corner: Dragging a triangle creates a new window
 |Each view shows the same part, but its view is independent
 (Interesting feature, but as it is a very specific feature probably not usable for WorkbenchFX)
-|To remove the view one has to drag the corner back in a certain way, which is very unintuitive
+|To remove the view, one has to drag the corner back in a certain way, which is very unintuitive
 |Items in a bar can be moved manually, but only in the bar itself
 |
 |
@@ -154,15 +153,15 @@ image::include/analysis/blender.png[Blender]
 |When creating a new project, all settings are restored to default
 |If the workspace becomes a 'mess', one can simply open a new window and everything is restored.
 (probably give a setting to turn this feature on and off)
-|When a user is used to work a certain way he has to change the workspace every time he starts a new project
+|When a user is used to working in a certain way, they have to change the workspace every time they starts a new project
 |===
 
 ==== Adobe Photoshop
 Adobe Photoshop is probably one of the most widely used tools when it comes to photo manipulation and creation of digital art.
 Since it requires a little experience to use it properly we think it's made primary for power users.
-<<img-photoshop>> below gives a short impression of the program and <<characteristics-photoshop>> after the image shows our findings.
+<<img-photoshop>> gives a short impression of the program and <<characteristics-photoshop>> shows our findings.
 
-.IntelliJ IDEA
+.Adobe Photoshop
 [#img-photoshop]
 image::include/analysis/photoshop.png[Adobe Photoshop]
 
@@ -170,7 +169,7 @@ image::include/analysis/photoshop.png[Adobe Photoshop]
 [#characteristics-photoshop]
 |===
 |Characteristics |Positive Impressions |Negative Impressions
-|The workspace is divided up into five sections:
+|The workspace is divided into five sections:
 
 - Header: A menu bar with all the different settings available
 
@@ -180,28 +179,28 @@ image::include/analysis/photoshop.png[Adobe Photoshop]
 
 - Right bar: More specific and special tools
 
-- Center: The files which are worked on
+- Center: The files which are being worked on
 |
 |
 |- Multiple windows possible
 
-- Navigation is done by tabs
-|Tabs are saving space and show still tho open files
+- Navigation is done with tabs
+|Tabs are saving space and still show the open files
 |
-|Tabs can be navigated to other places (even "un dock" them from the tab bar)
-|Sometimes useful when wanting to see two views next to each other
+|Tabs can be dragged to other places (even undocking them from the tab bar)
+|Sometimes useful, when wanting to see two files next to each other
 |Not really necessary (rarely used)
-|Tabs / Tools can be placed anywhere in the application
-|When using the tools it is sometimes handy to move a tool in range
-|It has advantages, but is also a little diffuse to use. This feature needs for sure to be discussed
-|The workspace can be restored to default using the equivalent setting button
+|Tabs / tools can be placed anywhere in the application
+|When using the tools, it is sometimes handy to move a tool in range
+|It has advantages, but is also a little cumbersome to use.
+|The workspace can be restored to default using the corresponding setting button
 |Good solution
 |
-|Custom workspaces can be stored, and switched as needed
+|Custom workspaces can be stored and switched as needed
 |Nice balance between a default workspace and a power user
 |
 |The tools are stored in tabs and drawers
-|When double-clicking on the Tabs, they collapse
+|When double-clicking on the tabs, they collapse
 |They have 3 states (not likely to understand) and the collapsing behaviour is not intuitive
 |===
 
@@ -209,7 +208,7 @@ image::include/analysis/photoshop.png[Adobe Photoshop]
 IntelliJ is an integrated development environment (IDE) which is used to develop a variety of programs.
 The tool is made for software developers and can only be used if someone is familiar with programming.
 
-<<img-intellij>> below gives a short impression of the program and <<characteristics-intellij>> after the image shows our findings.
+<<img-intellij>> gives a short impression of the program and <<characteristics-intellij>> shows our findings.
 
 .IntelliJ IDEA
 [#img-intellij]
@@ -219,11 +218,11 @@ image::include/analysis/intellij.png[IntelliJ IDEA]
 [#characteristics-intellij]
 |===
 |Characteristics |Positive Impressions |Negative Impressions
-|The workspace is divided up into six sections:
+|The workspace is divided into six sections:
 
-- Header: A menu bar with all the different settings available
+- Header: A menu bar with different settings
 
-- Toolbar: Buttons which are often used during development of the product
+- Toolbar: Buttons which are often used during development
 
 - Left bar: Drawers used for navigating through the project. Structural features
 
@@ -241,8 +240,8 @@ image::include/analysis/intellij.png[IntelliJ IDEA]
 |
 |All possibilities available, regarding the tab:
 
-- Right click on the tab, then one can decide its behaviour
-|Nearly every state is supported
+- Right click on the tab, then one can decide on its behaviour
+|Nearly every possible state is supported
 
 - Pinned
 
@@ -254,13 +253,13 @@ image::include/analysis/intellij.png[IntelliJ IDEA]
 
 - ...
 |
-|The "Remove from sidebar" button removes the targeted feature from the sidebar
+|The "Remove from sidebar" button removes the selected feature from the sidebar
 |
 |- It's not intuitive to undo this call
 
 - While trying to restore the feature, we discovered the option "Restore default layout", but this doesn't restore all layout changes
 
--> Lesson learned: Layout changes should be stored at one place
+-> Lesson learned: Layout changes should be stored in one place
 |
 |
 |
@@ -270,11 +269,11 @@ image::include/analysis/intellij.png[IntelliJ IDEA]
 Figma is a tool used for prototyping.
 Using it is very easy and intuitive.
 It can used by non power users.
-Compared to the other tools analyzed before its tools are fixed and defined.
+Compared to the other tools analyzed before, its tools are fixed and defined.
 The tools can't be moved or removed.
 The design of the software is straight forward and is kept very simple.
 
-It consists of five main sections
+It consists of five main sections:
 
 * Menu bar on top where all the features are stored
 * Toolbar below the menu bar where the most important tools are stored
@@ -282,7 +281,7 @@ It consists of five main sections
 * Right bar where all important information and attributes about the selected component is displayed
 * Center where the main work is being done
 
-<<img-figma>> below gives a short impression of the program.
+<<img-figma>> gives a short impression of the program.
 
 .Figma
 [#img-figma]
@@ -292,29 +291,29 @@ image::include/analysis/figma.png[Figma]
 Like <<_figma>>, Adobe XD is a prototyping software.
 It is also very simple and intuitive.
 In fact there is not much that differs compared to Figma.
-So it can definitely being used by non power users.
+So it can definitely be used by non power users.
 The image below gives a short impression of the program and the table below shows our findings.
 
-<<img-Adobe-xd>> below gives a short impression of the program.
+<<img-adobe-xd>> gives a short impression of the program.
 
 .Adobe XD
-[#img-Adobe-xd]
+[#img-adobe-xd]
 image::include/analysis/adobeXD.png[Adobe XD]
 
 ==== Conclusion
 In conclusion after analyzing all those different programs, we can simplify them to the most important and frequent characteristics:
 
-* A menu bar on top of the application, where all the functionality of the application is stored.
-* Below the menu-bar is often a toolbar, which contains the current, or most important tools represented through buttons (without collapsing).
-* In center is often the window, in which the main work is done.
-* Usually there are some drawers on the left and right of the application, which can collapse.
-They contain either further tools, buttons or a tree-view for navigation.
+* A menu bar on top of the application, where all the functionality of the application is located.
+* Below the menu-bar is often a toolbar, which contains the current, or most important tools represented by buttons (without collapsing).
+* In the center is often the window, in which the main work is done.
+* Usually there are some drawers on the left and right of the application, which are collapsible.
+They contain either more tools, buttons or a tree-view for navigation.
 * Sometimes another bar which is collapsible is set below the main window.
 * Finally another toolbar is sometimes set on bottom of the application.
 It contains the least used tools, or tools which are needed at the end of the process.
 
 ==== To IDE or not to IDE?
-During our research we discovered, that there are possibly two different kind of application types, created for two different types of users.
+During our research we discovered, that there are two different kind of application types, created for two different types of users.
 
 One type of application is created for power users:
 
@@ -324,30 +323,29 @@ In terms of the architecture, it could mean that it would need to allow the foll
 * Separation between `Control` and `Skin`
 ** Skin can be replaced by API users, if they want to use a custom style
 * Flexible panes
-** can be rearranged across the whole window
+** can be re-arranged across the whole window
 ** different modes for fixation
 *** Pinned mode
 *** Docked mode
 *** Floating mode
 *** Window mode
 *** Split mode
-* The application requires a modular approach to satisfy the needs of the user
 
 The other user type is the opposite to a power user:
-A user which has less or no experience in using a large application:
 
 * Simple design
 * Intuitive usage
 * Not much going on on the screen, so that the user can focus on the important parts of the application
+* Doesn't want to customize or re-arrange parts of the application
 
 Depending on the required user type, the WorkbenchFX API would look totally different, because both use cases require a different approach on the API design.
 
 === User Stories
-In the beginning of the project we decided to make a workshop with our customer.
-Its purpose was to define persona (see <<_persona>>) and based on them to create user stories.
+In the beginning of the project we decided to organize a user story workshop with our customer.
+Its purpose was to define personas (see <<_persona>>) and based on them to create user stories.
 
 We followed a specific pattern when writing our user stories:
-We started always with the name of the persona:
+We always started with the name of the persona:
 ____
 As Anna...
 ____
@@ -355,19 +353,17 @@ followed by the desired functionality:
 ____
 ...I'd like to have an intuitive way to use the application...
 ____
-concluding with the reason why:
+concluding with the value:
 ____
 ...so that I am not confused while working and can keep a productive workflow.
 ____
 
-This way we could instantly verify if a feature was really necessary and useful or not.
-Because the story needed to fit in the context and was not just a random requirement which came in mind, without verification cite:[cohn_user_2004].
-
-// TODO: Image of Dieter?
+This way we can instantly verify if a feature is really necessary and whether it is useful or not.
+This is because the story needs to fit in the context and is not just a random requirement which came to mind, without questioning its usefulness cite:[cohn_user_2004].
 
 ==== IDE Decision
-During the user stories meeting it was also decided which application type we would support.
-As it became clear that our third persona was going to be Anna, we knew that we would not develop an API which allows to build large power user applications like an IDE.
+During the user stories meeting we also decided which application type we would support.
+As it became clear the user was going to be Anna, we knew that we would not develop an API which allows to build large power user applications like an IDE.
 Anna is a person which can use a computer, but she uses it only as a tool and is not familiar with complex applications.
 So we had to focus on simple, easy to understand features which are intuitive to use.
 
@@ -396,14 +392,14 @@ In the end, both can lead to the same goal, but they are meant to be used for di
 
 === Minimum Viable Product
 To ensure shared understanding between the customer and ourselves, we agreed on a minimum viable product (MVP) cite:[olsen_lean_2015].
-The outcome resulted in a very minimalistic version of the workbench, which still provides an added value comparing to writing it manually.
-The final prototype is displayed in <<mvp>> below.
+The outcome resulted in a very minimalistic version of the workbench, which still provides an added value compared to writing everything by hand.
+The final prototype is displayed in <<mvp>>.
 
 The MVP consists of:
 
-* Able to add modules to the workbench object
+* Ability to add modules to the workbench object
 * The <<_workbenchmodule_lifecycle>> which enables the user to open, deactivate and close the module
-* Switching modules using tabs
+* Switching between modules using tabs
 
 [cols="1,1"]
 .Minimum Viable Product (MVP)
@@ -413,7 +409,7 @@ The MVP consists of:
 |link:include/mvp/module.png[image:include/mvp/module.png[Module Screen]]
 |===
 
-NOTE: It is interesting, that the MVP is still recognizable when using only the minimal feature of WorkbenchFX: Adding just modules to the workbench. The outcome represents exactly the MVP.
+NOTE: It is interesting, that the MVP is still recognizable when using only the minimal feature of WorkbenchFX: only adding modules to the workbench. The outcome represents exactly the MVP.
 
 TIP: The https://www.figma.com/proto/LY7jPWrDVQ5GG1zmvBdlA2MT/WorkbenchFX?scaling=contain&node-id=47%3A129[clickable MVP] is designed using the prototyping tool `Figma`.
 
@@ -421,7 +417,7 @@ TIP: The https://www.figma.com/proto/LY7jPWrDVQ5GG1zmvBdlA2MT/WorkbenchFX?scalin
 
 ==== Module Naming
 To plug in functionality by the API user, we use modules.
-However, as stated in <<_add_module_page>> the name `Module` is not ideal, since that name already has a lot of associations.
+However, as stated in <<_add_module_page>>, the name `Module` is not ideal, since that name already has a lot of associations.
 Additionally, when typing `extends Module` in an IDE, it will automatically imports Java's `Module`.
 This makes it frustrating, as the implementor has to manually change the import.
 
