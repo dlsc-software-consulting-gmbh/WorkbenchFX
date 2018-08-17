@@ -149,6 +149,10 @@ Note:
 - For use with FXML & [Scene Builder](https://gluonhq.com/products/scene-builder/), there is also a default constructor `new Workbench()`. However, in this case, modules and other optional features need to be defined separately afterwards
 
 ## Module Lifecycle
+The lifecycle methods are implicitly being called by the workbench.
+You **must not** call any of the lifecycle methods by yourself.
+To close and open modules use only `workbench.openModule()` and `workbench.closeModule()`.
+
 The abstract class `WorkbenchModule` contains four different lifecycle methods which can be overridden:
 
 Method         | Description
