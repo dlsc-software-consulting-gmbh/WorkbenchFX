@@ -1,0 +1,20 @@
+= Miscellaneous Reference
+François Martin; Marco Sanfratello
+
+== Codecov.io Exceptions (codecov.yml)
+[source,java]
+----
+include::../codecov.yml[]
+----
+
+== Maven `pom.xml`: workbenchfx-core
+[source,java]
+----
+include::{dir-core}/pom.xml[]
+----
+
+== Travis Configuration File (.travis.yml)
+[source,java]
+----
+include::../.travis.yml[]
+----

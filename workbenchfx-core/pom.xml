@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-core</artifactId>
-    <version>1.7.0</version>
+    <version>2.0.0</version>
     <packaging>jar</packaging>
 
     <distributionManagement>
@@ -115,10 +115,17 @@
                     <windowtitle>WorkbenchFX API</windowtitle>
                     <additionalJOptions>
                         <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
+                        <!-- Java 9 only
                         <additionalJOption>-html5</additionalJOption>
+                        -->
                     </additionalJOptions>
                     <docfilessubdirs>true</docfilessubdirs>
                     <tags>
+                        <tag>
+                            <name>defaultValue</name>
+                            <placement>a</placement>
+                            <head>Default Value:</head>
+                        </tag>
                         <tag>
                             <name>apiNote</name>
                             <placement>a</placement>
@@ -139,6 +146,7 @@
                 <executions>
                     <execution>
                         <id>make-docs
+
                         </id> <!-- this is used for inheritance merges -->
                         <phase>package
                         </phase> <!-- bind to the packaging phase -->
@@ -349,6 +357,7 @@
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- JUnit 4 Engine for JUnit 5, is needed for Spock to work -->
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>

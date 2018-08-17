@@ -254,6 +254,7 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
+  // asciidoctor Documentation - tag::openModule[]
   @Test
   void openModule() {
     robot.interact(() -> {
@@ -294,7 +295,7 @@ class WorkbenchTest extends ApplicationTest {
       inOrder.verify(first).activate();
       verify(first, times(2)).activate();
       // Switch to home screen
-      workbench.openHomeScreen();
+      workbench.openAddModulePage();
       assertSame(null, workbench.getActiveModule());
       assertSame(null, workbench.getActiveModuleView());
       assertEquals(2, workbench.getOpenModules().size());
@@ -324,7 +325,9 @@ class WorkbenchTest extends ApplicationTest {
           () -> workbench.openModule(mock(WorkbenchModule.class)));
     });
   }
+  // asciidoctor Documentation - end::openModule[]
 
+  // asciidoctor Documentation - tag::closeModule[]
   /**
    * Precondition: openModule tests pass.
    */
@@ -537,7 +540,9 @@ class WorkbenchTest extends ApplicationTest {
       verifyNoMoreInteractions(first, second);
     });
   }
+  // asciidoctor Documentation - end::closeModule[]
 
+  // asciidoctor Documentation - tag::closeModuleInterrupt[]
   /**
    * Precondition: openModule tests pass.
    */
@@ -773,6 +778,7 @@ class WorkbenchTest extends ApplicationTest {
       verifyNoMoreInteractions(first, second, last);
     });
   }
+  // asciidoctor Documentation - end::closeModuleInterrupt[]
 
   @Test
   void getOpenModules() {
@@ -1140,6 +1146,7 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
+  // asciidoctor Documentation - tag::awaitility[]
   @Test
   void hideNavigationDrawer() {
     robot.interact(() -> {
@@ -1157,6 +1164,7 @@ class WorkbenchTest extends ApplicationTest {
       await().atMost(5, TimeUnit.SECONDS).until(() -> (navigationDrawer.isVisible()));
     });
   }
+  // asciidoctor Documentation - end::awaitility[]
 
   @Test
   void getNavigationDrawerItems() {
@@ -1258,6 +1266,7 @@ class WorkbenchTest extends ApplicationTest {
     });
   }
 
+  // asciidoctor Documentation - tag::stageClosing[]
   /**
    * Test for {@link Workbench#setupCleanup()}.
    * Simulates all modules returning {@code true} when
@@ -1535,6 +1544,7 @@ class WorkbenchTest extends ApplicationTest {
         )
     );
   }
+  // asciidoctor Documentation - end::stageClosing[]
 
   @Test
   void initNavigationDrawer() {

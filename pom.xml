@@ -6,11 +6,11 @@
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-parent</artifactId>
-    <version>1.7.0</version>
+    <version>2.0.0</version>
     <packaging>pom</packaging>
 
     <properties>
-        <workbenchfx.version>1.7.0</workbenchfx.version>
+        <workbenchfx.version>2.0.0</workbenchfx.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <asciidoctor.maven.plugin.version>1.5.6</asciidoctor.maven.plugin.version>
@@ -21,7 +21,6 @@
     <modules>
         <module>workbenchfx-core</module>
         <module>workbenchfx-demo</module>
-        <module>workbenchfx-dirk</module>
     </modules>
 
     <build>
@@ -77,7 +76,11 @@
                 <configuration>
                     <sourceDirectory>docs</sourceDirectory>
                     <attributes>
-                        <sourcedir>${project.build.sourceDirectory}</sourcedir>
+                        <dir-core>${project.basedir}/workbenchfx-core</dir-core>
+                        <dir-test-java>${project.basedir}/workbenchfx-core/src/test/java/com/dlsc/workbenchfx</dir-test-java>
+                        <dir-test-groovy>${project.basedir}/workbenchfx-core/src/test/groovy/com/dlsc/workbenchfx</dir-test-groovy>
+                        <dir-source-core>${project.basedir}/workbenchfx-core/src/main/java/com/dlsc/workbenchfx</dir-source-core>
+                        <dir-source-demo>${project.basedir}/workbenchfx-demo/src/main/java/com/dlsc/workbenchfx</dir-source-demo>
                         <project-version>${project.version}</project-version>
                         <bibliography-database>bibliography/WorkbenchFX.bib</bibliography-database>
                         <bibliography-style>ieee</bibliography-style>
@@ -107,6 +110,7 @@
                                 <icons>font</icons>
                                 <linkattrs>true</linkattrs>
                                 <encoding>utf-8</encoding>
+                                <sectnums>true</sectnums>
                             </attributes>
                         </configuration>
                     </execution>
