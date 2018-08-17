@@ -21,20 +21,6 @@ We focused on a modular approach where the whole application consists of multipl
 The API provides a great user experience, combined with a good usability and a beautiful design inspired by the Material Design guidelines.
 Restyling the workbench can easily being done by simply changing `CSS` variables.
 
-API -
-Library -
-JavaFX -
-Java -
-User experience -
-enterprise applications -
-Module -
-Modular -
-Styling -
-Material Design -
-usability -
-simple -
-intuitive -
-
 == Acknowledgements
 We had a lot of help during our way to *WorkbenchFX*.
 This project would not have been so successful without the help of all of the people which supported us.
@@ -479,120 +465,120 @@ It is more important that the user experience is straightforward.
 Still, the possibility of extending the workbench using modules is important to our customer.
 
 === Usability Tests
-During the project we continuously got feedback from different kinds of people.
-In the following chapters are the most important outcomes from usability tests listed.
+During the project we got continuous feedback from different kinds of people.
+The most important outcomes from the usability tests are listed in the following chapters.
 
 ==== Dieter Holz, Advisor
 During the "Hacking Days" we've made from time to time (more about them in <<_hacking_day>>), our advisor tested the API by implementing a module on his own.
-This showed us some weaknesses in the API.
-Two very important findings were discovered:
+This showed us some weaknesses in the API design.
+We found two important findings, which are described in the following subchapters.
 
 ===== Interrupt Closing a Module
 It is possible to interrupt closing a module.
-For instance if someone wants to ask the user if the progress should be saved before closing, the module should not be closed immediately.
-During the implementation of the dialogs we used `CompletableFutures`.
-we used them also to achieve the interrupt closing process since a dialog would be shown in our example.
+For example, if someone wants to ask the user if the progress should be saved before closing, the module should not be closed immediately.
+During the implementation of the dialogs, we used `CompletableFuture`{empty}s.
+We also used them to achieve the interrupt closing process, since closing of the module also happens asynchronously, after false has been returned by `destroy()`.
 
 First it made sense and it also worked.
-But during the usability test our advisor mentioned the complexity of using `CompletableFutures`.
-It is also unlikely, that Fabian would know what `CompletableFutures` are and we didn't wanted him to have an unnecessary barrier to achieve his goal.
+But during the usability test, our advisor mentioned the complexity of using `CompletableFuture`{empty}s.
+It is unlikely that Fabian knows what `CompletableFutures` are and we didn't want him to have an unnecessary barrier to achieve his goal.
 
 So we figured out a much simpler solution.
+Implementation details can be found in <<_workbenchmodule_lifecycle>>.
 
-NOTE: A detailed chapter about interrupt closing a module can be found in the readme.md of WorkbenchFX.
+NOTE: A detailed chapter can be found in the readme.md of WorkbenchFX in the chapter "Prevent module from closing".
 
 ===== Module Toolbar
 Our advisor's module had a dark background, but the tab's color was white.
-This lead to an inconsistent coloring and destroyed the tab like look and feel.
-Having to restyle everything manually was tedious and boring, so we came up with a different idea.
+This lead to inconsistent coloring and ruined the tab's look and feel.
+Having Fabian to restyle everything manually was tedious and boring, so we came up with a different idea.
 
-Since the most modules would have some toolbar items we introduced the module toolbar.
-It is now possible to add `ToolbarItems` to the module.
-As soon as there are items to be displayed, WorkbenchFX creates automatically a toolbar and puts it below the tab.
+Since most modules would have some toolbar items, we introduced a module-specific toolbar.
+It is now possible to add `ToolbarItem`{empty}s to the module.
+As soon as there are items to be displayed, WorkbenchFX automatically creates a toolbar and displays it below the tab.
 
-This way it is ensured, that an implementor always has the possibility to maintain a consistent look and feel.
+This way we can ensure that the implementor's modules maintain a consistent look and feel.
 
 ===== Drawer Animations
-During a long period of time of the project we didn't focus on animations.
-One reason we never did that, is that using them in `JavaFX` is really cumbersome.
+Up until the end of the project, we didn't focus on animations.
+One reason we never did that was that using them in JavaFX is really cumbersome compared to animations on the web.
 
-One of our features are the drawers.
-An API user can call `workbench.showDrawer()` to show a drawer.
-The base idea of this feature is to create a custom `NavigationDrawer`.
-When showing or hiding ,those drawers were never showing any animation.
+One of our features are drawers.
+To open a drawer, an API user can call `workbench.showDrawer()`.
+When showing or hiding, drawers like the `NavigationDrawer` were never showing any animation.
 They just (dis)appeared.
 
-However during the usability test we discovered that in case of drawers animations are required.
-The visual feedback was not there when we tested the drawers.
-A user wants to know from which position the drawer comes from and he is used to a sliding animation.
+However during the usability test we discovered that in case of other, larger drawers animations are required.
+The visual feedback where the drawers were coming from and that it even was a drawer was not present.
+A user wants to know from which position the drawer comes from and he is used to a sliding animation in this case.
 So we decided to implement the drawers with animations (see <<_animations>>).
 
 ==== UX Expert
-The biggest impact on the WorkbenchFX styling came from an UX expert.
+The biggest impact on the WorkbenchFX styling came from a UX expert.
 A lot of the feedback he gave us was really helpful and we decided to adapt a lot of it.
 
-* The active tab should be more styled like a real tab in a browser
+* The active tab should be more styled like a "real" tab in a browser
 * The tabs should be styleable with unique colors (which can now be done using the unique `#id`)
 * Get rid of the home button and replace it with a `+` button on the right end of the toolbar
-* Shrink down the size of the close icon in the tabs
+* Shrink down the size of the close icon in the tabs and make it thinner
 * A small vertical border before and after the tabs would suggest the tab as an entity
-* The last opened tab could be still open when restarting the application (this can already be achieved through storing the open modules in preferences. For example using PreferencesFX)
-* A standard tab could be opened when starting the application (this can already be achieved by simplay defining one in the code before the `launch()` call)
+* Offer the ability to have the same tabs open as when the application was last closed (this can already be achieved through storing the open modules in preferences, for example using PreferencesFX)
+* It should be possible to define a default tab to be opened when starting the application (this can already be achieved by simply calling `workbench.showModule(defaultModule)` in the code after the stage was shown)
 * For the tiles: Enlarge the icon, center it on top of the text
 * He also suggested to split the tabs and the toolbar into two separate bars
 
 ==== Annelore Egger, User Group
-She was happy using the API which motivated and showed us, that we're on the right way.
+She was happy using the API which motivated and showed us that we're on the right way.
 
 ===== Separating the Toolbar and Tab bar
-However during her usability test it was confirmed that separating the toolbar from the tab bar was really necessary.
-Having only one bar lead really fast to an overloading of items and tabs.
+When she looked at the top bar during the usability test, she thought all controls present in the bar were tabs and was confused what adding controls to the lists of the toolbar controls would do.
+This confirmed that separating the toolbar from the tab bar was really necessary.
+Having only one bar quickly lead to an overcrowding of items and tabs, which made it impossible to distinguish them.
 
 ===== Introducing ToolbarItems
-As an addition to the overloaded bar on top, she was confused with the possibility of adding every `Node` to the toolbar.
-She also didn't recognized the Dropdown feature we were providing.
+As an addition to the overcrowded bar on top, she was confused with the possibility of adding every `Node` to the toolbar.
+She also didn't realize the `Dropdown` control we were providing for convenience.
 
 For those reasons we decided to restrict the possibility of adding every `Node` to one simple object:
 The `ToolbarItem`.
-We replaced the Dropdown with this universal object.
-The idea behind the `ToolbarItem` is, that depending on its stored parameters it becomes either a `Label`, a `Button` or a `MenuButton`.
-If an API user still wants to add a custom `Node`, he can use the constructor which takes a `Node` as single parameter.
+We replaced the `Dropdown` class with this universal object.
+Depending on the defined parameters, the `ToolbarItem` either becomes a `Label`, a `Button` or a `MenuButton` with appropriate styling.
+If an API user still wants to use a custom `Node`, they can use the constructor which takes a `Node` as parameter.
 
 This way it is clear what to use and no misunderstandings are possible.
 
 == Implementation
 During development of the API we've built a lot of demo modules to test it.
-Those modules can be checked out when launching the `CustomDemo` in the `workbenchfx-demo` package.
-This way, all the features can be seen exactly in details and in action.
+Those modules can be tried out when launching the `CustomDemo` in the `workbenchfx-demo` package.
+This way, all features can be seen exactly in detail and in action.
 
 === Layout
-Following chapters cover some of the most interesting topics and design decisions we encountered during the layout process.
+The following chapters cover some of the most interesting topics and design decisions we encountered during the layout process.
 
 ==== Tabs
-We stuck early to the modular concept of having multiple views and switching between them using tabs.
+We decided to stick with the modular concept of having multiple views and switching between them using tabs.
 This concept is widely used.
 Most of the applications analyzed in <<_applications>> use the tab concept to switch between their files.
 Also common internet browsers like https://www.google.com/intl/de_ALL/chrome/[Google Chrome] or https://www.mozilla.org/de/firefox/new/[Firefox] use the tab system too.
 
 ==== Add Module Page
 Having a page which allows the user to open a new module is also commonly used.
-For example smartphone operating systems use such a concept, when they display icons of installed apps and open them on click.
+For example smartphones use such a concept, when they display icons of installed apps on the home screen and open them on click.
 
-For this reason we decided to go with a system, where the user could click on a certain button to open a module.
-After clicking on this button, a page would open on which all the available modules are displayed on a grid.
-Clicking on one of those "Tiles" (since the rectangular button to open the module looks like a tile, we agreed to go with this name) would open the module.
-This way, the user has a good overview on all the modules and could easily open them.
+For this reason we decided to go with a system, where the user could click on a certain button which opens an overview with all of the modules in a grid.
+Clicking on one of those buttons (called `Tile`) would open the module.
+This way, the user has a good overview on all the modules and can easily open them.
 
 Going with this concept triggered a discussion about naming the components.
-When we described the concept, we struggled with naming the module.
-Viewed objectively the complete application built with WorkbenchFX consists of multiple "mini applications".
+When we described the concept, we struggled with the naming of the module.
+Viewed objectively, the complete application built with WorkbenchFX consists of multiple "mini applications".
 For obvious reasons we could not name the module "MiniApplication".
-Fabian for instance would be very confused when he should implement a "MiniApplication".
+An API user could be confused about the difference between the application itself and the "mini applications".
 So we had to find a better name.
-In the end we came up with WorkbenchModule which was also not the best solution, since a lot of associations stick with the name module.
+In the end we chose `WorkbenchModule`, which also was not the best solution, since the part "module" has a lot of associations.
 But it is definitely a better choice than "Application" (the complete naming process is described in <<_module_naming>>).
 
-When having a lot of modules, the available space on the page would fast shrink and the usability would also decrease.
+When having a lot of modules, the available space on the page would shrink quickly and the usability would also suffer.
 For that reason we introduced a pagination to have only a restricted amount of modules displayed on the page.
 
 ==== Changes across Versions
@@ -600,10 +586,10 @@ There are three major changes mentionable which appeared during the project.
 
 * The phase when we were <<_writing_our_own_stylesheet, writing our own stylesheet>> without any help of external sources.
 * The phase where we were <<_switching_to_the_material_design_guidelines, switching to the Material Design guidelines>>.
-* The phase after the usability tests, where we were <<_separating_the_toolbar, separating the toolbar>> into the toolbar on top and the tab bar below and went full material
+* The phase after the usability tests, where we were <<_separating_the_toolbar, separating the toolbar>> into the toolbar on top and the tab bar below and decided to completely switch to Material Design.
 
 ===== Writing our own stylesheet
-In version `v1.1.1` we had the opinion that we're having a really good styling.
+In version `v1.1.1` we had the opinion that we have a really good styling.
 To be fair: It was the first version which looked acceptable.
 <<v111>> gives a first impression on how the style looked at that time.
 
@@ -615,11 +601,11 @@ To be fair: It was the first version which looked acceptable.
 |image:include/versions/v1.1.1 - 2.png[v1.1.1-2]
 |===
 
-Later on during the project we realized, that the white gaps between the toolbar items on top didn't provide a good usability.
-It also took too much space.
+Later on in the project we realized, that the white gaps between the toolbar items on top didn't provide good readability.
+It also took up too much space.
 At one point we decided to have a look at common style guidelines to improve our styling.
 
-We felt, that Google's https://material.io/design/[Material Design] guidelines are a pretty good starting point since their flat design approach is being used a lot in applications and they are providing the guidelines open source cite:[noauthor_design_nodate].
+We felt, that Google's https://material.io/design/[Material Design] guidelines are a pretty good starting point, since their flat design approach is being used in a lot of applications and they are providing the guidelines open source cite:[noauthor_design_nodate].
 
 ===== Switching to the Material Design guidelines
 This was a huge step in terms of usability.
@@ -635,10 +621,10 @@ We also changed the way the active tabs were looking to a more material like app
 |image:include/versions/v1.2.0 - 2.png[v1.2.0-2]
 |===
 
-However, the active tab styling this way showed us that Material Design is only a guideline.
-The way those tabs are styled adapts mainly to tabs with only one single text cite:[noauthor_tabs_nodate].
-Since we're having an icon, a text and a close icon there was a lot going on in the toolbar.
-Especially when having a lot of modules open, the application looked stuffed.
+However, the active tab styling this way showed us that Material Design *is* only a guideline.
+The way those tabs are styled adapts mainly to tabs with only text cite:[noauthor_tabs_nodate].
+Since we have an icon, text and a close icon, there was a lot going on in the tab bar.
+Especially when having a lot of modules open, the application looked crowded.
 <<v150>> below shows how horrible the styling was when opening a lot of modules.
 
 .v1.5.0
@@ -647,7 +633,7 @@ image::include/versions/v1.5.0 - 8.png[v1.5.0-8]
 
 [TIP]
 ====
-Therefore we came to conclusion, that testing boundaries is not just recommended but crucial to the success of a project.
+Therefore we came to the conclusion, that testing boundaries is not just recommended but crucial to the success of a project.
 The visual appearance with only a few open modules and only a few items in the toolbar looked nice.
 But testing use cases with a lot of items revealed the issue.
 ====
@@ -656,7 +642,7 @@ It is obvious that this styling had to change.
 After the <<_usability_tests>> and a lot of feedback we changed the styling again.
 
 ===== Separating the Toolbar
-At first we were worried that separating the toolbar into two bars would take too much space of the window.
+At first we were worried that separating the toolbar into two bars would take up too much space of the window.
 But this trade-off proved to be a worthwhile decision.
 We also decided to rework the styling a little bit.
 <<v160>> shows the final result of the separation.
@@ -681,24 +667,24 @@ A direct comparision approves this decision (<<v150vs160>>).
 
 The colors of the tiles were also changed to white.
 Having the tiles in a color with a white background created an optical illusion where the brain imagines colored, blurred dots between the spaces of the tiles.
-An example of the created illusion is showed below (<<illusion>>).
+An example of the created illusion is shown below (<<illusion>>).
 
 .Optical Illusion
 [#illusion]
 image::include/versions/illusion.png[Optical illusion]
 
 ==== Easy Styling
-Our superior goal was to enable Fabian a simple way to style his application in a very simple way.
+Our most important goal was to enable Fabian a simple way to style his application in a very simple way.
 Of course he would not take advantage of all of the styling possibilities.
 But we thought he might want to change at least the default color theme of the workbench.
 
-We went with the idea of Fabian changing only a few color values and the whole application would be restyled.
-To achieve this we worked with css variables.
-We defined all of the color variables in the `* / .root` selector of the `css` file and used throughout the whole stylesheet only those variables.
+We wanted to have Fabian only change a few color values which would restyle the whole application.
+To achieve this we worked with `CSS` variables.
+We defined all of the color variables in the `.root > *` selector of the `CSS` file and used  only those variables throughout the whole stylesheet.
 
-During defining the color variables, we discussed their names and usage in the workbench.
-In the end we decided to rely on the Material Design naming convention of colors and to use them as defined cite:[noauthor_color_nodate].
-This way, every API user is able to research on how to use our variables and in which context they are used.
+During the definition of the color variables, we discussed their names and usage in the workbench.
+In the end we decided to go with the Material Design naming convention of colors and to use them as defined cite:[noauthor_color_nodate].
+This way, every API user is able to research on how to use the variables and in which context they are used.
 
 By simply using the color variables, Fabian can create a custom stylesheet, assign it to the workbench and overwrite the colors he'd like to change.
 
@@ -995,6 +981,8 @@ Since all presenters don't need to extend anything else, using an abstract class
 
 ==== Overlays
 To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `workbench.showOverlay()` and `workbench.hideOverlay()` methods.
+The `GlassPane` prevents click events on the components below and adds a scrim to the background.
+Unless a blocking (modal) overlay is being displayed, clicking on the `GlassPane` closes the overlay.
 
 The GUI of WorkbenchFX is organized in layers.
 At all times, there is a layer of the general WorkbenchFX GUI, which is being represented by the view class `WorkbenchView`.
@@ -1056,7 +1044,7 @@ This worked very well for us, since comments that were made by the other person 
 
 ==== SCSS instead of CSS
 In web development the transpiler `SCSS` to `CSS` is commonly used.
-But we were not finding much information about using it with `JavaFX` projects.
+But we were not finding much information about using it in `JavaFX` projects.
 But because `SCSS` is:
 
 * much easier to write
@@ -1066,9 +1054,9 @@ But because `SCSS` is:
 
 we decided to give it a try.
 
-For example lets say we're having an application with two views fit in one larger view.
+For example, lets say we're having an application with two views fit in one larger view.
 All three views have some default colors.
-If we want to change the colors on hover we had to write following `CSS` code:
+If we want to change the colors on hover we would need to write the following `CSS` code:
 
 [source,css]
 ----
@@ -1092,7 +1080,7 @@ If we want to change the colors on hover we had to write following `CSS` code:
 }
 ----
 
-The code appears to be redundant and very flat, bad to read.
+The code appears to be redundant and not very readable.
 `SCSS` on the other hand:
 
 [source,sass]
@@ -1118,34 +1106,33 @@ The code appears to be redundant and very flat, bad to read.
 }
 ----
 
-Is much easier to read thanks to the nested code writing.
-The code is also adaptable.
+It is much easier to read thanks to the nested code writing.
+The code is also maintainable.
 If additional stylings are required, they can simply be added.
-`SCSS` will become handier and more powerful as the complexity of the stylesheet grows.
+`SCSS` will become handier and more powerful as the complexity of the stylesheet increases.
 
 TIP: IntelliJ plugin to transpile https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[SCSS to CSS]
 
 ==== CSS Conventions
 In order to maintain a well structured styling we agreed on several conventions.
-The most mentionable are described as follows.
+The most important are described as follows.
 
 ===== Using the Material Design Variables
-As stated in <<_easy_styling, Easy Styling>> we wanted to have Fabian worrying about restyling as least as possible.
+As stated in <<_easy_styling, Easy Styling>> we didn't want Fabian having to worry about restyling.
 
 Therefore we agreed on using only variables for styling, so that Fabian has to change only a variable to restyle the application.
-Of course not only Fabian profits from this convention but we too.
-Thanks to variables we didn't had to worry about color codes and changing them.
+Of course, not only Fabian profits from this convention but we do so too.
+Thanks to variables we didn't have to worry about color codes and changing them.
 
-Using the variable names and usage definition of `Material Design` will also be of use in future.
-This way we have not to worry about other, future developers not knowing on how the colors are used and how to use them cite:[noauthor_color_nodate].
+Using the variable names and using Material Design will also be of use in the future.
+This way we have not to worry about future developers not knowing how the colors are used and how to use them cite:[noauthor_color_nodate].
 
-===== Replacing Pixels
+===== Replacing Units
 We agreed on using `em` as size measurement and not `px`.
-The simple reason to do this was agility.
-When changing the default size of the font, the overall styling can adapt the actual size.
+This makes the views more responsive, since when changing the default size of the font, the overall styling automatically adapts the actual size.
 
-However sometimes it is more useful to write in pixels than in `em`.
-For instance it much simpler to write `60px` instead of `4.286em` (base font size: 14px).
+However, sometimes it is more useful to write in pixels than in `em`.
+For instance, it much simpler to write `60px` instead of `4.286em` (base font size: 14px).
 
 One of the features of `SCSS` is defining functions.
 We wrote a little <<pixel-converter>> which allowed us to convert pixels into `em` and agreed on using the function when working with a pixel value.
@@ -1397,49 +1384,49 @@ TIP: This made releasing quicker and meant less repetitive effort on our side.
 Details on the implementation can be found in the `.travis.yml` file.
 
 == Lessons learned
-Before starting the project we did a retrospective on our previous project PreferencesFX.
+Before starting the project, we did a retrospective on our previous project PreferencesFX.
 We agreed on maintaining the processes which went good and defined new conventions to do better in this project.
-Following <<best-practices>> lists all the conventions we consider the most valuables from this project.
+Following <<best-practices>> lists all the conventions we consider the most valuable in this project.
 
 .Best Practices
 [#best-practices]
 |===
 |Convention        |Reason
-|Maintain code review |It worked very well in PreferencesFX, so we will keep it that way
-|Maintain Asciidoc documentation |Writing the documentation with Asciidoctor is a gem. We will never write documentations with other tools again
+|Perform code review |It worked very well in PreferencesFX, so we will keep it that way
+|Maintain Asciidoc documentation |Writing the documentation with asciidoctor is a gem. We will never write documentations with other tools again
 |Writing the Javadoc before merging |In PreferencesFX we had to write nearly all the Javadoc at the end of the project
 |Merging only when checkstyle passes |Like the Javadoc we had to fix a lot of checkstyle error afterwards
 |Writing the documentation early |If we'd write the documentation in the end, we'd have the problem of remembering all the content a half a year later.
 Therefore the details would be lost.
 Additionally we have no time pressure at the end of the project
 |Writing more tests |Since we're writing an API it would be necessary to write more tests to maintain better code quality and less errors
-|Using build tools |It makes the development much easier since we don't have to worry about running tests, checking checkstyle and javadoc.
-|Committing more often |It makes the development process more transparent. When problems occur it can easily be reverted
-|Work with persona |It helps to focus on the target group. This way the development process can always be readjusted
+|Using build tools |It makes the development much easier since we don't have to remember running tests, checking checkstyle and javadoc on our local machines during code review.
+|Committing more often |It makes the development process more transparent. When problems occur, they can easily be reverted
+|Work with personas |It helps to focus on the target group. This way the development process can always be adjusted
 |Work with user stories |It helps to verify the features and reveals the users needs which the product has to satisfy
 |===
 
 === Value of User Stories
-As stated in <<_user_stories>> we held a workshop with our customer in the beginning of our project.
+As stated in <<_user_stories>> we had a user story workshop with our customer in the beginning of our project.
 
-Before the workshop it was rather unclear what WorkbenchFX exactly is.
-But after it we all had a shared understanding about the main goal of our project.
+Before the workshop, it was rather unclear what WorkbenchFX or its goals really are.
+But after it, we all had a shared understanding about the main goal of our project.
 
 The created user stories communicate a concrete desire our API must fulfill in order to succeed.
 Comparing to just defining some features, user stories helped us to understand the reason for a feature.
-This way we could ensure that all of our implemented features satisfy a special need.
+This way we could ensure that all of our implemented features satisfy a need.
 
-Together with the persona and the user stories it felt almost like the written stories and persona are people with problems in real life.
-Exactly this feeling proved us that the user stories and persona are really helpful for us.
-Because during the project we could always refer to the persona and stories and ask ourselves:
-"Are we on the right way?" It helped us a lot to keep an eye on the real problem and to not loose ourselves in personal opinions and thoughts.
+Together with the persona and the user stories, it almost felt like the written stories and personas are people with problems in real life.
+Exactly this feeling proved to us that the user stories and personas are really helpful.
+During the project we could always refer to the persona and stories and ask ourselves:
+"Is this really what Fabian/Anna/SteffiFX wants?" It helped us a lot to keep an eye on the real problem and to not lose ourselves in personal opinions and thoughts.
 
 [TIP]
 ====
-For a future project we would definitely use persona and user stories again.
+For a future project, we would definitely use personas and user stories again.
 
-Having three different persona is tricky to work with as we have to look after three different characters and needs.
-Of course having that much persona can happen but having only one central persona is crucial since we cannot always satisfy every desire and therefore have to make sometimes compromise.
+Having three different personas is tricky to work with, as we have to look after the needs of three different characters.
+Of course having that many personas can happen but having only one central persona is crucial since we cannot always satisfy every desire and therefore have to make compromises sometimes.
 ====
 
 === Working Agile
@@ -1455,22 +1442,23 @@ If we didn't get constant feedback from our customer, we would probably only hav
 TIP: Thanks to the agile way, we could resolve challenges quickly and early on in the project.
 
 === Hacking Day
-During the project we had several so called "Hacking Days" where we together with our customer and/or advisor worked on the project.
-Those hacking days completely differ from each other.
+During the project we had several so called "Hacking Days", where we worked together with our customer and/or advisor on the project.
+Each hacking day was completely different from all others.
 
 When we had the hacking days together with our advisor, he took the role of Fabian and implemented his own module.
 This was great since we saw the usage of our API in real life with a person which was not that much involved into the development as we are and therefore had a neutral attitude.
-Thanks to those kind of hacking days we discovered several issues which we could eliminate then.
+Thanks to those kind of hacking days we discovered several issues which we could eliminate.
+This also enabled us to improve the API to be more user-friendly for Fabian.
 
 Another hacking day was held with our customer.
-There we started implementing together the dialog feature.
+There we started implementing the dialog feature together.
 This had multiple advantages.
-First of all we integrated our customer in the project and it gave him insight into our project's progress.
+First of all, we integrated our customer in the project and it gave him insight into our project's progress.
 Another advantage was, that he gained awareness on how complex certain processes are.
-He stated for instance that is was not that easy as he thought to simply reuse his code of the dialog.
+For instance, he said that it was not as easy as he thought to simply re-use his code of the dialog, as our implementation has to be a lot more generic.
 
-However in the end we all profited from each other.
-We are really grateful about those hacking days since they really are helpful.
+However, in the end we all profited from each other.
+We are really grateful about those hacking days since they really are helpful and would like to do them again in the next project.
 
 === Animations
 One thing we underestimated by far was the power of animations.
