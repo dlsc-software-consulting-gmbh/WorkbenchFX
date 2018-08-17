@@ -636,10 +636,13 @@ public boolean destroy() {
       ButtonType.YES, ButtonType.NO, ButtonType.CANCEL)
       .blocking(true)
       .onResult(buttonType -> {
-        if (ButtonType.YES.equals(buttonType)) {
-          // YES was pressed -> Proceed with saving
-          ...
-          close(); // At the end of saving, close the module 
+        // If CANCEL was not pressed
+        if (!ButtonType.CANCEL.equals(buttonType)) {
+          if (ButtonType.YES.equals(buttonType)) {
+            // YES was pressed -> Proceed with saving
+            ...
+          }
+          close(); // Close the module since CANCEL was not pressed 
         }
       })
       .build());
