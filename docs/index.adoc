@@ -1528,6 +1528,9 @@ TIP: This taught us that we need to be careful and never assume that a feature i
 
 == Summary
 // TODO: François
+// TODO: Summary: problemstellung, vorgehen, hauptergebnisse,
+WorkbenchFX is a Java based JavaFX library which can be used to build very fast large enterprise applications.
+
 
 === Future Implications
 There are a few things which we could see being useful in the future:
