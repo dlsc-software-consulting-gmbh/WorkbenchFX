@@ -19,6 +19,9 @@ import org.apache.logging.log4j.Logger;
 /**
  * Represents the base for a module, to be displayed in WorkbenchFX.
  *
+ * <p>The lifecycle methods <b>must not</b> be called by the implementor, they are being called
+ * implicitly by the {@link Workbench}.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -113,7 +116,8 @@ public abstract class WorkbenchModule {
   /**
    * Gets called when this module is explicitly being closed by the user in the toolbar.
    *
-   * @return true if successful
+   * @return true if the module should be closed, false if the module should not be closed and the
+   *         closing process should be interrupted
    * @implNote <b>Lifecycle:</b> When {@link Workbench#closeModule(WorkbenchModule)} is being called
    *           on an active module, {@link #deactivate()} will be called before {@link #destroy()}
    *           is called. In case of an inactive module, only {@link #destroy()} will be called.
