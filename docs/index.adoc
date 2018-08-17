@@ -80,10 +80,12 @@ We'll refer to their names in the documentation.
 |===
 
 === Applications
-The goal of this analysis is to look at the structure of different applications and to find best practices amongst them.
-// TODO: keep the well done, dump bad things
-One of our fist steps in the project was gathering information about existing applications.
-Because there are lots of applications available, we tried to look at a variety of them to gain a good overview.
+The goal of this analysis is to look at the structural layout of different kinds of applications and to find best practices amongst them.
+This way we gathered inspiration on how the design of the created workbench with our API might look like.
+This helped us to decide which characteristics we want to include in WorkbenchFX.
+
+Because there are lots of applications available, we tried to look at a variety of them to ensure a good overview.
+
 The following sub chapters are showing each an image of the analyzed program and a table with its characteristics and (if there) some positive or negative impressions.
 
 ==== Blender
