@@ -36,6 +36,26 @@ simple -
 intuitive -
 
 == Acknowledgements
+We had a lot of help during our way to *WorkbenchFX*.
+This project would not have been so successful without the help of all of the people which supported us.
+
+First of all we would like to thank our customer, Dirk Lemmermann for enabling us to work on this project.
+He provided us with example code of his latest project to use as an inspiration.
+Giving us constant feedback, helped a lot carrying the project forward.
+
+We thank our advisor Dieter Holz for his support.
+During the project's hacking days he took the role of the API user and tested the workbench to its limits.
+His feedback led to important changes of the API syntax and had even an influence on new features.
+
+Additional acknowledgements to Annelore Egger.
+She took the role as API tester and provided a lot of useful feedback.
+Additionally she helped us a lot when she reviewed our documentation and revealed unclear formulations.
+
+Many thanks to Horst Bauer for reviewing our document.
+As an impartial reviewer he provided additional feedback.
+
+We would like to thank especially the UX expert who supported us during the usability test phase.
+His feedback was leading to an overall improvement of our styling.
 
 == Introduction
 WorkbenchFX is an out of the box solution to build large applications from multiple views, called modules.
