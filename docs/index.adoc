@@ -1388,6 +1388,9 @@ Following <<best-practices>> lists all the conventions we consider the most valu
 |Maintain Asciidoc documentation |Writing the documentation with Asciidoctor is a gem. We will never write documentations with other tools again
 |Writing the Javadoc before merging |In PreferencesFX we had to write nearly all the Javadoc at the end of the project
 |Merging only when checkstyle passes |Like the Javadoc we had to fix a lot of checkstyle error afterwards
+|Writing the documentation early |If we'd write the documentation in the end, we'd have the problem of remembering all the content a half a year later.
+Therefore the details would be lost.
+Additionally we have no time pressure at the end of the project
 |Writing more tests |Since we're writing an API it would be necessary to write more tests to maintain better code quality and less errors
 |Using build tools |It makes the development much easier since we don't have to worry about running tests, checking checkstyle and javadoc.
 |Committing more often |It makes the development process more transparent. When problems occur it can easily be reverted
@@ -1543,17 +1546,30 @@ But even in general, there are many edge cases that need to be considered, as ca
 TIP: This taught us that we need to be careful and never assume that a feature is easy to implement, just because it seems like it should be.
 
 == Summary
-// TODO: François
-// TODO: Summary: problemstellung, vorgehen, hauptergebnisse,
-WorkbenchFX is a Java based JavaFX library which can be used to build very fast large enterprise applications.
+In conclusion we can say, that *WorkbenchFX* became a mature framework which can really be used in the industry.
+We finished the project in a way that we can say that we achieved all of our goals we set at the beginning.
 
+Besides writing the documentation early in the project we managed to keep all of the <<_lessons_learned,conventions>> we defined in the beginning of the project.
+They proofed to be worthwhile.
+
+Additionally we managed to satisfy the needs of our <<_persona,personas>>.
+Since we have three of them it was really tricky to maintain a good balance.
+Fabian gets a really simple and understandable API to use which satisfies out of the box all of his needs.
+While Steffi is able to replace a lot of features with her own implementations (see <<_constructing_the_workbench>>).
+And Anna is satisfied because she gets an application which is well styled and not overloaded with a lot of functionality.
+
+A huge set of tests, checkstyle, code coverage, managed by continuous integration and personal code review before each merge led to a high code quality.
+In the end, we were even able to reach a code coverage of *94.67%* (see <<_processes>>).
+
+All of the feedback we received up to now is really good.
+Even at the bachelor exhibition a lot of people stated that they really like the idea and that they probably would try working with *WorkbenchFX* cite:[noauthor_ausstellung_nodate].
 
 === Future Implications
 There are a few things which we could see being useful in the future:
 
-* For the pagination to feel a bit more natural, it would be great to have arrows on the left and right side of the pagination, which can be used to flip through the pages.
+* For the pagination to feel a bit more natural, it would be great to have arrows on the left and right side of the pagination, which can be used to flip through the pages
 * Global status bar would be useful to display information that matters with every module
-* Extending the animation API to offer an easy to use API to add defined animations to overlays.
+* Extending the animation API to offer an easy to use API to add defined animations to overlays
 * Make the dialogs appear and disappear with a scale and fade transition
 * Make it possible with https://gluonhq.com/products/mobile/[Gluon Mobile] or similar to build WorkbenchFX as an app
 * Add a "Worker" to facilitate API calls and handling of asynchronous logic
@@ -1562,6 +1578,8 @@ There are a few things which we could see being useful in the future:
 * Add https://material.io/develop/web/components/snackbars/[snackbars & toasts] API for notifications
 * Animate more parts of the Workbench, like the `ToolbarItem`{empty}s
 * Automate release process further to be even more automatic
+* Implementation of "remembering" the last open tabs on closing and reopening them when starting the application again.
+ This can be achieved by either using https://github.com/dlemmermann/PreferencesFX[PreferencesFX] or the Preferences API directly
 
 == Bibliography
 bibliography::[]
