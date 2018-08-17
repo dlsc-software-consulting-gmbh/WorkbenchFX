@@ -558,6 +558,8 @@ Since all presenters don't need to extend anything else, using an abstract class
 
 ==== Overlays
 To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `Workbench#showOverlay()` and `Workbench#hideOverlay()` methods.
+The `GlassPane` prevents click events on the components below and adds a scrim to the background.
+Unless a blocking (modal) overlay is being displayed, clicking on the `GlassPane` closes the overlay.
 
 The GUI of WorkbenchFX is organized in layers.
 At all times, there is a layer of the general WorkbenchFX GUI, which is being represented by the view class `WorkbenchView`.
