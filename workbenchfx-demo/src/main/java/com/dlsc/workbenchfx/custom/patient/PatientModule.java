@@ -21,83 +21,86 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
  */
 public class PatientModule extends WorkbenchModule {
 
-    private FileCabinet     fileCabinet;
-    private Translator      translator;
-    private AllPatientsView patientView;
+  private FileCabinet fileCabinet;
+  private Translator translator;
+  private AllPatientsView patientView;
 
-    private Workbench       workbench;
-    private ToolbarItem     languageItem;
-    private WorkbenchDialog selectPatientDialog;
+  private Workbench workbench;
+  private ToolbarItem languageItem;
+  private WorkbenchDialog selectPatientDialog;
 
-    public PatientModule() {
-        super("Patient Records", FontAwesomeIcon.USER);
-    }
+  public PatientModule() {
+    super("Patient Records", FontAwesomeIcon.USER);
+    getToolbarControlsLeft().addAll(
+        new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.SAVE), event -> fileCabinet.save()),
+        new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.PLUS)),
+        new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.MINUS)),
+        new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.USER),
+            event -> workbench.showDialog(selectPatientDialog)
+        )
+    );
+  }
 
-    @Override
-    public void init(Workbench workbench) {
-        super.init(workbench);
+  @Override
+  public void init(Workbench workbench) {
+    super.init(workbench);
 
-        this.workbench = workbench;
+    this.workbench = workbench;
 
-        fileCabinet = new FileCabinet();
-        translator = new Translator();
+    fileCabinet = new FileCabinet();
+    translator = new Translator();
+
+    // initialize all the elements used directly in workbench
+    languageItem = createLanguageItem();
+
+    selectPatientDialog = createSelectPatientDialog();
+
+    patientView = new AllPatientsView(fileCabinet, translator, workbench);
 
 
-        // initialize all the elements used directly in workbench
-        languageItem = createLanguageItem();
+  }
 
-        selectPatientDialog = createSelectPatientDialog();
+  @Override
+  public Node activate() {
+    workbench.getToolbarControlsRight().add(languageItem);
 
-        patientView = new AllPatientsView(fileCabinet, translator, workbench);
+    return patientView;
+  }
 
-        getToolbarControlsLeft().addAll(
-                new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.SAVE), event -> fileCabinet.save()),
-                new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.PLUS)),
-                new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.MINUS)),
-                new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.USER), event -> workbench.showDialog(selectPatientDialog)
-                ));
-    }
+  @Override
+  public void deactivate() {
+    workbench.getToolbarControlsRight().remove(languageItem);
+  }
 
-    @Override
-    public Node activate() {
-        workbench.getToolbarControlsRight().add(languageItem);
+  @Override
+  public boolean destroy() {
+    return true;
+  }
 
-        return patientView;
-    }
+  private ToolbarItem createLanguageItem() {
+    MenuItem de = new MenuItem("de");
+    de.setOnAction(event -> translator.translateToGerman());
 
-    @Override
-    public void deactivate() {
-        workbench.getToolbarControlsRight().remove(languageItem);
-    }
+    MenuItem en = new MenuItem("en");
+    en.setOnAction(event -> translator.translateToEnglish());
 
-    @Override
-    public boolean destroy() {
-        return true;
-    }
+    return new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.LANGUAGE),
+        de,
+        en);
+  }
 
-    private ToolbarItem createLanguageItem() {
-        MenuItem de = new MenuItem("de");
-        de.setOnAction(event -> translator.translateToGerman());
+  private WorkbenchDialog createSelectPatientDialog() {
+    PatientSelectionView dialogContent = new PatientSelectionView(fileCabinet, translator);
+    WorkbenchDialog dialog = WorkbenchDialog
+        .builder("Select Patient", dialogContent, WorkbenchDialog.Type.INPUT)
+        .onResult(buttonType -> {
+          if (buttonType.equals(ButtonType.OK)) {
+            fileCabinet.setSelectedPatient(dialogContent.getSelected());
+          }
+        })
+        .build();
+    dialog.titleProperty().bind(translator.selectPatientLabelProperty());
 
-        MenuItem en = new MenuItem("en");
-        en.setOnAction(event -> translator.translateToEnglish());
-
-        return new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.LANGUAGE),
-                               de,
-                               en);
-    }
-
-    private WorkbenchDialog createSelectPatientDialog() {
-        PatientSelectionView dialogContent = new PatientSelectionView(fileCabinet, translator);
-        WorkbenchDialog dialog = WorkbenchDialog.builder("Select Patient", dialogContent, WorkbenchDialog.Type.INPUT)
-                                                .onResult(buttonType -> {
-                                                    if (buttonType.equals(ButtonType.OK)) {
-                                                        fileCabinet.setSelectedPatient(dialogContent.getSelected());
-                                                    }
-                                                })
-                                                .build();
-        dialog.titleProperty().bind(translator.selectPatientLabelProperty());
-
-        return dialog;
-    }
+    return dialog;
+  }
 }
