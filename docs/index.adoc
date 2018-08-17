@@ -564,10 +564,10 @@ There are three major changes mentionable which appeared during the project.
 
 * The phase when we were <<_writing_our_own_stylesheet, writing our own stylesheet>> without any help of external sources.
 * The phase where we were <<_switching_to_the_material_design_guidelines, switching to the Material Design guidelines>>.
-* The phase after the usability tests, where we were <<_separating_the_toolbar, separating the toolbar>> into the toolbar on top and the tab bar below and went full material
+* The phase after the usability tests, where we were <<_separating_the_toolbar, separating the toolbar>> into the toolbar on top and the tab bar below and decided to completely switch to Material Design.
 
 ===== Writing our own stylesheet
-In version `v1.1.1` we had the opinion that we're having a really good styling.
+In version `v1.1.1` we had the opinion that we have a really good styling.
 To be fair: It was the first version which looked acceptable.
 <<v111>> gives a first impression on how the style looked at that time.
 
@@ -579,11 +579,11 @@ To be fair: It was the first version which looked acceptable.
 |image:include/versions/v1.1.1 - 2.png[v1.1.1-2]
 |===
 
-Later on during the project we realized, that the white gaps between the toolbar items on top didn't provide a good usability.
-It also took too much space.
+Later on in the project we realized, that the white gaps between the toolbar items on top didn't provide good readability.
+It also took up too much space.
 At one point we decided to have a look at common style guidelines to improve our styling.
 
-We felt, that Google's https://material.io/design/[Material Design] guidelines are a pretty good starting point since their flat design approach is being used a lot in applications and they are providing the guidelines open source cite:[noauthor_design_nodate].
+We felt, that Google's https://material.io/design/[Material Design] guidelines are a pretty good starting point, since their flat design approach is being used in a lot of applications and they are providing the guidelines open source cite:[noauthor_design_nodate].
 
 ===== Switching to the Material Design guidelines
 This was a huge step in terms of usability.
@@ -599,10 +599,10 @@ We also changed the way the active tabs were looking to a more material like app
 |image:include/versions/v1.2.0 - 2.png[v1.2.0-2]
 |===
 
-However, the active tab styling this way showed us that Material Design is only a guideline.
-The way those tabs are styled adapts mainly to tabs with only one single text cite:[noauthor_tabs_nodate].
-Since we're having an icon, a text and a close icon there was a lot going on in the toolbar.
-Especially when having a lot of modules open, the application looked stuffed.
+However, the active tab styling this way showed us that Material Design *is* only a guideline.
+The way those tabs are styled adapts mainly to tabs with only text cite:[noauthor_tabs_nodate].
+Since we have an icon, text and a close icon, there was a lot going on in the tab bar.
+Especially when having a lot of modules open, the application looked crowded.
 <<v150>> below shows how horrible the styling was when opening a lot of modules.
 
 .v1.5.0
@@ -611,7 +611,7 @@ image::include/versions/v1.5.0 - 8.png[v1.5.0-8]
 
 [TIP]
 ====
-Therefore we came to conclusion, that testing boundaries is not just recommended but crucial to the success of a project.
+Therefore we came to the conclusion, that testing boundaries is not just recommended but crucial to the success of a project.
 The visual appearance with only a few open modules and only a few items in the toolbar looked nice.
 But testing use cases with a lot of items revealed the issue.
 ====
@@ -620,7 +620,7 @@ It is obvious that this styling had to change.
 After the <<_usability_tests>> and a lot of feedback we changed the styling again.
 
 ===== Separating the Toolbar
-At first we were worried that separating the toolbar into two bars would take too much space of the window.
+At first we were worried that separating the toolbar into two bars would take up too much space of the window.
 But this trade-off proved to be a worthwhile decision.
 We also decided to rework the styling a little bit.
 <<v160>> shows the final result of the separation.
@@ -645,7 +645,7 @@ A direct comparision approves this decision (<<v150vs160>>).
 
 The colors of the tiles were also changed to white.
 Having the tiles in a color with a white background created an optical illusion where the brain imagines colored, blurred dots between the spaces of the tiles.
-An example of the created illusion is showed below (<<illusion>>).
+An example of the created illusion is shown below (<<illusion>>).
 
 .Optical Illusion
 [#illusion]
