@@ -236,7 +236,7 @@ Still, the possibility of extending the workbench using modules is important to 
 
 ===== Tabs mit Module Toolbar zusammen => gemeinsame Designsprache automatisch TODO
 
-==== ***REMOVED***, UX Expert
+==== UX Expert
 // TODO: (MARCO)
 
 ===== Home Icon => HomeView, then AddModuleView => + icon
