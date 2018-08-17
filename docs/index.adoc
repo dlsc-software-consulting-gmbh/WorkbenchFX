@@ -73,10 +73,13 @@ Therefore the idea came up to create an API which allows the user to focus on th
 
 === Persona
 During the project, three persona have been created.
-They help a lot to focus on the main idea of the project.
-Thanks to those persona, we were also able to reveal hidden requirements.
-For example in the beginning of the project we had only two persona.
-But after the first meeting with our customer, we discovered together a third, which lead to different requirements.
+They helped us a lot to focus on the main idea of the project.
+Since they represent our target group, we were able to clearly recognize the features which are crucial for the success of the project.
+
+At the start of the project we created two persona to focus on: SteffiFX and Anna (see <<persona>>).
+After the first meeting with our customer, we discovered together even a third persona, which led to additional features and changed the scope of our project.
+At first we thought, that it would be sufficient to design an API for long time JavaFX programmers, but then we had to especially keep an eye on developers with rare or even no experience in frontend development.
+
 The final three persona are shown in <<persona>> below.
 We'll refer to their names in the documentation.
 
@@ -90,6 +93,8 @@ We'll refer to their names in the documentation.
 |===
 
 === Applications
+The goal of this analysis is to look at the structure of different applications and to find best practices amongst them.
+// TODO: keep the well done, dump bad things
 One of our fist steps in the project was gathering information about existing applications.
 Because there are lots of applications available, we tried to look at a variety of them to gain a good overview.
 The following sub chapters are showing each an image of the analyzed program and a table with its characteristics and (if there) some positive or negative impressions.
@@ -155,14 +160,14 @@ image::include/analysis/blender.png[Blender]
 ==== Adobe Photoshop
 Adobe Photoshop is probably one of the most widely used tools when it comes to photo manipulation and creation of digital art.
 Since it requires a little experience to use it properly we think it's made primary for power users.
-<<img-photoshop>> below gives a short impression of the program and <<characteristics-photoshop-illustrator>> after the image shows our findings.
+<<img-photoshop>> below gives a short impression of the program and <<characteristics-photoshop>> after the image shows our findings.
 
 .IntelliJ IDEA
 [#img-photoshop]
 image::include/analysis/photoshop.png[Adobe Photoshop]
 
-.Characteristics of Photoshop / Illustrator
-[#characteristics-photoshop-illustrator]
+.Characteristics of Photoshop
+[#characteristics-photoshop]
 |===
 |Characteristics |Positive Impressions |Negative Impressions
 |The workspace is divided up into five sections:
@@ -302,7 +307,7 @@ In conclusion after analyzing all those different programs, we can simplify them
 * A menu bar on top of the application, where all the functionality of the application is stored.
 * Below the menu-bar is often a toolbar, which contains the current, or most important tools represented through buttons (without collapsing).
 * In center is often the window, in which the main work is done.
-* Usually there are on the left and right of the application bars, which can collapse.
+* Usually there are some drawers on the left and right of the application, which can collapse.
 They contain either further tools, buttons or a tree-view for navigation.
 * Sometimes another bar which is collapsible is set below the main window.
 * Finally another toolbar is sometimes set on bottom of the application.
@@ -338,12 +343,27 @@ A user which has less or no experience in using a large application:
 Depending on the required user type, the WorkbenchFX API would look totally different, because both use cases require a different approach on the API design.
 
 === User Stories
-To determine the approach of WorkbenchFX, we decided to make a workshop with our customer.
-In this workshop we worked with user stories.
-This way we could instantly verify if a feature was really necessary and useful or not, because the story needed to fit in the context and was not just a random requirement which came in mind, without verification.
+In the beginning of the project we decided to make a workshop with our customer.
+Its purpose was to define persona (see <<_persona>>) and based on them to create user stories.
 
-The user stories were especially effective, because during the meeting we discovered an additional persona which changed the whole purpose of our project.
-At first we thought, that it would be sufficient to design an API for a long time JavaFX programmers (SteffiFX), but with the third persona (Fabian) we had to especially keep an eye on developers with rare or no experience in frontend development.
+We followed a specific pattern when writing our user stories:
+We started always with the name of the persona:
+____
+As Anna...
+____
+followed by the desired functionality:
+____
+...I'd like to have an intuitive way to use the application...
+____
+concluding with the reason why:
+____
+...so that I am not confused while working and can keep a productive workflow.
+____
+
+This way we could instantly verify if a feature was really necessary and useful or not.
+Because the story needed to fit in the context and was not just a random requirement which came in mind, without verification cite:[cohn_user_2004].
+
+// TODO: Image of Dieter?
 
 ==== IDE Decision
 During the user stories meeting it was also decided which application type we would support.
@@ -375,8 +395,7 @@ This also means greater complexity and being more difficult to learn.
 In the end, both can lead to the same goal, but they are meant to be used for different purposes.
 
 === Minimum Viable Product
-// TODO: Include resource reference?
-To ensure shared understanding between the customer and ourselves, we agreed on a minimum viable product (MVP).
+To ensure shared understanding between the customer and ourselves, we agreed on a minimum viable product (MVP) cite:[olsen_lean_2015].
 The outcome resulted in a very minimalistic version of the workbench, which still provides an added value comparing to writing it manually.
 The final prototype is displayed in <<mvp>> below.
 
@@ -494,8 +513,7 @@ So we decided to implement the drawers with animations (see <<_animations>>).
 The biggest impact on the WorkbenchFX styling came from an UX expert.
 A lot of the feedback he gave us was really helpful and we decided to adapt a lot of it.
 
-// TODO: reference the material design?
-* The active tab should be more styled like a real tab in a browser (at this time our active tabs had simply a white border on bottom of the tab https://material.io/design/components/tabs.html[Material Design]).
+* The active tab should be more styled like a real tab in a browser
 * The tabs should be styleable with unique colors (which can now be done using the unique `#id`)
 * Get rid of the home button and replace it with a `+` button on the right end of the toolbar
 * Shrink down the size of the close icon in the tabs
@@ -567,7 +585,6 @@ There are three major changes mentionable which appeared during the project.
 * The phase after the usability tests, where we were <<_separating_the_toolbar, separating the toolbar>> into the toolbar on top and the tab bar below and went full material
 
 ===== Writing our own stylesheet
-// TODO: cite the material design guideleines
 In version `v1.1.1` we had the opinion that we're having a really good styling.
 To be fair: It was the first version which looked acceptable.
 <<v111>> gives a first impression on how the style looked at that time.
@@ -584,13 +601,12 @@ Later on during the project we realized, that the white gaps between the toolbar
 It also took too much space.
 At one point we decided to have a look at common style guidelines to improve our styling.
 
-We felt, that Google's `Material Design` guidelines are a pretty good starting point since their flat design approach is being used a lot in applications and they are providing the guidelines open source (see https://material.io/design/[Material Design]).
+We felt, that Google's https://material.io/design/[Material Design] guidelines are a pretty good starting point since their flat design approach is being used a lot in applications and they are providing the guidelines open source cite:[noauthor_design_nodate].
 
 ===== Switching to the Material Design guidelines
-// TODO: cite the material design guideleines
 This was a huge step in terms of usability.
 One major improvement was to change the background color of the toolbar to the primary color.
-We also changed the way the active tabs were looking to a more material like appearance with a white border below the active tab.
+We also changed the way the active tabs were looking to a more material like appearance with a white border below the active tab cite:[noauthor_tabs_nodate].
 <<v120>> shows the styling in version `v1.2.0`.
 
 [cols="1,1"]
@@ -601,9 +617,8 @@ We also changed the way the active tabs were looking to a more material like app
 |image:include/versions/v1.2.0 - 2.png[v1.2.0-2]
 |===
 
-However, the active tab styling this way showed us that `Material Design` is only a guideline.
-// TODO: cite the material design guideleines
-The way those tabs are styled adapts mainly to tabs with only one single text.
+However, the active tab styling this way showed us that Material Design is only a guideline.
+The way those tabs are styled adapts mainly to tabs with only one single text cite:[noauthor_tabs_nodate].
 Since we're having an icon, a text and a close icon there was a lot going on in the toolbar.
 Especially when having a lot of modules open, the application looked stuffed.
 <<v150>> below shows how horrible the styling was when opening a lot of modules.
@@ -623,7 +638,6 @@ It is obvious that this styling had to change.
 After the <<_usability_tests>> and a lot of feedback we changed the styling again.
 
 ===== Separating the Toolbar
-// TODO: cite the material design guideleines
 At first we were worried that separating the toolbar into two bars would take too much space of the window.
 But this trade-off proved to be a worthwhile decision.
 We also decided to rework the styling a little bit.
@@ -656,7 +670,6 @@ An example of the created illusion is showed below (<<illusion>>).
 image::include/versions/illusion.png[Optical illusion]
 
 ==== Easy Styling
-// TODO: source reference of using variables and source of variable naming of MD
 Our superior goal was to enable Fabian a simple way to style his application in a very simple way.
 Of course he would not take advantage of all of the styling possibilities.
 But we thought he might want to change at least the default color theme of the workbench.
@@ -666,7 +679,7 @@ To achieve this we worked with css variables.
 We defined all of the color variables in the `* / .root` selector of the `css` file and used throughout the whole stylesheet only those variables.
 
 During defining the color variables, we discussed their names and usage in the workbench.
-In the end we decided to rely on the Material Design naming convention of colors and to use them as defined.
+In the end we decided to rely on the Material Design naming convention of colors and to use them as defined cite:[noauthor_color_nodate].
 This way, every API user is able to research on how to use our variables and in which context they are used.
 
 By simply using the color variables, Fabian can create a custom stylesheet, assign it to the workbench and overwrite the colors he'd like to change.
@@ -1095,7 +1108,6 @@ In order to maintain a well structured styling we agreed on several conventions.
 The most mentionable are described as follows.
 
 ===== Using the Material Design Variables
-// TODO: reference the variables
 As stated in <<_easy_styling, Easy Styling>> we wanted to have Fabian worrying about restyling as least as possible.
 
 Therefore we agreed on using only variables for styling, so that Fabian has to change only a variable to restyle the application.
@@ -1103,7 +1115,7 @@ Of course not only Fabian profits from this convention but we too.
 Thanks to variables we didn't had to worry about color codes and changing them.
 
 Using the variable names and usage definition of `Material Design` will also be of use in future.
-This way we have not to worry about other, future developers not knowing on how the colors are used and how to use them.
+This way we have not to worry about other, future developers not knowing on how the colors are used and how to use them cite:[noauthor_color_nodate].
 
 ===== Replacing Pixels
 We agreed on using `em` as size measurement and not `px`.
@@ -1387,7 +1399,7 @@ User stories communicate a concrete goal of the product.
 Comparing to just defining some features, user stories help to understand the reason for a feature.
 This way we can ensure that all of our implemented features satisfy a special need.
 
-In the beginning of the project we held a workshop with our customer where we defined the persona and afterwards the user stories to define the problems which our API should solve.
+In the <<_user_stories,user story workshop>> with our customer where we defined the persona and afterwards the user stories to define the problems which our API should solve.
 Before the workshop it was rather unclear what WorkbenchFX exactly is.
 But after the workshop we all had a shared understanding about the project.
 
