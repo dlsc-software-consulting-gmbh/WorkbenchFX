@@ -569,9 +569,9 @@ At all times, there is a layer of the general WorkbenchFX GUI, which is being re
 When showing an overlay, a `GlassPane` is added to the scene graph and shown on top of the WorkbenchFX GUI, followed by the overlay itself on top of the `GlassPane`.
 This ensures there is a "scrim"cite:[noauthor_elevation_nodate] between the WorkbenchFX GUI and the overlay (<<overlay-scrim>>).
 
-.Overlay with scrimmed background
+.Overlay with GlassPane (scrimmed background)
 [#overlay-scrim]
-image::include/overlay.png[Overlay with scrimmed background]
+image::include/overlay.png[Overlay with GlassPane (scrimmed background)]
 
 When hiding an overlay, it is made invisible and is not removed from the scene graph, so recurring overlays don't need to be re-inserted into the scene graph again.
 This is more efficient and especially overlays with animations profit from this design, since they run smoother when shown and hidden multiple times.
