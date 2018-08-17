@@ -490,8 +490,8 @@ The visual feedback was not there when we tested the drawers.
 A user wants to know from which position the drawer comes from and he is used to a sliding animation.
 So we decided to implement the drawers with animations (see <<_animations>>).
 
-==== ***REMOVED***, UX Expert
-The biggest impact on the WorkbenchFX styling came from this UX expert.
+==== UX Expert
+The biggest impact on the WorkbenchFX styling came from an UX expert.
 A lot of the feedback he gave us was really helpful and we decided to adapt a lot of it.
 
 // TODO: reference the material design?
