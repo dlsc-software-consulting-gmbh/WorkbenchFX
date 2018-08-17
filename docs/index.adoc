@@ -19,23 +19,70 @@ Examiner: https://www.inventage.com/[Edwin Steiner‚ Inventage]
 == Acknowledgements
 
 == Introduction
-// TODO: (MARCO)
-// TODO: (=>Kopie von Readme mit Open source)
+What is WorkbenchFX?
+WorkbenchFX is an out of the box, open source solution to build large applications from multiple views, called modules.
+It offers good user experience and a beautiful design.
+
+A developer start often with building a view to show his customer first progress.
+Then comes always questions like:
+
+* "How do I bring all those views together?"
+* "How do I build the navigation between those views?"
+* "How do I ensure a consistent styling?"
+* "How do I establish a good user experience?"
+
+Exactly when those questions appear, WorkbenchFX comes into the game:
+It takes the views, and wraps the infrastructure around it.
+It does all the hard work for the developer.
+
+WorkbenchFX comes with an out of the box styling, a good user experience and builds a house around the views.
+It also scales depending on growing requests.
+In the beginning, a developer just wants to navigate through the views, but afterwards he'd probably like to use a menu or a toolbar.
+Even that is supported by WorkbenchFX and he don't have to build anything by himself.
+If everything fails and the blanket falls on his head, he can even replace whole parts of the workbench with own implementations, without having to rewrite the whole workbench.
+
+Thinking of a home, the rooms, the decor, or good memories come into mind.
+Probably not the facade, the base, where the power lines are or from what the walls are made of (the same applies to software development).
+Thinking of developing a new software, a developer thinks about the views, the features and not about on how to switch between those views, or the navigation in general.
+
+With WorkbenchFX it is possible to focus on designing the rooms and meanwhile WorkbenchFX is building the house around it.
+This house even adapts with growing requirements without having the developer to do anything.
+
 The paradigm of WorkbenchFX is: "Make everything possible. Expect the least."
 
-// TODO: differentiate somewhere the terms "implementor", "user" and "API user"
+Some of the used terms are explained in <<terms-declaration>>.
+
+.Declaration of used terms during the document
+[#terms-declaration]
+|===
+|Term        |Explanation
+|Module      |The workbench object consists of multiple views. The object which contains the view is called Module. (More information about <<_module_naming>>)
+|Implementor |The person which creates a custom implementation of a module
+|User        |The person which uses the final software created with WorkbenchFX
+|API user    |The person which uses the WorkbenchFX API and all its features to develop the software
+|===
 
 == Motivation
-// TODO: (MARCO)
-// TODO: Ausgangslage / Vision
+// TODO: Probably more about the Vision?
+Our customer told us about his latest project in which he creates a larger enterprise application.
+During the conversation he stated that he has to often program the same code sequences again and again to produce the same results.
+Larger enterprise applications share often similar functionality and therefore duplicate work is inevitable.
+Therefore the idea came up to create an API which allows the user to focus on the unique, interesting work and does all the boring, repetitive work for him.
 
 == Analysis
 
 === Persona
-Who are the persona?
+During the project, three persona have been created.
+They help a lot to focus on the main idea of the project.
+Thanks to those persona, we were also able to reveal hidden requirements.
+For example in the beginning of the project we had only two persona.
+But after the first meeting with our customer, we discovered together a third, which lead to different requirements.
+The final three persona are shown in <<persona>> below.
+We'll refer to their names in the documentation.
 
 [cols="1,1,1"]
 .Persona
+[#persona]
 |===
 |link:include/persona/stefanie_berner.pdf[image:include/persona/stefanie_berner.png[Stefanie Berner]]
 |link:include/persona/fabian_zimmer.pdf[image:include/persona/fabian_zimmer.png[Fabian Zimmer]]
@@ -43,69 +90,230 @@ Who are the persona?
 |===
 
 === Applications
-// TODO: add text here
+One of our fist steps in the project was gathering information about existing applications.
+Because there are lots of applications available, we tried to look at a variety of them to gain a good overview.
+The following sub chapters are showing each an image of the analyzed program and a table with its characteristics and (if there) some positive or negative impressions.
 
-==== Blender (Tool for creating 3D models)
-// TODO: (MARCO)
-* Blender is divided up into five sections.
-** Header --> Most important and the common settings
-** Left Bar --> Tools
-** Right Bar --> Tools
-** Footer --> Animation, and view-modes
-** Center --> The model, which is created
-* All sections are resizable
-* If their size becomes 0, they disappear but can be restored using the short code (-)
-* Using short codes to show/hide the bars. (+)
-Each bar has it's own short code.
-There is no animation, when showing or hiding.
-No possibility to show/hide the bars manually (-)
-* Top right corner --> drag and create so a new window.
-Each window shows the same part, but it's view is independent. (+)
-To delete the window: Drag the corner back (-)
-* Items in a bar can be moved manually, but only in the bar itself.
-The bar itself is fixed and can't be moved.
-* Items in the bar can be collapsed, in order to save space and make it cleaner.
-* The tools in the toolbar are stored in tabs.
-* When creating a new project, all settings are restored to default, so nothing can be destroyed. (+ probably give the user opportunity to choose)
-// TODO: use table instead of + and -?
+==== Blender
+Blender is a tool for creating 3D models which are used in animation movies or in game development.
+It is a tool which requires a lot of skill and is not an "every day" program.
 
-==== Photoshop / Illustrator (Design tools)
-// TODO: (MARCO)
-* Photoshop (Image tool, Pixel based)
-**
+<<img-blender>> below gives a short impression of the program and <<characteristics-blender>> after shows our findings.
 
-* Illustrator (Design tool, Vector based)
-** Multiple windows possible. Are per default in the background opened. Navigation is done by tabs. (+)
-** Tabs can be navigated to other places.
-This is done by drag and drop
-** Tabs can be placed anywhere in the application (- Needs for sure to be discussed. Has certainly it's advantages)
-** Workspace can be restored to default using the equivalent setting. (+)
-Custom workspaces can be stored. (+)
-Multiple workspaces can be stored and it can be switched to. (+)
-** Tabs
-*** When double-clicking on the Tabs, they collapse (+)
-*** They have 3 states (not likely to understand) and it's collapsing behaviour is not intuitive. (-)
-**4
-// TODO: use table instead of + and -?
+.Blender
+[#img-blender]
+image::include/analysis/blender.png[Blender]
 
-==== IntelliJ
-// TODO: (MARCO)
-* all possibilities available,
-Right click on the tab, then one can decide the behaviour of it.
-* "Remove from sidebar" removes the feature from the sidebar and it's not intuitive to restore this. (-)
-* "Restore default layout" doesn't restore all layout changes (-)
-* Layout changes should be stored at one place.
-*
-// TODO: use table instead of + and -?
+.Characteristics of Blender
+[#characteristics-blender]
+|===
+|Characteristics |Positive Impressions |Negative Impressions
+|Blender is divided up into five sections:
+
+- Header: The most important and common settings
+
+- Left bar: Several tools
+
+- Right bar: Several tools
+
+- Footer: Animation, and view-modes
+
+- Center: The model which is created (main work)
+|
+|
+|All sections are resizable
+|
+|If their size becomes 0, they disappear.
+ They can be restored, but only by using a short code
+|The sections can be shown and hidden as they are not used anymore
+|Using short codes to show/hide the bars
+|- There is no animation, when showing or hiding
+
+- No possibility to show/hide the bars manually
+|In the top right corner: Dragging a triangle creates a new window
+|Each view shows the same part, but its view is independent
+(Interesting feature, but as it is a very specific feature probably not usable for WorkbenchFX)
+|To remove the view one has to drag the corner back in a certain way, which is very unintuitive
+|Items in a bar can be moved manually, but only in the bar itself
+|
+|
+|The bar itself is fixed and can't be moved
+|
+|
+|Items in the bar can be collapsed, in order to save space and make it cleaner (like a drawer inside a drawer)
+|
+|
+|The tools in the toolbar are stored in tabs
+|
+|
+|When creating a new project, all settings are restored to default
+|If the workspace becomes a 'mess', one can simply open a new window and everything is restored.
+(probably give a setting to turn this feature on and off)
+|When a user is used to work a certain way he has to change the workspace every time he starts a new project
+|===
+
+==== Photoshop / Illustrator
+Adobe Photoshop and Illustrator are probably the most widely used tools when it comes to photo manipulation (Photoshop) and creation of vector art (Illustrator).
+Both tools are made for power user and require a little experience for using them.
+Thus both tools are very similar, they are analyzed in one chapter.
+<<img-photoshop>> below gives a short impression of the program and <<characteristics-photoshop-illustrator>> after shows our findings.
+
+.IntelliJ IDEA
+[#img-photoshop]
+image::include/analysis/photoshop.png[Adobe Photoshop]
+
+.Characteristics of Photoshop / Illustrator
+[#characteristics-photoshop-illustrator]
+|===
+|Characteristics |Positive Impressions |Negative Impressions
+|The workspace is divided up into five sections:
+
+- Header: A menu bar with all the different settings available
+
+- Toolbar: Detailed adjustments for the currently selected tool
+
+- Left bar: The most important and common tools
+
+- Right bar: More specific and special tools
+
+- Center: The files which are worked on
+|
+|
+|- Multiple windows possible
+
+- Navigation is done by tabs
+|Tabs are saving space and show still tho open files
+|
+|Tabs can be navigated to other places (even "un dock" them from the tab bar)
+|Sometimes useful when wanting to see two views next to each other
+|Not really necessary (rarely used)
+|Tabs / Tools can be placed anywhere in the application
+|When using the tools it is sometimes handy to move a tool in range
+|It has advantages, but is also a little diffuse to use. This feature needs for sure to be discussed
+|The workspace can be restored to default using the equivalent setting button
+|Good solution
+|
+|Custom workspaces can be stored, and switched as needed
+|Nice balance between a default workspace and a power user
+|
+|The tools are stored in tabs and drawers
+|When double-clicking on the Tabs, they collapse
+|They have 3 states (not likely to understand) and the collapsing behaviour is not intuitive
+|===
+
+==== IntelliJ IDEA
+IntelliJ is an integrated development environment (IDE) which is used to develop a variety of programs.
+The tool is made for software developers and can only be used if someone is familiar with programming.
+
+<<img-intellij>> below gives a short impression of the program and <<characteristics-intellij>> after shows our findings.
+
+.IntelliJ IDEA
+[#img-intellij]
+image::include/analysis/intellij.png[IntelliJ IDEA]
+
+.Characteristics of IntelliJ IDEA
+[#characteristics-intellij]
+|===
+|Characteristics |Positive Impressions |Negative Impressions
+|The workspace is divided up into six sections:
+
+- Header: A menu bar with all the different settings available
+
+- Toolbar: Buttons which are often used during development of the product
+
+- Left bar: Drawers used for navigating through the project. Structural features
+
+- Right bar: Space for drawers. Used to display build functionality
+
+- Bottom bar: Additional space for drawers and tools. Widely used for terminal inputs
+
+- Status bar: At the bottom of the window. Displays additional information
+
+- Center: The current open file to work with
+|
+|
+|Navigation via tabs
+|
+|
+|All possibilities available, regarding the tab:
+
+- Right click on the tab, then one can decide its behaviour
+|Nearly every state is supported
+
+- Pinned
+
+- Docked
+
+- Floating
+
+- Windowed
+
+- ...
+|
+|The "Remove from sidebar" button removes the targeted feature from the sidebar
+|
+|- It's not intuitive to undo this call
+
+- While trying to restore the feature, we discovered the option "Restore default layout", but this doesn't restore all layout changes
+
+-> Lesson learned: Layout changes should be stored at one place
+|
+|
+|
+|===
+
+==== Figma
+Figma is a tool used for prototyping.
+Using it is very easy and intuitive.
+It can used by non power users.
+Compared to the other tools analyzed before its tools are fixed and defined.
+The tools can't be moved or removed.
+The design of the software is straight forward and is kept very simple.
+
+It consists of five main sections
+
+* Menu bar on top where all the features are stored
+* Toolbar below the menu bar where the most important tools are stored
+* Left bar where the tree structure / navigation of the current active work is displayed
+* Right bar where all important information and attributes about the selected component is displayed
+* Center where the main work is being done
+
+<<img-figma>> below gives a short impression of the program.
+
+.Figma
+[#img-figma]
+image::include/analysis/figma.png[Figma]
 
 ==== Adobe XD
-// TODO: (MARCO)
-// TODO: (mehr fokus auf ist eifach, keine docking elemente usw., was unterscheidet von anderen)
+Like <<_figma>>, Adobe XD is a prototyping software.
+It is also very simple and intuitive.
+In fact there is not much that differs compared to Figma.
+So it can definitely being used by non power users.
+The image below gives a short impression of the program and the table below shows our findings.
+
+<<img-Adobe-xd>> below gives a short impression of the program.
+
+.Adobe XD
+[#img-Adobe-xd]
+image::include/analysis/adobeXD.png[Adobe XD]
+
+==== Conclusion
+In conclusion after analyzing all those different programs, we can simplify them to the most important and frequent characteristics:
+
+* A menu bar on top of the application, where all the functionality of the application is stored.
+* Below the menu-bar is often a toolbar, which contains the current, or most important tools represented through buttons (without collapsing).
+* In center is often the window, in which the main work is done.
+* Usually there are on the left and right of the application bars, which can collapse.
+They contain either further tools, buttons or a tree-view for navigation.
+* Sometimes another bar which is collapsible is set below the main window.
+* Finally another toolbar is sometimes set on bottom of the application.
+It contains the least used tools, or tools which are needed at the end of the process.
 
 ==== To IDE or not to IDE?
-// TODO: (MARCO)
-// TODO: (nur grob erklären, was erkenntniss, bei IDE: docking framework notwendig, modular approach hineinnehmen)
-// TODO:
+During our research we discovered, that there are possibly two different kind of application types, created for two different types of users.
+
+One type of application is created for power users:
+
 Power users need the utmost of customizability, to ensure they can adapt the workspace to be the most ergonomic to fit their workflow.
 In terms of the architecture, it could mean that it would need to allow the following:
 
@@ -119,13 +327,30 @@ In terms of the architecture, it could mean that it would need to allow the foll
 *** Floating mode
 *** Window mode
 *** Split mode
+* The application requires a modular approach to satisfy the needs of the user
+
+The other user type is the opposite to a power user:
+A user which has less or no experience in using a large application:
+
+* Simple design
+* Intuitive usage
+* Not much going on on the screen, so that the user can focus on the important parts of the application
+
+Depending on the required user type, the WorkbenchFX API would look totally different, because both use cases require a different approach on the API design.
 
 === User Stories
-// TODO: (MARCO)
-// TODO: (Workshop with Customer, was very effective, Dieter Zitat, was especially effective because customer mentioned a different persona which changed everything)
+To determine the approach of WorkbenchFX, we decided to make a workshop with our customer.
+In this workshop we worked with user stories.
+This way we could instantly verify if a feature was really necessary and useful or not, because the story needed to fit in the context and was not just a random requirement which came in mind, without verification.
+
+The user stories were especially effective, because during the meeting we discovered an additional persona which changed the whole purpose of our project.
+At first we thought, that it would be sufficient to design an API for a long time JavaFX programmers (SteffiFX), but with the third persona (Fabian) we had to especially keep an eye on developers with rare or no experience in frontend development.
 
 ==== IDE Decision
-// TODO: (MARCO)
+During the user stories meeting it was also decided which application type we would support.
+As it became clear that our third persona was going to be Anna, we knew that we would not develop an API which allows to build large power user applications like an IDE.
+Anna is a person which can use a computer, but she uses it only as a tool and is not familiar with complex applications.
+So we had to focus on simple, easy to understand features which are intuitive to use.
 
 ==== Differentiation to Eclipse RCP
 WorkbenchFX is considered to be an enterprise application framework in JavaFX, just like Eclipse RCP is as well.
@@ -150,45 +375,35 @@ This also means greater complexity and being more difficult to learn.
 
 In the end, both can lead to the same goal, but they are meant to be used for different purposes.
 
-=== Minimum Viable product (MVP)
-// TODO: (MARCO)
-As a result of our research we have enough information to create the minimum viable workbench for our use case.
-Nonetheless we need to break down the functionality to it's simplest scenario.
-// Kunde weiss, dass er ein minimales PRodukt erhält, welches er benutzen kann
-// Wir stellen durch MVP sicher, dass ein shared understanding vorhanden ist, und wir vom gleichen reden
-This way, we can assure our customer, that the minimal viable product as a result from this project. // TODO: ????
-The reason why we do this is, that this way both parties are talking the same language regarding the expectations of the outcome of the project.
-Furthermore it's an assurance for both of them.
+=== Minimum Viable Product (MVP)
+// TODO: Include resource reference?
+To ensure shared understanding between the customer and ourselves, we agreed on a minimum viable product (MVP).
+The outcome resulted in a very minimalistic version of the workbench, which still provides an added value comparing to writing it manually.
+The final prototype is displayed in <<mvp>> below.
 
-Characteristic for all programs is: // TODO: move up as conclusion of comparison of programs
+The MVP consists of:
 
-* A menu-bar on top of the application.
-* Below the menu-bar is often a tool-bar, which contains the current, or most important tools represented through buttons (without collapsing).
-* In center is often the window, in which the work is done.
-* Usually there are on the left and right of the application bars, which can collapse.
-They contain either further tools, buttons or a tree-view for navigation.
-* Sometimes another bar which is collapsible is set below the main-window.
-* Finally another tool-bar is set below the application.
-It contains the least used tools, or tools which are needed at the end of the process.
+* Able to add modules to the workbench object
+* The <<_workbenchmodule_lifecycle>> which enables the user to open, deactivate and close the module
+* Switching modules using tabs
 
-The outcome of our research results in a minimalistic version of the workbench, our customer developed. // TODO: rewrite
-The MVP is designed with the prototyping-tool `Figma`.
-It's clickable prototype can be found at:
-https://www.figma.com/proto/LY7jPWrDVQ5GG1zmvBdlA2MT/WorkbenchFX?scaling=contain&node-id=47%3A129[figma-prototype]
-
-Below it is shown the final prototype:
 [cols="1,1"]
-.Minimal Viable Product (MVP)
+.Minimum Viable Product (MVP)
+[#mvp]
 |===
 |link:include/mvp/home.png[image:include/mvp/home.png[Home Screen]]
 |link:include/mvp/module.png[image:include/mvp/module.png[Module Screen]]
 |===
 
+NOTE: It is interesting, that the MVP is still recognizable when using only the minimal feature of WorkbenchFX: Adding just modules to the workbench. The outcome represents exactly the MVP.
+
+TIP: The https://www.figma.com/proto/LY7jPWrDVQ5GG1zmvBdlA2MT/WorkbenchFX?scaling=contain&node-id=47%3A129[clickable MVP] is designed using the prototyping tool `Figma`.
+
 === Naming
 
 ==== Module Naming
 To plug in functionality by the API user, we use modules.
-However, the name `Module` is not ideal, since that name already has a lot of associations.
+However, as stated in <<_add_module_page>> the name `Module` is not ideal, since that name already has a lot of associations.
 Additionally, when typing `extends Module` in an IDE, it will automatically imports Java's `Module`.
 This makes it frustrating, as the implementor has to manually change the import.
 
@@ -206,7 +421,7 @@ We thought it would be easier to understand for our API users and that was the m
 This is why we decided to stick with the word `Module`.
 However, we decided to add the `Workbench` prefix, to remedy the importing issue mentioned above and to clearly separate it from the other `Module` classes in the JDK.
 
-NOTE: See the chapter <<_add_module_page>> for the explanation of what a module is.
+NOTE: <<_add_module_page>> explains what a module exactly is.
 
 ==== Navigation Drawer
 We chose the name "Navigation Drawer" to be consistent with the naming in the https://material.io/guidelines/patterns/navigation-drawer.html[Material Design guidelines].
@@ -227,55 +442,243 @@ This also means that we don't need to design the panes we use internally to be r
 It is more important that the user experience is straightforward.
 Still, the possibility of extending the workbench using modules is important to our customer.
 
-
 === Usability Tests
-// TODO: (MARCO)
+During the project we continuously got feedback from different kinds of people.
+In the following chapters are the most important outcomes from usability tests listed.
 
 ==== Dieter Holz, Advisor
-// TODO: (MARCO)
+During the "Hacking Days" we've made from time to time (more about them in <<_hacking_day>>), our advisor tested the API by implementing a module on his own.
+This showed us some weaknesses in the API.
+Two very important findings were discovered:
 
-===== Tabs mit Module Toolbar zusammen => gemeinsame Designsprache automatisch TODO
+===== Interrupt Closing a Module
+It is possible to interrupt closing a module.
+For instance if someone wants to ask the user if the progress should be saved before closing, the module should not be closed immediately.
+During the implementation of the dialogs we used `CompletableFutures`.
+we used them also to achieve the interrupt closing process since a dialog would be shown in our example.
+
+First it made sense and it also worked.
+But during the usability test our advisor mentioned the complexity of using `CompletableFutures`.
+It is also unlikely, that Fabian would know what `CompletableFutures` are and we didn't wanted him to have an unnecessary barrier to achieve his goal.
+
+So we figured out a much simpler solution.
+
+NOTE: A detailed chapter about interrupt closing a module can be found in the readme.md of WorkbenchFX.
+
+===== Module Toolbar
+Our advisor's module had a dark background, but the tab's color was white.
+This lead to an inconsistent coloring and destroyed the tab like look and feel.
+Having to restyle everything manually was tedious and boring, so we came up with a different idea.
+
+Since the most modules would have some toolbar items we introduced the module toolbar.
+It is now possible to add `ToolbarItems` to the module.
+As soon as there are items to be displayed, WorkbenchFX creates automatically a toolbar and puts it below the tab.
+
+This way it is ensured, that an implementor always has the possibility to maintain a consistent look and feel.
+
+===== Drawer Animations
+During a long period of time of the project we didn't focus on animations.
+One reason we never did that, is that using them in `JavaFX` is really cumbersome.
+
+One of our features are the drawers.
+An API user can call `workbench.showDrawer()` to show a drawer.
+The base idea of this feature is to create a custom `NavigationDrawer`.
+When showing or hiding ,those drawers were never showing any animation.
+They just (dis)appeared.
+
+However during the usability test we discovered that in case of drawers animations are required.
+The visual feedback was not there when we tested the drawers.
+A user wants to know from which position the drawer comes from and he is used to a sliding animation.
+So we decided to implement the drawers with animations (see <<_animations>>).
 
 ==== Manuel Cottone, UX Expert
-// TODO: (MARCO)
+The biggest impact on the WorkbenchFX styling came from this UX expert.
+A lot of the feedback he gave us was really helpful and we decided to adapt a lot of it.
 
-===== Home Icon => HomeView, then AddModuleView => + icon
+// TODO: reference the material design?
+* The active tab should be more styled like a real tab in a browser (at this time our active tabs had simply a white border on bottom of the tab https://material.io/design/components/tabs.html[Material Design]).
+* The tabs should be styleable with unique colors (which can now be done using the unique `#id`)
+* Get rid of the home button and replace it with a `+` button on the right end of the toolbar
+* Shrink down the size of the close icon in the tabs
+* A small vertical border before and after the tabs would suggest the tab as an entity
+* The last opened tab could be still open when restarting the application (this can already be achieved through storing the open modules in preferences. For example using PreferencesFX)
+* A standard tab could be opened when starting the application (this can already be achieved by simplay defining one in the code before the `launch()` call)
+* For the tiles: Enlarge the icon, center it on top of the text
+* He also suggested to split the tabs and the toolbar into two separate bars
 
 ==== Annelore Egger, User Group
-// TODO: (MARCO)
+She was happy using the API which motivated and showed us, that we're on the right way.
 
-===== Dropdown => ToolbarItem
+===== Separating the Toolbar and Tab bar
+However during her usability test it was confirmed that separating the toolbar from the tab bar was really necessary.
+Having only one bar lead really fast to an overloading of items and tabs.
 
-===== 2 Bars instead of 1 Bar
+===== Introducing ToolbarItems
+As an addition to the overloaded bar on top, she was confused with the possibility of adding every `Node` to the toolbar.
+She also didn't recognized the Dropdown feature we were providing.
+
+For those reasons we decided to restrict the possibility of adding every `Node` to one simple object:
+The `ToolbarItem`.
+We replaced the Dropdown with this universal object.
+The idea behind the `ToolbarItem` is, that depending on its stored parameters it becomes either a `Label`, a `Button` or a `MenuButton`.
+If an API user still wants to add a custom `Node`, he can use the constructor which takes a `Node` as single parameter.
+
+This way it is clear what to use and no misunderstandings are possible.
 
 == Implementation
-// TODO: (in the beginning, say that have a look at test modules, and implementation to see all features exactly in details, in action)
+During development of the API we've built a lot of demo modules to test it.
+Those modules can be checked out when launching the `CustomDemo` in the `workbenchfx-demo` package.
+This way, all the features can be seen exactly in details and in action.
 
 === Layout
-// TODO: (MARCO)
-Challenge:
-// TODO: ????
-
-* Broad spectrum of usage possibilities (-> reduce to one central use case / user story)
-* Unique glossary --> Like in the previous project, we aknowledge, that a shared understanding with the customer is needed.
-
-Thus, we're going to define a unique glossary.
-So everyone talks the same language.
-
-To gather information and best practices in order to fulfill the needs of the project, we're going to look at several applications.
-This includes features, usability and general appearance of the specific workbench.
-
-==== Add Module Page
-// TODO: (familiar from smartphones => Modulares konzept, mehrere kleine Applikationen, aber Application macht nicht Sinn als Name, verlinken auf Module Naming)
+Following chapters cover some of the most interesting topics and design decisions we encountered during the layout process.
 
 ==== Tabs
-// TODO: (from browsers etc., is more familiar)
+We stuck early to the modular concept of having multiple views and switching between them using tabs.
+This concept is widely used.
+Most of the applications analyzed in <<_applications>> use the tab concept to switch between their files.
+Also common internet browsers like https://www.google.com/intl/de_ALL/chrome/[Google Chrome] or https://www.mozilla.org/de/firefox/new/[Firefox] use the tab system too.
+
+==== Add Module Page
+Having a page which allows the user to open a new module is also commonly used.
+For example smartphone operating systems use such a concept, when they display icons of installed apps and open them on click.
+
+For this reason we decided to go with a system, where the user could click on a certain button to open a module.
+After clicking on this button, a page would open on which all the available modules are displayed on a grid.
+Clicking on one of those "Tiles" (since the rectangular button to open the module looks like a tile, we agreed to go with this name) would open the module.
+This way, the user has a good overview on all the modules and could easily open them.
+
+Going with this concept triggered a discussion about naming the components.
+When we described the concept, we struggled with naming the module.
+Viewed objectively the complete application built with WorkbenchFX consists of multiple "mini applications".
+For obvious reasons we could not name the module "MiniApplication".
+Fabian for instance would be very confused when he should implement a "MiniApplication".
+So we had to find a better name.
+In the end we came up with WorkbenchModule which was also not the best solution, since a lot of associations stick with the name module.
+But it is definitely a better choice than "Application" (the complete naming process is described in <<_module_naming>>).
+
+When having a lot of modules, the available space on the page would fast shrink and the usability would also decrease.
+For that reason we introduced a pagination to have only a restricted amount of modules displayed on the page.
 
 ==== Changes across Versions
-// TODO: (visual, with screenshots), tabbar scrollbar why
+There are three major changes mentionable which appeared during the project.
+
+* The phase when we were <<_writing_our_own_stylesheet, writing our own stylesheet>> without any help of external sources.
+* The phase where we were <<_switching_to_the_material_design_guidelines, switching to the Material Design guidelines>>.
+* The phase after the usability tests, where we were <<_separating_the_toolbar, separating the toolbar>> into the toolbar on top and the tab bar below and went full material
+
+===== Writing our own stylesheet
+// TODO: cite the material design guideleines
+In version `v1.1.1` we had the opinion that we're having a really good styling.
+To be fair: It was the first version which looked acceptable.
+<<v111>> gives a first impression on how the style looked at that time.
+
+[cols="1,1"]
+.v1.1.1
+[#v111]
+|===
+|image:include/versions/v1.1.1 - 1.png[v1.1.1-1]
+|image:include/versions/v1.1.1 - 2.png[v1.1.1-2]
+|===
+
+Later on during the project we realized, that the white gaps between the toolbar items on top didn't provide a good usability.
+It also took too much space.
+At one point we decided to have a look at common style guidelines to improve our styling.
+
+We felt, that Google's `Material Design` guidelines are a pretty good starting point since their flat design approach is being used a lot in applications and they are providing the guidelines open source (see https://material.io/design/[Material Design]).
+
+===== Switching to the Material Design guidelines
+// TODO: cite the material design guideleines
+This was a huge step in terms of usability.
+One major improvement was to change the background color of the toolbar to the primary color.
+We also changed the way the active tabs were looking to a more material like appearance with a white border below the active tab.
+<<v120>> shows the styling in version `v1.2.0`.
+
+[cols="1,1"]
+.v1.2.0
+[#v120]
+|===
+|image:include/versions/v1.2.0 - 1.png[v1.2.0-1]
+|image:include/versions/v1.2.0 - 2.png[v1.2.0-2]
+|===
+
+However, the active tab styling this way showed us that `Material Design` is only a guideline.
+// TODO: cite the material design guideleines
+The way those tabs are styled adapts mainly to tabs with only one single text.
+Since we're having an icon, a text and a close icon there was a lot going on in the toolbar.
+Especially when having a lot of modules open, the application looked stuffed.
+<<v150>> below shows how horrible the styling was when opening a lot of modules.
+
+.v1.5.0
+[#v150]
+image::include/versions/v1.5.0 - 8.png[v1.5.0-8]
+
+[TIP]
+====
+Therefore we came to conclusion, that testing boundaries is not just recommended but crucial to the success of a project.
+The visual appearance with only a few open modules and only a few items in the toolbar looked nice.
+But testing use cases with a lot of items revealed the issue.
+====
+
+It is obvious that this styling had to change.
+After the <<_usability_tests>> and a lot of feedback we changed the styling again.
+
+===== Separating the Toolbar
+// TODO: cite the material design guideleines
+At first we were worried that separating the toolbar into two bars would take too much space of the window.
+But this trade-off proved to be a worthwhile decision.
+We also decided to rework the styling a little bit.
+<<v160>> shows the final result of the separation.
+
+[cols="1,1"]
+.v1.6.0
+[#v160]
+|===
+|image:include/versions/v1.6.0 - 1.png[v1.6.0-1]
+|image:include/versions/v1.6.0 - 2.png[v1.6.0-2]
+|===
+
+A direct comparision approves this decision (<<v150vs160>>).
+
+[cols="1,1"]
+.v1.5.0 vs v1.6.0
+[#v150vs160]
+|===
+|image:include/versions/v1.5.0 - 8.png[v1.5.0-8]
+|image:include/versions/v1.6.0 - 8.png[v1.6.0-8]
+|===
+
+The colors of the tiles were also changed to white.
+Having the tiles in a color with a white background created an optical illusion where the brain imagines colored, blurred dots between the spaces of the tiles.
+An example of the created illusion is showed below (<<illusion>>).
+
+.v1.5.0
+[#illusion]
+image::include/versions/illusion.png[Optical illusion]
 
 ==== Easy Styling
-// TODO: (durch Fabian einfach Stylebar, war fokus, dann beispiel dark theme, von wegen ist so einfach machbar! betonen)
+// TODO: source reference of using variables and source of variable naming of MD
+Our superior goal was to enable Fabian a simple way to style his application in a very simple way.
+Of course he would not take advantage of all of the styling possibilities.
+But we thought he might want to change at least the default color theme of the workbench.
+
+We went with the idea of Fabian changing only a few color values and the whole application would be restyled.
+To achieve this we worked with css variables.
+We defined all of the color variables in the `* / .root` selector of the `css` file and used throughout the whole stylesheet only those variables.
+
+During defining the color variables, we discussed their names and usage in the workbench.
+In the end we decided to rely on the Material Design naming convention of colors and to use them as defined.
+This way, every API user is able to research on how to use our variables and in which context they are used.
+
+By simply using the color variables, Fabian can create a custom stylesheet, assign it to the workbench and overwrite the colors he'd like to change.
+
+TIP: To visualize the simplicity of changing styles, a `darkTheme.css` is referenced in the `CustomDemo.java` file located in the `workbenchfx-demo` package.
+
+SteffiFX on the other hand might want to style the application a bit more.
+For this case we gave every component used in the workbench either an `#id` or a `.class` name.
+This way SteffiFX is able to restyle the complete application if she'd like to.
+
+NOTE: A detailed chapter about restyling the application can be found in the readme.md of WorkbenchFX.
 
 === Architecture
 Since WorkbenchFX will be made open-source as a framework, the architecture is a critical part.
@@ -618,79 +1021,113 @@ To improve the quality of the code and also ensure https://www.agilealliance.org
 This worked very well for us, since comments that were made by the other person always lead to improvements and code of higher quality.
 
 ==== SCSS instead of CSS
-// TODO: (MARCO)
-// TODO: Explain reason why we use SCSS instead of CSS
-Less code.
-Easier to read.
-Plugin for IntelliJ which translates SCSS code into CSS:
-https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[SCSS to CSS]
+In web development the transpiler `SCSS` to `CSS` is commonly used.
+But we were not finding much information about using it with `JavaFX` projects.
+But because `SCSS` is:
 
-There is no margin in JavaFX CSS.
-We've made a workaround using a `SCSS Mixin` which looks like this:
+* much easier to write
+* easier to read
+* less code is needed the more complex the styling becomes
+* provides much more features compared to `CSS`
 
-Creating the `Mixin`:
+we decided to give it a try.
+
+For example lets say we're having an application with two views fit in one larger view.
+All three views have some default colors.
+If we want to change the colors on hover we had to write following `CSS` code:
+
+[source,css]
+----
+.myClass {
+  -fx-background-color: RED;
+}
+.myClass .innerClass {
+  -fx-background-color: BLACK;
+}
+.myClass .otherInnerClass {
+  -fx-background-color: WHITE;
+}
+.myClass:hover {
+  -fx-background-color: BLUE; /* Change from RED to BLUE on hover */
+}
+.myClass:hover .innerClass {
+  -fx-background-color: WHITE; /* Change from BLACK to WHITE on hover */
+}
+.myClass:hover .otherInnerClass {
+  -fx-background-color: BLACK; /* Change from WHITE to BLACK on hover */
+}
+----
+
+The code appears to be redundant and very flat, bad to read.
+`SCSS` on the other hand:
+
 [source,sass]
 ----
-@mixin margin-all($margin) {
-  -fx-padding: $margin;
-  -fx-border-insets: $margin;
-  -fx-background-insets: $margin;
+.myClass {
+  -fx-background-color: RED;
+  & .innerClass {
+    -fx-background-color: BLACK;
+  }
+  & .otherInnerClass {
+    -fx-background-color: WHITE;
+  }
+
+  &:hover {
+  -fx-background-color: BLUE; /* Change from RED to BLUE on hover */
+    & .innerClass {
+      -fx-background-color: WHITE; /* Change from BLACK to WHITE on hover */
+    }
+    & .otherInnerClass {
+      -fx-background-color: BLACK; /* Change from WHITE to BLACK on hover */
+    }
+  }
 }
 ----
 
-Using the `Mixin` in code:
+Is much easier to read thanks to the nested code writing.
+The code is also adaptable.
+If additional stylings are required, they can simply be added.
+`SCSS` will become handier and more powerful as the complexity of the stylesheet grows.
+
+TIP: IntelliJ plugin to transpile https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[SCSS to CSS]
+
+==== CSS Conventions
+In order to maintain a well structured styling we agreed on several conventions.
+The most mentionable are described as follows.
+
+===== Using the Material Design Variables
+// TODO: reference the variables
+As stated in <<_easy_styling, Easy Styling>> we wanted to have Fabian worrying about restyling as least as possible.
+
+Therefore we agreed on using only variables for styling, so that Fabian has to change only a variable to restyle the application.
+Of course not only Fabian profits from this convention but we too.
+Thanks to variables we didn't had to worry about color codes and changing them.
+
+Using the variable names and usage definition of `Material Design` will also be of use in future.
+This way we have not to worry about other, future developers not knowing on how the colors are used and how to use them.
+
+===== Replacing Pixels
+We agreed on using `em` as size measurement and not `px`.
+The simple reason to do this was agility.
+When changing the default size of the font, the overall styling can adapt the actual size.
+
+However sometimes it is more useful to write in pixels than in `em`.
+For instance it much simpler to write `60px` instead of `4.286em` (base font size: 14px).
+
+One of the features of `SCSS` is defining functions.
+We wrote a little <<pixel-converter>> which allowed us to convert pixels into `em` and agreed on using the function when working with a pixel value.
+[source,sass]
+
+.Pixel Converter Function
+[#pixel-converter]
 [source,sass]
 ----
-.my-class {
-  @include margin-all(1.5em);
+@function px($px) {
+  @return 1em / 14 * $px; // 14px is defined by the default material design font-size
 }
 ----
 
-A `Mixin` includes code, created by the `Mixin` and puts it in the place where it was called.
-Link: http://thesassway.com/advanced/pure-sass-functions[SCSS - Mixin]
-
-==== General Conventions
-// TODO: (MARCO)
-// TODO: (CSS, PreferencesFX kopieren GOogle Java style guide)
-We have decided to define some general conventions:
-
-In CSS it is possible to give multiple classes the same layout.
-For example:
-[source,sass]
-----
-.myClass-1, .myClass-2 {
-  -fx-padding: 1em;
-  -fx-border-insets: 1em;
-  -fx-background-insets: 1em;
-}
-----
-this is possible, but it's readability is not that good.
-SCSS provides a special tag for such situations, the `@extend`-tag:
-[source,sass]
-----
-.myClass-1 {
-  -fx-padding: 1em;
-  -fx-border-insets: 1em;
-  -fx-background-insets: 1em;
-}
-
-.myClass-2 {
-  @extend .myClass-1;
-}
-----
-In both cases, both classes have the same attributes.
-But the readability is much better in the second example.
-Plus, there is the possibility to add another attributes in `.myClass-2`.
-[source,sass]
-----
-.myClass-2 {
-  @extend .myClass-1;
-  -fx-color: RED;
-}
-----
-`.myClass-2` inherits from `.myClass-1` and can be extended.
-https://sass-lang.com/guide[SCSS - @extend]
-
+===== Working With Imports
 Another convention we use is the separation of all scss-files.
 For readability we have the `main.scss` file separated into multiple scss files.
 In the `main.scss` we include all those other files and this "main file" will be compiled as a css file.
@@ -927,11 +1364,47 @@ TIP: This made releasing quicker and meant less repetitive effort on our side.
 Details on the implementation can be found in the `.travis.yml` file.
 
 == Lessons learned
-// TODO: (we did already in the start was good idea since lots of things improved, erwähnen PreferencesFX Lessons Learned => refactoring, testing, usw, checkstyle, javadoc gerade gemacht)
+Before starting the project we did a retrospective on our previous project PreferencesFX.
+We agreed on maintaining the processes which went good and defined new conventions to do better in this project.
+Following <<best-practices>> lists all the conventions we consider the most valuables from this project.
+
+.Best Practices
+[#best-practices]
+|===
+|Convention        |Reason
+|Maintain code review |It worked very well in PreferencesFX, so we will keep it that way
+|Maintain Asciidoc documentation |Writing the documentation with Asciidoctor is a gem. We will never write documentations with other tools again
+|Writing the Javadoc before merging |In PreferencesFX we had to write nearly all the Javadoc at the end of the project
+|Merging only when checkstyle passes |Like the Javadoc we had to fix a lot of checkstyle error afterwards
+|Writing more tests |Since we're writing an API it would be necessary to write more tests to maintain better code quality and less errors
+|Using build tools |It makes the development much easier since we don't have to worry about running tests, checking checkstyle and javadoc.
+|Committing more often |It makes the development process more transparent. When problems occur it can easily be reverted
+|Work with persona |It helps to focus on the target group. This way the development process can always be readjusted
+|Work with user stories |It helps to verify the features and reveals the users needs which the product has to satisfy
+|===
 
 === Value of User Stories
-// TODO: (MARCO)
-// TODO: (How good was workshop etc.)
+User stories communicate a concrete goal of the product.
+Comparing to just defining some features, user stories help to understand the reason for a feature.
+This way we can ensure that all of our implemented features satisfy a special need.
+
+In the beginning of the project we held a workshop with our customer where we defined the persona and afterwards the user stories to define the problems which our API should solve.
+Before the workshop it was rather unclear what WorkbenchFX exactly is.
+But after the workshop we all had a shared understanding about the project.
+
+Together with the persona and the user stories it felt almost like the written stories and persona are real.
+Exactly to achieve this feeling is what are user stories made for.
+
+During the project we could always refer to the persona and stories and ask ourselves:
+"Are we on the right way?" It helped us a lot to keep an eye on the real problem and to not loose ourselves in personal opinions and thoughts.
+
+[TIP]
+====
+For a future project we would definitely use persona and user stories again.
+
+Having three different persona is tricky to work with as we have to look after three different characters and needs.
+Of course having that much persona can happen but having only one central persona is crucial since we cannot always satisfy every desire and therefore have to make sometimes compromise.
+====
 
 === Working Agile
 Even though we had to face a lot of challenges, there is one thing we are especially grateful about: working in an agile way. +
@@ -946,14 +1419,27 @@ If we didn't get constant feedback from our customer, we would probably only hav
 TIP: Thanks to the agile way, we could resolve challenges quickly and early on in the project.
 
 === Hacking Day
-// TODO: (MARCO)
-// TODO: (Dirk hat selber erkannt, dass nicht so einfach wie man es sich vorstellt, dass es Dirk auch etwas gebracht hat zu erkennen => besser im Projekt eingebunden, besser gemerkt wo Probleme sind)
+During the project we had several so called "Hacking Days" where we together with our customer and/or advisor worked on the project.
+Those hacking days completely differ from each other.
+
+When we had the hacking days together with our advisor, he took the role of Fabian and implemented his own module.
+This was great since we saw the usage of our API in real life with a person which was not that much involved into the development as we are and therefore had a neutral attitude.
+Thanks to those kind of hacking days we discovered several issues which we could eliminate then.
+
+Another hacking day was held with our customer.
+There we started implementing together the dialog feature.
+This had multiple advantages.
+First of all we integrated our customer in the project and it gave him insight into our project's progress.
+Another advantage was, that he gained awareness on how complex certain processes are.
+He stated for instance that is was not that easy as he thought to simply reuse his code of the dialog.
+
+However in the end we all profited from each other.
+We are really grateful about those hacking days since they really are helpful.
 
 === Animations
 One thing we underestimated by far was the power of animations.
 Initially, we didn't have animations on the drawers.
-// TODO: maybe add link / reference to above somewhere?
-In a usability test with Dieter Holz we noticed that especially with the drawers that covered most of the screen, it was not clear where they were coming from or that they even were drawers.
+In a usability test with Dieter Holz we noticed that especially with the drawers that covered most of the screen, it was not clear where they were coming from or that they even were drawers (see <<_drawer_animations>>).
 
 When we implemented the drawer animations, we were astounded to see how much of a difference it made.
 We expected it to make a slight difference, but it really improved the user experience by a lot.
@@ -1001,7 +1487,7 @@ Setting up Travis CI also took time, but we are sure it already saved us more ti
 
 TIP: We only started using Travis CI with `v1.3.0`, in the next project we would use it from the beginning.
 
-=== Java 8 / 9 / 10
+=== Java 10 / 9 / 8
 In the beginning of the project, Java 10 was just released.
 Our customer wanted us to use Java 10, because he noticed some JavaFX-related bugs in Java 9 that were fixed in Java 10.
 
