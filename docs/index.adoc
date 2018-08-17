@@ -282,8 +282,6 @@ Like <<_figma>>, Adobe XD is a prototyping software.
 It is also very simple and intuitive.
 In fact there is not much that differs compared to Figma.
 So it can definitely being used by non power users.
-The image below gives a short impression of the program and the table below shows our findings.
-
 <<img-Adobe-xd>> below gives a short impression of the program.
 
 .Adobe XD
