@@ -147,7 +147,7 @@ image::include/analysis/blender.png[Blender]
 
 ==== Adobe Photoshop
 Adobe Photoshop is probably one of the most widely used tools when it comes to photo manipulation and creation of digital art.
-Since it requires a little experience to use it properly we think it's made primary for power users.
+Since it requires a little experience to use it properly we think it's made primarily for power users.
 <<img-photoshop>> gives a short impression of the program and <<characteristics-photoshop>> shows our findings.
 
 .Adobe Photoshop
@@ -443,23 +443,23 @@ It is more important that the user experience is straightforward.
 Still, the possibility of extending the workbench using modules is important to our customer.
 
 === Usability Tests
-During the project we continuously got feedback from different kinds of people.
-In the following chapters are the most important outcomes from usability tests listed.
+During the project we got continuous feedback from different kinds of people.
+The most important outcomes from the usability tests are listed in the following chapters.
 
 ==== Dieter Holz, Advisor
 During the "Hacking Days" we've made from time to time (more about them in <<_hacking_day>>), our advisor tested the API by implementing a module on his own.
-This showed us some weaknesses in the API.
-Two very important findings were discovered:
+This showed us some weaknesses in the API design.
+We found two important findings, which are described in the following subchapters.
 
 ===== Interrupt Closing a Module
 It is possible to interrupt closing a module.
-For instance if someone wants to ask the user if the progress should be saved before closing, the module should not be closed immediately.
-During the implementation of the dialogs we used `CompletableFutures`.
-we used them also to achieve the interrupt closing process since a dialog would be shown in our example.
+For example, if someone wants to ask the user if the progress should be saved before closing, the module should not be closed immediately.
+During the implementation of the dialogs, we used `CompletableFuture`{empty}s.
+We also used them to achieve the interrupt closing process, since closing of the module also happens asynchronously, after false has been returned by `destroy()`.
 
 First it made sense and it also worked.
-But during the usability test our advisor mentioned the complexity of using `CompletableFutures`.
-It is also unlikely, that Fabian would know what `CompletableFutures` are and we didn't wanted him to have an unnecessary barrier to achieve his goal.
+But during the usability test, our advisor mentioned the complexity of using `CompletableFuture`{empty}s.
+It is unlikely that Fabian knows what `CompletableFutures` are and we didn't want him to have an unnecessary barrier to achieve his goal.
 
 So we figured out a much simpler solution.
 Implementation details can be found in <<_workbenchmodule_lifecycle>>.
@@ -468,7 +468,7 @@ NOTE: A detailed chapter can be found in the readme.md of WorkbenchFX in the cha
 
 ===== Module Toolbar
 Our advisor's module had a dark background, but the tab's color was white.
-This lead to an inconsistent coloring and destroyed the tab like look and feel.
+This lead to an inconsistent coloring and destroyed the tab's look and feel.
 Having to restyle everything manually was tedious and boring, so we came up with a different idea.
 
 Since the most modules would have some toolbar items we introduced the module toolbar.
