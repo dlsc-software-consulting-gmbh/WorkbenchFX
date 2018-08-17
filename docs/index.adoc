@@ -799,10 +799,10 @@ We decided against keeping the original `Workbench.of(module1, module2)` notatio
 ==== WorkbenchModule Lifecycle
 The following UML diagrams explain how the lifecycle of a `WorkbenchModule` works.
 The diagrams are simplified to a degree that is relevant for the implementor of a `WorkbenchModule` and are *not* complete and *not* exhaustive by design.
-The goal is to explain the principle of interactions on modules when using `Workbench#openModule(WorkbenchModule)` and `Workbench#closeModule(WorkbenchModule)` with a minimal amount of examples.
+The goal is to explain the principle of interactions on modules when using `workbench.openModule(WorkbenchModule)` and `workbench.closeModule(WorkbenchModule)` with a minimal amount of examples.
 
-*Generally*, when clicking on a tile in the `AddModuleView`, `Workbench#openModule(WorkbenchModule)` gets called. +
-When clicking on the `x` icon of a tab, `Workbench#closeModule(WorkbenchModule)` gets called.
+*Generally*, when clicking on a tile in the `AddModuleView`, `workbench.openModule(WorkbenchModule)` gets called. +
+When clicking on the `x` icon of a tab, `workbench.closeModule(WorkbenchModule)` gets called.
 
 Overview of the lifecycle in a state diagram, showing all state changes that can occur (<<img-module-lifecycle>>).
 
@@ -973,7 +973,7 @@ This makes it possible to initialize all views in the same way while also result
 Since all presenters don't need to extend anything else, using an abstract class here is possible.
 
 ==== Overlays
-To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `Workbench#showOverlay()` and `Workbench#hideOverlay()` methods.
+To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `workbench.showOverlay()` and `workbench.hideOverlay()` methods.
 
 The GUI of WorkbenchFX is organized in layers.
 At all times, there is a layer of the general WorkbenchFX GUI, which is being represented by the view class `WorkbenchView`.
@@ -987,7 +987,7 @@ image::include/overlay.png[Overlay with scrimmed background]
 
 When hiding an overlay, it is made invisible and is not removed from the scene graph, so recurring overlays don't need to be re-inserted into the scene graph again.
 This is more efficient and especially overlays with animations profit from this design, since they run smoother when shown and hidden multiple times.
-In case of an application with very memory-intensive overlays, there is a possibility to call `Workbench#clearOverlays()`, which will remove all overlays from the scene graph and free them up to be garbage collected.
+In case of an application with very memory-intensive overlays, there is a possibility to call `workbench.clearOverlays()`, which will remove all overlays from the scene graph and free them up to be garbage collected.
 
 Each overlay has its own `GlassPane` and it is possible to open multiple overlays on top of each other.
 
