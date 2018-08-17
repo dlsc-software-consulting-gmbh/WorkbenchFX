@@ -802,7 +802,11 @@ The diagrams are simplified to a degree that is relevant for the implementor of 
 The goal is to explain the principle of interactions on modules when using `workbench.openModule(WorkbenchModule)` and `workbench.closeModule(WorkbenchModule)` with a minimal amount of examples.
 
 *Generally*, when clicking on a tile in the `AddModuleView`, `workbench.openModule(WorkbenchModule)` gets called. +
-When clicking on the `x` icon of a tab, `workbench.closeModule(WorkbenchModule)` gets called.
+When clicking on the `x` icon of a tab, `workbench.closeModule(WorkbenchModule)` gets called. +
+When a `WorkbenchModule` has to perform cleanup actions or needs to show a dialog before it can be closed, the closing process needs to be interrupted.
+To interrupt the closing process, the implementor has to return `false` on `module.destroy()`.
+When the closing process gets interrupted, the module will not be closed and will be set as the active module.
+The implementor doesn't have to call any of the lifecycle methods, the calls are being made by the `Workbench`.
 
 Overview of the lifecycle in a state diagram, showing all state changes that can occur (<<img-module-lifecycle>>).
 
@@ -981,9 +985,9 @@ At all times, there is a layer of the general WorkbenchFX GUI, which is being re
 When showing an overlay, a `GlassPane` is added to the scene graph and shown on top of the WorkbenchFX GUI, followed by the overlay itself on top of the `GlassPane`.
 This ensures there is a "scrim"cite:[noauthor_elevation_nodate] between the WorkbenchFX GUI and the overlay (<<overlay-scrim>>).
 
-.Overlay with scrimmed background
+.Overlay with GlassPane (scrimmed background)
 [#overlay-scrim]
-image::include/overlay.png[Overlay with scrimmed background]
+image::include/overlay.png[Overlay with GlassPane (scrimmed background)]
 
 When hiding an overlay, it is made invisible and is not removed from the scene graph, so recurring overlays don't need to be re-inserted into the scene graph again.
 This is more efficient and especially overlays with animations profit from this design, since they run smoother when shown and hidden multiple times.
