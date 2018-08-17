@@ -597,9 +597,16 @@ Since changes in the scene graph can be performed quite quickly by JavaFX, resul
 But we decided to go for a compromise: we would still not remove the overlays when they are being hidden, to make sure they can be loaded faster the next time they are being shown, since they already have been added to the scene graph.
 
 == Processes
+To ensure we can efficiently work together in a team on the code, we employed some processes.
+We found it very useful to have defined processes, as we knew exactly what we had to do in every step of the project.
+It was clear to us what we expected from each other and it worked very well this way.
 
 === Development
-// TODO: François
+During our development, we made extensive use of GitHub's features.
+We especially appreciated GitHub for doing code review and its releases feature.
+
+Also, since one focus was the visual design of WorkbenchFX, we used CSS a lot, which lead us to using SCSS.
+We are very happy about this decision, since it made the CSS code much more readable and also maintainable.
 
 ==== GitHub
 The programming is being done in a GitHub repository.
