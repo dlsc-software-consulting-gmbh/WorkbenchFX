@@ -1,20 +1,18 @@
 package com.dlsc.workbenchfx.custom.patient;
 
-import javafx.scene.Node;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.MenuItem;
-
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.custom.patient.model.FileCabinet;
 import com.dlsc.workbenchfx.custom.patient.model.Translator;
-import com.dlsc.workbenchfx.custom.patient.view.PatientSelectionView;
 import com.dlsc.workbenchfx.custom.patient.view.AllPatientsView;
+import com.dlsc.workbenchfx.custom.patient.view.PatientSelectionView;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
-
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.MenuItem;
 
 /**
  * @author Dieter Holz
@@ -30,12 +28,12 @@ public class PatientModule extends WorkbenchModule {
   private WorkbenchDialog selectPatientDialog;
 
   public PatientModule() {
-    super("Patient Records", FontAwesomeIcon.USER);
+    super("Patient Records", MaterialDesignIcon.ACCOUNT);
     getToolbarControlsLeft().addAll(
-        new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.SAVE), event -> fileCabinet.save()),
-        new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.PLUS)),
-        new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.MINUS)),
-        new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.USER),
+        new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.CONTENT_SAVE), event -> fileCabinet.save()),
+        new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.PLUS)),
+        new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.MINUS)),
+        new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.ACCOUNT),
             event -> workbench.showDialog(selectPatientDialog)
         )
     );
@@ -56,8 +54,6 @@ public class PatientModule extends WorkbenchModule {
     selectPatientDialog = createSelectPatientDialog();
 
     patientView = new AllPatientsView(fileCabinet, translator, workbench);
-
-
   }
 
   @Override
@@ -84,7 +80,7 @@ public class PatientModule extends WorkbenchModule {
     MenuItem en = new MenuItem("en");
     en.setOnAction(event -> translator.translateToEnglish());
 
-    return new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.LANGUAGE),
+    return new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.TRANSLATE),
         de,
         en);
   }
