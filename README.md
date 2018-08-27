@@ -170,7 +170,7 @@ We created several demos to visualize the capabilities of *WorkbenchFX* in the `
 
 File                | Description
 ------------------- | -----------
-`StandardDemo.java` | Shows the simplest usage of *WorkbenchFX* with only three modules and no optional features used
+`SimpleDemo.java` | Shows the simplest usage of *WorkbenchFX* with only three modules and no optional features used
 `CustomDemo.java`   | A workbench application which uses all features, to demonstrate the full capability of *WorkbenchFX*
 `FXMLDemo.java`     | A minimal example of how to use *WorkbenchFX* with FXML & [Scene Builder](https://gluonhq.com/products/scene-builder/)
 

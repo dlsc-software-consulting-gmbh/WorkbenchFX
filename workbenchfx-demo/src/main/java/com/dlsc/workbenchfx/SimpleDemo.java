@@ -7,7 +7,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class StandardDemo extends Application {
+public class SimpleDemo extends Application {
 
   public Workbench workbench;
   private PreferencesModule preferencesModule = new PreferencesModule();
