@@ -369,6 +369,7 @@ ____
 
 This way we can instantly verify if a feature is really necessary and whether it is useful or not.
 This is because the story needs to fit in the context and is not just a random requirement which came to mind, without questioning its usefulness cite:[cohn_user_2004].
+
 ==== IDE Decision
 During the user stories meeting we also decided which application type we would support.
 As it became clear the user was going to be Anna, we knew that we would not develop an API which allows to build large power user applications like an IDE.
