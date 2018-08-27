@@ -22,7 +22,7 @@ public class SimpleDemo extends Application {
   public void start(Stage primaryStage) {
     Scene myScene = new Scene(initWorkbench());
 
-    primaryStage.setTitle("Standard WorkbenchFX Demo");
+    primaryStage.setTitle("Simple WorkbenchFX Demo");
     primaryStage.setScene(myScene);
     primaryStage.setWidth(1000);
     primaryStage.setHeight(700);
