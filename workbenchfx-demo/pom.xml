@@ -24,7 +24,12 @@
             <name>bintray</name>
             <url>https://dl.bintray.com/jerady/maven</url>
         </repository>
-    </repositories>
+
+        <repository>
+          <id>jcenter</id>
+          <url>http://jcenter.bintray.com</url>
+        </repository>
+      </repositories>
     <pluginRepositories>
         <pluginRepository>
             <snapshots>
@@ -86,7 +91,7 @@
               <transformers>
                 <transformer
                   implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>com.dlsc.workbenchfx.custom.CustomDemo</mainClass>
+                  <mainClass>com.dlsc.workbenchfx.CustomDemo</mainClass>
                 </transformer>
               </transformers>
             </configuration>
@@ -107,6 +112,12 @@
       <groupId>com.lynden</groupId>
       <artifactId>GMapsFX</artifactId>
       <version>2.12.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.calendarfx</groupId>
+      <artifactId>view</artifactId>
+      <version>8.5.0</version>
     </dependency>
 
     <!-- Java 8 only -->
