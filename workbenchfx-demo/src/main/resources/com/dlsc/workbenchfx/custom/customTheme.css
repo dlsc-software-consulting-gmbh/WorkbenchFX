@@ -14,6 +14,5 @@
 }
 
 .logo {
-  /*-fx-graphic: url("http://placekitten.com/300/300");*/
   -fx-graphic: url("logo.png");
 }
