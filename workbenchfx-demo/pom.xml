@@ -120,6 +120,43 @@
       <version>8.5.0</version>
     </dependency>
 
+    <dependency>
+      <artifactId>flexganttfx-core</artifactId>
+      <groupId>com.dlsc</groupId>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/flexganttfx-core-1.7.0.jar</systemPath>
+    </dependency>
+    <dependency>
+      <artifactId>flexganttfx-extras</artifactId>
+      <groupId>com.dlsc</groupId>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/flexganttfx-extras-1.7.0.jar</systemPath>
+    </dependency>
+    <dependency>
+      <artifactId>flexganttfx-model</artifactId>
+      <groupId>com.dlsc</groupId>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/flexganttfx-model-1.7.0.jar</systemPath>
+    </dependency>
+    <dependency>
+      <artifactId>flexganttfx-view</artifactId>
+      <groupId>com.dlsc</groupId>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/flexganttfx-view-1.7.0.jar</systemPath>
+    </dependency>
+    <dependency>
+      <artifactId>license4j</artifactId>
+      <groupId>com.smardec</groupId>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/license4j-1.4.0.jar</systemPath>
+    </dependency>
+    <dependency>
+      <artifactId>controlsfx</artifactId>
+      <groupId>com.controlsfx</groupId>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/controlsfx-8.40.11.jar</systemPath>
+    </dependency>
+
     <!-- Java 8 only -->
     <dependency>
       <groupId>org.controlsfx</groupId>
