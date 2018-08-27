@@ -7,7 +7,7 @@ import javafx.scene.Node;
 
 public class CalendarModule extends WorkbenchModule {
 
-  private CalendarView calendarView;
+  private CalendarFxView calendarView;
 
   public CalendarModule() {
     super("Calendar", MaterialDesignIcon.CALENDAR);
@@ -16,27 +16,14 @@ public class CalendarModule extends WorkbenchModule {
   @Override
   public Node activate() {
     if (Objects.isNull(calendarView)) {
-      calendarView = new CalendarView();
+      calendarView = new CalendarFxView();
     }
-    calendarView.startClock();
+    calendarView.start();
     return calendarView;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void deactivate() {
-    calendarView.stopClock();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public boolean destroy() {
-    calendarView.stopClock();
-    calendarView = null;
-    return true;
+    calendarView.stop();
   }
 }
