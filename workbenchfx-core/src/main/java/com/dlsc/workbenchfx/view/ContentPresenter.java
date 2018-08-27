@@ -4,7 +4,9 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import java.util.Objects;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.scene.Node;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -25,6 +27,7 @@ public final class ContentPresenter extends Presenter {
   private final Workbench model;
   private final ContentView view;
   private final ObservableList<WorkbenchModule> openModules;
+  private final ObservableMap<WorkbenchModule, Node> openModuleViews = FXCollections.observableHashMap();
 
   /**
    * Creates a new {@link ContentPresenter} object for a corresponding {@link ContentView}.
@@ -70,6 +73,17 @@ public final class ContentPresenter extends Presenter {
       } else {
         // The active Module is not null -> therefore setting the view of the module
         Node activeModuleView = model.getActiveModuleView();
+
+        Node previousView = openModuleViews.put(newModule, activeModuleView);
+        // if the module returns a different view than what the same module has returned with the
+        // previous call to WorkbenchModule#activate()
+        if (!Objects.isNull(previousView)) {
+          // unload the previous view before loading the new one
+          LOGGER.trace(
+              "unloading previous view, activate() returned different view on " + newModule);
+          view.removeView(previousView);
+        }
+
         view.setContent(activeModuleView);
         VBox.setVgrow(activeModuleView, Priority.ALWAYS);
 
@@ -96,7 +110,8 @@ public final class ContentPresenter extends Presenter {
 
     WorkbenchUtils.addListListener(openModules, module -> {}, module -> {
       LOGGER.trace("Remove from scene graph view of module: " + model.getActiveModule());
-      view.removeView(model.getActiveModuleView()); // TODO: change to implementation that is not faulty
+      view.removeView(openModuleViews.get(module);
+      openModuleViews.remove(module);
     });
   }
 
