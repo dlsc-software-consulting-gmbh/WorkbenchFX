@@ -24,7 +24,12 @@
             <name>bintray</name>
             <url>https://dl.bintray.com/jerady/maven</url>
         </repository>
-    </repositories>
+
+        <repository>
+          <id>jcenter</id>
+          <url>http://jcenter.bintray.com</url>
+        </repository>
+      </repositories>
     <pluginRepositories>
         <pluginRepository>
             <snapshots>
@@ -107,6 +112,12 @@
       <groupId>com.lynden</groupId>
       <artifactId>GMapsFX</artifactId>
       <version>2.12.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.calendarfx</groupId>
+      <artifactId>view</artifactId>
+      <version>8.5.0</version>
     </dependency>
 
     <!-- Java 8 only -->
