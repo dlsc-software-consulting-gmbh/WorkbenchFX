@@ -3,7 +3,7 @@ package com.dlsc.workbenchfx;
 import com.dlsc.workbenchfx.modules.notes.NotesModule;
 import javafx.fxml.FXML;
 
-public class Controller {
+public class FXMLController {
 
   @FXML
   private Workbench workbench;
