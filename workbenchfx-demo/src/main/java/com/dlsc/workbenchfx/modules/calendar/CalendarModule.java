@@ -26,4 +26,10 @@ public class CalendarModule extends WorkbenchModule {
   public void deactivate() {
     calendarView.stop();
   }
+
+  @Override
+  public boolean destroy() {
+    calendarView = null;
+    return true;
+  }
 }
