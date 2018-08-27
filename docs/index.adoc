@@ -23,9 +23,9 @@ Restyling the workbench can easily being done by simply changing `CSS` variables
 
 == Acknowledgements
 We had a lot of help during our way to *WorkbenchFX*.
-This project would not have been so successful without the help of all of the people which supported us.
+This project would not have been so successful without the help of all of the people who supported us.
 
-First of all we would like to thank our customer, Dirk Lemmermann for making this project possible.
+First of all we would like to thank our customer Dirk Lemmermann for making this project possible.
 We also want to thank him for providing us with example code of his latest project to use as an inspiration.
 Giving us constant feedback, helped a lot carrying the project forward.
 
@@ -40,7 +40,7 @@ Additionally she helped us a lot when she proof-read our documentation and provi
 Many thanks to Horst Bauer for thoroughly proof-reading our documentation.
 As an unbiased reviewer he provided additional very useful feedback.
 
-We also would like to especially thank the UX expert, who supported us during the usability test phase.
+We would also like to especially thank the UX expert, who supported us during the usability test phase.
 His feedback lead to a substantial improvement of our styling and user experience.
 
 == Introduction
@@ -48,12 +48,12 @@ WorkbenchFX is an out of the box solution to build large applications from multi
 It offers good user experience and a beautiful design.
 
 A developer often starts with the views, so they can quickly show their progress to their customer.
-After that, some question may arise such as:
+After that, some questions may arise such as:
 - "How do I bring all those views together?"
 - "How do I build the navigation between those views?"
 - "How do I establish a good user experience?"
 
-Exactly when those questions appear, *WorkbenchFX* comes into play:
+When those questions appear, *WorkbenchFX* comes into play:
 *WorkbenchFX* allows the developer to focus on designing the views and meanwhile we're building the application around them.
 
 *WorkbenchFX* also scales with growing requirements.
@@ -62,22 +62,22 @@ Even that is supported by *WorkbenchFX* and the developer doesn't have to build 
 
 If the developer still manages to start outgrowing the workbench, they can even replace whole parts of it with their own implementations, without having to rewrite the whole workbench.
 
-Some of the used terms are explained in <<terms-definition>>.
+Some of the terms used are explained in <<terms-definition>>.
 
-.Definition of used terms during the documentation
+.Definition of terms used during the documentation
 [#terms-definition]
 |===
 |Term        |Definition
 |Module      |The `workbench` object consists of multiple views. The object which contains the view is called `WorkbenchModule` (see <<_module_naming>>).
-|Implementor |The developer which creates a custom implementation of a module
-|User        |The person which uses the final application created with WorkbenchFX
-|API user    |The developer which uses the WorkbenchFX API to develop their application
+|Implementor |The developer who creates a custom implementation of a module
+|User        |The person who uses the final application created with WorkbenchFX
+|API user    |The developer who uses the WorkbenchFX API to develop their application
 |===
 
 == Motivation
-Our customer told us about his latest project in which he creates a larger enterprise application.
+Our customer told us about his latest project in which he creates a large enterprise application.
 He told us that with every new enterprise application he makes, the content is different, with the rest usually being about the same.
-Larger enterprise applications often share similar functionality and therefore duplicate work is inevitable.
+Large enterprise applications often share similar functionality and therefore duplicate work is inevitable.
 The idea was born to create a framework, which allows the API user to focus on the unique, interesting work, while the framework does all the boring, repetitive work for them.
 
 == Analysis
@@ -378,7 +378,7 @@ So we had to focus on simple, easy to understand features which are intuitive to
 
 ==== Differentiation to Eclipse RCP
 WorkbenchFX is considered to be an enterprise application framework in JavaFX, just like Eclipse RCP is as well.
-However, besides Eclipse RCP being available on the Swing platform, the goals of either are completely different.
+However, besides Eclipse RCP being available on the SWT platform, the goals of either are completely different.
 WorkbenchFX is not meant to replace or augment Eclipse RCP for JavaFX.
 WorkbenchFX is also neither a successor to Eclipse RCP.
 
