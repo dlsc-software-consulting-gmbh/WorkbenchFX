@@ -125,11 +125,7 @@ public class CustomDemo extends Application {
             .toolbarLeft(
                 new ToolbarItem("WorkbenchFX"),
                 addPreferences,
-                removePreferences,
-                new ToolbarItem(
-                    new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
-                    new CustomMenuItem(new Label("Content 1")),
-                    new CustomMenuItem(new Label("Content 2")))
+                removePreferences
             )
             .toolbarRight(
                 showDialogButton,
