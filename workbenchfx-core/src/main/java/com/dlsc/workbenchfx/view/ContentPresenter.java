@@ -1,10 +1,15 @@
 package com.dlsc.workbenchfx.view;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.model.WorkbenchModule;
+import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import java.util.Objects;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the presenter of the corresponding {@link ContentView}.
@@ -14,8 +19,12 @@ import javafx.scene.layout.VBox;
  */
 public final class ContentPresenter extends Presenter {
 
+  private static final Logger LOGGER =
+      LogManager.getLogger(ContentPresenter.class.getName());
+
   private final Workbench model;
   private final ContentView view;
+  private final ObservableList<WorkbenchModule> openModules;
 
   /**
    * Creates a new {@link ContentPresenter} object for a corresponding {@link ContentView}.
@@ -26,6 +35,7 @@ public final class ContentPresenter extends Presenter {
   public ContentPresenter(Workbench model, ContentView view) {
     this.model = model;
     this.view = view;
+    openModules = model.getOpenModules();
     init();
   }
 
@@ -52,6 +62,7 @@ public final class ContentPresenter extends Presenter {
   public final void setupValueChangedListeners() {
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       view.showToolbar(false); // Remove toolbar
+      view.hideActiveView();
 
       if (Objects.isNull(newModule)) {
         // The active module is null -> therefore setting the addModuleView
@@ -81,6 +92,11 @@ public final class ContentPresenter extends Presenter {
             (observable1, wasEmpty, isEmpty) -> view.showToolbar(!isEmpty)
         );
       }
+    });
+
+    WorkbenchUtils.addListListener(openModules, module -> {}, module -> {
+      LOGGER.trace("Remove from scene graph view of module: " + model.getActiveModule());
+      view.removeView(model.getActiveModuleView());
     });
   }
 

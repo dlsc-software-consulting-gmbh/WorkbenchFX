@@ -4,6 +4,7 @@ import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,9 +16,14 @@ import org.apache.logging.log4j.Logger;
  */
 public final class ContentView extends BorderPane implements View {
 
-  private static final Logger LOGGER = LogManager.getLogger(ContentView.class.getName());
+  private static final Logger LOGGER =
+      LogManager.getLogger(ContentView.class.getName());
+
   ToolbarControl toolbarControl;
   AddModuleView addModuleView;
+  StackPane moduleViews;
+
+  Node activeView;
 
   /**
    * Creates a new {@link ContentView}.
@@ -25,6 +31,9 @@ public final class ContentView extends BorderPane implements View {
    */
   public ContentView(AddModuleView addModuleView) {
     this.addModuleView = addModuleView;
+    moduleViews = new StackPane(addModuleView);
+    activeView = addModuleView;
+    setCenter(moduleViews);
     init();
   }
 
@@ -59,7 +68,22 @@ public final class ContentView extends BorderPane implements View {
    * @param node the module content as a Node
    */
   final void setContent(Node node) {
-    setCenter(node);
+    LOGGER.trace("Setting active view to module's view");
+    if (!moduleViews.getChildren().contains(node)) {
+      LOGGER.trace("Initially add view of module to the scene graph");
+      moduleViews.getChildren().add(node);
+    }
+    activeView = node;
+    activeView.setVisible(true);
+  }
+
+  final void hideActiveView() {
+    activeView.setVisible(false);
+    activeView = null;
+  }
+
+  final void removeView(Node view) {
+    moduleViews.getChildren().remove(view);
   }
 
   /**
@@ -72,6 +96,8 @@ public final class ContentView extends BorderPane implements View {
   }
 
   final void setAddModuleView() {
-    setCenter(addModuleView);
+    LOGGER.trace("Setting active view to addModuleView");
+    activeView = addModuleView;
+    addModuleView.setVisible(true);
   }
 }
