@@ -4,7 +4,9 @@ import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,9 +33,7 @@ public final class ContentView extends BorderPane implements View {
    */
   public ContentView(AddModuleView addModuleView) {
     this.addModuleView = addModuleView;
-    moduleViews = new StackPane(addModuleView);
     activeView = addModuleView;
-    setCenter(moduleViews);
     init();
   }
 
@@ -51,6 +51,7 @@ public final class ContentView extends BorderPane implements View {
   @Override
   public final void initializeParts() {
     toolbarControl = new ToolbarControl();
+    moduleViews = new StackPane(activeView);
   }
 
   /**
@@ -58,7 +59,8 @@ public final class ContentView extends BorderPane implements View {
    */
   @Override
   public final void layoutParts() {
-
+    setCenter(moduleViews);
+    VBox.setVgrow(moduleViews, Priority.ALWAYS);
   }
 
   /**
