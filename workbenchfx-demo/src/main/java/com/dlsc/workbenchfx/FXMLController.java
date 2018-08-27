@@ -1,6 +1,6 @@
 package com.dlsc.workbenchfx;
 
-import com.dlsc.workbenchfx.modules.notes.NotesModule;
+import com.dlsc.workbenchfx.modules.helloworld.HelloWorldModule;
 import javafx.fxml.FXML;
 
 public class FXMLController {
@@ -10,7 +10,7 @@ public class FXMLController {
 
   @FXML
   private void initialize() {
-    workbench.getModules().add(new NotesModule());
+    workbench.getModules().add(new HelloWorldModule());
   }
 
 }

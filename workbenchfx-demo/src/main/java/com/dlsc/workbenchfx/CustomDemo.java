@@ -7,7 +7,7 @@ import com.dlsc.workbenchfx.controls.CustomTab;
 import com.dlsc.workbenchfx.controls.CustomTile;
 import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
 import com.dlsc.workbenchfx.modules.customer.CustomerModule;
-import com.dlsc.workbenchfx.modules.notes.NotesModule;
+import com.dlsc.workbenchfx.modules.helloworld.HelloWorldModule;
 import com.dlsc.workbenchfx.modules.patient.PatientModule;
 import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.modules.test.DialogTestModule;
@@ -108,7 +108,7 @@ public class CustomDemo extends Application {
         Workbench.builder(
             new PatientModule(),
             new CalendarModule(),
-            new NotesModule(),
+            new HelloWorldModule(),
             new CustomerModule(),
             new PreferencesModule(),
             new ToolbarTestModule(),

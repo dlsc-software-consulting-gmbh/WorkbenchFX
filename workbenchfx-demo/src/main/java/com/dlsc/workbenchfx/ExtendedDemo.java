@@ -3,7 +3,7 @@ package com.dlsc.workbenchfx;
 import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
 import com.dlsc.workbenchfx.modules.customer.CustomerModule;
 import com.dlsc.workbenchfx.modules.gantt.GanttModule;
-import com.dlsc.workbenchfx.modules.notes.NotesModule;
+import com.dlsc.workbenchfx.modules.helloworld.HelloWorldModule;
 import com.dlsc.workbenchfx.modules.patient.PatientModule;
 import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
@@ -19,7 +19,7 @@ public class ExtendedDemo extends Application {
   public Workbench workbench;
   private PreferencesModule preferencesModule = new PreferencesModule();
   private CalendarModule calendarModule = new CalendarModule();
-  private NotesModule notesModule = new NotesModule();
+  private HelloWorldModule helloWorldModule = new HelloWorldModule();
 
   public static void main(String[] args) {
     launch(args);
@@ -51,7 +51,7 @@ public class ExtendedDemo extends Application {
         Workbench.builder(
             new PatientModule(),
             new CalendarModule(),
-            new NotesModule(),
+            new HelloWorldModule(),
             new CustomerModule(),
             new PreferencesModule(),
             new GanttModule()
