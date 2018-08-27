@@ -20,6 +20,7 @@ import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Calendar.Style;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.view.CalendarView;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import javafx.application.Platform;
 import javafx.scene.layout.StackPane;
@@ -71,7 +72,8 @@ public class CalendarFxView extends StackPane {
       public void run() {
         while (running) {
           Platform.runLater(() -> {
-
+            calendarView.setToday(LocalDate.now());
+            calendarView.setTime(LocalTime.now());
           });
 
           try {
