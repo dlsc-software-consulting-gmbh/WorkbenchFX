@@ -84,8 +84,8 @@ public final class ContentView extends BorderPane implements View {
     activeView = null;
   }
 
-  final void removeView(Node view) {
-    moduleViews.getChildren().remove(view);
+  final boolean removeView(Node view) {
+    return moduleViews.getChildren().remove(view);
   }
 
   /**

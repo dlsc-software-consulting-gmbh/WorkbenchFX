@@ -77,7 +77,7 @@ public final class ContentPresenter extends Presenter {
         Node previousView = openModuleViews.put(newModule, activeModuleView);
         // if the module returns a different view than what the same module has returned with the
         // previous call to WorkbenchModule#activate()
-        if (!Objects.isNull(previousView)) {
+        if (previousView != null && previousView != activeModuleView) {
           // unload the previous view before loading the new one
           LOGGER.trace(
               "unloading previous view, activate() returned different view on " + newModule);
@@ -110,7 +110,7 @@ public final class ContentPresenter extends Presenter {
 
     WorkbenchUtils.addListListener(openModules, module -> {}, module -> {
       LOGGER.trace("Remove from scene graph view of module: " + model.getActiveModule());
-      view.removeView(openModuleViews.get(module);
+      view.removeView(openModuleViews.get(module));
       openModuleViews.remove(module);
     });
   }
