@@ -1,5 +1,6 @@
 # WorkbenchFX
-[![Build Status](https://travis-ci.com/FHNW-IP5-IP6/WorkbenchFX.svg?token=8WqsSGJvE4SAqmHHx2Z7&branch=develop)](https://travis-ci.com/FHNW-IP5-IP6/WorkbenchFX)
+[![Travis CI Build Status](https://travis-ci.com/FHNW-IP5-IP6/WorkbenchFX.svg?token=8WqsSGJvE4SAqmHHx2Z7&branch=develop)](https://travis-ci.com/FHNW-IP5-IP6/WorkbenchFX)
+[![Codecov.io Code Coverage](https://img.shields.io/badge/coverage-95%25-green.svg)](https://codecov.io/gh/FHNW-IP5-IP6/WorkbenchFX)
 
 **The one and only library to build large JavaFX Applications!**
 
@@ -47,21 +48,13 @@ After that, some question may arise such as:
 - "How do I establish a good user experience?"
 
 Exactly when those questions appear, *WorkbenchFX* comes into play:
-We give your views a home and do all the hard work for you.
+With *WorkbenchFX* you can focus on designing your views and meanwhile we're building the application around them.
 
-*WorkbenchFX* comes with an out of the box styling, a good user experience and builds a house around your views.
-It also scales with growing requirements.
+*WorkbenchFX* also scales with growing requirements.
 In the beginning you just want to navigate through the views, but later on you probably would want to use a menu or a toolbar.
 Even that is supported by *WorkbenchFX* and you don't have to build anything by yourself.
+
 If you still manage to start outgrowing the workbench, you can even replace whole parts of it with your own implementations, without having to rewrite the whole workbench.
-
-When you think of your home, what comes into your mind?
-Maybe the rooms, the decor or good memories.
-Probably not the facade, the base, where the power lines are or from what the walls are made of.
-If you're thinking of developing a new software, you think about the views, the features and not about how to switch between views, or the navigation in general.
-
-With *WorkbenchFX* you can focus on designing your room and meanwhile we're building the house around it.
-This house even adapts with growing requirements without you having to do anything.
 
 # Advantages
 - Less error-prone
@@ -149,6 +142,10 @@ Note:
 - For use with FXML & [Scene Builder](https://gluonhq.com/products/scene-builder/), there is also a default constructor `new Workbench()`. However, in this case, modules and other optional features need to be defined separately afterwards
 
 ## Module Lifecycle
+The lifecycle methods are implicitly being called by the workbench.
+You **must not** call any of the lifecycle methods by yourself.
+To close and open modules use only `workbench.openModule()` and `workbench.closeModule()`.
+
 The abstract class `WorkbenchModule` contains four different lifecycle methods which can be overridden:
 
 Method         | Description
@@ -640,10 +637,13 @@ public boolean destroy() {
       ButtonType.YES, ButtonType.NO, ButtonType.CANCEL)
       .blocking(true)
       .onResult(buttonType -> {
-        if (ButtonType.YES.equals(buttonType)) {
-          // YES was pressed -> Proceed with saving
-          ...
-          close(); // At the end of saving, close the module 
+        // If CANCEL was not pressed
+        if (!ButtonType.CANCEL.equals(buttonType)) {
+          if (ButtonType.YES.equals(buttonType)) {
+            // YES was pressed -> Proceed with saving
+            ...
+          }
+          close(); // Close the module since CANCEL was not pressed 
         }
       })
       .build());

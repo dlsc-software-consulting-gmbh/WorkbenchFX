@@ -12,3 +12,9 @@ include::../codecov.yml[]
 ----
 include::{dir-core}/pom.xml[]
 ----
+
+== Travis Configuration File (.travis.yml)
+[source,java]
+----
+include::../.travis.yml[]
+----

@@ -1,4 +1,4 @@
-* {
+.root > * {
   -primary-color: #6200EE;
   -primary-variant-color: #3700b3;
   -secondary-color: #6300ff;
