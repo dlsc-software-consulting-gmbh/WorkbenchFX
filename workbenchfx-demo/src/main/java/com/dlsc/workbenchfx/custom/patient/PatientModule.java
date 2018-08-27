@@ -30,7 +30,8 @@ public class PatientModule extends WorkbenchModule {
   public PatientModule() {
     super("Patient Records", MaterialDesignIcon.ACCOUNT);
     getToolbarControlsLeft().addAll(
-        new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.CONTENT_SAVE), event -> fileCabinet.save()),
+        new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.CONTENT_SAVE),
+            event -> fileCabinet.save()),
         new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.PLUS)),
         new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.MINUS)),
         new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.ACCOUNT),
