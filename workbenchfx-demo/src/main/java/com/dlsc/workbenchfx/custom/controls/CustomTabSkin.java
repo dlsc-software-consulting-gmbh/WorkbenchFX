@@ -1,7 +1,5 @@
 package com.dlsc.workbenchfx.custom.controls;
 
-import com.dlsc.workbenchfx.model.WorkbenchModule;
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.collections.ObservableList;

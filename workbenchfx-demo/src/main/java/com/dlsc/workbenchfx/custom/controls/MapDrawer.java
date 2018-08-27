@@ -45,11 +45,11 @@ public class MapDrawer extends VBox implements MapComponentInitializedListener {
     //Add a marker to the map
     MarkerOptions markerOptions = new MarkerOptions();
 
-    markerOptions.position( new LatLong(47.4814072, 8.2116446) )
+    markerOptions.position(new LatLong(47.4814072, 8.2116446))
         .visible(Boolean.TRUE)
         .title("FHNW");
 
-    Marker marker = new Marker( markerOptions );
+    Marker marker = new Marker(markerOptions);
 
     map.addMarker(marker);
 

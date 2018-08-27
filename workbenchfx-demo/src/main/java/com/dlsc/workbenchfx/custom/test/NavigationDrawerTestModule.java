@@ -49,8 +49,8 @@ public class NavigationDrawerTestModule extends WorkbenchModule {
   private void setupEventHandlers() {
     addMenuBtn.setOnAction(event -> addItems(1));
     addLotItemBtn.setOnAction(event -> addItems(100));
-    addSubmenuBtn.setOnAction(event -> addSubmenu(1,5));
-    addLotSubmenuBtn.setOnAction(event -> addSubmenu(100,100));
+    addSubmenuBtn.setOnAction(event -> addSubmenu(1, 5));
+    addLotSubmenuBtn.setOnAction(event -> addSubmenu(100, 100));
 
     removeItemBtn.setOnAction(event -> removeItems(1));
     removeLotItemBtn.setOnAction(event -> removeItems(100));
@@ -82,13 +82,12 @@ public class NavigationDrawerTestModule extends WorkbenchModule {
     for (int i = 0; i < items; i++) {
       Menu subMenu = new Menu("New Submenu " + itemsCount++);
       itemsLst.add(subMenu);
-      for(int j = 0; j < subItems; j++) {
-        subMenu.getItems().add(new MenuItem("New Sub MenuItem " + (j+1)));
+      for (int j = 0; j < subItems; j++) {
+        subMenu.getItems().add(new MenuItem("New Sub MenuItem " + (j + 1)));
       }
       getWorkbench().getNavigationDrawerItems().add(subMenu);
     }
   }
-
 
 
   @Override

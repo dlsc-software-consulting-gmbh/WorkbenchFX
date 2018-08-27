@@ -55,18 +55,19 @@ public class CalendarDrawer extends VBox {
 
     userIcon = new FontAwesomeIconView(FontAwesomeIcon.USER_CIRCLE);
     userIcon.setId("user-icon");
-    userIcon.setStyle("-fx-fill: black; -fx-font-family: FontAwesome; -fx-font-size: 2em !important;"); // TODO: why is this necessary?
+    userIcon.setStyle(
+        "-fx-fill: black; -fx-font-family: FontAwesome; -fx-font-size: 2em !important;");
     userBox.getChildren().addAll(userIcon, userLbl);
     userBox.setMargin(userIcon, new Insets(10));
 
     calendarGrid.add(workRect, 0, 0);
-    calendarGrid.add(workLbl,  1, 0);
+    calendarGrid.add(workLbl, 1, 0);
 
     calendarGrid.add(homeRect, 0, 1);
-    calendarGrid.add(homeLbl,  1, 1);
+    calendarGrid.add(homeLbl, 1, 1);
 
     calendarGrid.add(familyRect, 0, 2);
-    calendarGrid.add(familyLbl,  1, 2);
+    calendarGrid.add(familyLbl, 1, 2);
 
     calendarGrid.add(friendsRect, 0, 3);
     calendarGrid.add(friendsLbl, 1, 3);
@@ -83,7 +84,7 @@ public class CalendarDrawer extends VBox {
 
     drawerGrid.getChildren().forEach(node -> {
       GridPane.setMargin(node, new Insets(5));
-      Button button = (Button)node;
+      Button button = (Button) node;
       int width = 150;
       int height = 30;
       button.setMaxSize(width, height);
@@ -98,10 +99,14 @@ public class CalendarDrawer extends VBox {
   }
 
   private void setupEventHandlers() {
-    calendarLeftBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.LEFT));
-    calendarRightBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.RIGHT));
-    calendarTopBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.TOP));
-    calendarBottomBtn.setOnAction(event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.BOTTOM));
+    calendarLeftBtn.setOnAction(
+        event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.LEFT));
+    calendarRightBtn.setOnAction(
+        event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.RIGHT));
+    calendarTopBtn.setOnAction(
+        event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.TOP));
+    calendarBottomBtn.setOnAction(
+        event -> workbench.showDrawer(new CalendarDrawer(workbench), Side.BOTTOM));
     hideBtn.setOnAction(event -> workbench.hideDrawer());
   }
 

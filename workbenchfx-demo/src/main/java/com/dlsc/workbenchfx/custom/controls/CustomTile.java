@@ -6,8 +6,8 @@ import com.dlsc.workbenchfx.view.controls.module.Tile;
 import javafx.scene.control.Skin;
 
 /**
- * Represents the standard control used to display {@link WorkbenchModule}s as customTiles in the home
- * screen.
+ * Represents the standard control used to display {@link WorkbenchModule}s as customTiles in the
+ * home screen.
  *
  * @author François Martin
  * @author Marco Sanfratello
