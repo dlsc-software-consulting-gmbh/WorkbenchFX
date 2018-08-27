@@ -96,7 +96,7 @@ public final class ContentPresenter extends Presenter {
 
     WorkbenchUtils.addListListener(openModules, module -> {}, module -> {
       LOGGER.trace("Remove from scene graph view of module: " + model.getActiveModule());
-      view.removeView(model.getActiveModuleView());
+      view.removeView(model.getActiveModuleView()); // TODO: change to implementation that is not faulty
     });
   }
 
