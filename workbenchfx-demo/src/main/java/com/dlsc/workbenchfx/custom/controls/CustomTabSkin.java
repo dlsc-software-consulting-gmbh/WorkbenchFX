@@ -59,16 +59,15 @@ public class CustomTabSkin extends SkinBase<CustomTab> {
     closeBtn.getStyleClass().addAll("icon", "close-icon");
 
     nameLbl = new Label();
+    nameLbl.getStyleClass().add("tab-name-lbl");
+
     controlBox = new HBox();
+    controlBox.getStyleClass().add("tab-box");
   }
 
   private void layoutParts() {
     Label iconPlaceholder = new Label(); // Will be replaced in the listener
     controlBox.getChildren().addAll(iconPlaceholder, nameLbl, closeBtn);
-
-    nameLbl.getStyleClass().add("tab-name-lbl");
-
-    controlBox.getStyleClass().add("tab-control");
   }
 
   private void setupBindings() {
