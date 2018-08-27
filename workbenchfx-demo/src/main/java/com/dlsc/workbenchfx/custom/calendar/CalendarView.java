@@ -30,7 +30,8 @@ public class CalendarView extends BorderPane {
       @Override
       public void run() {
         Platform.runLater(
-                () -> dateLbl.setText("Hello, this is your Calendar!\nToday is the: " + dateFormat.format(new Date()))
+            () -> dateLbl.setText(
+                "Hello, this is your Calendar!\nToday is the: " + dateFormat.format(new Date()))
         );
       }
     }, 0, 1000);

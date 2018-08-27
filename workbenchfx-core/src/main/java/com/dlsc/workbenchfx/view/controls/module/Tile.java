@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the standard control used to display {@link WorkbenchModule}s as tiles
- * in the add module screen screen.
+ * in the add module screen.
  *
  * @author François Martin
  * @author Marco Sanfratello

@@ -16,8 +16,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the skin of the corresponding {@link CustomNavigationDrawer}.
@@ -27,9 +25,6 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer> {
-
-  private static final Logger LOGGER =
-      LogManager.getLogger(CustomNavigationDrawerSkin.class.getName());
 
   private VBox menuContainer;
   private CustomNavigationDrawer navigationDrawer;
@@ -49,20 +44,12 @@ public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer>
     super(navigationDrawer);
     this.navigationDrawer = navigationDrawer;
 
-    initializeSelf();
     initializeParts();
     layoutParts();
     setupEventHandlers();
     setupValueChangedListeners();
 
     buildMenu();
-  }
-
-  /**
-   * Initializes the skin.
-   */
-  private void initializeSelf() {
-    navigationDrawer.getStyleClass().add("navigation-drawer");
   }
 
   /**
@@ -86,7 +73,7 @@ public class CustomNavigationDrawerSkin extends SkinBase<CustomNavigationDrawer>
     backBtn.getStyleClass().add("icon");
     backBtn.setId("back-button");
 
-    companyLogo = new Label("");
+    companyLogo = new Label();
     companyLogo.getStyleClass().add("logo");
   }
 

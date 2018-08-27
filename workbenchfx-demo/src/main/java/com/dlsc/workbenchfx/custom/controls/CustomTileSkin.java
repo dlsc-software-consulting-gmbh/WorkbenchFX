@@ -38,16 +38,13 @@ public class CustomTileSkin extends SkinBase<CustomTile> {
     icon = new Label();
     icon.getStyleClass().add("icon");
     contentBox = new VBox();
-    contentBox.getStyleClass().add("tile-control");
+    contentBox.getStyleClass().add("tile-box");
     textLbl = new MultilineLabel(getSkinnable().getName());
     textLbl.getStyleClass().add("text-lbl");
   }
 
   private void layoutParts() {
-    contentBox.getChildren().addAll(
-        icon,
-        textLbl
-    );
+    contentBox.getChildren().addAll(icon, textLbl);
     getChildren().add(contentBox);
   }
 
@@ -55,4 +52,5 @@ public class CustomTileSkin extends SkinBase<CustomTile> {
     icon.graphicProperty().bind(getSkinnable().iconProperty());
     textLbl.textProperty().bind(getSkinnable().nameProperty());
   }
+
 }

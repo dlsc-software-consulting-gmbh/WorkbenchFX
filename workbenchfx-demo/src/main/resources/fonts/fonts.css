@@ -1,0 +1,57 @@
+@font-face {
+    font-family: 'FontAwesome';
+    src: url("font-awesome-4.6.3/fontawesome-webfont.ttf");
+}
+
+@font-face {
+    font-family: 'Font Awesome 5 Free Brands';
+    src: url("fontawesome-free-5.0.3/fa-brands-400.ttf");
+}
+
+@font-face {
+    font-family: 'Font Awesome 5 Free Regular';
+    src: url("fontawesome-free-5.0.3/fa-regular-400.ttf");
+}
+
+@font-face {
+    font-family: 'Font Awesome 5 Free Solid';
+    src: url("fontawesome-free-5.0.3/fa-solid-900.ttf");
+}
+
+@font-face {
+    font-family: 'Flaticon';
+    src: url("flaticon/flaticon.ttf");
+}
+
+
+@font-face {
+    font-family: 'Lato Light';
+    src: url(Lato/Lato-Lig.ttf);
+}
+
+@font-face {
+    font-family: 'Lato Regular';
+    src: url(Lato/Lato-Reg.ttf);
+}
+
+@font-face {
+    font-family: 'Lato Black';
+    src: url(Lato/Lato-Bla.ttf);
+}
+
+@font-face {
+    font-family: 'Lato Bold';
+    src: url(Lato/Lato-Bol.ttf);
+}
+
+@font-face {
+    font-family: 'Lato Hairline';
+    src: url(Lato/Lato-Hai.ttf);
+}
+
+@font-face {
+    font-family: 'DS-Digital';
+    src: url(ds_digital/DS-DIGI.TTF);
+}
+
+

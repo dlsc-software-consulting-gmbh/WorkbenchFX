@@ -1,0 +1,8 @@
+.fontawesome .text {
+    -fx-font-family: "FontAwesome";
+}
+
+@import "toolbar";
+@import "detailview";
+@import "patient-pagination";
+@import "patient-list";
