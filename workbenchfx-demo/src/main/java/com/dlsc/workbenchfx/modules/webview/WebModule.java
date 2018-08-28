@@ -29,14 +29,14 @@ public class WebModule extends WorkbenchModule {
     // setup webview
     browser = new WebView();
     webEngine = browser.getEngine();
-    webEngine.setOnStatusChanged(
-        event -> System.out.println("Status of WebView changed to: " + event.getData()));
 
-    // setup toolbar
+    // setup textfield for URL
     browserUrl = new TextField("Loading...");
     HBox.setHgrow(browserUrl, Priority.ALWAYS);
-    browserUrl.setPrefColumnCount(9999);
+    browserUrl.setPrefColumnCount(Integer.MAX_VALUE); // make sure textfield takes up rest of space
     browserUrl.setEditable(false);
+
+    // setup toolbar
     ToolbarItem home = new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.HOME),
         event -> webEngine.load(url));
     ToolbarItem increaseSize = new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.PLUS),
