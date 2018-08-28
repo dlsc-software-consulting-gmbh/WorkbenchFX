@@ -19,6 +19,7 @@ import com.dlsc.workbenchfx.modules.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.modules.test.ToolbarItemTestModule;
 import com.dlsc.workbenchfx.modules.test.ToolbarTestModule;
 import com.dlsc.workbenchfx.modules.test.WidgetsTestModule;
+import com.dlsc.workbenchfx.modules.webview.WebModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -111,6 +112,7 @@ public class CustomDemo extends Application {
             new NotesModule(),
             new CustomerModule(),
             new PreferencesModule(),
+            new WebModule("DLSC", "http://dlsc.com"),
             new ToolbarTestModule(),
             new ToolbarTestModule(),
             new WidgetsTestModule(),
