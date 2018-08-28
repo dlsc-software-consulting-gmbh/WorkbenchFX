@@ -3,6 +3,7 @@ package com.dlsc.workbenchfx;
 import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
 import com.dlsc.workbenchfx.modules.notes.NotesModule;
 import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
+import com.dlsc.workbenchfx.modules.webview.WebModule;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -13,6 +14,9 @@ public class SimpleDemo extends Application {
   private PreferencesModule preferencesModule = new PreferencesModule();
   private CalendarModule calendarModule = new CalendarModule();
   private NotesModule notesModule = new NotesModule();
+  private WebModule dlsc = new WebModule("DLSC", "http://dlsc.com");
+  private WebModule documentation = new WebModule("Documentation",WebModule .class.getResource("index.html").toExternalForm());
+  private WebModule notepad = new WebModule("Notepad", "https://docs.google.com");
 
   public static void main(String[] args) {
     launch(args);
@@ -37,7 +41,10 @@ public class SimpleDemo extends Application {
     workbench = Workbench.builder(
         calendarModule,
         notesModule,
-        preferencesModule
+        preferencesModule,
+        dlsc,
+        notepad,
+        documentation
     ).build();
     return workbench;
   }

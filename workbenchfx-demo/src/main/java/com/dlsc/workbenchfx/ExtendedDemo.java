@@ -1,10 +1,10 @@
 package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
-import com.dlsc.workbenchfx.modules.customer.CustomerModule;
 import com.dlsc.workbenchfx.modules.notes.NotesModule;
 import com.dlsc.workbenchfx.modules.patient.PatientModule;
 import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
+import com.dlsc.workbenchfx.modules.webview.WebModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -51,8 +51,9 @@ public class ExtendedDemo extends Application {
             new PatientModule(),
             new CalendarModule(),
             new NotesModule(),
-            new CustomerModule(),
-            new PreferencesModule()
+            new WebModule("DLSC", "https://dlsc.com"),
+            new WebModule("Notepad", "https://docs.google.com"),
+            new WebModule("Documentation", WebModule.class.getResource("index.html").toExternalForm())
         )
             .toolbarLeft(new ToolbarItem("WorkbenchFX"))
             .toolbarRight(showDialogButton)
