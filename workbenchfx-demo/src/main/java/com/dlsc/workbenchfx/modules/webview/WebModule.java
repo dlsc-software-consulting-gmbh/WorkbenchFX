@@ -5,6 +5,7 @@ import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import com.google.common.base.Strings;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import java.util.Objects;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
@@ -12,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import org.w3c.dom.Document;
 
 public class WebModule extends WorkbenchModule {
 
@@ -47,9 +49,10 @@ public class WebModule extends WorkbenchModule {
     // update textfield with url every time the url of the webview changes
     webEngine.documentProperty().addListener(
         observable -> {
-          String currentUrl = webEngine.getDocument().getDocumentURI();
-          if (!Strings.isNullOrEmpty(currentUrl)) {
-            browserUrl.setText(currentUrl);
+          Document document = webEngine.getDocument();
+          if (!Objects.isNull(document) &&
+              !Strings.isNullOrEmpty(document.getDocumentURI())) {
+            browserUrl.setText(document.getDocumentURI());
           }
         });
   }
