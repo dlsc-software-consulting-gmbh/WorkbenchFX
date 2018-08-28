@@ -16,6 +16,7 @@ import javafx.scene.web.WebView;
 
 public class WebModule extends WorkbenchModule {
 
+  private static final double FONT_SCALE_INCREMENT = 0.1;
   private final String url;
   private final WebView browser;
   private final TextField browserUrl;
@@ -39,9 +40,9 @@ public class WebModule extends WorkbenchModule {
     ToolbarItem home = new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.HOME),
         event -> webEngine.load(url));
     ToolbarItem increaseSize = new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.PLUS),
-        event -> browser.setFontScale(browser.getFontScale() + 1));
+        event -> browser.setFontScale(browser.getFontScale() + FONT_SCALE_INCREMENT));
     ToolbarItem decreaseSize = new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.MINUS),
-        event -> browser.setFontScale(browser.getFontScale() - 1));
+        event -> browser.setFontScale(browser.getFontScale() - FONT_SCALE_INCREMENT));
     getToolbarControlsLeft().addAll(home, increaseSize, decreaseSize, new ToolbarItem(browserUrl));
 
     // update textfield with url every time the url of the webview changes
