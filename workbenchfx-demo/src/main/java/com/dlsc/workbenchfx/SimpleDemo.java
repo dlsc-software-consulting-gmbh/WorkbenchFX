@@ -4,6 +4,7 @@ import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
 import com.dlsc.workbenchfx.modules.notes.NotesModule;
 import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.modules.webview.WebModule;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -14,9 +15,9 @@ public class SimpleDemo extends Application {
   private PreferencesModule preferencesModule = new PreferencesModule();
   private CalendarModule calendarModule = new CalendarModule();
   private NotesModule notesModule = new NotesModule();
-  private WebModule dlsc = new WebModule("DLSC", "http://dlsc.com");
-  private WebModule documentation = new WebModule("Documentation",WebModule .class.getResource("index.html").toExternalForm());
-  private WebModule notepad = new WebModule("Notepad", "https://docs.google.com");
+  private WebModule dlsc = new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com");
+  private WebModule notepad = new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com");
+  private WebModule documentation = new WebModule("Documentation", MaterialDesignIcon.BOOK, WebModule.class.getResource("index.html").toExternalForm());
 
   public static void main(String[] args) {
     launch(args);

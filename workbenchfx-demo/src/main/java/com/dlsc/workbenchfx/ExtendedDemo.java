@@ -51,9 +51,9 @@ public class ExtendedDemo extends Application {
             new PatientModule(),
             new CalendarModule(),
             new NotesModule(),
-            new WebModule("DLSC", "https://dlsc.com"),
-            new WebModule("Notepad", "https://docs.google.com"),
-            new WebModule("Documentation", WebModule.class.getResource("index.html").toExternalForm())
+            new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
+            new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
+            new WebModule("Documentation", MaterialDesignIcon.BOOK, WebModule.class.getResource("index.html").toExternalForm())
         )
             .toolbarLeft(new ToolbarItem("WorkbenchFX"))
             .toolbarRight(showDialogButton)
