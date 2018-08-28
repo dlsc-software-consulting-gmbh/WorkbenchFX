@@ -7,15 +7,20 @@ import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
+import javafx.scene.layout.StackPane;
 
-public class MapsView extends GoogleMapView implements MapComponentInitializedListener {
+public class MapsView extends StackPane implements MapComponentInitializedListener {
 
+  private GoogleMapView mapView;
   private GoogleMap map;
 
   public MapsView() {
     getStyleClass().add("module-background");
     // initialize map
-    addMapInializedListener(this);
+    mapView = new GoogleMapView();
+    mapView.addMapInializedListener(this);
+
+    getChildren().add(mapView);
   }
 
   @Override
@@ -32,7 +37,7 @@ public class MapsView extends GoogleMapView implements MapComponentInitializedLi
         .zoomControl(false)
         .zoom(17);
 
-    map = createMap(mapOptions);
+    map = mapView.createMap(mapOptions);
 
     //Add a marker to the map
     MarkerOptions markerOptions = new MarkerOptions();
