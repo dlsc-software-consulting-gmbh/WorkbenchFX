@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
+import com.dlsc.workbenchfx.modules.gantt.GanttModule;
 import com.dlsc.workbenchfx.modules.helloworld.HelloWorldModule;
 import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
 import javafx.application.Application;
@@ -13,6 +14,7 @@ public class SimpleDemo extends Application {
   private PreferencesModule preferencesModule = new PreferencesModule();
   private CalendarModule calendarModule = new CalendarModule();
   private HelloWorldModule helloWorldModule = new HelloWorldModule();
+  private GanttModule ganttModule = new GanttModule();
 
   public static void main(String[] args) {
     launch(args);
@@ -37,7 +39,8 @@ public class SimpleDemo extends Application {
     workbench = Workbench.builder(
         calendarModule,
         helloWorldModule,
-        preferencesModule
+        preferencesModule,
+        ganttModule
     ).build();
     return workbench;
   }
