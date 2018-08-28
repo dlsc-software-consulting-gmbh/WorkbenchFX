@@ -17,7 +17,6 @@ public class SimpleDemo extends Application {
   private NotesModule notesModule = new NotesModule();
   private WebModule dlsc = new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com");
   private WebModule notepad = new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com");
-  private WebModule documentation = new WebModule("Documentation", MaterialDesignIcon.BOOK, WebModule.class.getResource("index.html").toExternalForm());
 
   public static void main(String[] args) {
     launch(args);
@@ -44,8 +43,7 @@ public class SimpleDemo extends Application {
         notesModule,
         preferencesModule,
         dlsc,
-        notepad,
-        documentation
+        notepad
     ).build();
     return workbench;
   }
