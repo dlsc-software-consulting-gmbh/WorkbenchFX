@@ -58,12 +58,12 @@ public class WebModule extends WorkbenchModule {
         event -> webEngine.load(url));
     ToolbarItem reload = new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.REFRESH),
         event -> webEngine.reload());
+    getToolbarControlsLeft().addAll(back, forward, home, reload, new ToolbarItem(browserUrl));
 
     ToolbarItem increaseSize = new ToolbarItem(new Group(increaseFontIcon),
         event -> browser.setFontScale(browser.getFontScale() + FONT_SCALE_INCREMENT));
     ToolbarItem decreaseSize = new ToolbarItem(new Group(decreaseFontIcon),
         event -> browser.setFontScale(browser.getFontScale() - FONT_SCALE_INCREMENT));
-    getToolbarControlsLeft().addAll(back, forward, home, reload, new ToolbarItem(browserUrl));
     getToolbarControlsRight().addAll(increaseSize, decreaseSize);
 
     // update textfield with url every time the url of the webview changes
