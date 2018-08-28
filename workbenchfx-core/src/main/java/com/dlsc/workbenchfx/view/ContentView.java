@@ -74,6 +74,7 @@ public final class ContentView extends BorderPane implements View {
     if (!moduleViews.getChildren().contains(node)) {
       LOGGER.trace("Initially add view of module to the scene graph");
       moduleViews.getChildren().add(node);
+      //Platform.runLater(() -> moduleViews.getChildren().add(node)); TODO
     }
     activeView = node;
     activeView.setVisible(true);
