@@ -113,6 +113,7 @@ public class CustomDemo extends Application {
             new CustomerModule(),
             new PreferencesModule(),
             new WebModule("DLSC", "http://dlsc.com"),
+            new WebModule("Documentation", WebModule.class.getResource("index.html").toExternalForm()),
             new ToolbarTestModule(),
             new ToolbarTestModule(),
             new WidgetsTestModule(),

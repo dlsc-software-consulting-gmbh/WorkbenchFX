@@ -6,6 +6,7 @@ import com.google.common.base.Strings;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -29,11 +30,11 @@ public class WebModule extends WorkbenchModule {
     webEngine = browser.getEngine();
     webEngine.setOnStatusChanged(
         event -> System.out.println("Status of WebView changed to: " + event.getData()));
-    webEngine.load(url);
 
     // setup toolbar
     browserUrl = new TextField("Loading...");
     HBox.setHgrow(browserUrl, Priority.ALWAYS);
+    browserUrl.setPrefColumnCount(9999);
     browserUrl.setEditable(false);
     ToolbarItem home = new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.HOME),
         event -> webEngine.load(url));
@@ -55,6 +56,7 @@ public class WebModule extends WorkbenchModule {
 
   @Override
   public Node activate() {
+    Platform.runLater(() -> webEngine.load(url));
     return browser;
   }
 
