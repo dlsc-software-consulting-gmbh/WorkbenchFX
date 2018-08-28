@@ -150,12 +150,6 @@
       <scope>system</scope>
       <systemPath>${project.basedir}/lib/license4j-1.4.0.jar</systemPath>
     </dependency>
-    <dependency>
-      <artifactId>controlsfx</artifactId>
-      <groupId>com.controlsfx</groupId>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/lib/controlsfx-8.40.11.jar</systemPath>
-    </dependency>
 
     <!-- Java 8 only -->
     <dependency>
