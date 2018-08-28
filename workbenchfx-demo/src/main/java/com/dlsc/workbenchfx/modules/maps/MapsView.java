@@ -19,7 +19,6 @@ public class MapsView extends StackPane implements MapComponentInitializedListen
     // initialize map
     mapView = new GoogleMapView();
     mapView.addMapInializedListener(this);
-
     getChildren().add(mapView);
   }
 
@@ -49,6 +48,14 @@ public class MapsView extends StackPane implements MapComponentInitializedListen
     Marker marker = new Marker(markerOptions);
 
     map.addMarker(marker);
+  }
+
+  public void zoomIn() {
+    map.setZoom(map.getZoom()+1);
+  }
+
+  public void zoomOut() {
+    map.setZoom(map.getZoom()-1);
   }
 
 }
