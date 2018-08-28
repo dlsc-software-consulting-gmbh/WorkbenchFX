@@ -69,8 +69,8 @@ public class ExtendedDemo extends Application {
     item3.setOnAction(event -> workbench.hideNavigationDrawer());
 
     // This sets the custom style. Comment this out to have a look at the default styles.
-    workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
-    //workbench.getStylesheets().add(CustomDemo.class.getResource("darkTheme.css").toExternalForm());
+    workbench.getStylesheets().add(ExtendedDemo.class.getResource("customTheme.css").toExternalForm());
+    //workbench.getStylesheets().add(ExtendedDemo.class.getResource("darkTheme.css").toExternalForm());
 
     return workbench;
   }
