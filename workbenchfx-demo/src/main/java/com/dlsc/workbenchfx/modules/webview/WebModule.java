@@ -3,7 +3,6 @@ package com.dlsc.workbenchfx.modules.webview;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import com.google.common.base.Strings;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Platform;
@@ -22,8 +21,8 @@ public class WebModule extends WorkbenchModule {
   private final TextField browserUrl;
   private WebEngine webEngine;
 
-  public WebModule(String name, String url) {
-    super(name, FontAwesomeIcon.GLOBE);
+  public WebModule(String name, MaterialDesignIcon icon, String url) {
+    super(name, icon);
     this.url = url;
 
     // setup webview
