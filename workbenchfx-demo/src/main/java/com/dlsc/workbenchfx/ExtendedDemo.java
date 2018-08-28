@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 
 public class ExtendedDemo extends Application {
 
+  private static final String DOCUMENTATION_PATH =
+      WebModule.class.getResource("index.html").toExternalForm();
+
   public Workbench workbench;
   private PreferencesModule preferencesModule = new PreferencesModule();
   private CalendarModule calendarModule = new CalendarModule();
@@ -53,7 +56,7 @@ public class ExtendedDemo extends Application {
             new NotesModule(),
             new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
             new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
-            new WebModule("Documentation", MaterialDesignIcon.BOOK, WebModule.class.getResource("index.html").toExternalForm())
+            new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH)
         )
             .toolbarLeft(new ToolbarItem("WorkbenchFX"))
             .toolbarRight(showDialogButton)

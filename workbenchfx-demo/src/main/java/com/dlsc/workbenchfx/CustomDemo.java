@@ -40,6 +40,9 @@ import org.apache.logging.log4j.Logger;
 public class CustomDemo extends Application {
 
   private static final Logger LOGGER = LogManager.getLogger(CustomDemo.class.getName());
+  private static final String DOCUMENTATION_PATH =
+      WebModule.class.getResource("index.html").toExternalForm();
+
   public Workbench workbench;
   PreferencesModule preferencesModule = new PreferencesModule();
 
@@ -114,7 +117,7 @@ public class CustomDemo extends Application {
             new PreferencesModule(),
             new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
             new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
-            new WebModule("Documentation", MaterialDesignIcon.BOOK, WebModule.class.getResource("index.html").toExternalForm()),
+            new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH),
             new ToolbarTestModule(),
             new ToolbarTestModule(),
             new WidgetsTestModule(),
