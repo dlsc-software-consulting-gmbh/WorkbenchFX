@@ -33,7 +33,7 @@ public class WebModule extends WorkbenchModule {
   private final String url;
   private final WebView browser;
   private final TextField browserUrl;
-  private WebEngine webEngine;
+  private final WebEngine webEngine;
 
   public WebModule(String name, MaterialDesignIcon icon, String url) {
     super(name, icon);
