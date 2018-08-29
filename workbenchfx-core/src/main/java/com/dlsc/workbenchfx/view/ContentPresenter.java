@@ -27,13 +27,14 @@ public final class ContentPresenter extends Presenter {
   private final Workbench model;
   private final ContentView view;
   private final ObservableList<WorkbenchModule> openModules;
-  private final ObservableMap<WorkbenchModule, Node> openModuleViews = FXCollections.observableHashMap();
+  private final ObservableMap<WorkbenchModule, Node> openModuleViews =
+      FXCollections.observableHashMap();
 
   /**
    * Creates a new {@link ContentPresenter} object for a corresponding {@link ContentView}.
    *
    * @param model the workbench, holding all data
-   * @param view the corresponding {@link ContentView}
+   * @param view  the corresponding {@link ContentView}
    */
   public ContentPresenter(Workbench model, ContentView view) {
     this.model = model;
@@ -108,11 +109,12 @@ public final class ContentPresenter extends Presenter {
       }
     });
 
-    WorkbenchUtils.addListListener(openModules, module -> {}, module -> {
-      LOGGER.trace("Remove from scene graph view of module: " + model.getActiveModule());
-      view.removeView(openModuleViews.get(module));
-      openModuleViews.remove(module);
-    });
+    WorkbenchUtils.addListListener(openModules, module -> {
+    }, module -> {
+        LOGGER.trace("Remove from scene graph view of module: " + model.getActiveModule());
+        view.removeView(openModuleViews.get(module));
+        openModuleViews.remove(module);
+      });
   }
 
   /**
