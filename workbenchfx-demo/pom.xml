@@ -127,6 +127,7 @@
             <version>8.5.0</version>
         </dependency>
 
+        <!-- FlexganttFX -->
         <dependency>
             <groupId>com.flexganttfx</groupId>
             <artifactId>core</artifactId>
