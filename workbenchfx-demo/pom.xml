@@ -17,13 +17,12 @@
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
-        <flexganttfx.repository.path>${project.basedir}/repository</flexganttfx.repository.path>
     </properties>
 
     <repositories>
         <repository>
             <id>flexgantt-local-repository</id>
-            <url>file://${flexganttfx.repository.path}</url>
+            <url>file://${project.basedir}/repository</url>
         </repository>
 
         <repository>
