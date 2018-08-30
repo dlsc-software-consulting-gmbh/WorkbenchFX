@@ -16,6 +16,10 @@
         <asciidoctor.maven.plugin.version>1.5.6</asciidoctor.maven.plugin.version>
         <asciidoctorj.version>1.5.6</asciidoctorj.version>
         <jruby.version>9.1.17.0</jruby.version>
+
+        <flexganttfx.repository.path>${project.basedir}/workbenchfx-demo/repository</flexganttfx.repository.path>
+        <flexganttfx.install-phase>initialize</flexganttfx.install-phase>
+        <flexganttfx.version>1.7.0</flexganttfx.version>
     </properties>
 
     <modules>
@@ -118,6 +122,12 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+            </plugin>
+
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
@@ -152,6 +162,88 @@
                             </arguments>
                         </configuration>
                     </execution>
+
+                    <!-- Install FlexganttFX -->
+                    <!--
+                    <execution>
+                        <id>install-flexganttfx-core</id>
+                        <phase>${flexganttfx.install-phase}</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${flexganttfx.repository.path}/flexganttfx-core-${flexganttfx.version}.jar</argument>
+                                <argument>-DlocalRepositoryPath=${flexganttfx.repository.path}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-flexganttfx-extras</id>
+                        <phase>${flexganttfx.install-phase}</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${flexganttfx.repository.path}/flexganttfx-extras-${flexganttfx.version}.jar</argument>
+                                <argument>-DlocalRepositoryPath=${flexganttfx.repository.path}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-flexganttfx-model</id>
+                        <phase>${flexganttfx.install-phase}</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${flexganttfx.repository.path}/flexganttfx-model-${flexganttfx.version}.jar</argument>
+                                <argument>-DlocalRepositoryPath=${flexganttfx.repository.path}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-flexganttfx-view</id>
+                        <phase>${flexganttfx.install-phase}</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${flexganttfx.repository.path}/flexganttfx-view-${flexganttfx.version}.jar</argument>
+                                <argument>-DlocalRepositoryPath=${flexganttfx.repository.path}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-flexganttfx-license</id>
+                        <phase>${flexganttfx.install-phase}</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${flexganttfx.repository.path}/license4j-1.4.0.jar</argument>
+                                <argument>-DgroupId=com.license4j</argument>
+                                <argument>-DartifactId=license4j</argument>
+                                <argument>-Dversion=1.4.0</argument>
+                                <argument>-Dpackaging=jar</argument>
+                                <argument>-DlocalRepositoryPath=${flexganttfx.repository.path}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>-->
                 </executions>
             </plugin>
         </plugins>
