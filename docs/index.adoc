@@ -105,12 +105,12 @@ We refer to their names throughout in this documentation.
 
 === Applications
 The goal of this analysis is to look at the structural layout of different kinds of applications and to find best practices amongst them.
-This way we gathered inspiration on how the design of the created workbench with our API might look like.
-This helped us to decide which characteristics we want to include in WorkbenchFX.
+This way, we gathered inspiration on how the design of the created workbench with our API might look like.
+This helped us decide which characteristics we want to include in WorkbenchFX.
 
 Because there are lots of applications available, we tried to look at a variety of them to ensure a good overview.
 
-The following sub chapters are showing each an image of the analyzed program and a table with its characteristics and (if there) some positive or negative impressions.
+The following subchapters show the analyzed applications, with an image, a table with the characteristics and if there are, positive or negative impressions each.
 
 ==== Blender
 Blender is a tool for creating 3D models which are used in animated movies or in game development.
@@ -134,7 +134,7 @@ image::include/analysis/blender.png[Blender]
 
 - Right bar: Several tools
 
-- Footer: Animation, and view modes
+- Footer: Animation and view modes
 
 - Center: The model which is created (main working area)
 |
@@ -143,9 +143,9 @@ image::include/analysis/blender.png[Blender]
 |
 |If their size becomes 0, they disappear.
  They can be restored, but only by using a shortcut
-|The sections can be shown and hidden when they are not used anymore
+|The sections can be shown and hidden, when they are not used anymore
 |Using shortcuts to show/hide the bars
-|- There is no animation, during showing or hiding
+|- There are no animations when showing or hiding
 
 - No possibility to show/hide the bars manually
 |In the top right corner: Dragging a triangle creates a new window
@@ -166,12 +166,12 @@ image::include/analysis/blender.png[Blender]
 |
 |When creating a new project, all settings are restored to default
 |If the workspace becomes a 'mess', one can simply open a new window and everything is restored
-|When a user is used to working in a certain way, they have to change the workspace every time they starts a new project
+|When a user is used to working in a certain way, they have to change the workspace every time they start a new project
 |===
 
 ==== Adobe Photoshop
-Adobe Photoshop is probably one of the most widely used tools when it comes to photo manipulation and creation of digital art.
-Since it requires some experience to use it properly and therefore is made primary for power users.
+Adobe Photoshop is probably one of the most widely used tools when it comes to manipulation of photos and creation of digital art.
+Since it requires some experience to use it properly, it is made primarily for power users.
 <<img-photoshop>> gives a short impression of the program and <<characteristics-photoshop>> shows our findings.
 
 .Adobe Photoshop
@@ -214,7 +214,7 @@ image::include/analysis/photoshop.png[Adobe Photoshop]
 |
 |The tools are stored in tabs and drawers
 |When double-clicking on the tabs, they collapse
-|They have 3 states (not likely to understand) and the collapsing behaviour is not intuitive
+|They have 3 states (not likely to understand) and the collapsing behavior is not intuitive
 |===
 
 ==== IntelliJ IDEA
@@ -241,7 +241,7 @@ image::include/analysis/intellij.png[IntelliJ IDEA]
 
 - Right bar: Space for drawers. Used to display build functionality
 
-- Bottom bar: Additional space for drawers and tools. Widely used for extra collapsible drawers
+- Bottom bar: Additional space for drawers and tools. Widely used for additional collapsible drawers
 
 - Status bar: At the bottom of the window. Displays additional information
 
@@ -251,7 +251,7 @@ image::include/analysis/intellij.png[IntelliJ IDEA]
 |Navigation via tabs
 |
 |
-|When right clicking on the tab, its positioning behaviour can be decided
+|When right clicking on the tab, its positioning behavior can be defined
 |Nearly every possible state is supported
 
 - Pinned
@@ -277,20 +277,20 @@ image::include/analysis/intellij.png[IntelliJ IDEA]
 |===
 
 ==== Figma
-Figma is a tool used for prototyping.
+Figma is a tool used for prototyping of user interfaces.
 Using it is very easy and intuitive.
 It can used by non power users.
-Compared to the other tools analyzed before, its tools are fixed and defined.
+Compared to the other applications analyzed before, its tools are fixed and defined.
 The tools can't be moved or removed.
 The design of the software is straight forward and is kept very simple.
 
 It consists of five main sections:
 
-* Menu bar on top where all the features are stored
+* Menu bar on top, where all the features are placed
 * Toolbar below the menu bar where the most important tools are stored
-* Left bar where the tree structure / navigation of the current active work is displayed
-* Right bar where all important information and attributes about the selected component is displayed
-* Center where the main work is being done
+* Left bar, where the tree structure / navigation of the current active work is displayed
+* Right bar, where all important information and attributes about the selected component is displayed
+* Center, where the main work is being done
 
 <<img-figma>> gives a short impression of the program.
 
