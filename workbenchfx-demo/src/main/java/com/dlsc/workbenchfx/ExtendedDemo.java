@@ -1,6 +1,8 @@
 package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
+import com.dlsc.workbenchfx.modules.customer.CustomerModule;
+import com.dlsc.workbenchfx.modules.maps.MapsModule;
 import com.dlsc.workbenchfx.modules.notes.NotesModule;
 import com.dlsc.workbenchfx.modules.patient.PatientModule;
 import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
@@ -56,7 +58,8 @@ public class ExtendedDemo extends Application {
             new NotesModule(),
             new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
             new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
-            new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH)
+            new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH),
+            new MapsModule()
         )
             .toolbarLeft(new ToolbarItem("WorkbenchFX"))
             .toolbarRight(showDialogButton)

@@ -1,6 +1,7 @@
 package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
+import com.dlsc.workbenchfx.modules.maps.MapsModule;
 import com.dlsc.workbenchfx.modules.notes.NotesModule;
 import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.modules.webview.WebModule;
@@ -17,6 +18,7 @@ public class SimpleDemo extends Application {
   private NotesModule notesModule = new NotesModule();
   private WebModule dlsc = new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com");
   private WebModule notepad = new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com");
+  private MapsModule mapsModule = new MapsModule();
 
   public static void main(String[] args) {
     launch(args);
@@ -44,6 +46,8 @@ public class SimpleDemo extends Application {
         preferencesModule,
         dlsc,
         notepad
+        preferencesModule,
+        mapsModule
     ).build();
     return workbench;
   }
