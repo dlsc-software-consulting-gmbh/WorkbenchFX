@@ -7,8 +7,9 @@ import com.dlsc.workbenchfx.controls.CustomTab;
 import com.dlsc.workbenchfx.controls.CustomTile;
 import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
 import com.dlsc.workbenchfx.modules.customer.CustomerModule;
+import com.dlsc.workbenchfx.modules.gantt.GanttModule;
+import com.dlsc.workbenchfx.modules.helloworld.HelloWorldModule;
 import com.dlsc.workbenchfx.modules.maps.MapsModule;
-import com.dlsc.workbenchfx.modules.notes.NotesModule;
 import com.dlsc.workbenchfx.modules.patient.PatientModule;
 import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.modules.test.DialogTestModule;
@@ -20,6 +21,7 @@ import com.dlsc.workbenchfx.modules.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.modules.test.ToolbarItemTestModule;
 import com.dlsc.workbenchfx.modules.test.ToolbarTestModule;
 import com.dlsc.workbenchfx.modules.test.WidgetsTestModule;
+import com.dlsc.workbenchfx.modules.webview.WebModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -40,6 +42,9 @@ import org.apache.logging.log4j.Logger;
 public class CustomDemo extends Application {
 
   private static final Logger LOGGER = LogManager.getLogger(CustomDemo.class.getName());
+  private static final String DOCUMENTATION_PATH =
+      WebModule.class.getResource("index.html").toExternalForm();
+
   public Workbench workbench;
   PreferencesModule preferencesModule = new PreferencesModule();
 
@@ -109,11 +114,14 @@ public class CustomDemo extends Application {
         Workbench.builder(
             new PatientModule(),
             new CalendarModule(),
-            new NotesModule(),
+            new HelloWorldModule(),
             new CustomerModule(),
+            new GanttModule(),
             new MapsModule(),
             new PreferencesModule(),
-            new ToolbarTestModule(),
+            new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
+            new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
+            new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH),
             new ToolbarTestModule(),
             new WidgetsTestModule(),
             new ToolbarItemTestModule(),
@@ -127,11 +135,7 @@ public class CustomDemo extends Application {
             .toolbarLeft(
                 new ToolbarItem("WorkbenchFX"),
                 addPreferences,
-                removePreferences,
-                new ToolbarItem(
-                    new FontAwesomeIconView(FontAwesomeIcon.ADDRESS_BOOK),
-                    new CustomMenuItem(new Label("Content 1")),
-                    new CustomMenuItem(new Label("Content 2")))
+                removePreferences
             )
             .toolbarRight(
                 showDialogButton,
