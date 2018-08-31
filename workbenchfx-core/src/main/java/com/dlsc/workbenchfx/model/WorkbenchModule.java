@@ -3,6 +3,8 @@ package com.dlsc.workbenchfx.model;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.ToolbarControl;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
+import com.dlsc.workbenchfx.view.controls.module.Tab;
+import com.dlsc.workbenchfx.view.controls.module.Tile;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
@@ -82,9 +84,19 @@ public abstract class WorkbenchModule {
   // Lifecycle
 
   /**
-   * Gets called when the module is being opened from the overview for the first time.
+   * Gets called when there is no {@link Tab} of a module and the module gets opened.
+   * This can either be because the module is being opened for the first time, or the module's
+   * {@link Tab} has been closed and the module is being re-opened.
    *
    * @param workbench the calling workbench object
+   * @implNote Clicking on the {@link Tile} of a module in the add module view will cause the
+   *           corresponding module to get opened. When this module is being opened, with
+   *           <b>no</b> {@link Tab}s of this module existing yet, the {@link Workbench} will first
+   *           call this method. Then, it will create a new {@link Tab} for this module in the
+   *           tab bar and open it, which causes {@link #activate()} to get called.<br>
+   *           When there is an open {@link Tab} of a module, opening the module will <b>not</b>
+   *           cause {@link #init(Workbench)} to be called again. It will only be called if the
+   *           module's {@link Tab} was closed and the module is opened again.
    * @implSpec the implementor of this method <b>must</b> call {@code super(Workbench)} to ensure
    *           correct working order.
    */
