@@ -22,12 +22,12 @@ The framework provides a great user experience, combined with a good usability a
 Restyling the workbench can easily being done by simply changing `CSS` variables.
 
 == Acknowledgements
-We had a lot of help during our way to *WorkbenchFX*.
+We had a lot of help on our way to *WorkbenchFX*.
 This project would not have been so successful without the help of all of the people who supported us.
 
 First of all we would like to thank our customer Dirk Lemmermann for making this project possible.
 We also want to thank him for providing us with example code of his latest project to use as an inspiration.
-Giving us constant feedback, helped a lot carrying the project forward.
+Giving us constant feedback, he helped a lot carrying the project forward.
 
 We thank our advisor Dieter Holz for his support.
 During the project's hacking days he took the role of the API user and tested the workbench to its limits.
@@ -35,13 +35,13 @@ His feedback led to important changes of the API syntax and even had an influenc
 
 We also want to thank Annelore Egger.
 She took the role as an API tester and provided a lot of useful feedback.
-Additionally she helped us a lot when she proof-read our documentation and provided feedback.
+Additionally, she helped us a lot when she proof-read our documentation and provided feedback.
 
 Many thanks to Horst Bauer for thoroughly proof-reading our documentation.
-As an unbiased reviewer he provided additional very useful feedback.
+As an unbiased reviewer, he provided additional very useful feedback.
 
 We would also like to especially thank the UX expert, who supported us during the usability test phase.
-His feedback lead to a substantial improvement of our styling and user experience.
+His feedback led to a substantial improvement of our styling and user experience.
 
 == Introduction
 WorkbenchFX is an out of the box solution to build large applications from multiple views, called modules.
