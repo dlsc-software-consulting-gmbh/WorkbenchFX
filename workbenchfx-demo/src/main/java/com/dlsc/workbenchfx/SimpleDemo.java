@@ -1,9 +1,9 @@
 package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
-import com.dlsc.workbenchfx.modules.maps.MapsModule;
 import com.dlsc.workbenchfx.modules.gantt.GanttModule;
 import com.dlsc.workbenchfx.modules.helloworld.HelloWorldModule;
+import com.dlsc.workbenchfx.modules.maps.MapsModule;
 import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -42,8 +42,7 @@ public class SimpleDemo extends Application {
         calendarModule,
         helloWorldModule,
         preferencesModule,
-        ganttModule
-        notesModule,
+        ganttModule,
         preferencesModule,
         mapsModule
     ).build();
