@@ -15,10 +15,10 @@ Examiner: https://www.inventage.com/[Edwin Steiner‚ Inventage]
 :xrefstyle: short
 
 == Abstract
-*WorkbenchFX* is an open source Java based JavaFX library designed to create large enterprise applications.
+*WorkbenchFX* is an open source Java based JavaFX framework designed to create large enterprise applications.
 Using it is really simple, since we focused on an intuitive way of using the API.
 We focused on a modular approach, where the whole application consists of multiple views, called modules.
-The library provides a great user experience, combined with a good usability and a beautiful design inspired by the Material Design guidelines.
+The framework provides a great user experience, combined with a good usability and a beautiful design inspired by the Material Design guidelines.
 Restyling the workbench can easily being done by simply changing `CSS` variables.
 
 == Acknowledgements
@@ -947,7 +947,7 @@ Sure, we could check in the constructor if both `Node`{empty}s are referring to 
 Another option would be to have the API user pass in a file, referring to the path of the icon.
 This way, we don't have the same issues as mentioned in <<_node>>.
 However, it is quite limiting, since if the API user wants to use an icon from Font Awesome or Material Design Icons, they would need to find the icon as an image and refer to the file.
-This is quite cumbersome, compared to using the `FontAwesomeFX` library and simply specifying `FontAwesomeIcon.GEAR` for example.
+This is quite cumbersome, compared to using the `FontAwesomeFX` framework and simply specifying `FontAwesomeIcon.GEAR` for example.
 Also, this would not allow API users to make use of JavaFX' support for image files with multiple scaling factors, to account for different display resolutions cite:[lemmermann_javafx_2017].
 
 ===== Image
