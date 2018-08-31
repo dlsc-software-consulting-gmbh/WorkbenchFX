@@ -2,8 +2,9 @@ package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
 import com.dlsc.workbenchfx.modules.customer.CustomerModule;
+import com.dlsc.workbenchfx.modules.gantt.GanttModule;
+import com.dlsc.workbenchfx.modules.helloworld.HelloWorldModule;
 import com.dlsc.workbenchfx.modules.maps.MapsModule;
-import com.dlsc.workbenchfx.modules.notes.NotesModule;
 import com.dlsc.workbenchfx.modules.patient.PatientModule;
 import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
@@ -17,9 +18,6 @@ import javafx.stage.Stage;
 public class ExtendedDemo extends Application {
 
   public Workbench workbench;
-  private PreferencesModule preferencesModule = new PreferencesModule();
-  private CalendarModule calendarModule = new CalendarModule();
-  private NotesModule notesModule = new NotesModule();
 
   public static void main(String[] args) {
     launch(args);
@@ -51,9 +49,10 @@ public class ExtendedDemo extends Application {
         Workbench.builder(
             new PatientModule(),
             new CalendarModule(),
-            new NotesModule(),
+            new HelloWorldModule(),
             new CustomerModule(),
             new PreferencesModule(),
+            new GanttModule(),
             new MapsModule()
         )
             .toolbarLeft(new ToolbarItem("WorkbenchFX"))
@@ -69,8 +68,8 @@ public class ExtendedDemo extends Application {
     item3.setOnAction(event -> workbench.hideNavigationDrawer());
 
     // This sets the custom style. Comment this out to have a look at the default styles.
-    workbench.getStylesheets().add(CustomDemo.class.getResource("customTheme.css").toExternalForm());
-    //workbench.getStylesheets().add(CustomDemo.class.getResource("darkTheme.css").toExternalForm());
+    workbench.getStylesheets().add(ExtendedDemo.class.getResource("customTheme.css").toExternalForm());
+    //workbench.getStylesheets().add(ExtendedDemo.class.getResource("darkTheme.css").toExternalForm());
 
     return workbench;
   }
