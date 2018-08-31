@@ -47,10 +47,8 @@ public class SimpleDemo extends Application {
         helloWorldModule,
         preferencesModule,
         ganttModule,
-        preferencesModule,
         dlsc,
         notepad,
-        preferencesModule,
         mapsModule
     ).build();
     return workbench;
