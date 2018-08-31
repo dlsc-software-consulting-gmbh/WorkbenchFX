@@ -21,6 +21,7 @@ import com.dlsc.workbenchfx.modules.test.NavigationDrawerTestModule;
 import com.dlsc.workbenchfx.modules.test.ToolbarItemTestModule;
 import com.dlsc.workbenchfx.modules.test.ToolbarTestModule;
 import com.dlsc.workbenchfx.modules.test.WidgetsTestModule;
+import com.dlsc.workbenchfx.modules.webview.WebModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -41,6 +42,9 @@ import org.apache.logging.log4j.Logger;
 public class CustomDemo extends Application {
 
   private static final Logger LOGGER = LogManager.getLogger(CustomDemo.class.getName());
+  private static final String DOCUMENTATION_PATH =
+      WebModule.class.getResource("index.html").toExternalForm();
+
   public Workbench workbench;
   PreferencesModule preferencesModule = new PreferencesModule();
 
@@ -115,8 +119,11 @@ public class CustomDemo extends Application {
             new GanttModule(),
             new MapsModule(),
             new PreferencesModule(),
-            new WidgetsTestModule(),
+            new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
+            new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
+            new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH),
             new ToolbarTestModule(),
+            new WidgetsTestModule(),
             new ToolbarItemTestModule(),
             new NavigationDrawerTestModule(),
             new InterruptClosingTestModule(),

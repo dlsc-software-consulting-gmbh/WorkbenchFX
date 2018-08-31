@@ -1,12 +1,11 @@
 package com.dlsc.workbenchfx;
 
 import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
-import com.dlsc.workbenchfx.modules.customer.CustomerModule;
 import com.dlsc.workbenchfx.modules.gantt.GanttModule;
 import com.dlsc.workbenchfx.modules.helloworld.HelloWorldModule;
 import com.dlsc.workbenchfx.modules.maps.MapsModule;
 import com.dlsc.workbenchfx.modules.patient.PatientModule;
-import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
+import com.dlsc.workbenchfx.modules.webview.WebModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -16,6 +15,9 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 public class ExtendedDemo extends Application {
+
+  private static final String DOCUMENTATION_PATH =
+      WebModule.class.getResource("index.html").toExternalForm();
 
   public Workbench workbench;
 
@@ -50,8 +52,9 @@ public class ExtendedDemo extends Application {
             new PatientModule(),
             new CalendarModule(),
             new HelloWorldModule(),
-            new CustomerModule(),
-            new PreferencesModule(),
+            new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
+            new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
+            new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH),
             new GanttModule(),
             new MapsModule()
         )
