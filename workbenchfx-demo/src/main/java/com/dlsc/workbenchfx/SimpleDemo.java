@@ -45,7 +45,7 @@ public class SimpleDemo extends Application {
         notesModule,
         preferencesModule,
         dlsc,
-        notepad
+        notepad,
         preferencesModule,
         mapsModule
     ).build();
