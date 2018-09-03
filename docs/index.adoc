@@ -1027,7 +1027,7 @@ We found it very useful to have defined processes, as we knew exactly what we ha
 It was clear to us what we expected from each other and it worked very well this way.
 
 === Development
-During our development, we made extensive use of GitHub's features.
+During the development, we made extensive use of GitHub's features.
 We especially appreciated GitHub for doing code review and its releases feature.
 
 Also, since one focus was the visual design of WorkbenchFX, we used CSS a lot, which lead us to using SCSS.
@@ -1036,11 +1036,11 @@ We are very happy about this decision, since it made the CSS code much more read
 ==== GitHub
 The programming is being done in a GitHub repository.
 We work using the git flow branching model cite:[noauthor_successful_nodate].
-Every change is represented in a pull request to develop from the feature branches.
+Every change is represented in a pull request to `develop` from the feature branches.
 
 ==== Code Review
 To improve the quality of the code and also ensure https://www.agilealliance.org/glossary/collective-ownership/[collective code ownership], every pull request gets code reviewed by the other person.
-This worked very well for us, since comments that were made by the other person always lead to improvements and code of higher quality.
+This worked very well for us, since comments that are made by the other person always lead to improvements and code of higher quality.
 
 ==== SCSS instead of CSS
 In web development the transpiler `SCSS` to `CSS` is commonly used.
@@ -1049,14 +1049,14 @@ But because `SCSS` is:
 
 * much easier to write
 * easier to read
-* less code is needed the more complex the styling becomes
-* provides much more features compared to `CSS`
+* requires less code the more complex the styling becomes
+* provides many more features compared to `CSS`
 
-we decided to give it a try.
+We decided to give it a try.
 
-For example, lets say we're having an application with two views fit in one larger view.
+For example, in an application with two views in one larger view.
 All three views have some default colors.
-If we want to change the colors on hover we would need to write the following `CSS` code:
+If we want to change the colors on hover, we would need to write the following `CSS` code:
 
 [source,css]
 ----
@@ -1080,7 +1080,7 @@ If we want to change the colors on hover we would need to write the following `C
 }
 ----
 
-The code appears to be redundant and not very readable.
+The code appears to be redundant and is not very readable.
 `SCSS` on the other hand:
 
 [source,sass]
@@ -1106,26 +1106,26 @@ The code appears to be redundant and not very readable.
 }
 ----
 
-It is much easier to read thanks to the nested code writing.
-The code is also maintainable.
-If additional stylings are required, they can simply be added.
-`SCSS` will become handier and more powerful as the complexity of the stylesheet increases.
+It is much easier to read thanks to the nested code.
+The code is also more maintainable.
+When additional styling is required, it can simply be added.
+`SCSS` becomes more useful and powerful as the complexity of the stylesheet increases.
 
 TIP: IntelliJ plugin to transpile https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html[SCSS to CSS]
 
 ==== CSS Conventions
-In order to maintain a well structured styling we agreed on several conventions.
-The most important are described as follows.
+In order to maintain a well structured styling, we agreed on several conventions.
+The most important are described in the following subchapters.
 
 ===== Using the Material Design Variables
-As stated in <<_easy_styling, Easy Styling>> we didn't want Fabian having to worry about restyling.
+As stated in <<_easy_styling, Easy Styling>>, we want to offer Fabian an easy way of restyling the workbench.
 
-Therefore we agreed on using only variables for styling, so that Fabian has to change only a variable to restyle the application.
+This is why we agreed on using only variables for styling, since he then only has to change the variable's values to restyle the application.
 Of course, not only Fabian profits from this convention but we do so too.
-Thanks to variables we didn't have to worry about color codes and changing them.
+Thanks to variables, we didn't have to worry about color codes and changing them internally.
 
-Using the variable names and using Material Design will also be of use in the future.
-This way we have not to worry about future developers not knowing how the colors are used and how to use them cite:[noauthor_color_nodate].
+Using the variable names and Material Design will also be of use in the future.
+This way we don't have to worry about future developers not knowing how the colors are used cite:[noauthor_color_nodate].
 
 ===== Replacing Units
 We agreed on using `em` as size measurement and not `px`.
@@ -1135,7 +1135,7 @@ However, sometimes it is more useful to write in pixels than in `em`.
 For instance, it much simpler to write `60px` instead of `4.286em` (base font size: 14px).
 
 One of the features of `SCSS` is defining functions.
-We wrote a little <<pixel-converter>> which allowed us to convert pixels into `em` and agreed on using the function when working with a pixel value.
+We wrote a little <<pixel-converter>> which allows us to convert pixels into `em` and agreed on using the function when working with a pixel value.
 [source,sass]
 
 .Pixel Converter Function
@@ -1147,10 +1147,10 @@ We wrote a little <<pixel-converter>> which allowed us to convert pixels into `e
 }
 ----
 
-===== Working With Imports
-Another convention we use is the separation of all scss-files.
+===== Working with Imports
+Another convention we use is the separation of all `.scss` files.
 For readability we have the `main.scss` file separated into multiple scss files.
-In the `main.scss` we include all those other files and this "main file" will be compiled as a css file.
+In the `main.scss` we include all those other files and this "main file" will be compiled as a `.css` file.
 Using the `@include` tag looks like this:
 [source,sass]
 ----
