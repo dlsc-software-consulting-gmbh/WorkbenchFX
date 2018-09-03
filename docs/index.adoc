@@ -558,27 +558,27 @@ The following chapters cover some of the most interesting topics and design deci
 We decided to stick with the modular concept of having multiple views and switching between them using tabs.
 This concept is widely used.
 Most of the applications analyzed in <<_applications>> use the tab concept to switch between their files.
-Also common internet browsers like https://www.google.com/intl/de_ALL/chrome/[Google Chrome] or https://www.mozilla.org/de/firefox/new/[Firefox] use the tab system too.
+Also, common internet browsers like https://www.google.com/intl/de_ALL/chrome/[Google Chrome] or https://www.mozilla.org/de/firefox/new/[Firefox] use the tab system too.
 
 ==== Add Module Page
 Having a page which allows the user to open a new module is also commonly used.
-For example smartphones use such a concept, when they display icons of installed apps on the home screen and open them on click.
+For example, smartphones use the same kind of concept when they display icons of installed apps on the home screen and open them on click.
 
-For this reason we decided to go with a system, where the user could click on a certain button which opens an overview with all of the modules in a grid.
-Clicking on one of those buttons (called `Tile`) would open the module.
+For this reason we decided to go with a system, where the user can click on a certain button, which opens an overview with all of the modules shown in a grid.
+Clicking on one of the modules, represented as buttons (called `Tile`) opens the corresponding module.
 This way, the user has a good overview on all the modules and can easily open them.
 
-Going with this concept triggered a discussion about naming the components.
+Going with this concept led to a discussion about the names of the components.
 When we described the concept, we struggled with the naming of the module.
 Viewed objectively, the complete application built with WorkbenchFX consists of multiple "mini applications".
-For obvious reasons we could not name the module "MiniApplication".
-An API user could be confused about the difference between the application itself and the "mini applications".
+For obvious reasons we could not name the module `MiniApplication` or even `Application`.
+An API user could be confused about the difference between the application (Workbench) itself and the "mini applications".
 So we had to find a better name.
-In the end we chose `WorkbenchModule`, which also was not the best solution, since the part "module" has a lot of associations.
+In the end we chose `WorkbenchModule`, which also was not the best solution, since the name "module" has a lot of associations.
 But it is definitely a better choice than "Application" (the complete naming process is described in <<_module_naming>>).
 
-When having a lot of modules, the available space on the page would shrink quickly and the usability would also suffer.
-For that reason we introduced a pagination to have only a restricted amount of modules displayed on the page.
+When there are a lot of modules, the available space on the page would shrink quickly and the usability would also suffer because of the buttons becoming too small.
+For this reason, we introduced a pagination to only have a restricted amount of modules displayed on a page.
 
 ==== Changes across Versions
 There are three major changes mentionable which appeared during the project.
@@ -588,7 +588,7 @@ There are three major changes mentionable which appeared during the project.
 * The phase after the usability tests, where we were <<_separating_the_toolbar, separating the toolbar>> into the toolbar on top and the tab bar below and decided to completely switch to Material Design.
 
 ===== Writing our own stylesheet
-In version `v1.1.1` we had the opinion that we have a really good styling.
+In version `v1.1.1` we thought the styling looked great.
 To be fair: It was the first version which looked acceptable.
 <<v111>> gives a first impression on how the style looked at that time.
 
@@ -609,7 +609,7 @@ We felt, that Google's https://material.io/design/[Material Design] guidelines a
 ===== Switching to the Material Design guidelines
 This was a huge step in terms of usability.
 One major improvement was to change the background color of the toolbar to the primary color.
-We also changed the way the active tabs were looking to a more material like appearance with a white border below the active tab cite:[noauthor_tabs_nodate].
+We also changed the way the active tabs were looking to a more Material Design like appearance with a white border below the active tab cite:[noauthor_tabs_nodate].
 <<v120>> shows the styling in version `v1.2.0`.
 
 [cols="1,1"]
@@ -620,11 +620,11 @@ We also changed the way the active tabs were looking to a more material like app
 |image:include/versions/v1.2.0 - 2.png[v1.2.0-2]
 |===
 
-However, the active tab styling this way showed us that Material Design *is* only a guideline.
-The way those tabs are styled adapts mainly to tabs with only text cite:[noauthor_tabs_nodate].
+However, the styling of the active tab made us realize that Material Design *is* only a guideline.
+The way the tabs are styled applies only to tabs with *just* text cite:[noauthor_tabs_nodate].
 Since we have an icon, text and a close icon, there was a lot going on in the tab bar.
-Especially when having a lot of modules open, the application looked crowded.
-<<v150>> below shows how horrible the styling was when opening a lot of modules.
+Especially when having a lot of modules open, the workbench looked crowded.
+<<v150>> below shows how horrible the styling looked with a lot of modules open.
 
 .v1.5.0
 [#v150]
@@ -632,12 +632,12 @@ image::include/versions/v1.5.0 - 8.png[v1.5.0-8]
 
 [TIP]
 ====
-Therefore we came to the conclusion, that testing boundaries is not just recommended but crucial to the success of a project.
+We came to the conclusion, that testing *edge cases* is not just recommended *but crucial* to the success of a project.
 The visual appearance with only a few open modules and only a few items in the toolbar looked nice.
 But testing use cases with a lot of items revealed the issue.
 ====
 
-It is obvious that this styling had to change.
+It is obvious this styling had to change.
 After the <<_usability_tests>> and a lot of feedback we changed the styling again.
 
 ===== Separating the Toolbar
@@ -654,7 +654,7 @@ We also decided to rework the styling a little bit.
 |image:include/versions/v1.6.0 - 2.png[v1.6.0-2]
 |===
 
-A direct comparision approves this decision (<<v150vs160>>).
+A direct comparision supports this decision (<<v150vs160>>).
 
 [cols="1,1"]
 .v1.5.0 vs v1.6.0
@@ -665,42 +665,42 @@ A direct comparision approves this decision (<<v150vs160>>).
 |===
 
 The colors of the tiles were also changed to white.
-Having the tiles in a color with a white background created an optical illusion where the brain imagines colored, blurred dots between the spaces of the tiles.
-An example of the created illusion is shown below (<<illusion>>).
+Having the tiles in a solid color with a white background leads to an optical illusion where the brain imagines colored, blurred dots in between the tiles.
+An example of the illusion can be seen in <<illusion>>.
 
 .Optical Illusion
 [#illusion]
 image::include/versions/illusion.png[Optical illusion]
 
 ==== Easy Styling
-Our most important goal was to enable Fabian a simple way to style his application in a very simple way.
-Of course he would not take advantage of all of the styling possibilities.
+Our most important goal was to enable Fabian to style the workbench in a simple way.
+Of course, he would not take advantage of all of the styling possibilities.
 But we thought he might want to change at least the default color theme of the workbench.
 
-We wanted to have Fabian only change a few color values which would restyle the whole application.
-To achieve this we worked with `CSS` variables.
-We defined all of the color variables in the `.root > *` selector of the `CSS` file and used  only those variables throughout the whole stylesheet.
+We wanted to have Fabian only change a few color values to completely restyle the whole application consistently.
+To achieve this, we worked with `CSS` variables.
+We defined all of the color variables in the `.root > *` selector of the `CSS` file and only used those variables throughout the whole stylesheet.
 
 During the definition of the color variables, we discussed their names and usage in the workbench.
-In the end we decided to go with the Material Design naming convention of colors and to use them as defined cite:[noauthor_color_nodate].
+In the end, we decided to go with the Material Design naming convention of colors and use them as defined cite:[noauthor_color_nodate].
 This way, every API user is able to research on how to use the variables and in which context they are used.
 
-By simply using the color variables, Fabian can create a custom stylesheet, assign it to the workbench and overwrite the colors he'd like to change.
+By simply using the color variables, Fabian can create a custom stylesheet, assign it to the workbench and overwrite the colors he wants to change.
 
 TIP: To visualize the simplicity of changing styles, a `darkTheme.css` is referenced in the `CustomDemo.java` file located in the `workbenchfx-demo` package.
 
 SteffiFX on the other hand might want to style the application a bit more.
-For this case we gave every component used in the workbench either an `#id` or a `.class` name.
-This way SteffiFX is able to restyle the complete application if she'd like to.
+To account for this use case, we gave every component used in the workbench at least an `#id` or a `.class` name.
+This way, SteffiFX is able to restyle the complete application if she likes to do so.
 
-NOTE: A detailed chapter about restyling the application can be found in the readme.md of WorkbenchFX.
+NOTE: A detailed chapter about restyling the application can be found in the `readme.md` file of WorkbenchFX.
 
 === Architecture
 Since WorkbenchFX will be made open-source as a framework, the architecture is a critical part.
-We need to have a good architecture so it will be possible for contributors in the future to extend WorkbenchFX with new features via pull requests.
+We need to have a good architecture so it will be possible for future contributors to extend WorkbenchFX with new features via pull requests.
 Also, we need to think about which API's to expose, since these are the API's we need to support in the future.
 Once WorkbenchFX is launched to the public, changes to the public API need to ensure they are not breaking changes.
-This means we can only very carefully introduce changes later on, and need to make sure the architecture is already good enough, so it doesn't have to be fundamentally changed after the public release.
+This means we can only very carefully introduce changes later on and need to make sure the architecture is already good enough, so it doesn't have to be fundamentally changed after the public release.
 
 ==== Constructing the Workbench
 Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
@@ -725,7 +725,7 @@ Workbench.of(module1, module2)
 ----
 This would mean that the `GridPane` with the tiles would only need to be built once.
 However, this solution is also not very elegant.
-If the API user doesn't want to set the amount of modules per page, they still need to call "init()".
+If the API user doesn't want to set the amount of modules per page, they still need to call `init()`.
 Also, in this case the API user must remember to call `init()`, which is easy to forget.
 
 One of the better options would be to solve it like this:
@@ -737,7 +737,7 @@ We would simply pass in the amount of modules to the `.of()` method.
 This would work, however it has some disadvantages.
 For example, the readability suffers: "What does that 10 mean again?".
 Also, since we want the API user to be able to define their own controls for the tabs and tiles using factories, we noticed that we also need to pass those factories in the same way.
-This would not only make the readability worse, but this also means that if we want to stick to our paradigm, we would need to add multiple overloaded `of()` methods.
+This would not only make the readability worse, this also means that if we would want Fabian to be able to define the workbench with the least effort possible, we would need to add multiple overloaded `of()` methods.
 With 3 parameters (modules per page, tab and tile factory) this would result in the combinations in <<combinations-overloaded-workbench>>.
 
 .Combinations of overloaded Workbench.of() methods
@@ -862,20 +862,20 @@ There were a few goals we wanted to achieve:
 
 * Easy to understand
 * Self-explanatory sequence and ordering
-* Require the least amount of work from Fabian to use it
-* Fulfill the needs of Steffi, cover as many use-cases as possible
+* Require the least amount of effort from Fabian to use it
+* Fulfill the needs of SteffiFX, cover as many use-cases as possible
 * Easy to use, even for complex scenarios
 
 If we make it too complex, Fabian could get confused. +
 If we require lots of work to use it, Fabian could get frustrated. +
-However, if we make it too easy, Steffi can't cover all of her use cases. +
+However, if we make it too easy, SteffiFX can't cover all of her use cases. +
 At the same time, making it more complex potentially makes it less self-explanatory, which in turn makes it harder to use.
 
-The challenge was to strike a balance between complex and easy, ensuring both Fabian and Steffi would be happy with the API.
+The challenge was to strike a balance between complex and easy, ensuring both Fabian and SteffiFX would be happy with the API.
 
 The first design decision we made was to have `WorkbenchModule` as an abstract class.
 This way, we can already pre-define as many lifecycle methods as possible, so Fabian has the least amount of work.
-Still, we enable Steffi or even Fabian in some more advanced use cases to override the lifecycle methods they need, to augment or replace the implementation with their own.
+Still, we enable SteffiFX or even Fabian in some more advanced use cases to override the lifecycle methods they need, to augment or replace the implementation with their own.
 The compromise here was to have `#activate()` as the only lifecycle method that *must* be implemented, as it returns the view of the module that should be displayed.
 But, since the only thing Fabian has to define is `return view;`, which is acceptable.
 
@@ -886,10 +886,10 @@ Then, we knew we needed lifecycle methods, so the implementor can know whether t
 This makes it possible for example to have certain module-specific menu-items in the `NavigationDrawer` or `ToolbarItem`{empty}s in the Toolbar, by adding them with `#activate()` and removing them with `#deactivate()`.
 
 Finally, we need to allow the implementor to free up resources when a module is closed, which lead us to the `#destroy()` lifecycle method.
-This was a bit of a challenge itself though, since initially we thought it would be enough to have `void` as the return type.
+This was a bit of a challenge itself though, since we initially thought it would be enough to have `void` as the return type.
 Then we realized there could be a use case, in which the implementor may want to open a confirmation dialog before a module is being closed.
 Again, we thought about different possible solutions and decided to return a `boolean`, allowing the implementor to specify whether the module can be closed or not.
-In case of a confirmation dialog before closing the module, the implementor can simply return `false`, causing the closing of the module to get interrupted.
+In case of a confirmation dialog before closing the module, the implementor can simply return `false`, causing the closing of the module to get interrupted (for more detail, see <<_workbenchmodule_lifecycle>>).
 
 ==== API Design of WorkbenchModule
 As with the design of the lifecycle, having a simple and easy to understand API overall for `WorkbenchModule` is very important to us.
@@ -924,32 +924,32 @@ Additionally, some possible open questions it could cause would be:
 
 API users are still able to define module-specific `MenuItem`{empty}s with the already existing API, by adding them to the global list in `activate()` and removing them in `deactivate()`.
 This way, we give the API users the choice of how to include them and they don't miss out on any functionality.
-It also eliminates the "guessing" of how it was implemented, as it can be observed above in the possible open questions.
+It also eliminates the "guessing" of how it was implemented, as can be observed mentioned above in the possible open questions.
 
 ==== Icon: Node vs File vs Image
 To specify an icon for a `WorkbenchModule`, there are different ways to implement this in the API.
 
 ===== Node
-The most generic option would be to have the API user pass in a `Node` in the constructor to use as the icon.
+The most generic option would be to have the API user pass in a `Node` to the constructor to use as the icon.
 
 The problem is that we display the icon in two places: one in the `Tab` and one in the `Tile`.
 The JavaFX API of `Node` is designed to have zero or one parent cite:[noauthor_node_nodate].
 This means the API user would need to pass in two `Node` objects, one for the icon of the `Tab`, and one for the `Tile`.
 
-Since the icon will always be the same for the `Tab` and the `Tile`, this feels very redundant and is very error-prone.
+Since the icon will always be the same for the `Tab` and the `Tile`, this feels redundant and is very error-prone.
 Should the implementor not know about this, they could pass in the same `Node` twice and wonder why only one icon is being displayed.
-This could cause the implementors to believe this to be a bug.
-Sure, we could check in the constructor if both `Node`{empty}s are referring to the same object, but it's still not very user-friendly.
+This could lead the implementors to believe this to be a bug.
+Sure, we could check in the constructor if both `Node`{empty}s are referring to the same object, but it's still not very user friendly.
 
 ===== File
 Another option would be to have the API user pass in a file, referring to the path of the icon.
 This way, we don't have the same issues as mentioned in <<_node>>.
 However, it is quite limiting, since if the API user wants to use an icon from Font Awesome or Material Design Icons, they would need to find the icon as an image and refer to the file.
-This is quite cumbersome, compared to using the `FontAwesomeFX` framework and simply specifying `FontAwesomeIcon.GEAR` for example.
+This is quite cumbersome, compared to using the `FontAwesomeFX` library and simply specifying `FontAwesomeIcon.GEAR` for example.
 Also, this would not allow API users to make use of JavaFX' support for image files with multiple scaling factors, to account for different display resolutions cite:[lemmermann_javafx_2017].
 
 ===== Image
-We decided to use `Image` as one of the options of passing in an icon in the constructor of `WorkbenchModule`.
+We decided to use `Image` as one of the options of passing in an icon to the constructor of `WorkbenchModule`.
 There are none of the issues mentioned in <<_node>>, since the `Image` will be wrapped in an `ImageView`, when `module.getIcon()` gets called by the `Tab` and `Tile`.
 Also, it allows API users to make use of JavaFX' support for image files with multiple scaling factors cite:[lemmermann_javafx_2017].
 
@@ -963,23 +963,24 @@ Since all of the icons from the https://material.io/tools/icons/?style=baseline[
 
 ==== Model View Presenter
 Model View Presenter (MVP) was used as general architecture pattern.
-We thought it was overkill to use the `Control` and `Skin` architecture from JavaFX for all internal views as well, especially since they don't have to be replaceable (see <<_api_design>>).
+We thought it would be excessive to use the `Control` and `Skin` architecture from JavaFX for all internal views as well, especially since they don't have to be replaceable (see <<_api_design>>).
 But at the same time, we wanted the views to be separated to be more readable and maintainable.
 We chose the MVP pattern because we used it in the https://github.com/dlemmermann/PreferencesFX[PreferencesFX] project and it proved to be very good for those purposes.
 This is why we still chose to use the MVP pattern for all internal views.
+
 At first, we used a separate `WorkbenchModel` object for the model.
 Our customer suggests that it would be easier to skip the `WorkbenchModel` class and just put the logic in `Workbench`, since that's the place where he would expect such logic.
 We decided to change it in a way that `Workbench` is the model object in the MVP pattern in our case.
-This simplifies the architecture and readability is improved, since methods are where they would be expected.
+This simplifies the architecture and readability is improved, since methods are where they are expected.
 
-`View` is an interface, because it's used as a mixin.
+`View` is an interface, because it's being used as a mixin.
 We implemented it this way because every view needs to already extend a certain JavaFX class and multiple inheritance is not possible in Java, so using an abstract class here isn't an option.
-This makes it possible to initialize all views in the same way while also resulting in less code duplication, since the `init()` method and the JavaDoc doesn't need to be rewritten over and over again.
+This makes it possible to initialize all views in the same way, while also resulting in less code duplication, since the `init()` method and the JavaDoc doesn't need to be rewritten over and over again. +
 `Presenter` is abstract, because it acts more like a "super class" of all the presenters.
-Since all presenters don't need to extend anything else, using an abstract class here is possible.
+Since all presenters don't need to extend anything else, using an abstract class is possible.
 
 ==== Overlays
-To enable the API user to easily show a custom overlay with the option of having a black transparent `GlassPane` in the background, they can use the respective `workbench.showOverlay()` and `workbench.hideOverlay()` methods.
+To enable the API user to easily show a custom overlay with a black transparent `GlassPane` in the background, they can use the respective `workbench.showOverlay()` and `workbench.hideOverlay()` methods.
 The `GlassPane` prevents click events on the components below and adds a scrim to the background.
 Unless a blocking (modal) overlay is being displayed, clicking on the `GlassPane` closes the overlay.
 
