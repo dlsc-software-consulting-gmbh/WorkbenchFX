@@ -535,10 +535,10 @@ This confirmed that separating the toolbar from the tab bar was really necessary
 Having only one bar quickly led to an overcrowding of items and tabs, which made it impossible to distinguish them.
 
 ===== Introducing ToolbarItems
-As an addition to the overcrowded bar on top, she was confused with the possibility of adding every `Node` to the toolbar.
+Additionally to the overcrowded bar on the top, she was confused because of the possibility of adding all objects of type `Node` to the toolbar.
 She also didn't realize the `Dropdown` control we were providing for convenience.
 
-For those reasons we decided to restrict the possibility of adding every `Node` to one simple object:
+For those reasons, we decided to restrict the possibility of adding objects of type `Node` to one simple object:
 The `ToolbarItem`. +
 We replaced the `Dropdown` class with this universal object.
 Depending on the defined parameters, the `ToolbarItem` either becomes a `Label`, a `Button` or a `MenuButton` with appropriate styling.
@@ -547,9 +547,9 @@ If an API user still wants to use a custom `Node`, they can use the constructor 
 This way it is clear what to use and no misunderstandings are possible.
 
 == Implementation
-During development of the API we've built a lot of demo modules to test it.
-Those modules can be tried out when launching the `CustomDemo` in the `workbenchfx-demo` package.
-This way, all features can be seen exactly in detail and in action.
+During development of the API we built a lot of demo modules to test it.
+Those modules can be tried out by launching the `CustomDemo` in the `workbenchfx-demo` package.
+This way, all features can be seen in detail and in action.
 
 === Layout
 The following chapters cover some of the most interesting topics and design decisions we encountered during the layout process.
