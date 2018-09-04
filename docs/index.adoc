@@ -1177,8 +1177,8 @@ If the architecture isn't good, it is very hard to test in an isolated way.
 We employed the pattern of _Dependency Injection_ whenever we could, since that made one of the biggest differences in testable code for us.
 
 ==== JUnit vs Spock
-Most of our unit testing, especially in the beginning, was done by using JUnit.
-However, when there were some test cases that were data-driven.
+Most of our unit testing, especially in the beginning, was done with JUnit.
+However, there were some test cases that were data-driven.
 JUnit 5 does have data-driven testing capabilities, but it doesn't offer much flexibility and the way tests have to be implemented to be data-driven is not very readable cite:[bechtold_junit_nodate].
 An example can be seen in <<junit-parameterized>>.
 
@@ -1197,9 +1197,9 @@ Also, JUnit 5's data-driven testing API is still considered "experimental" cite:
 We didn't want to risk all of our data-driven tests becoming obsolete, should JUnit later choose to change the concept entirely.
 Combined with the readability argument, we decided not to do data-driven testing with JUnit.
 
-At first, we proceeded to write the data-driven tests as usual in JUnit.
-But they had lots of duplicated code and therefore were not very maintainable (see <<comparison-junit-spock>>).
-We decided to invest some time to find a better solution.
+At first, we proceeded to write the data-driven tests as usual with JUnit.
+But the tests had a lot of of duplicated code and therefore were not very maintainable (see <<comparison-junit-spock>>).
+So we decided to invest some time to find a better solution.
 
 We already knew Spock as a testing framework, but we have never used it before in a Java context, since Spock is written in Groovy.
 However, Spock has one big advantage over JUnit: Data driven testing is very well implemented.
@@ -1209,16 +1209,16 @@ Spock will then dynamically run the test case multiple times with each row of th
 This makes the code much more readable and maintainable.
 It also means adding another data set after the fact just means adding another row to the data, not copying and modifying unit test code over and over again.
 
-However, it was still unclear whether we could use Spock to test Java code and even more so JavaFX applications, which are already more difficult to test.
+However, it was still unclear whether we could use Spock to test Java code and even more so JavaFX applications, which are already more difficult to test in our experience.
 In theory it should be possible, as Spock claims on their website cite:[noauthor_spock_nodate].
-At least TestFX (see <<_testing_utilities>>) offers support for Spock, so it seemed like a viable option.
+Also, TestFX (see <<_testing_utilities>>) offers support for Spock, so it seemed like a viable option.
 We did some research on GitHub, but we didn't find any Java projects which used *JUnit 5* together with Spock and *Maven*.
 After a lot of challenges, we were able to make it work.
 The key part to the solution, was that we needed to add the JUnit Vintage Engine, which is the engine that enables to run JUnit 3 and 4 tests cite:[bechtold_junit_nodate].
 Everything that was needed to make it work can be seen in the <<misc-reference.adoc#_maven_code_pom_xml_code_workbenchfx_core,`pom.xml` file of `workbenchfx-core`>>
 
 However, the end result was well worth the effort.
-We rewrote the data-driven JUnit 5 test with lots of duplicated code mentioned above with Spock and compared both in <<comparison-junit-spock>>.
+We rewrote the data-driven JUnit 5 test with a lot of duplicated code mentioned above with Spock and compared both in <<comparison-junit-spock>>.
 
 .Comparison of a Data Driven Unit Test with JUnit 5 and Spock
 [#comparison-junit-spock]
@@ -1273,16 +1273,16 @@ With every build, Travis will compile the code, run checkstyle and tests.
 
 We agreed with our customer to use the Google Java Code Style guidelines, as they are used in one of the most-widely used libraries in Java, Guava cite:[idan_top_2017], and because of its well-maintained open source checkstyle configuration on GitHub cite:[noauthor_checkstyle:_2018].
 If checkstyle finds code style violations, we set it up to fail the build.
-This provides us with immediate feedback when we open a new pull request and forgot to run checkstyle checks ourselves.
+This provides us with immediate feedback when we open a new pull request and forget to run checkstyle checks ourselves.
 Also, it makes it easier for the reviewer, since they don't need to run the tests and checkstyle themselves every time.
 
-In order to get build results from Travis faster we enabled "Auto Cancellation".
+In order to get build results from Travis faster, we enabled "Auto Cancellation".
 If there are a lot of pushes from the same branch or pull request, Travis will then cancel all but the most recent build in the queue for each branch or pull request.
 
-Travis makes two checks each time you make a push to the repository.
+Travis makes two checks each time there is a push to the repository.
 The first check is the "push-check", which tests the compatibility of the current branch (<<travis-check>>) cite:[noauthor_travis_nodate].
 The second one is the "pr-check", which emulates a merge with the target branch in order to check if the merge leads to errors making the build fail (<<travis-check>>) cite:[noauthor_travis_nodate].
-This has the huge advantage that our work is not only easier but also safer to accomplish.
+This has the huge advantage that our work is not only easier, but also safer to accomplish.
 
 .Check by Travis CI on a GitHub pull request
 [#travis-check]
@@ -1306,7 +1306,7 @@ See <<misc-reference.adoc#_codecov_io_exceptions_codecov_yml,Codecov.io Exceptio
 
 We didn't set a goal for the code coverage per se, since we didn't want it to lead us to try to test everything.
 But in general, we tried to keep the code coverage over 90%, which is already quite high.
-In the end, we were able to reach a code coverage of *94.67%*.
+In the end, we were able to reach a code coverage of *94.51%*.
 
 We realized code coverage is a useful tool, but you can't solely rely on it.
 For example, if we added a lot of new fields with mutators and accessors, we noticed we almost always weren't able to meet the goals defined by codecov.io in the GitHub checks.
@@ -1318,8 +1318,8 @@ If the results were skewed, we went with the pragmatic approach and chose to sti
 This approach worked very well for us and our decision payed off, given the high code coverage we reached.
 
 Still, code coverage can be a double-edged sword.
-As we saw, a lower code coverage doesn't always equal less code quality.
-As we realized, this is also true for the opposite.
+As we saw, lower code coverage doesn't always equal less code quality.
+We realized this is also true for the opposite.
 Simply because a line of code was executed during a test, doesn't necessarily mean it was tested properly.
 That's where code review comes in, and we had to remind ourselves constantly to not rely on code coverage *too* much.
 We still need to check whether all of the edge cases have been tested and if the tests really perform all necessary verifications.
@@ -1340,9 +1340,9 @@ image::include/codecov-check.png[Check by codecov.io on a GitHub pull request]
 When working agile, releasing often is important cite:[raymond_cathedral_2001, page=28].
 Since we are only in a team of two, we think it wouldn't make sense to have a strict release plan.
 Instead, we opted to release whenever it makes sense.
-This was mainly for example when a new major feature was introduced and there are no other major features expected in the next few days.
+This was the case mainly when a new major feature was introduced with a pull request and there are no other major features expected in the next few days.
 
-Concerning the version numbering scheme, we chose to adhere to the following: `vX.Y.Z`
+Concerning the version numbering scheme, we chose to adhere to the following numbering scheme: `vX.Y.Z`
 
 * X
 ** 0 -> before we reached the MVP
@@ -1375,18 +1375,18 @@ Over time, we established the following process for releases:
 . Merge master into develop to ensure the version changes are also present there
 
 ==== Release Automation
-We also automated part of the release process with Travis.
+We also automated parts of the release process with Travis.
 When we push a git tag on the master branch, Travis will run `mvn install`, make zips of the documentation and javadoc, followed by creating a release on GitHub and uploading the zips along with the built `jar`{empty}s.
-The only thing left is to edit the title and description with the release and its changelog, respectively (see <<_process>>).
+The only thing left is to edit the title and description with the release name and its changelog, respectively (see <<_process>>).
 
 TIP: This made releasing quicker and meant less repetitive effort on our side.
 
 Details on the implementation can be found in the `.travis.yml` file.
 
 == Lessons learned
-Before starting the project, we did a retrospective on our previous project PreferencesFX.
+Before starting the project, we did a retrospective on our previous project https://github.com/dlemmermann[PreferencesFX].
 We agreed on maintaining the processes which went good and defined new conventions to do better in this project.
-Following <<best-practices>> lists all the conventions we consider the most valuable in this project.
+<<best-practices>> lists all the conventions we consider the most valuable in this project.
 
 .Best Practices
 [#best-practices]
@@ -1394,22 +1394,22 @@ Following <<best-practices>> lists all the conventions we consider the most valu
 |Convention        |Reason
 |Perform code review |It worked very well in PreferencesFX, so we will keep it that way
 |Maintain Asciidoc documentation |Writing the documentation with asciidoctor is a gem. We will never write documentations with other tools again
-|Writing the Javadoc before merging |In PreferencesFX we had to write nearly all the Javadoc at the end of the project
-|Merging only when checkstyle passes |Like the Javadoc we had to fix a lot of checkstyle error afterwards
-|Writing the documentation early |If we'd write the documentation in the end, we'd have the problem of remembering all the content a half a year later.
-Therefore the details would be lost.
-Additionally we have no time pressure at the end of the project
-|Writing more tests |Since we're writing an API it would be necessary to write more tests to maintain better code quality and less errors
-|Using build tools |It makes the development much easier since we don't have to remember running tests, checking checkstyle and javadoc on our local machines during code review.
+|Writing the Javadoc before merging |In PreferencesFX we had to write nearly all the Javadoc in the end of the project
+|Merging only when checkstyle passes |Like the Javadoc, we had to fix a lot of checkstyle error in the end
+|Writing the documentation early |If we write the documentation in the end, we have the problem of remembering all the content half a year later.
+This would lead to details getting lost.
+Additionally, we have no time pressure at the end of the project
+|Writing more tests |Since we're writing an API, it's necessary to write more tests to maintain better code quality and less errors
+|Using build tools |It makes the development much easier, since we don't have to remember to run tests, review checkstyle and javadoc on our local machines during code review.
 |Committing more often |It makes the development process more transparent. When problems occur, they can easily be reverted
 |Work with personas |It helps to focus on the target group. This way the development process can always be adjusted
-|Work with user stories |It helps to verify the features and reveals the users needs which the product has to satisfy
+|Work with user stories |It helps to verify the features and reveals the needs of the users which WorkbenchFX has to satisfy
 |===
 
 === Value of User Stories
-As stated in <<_user_stories>> we had a user story workshop with our customer in the beginning of our project.
+As stated in <<_user_stories>> we had a user story workshop with our customer in the beginning of the project.
 
-Before the workshop, it was rather unclear what WorkbenchFX or its goals really are.
+Before the workshop, it was rather unclear what WorkbenchFX or its goals really were.
 But after it, we all had a shared understanding about the main goal of our project.
 
 The created user stories communicate a concrete desire our API must fulfill in order to succeed.
@@ -1417,16 +1417,17 @@ Comparing to just defining some features, user stories helped us to understand t
 This way we could ensure that all of our implemented features satisfy a need.
 
 Together with the persona and the user stories, it almost felt like the written stories and personas are people with problems in real life.
-Exactly this feeling proved to us that the user stories and personas are really helpful.
-During the project we could always refer to the persona and stories and ask ourselves:
-"Is this really what Fabian/Anna/SteffiFX wants?" It helped us a lot to keep an eye on the real problem and to not lose ourselves in personal opinions and thoughts.
+Exactly this feeling proves to us, that the user stories and personas are really helpful.
+During the project, we can always refer to the persona and stories and ask ourselves:
+"Is this really what Fabian/Anna/SteffiFX wants?".
+It helped us a lot to keep an eye on the real problem and to not lose ourselves in personal opinions and thoughts.
 
 [TIP]
 ====
 For a future project, we would definitely use personas and user stories again.
 
 Having three different personas is tricky to work with, as we have to look after the needs of three different characters.
-Of course having that many personas can happen but having only one central persona is crucial since we cannot always satisfy every desire and therefore have to make compromises sometimes.
+Of course, having that many personas can happen but having only one central persona is crucial, since we cannot always satisfy every desire and therefore have to make compromises sometimes.
 ====
 
 === Working Agile
@@ -1443,14 +1444,14 @@ TIP: Thanks to the agile way, we could resolve challenges quickly and early on i
 
 === Hacking Day
 During the project we had several so called "Hacking Days", where we worked together with our customer and/or advisor on the project.
-Each hacking day was completely different from all others.
+Each hacking day was completely different from the others.
 
-When we had the hacking days together with our advisor, he took the role of Fabian and implemented his own module.
-This was great since we saw the usage of our API in real life with a person which was not that much involved into the development as we are and therefore had a neutral attitude.
-Thanks to those kind of hacking days we discovered several issues which we could eliminate.
+When we had the hacking days together with our advisor, he assumed the role of Fabian and implemented his own module.
+This was great, since we saw the usage of the API in real life with a person which was not as much involved into the development as we are and therefore had a neutral attitude.
+Thanks to those kinds of hacking days, we discovered several issues which we could eliminate.
 This also enabled us to improve the API to be more user-friendly for Fabian.
 
-Another hacking day was held with our customer.
+We held another hacking day with our customer.
 There we started implementing the dialog feature together.
 This had multiple advantages.
 First of all, we integrated our customer in the project and it gave him insight into our project's progress.
@@ -1458,14 +1459,14 @@ Another advantage was, that he gained awareness on how complex certain processes
 For instance, he said that it was not as easy as he thought to simply re-use his code of the dialog, as our implementation has to be a lot more generic.
 
 However, in the end we all profited from each other.
-We are really grateful about those hacking days since they really are helpful and would like to do them again in the next project.
+We are really grateful about those hacking days, since they are really helpful and would like to do them again in the next project.
 
 === Animations
 One thing we underestimated by far was the power of animations.
-Initially, we didn't have animations on the drawers.
-In a usability test with Dieter Holz we noticed that especially with the drawers that covered most of the screen, it was not clear where they were coming from or that they even were drawers (see <<_drawer_animations>>).
+Initially, we didn't have animations when showing or hiding the drawers.
+In a usability test with Dieter Holz, we noticed that especially with the drawers that covered most of the screen, it was not clear where they were coming from or that they even were drawers (see <<_drawer_animations>>).
 
-When we implemented the drawer animations, we were astounded to see how much of a difference it made.
+After implementing the drawer animations, we were astounded seeing how much of a difference it made.
 We expected it to make a slight difference, but it really improved the user experience by a lot.
 Since it makes that much of a difference, we think that even if there was an option to turn off animations in the future, it should not be possible to turn off drawer animations.
 The suggested movement of the drawers is a key element to the user experience and must not be removed.
@@ -1476,17 +1477,17 @@ TIP: Even though the implementation of the animations was quite complicated, the
 Initially, we used Gradle, since we already used it in https://github.com/dlemmermann/PreferencesFX[PreferencesFX] and it was more convenient to re-use the already existing `build.gradle`.
 However, when it came to publishing PreferencesFX to Maven Central, we noticed it was significantly more complex to set it up with Gradle than with Maven cite:[noauthor_contribute_2018].
 Since our customer mainly uses Maven for his projects and already knows how to set it up for publishing to Maven Central, we decided to switch to Maven for PreferencesFX.
-Since we did it for PreferencesFX and we knew the day would come when we would face the same issue with WorkbenchFX as well.
-This is why we switched WorkbenchFX to using Maven as well.
+We knew the day would come, when we would face the same issue with WorkbenchFX as well.
+This is why we switched WorkbenchFX to use Maven as well.
 
 We didn't regret the change at all, especially since our team and our customer had struggled quite a lot with resolving dependencies with Gradle.
-We would run into issues which required us to re-import the project every now and then, which was quite cumbersome with time.
+We would run into issues which required us to re-import the project every now and then, which was quite cumbersome.
 Sure, we also faced our issues with Maven as well, but we feel like it is much less than it used to be with Gradle.
 
 TIP: This is why in the next project we would start with Maven right away.
 
 === Build Automation
-The automated build we set up with Travis CI was very useful, in fact it would have been even more useful if had set it up from the beginning.
+The automated build we set up with Travis CI was very useful, in fact it would have been even more useful if we had set it up from the beginning.
 
 When we released `v1.1.0`, while building the binaries for the release on GitHub, we noticed there was a checkstyle error which prevented the build from completing.
 This was embarrassing.
@@ -1521,11 +1522,11 @@ We used Java 9 for the longest time, but we started to worry because Oracle star
 One of the user stories mentioned the ability to use WorkbenchFX with https://www.jpro.one/[jpro].
 To see if it works, we did a proof of concept with jpro and noticed that in fact it did not work.
 We thought it could be an issue with jpro not being compatible with Java 9 and decided to try it with Java 8.
-Luckily, we haven't used many Java 9 features in the code, so it was mainly switching from Java 9 versions of dependencies to Java 8 versions of them.
+Luckily, we didn't use many Java 9 features in the code, so it was mainly switching from Java 9 versions of dependencies to Java 8 versions of them.
 And it worked!
 
 This is why we decided to go with Java 8.
-It resolves the issues of Java 9 being difficult to download and at the same time, it allows us to make use of a larger user group, as lots of developers are still using Java 8.
+It resolves the issues of Java 9 being difficult to download and at the same time, it allows us to make use of a larger user group, as a lot of developers are still using Java 8.
 We did however decide to leave comments in the `pom.xml` files with the Java 9 versions of the dependencies, so it is possible to publish two separate versions when WorkbenchFX goes open source.
 This is something quite a lot of JavaFX libraries and frameworks seem to do cite:[noauthor_controlsfx_2013]+[noauthor_scene_nodate]+[jfoenix_jfoenix_2018] , so we thought it would make the most sense.
 
@@ -1568,7 +1569,7 @@ While Steffi is able to replace a lot of features with her own implementations (
 And Anna is satisfied because she gets an application which is well styled and not overloaded with a lot of functionality.
 
 A huge set of tests, checkstyle, code coverage, managed by continuous integration and personal code review before each merge led to a high code quality.
-In the end, we were even able to reach a code coverage of *94.67%* (see <<_processes>>).
+In the end, we were even able to reach a code coverage of *94.51%* (see <<_processes>>).
 
 All of the feedback we received up to now is really good.
 Even at the bachelor exhibition a lot of people stated that they really like the idea and that they probably would try working with *WorkbenchFX* cite:[noauthor_ausstellung_nodate].
