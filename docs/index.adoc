@@ -1238,9 +1238,40 @@ For example, it allowed us to mock the view classes, so we could test presenter 
 ===== TestFX
 Using TestFX made it even possible to test JavaFX code.
 Without it, JavaFX will throw `IllegalStateException: Toolkit not initialized` for all method calls that run on the GUI thread.
+To remedy this issue with TestFX, we noticed that it is necessary to wrap the calls on the GUI thread in a `interact()` block, as can be seen in <<testfx-testing>>.
+
 TestFX also offers the possibility of automated GUI testing, which we decided not to make use of because of the fragile nature of those tests.
 We used unit tests whenever possible and when it wasn't, we used integration tests.
 See the tests in `workbenchfx-core/src/test` for more information.
+
+.Minimal example of testing JavaFX with TestFX
+[source,java]
+[#testfx-testing]
+----
+class JavaFxTest extends ApplicationTest {
+
+  private FxRobot robot;
+  private Label nodeUnderTest
+
+  @Override
+  public void start(Stage stage) {
+    robot = new FxRobot();
+    nodeUnderTest = new Label("Test");
+
+    Scene scene = new Scene(nodeUnderTest, 100, 100);
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  @Test
+  void test() {
+    robot.interact(() -> {
+      // calls on the GUI thread of JavaFX need to be performed here
+      assertEquals("Test", nodeUnderTest.getText());
+    });
+  }
+}
+----
 
 ===== Awaitility
 After we implemented the animations for the drawers, some tests were failing.
