@@ -1139,7 +1139,7 @@ We wrote a little <<pixel-converter>> which allows us to convert pixels into `em
 [source,sass]
 
 .Pixel Converter Function
-[#pixel-converter]
+[[pixel-converter]]
 [source,sass]
 ----
 @function px($px) {
@@ -1152,12 +1152,14 @@ Another convention we use is the separation of all `.scss` files.
 For readability we have the `main.scss` file separated into multiple scss files.
 In the `main.scss` we include all those other files and this "main file" will be compiled as a `.css` file.
 Using the `@include` tag looks like this:
+
 [source,sass]
 ----
 @include file1;
 @include file2;
 @include file3;
 ----
+
 The files to be included are named with an underscore as prefix: `_file1.scss`.
 
 === Testing
@@ -1183,8 +1185,8 @@ JUnit 5 does have data-driven testing capabilities, but it doesn't offer much fl
 An example can be seen in <<junit-parameterized>>.
 
 .Parameterized Tests with JUnit 5 cite:[bechtold_junit_nodate]
+[[junit-parameterized]]
 [source,java]
-[#junit-parameterized]
 ----
 @ParameterizedTest
 @ValueSource(strings = { "racecar", "radar", "able was I ere I saw elba" })
@@ -1245,8 +1247,8 @@ We used unit tests whenever possible and when it wasn't, we used integration tes
 See the tests in `workbenchfx-core/src/test` for more information.
 
 .Minimal example of testing JavaFX with TestFX
+[[testfx-testing]]
 [source,java]
-[#testfx-testing]
 ----
 class JavaFxTest extends ApplicationTest {
 
@@ -1286,8 +1288,8 @@ Awaitility does the rest and performs the assertion.
 We found Awaitility to be quite useful for this purpose, as it worked flawlessly and was easy to use.
 
 .Unit test with Awaitility
+[[awaitility-unit-test]]
 [source,java]
-[#awaitility-unit-test]
 ----
 include::{dir-test-java}/WorkbenchTest.java[tags=awaitility]
 ----
