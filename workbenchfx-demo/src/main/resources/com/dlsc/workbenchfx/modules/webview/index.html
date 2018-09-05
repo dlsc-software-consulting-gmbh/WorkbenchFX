@@ -1,0 +1,3355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="author" content="François Martin, Marco Sanfratello">
+<title>Bachelor Thesis: WorkbenchFX</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+/* Remove comment around @import statement below when using as a custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+audio,canvas,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+[hidden],template{display:none}
+script{display:none!important}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:transparent}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
+input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.spread{width:100%}
+p.lead,.paragraph.lead>p,#preamble>.sectionbody>.paragraph:first-of-type p{font-size:1.21875em;line-height:1.6}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:none}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #ddddd8;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite:before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media only screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7;font-weight:bold}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix:before,.clearfix:after,.float-group:before,.float-group:after{content:" ";display:table}
+.clearfix:after,.float-group:after{clear:both}
+*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+*:not(pre)>code.nobreak{word-wrap:normal}
+*:not(pre)>code.nowrap{white-space:nowrap}
+pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
+b.button:before{content:"[";padding:0 3px 0 2px}
+b.button:after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header:before,#header:after,#content:before,#content:after,#footnotes:before,#footnotes:after,#footer:before,#footer:after{content:" ";display:table}
+#header:after,#content:after,#footnotes:after,#footer:after{clear:both}
+#content{margin-top:1.25em}
+#content:before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #ddddd8}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #ddddd8;padding-bottom:8px}
+#header .details{border-bottom:1px solid #ddddd8;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span:before{content:"\00a0\2013\00a0"}
+#header .details br+span.author:before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark:before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber:after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #ddddd8;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #efefed;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media only screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #efefed;left:auto;right:0}}
+@media only screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background-color:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+.sect1{padding-bottom:.625em}
+@media only screen and (min-width:768px){.sect1{padding-bottom:1.25em}}
+.sect1+.sect1{border-top:1px solid #efefed}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor:before,h2>a.anchor:before,h3>a.anchor:before,#toctitle>a.anchor:before,.sidebarblock>.content>.title>a.anchor:before,h4>a.anchor:before,h5>a.anchor:before,h6>a.anchor:before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
+.paragraph.lead>p,#preamble>.sectionbody>.paragraph:first-of-type p{color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:initial}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock pre:not(.highlight),.listingblock pre[class="highlight"],.listingblock pre[class^="highlight "],.listingblock pre.CodeRay,.listingblock pre.prettyprint{background:#f7f7f8}
+.sidebarblock .literalblock pre,.sidebarblock .listingblock pre:not(.highlight),.sidebarblock .listingblock pre[class="highlight"],.sidebarblock .listingblock pre[class^="highlight "],.sidebarblock .listingblock pre.CodeRay,.sidebarblock .listingblock pre.prettyprint{background:#f2f1f1}
+.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;padding:1em;font-size:.8125em}
+.literalblock pre.nowrap,.literalblock pre[class].nowrap,.listingblock pre.nowrap,.listingblock pre[class].nowrap{overflow-x:auto;white-space:pre;word-wrap:normal}
+@media only screen and (min-width:768px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:.90625em}}
+@media only screen and (min-width:1280px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:1em}}
+.literalblock.output pre{color:#f7f7f8;background-color:rgba(0,0,0,.9)}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]:before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:#999}
+.listingblock:hover code[data-lang]:before{display:block}
+.listingblock.terminal pre .command:before{content:attr(data-prompt);padding-right:.5em;color:#999}
+.listingblock.terminal pre .command:not([data-prompt]):before{content:"$"}
+table.pyhltable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.pyhltable td{vertical-align:top;padding-top:0;padding-bottom:0;line-height:1.45}
+table.pyhltable td.code{padding-left:.75em;padding-right:0}
+pre.pygments .lineno,table.pyhltable td:not(.code){color:#999;padding-left:0;padding-right:.5em;border-right:1px solid #ddddd8}
+pre.pygments .lineno{display:inline-block;margin-right:.25em}
+table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock blockquote p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote:before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.5em;margin-right:.5ex;text-align:right}
+.quoteblock .quoteblock{margin-left:0;margin-right:0;padding:.5em 0;border-left:3px solid rgba(0,0,0,.6)}
+.quoteblock .quoteblock blockquote{padding:0 0 0 .75em}
+.quoteblock .quoteblock blockquote:before{display:none}
+.verseblock{margin:0 1em 1.25em 1em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract{margin:0 0 1.25em 0;display:block}
+.quoteblock.abstract blockquote,.quoteblock.abstract blockquote p{text-align:left;word-spacing:0}
+.quoteblock.abstract blockquote:before,.quoteblock.abstract blockquote p:first-of-type:before{display:none}
+table.tableblock{max-width:100%;border-collapse:separate}
+table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px 0}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot{border-width:1px 0}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+td>div.verse{white-space:pre}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
+ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
+ul.inline>li>*{display:block}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist>table tr>td:first-of-type{padding:.4em .75em 0 .75em;line-height:1;vertical-align:top}
+.colist>table tr>td:first-of-type img{max-width:initial}
+.colist>table tr>td:last-of-type{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
+.imageblock.right,.imageblock[style*="float: right"]{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em 0;border-width:1px 0 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;text-indent:-1.05em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background-color:#00fafa}
+.black{color:#000}
+.black-background{background-color:#000}
+.blue{color:#0000bf}
+.blue-background{background-color:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background-color:#fa00fa}
+.gray{color:#606060}
+.gray-background{background-color:#7d7d7d}
+.green{color:#006000}
+.green-background{background-color:#007d00}
+.lime{color:#00bf00}
+.lime-background{background-color:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background-color:#7d0000}
+.navy{color:#000060}
+.navy-background{background-color:#00007d}
+.olive{color:#606000}
+.olive-background{background-color:#7d7d00}
+.purple{color:#600060}
+.purple-background{background-color:#7d007d}
+.red{color:#bf0000}
+.red-background{background-color:#fa0000}
+.silver{color:#909090}
+.silver-background{background-color:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background-color:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background-color:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background-color:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning:before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution:before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important:before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background-color:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]:after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background-color:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@media print{@page{margin:1.25cm .75cm}
+*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare):after,a[href^="https:"]:not(.bare):after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]:after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #ddddd8!important;padding-bottom:0!important}
+.sect1{padding-bottom:0!important}
+.sect1+.sect1{border:0!important}
+#header>h1:first-child{margin-top:1.25rem}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em 0}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span:before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]:before{display:block}
+#footer{background:none!important;padding:0 .9375em}
+#footer-text{color:rgba(0,0,0,.6)!important;font-size:.9em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<style>
+/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top;line-height:1.45}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Bachelor Thesis: WorkbenchFX</h1>
+<div class="details">
+<span id="author" class="author">François Martin</span><br>
+<span id="author2" class="author">Marco Sanfratello</span><br>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_abstract">1. Abstract</a></li>
+<li><a href="#_acknowledgements">2. Acknowledgements</a></li>
+<li><a href="#_introduction">3. Introduction</a></li>
+<li><a href="#_motivation">4. Motivation</a></li>
+<li><a href="#_analysis">5. Analysis</a>
+<ul class="sectlevel2">
+<li><a href="#_persona">5.1. Persona</a></li>
+<li><a href="#_applications">5.2. Applications</a></li>
+<li><a href="#_user_stories">5.3. User Stories</a></li>
+<li><a href="#_minimum_viable_product">5.4. Minimum Viable Product</a></li>
+<li><a href="#_naming">5.5. Naming</a></li>
+<li><a href="#_api_design">5.6. API Design</a></li>
+<li><a href="#_usability_tests">5.7. Usability Tests</a></li>
+</ul>
+</li>
+<li><a href="#_implementation">6. Implementation</a>
+<ul class="sectlevel2">
+<li><a href="#_layout">6.1. Layout</a></li>
+<li><a href="#_architecture">6.2. Architecture</a></li>
+</ul>
+</li>
+<li><a href="#_processes">7. Processes</a>
+<ul class="sectlevel2">
+<li><a href="#_development">7.1. Development</a></li>
+<li><a href="#_testing">7.2. Testing</a></li>
+<li><a href="#_building">7.3. Building</a></li>
+<li><a href="#_releasing">7.4. Releasing</a></li>
+</ul>
+</li>
+<li><a href="#_lessons_learned">8. Lessons learned</a>
+<ul class="sectlevel2">
+<li><a href="#_value_of_user_stories">8.1. Value of User Stories</a></li>
+<li><a href="#_working_agile">8.2. Working Agile</a></li>
+<li><a href="#_hacking_day">8.3. Hacking Day</a></li>
+<li><a href="#_animations">8.4. Animations</a></li>
+<li><a href="#_switch_from_gradle_to_maven">8.5. Switch from Gradle to Maven</a></li>
+<li><a href="#_build_automation">8.6. Build Automation</a></li>
+<li><a href="#_java_10_9_8">8.7. Java 10 / 9 / 8</a></li>
+<li><a href="#_don_t_underestimate_the_seemingly_most_simple_tasks">8.8. Don&#8217;t underestimate the seemingly most simple tasks</a></li>
+</ul>
+</li>
+<li><a href="#_summary">9. Summary</a>
+<ul class="sectlevel2">
+<li><a href="#_future_implications">9.1. Future Implications</a></li>
+</ul>
+</li>
+<li><a href="#_bibliography">10. Bibliography</a></li>
+<li><a href="#_honesty_declaration">11. Honesty Declaration</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>FHNW University of Applied Sciences, Windisch</p>
+</div>
+<div class="paragraph">
+<p>17<sup>th</sup> of August 2018</p>
+</div>
+<div class="paragraph">
+<p>Customer: <a href="http://www.dlsc.com">Dirk Lemmermann Software &amp; Consulting</a><br>
+Advisor: <a href="mailto:dieter.holz@fhnw.ch">Dieter Holz‚ FHNW University of Applied Sciences</a><br>
+Examiner: <a href="https://www.inventage.com/">Edwin Steiner‚ Inventage</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abstract">1. Abstract</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>WorkbenchFX</strong> is an open source Java based JavaFX library designed to create large enterprise applications.
+Using it is really simple, since we focused on an intuitive way creating the API.
+We focused on a modular approach where the whole application consists of multiple views, called modules.
+The API provides a great user experience, combined with a good usability and a beautiful design inspired by the Material Design guidelines.
+Restyling the workbench can easily being done by simply changing <code>CSS</code> variables.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_acknowledgements">2. Acknowledgements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We had a lot of help during our way to <strong>WorkbenchFX</strong>.
+This project would not have been so successful without the help of all of the people who supported us.</p>
+</div>
+<div class="paragraph">
+<p>First of all we would like to thank our customer Dirk Lemmermann for making this project possible.
+We also want to thank him for providing us with example code of his latest project to use as an inspiration.
+Giving us constant feedback, helped a lot carrying the project forward.</p>
+</div>
+<div class="paragraph">
+<p>We thank our advisor Dieter Holz for his support.
+During the project&#8217;s hacking days he took the role of the API user and tested the workbench to its limits.
+His feedback led to important changes of the API syntax and even had an influence on new features.</p>
+</div>
+<div class="paragraph">
+<p>We also want to thank Annelore Egger.
+She took the role as an API tester and provided a lot of useful feedback.
+Additionally she helped us a lot when she proof-read our documentation and provided feedback.</p>
+</div>
+<div class="paragraph">
+<p>Many thanks to Horst Bauer for thoroughly proof-reading our documentation.
+As an unbiased reviewer he provided additional very useful feedback.</p>
+</div>
+<div class="paragraph">
+<p>We would also like to especially thank the UX expert, who supported us during the usability test phase.
+His feedback lead to a substantial improvement of our styling and user experience.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">3. Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>WorkbenchFX is an out of the box solution to build large applications from multiple views, called modules.
+It offers good user experience and a beautiful design.</p>
+</div>
+<div class="paragraph">
+<p>A developer often starts with the views, so they can quickly show their progress to their customer.
+After that, some questions may arise such as:
+- "How do I bring all those views together?"
+- "How do I build the navigation between those views?"
+- "How do I establish a good user experience?"</p>
+</div>
+<div class="paragraph">
+<p>When those questions appear, <strong>WorkbenchFX</strong> comes into play:
+<strong>WorkbenchFX</strong> allows the developer to focus on designing the views and meanwhile we&#8217;re building the application around them.</p>
+</div>
+<div class="paragraph">
+<p><strong>WorkbenchFX</strong> also scales with growing requirements.
+In the beginning users just want to navigate through the views, but later on they probably would want to use a menu or a toolbar.
+Even that is supported by <strong>WorkbenchFX</strong> and the developer doesn&#8217;t have to build anything by themselves.</p>
+</div>
+<div class="paragraph">
+<p>If the developer still manages to start outgrowing the workbench, they can even replace whole parts of it with their own implementations, without having to rewrite the whole workbench.</p>
+</div>
+<div class="paragraph">
+<p>Some of the terms used are explained in <a href="#terms-definition">Table 1</a>.</p>
+</div>
+<table id="terms-definition" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. Definition of terms used during the documentation</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Term</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Definition</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Module</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>workbench</code> object consists of multiple views. The object which contains the view is called <code>WorkbenchModule</code> (see <a href="#_module_naming">Section 5.5.1</a>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The developer who creates a custom implementation of a module</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The person who uses the final application created with WorkbenchFX</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The developer who uses the WorkbenchFX API to develop their application</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_motivation">4. Motivation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Our customer told us about his latest project in which he creates a large enterprise application.
+He told us that with every new enterprise application he makes, the content is different, with the rest usually being about the same.
+Large enterprise applications often share similar functionality and therefore duplicate work is inevitable.
+The idea was born to create a framework, which allows the API user to focus on the unique, interesting work, while the framework does all the boring, repetitive work for them.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_analysis">5. Analysis</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_persona">5.1. Persona</h3>
+<div class="paragraph">
+<p>During the project, three personas have been created.
+They helped us a lot to focus on the main idea of the project.
+Since they represent our target group, we were able to clearly recognize the features which are crucial for the success of the project.</p>
+</div>
+<div class="paragraph">
+<p>In the beginning of the project we created two personas to focus on: SteffiFX and Anna (see <a href="#persona">Table 2</a>).
+In the kickoff meeting with our customer, he shifted the main focus to a third, new persona, which led to different features and changed the scope of our project.
+At first we thought that it would be sufficient to design an API for long time JavaFX programmers, but then our main focus became developers with little to no experience in frontend development.</p>
+</div>
+<div class="paragraph">
+<p>The final three personas are shown in <a href="#persona">Table 2</a> below.
+We refer to their names throughout in this documentation.</p>
+</div>
+<table id="persona" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. Personas</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="include/persona/stefanie_berner.pdf"><span class="image"><img src="include/persona/stefanie_berner.png" alt="Stefanie Berner"></span></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="include/persona/fabian_zimmer.pdf"><span class="image"><img src="include/persona/fabian_zimmer.png" alt="Fabian Zimmer"></span></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="include/persona/anna_leutner.pdf"><span class="image"><img src="include/persona/anna_leutner.png" alt="Anna Leutner"></span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_applications">5.2. Applications</h3>
+<div class="paragraph">
+<p>The goal of this analysis is to look at the structural layout of different kinds of applications and to find best practices amongst them.
+This way we gathered inspiration on how the design of the created workbench with our API might look like.
+This helped us to decide which characteristics we want to include in WorkbenchFX.</p>
+</div>
+<div class="paragraph">
+<p>Because there are lots of applications available, we tried to look at a variety of them to ensure a good overview.</p>
+</div>
+<div class="paragraph">
+<p>The following sub chapters are showing each an image of the analyzed program and a table with its characteristics and (if there) some positive or negative impressions.</p>
+</div>
+<div class="sect3">
+<h4 id="_blender">5.2.1. Blender</h4>
+<div class="paragraph">
+<p>Blender is a tool for creating 3D models which are used in animated movies or in game development.
+It is a tool which requires a lot of skill and is not an "every day" program.</p>
+</div>
+<div class="paragraph">
+<p><a href="#img-blender">Figure 1</a> gives a short impression of the program and <a href="#characteristics-blender">Table 3</a> shows our findings.</p>
+</div>
+<div id="img-blender" class="imageblock">
+<div class="content">
+<img src="include/analysis/blender.png" alt="Blender">
+</div>
+<div class="title">Figure 1. Blender</div>
+</div>
+<table id="characteristics-blender" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 3. Characteristics of Blender</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Characteristics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Positive Impressions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Negative Impressions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Blender is divided into five sections:</p>
+<p class="tableblock">- Header: The most important and common settings</p>
+<p class="tableblock">- Left bar: Several tools</p>
+<p class="tableblock">- Right bar: Several tools</p>
+<p class="tableblock">- Footer: Animation, and view modes</p>
+<p class="tableblock">- Center: The model which is created (main working area)</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All sections are resizable</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If their size becomes 0, they disappear.
+ They can be restored, but only by using a shortcut</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The sections can be shown and hidden when they are not used anymore</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Using shortcuts to show/hide the bars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- There is no animation, during showing or hiding</p>
+<p class="tableblock">- No possibility to show/hide the bars manually</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the top right corner: Dragging a triangle creates a new window</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each view shows the same part, but its view is independent
+(Interesting feature, but as it is a very specific feature probably not usable for WorkbenchFX)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">To remove the view, one has to drag the corner back in a certain way, which is very unintuitive</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Items in a bar can be moved manually, but only in the bar itself</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The bar itself is fixed and can&#8217;t be moved</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Items in the bar can be collapsed, in order to save space and make it cleaner (like a drawer inside a drawer)</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The tools in the toolbar are stored in tabs</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When creating a new project, all settings are restored to default</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the workspace becomes a 'mess', one can simply open a new window and everything is restored</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When a user is used to working in a certain way, they have to change the workspace every time they starts a new project</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_adobe_photoshop">5.2.2. Adobe Photoshop</h4>
+<div class="paragraph">
+<p>Adobe Photoshop is probably one of the most widely used tools when it comes to photo manipulation and creation of digital art.
+Since it requires some experience to use it properly and therefore is made primary for power users.
+<a href="#img-photoshop">Figure 2</a> gives a short impression of the program and <a href="#characteristics-photoshop">Table 4</a> shows our findings.</p>
+</div>
+<div id="img-photoshop" class="imageblock">
+<div class="content">
+<img src="include/analysis/photoshop.png" alt="Adobe Photoshop">
+</div>
+<div class="title">Figure 2. Adobe Photoshop</div>
+</div>
+<table id="characteristics-photoshop" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 4. Characteristics of Photoshop</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Characteristics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Positive Impressions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Negative Impressions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The workspace is divided into five sections:</p>
+<p class="tableblock">- Header: A menu bar with all the different settings available</p>
+<p class="tableblock">- Toolbar: Detailed adjustments for the currently selected tool</p>
+<p class="tableblock">- Left bar: The most important and common tools</p>
+<p class="tableblock">- Right bar: More specific and special tools</p>
+<p class="tableblock">- Center: The files which are being worked on</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Multiple windows possible</p>
+<p class="tableblock">- Navigation is done with tabs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tabs are saving space and still show the open files</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tabs can be dragged to other places (even undocking them from the tab bar)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sometimes useful, when wanting to see two files next to each other</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not really necessary (rarely used)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tabs / tools can be placed anywhere in the application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When using the tools, it is sometimes handy to move a tool in range</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It has advantages, but is also a little cumbersome to use.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The workspace can be restored to default using the corresponding setting button</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Good solution</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom workspaces can be stored and switched as needed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nice balance between a default workspace and a power user</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The tools are stored in tabs and drawers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When double-clicking on the tabs, they collapse</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">They have 3 states (not likely to understand) and the collapsing behaviour is not intuitive</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_intellij_idea">5.2.3. IntelliJ IDEA</h4>
+<div class="paragraph">
+<p>IntelliJ is an integrated development environment (IDE) which is used to develop a variety of programs.
+The tool is made for software developers and can only be used if someone is familiar with programming.</p>
+</div>
+<div class="paragraph">
+<p><a href="#img-intellij">Figure 3</a> gives a short impression of the program and <a href="#characteristics-intellij">Table 5</a> shows our findings.</p>
+</div>
+<div id="img-intellij" class="imageblock">
+<div class="content">
+<img src="include/analysis/intellij.png" alt="IntelliJ IDEA">
+</div>
+<div class="title">Figure 3. IntelliJ IDEA</div>
+</div>
+<table id="characteristics-intellij" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 5. Characteristics of IntelliJ IDEA</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Characteristics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Positive Impressions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Negative Impressions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The workspace is divided into six sections:</p>
+<p class="tableblock">- Header: A menu bar with different settings</p>
+<p class="tableblock">- Toolbar: Buttons which are often used during development</p>
+<p class="tableblock">- Left bar: Drawers used for navigating through the project. Structural features</p>
+<p class="tableblock">- Right bar: Space for drawers. Used to display build functionality</p>
+<p class="tableblock">- Bottom bar: Additional space for drawers and tools. Widely used for extra collapsible drawers</p>
+<p class="tableblock">- Status bar: At the bottom of the window. Displays additional information</p>
+<p class="tableblock">- Center: The current open file to work with</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Navigation via tabs</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When right clicking on the tab, its positioning behaviour can be decided</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nearly every possible state is supported</p>
+<p class="tableblock">- Pinned</p>
+<p class="tableblock">- Docked</p>
+<p class="tableblock">- Floating</p>
+<p class="tableblock">- Windowed</p>
+<p class="tableblock">- &#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The "Remove from sidebar" button removes the selected feature from the sidebar</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- It&#8217;s not intuitive to undo this call</p>
+<p class="tableblock">- While trying to restore the feature, we discovered the option "Restore default layout", but this doesn&#8217;t restore all layout changes</p>
+<p class="tableblock">&#8594; Lesson learned: Layout changes should be stored in one place</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_figma">5.2.4. Figma</h4>
+<div class="paragraph">
+<p>Figma is a tool used for prototyping.
+Using it is very easy and intuitive.
+It can used by non power users.
+Compared to the other tools analyzed before, its tools are fixed and defined.
+The tools can&#8217;t be moved or removed.
+The design of the software is straight forward and is kept very simple.</p>
+</div>
+<div class="paragraph">
+<p>It consists of five main sections:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Menu bar on top where all the features are stored</p>
+</li>
+<li>
+<p>Toolbar below the menu bar where the most important tools are stored</p>
+</li>
+<li>
+<p>Left bar where the tree structure / navigation of the current active work is displayed</p>
+</li>
+<li>
+<p>Right bar where all important information and attributes about the selected component is displayed</p>
+</li>
+<li>
+<p>Center where the main work is being done</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="#img-figma">Figure 4</a> gives a short impression of the program.</p>
+</div>
+<div id="img-figma" class="imageblock">
+<div class="content">
+<img src="include/analysis/figma.png" alt="Figma">
+</div>
+<div class="title">Figure 4. Figma</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_adobe_xd">5.2.5. Adobe XD</h4>
+<div class="paragraph">
+<p>Like <a href="#_figma">Section 5.2.4</a>, Adobe XD is a prototyping software.
+It is also very simple and intuitive.
+In fact there is not much that differs compared to Figma.
+So it can definitely be used by non power users.
+<a href="#img-adobe-xd">Figure 5</a> gives a short impression of the program.</p>
+</div>
+<div id="img-adobe-xd" class="imageblock">
+<div class="content">
+<img src="include/analysis/adobeXD.png" alt="Adobe XD">
+</div>
+<div class="title">Figure 5. Adobe XD</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_conclusion">5.2.6. Conclusion</h4>
+<div class="paragraph">
+<p>In conclusion after analyzing all those different programs, we can simplify them to the most important and frequent characteristics:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A menu bar on top of the application, where all the functionality of the application is located.</p>
+</li>
+<li>
+<p>Below the menu-bar is often a toolbar, which contains the current, or most important tools represented by buttons (without collapsing).</p>
+</li>
+<li>
+<p>In the center is often the window, in which the main work is done.</p>
+</li>
+<li>
+<p>Usually there are some drawers on the left and right of the application, which are collapsible.
+They contain either more tools, buttons or a tree-view for navigation.</p>
+</li>
+<li>
+<p>Sometimes another bar which is collapsible is set below the main window.</p>
+</li>
+<li>
+<p>Finally another toolbar is sometimes set on bottom of the application.
+It contains the least used tools, or tools which are needed at the end of the process.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_to_ide_or_not_to_ide">5.2.7. To IDE or not to IDE?</h4>
+<div class="paragraph">
+<p>During our research we discovered, that there are two different kind of application types, created for two different types of users.</p>
+</div>
+<div class="paragraph">
+<p>One type of application is created for power users:</p>
+</div>
+<div class="paragraph">
+<p>Power users need the utmost of customizability, to ensure they can adapt the workspace to be the most ergonomic to fit their workflow.
+In terms of the architecture, it could mean that it would need to allow the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Separation between <code>Control</code> and <code>Skin</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Skin can be replaced by API users, if they want to use a custom style</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Flexible panes</p>
+<div class="ulist">
+<ul>
+<li>
+<p>can be re-arranged across the whole window</p>
+</li>
+<li>
+<p>different modes for fixation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pinned mode</p>
+</li>
+<li>
+<p>Docked mode</p>
+</li>
+<li>
+<p>Floating mode</p>
+</li>
+<li>
+<p>Window mode</p>
+</li>
+<li>
+<p>Split mode</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The other user type is the opposite to a power user:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Simple design</p>
+</li>
+<li>
+<p>Intuitive usage</p>
+</li>
+<li>
+<p>Not much going on on the screen, so that the user can focus on the important parts of the application</p>
+</li>
+<li>
+<p>Doesn&#8217;t want to customize or re-arrange parts of the application</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Depending on the required user type, the WorkbenchFX API would look totally different, because both use cases require a different approach on the API design.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_user_stories">5.3. User Stories</h3>
+<div class="paragraph">
+<p>In the beginning of the project we decided to organize a user story workshop with our customer.
+Its purpose was to define personas (see <a href="#_persona">Section 5.1</a>) and based on them to create user stories.</p>
+</div>
+<div class="paragraph">
+<p>We followed a specific pattern when writing our user stories:
+We always started with the name of the persona:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>As Anna&#8230;&#8203;</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>followed by the desired functionality:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>&#8230;&#8203;I&#8217;d like to have an intuitive way to use the application&#8230;&#8203;</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>concluding with the value:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>&#8230;&#8203;so that I am not confused while working and can keep a productive workflow.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>This way we can instantly verify if a feature is really necessary and whether it is useful or not.
+This is because the story needs to fit in the context and is not just a random requirement which came to mind, without questioning its usefulness <a href="#bibliography-default-cohn_user_2004">[1]</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="_ide_decision">5.3.1. IDE Decision</h4>
+<div class="paragraph">
+<p>During the user stories meeting we also decided which application type we would support.
+As it became clear the user was going to be Anna, we knew that we would not develop an API which allows to build large power user applications like an IDE.
+Anna is a person which can use a computer, but she uses it only as a tool and is not familiar with complex applications.
+So we had to focus on simple, easy to understand features which are intuitive to use.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_differentiation_to_eclipse_rcp">5.3.2. Differentiation to Eclipse RCP</h4>
+<div class="paragraph">
+<p>WorkbenchFX is considered to be an enterprise application framework in JavaFX, just like Eclipse RCP is as well.
+However, besides Eclipse RCP being available on the SWT platform, the goals of either are completely different.
+WorkbenchFX is not meant to replace or augment Eclipse RCP for JavaFX.
+WorkbenchFX is also neither a successor to Eclipse RCP.</p>
+</div>
+<div class="paragraph">
+<p>The main focus for WorkbenchFX is to build applications like Customer Relation Management (CRM) software.
+While Eclipse RCP can also do that, the user group of Eclipse RCP is the <strong>power user</strong>.
+It allows flexible re-arrangement of parts of the GUI and features a docking framework.
+This is ideal for developers, who work entirely in their IDE&#8217;s and want to have the most flexibility possible to customize everything.</p>
+</div>
+<div class="paragraph">
+<p>WorkbenchFX is not as flexible on purpose, since the <strong>user group</strong> is represented by <strong>Anna</strong> and she certainly isn&#8217;t a power user.
+She doesn&#8217;t want to bother with moving around parts of the GUI, she just wants to get her work done quickly with good user experience out of the box.</p>
+</div>
+<div class="paragraph">
+<p>Eclipse RCP offers lots of extension points.
+WorkbenchFX only selectively offers extension points where it makes sense, but still provides good defaults.
+The goal of WorkbenchFX is to quickly get an application up and running with minimal overhead.
+Also, it should be possible to use WorkbenchFX without working through hours of tutorials, programming with WorkbenchFX should feel intuitive.
+Eclipse RCP may offer more flexibility, but requires a lot more configuration and overhead.
+This also means greater complexity and being more difficult to learn.</p>
+</div>
+<div class="paragraph">
+<p>In the end, both can lead to the same goal, but they are meant to be used for different purposes.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_minimum_viable_product">5.4. Minimum Viable Product</h3>
+<div class="paragraph">
+<p>To ensure shared understanding between the customer and ourselves, we agreed on a minimum viable product (MVP) <a href="#bibliography-default-olsen_lean_2015">[2]</a>.
+The outcome resulted in a very minimalistic version of the workbench, which still provides an added value compared to writing everything by hand.
+The final prototype is displayed in <a href="#mvp">Table 6</a>.</p>
+</div>
+<div class="paragraph">
+<p>The MVP consists of:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ability to add modules to the workbench object</p>
+</li>
+<li>
+<p>The <a href="#_workbenchmodule_lifecycle">Section 6.2.2</a> which enables the user to open, deactivate and close the module</p>
+</li>
+<li>
+<p>Switching between modules using tabs</p>
+</li>
+</ul>
+</div>
+<table id="mvp" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 6. Minimum Viable Product (MVP)</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="include/mvp/home.png"><span class="image"><img src="include/mvp/home.png" alt="Home Screen"></span></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="include/mvp/module.png"><span class="image"><img src="include/mvp/module.png" alt="Module Screen"></span></a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It is interesting, that the MVP is still recognizable when using only the minimal feature of WorkbenchFX: only adding modules to the workbench. The outcome represents exactly the MVP.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <a href="https://www.figma.com/proto/LY7jPWrDVQ5GG1zmvBdlA2MT/WorkbenchFX?scaling=contain&amp;node-id=47%3A129">clickable MVP</a> is designed using the prototyping tool <code>Figma</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_naming">5.5. Naming</h3>
+<div class="sect3">
+<h4 id="_module_naming">5.5.1. Module Naming</h4>
+<div class="paragraph">
+<p>To plug in functionality by the API user, we use modules.
+However, as stated in <a href="#_add_module_page">Section 6.1.2</a>, the name <code>Module</code> is not ideal, since that name already has a lot of associations.
+Additionally, when typing <code>extends Module</code> in an IDE, it will automatically imports Java&#8217;s <code>Module</code>.
+This makes it frustrating, as the implementor has to manually change the import.</p>
+</div>
+<div class="paragraph">
+<p>To avoid confusion, we want to come up with a name which makes it clearer and less ambiguous.
+We did a brainstorming to come up with ideas for possible names for <code>Module</code> (<a href="#img-brainstorming-module">Figure 6</a>).</p>
+</div>
+<div id="img-brainstorming-module" class="imageblock">
+<div class="content">
+<img src="include/brainstorming_module.jpg" alt="Module Brainstorming">
+</div>
+<div class="title">Figure 6. Brainstorming of possible names for <code>Module</code>.</div>
+</div>
+<div class="paragraph">
+<p>We discussed this with our customer and even though we did the brainstorming and came up with a lot of names, none of them seemed to feel "right".
+Even though the name <code>Module</code> has a lot of associations, it&#8217;s the only name that makes sense for what it stands for.
+In the end, we decided to rename <code>Module</code> to <code>WorkbenchModule</code>.
+We thought it would be easier to understand for our API users and that was the most important factor for us in this decision.
+This is why we decided to stick with the word <code>Module</code>.
+However, we decided to add the <code>Workbench</code> prefix, to remedy the importing issue mentioned above and to clearly separate it from the other <code>Module</code> classes in the JDK.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<a href="#_add_module_page">Section 6.1.2</a> explains what a module exactly is.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_navigation_drawer">5.5.2. Navigation Drawer</h4>
+<div class="paragraph">
+<p>We chose the name "Navigation Drawer" to be consistent with the naming in the <a href="https://material.io/guidelines/patterns/navigation-drawer.html">Material Design guidelines</a>.
+This makes sure we use the naming that will be the most familiar among other developers and is easily understandable.
+An additional benefit is that if someone doesn&#8217;t know what it means, they can simply look it up in the <a href="https://material.io/guidelines/patterns/navigation-drawer.html">Material Design guidelines</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_api_design">5.6. API Design</h3>
+<div class="paragraph">
+<p>API Users of WorkbenchFX don&#8217;t only care about the API design, but also about the customizibility.</p>
+</div>
+<div class="paragraph">
+<p>Our customer states that the intended API user would not have the need to entirely replace the <code>Skin</code>, as it is rarely done.
+At first we didn&#8217;t separate between <code>Control</code> and <code>Skin</code> for this reason.
+Later on, our customer told us he would still consider the <code>Workbench</code> to be a <code>Control</code>, and that it would make more sense if used with <a href="https://gluonhq.com/products/scene-builder/">Scene Builder</a>.
+This is why we decided to have the <code>Workbench</code> extend <code>Control</code> and split it up into <code>Workbench</code> and <code>WorkbenchSkin</code>.
+However, since we decided the API user would not want to replace the <code>WorkbenchSkin</code>, we decided to make <code>Workbench</code> and <code>WorkbenchSkin</code> final.
+With this, we make it clear that <code>Workbench</code> and <code>WorkbenchSkin</code> are not designed to be subclassed.</p>
+</div>
+<div class="paragraph">
+<p>This also means that we don&#8217;t need to design the panes we use internally to be replaceable by the API user.
+It is more important that the user experience is straightforward.
+Still, the possibility of extending the workbench using modules is important to our customer.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_usability_tests">5.7. Usability Tests</h3>
+<div class="paragraph">
+<p>During the project we got continuous feedback from different kinds of people.
+The most important outcomes from the usability tests are listed in the following chapters.</p>
+</div>
+<div class="sect3">
+<h4 id="_dieter_holz_advisor">5.7.1. Dieter Holz, Advisor</h4>
+<div class="paragraph">
+<p>During the "Hacking Days" we&#8217;ve made from time to time (more about them in <a href="#_hacking_day">Section 8.3</a>), our advisor tested the API by implementing a module on his own.
+This showed us some weaknesses in the API design.
+We found two important findings, which are described in the following subchapters.</p>
+</div>
+<div class="sect4">
+<h5 id="_interrupt_closing_a_module">Interrupt Closing a Module</h5>
+<div class="paragraph">
+<p>It is possible to interrupt closing a module.
+For example, if someone wants to ask the user if the progress should be saved before closing, the module should not be closed immediately.
+During the implementation of the dialogs, we used <code>CompletableFuture</code>s.
+We also used them to achieve the interrupt closing process, since closing of the module also happens asynchronously, after false has been returned by <code>destroy()</code>.</p>
+</div>
+<div class="paragraph">
+<p>First it made sense and it also worked.
+But during the usability test, our advisor mentioned the complexity of using <code>CompletableFuture</code>s.
+It is unlikely that Fabian knows what <code>CompletableFutures</code> are and we didn&#8217;t want him to have an unnecessary barrier to achieve his goal.</p>
+</div>
+<div class="paragraph">
+<p>So we figured out a much simpler solution.
+Implementation details can be found in <a href="#_workbenchmodule_lifecycle">Section 6.2.2</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A detailed chapter can be found in the readme.md of WorkbenchFX in the chapter "Prevent module from closing".
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_module_toolbar">Module Toolbar</h5>
+<div class="paragraph">
+<p>Our advisor&#8217;s module had a dark background, but the tab&#8217;s color was white.
+This lead to inconsistent coloring and ruined the tab&#8217;s look and feel.
+Having Fabian to restyle everything manually was tedious and boring, so we came up with a different idea.</p>
+</div>
+<div class="paragraph">
+<p>Since most modules would have some toolbar items, we introduced a module-specific toolbar.
+It is now possible to add <code>ToolbarItem</code>s to the module.
+As soon as there are items to be displayed, WorkbenchFX automatically creates a toolbar and displays it below the tab.</p>
+</div>
+<div class="paragraph">
+<p>This way we can ensure that the implementor&#8217;s modules maintain a consistent look and feel.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_drawer_animations">Drawer Animations</h5>
+<div class="paragraph">
+<p>Up until the end of the project, we didn&#8217;t focus on animations.
+One reason we never did that was that using them in JavaFX is really cumbersome compared to animations on the web.</p>
+</div>
+<div class="paragraph">
+<p>One of our features are drawers.
+To open a drawer, an API user can call <code>workbench.showDrawer()</code>.
+When showing or hiding, drawers like the <code>NavigationDrawer</code> were never showing any animation.
+They just (dis)appeared.</p>
+</div>
+<div class="paragraph">
+<p>However during the usability test we discovered that in case of other, larger drawers animations are required.
+The visual feedback where the drawers were coming from and that it even was a drawer was not present.
+A user wants to know from which position the drawer comes from and he is used to a sliding animation in this case.
+So we decided to implement the drawers with animations (see <a href="#_animations">Section 8.4</a>).</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ux_expert">5.7.2. UX Expert</h4>
+<div class="paragraph">
+<p>The biggest impact on the WorkbenchFX styling came from a UX expert.
+A lot of the feedback he gave us was really helpful and we decided to adapt a lot of it.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The active tab should be more styled like a "real" tab in a browser</p>
+</li>
+<li>
+<p>The tabs should be styleable with unique colors (which can now be done using the unique <code>#id</code>)</p>
+</li>
+<li>
+<p>Get rid of the home button and replace it with a <code>+</code> button on the right end of the toolbar</p>
+</li>
+<li>
+<p>Shrink down the size of the close icon in the tabs and make it thinner</p>
+</li>
+<li>
+<p>A small vertical border before and after the tabs would suggest the tab as an entity</p>
+</li>
+<li>
+<p>Offer the ability to have the same tabs open as when the application was last closed (this can already be achieved through storing the open modules in preferences, for example using PreferencesFX)</p>
+</li>
+<li>
+<p>It should be possible to define a default tab to be opened when starting the application (this can already be achieved by simply calling <code>workbench.showModule(defaultModule)</code> in the code after the stage was shown)</p>
+</li>
+<li>
+<p>For the tiles: Enlarge the icon, center it on top of the text</p>
+</li>
+<li>
+<p>He also suggested to split the tabs and the toolbar into two separate bars</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_annelore_egger_user_group">5.7.3. Annelore Egger, User Group</h4>
+<div class="paragraph">
+<p>She was happy using the API which motivated and showed us that we&#8217;re on the right way.</p>
+</div>
+<div class="sect4">
+<h5 id="_separating_the_toolbar_and_tab_bar">Separating the Toolbar and Tab bar</h5>
+<div class="paragraph">
+<p>When she looked at the top bar during the usability test, she thought all controls present in the bar were tabs and was confused what adding controls to the lists of the toolbar controls would do.
+This confirmed that separating the toolbar from the tab bar was really necessary.
+Having only one bar quickly lead to an overcrowding of items and tabs, which made it impossible to distinguish them.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_introducing_toolbaritems">Introducing ToolbarItems</h5>
+<div class="paragraph">
+<p>As an addition to the overcrowded bar on top, she was confused with the possibility of adding every <code>Node</code> to the toolbar.
+She also didn&#8217;t realize the <code>Dropdown</code> control we were providing for convenience.</p>
+</div>
+<div class="paragraph">
+<p>For those reasons we decided to restrict the possibility of adding every <code>Node</code> to one simple object:
+The <code>ToolbarItem</code>.
+We replaced the <code>Dropdown</code> class with this universal object.
+Depending on the defined parameters, the <code>ToolbarItem</code> either becomes a <code>Label</code>, a <code>Button</code> or a <code>MenuButton</code> with appropriate styling.
+If an API user still wants to use a custom <code>Node</code>, they can use the constructor which takes a <code>Node</code> as parameter.</p>
+</div>
+<div class="paragraph">
+<p>This way it is clear what to use and no misunderstandings are possible.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_implementation">6. Implementation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>During development of the API we&#8217;ve built a lot of demo modules to test it.
+Those modules can be tried out when launching the <code>CustomDemo</code> in the <code>workbenchfx-demo</code> package.
+This way, all features can be seen exactly in detail and in action.</p>
+</div>
+<div class="sect2">
+<h3 id="_layout">6.1. Layout</h3>
+<div class="paragraph">
+<p>The following chapters cover some of the most interesting topics and design decisions we encountered during the layout process.</p>
+</div>
+<div class="sect3">
+<h4 id="_tabs">6.1.1. Tabs</h4>
+<div class="paragraph">
+<p>We decided to stick with the modular concept of having multiple views and switching between them using tabs.
+This concept is widely used.
+Most of the applications analyzed in <a href="#_applications">Section 5.2</a> use the tab concept to switch between their files.
+Also common internet browsers like <a href="https://www.google.com/intl/de_ALL/chrome/">Google Chrome</a> or <a href="https://www.mozilla.org/de/firefox/new/">Firefox</a> use the tab system too.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_add_module_page">6.1.2. Add Module Page</h4>
+<div class="paragraph">
+<p>Having a page which allows the user to open a new module is also commonly used.
+For example smartphones use such a concept, when they display icons of installed apps on the home screen and open them on click.</p>
+</div>
+<div class="paragraph">
+<p>For this reason we decided to go with a system, where the user could click on a certain button which opens an overview with all of the modules in a grid.
+Clicking on one of those buttons (called <code>Tile</code>) would open the module.
+This way, the user has a good overview on all the modules and can easily open them.</p>
+</div>
+<div class="paragraph">
+<p>Going with this concept triggered a discussion about naming the components.
+When we described the concept, we struggled with the naming of the module.
+Viewed objectively, the complete application built with WorkbenchFX consists of multiple "mini applications".
+For obvious reasons we could not name the module "MiniApplication".
+An API user could be confused about the difference between the application itself and the "mini applications".
+So we had to find a better name.
+In the end we chose <code>WorkbenchModule</code>, which also was not the best solution, since the part "module" has a lot of associations.
+But it is definitely a better choice than "Application" (the complete naming process is described in <a href="#_module_naming">Section 5.5.1</a>).</p>
+</div>
+<div class="paragraph">
+<p>When having a lot of modules, the available space on the page would shrink quickly and the usability would also suffer.
+For that reason we introduced a pagination to have only a restricted amount of modules displayed on the page.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_changes_across_versions">6.1.3. Changes across Versions</h4>
+<div class="paragraph">
+<p>There are three major changes mentionable which appeared during the project.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The phase when we were <a href="#_writing_our_own_stylesheet">writing our own stylesheet</a> without any help of external sources.</p>
+</li>
+<li>
+<p>The phase where we were <a href="#_switching_to_the_material_design_guidelines">switching to the Material Design guidelines</a>.</p>
+</li>
+<li>
+<p>The phase after the usability tests, where we were <a href="#_separating_the_toolbar">separating the toolbar</a> into the toolbar on top and the tab bar below and decided to completely switch to Material Design.</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="_writing_our_own_stylesheet">Writing our own stylesheet</h5>
+<div class="paragraph">
+<p>In version <code>v1.1.1</code> we had the opinion that we have a really good styling.
+To be fair: It was the first version which looked acceptable.
+<a href="#v111">Table 7</a> gives a first impression on how the style looked at that time.</p>
+</div>
+<table id="v111" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 7. v1.1.1</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="include/versions/v1.1.1%20-%201.png" alt="v1.1.1-1"></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="include/versions/v1.1.1%20-%202.png" alt="v1.1.1-2"></span></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Later on in the project we realized, that the white gaps between the toolbar items on top didn&#8217;t provide good readability.
+It also took up too much space.
+At one point we decided to have a look at common style guidelines to improve our styling.</p>
+</div>
+<div class="paragraph">
+<p>We felt, that Google&#8217;s <a href="https://material.io/design/">Material Design</a> guidelines are a pretty good starting point, since their flat design approach is being used in a lot of applications and they are providing the guidelines open source <a href="#bibliography-default-noauthor_design_nodate">[3]</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_switching_to_the_material_design_guidelines">Switching to the Material Design guidelines</h5>
+<div class="paragraph">
+<p>This was a huge step in terms of usability.
+One major improvement was to change the background color of the toolbar to the primary color.
+We also changed the way the active tabs were looking to a more material like appearance with a white border below the active tab <a href="#bibliography-default-noauthor_tabs_nodate">[4]</a>.
+<a href="#v120">Table 8</a> shows the styling in version <code>v1.2.0</code>.</p>
+</div>
+<table id="v120" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 8. v1.2.0</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="include/versions/v1.2.0%20-%201.png" alt="v1.2.0-1"></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="include/versions/v1.2.0%20-%202.png" alt="v1.2.0-2"></span></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>However, the active tab styling this way showed us that Material Design <strong>is</strong> only a guideline.
+The way those tabs are styled adapts mainly to tabs with only text <a href="#bibliography-default-noauthor_tabs_nodate">[4]</a>.
+Since we have an icon, text and a close icon, there was a lot going on in the tab bar.
+Especially when having a lot of modules open, the application looked crowded.
+<a href="#v150">Figure 7</a> below shows how horrible the styling was when opening a lot of modules.</p>
+</div>
+<div id="v150" class="imageblock">
+<div class="content">
+<img src="include/versions/v1.5.0%20-%208.png" alt="v1.5.0-8">
+</div>
+<div class="title">Figure 7. v1.5.0</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Therefore we came to the conclusion, that testing boundaries is not just recommended but crucial to the success of a project.
+The visual appearance with only a few open modules and only a few items in the toolbar looked nice.
+But testing use cases with a lot of items revealed the issue.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>It is obvious that this styling had to change.
+After the <a href="#_usability_tests">Section 5.7</a> and a lot of feedback we changed the styling again.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_separating_the_toolbar">Separating the Toolbar</h5>
+<div class="paragraph">
+<p>At first we were worried that separating the toolbar into two bars would take up too much space of the window.
+But this trade-off proved to be a worthwhile decision.
+We also decided to rework the styling a little bit.
+<a href="#v160">Table 9</a> shows the final result of the separation.</p>
+</div>
+<table id="v160" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 9. v1.6.0</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="include/versions/v1.6.0%20-%201.png" alt="v1.6.0-1"></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="include/versions/v1.6.0%20-%202.png" alt="v1.6.0-2"></span></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>A direct comparision approves this decision (<a href="#v150vs160">Table 10</a>).</p>
+</div>
+<table id="v150vs160" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 10. v1.5.0 vs v1.6.0</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="include/versions/v1.5.0%20-%208.png" alt="v1.5.0-8"></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="include/versions/v1.6.0%20-%208.png" alt="v1.6.0-8"></span></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The colors of the tiles were also changed to white.
+Having the tiles in a color with a white background created an optical illusion where the brain imagines colored, blurred dots between the spaces of the tiles.
+An example of the created illusion is shown below (<a href="#illusion">Figure 8</a>).</p>
+</div>
+<div id="illusion" class="imageblock">
+<div class="content">
+<img src="include/versions/illusion.png" alt="Optical illusion">
+</div>
+<div class="title">Figure 8. Optical Illusion</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_easy_styling">6.1.4. Easy Styling</h4>
+<div class="paragraph">
+<p>Our most important goal was to enable Fabian a simple way to style his application in a very simple way.
+Of course he would not take advantage of all of the styling possibilities.
+But we thought he might want to change at least the default color theme of the workbench.</p>
+</div>
+<div class="paragraph">
+<p>We wanted to have Fabian only change a few color values which would restyle the whole application.
+To achieve this we worked with <code>CSS</code> variables.
+We defined all of the color variables in the <code>.root &gt; *</code> selector of the <code>CSS</code> file and used  only those variables throughout the whole stylesheet.</p>
+</div>
+<div class="paragraph">
+<p>During the definition of the color variables, we discussed their names and usage in the workbench.
+In the end we decided to go with the Material Design naming convention of colors and to use them as defined <a href="#bibliography-default-noauthor_color_nodate">[5]</a>.
+This way, every API user is able to research on how to use the variables and in which context they are used.</p>
+</div>
+<div class="paragraph">
+<p>By simply using the color variables, Fabian can create a custom stylesheet, assign it to the workbench and overwrite the colors he&#8217;d like to change.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+To visualize the simplicity of changing styles, a <code>darkTheme.css</code> is referenced in the <code>CustomDemo.java</code> file located in the <code>workbenchfx-demo</code> package.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>SteffiFX on the other hand might want to style the application a bit more.
+For this case we gave every component used in the workbench either an <code>#id</code> or a <code>.class</code> name.
+This way SteffiFX is able to restyle the complete application if she&#8217;d like to.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A detailed chapter about restyling the application can be found in the readme.md of WorkbenchFX.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_architecture">6.2. Architecture</h3>
+<div class="paragraph">
+<p>Since WorkbenchFX will be made open-source as a framework, the architecture is a critical part.
+We need to have a good architecture so it will be possible for contributors in the future to extend WorkbenchFX with new features via pull requests.
+Also, we need to think about which API&#8217;s to expose, since these are the API&#8217;s we need to support in the future.
+Once WorkbenchFX is launched to the public, changes to the public API need to ensure they are not breaking changes.
+This means we can only very carefully introduce changes later on, and need to make sure the architecture is already good enough, so it doesn&#8217;t have to be fundamentally changed after the public release.</p>
+</div>
+<div class="sect3">
+<h4 id="_constructing_the_workbench">6.2.1. Constructing the Workbench</h4>
+<div class="paragraph">
+<p>Since we want to enable the API user to customize the workbench as much as possible, we need to think about in which way the API user should need to interact with our API to do so.
+Of course, the resulting API design from this needs to work with our implementation as well.
+When we implemented the pagination on the add module page, we wanted the API user to be able to choose the amount of modules shown per page.
+To do so, our initial idea was to design the API for creating a <code>Workbench</code> object like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">Workbench.of(module1, module2)
+           .modulesPerPage(<span class="integer">10</span>);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This would be very easy to use, but it turned out to be not practical, since the <code>GridPane</code> with the module tiles are being initialized in the constructor of <code>Workbench</code>.
+Changing the amount of modules per page after the constructor was called, would mean that we would have needed to rebuild all of the pages with the modules again.
+This is not only very inefficient, but also a very bad solution for this problem.</p>
+</div>
+<div class="paragraph">
+<p>Another way of solving this would&#8217;ve been to initialize the <code>Workbench</code> object with a separate method after setting the amount of modules per page, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">Workbench.of(module1, module2)
+           .modulesPerPage(<span class="integer">10</span>)
+           .init();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This would mean that the <code>GridPane</code> with the tiles would only need to be built once.
+However, this solution is also not very elegant.
+If the API user doesn&#8217;t want to set the amount of modules per page, they still need to call "init()".
+Also, in this case the API user must remember to call <code>init()</code>, which is easy to forget.</p>
+</div>
+<div class="paragraph">
+<p>One of the better options would be to solve it like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">Workbench.of(<span class="integer">10</span>, module1, module2);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We would simply pass in the amount of modules to the <code>.of()</code> method.
+This would work, however it has some disadvantages.
+For example, the readability suffers: "What does that 10 mean again?".
+Also, since we want the API user to be able to define their own controls for the tabs and tiles using factories, we noticed that we also need to pass those factories in the same way.
+This would not only make the readability worse, but this also means that if we want to stick to our paradigm, we would need to add multiple overloaded <code>of()</code> methods.
+With 3 parameters (modules per page, tab and tile factory) this would result in the combinations in <a href="#combinations-overloaded-workbench">Table 11</a>.</p>
+</div>
+<table id="combinations-overloaded-workbench" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 11. Combinations of overloaded Workbench.of() methods</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">No.</th>
+<th class="tableblock halign-left valign-top">Modules per Page</th>
+<th class="tableblock halign-left valign-top">Tab Factory</th>
+<th class="tableblock halign-left valign-top">Tile Factory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#10003;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#10003;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#10003;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#10003;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#10003;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#10003;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#10003;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#10003;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#10003;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#10003;</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Only 3 parameters result in 7 overloaded <code>of()</code> methods, which is already quite a lot.
+Should we need to add more parameters in the future, it would get even worse.</p>
+</div>
+<div class="paragraph">
+<p>This is why we decided to go with our final solution, to <strong>use the builder pattern</strong>.
+Using it results in the following syntax:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">Workbench.builder(module1, module2)
+           .modulesPerPage(<span class="integer">10</span>)
+           .build();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This solution solves all of the problems.
+It&#8217;s not possible to forget <code>build()</code>, since else it won&#8217;t return a <code>Workbench</code> object.
+It&#8217;s expandable to a large amount of parameters.
+It allows for maximum flexibility, i. e. any combination of the parameters in any order can be specified.
+We decided against keeping the original <code>Workbench.of(module1, module2)</code> notation, since using the builder doesn&#8217;t require a lot more code and doesn&#8217;t introduce more complexity.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_workbenchmodule_lifecycle">6.2.2. WorkbenchModule Lifecycle</h4>
+<div class="paragraph">
+<p>The following UML diagrams explain how the lifecycle of a <code>WorkbenchModule</code> works.
+The diagrams are simplified to a degree that is relevant for the implementor of a <code>WorkbenchModule</code> and are <strong>not</strong> complete and <strong>not</strong> exhaustive by design.
+The goal is to explain the principle of interactions on modules when using <code>workbench.openModule(WorkbenchModule)</code> and <code>workbench.closeModule(WorkbenchModule)</code> with a minimal amount of examples.</p>
+</div>
+<div class="paragraph">
+<p><strong>Generally</strong>, when clicking on a tile in the <code>AddModuleView</code>, <code>workbench.openModule(WorkbenchModule)</code> gets called.<br>
+When clicking on the <code>x</code> icon of a tab, <code>workbench.closeModule(WorkbenchModule)</code> gets called.<br>
+When a <code>WorkbenchModule</code> has to perform cleanup actions or needs to show a dialog before it can be closed, the closing process needs to be interrupted.
+To interrupt the closing process, the implementor has to return <code>false</code> on <code>module.destroy()</code>.
+When the closing process gets interrupted, the module will not be closed and will be set as the active module.
+The implementor doesn&#8217;t have to call any of the lifecycle methods, the calls are being made by the <code>Workbench</code>.</p>
+</div>
+<div class="paragraph">
+<p>Overview of the lifecycle in a state diagram, showing all state changes that can occur (<a href="#img-module-lifecycle">Figure 9</a>).</p>
+</div>
+<div id="img-module-lifecycle" class="imageblock">
+<div class="content">
+<img src="include/UML/svg/Module%20Lifecycle.svg" alt="Module Lifecycle">
+</div>
+<div class="title">Figure 9. Module Lifecycle.</div>
+</div>
+<div class="paragraph">
+<p>Process of opening two modules in sequence, followed by opening the first module again (<a href="#img-open-module">Figure 10</a>).</p>
+</div>
+<div id="img-open-module" class="imageblock">
+<div class="content">
+<img src="include/UML/svg/Opening%20of%20Modules.svg" alt="Opening of Modules">
+</div>
+<div class="title">Figure 10. Opening of modules.</div>
+</div>
+<div class="paragraph">
+<p>Two open modules, closing of the active module (<a href="#img-close-module-active">Figure 11</a>).</p>
+</div>
+<div id="img-close-module-active" class="imageblock">
+<div class="content">
+<img src="include/UML/svg/Close%20Module%20Active.svg" alt="Close Module Active">
+</div>
+<div class="title">Figure 11. Closing of modules, active module.</div>
+</div>
+<div class="paragraph">
+<p>Two open modules, closing of the inactive module (<a href="#img-close-module-inactive">Figure 12</a>).</p>
+</div>
+<div id="img-close-module-inactive" class="imageblock">
+<div class="content">
+<img src="include/UML/svg/Close%20Module%20Inactive.svg" alt="Close Module Inactive">
+</div>
+<div class="title">Figure 12. Closing of modules, inactive module.</div>
+</div>
+<div class="paragraph">
+<p>Two open modules, closing of the active module, where the call to <code>module.destroy()</code> returns false (<a href="#img-close-module-interrupt-active">Figure 13</a>).
+This leads to the closing process getting interrupted.
+The implementor of <code>WorkbenchModule</code> can then choose to do cleanup actions or open a confirmation dialog, following a call to <code>module.close()</code>, when the module should definitely be closed.</p>
+</div>
+<div id="img-close-module-interrupt-active" class="imageblock">
+<div class="content">
+<img src="include/UML/svg/Close%20Module%20Interrupted%20Active.svg" alt="Close Module Interrupted Active">
+</div>
+<div class="title">Figure 13. Closing of modules interrupted, active module.</div>
+</div>
+<div class="paragraph">
+<p>Two open modules, closing of the inactive module, where the call to <code>module.destroy()</code> returns false (<a href="#img-close-module-interrupt-inactive">Figure 14</a>).
+This leads to the closing process getting interrupted.
+The module which interrupted the closing process will be opened, so that the user&#8217;s attention will be directed towards the interrupting module, so they can take appropriate actions.</p>
+</div>
+<div id="img-close-module-interrupt-inactive" class="imageblock">
+<div class="content">
+<img src="include/UML/svg/Close%20Module%20Interrupted%20Inactive.svg" alt="Close Module Interrupted Inactive">
+</div>
+<div class="title">Figure 14. Closing of modules interrupted, inactive module.</div>
+</div>
+<div class="paragraph">
+<p>To learn more about the interactions in detail, look at the tests below, since the tests verify the exact order of the calls and cover more situations in detail:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="test-reference.html#_open_modules">Opening of Modules</a></p>
+</li>
+<li>
+<p><a href="test-reference.html#_close_modules">Closing of Modules</a></p>
+</li>
+<li>
+<p><a href="test-reference.html#_close_modules_interrupted">Closing of Modules Interrupted</a></p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="_challenges">Challenges</h5>
+<div class="paragraph">
+<p>Designing the module lifecycle was a challenge we didn&#8217;t expect.
+There were a few goals we wanted to achieve:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Easy to understand</p>
+</li>
+<li>
+<p>Self-explanatory sequence and ordering</p>
+</li>
+<li>
+<p>Require the least amount of work from Fabian to use it</p>
+</li>
+<li>
+<p>Fulfill the needs of Steffi, cover as many use-cases as possible</p>
+</li>
+<li>
+<p>Easy to use, even for complex scenarios</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If we make it too complex, Fabian could get confused.<br>
+If we require lots of work to use it, Fabian could get frustrated.<br>
+However, if we make it too easy, Steffi can&#8217;t cover all of her use cases.<br>
+At the same time, making it more complex potentially makes it less self-explanatory, which in turn makes it harder to use.</p>
+</div>
+<div class="paragraph">
+<p>The challenge was to strike a balance between complex and easy, ensuring both Fabian and Steffi would be happy with the API.</p>
+</div>
+<div class="paragraph">
+<p>The first design decision we made was to have <code>WorkbenchModule</code> as an abstract class.
+This way, we can already pre-define as many lifecycle methods as possible, so Fabian has the least amount of work.
+Still, we enable Steffi or even Fabian in some more advanced use cases to override the lifecycle methods they need, to augment or replace the implementation with their own.
+The compromise here was to have <code>#activate()</code> as the only lifecycle method that <strong>must</strong> be implemented, as it returns the view of the module that should be displayed.
+But, since the only thing Fabian has to define is <code>return view;</code>, which is acceptable.</p>
+</div>
+<div class="paragraph">
+<p>We realized every module needs a reference to the <code>Workbench</code>, but we can&#8217;t pass it in the constructor, since at the time of the construction of a <code>WorkbenchModule</code>, the <code>Workbench</code> doesn&#8217;t exist yet.
+This lead to the <code>#init(Workbench)</code> lifecycle method, which initially sets the <code>workbench</code> reference, but also allows implementors to initialize their module.</p>
+</div>
+<div class="paragraph">
+<p>Then, we knew we needed lifecycle methods, so the implementor can know whether their module is the currently active module, which lead us to <code>#activate()</code> and <code>#deactivate()</code>.
+This makes it possible for example to have certain module-specific menu-items in the <code>NavigationDrawer</code> or <code>ToolbarItem</code>s in the Toolbar, by adding them with <code>#activate()</code> and removing them with <code>#deactivate()</code>.</p>
+</div>
+<div class="paragraph">
+<p>Finally, we need to allow the implementor to free up resources when a module is closed, which lead us to the <code>#destroy()</code> lifecycle method.
+This was a bit of a challenge itself though, since initially we thought it would be enough to have <code>void</code> as the return type.
+Then we realized there could be a use case, in which the implementor may want to open a confirmation dialog before a module is being closed.
+Again, we thought about different possible solutions and decided to return a <code>boolean</code>, allowing the implementor to specify whether the module can be closed or not.
+In case of a confirmation dialog before closing the module, the implementor can simply return <code>false</code>, causing the closing of the module to get interrupted.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_api_design_of_workbenchmodule">6.2.3. API Design of WorkbenchModule</h4>
+<div class="paragraph">
+<p>As with the design of the lifecycle, having a simple and easy to understand API overall for <code>WorkbenchModule</code> is very important to us.
+If there is a lot of code with a lot of methods in the <code>WorkbenchModule</code> class, it could make it harder for people to understand how to use the API and how it works.
+This is why we very carefully introduced complexity into a <code>WorkbenchModule</code>, and only added what really enhanced the user experience to a point that would justify the added code.
+We also considered to only add methods which are needed to fulfill a certain use case, which is likely to occur.</p>
+</div>
+<div class="sect4">
+<h5 id="_added_api">Added API</h5>
+<div class="paragraph">
+<p>One part of a <code>WorkbenchModule</code> are its identifying properties.
+We decided for a <code>WorkbenchModule</code> to have a <strong>name</strong> and an <strong>icon</strong>.
+They are necessary, because they are shown in tabs and tiles representing each <code>WorkbenchModule</code>.</p>
+</div>
+<div class="paragraph">
+<p>Every <code>WorkbenchModule</code> also has a reference to the <code>Workbench</code> object.
+This makes it possible to individually adapt the <code>Workbench</code> by calling <code>getWorkbench()</code>.
+This enables the <code>WorkbenchModule</code> to have full control over the <code>Workbench</code>, for example to switch to other modules.</p>
+</div>
+<div class="paragraph">
+<p>When we added the module toolbar, we also thought it would make the most sense to include the lists with the <code>ToolbarItem</code>s in the <code>WorkbenchModule</code> itself, as they are specific for each module.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_rejected_api">Rejected API</h5>
+<div class="paragraph">
+<p>Generally, we decided to not include anything that wasn&#8217;t strictly specific to a <code>WorkbenchModule</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example, we discussed whether or not to include a list with <code>WorkbenchModule</code> specific <code>MenuItem</code>s to be shown in the <code>NavigationDrawer</code>.
+In the end, we decided against it, since the <code>NavigationDrawer</code> contains global <code>MenuItem</code>s.
+If there was one list in <code>Workbench</code> and one in each <code>WorkbenchModule</code>, API users could get confused.
+API users who don&#8217;t know of the global list in the <code>Workbench</code>, could falsely think the <code>NavigationDrawer</code> is specific to each module, causing them to add the same <code>MenuItem</code>s in each <code>WorkbenchModule</code>.
+Additionally, some possible open questions it could cause would be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Is there a separate module-specific <code>NavigationDrawer</code>?</p>
+</li>
+<li>
+<p>Does the list of <code>MenuItem</code>s in the <code>WorkbenchModule</code> override or augment the list in the <code>Workbench</code>?</p>
+</li>
+<li>
+<p>How are the module-specific and global <code>MenuItem</code>s separated?</p>
+</li>
+<li>
+<p>Are the module-specific <code>MenuItem</code>s inserted on the top or the bottom?</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>API users are still able to define module-specific <code>MenuItem</code>s with the already existing API, by adding them to the global list in <code>activate()</code> and removing them in <code>deactivate()</code>.
+This way, we give the API users the choice of how to include them and they don&#8217;t miss out on any functionality.
+It also eliminates the "guessing" of how it was implemented, as it can be observed above in the possible open questions.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_icon_node_vs_file_vs_image">6.2.4. Icon: Node vs File vs Image</h4>
+<div class="paragraph">
+<p>To specify an icon for a <code>WorkbenchModule</code>, there are different ways to implement this in the API.</p>
+</div>
+<div class="sect4">
+<h5 id="_node">Node</h5>
+<div class="paragraph">
+<p>The most generic option would be to have the API user pass in a <code>Node</code> in the constructor to use as the icon.</p>
+</div>
+<div class="paragraph">
+<p>The problem is that we display the icon in two places: one in the <code>Tab</code> and one in the <code>Tile</code>.
+The JavaFX API of <code>Node</code> is designed to have zero or one parent <a href="#bibliography-default-noauthor_node_nodate">[6]</a>.
+This means the API user would need to pass in two <code>Node</code> objects, one for the icon of the <code>Tab</code>, and one for the <code>Tile</code>.</p>
+</div>
+<div class="paragraph">
+<p>Since the icon will always be the same for the <code>Tab</code> and the <code>Tile</code>, this feels very redundant and is very error-prone.
+Should the implementor not know about this, they could pass in the same <code>Node</code> twice and wonder why only one icon is being displayed.
+This could cause the implementors to believe this to be a bug.
+Sure, we could check in the constructor if both <code>Node</code>s are referring to the same object, but it&#8217;s still not very user-friendly.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_file">File</h5>
+<div class="paragraph">
+<p>Another option would be to have the API user pass in a file, referring to the path of the icon.
+This way, we don&#8217;t have the same issues as mentioned in <a href="#_node">Section 6.2.4.1</a>.
+However, it is quite limiting, since if the API user wants to use an icon from Font Awesome or Material Design Icons, they would need to find the icon as an image and refer to the file.
+This is quite cumbersome, compared to using the <code>FontAwesomeFX</code> library and simply specifying <code>FontAwesomeIcon.GEAR</code> for example.
+Also, this would not allow API users to make use of JavaFX' support for image files with multiple scaling factors, to account for different display resolutions <a href="#bibliography-default-lemmermann_javafx_2017">[7]</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_image">Image</h5>
+<div class="paragraph">
+<p>We decided to use <code>Image</code> as one of the options of passing in an icon in the constructor of <code>WorkbenchModule</code>.
+There are none of the issues mentioned in <a href="#_node">Section 6.2.4.1</a>, since the <code>Image</code> will be wrapped in an <code>ImageView</code>, when <code>module.getIcon()</code> gets called by the <code>Tab</code> and <code>Tile</code>.
+Also, it allows API users to make use of JavaFX' support for image files with multiple scaling factors <a href="#bibliography-default-lemmermann_javafx_2017">[7]</a>.</p>
+</div>
+<div class="paragraph">
+<p>Unfortunately, it doesn&#8217;t solve the issues with icons from libraries, as mentioned in <a href="#_image">Section 6.2.4.3</a>.
+To solve this, we looked at what were the most widely used icon libraries.
+Font Awesome is the most popular icon set, which is why we chose to include it as another option in the constructor <a href="#bibliography-default-noauthor_font_nodate">[8]</a>.</p>
+</div>
+<div class="paragraph">
+<p>Also, since the design of WorkbenchFX is highly influenced by Material Design, we wanted to include an icon set that would include Material Design icons.
+FontAwesomeFX offers support for the <a href="https://material.io/tools/icons/?style=baseline">official Material Design Icons by Google</a> and also <a href="https://materialdesignicons.com/">Material Design Icons</a> <a href="#bibliography-default-noauthor_fontawesomefx_nodate">[9]</a>.
+Since all of the icons from the <a href="https://material.io/tools/icons/?style=baseline">official Material Design Icons by Google</a> are included, along with many others in the icon set of <a href="https://materialdesignicons.com/">Material Design Icons</a>, we also included a constructor option for <a href="https://materialdesignicons.com/">Material Design Icons</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_model_view_presenter">6.2.5. Model View Presenter</h4>
+<div class="paragraph">
+<p>Model View Presenter (MVP) was used as general architecture pattern.
+We thought it was overkill to use the <code>Control</code> and <code>Skin</code> architecture from JavaFX for all internal views as well, especially since they don&#8217;t have to be replaceable (see <a href="#_api_design">Section 5.6</a>).
+But at the same time, we wanted the views to be separated to be more readable and maintainable.
+We chose the MVP pattern because we used it in the <a href="https://github.com/dlemmermann/PreferencesFX">PreferencesFX</a> project and it proved to be very good for those purposes.
+This is why we still chose to use the MVP pattern for all internal views.
+At first, we used a separate <code>WorkbenchModel</code> object for the model.
+Our customer suggests that it would be easier to skip the <code>WorkbenchModel</code> class and just put the logic in <code>Workbench</code>, since that&#8217;s the place where he would expect such logic.
+We decided to change it in a way that <code>Workbench</code> is the model object in the MVP pattern in our case.
+This simplifies the architecture and readability is improved, since methods are where they would be expected.</p>
+</div>
+<div class="paragraph">
+<p><code>View</code> is an interface, because it&#8217;s used as a mixin.
+We implemented it this way because every view needs to already extend a certain JavaFX class and multiple inheritance is not possible in Java, so using an abstract class here isn&#8217;t an option.
+This makes it possible to initialize all views in the same way while also resulting in less code duplication, since the <code>init()</code> method and the JavaDoc doesn&#8217;t need to be rewritten over and over again.
+<code>Presenter</code> is abstract, because it acts more like a "super class" of all the presenters.
+Since all presenters don&#8217;t need to extend anything else, using an abstract class here is possible.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_overlays">6.2.6. Overlays</h4>
+<div class="paragraph">
+<p>To enable the API user to easily show a custom overlay with the option of having a black transparent <code>GlassPane</code> in the background, they can use the respective <code>workbench.showOverlay()</code> and <code>workbench.hideOverlay()</code> methods.
+The <code>GlassPane</code> prevents click events on the components below and adds a scrim to the background.
+Unless a blocking (modal) overlay is being displayed, clicking on the <code>GlassPane</code> closes the overlay.</p>
+</div>
+<div class="paragraph">
+<p>The GUI of WorkbenchFX is organized in layers.
+At all times, there is a layer of the general WorkbenchFX GUI, which is being represented by the view class <code>WorkbenchView</code>.</p>
+</div>
+<div class="paragraph">
+<p>When showing an overlay, a <code>GlassPane</code> is added to the scene graph and shown on top of the WorkbenchFX GUI, followed by the overlay itself on top of the <code>GlassPane</code>.
+This ensures there is a "scrim"<a href="#bibliography-default-noauthor_elevation_nodate">[10]</a> between the WorkbenchFX GUI and the overlay (<a href="#overlay-scrim">Figure 15</a>).</p>
+</div>
+<div id="overlay-scrim" class="imageblock">
+<div class="content">
+<img src="include/overlay.png" alt="Overlay with GlassPane (scrimmed background)">
+</div>
+<div class="title">Figure 15. Overlay with GlassPane (scrimmed background)</div>
+</div>
+<div class="paragraph">
+<p>When hiding an overlay, it is made invisible and is not removed from the scene graph, so recurring overlays don&#8217;t need to be re-inserted into the scene graph again.
+This is more efficient and especially overlays with animations profit from this design, since they run smoother when shown and hidden multiple times.
+In case of an application with very memory-intensive overlays, there is a possibility to call <code>workbench.clearOverlays()</code>, which will remove all overlays from the scene graph and free them up to be garbage collected.</p>
+</div>
+<div class="paragraph">
+<p>Each overlay has its own <code>GlassPane</code> and it is possible to open multiple overlays on top of each other.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+While it is not recommended to open an overlay on top of another overlay, it frees the API user from having to account for timing / concurrency issues (see <a href="#_challenges_2">Section 6.2.6.1</a>) during transitions between overlays.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_challenges_2">Challenges</h5>
+<div class="paragraph">
+<p>At first, we designed the API to not allow multiple overlays to be shown on top of each other.
+This enabled us to have one <code>GlassPane</code> and one <code>DialogControl</code> to use for all overlays.
+We would then simply exchange the <code>WorkbenchDialog</code> model object in <code>DialogControl</code>, which would cause the <code>DialogControl</code> to change accordingly.
+This prevented the API user from the bad practice of showing multiple overlays on top of each other.<br>
+However, this lead to timing / concurrency issues when switching from one overlay to another.</p>
+</div>
+<div class="paragraph">
+<p>When closing the stage with two open modules, which both would interrupt the closing process with a dialog, confirming the close on the first dialog would cause no dialog to be shown at all, even though the closing dialog of the second module should&#8217;ve been shown.
+It turned out calling <code>showOverlay()</code> to show the second dialog was called fractions of a second earlier than <code>hideOverlay()</code>.
+This resulted in the second dialog to be shown first, which was then hidden with the call to <code>hideOverlay()</code>.
+Since the whole process is asynchronous and highly depends on the changes in JavaFX&#8217;s scene graph that are out of our control, we decided to allow multiple overlays to be shown on top of each other.
+Since the overlap during the transition between two overlays is so minimal that it can&#8217;t be seen, this is not a problem visually.
+Even if we would&#8217;ve gotten the synchronization right internally, it would still mean an API user choosing to show two subsequent overlays would need to account for timing / concurrency issues as well, which was not acceptable for us.</p>
+</div>
+<div class="paragraph">
+<p>Initially we also designed the API in a way that would require overlays to be loaded, either with a separate method call or during the creation of <code>Workbench</code>, before they could be shown.
+While this resulted in the best performance possible, since the overlays could be loaded hidden with the start of the application, it made the API more complex.
+Since changes in the scene graph can be performed quite quickly by JavaFX, resulting in the performance benefits to not be significant, we decided to change the API to load the overlays into the scene graph as they are being shown.
+But we decided to go for a compromise: we would still not remove the overlays when they are being hidden, to make sure they can be loaded faster the next time they are being shown, since they already have been added to the scene graph.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_processes">7. Processes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To ensure we can efficiently work together in a team on the code, we employed some processes.
+We found it very useful to have defined processes, as we knew exactly what we had to do in every step of the project.
+It was clear to us what we expected from each other and it worked very well this way.</p>
+</div>
+<div class="sect2">
+<h3 id="_development">7.1. Development</h3>
+<div class="paragraph">
+<p>During our development, we made extensive use of GitHub&#8217;s features.
+We especially appreciated GitHub for doing code review and its releases feature.</p>
+</div>
+<div class="paragraph">
+<p>Also, since one focus was the visual design of WorkbenchFX, we used CSS a lot, which lead us to using SCSS.
+We are very happy about this decision, since it made the CSS code much more readable and also maintainable.</p>
+</div>
+<div class="sect3">
+<h4 id="_github">7.1.1. GitHub</h4>
+<div class="paragraph">
+<p>The programming is being done in a GitHub repository.
+We work using the git flow branching model <a href="#bibliography-default-noauthor_successful_nodate">[11]</a>.
+Every change is represented in a pull request to develop from the feature branches.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_code_review">7.1.2. Code Review</h4>
+<div class="paragraph">
+<p>To improve the quality of the code and also ensure <a href="https://www.agilealliance.org/glossary/collective-ownership/">collective code ownership</a>, every pull request gets code reviewed by the other person.
+This worked very well for us, since comments that were made by the other person always lead to improvements and code of higher quality.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_scss_instead_of_css">7.1.3. SCSS instead of CSS</h4>
+<div class="paragraph">
+<p>In web development the transpiler <code>SCSS</code> to <code>CSS</code> is commonly used.
+But we were not finding much information about using it in <code>JavaFX</code> projects.
+But because <code>SCSS</code> is:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>much easier to write</p>
+</li>
+<li>
+<p>easier to read</p>
+</li>
+<li>
+<p>less code is needed the more complex the styling becomes</p>
+</li>
+<li>
+<p>provides much more features compared to <code>CSS</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>we decided to give it a try.</p>
+</div>
+<div class="paragraph">
+<p>For example, lets say we&#8217;re having an application with two views fit in one larger view.
+All three views have some default colors.
+If we want to change the colors on hover we would need to write the following <code>CSS</code> code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="css"><span class="class">.myClass</span> {
+  <span class="key">-fx-background-color</span>: <span class="value">RED</span>;
+}
+<span class="class">.myClass</span> <span class="class">.innerClass</span> {
+  <span class="key">-fx-background-color</span>: <span class="value">BLACK</span>;
+}
+<span class="class">.myClass</span> <span class="class">.otherInnerClass</span> {
+  <span class="key">-fx-background-color</span>: <span class="value">WHITE</span>;
+}
+<span class="class">.myClass</span><span class="pseudo-class">:hover</span> {
+  <span class="key">-fx-background-color</span>: <span class="value">BLUE</span>; <span class="comment">/* Change from RED to BLUE on hover */</span>
+}
+<span class="class">.myClass</span><span class="pseudo-class">:hover</span> <span class="class">.innerClass</span> {
+  <span class="key">-fx-background-color</span>: <span class="value">WHITE</span>; <span class="comment">/* Change from BLACK to WHITE on hover */</span>
+}
+<span class="class">.myClass</span><span class="pseudo-class">:hover</span> <span class="class">.otherInnerClass</span> {
+  <span class="key">-fx-background-color</span>: <span class="value">BLACK</span>; <span class="comment">/* Change from WHITE to BLACK on hover */</span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The code appears to be redundant and not very readable.
+<code>SCSS</code> on the other hand:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sass"><span class="class">.myClass</span> {
+  <span class="key">-fx-background-color</span>: <span class="value">RED</span>;
+  <span class="local-variable">&amp;</span> .<span class="key">innerClass</span> {
+    <span class="key">-fx-background-color</span>: <span class="value">BLACK</span>;
+  }
+  <span class="local-variable">&amp;</span> .<span class="key">otherInnerClass</span> {
+    <span class="key">-fx-background-color</span>: <span class="value">WHITE</span>;
+  }
+
+  <span class="local-variable">&amp;</span>:<span class="value">hover</span> {
+  <span class="key">-fx-background-color</span>: <span class="value">BLUE</span>; <span class="comment">/* Change from RED to BLUE on hover */</span>
+    <span class="local-variable">&amp;</span> .<span class="key">innerClass</span> {
+      <span class="key">-fx-background-color</span>: <span class="value">WHITE</span>; <span class="comment">/* Change from BLACK to WHITE on hover */</span>
+    }
+    <span class="local-variable">&amp;</span> .<span class="key">otherInnerClass</span> {
+      <span class="key">-fx-background-color</span>: <span class="value">BLACK</span>; <span class="comment">/* Change from WHITE to BLACK on hover */</span>
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is much easier to read thanks to the nested code writing.
+The code is also maintainable.
+If additional stylings are required, they can simply be added.
+<code>SCSS</code> will become handier and more powerful as the complexity of the stylesheet increases.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+IntelliJ plugin to transpile <a href="https://www.jetbrains.com/help/idea/transpiling-sass-less-and-scss-to-css.html">SCSS to CSS</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_css_conventions">7.1.4. CSS Conventions</h4>
+<div class="paragraph">
+<p>In order to maintain a well structured styling we agreed on several conventions.
+The most important are described as follows.</p>
+</div>
+<div class="sect4">
+<h5 id="_using_the_material_design_variables">Using the Material Design Variables</h5>
+<div class="paragraph">
+<p>As stated in <a href="#_easy_styling">Easy Styling</a> we didn&#8217;t want Fabian having to worry about restyling.</p>
+</div>
+<div class="paragraph">
+<p>Therefore we agreed on using only variables for styling, so that Fabian has to change only a variable to restyle the application.
+Of course, not only Fabian profits from this convention but we do so too.
+Thanks to variables we didn&#8217;t have to worry about color codes and changing them.</p>
+</div>
+<div class="paragraph">
+<p>Using the variable names and using Material Design will also be of use in the future.
+This way we have not to worry about future developers not knowing how the colors are used and how to use them <a href="#bibliography-default-noauthor_color_nodate">[5]</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_replacing_units">Replacing Units</h5>
+<div class="paragraph">
+<p>We agreed on using <code>em</code> as size measurement and not <code>px</code>.
+This makes the views more responsive, since when changing the default size of the font, the overall styling automatically adapts the actual size.</p>
+</div>
+<div class="paragraph">
+<p>However, sometimes it is more useful to write in pixels than in <code>em</code>.
+For instance, it much simpler to write <code>60px</code> instead of <code>4.286em</code> (base font size: 14px).</p>
+</div>
+<div class="paragraph">
+<p>One of the features of <code>SCSS</code> is defining functions.
+We wrote a little <a href="#pixel-converter">[pixel-converter]</a> which allowed us to convert pixels into <code>em</code> and agreed on using the function when working with a pixel value.</p>
+</div>
+<div class="listingblock">
+<div class="title">Pixel Converter Function</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sass"><span class="directive">@function</span> <span class="predefined">px</span>(<span class="variable">$px</span>) {
+  <span class="directive">@return</span> <span class="float">1em</span> / <span class="float">14</span> * <span class="variable">$px</span>; <span class="comment">// 14px is defined by the default material design font-size</span>
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_working_with_imports">Working With Imports</h5>
+<div class="paragraph">
+<p>Another convention we use is the separation of all scss-files.
+For readability we have the <code>main.scss</code> file separated into multiple scss files.
+In the <code>main.scss</code> we include all those other files and this "main file" will be compiled as a css file.
+Using the <code>@include</code> tag looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sass"><span class="directive">@include</span> <span class="value">file1</span>;
+<span class="directive">@include</span> <span class="value">file2</span>;
+<span class="directive">@include</span> <span class="value">file3</span>;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The files to be included are named with an underscore as prefix: <code>_file1.scss</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_testing">7.2. Testing</h3>
+<div class="paragraph">
+<p>Code quality is one of our main priorities in this project.
+Since the framework is meant to be used in enterprise applications as well, WorkbenchFX needs to be robust.
+Also, we wanted to rather have less features, but of better quality.
+One of the criteria in the definition of done is having unit tests for the code.
+We would not merge a pull request before the tests are all done and passed.
+This improved the code quality by a lot, since we found around two bugs (sometimes less, sometimes more) per pull request during testing.</p>
+</div>
+<div class="paragraph">
+<p>We thought about using Test Driven Development (TDD), but because the framework is new, the API was not clear from the beginning.
+Since we had a focus on good "usability" of the API, it changed a lot during development.
+This is why we decided not to do TDD, because it meant we would have needed to constantly adapt the tests to the changing API in the beginning of the development, which would be very inefficient.</p>
+</div>
+<div class="paragraph">
+<p>Unit testing also had the advantage that it "forced" us to have a good architecture.
+If the architecture isn&#8217;t good, it is very hard to test in an isolated way.
+We employed the pattern of <em>Dependency Injection</em> whenever we could, since that made one of the biggest differences in testable code for us.</p>
+</div>
+<div class="sect3">
+<h4 id="_junit_vs_spock">7.2.1. JUnit vs Spock</h4>
+<div class="paragraph">
+<p>Most of our unit testing, especially in the beginning, was done by using JUnit.
+However, when there were some test cases that were data-driven.
+JUnit 5 does have data-driven testing capabilities, but it doesn&#8217;t offer much flexibility and the way tests have to be implemented to be data-driven is not very readable <a href="#bibliography-default-bechtold_junit_nodate">[12]</a>.
+An example can be seen in <a href="#junit-parameterized">Parameterized Tests with JUnit 5 <a href="#bibliography-default-bechtold_junit_nodate">[12]</a></a>.</p>
+</div>
+<div id="junit-parameterized" class="listingblock">
+<div class="title">Parameterized Tests with JUnit 5 <a href="#bibliography-default-bechtold_junit_nodate">[12]</a></div>
+<div class="content">
+<pre>@ParameterizedTest
+@ValueSource(strings = { "racecar", "radar", "able was I ere I saw elba" })
+void palindromes(String candidate) {
+    assertTrue(isPalindrome(candidate));
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Also, JUnit 5&#8217;s data-driven testing API is still considered "experimental" <a href="#bibliography-default-bechtold_junit_nodate">[12]</a>.
+We didn&#8217;t want to risk all of our data-driven tests becoming obsolete, should JUnit later choose to change the concept entirely.
+Combined with the readability argument, we decided not to do data-driven testing with JUnit.</p>
+</div>
+<div class="paragraph">
+<p>At first, we proceeded to write the data-driven tests as usual in JUnit.
+But they had lots of duplicated code and therefore were not very maintainable (see <a href="#comparison-junit-spock">Figure 16</a>).
+We decided to invest some time to find a better solution.</p>
+</div>
+<div class="paragraph">
+<p>We already knew Spock as a testing framework, but we have never used it before in a Java context, since Spock is written in Groovy.
+However, Spock has one big advantage over JUnit: Data driven testing is very well implemented.
+Parameters in data-driven tests are implemented in a table-like format (see <a href="#comparison-junit-spock">Figure 16</a>).
+A test case can be built fully parameterized, which means the tested method and assertions only need to be written once.
+Spock will then dynamically run the test case multiple times with each row of the table-like data structure as parameters <a href="#bibliography-default-niederwieser_data_nodate">[13]</a>.
+This makes the code much more readable and maintainable.
+It also means adding another data set after the fact just means adding another row to the data, not copying and modifying unit test code over and over again.</p>
+</div>
+<div class="paragraph">
+<p>However, it was still unclear whether we could use Spock to test Java code and even more so JavaFX applications, which are already more difficult to test.
+In theory it should be possible, as Spock claims on their website <a href="#bibliography-default-noauthor_spock_nodate">[14]</a>.
+At least TestFX (see <a href="#_testing_utilities">Section 7.2.2</a>) offers support for Spock, so it seemed like a viable option.
+We did some research on GitHub, but we didn&#8217;t find any Java projects which used <strong>JUnit 5</strong> together with Spock and <strong>Maven</strong>.
+After a lot of challenges, we were able to make it work.
+The key part to the solution, was that we needed to add the JUnit Vintage Engine, which is the engine that enables to run JUnit 3 and 4 tests <a href="#bibliography-default-bechtold_junit_nodate">[12]</a>.
+Everything that was needed to make it work can be seen in the <a href="misc-reference.html#_maven_code_pom_xml_code_workbenchfx_core"><code>pom.xml</code> file of <code>workbenchfx-core</code></a></p>
+</div>
+<div class="paragraph">
+<p>However, the end result was well worth the effort.
+We rewrote the data-driven JUnit 5 test with lots of duplicated code mentioned above with Spock and compared both in <a href="#comparison-junit-spock">Figure 16</a>.</p>
+</div>
+<div id="comparison-junit-spock" class="imageblock">
+<div class="content">
+<img src="include/comparison_junit_spock/comparison_junit_spock.png" alt="Comparison of a Data Driven Unit Test with JUnit 5 and Spock">
+</div>
+<div class="title">Figure 16. Comparison of a Data Driven Unit Test with JUnit 5 and Spock</div>
+</div>
+<div class="paragraph">
+<p>Not only is the unit test written with Spock much more readable, but also easier to maintain.
+The output is much easier to read with Spock as well, since it creates a separate test for every row in the parameters.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_testing_utilities">7.2.2. Testing Utilities</h4>
+<div class="paragraph">
+<p>There were a few testing utilities we used to augment the already existing features of JUnit and Spock.</p>
+</div>
+<div class="sect4">
+<h5 id="_mockito">Mockito</h5>
+<div class="paragraph">
+<p>We used Mockito for mock testing with JUnit.
+Used in combination with the dependency injection pattern, it enabled us to test classes in a more isolated way.
+For example, it allowed us to mock the view classes, so we could test presenter logic separately.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_testfx">TestFX</h5>
+<div class="paragraph">
+<p>Using TestFX made it even possible to test JavaFX code.
+Without it, JavaFX will throw <code>IllegalStateException: Toolkit not initialized</code> for all method calls that run on the GUI thread.
+TestFX also offers the possibility of automated GUI testing, which we decided not to make use of because of the fragile nature of those tests.
+We used unit tests whenever possible and when it wasn&#8217;t, we used integration tests.
+See the tests in <code>workbenchfx-core/src/test</code> for more information.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_awaitility">Awaitility</h5>
+<div class="paragraph">
+<p>After we implemented the animations for the drawers, some tests were failing.
+Because of the animations, there is a delay of 200 ms before the drawer gets hidden.
+The problem is, the assertions which check if the drawer is not visible run before the animation has finished (the drawer is hidden).</p>
+</div>
+<div class="paragraph">
+<p>This was quite a challenge, since <code>Thread.sleep()</code> and other strategies didn&#8217;t help at all, as they probably were just sleeping the GUI thread, which didn&#8217;t help with the issue.
+We then stumbled upon <em>Awaitility</em>, which was made for testing asynchronous logic.
+By using it, we were able to specify a condition and a time frame, in which the condition(s) should be met (see <a href="#awaitility-unit-test">Unit test with Awaitility</a>)
+Awaitility does the rest and performs the assertion.</p>
+</div>
+<div class="paragraph">
+<p>We found Awaitility to be quite useful for this purpose, as it worked flawlessly and was easy to use.</p>
+</div>
+<div id="awaitility-unit-test" class="listingblock">
+<div class="title">Unit test with Awaitility</div>
+<div class="content">
+<pre>  @Test
+  void hideNavigationDrawer() {
+    robot.interact(() -&gt; {
+      Node navigationDrawer = workbench.getNavigationDrawer();
+      navigationDrawer.setVisible(false);
+
+      workbench.showNavigationDrawer();
+      workbench.hideNavigationDrawer();
+
+      assertEquals(1, overlays.size());
+      assertEquals(0, blockingOverlaysShown.size());
+      assertEquals(0, overlaysShown.size());
+
+      // wait for closing animation to complete
+      await().atMost(5, TimeUnit.SECONDS).until(() -&gt; (navigationDrawer.isVisible()));
+    });
+  }</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_building">7.3. Building</h3>
+<div class="sect3">
+<h4 id="_travis_ci">7.3.1. Travis CI</h4>
+<div class="paragraph">
+<p>To simplify the code review process, we are using Travis CI.
+Travis CI is a build server similar to Jenkins.
+Compared with Jenkins, it runs in the cloud and is much more straight forward to set up in our experience.
+The biggest advantage is the tight integration with GitHub, which for example allows automatic building of pull requests.
+GitHub then directly shows the build status in every pull request and we also set up that a pull request can&#8217;t get merged until the build passes.
+With every build, Travis will compile the code, run checkstyle and tests.</p>
+</div>
+<div class="paragraph">
+<p>We agreed with our customer to use the Google Java Code Style guidelines, as they are used in one of the most-widely used libraries in Java, Guava <a href="#bibliography-default-idan_top_2017">[15]</a>, and because of its well-maintained open source checkstyle configuration on GitHub <a href="#bibliography-default-noauthor_checkstyle:_2018">[16]</a>.
+If checkstyle finds code style violations, we set it up to fail the build.
+This provides us with immediate feedback when we open a new pull request and forgot to run checkstyle checks ourselves.
+Also, it makes it easier for the reviewer, since they don&#8217;t need to run the tests and checkstyle themselves every time.</p>
+</div>
+<div class="paragraph">
+<p>In order to get build results from Travis faster we enabled "Auto Cancellation".
+If there are a lot of pushes from the same branch or pull request, Travis will then cancel all but the most recent build in the queue for each branch or pull request.</p>
+</div>
+<div class="paragraph">
+<p>Travis makes two checks each time you make a push to the repository.
+The first check is the "push-check", which tests the compatibility of the current branch (<a href="#travis-check">Figure 17</a>) <a href="#bibliography-default-noauthor_travis_nodate">[17]</a>.
+The second one is the "pr-check", which emulates a merge with the target branch in order to check if the merge leads to errors making the build fail (<a href="#travis-check">Figure 17</a>) <a href="#bibliography-default-noauthor_travis_nodate">[17]</a>.
+This has the huge advantage that our work is not only easier but also safer to accomplish.</p>
+</div>
+<div id="travis-check" class="imageblock">
+<div class="content">
+<img src="include/travis-check.png" alt="Check by Travis CI on a GitHub pull request">
+</div>
+<div class="title">Figure 17. Check by Travis CI on a GitHub pull request</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_codecov_io">7.3.2. Codecov.io</h4>
+<div class="paragraph">
+<p>Since testing was one of our main tools to ensure good code quality, we wanted to also make use of code coverage.
+This is where codecov.io came in.
+It&#8217;s a platform that visualizes code coverage and also integrates nicely with GitHub and Travis.
+The code coverage itself is measured by <a href="https://www.eclemma.org/jacoco/">JaCoCo</a> and is specified in the <code>pom.xml</code> of <code>workbenchfx-core</code>.
+We set it up so that every successful Travis build would push the code coverage to codecov.io.
+Thanks to the GitHub integration, a codecov bot would create a comment on every pull request, that gets updated with pushes to the branch of the pull request (<a href="#codecov-comment">Figure 18</a>).
+Also, codecov.io would show a "check" in GitHub and would only pass if certain conditions are met.
+One of those is that the code coverage must not be lower than it previously was (<a href="#codecov-check">Figure 19</a>).
+The other one was the <code>diff</code> coverage, that measured how much of the added code was covered (<a href="#codecov-check">Figure 19</a>).</p>
+</div>
+<div class="paragraph">
+<p>Codecov.io also enables to set exceptions on certain classes, which should not be taken into account for the code coverage.
+We mainly did this for view classes, since they cannot really be unit-tested.
+Also, we added abstract classes and interfaces to the exceptions, since it wasn&#8217;t possible for JaCoCo to recognize executions of lines in them.
+See <a href="misc-reference.html#_codecov_io_exceptions_codecov_yml">Codecov.io Exceptions</a> for all of the concrete classes we removed from code coverage.</p>
+</div>
+<div class="paragraph">
+<p>We didn&#8217;t set a goal for the code coverage per se, since we didn&#8217;t want it to lead us to try to test everything.
+But in general, we tried to keep the code coverage over 90%, which is already quite high.
+In the end, we were able to reach a code coverage of <strong>94.67%</strong>.</p>
+</div>
+<div class="paragraph">
+<p>We realized code coverage is a useful tool, but you can&#8217;t solely rely on it.
+For example, if we added a lot of new fields with mutators and accessors, we noticed we almost always weren&#8217;t able to meet the goals defined by codecov.io in the GitHub checks.
+This is because getters and setters are not tested <a href="#bibliography-default-osherove_art_2013">[18, P. 11]</a>.
+This leads to the coverage results getting skewed, since there is more code that is also not covered, reducing the code coverage.
+In this case, it is the creator of the pull request&#8217;s responsibility to check, whether there is untested code that needs to be covered or if it is just the mentioned effect.
+Also, it is the reviewer&#8217;s responsibility to validate the creator&#8217;s decision in this regard, as sometimes checking the code coverage can be forgotten.
+If the results were skewed, we went with the pragmatic approach and chose to still merge the pull request.
+This approach worked very well for us and our decision payed off, given the high code coverage we reached.</p>
+</div>
+<div class="paragraph">
+<p>Still, code coverage can be a double-edged sword.
+As we saw, a lower code coverage doesn&#8217;t always equal less code quality.
+As we realized, this is also true for the opposite.
+Simply because a line of code was executed during a test, doesn&#8217;t necessarily mean it was tested properly.
+That&#8217;s where code review comes in, and we had to remind ourselves constantly to not rely on code coverage <strong>too</strong> much.
+We still need to check whether all of the edge cases have been tested and if the tests really perform all necessary verifications.</p>
+</div>
+<div class="paragraph">
+<p>However, using codecov.io proved to be really useful to us.
+We had a quick overview over the code coverage and as with Travis, it was one step less in our code review process.
+We didn&#8217;t always have to build the branch to see the code coverage and the checks on GitHub doubled as a reminder to have a look at the code coverage.</p>
+</div>
+<div id="codecov-comment" class="imageblock">
+<div class="content">
+<img src="include/codecov-comment.png" alt="Example comment on GitHub by the Codecov.io bot">
+</div>
+<div class="title">Figure 18. Example comment on GitHub by the Codecov.io bot</div>
+</div>
+<div id="codecov-check" class="imageblock">
+<div class="content">
+<img src="include/codecov-check.png" alt="Check by codecov.io on a GitHub pull request">
+</div>
+<div class="title">Figure 19. Check by codecov.io on a GitHub pull request</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_releasing">7.4. Releasing</h3>
+<div class="paragraph">
+<p>When working agile, releasing often is important <a href="#bibliography-default-raymond_cathedral_2001">[19, P. 28]</a>.
+Since we are only in a team of two, we think it wouldn&#8217;t make sense to have a strict release plan.
+Instead, we opted to release whenever it makes sense.
+This was mainly for example when a new major feature was introduced and there are no other major features expected in the next few days.</p>
+</div>
+<div class="paragraph">
+<p>Concerning the version numbering scheme, we chose to adhere to the following: <code>vX.Y.Z</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>X</p>
+<div class="ulist">
+<ul>
+<li>
+<p>0 &#8594; before we reached the MVP</p>
+</li>
+<li>
+<p>1 &#8594; after we reached the MVP</p>
+</li>
+<li>
+<p>2 &#8594; final version to hand in for the bachelor thesis</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Y</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Starting from 0, incremented by 1 with every major release</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Z</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Starting from 0, incremented by 1 with every hotfix release</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_process">7.4.1. Process</h4>
+<div class="paragraph">
+<p>Over time, we established the following process for releases:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Checkout <code>develop</code>, pull and start a release with git flow</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Example branch name <code>release/v0.7.1</code> for version v0.7.1</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Create a pull request (PR) from <code>release</code> branch to <code>master</code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Title: version number (for example "<em>Release v0.7.1</em>")</p>
+</li>
+<li>
+<p>Description: enter what has changed since the last release</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>In the <code>pom.xml</code> file of <code>workbenchfx-parent</code>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Update the property <code>workbenchfx.version</code> with the new version number (for example <code>0.7.1</code>)</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Run <code>mvn install -DskipTests</code> to automatically propagate the new version number to all files</p>
+</li>
+<li>
+<p>Commit and push to the release branch</p>
+</li>
+<li>
+<p>Have the release PR approved by a member different from the one creating the PR</p>
+</li>
+<li>
+<p>Merge the pull request</p>
+</li>
+<li>
+<p>Checkout <code>master</code></p>
+</li>
+<li>
+<p>Run <code>git tag v0.7.1</code>, followed by <code>git push origin v0.7.1</code> (each with the new version number)</p>
+</li>
+<li>
+<p>Go to releases on Github and edit the release when Travis has finished the deployment</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Edit title and description to match the one of the release PR</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Checkout develop</p>
+</li>
+<li>
+<p>Merge master into develop to ensure the version changes are also present there</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_release_automation">7.4.2. Release Automation</h4>
+<div class="paragraph">
+<p>We also automated part of the release process with Travis.
+When we push a git tag on the master branch, Travis will run <code>mvn install</code>, make zips of the documentation and javadoc, followed by creating a release on GitHub and uploading the zips along with the built <code>jar</code>s.
+The only thing left is to edit the title and description with the release and its changelog, respectively (see <a href="#_process">Section 7.4.1</a>).</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This made releasing quicker and meant less repetitive effort on our side.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Details on the implementation can be found in the <code>.travis.yml</code> file.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lessons_learned">8. Lessons learned</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before starting the project, we did a retrospective on our previous project PreferencesFX.
+We agreed on maintaining the processes which went good and defined new conventions to do better in this project.
+Following <a href="#best-practices">Table 12</a> lists all the conventions we consider the most valuable in this project.</p>
+</div>
+<table id="best-practices" class="tableblock frame-all grid-all spread">
+<caption class="title">Table 12. Best Practices</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Convention</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reason</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Perform code review</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It worked very well in PreferencesFX, so we will keep it that way</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maintain Asciidoc documentation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Writing the documentation with asciidoctor is a gem. We will never write documentations with other tools again</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Writing the Javadoc before merging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In PreferencesFX we had to write nearly all the Javadoc at the end of the project</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Merging only when checkstyle passes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Like the Javadoc we had to fix a lot of checkstyle error afterwards</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Writing the documentation early</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If we&#8217;d write the documentation in the end, we&#8217;d have the problem of remembering all the content a half a year later.
+Therefore the details would be lost.
+Additionally we have no time pressure at the end of the project</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Writing more tests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Since we&#8217;re writing an API it would be necessary to write more tests to maintain better code quality and less errors</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Using build tools</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It makes the development much easier since we don&#8217;t have to remember running tests, checking checkstyle and javadoc on our local machines during code review.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Committing more often</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It makes the development process more transparent. When problems occur, they can easily be reverted</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Work with personas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It helps to focus on the target group. This way the development process can always be adjusted</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Work with user stories</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It helps to verify the features and reveals the users needs which the product has to satisfy</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_value_of_user_stories">8.1. Value of User Stories</h3>
+<div class="paragraph">
+<p>As stated in <a href="#_user_stories">Section 5.3</a> we had a user story workshop with our customer in the beginning of our project.</p>
+</div>
+<div class="paragraph">
+<p>Before the workshop, it was rather unclear what WorkbenchFX or its goals really are.
+But after it, we all had a shared understanding about the main goal of our project.</p>
+</div>
+<div class="paragraph">
+<p>The created user stories communicate a concrete desire our API must fulfill in order to succeed.
+Comparing to just defining some features, user stories helped us to understand the reason for a feature.
+This way we could ensure that all of our implemented features satisfy a need.</p>
+</div>
+<div class="paragraph">
+<p>Together with the persona and the user stories, it almost felt like the written stories and personas are people with problems in real life.
+Exactly this feeling proved to us that the user stories and personas are really helpful.
+During the project we could always refer to the persona and stories and ask ourselves:
+"Is this really what Fabian/Anna/SteffiFX wants?" It helped us a lot to keep an eye on the real problem and to not lose ourselves in personal opinions and thoughts.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For a future project, we would definitely use personas and user stories again.</p>
+</div>
+<div class="paragraph">
+<p>Having three different personas is tricky to work with, as we have to look after the needs of three different characters.
+Of course having that many personas can happen but having only one central persona is crucial since we cannot always satisfy every desire and therefore have to make compromises sometimes.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_working_agile">8.2. Working Agile</h3>
+<div class="paragraph">
+<p>Even though we had to face a lot of challenges, there is one thing we are especially grateful about: working in an agile way.<br>
+Because of the agile approach and having the whole development process transparently on GitHub, we were able to get constant feedback from our customer.
+This way, issues or misunderstandings in communication quickly became obvious and we were able to adjust the implementation accordingly right away.
+This enabled us to develop a product of very high quality, which meets the demands of our customer and future users alike.<br>
+So in the end, working agile enabled us to quickly identify and resolve challenges.</p>
+</div>
+<div class="paragraph">
+<p>For example, the separation between <code>Workbench</code> and <code>WorkbenchSkin</code> only became obvious later in the project (see <a href="#_api_design">Section 5.6</a>).
+If we didn&#8217;t get constant feedback from our customer, we would probably only have recognized this when it was too late - at the end of the project.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Thanks to the agile way, we could resolve challenges quickly and early on in the project.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hacking_day">8.3. Hacking Day</h3>
+<div class="paragraph">
+<p>During the project we had several so called "Hacking Days", where we worked together with our customer and/or advisor on the project.
+Each hacking day was completely different from all others.</p>
+</div>
+<div class="paragraph">
+<p>When we had the hacking days together with our advisor, he took the role of Fabian and implemented his own module.
+This was great since we saw the usage of our API in real life with a person which was not that much involved into the development as we are and therefore had a neutral attitude.
+Thanks to those kind of hacking days we discovered several issues which we could eliminate.
+This also enabled us to improve the API to be more user-friendly for Fabian.</p>
+</div>
+<div class="paragraph">
+<p>Another hacking day was held with our customer.
+There we started implementing the dialog feature together.
+This had multiple advantages.
+First of all, we integrated our customer in the project and it gave him insight into our project&#8217;s progress.
+Another advantage was, that he gained awareness on how complex certain processes are.
+For instance, he said that it was not as easy as he thought to simply re-use his code of the dialog, as our implementation has to be a lot more generic.</p>
+</div>
+<div class="paragraph">
+<p>However, in the end we all profited from each other.
+We are really grateful about those hacking days since they really are helpful and would like to do them again in the next project.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_animations">8.4. Animations</h3>
+<div class="paragraph">
+<p>One thing we underestimated by far was the power of animations.
+Initially, we didn&#8217;t have animations on the drawers.
+In a usability test with Dieter Holz we noticed that especially with the drawers that covered most of the screen, it was not clear where they were coming from or that they even were drawers (see <a href="#_drawer_animations">Section 5.7.1.3</a>).</p>
+</div>
+<div class="paragraph">
+<p>When we implemented the drawer animations, we were astounded to see how much of a difference it made.
+We expected it to make a slight difference, but it really improved the user experience by a lot.
+Since it makes that much of a difference, we think that even if there was an option to turn off animations in the future, it should not be possible to turn off drawer animations.
+The suggested movement of the drawers is a key element to the user experience and must not be removed.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Even though the implementation of the animations was quite complicated, the end result was well worth the effort.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_switch_from_gradle_to_maven">8.5. Switch from Gradle to Maven</h3>
+<div class="paragraph">
+<p>Initially, we used Gradle, since we already used it in <a href="https://github.com/dlemmermann/PreferencesFX">PreferencesFX</a> and it was more convenient to re-use the already existing <code>build.gradle</code>.
+However, when it came to publishing PreferencesFX to Maven Central, we noticed it was significantly more complex to set it up with Gradle than with Maven <a href="#bibliography-default-noauthor_contribute_2018">[20]</a>.
+Since our customer mainly uses Maven for his projects and already knows how to set it up for publishing to Maven Central, we decided to switch to Maven for PreferencesFX.
+Since we did it for PreferencesFX and we knew the day would come when we would face the same issue with WorkbenchFX as well.
+This is why we switched WorkbenchFX to using Maven as well.</p>
+</div>
+<div class="paragraph">
+<p>We didn&#8217;t regret the change at all, especially since our team and our customer had struggled quite a lot with resolving dependencies with Gradle.
+We would run into issues which required us to re-import the project every now and then, which was quite cumbersome with time.
+Sure, we also faced our issues with Maven as well, but we feel like it is much less than it used to be with Gradle.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This is why in the next project we would start with Maven right away.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build_automation">8.6. Build Automation</h3>
+<div class="paragraph">
+<p>The automated build we set up with Travis CI was very useful, in fact it would have been even more useful if had set it up from the beginning.</p>
+</div>
+<div class="paragraph">
+<p>When we released <code>v1.1.0</code>, while building the binaries for the release on GitHub, we noticed there was a checkstyle error which prevented the build from completing.
+This was embarrassing.
+The release already happened and the pull request was merged already, so there was no way back.
+We had to release a hotfix <code>v1.1.1</code> with the checkstyle fix in place, to be able to build the binaries.</p>
+</div>
+<div class="paragraph">
+<p>Even though we had a process in place (see <a href="#_process">Section 7.4.1</a>), that should&#8217;ve prevented this situation, it happened.
+This proved again that having processes in place is good, but people make mistakes.
+It&#8217;s easy to forget a step in a process or to forget running <code>mvn package</code> during code review.</p>
+</div>
+<div class="paragraph">
+<p>This is where automation comes in.
+It removes steps in repetitive processes and is especially useful when the steps are prone to error.
+Since the code review and releasing process is mostly the same, there are a lot of steps to forget and errors to make, as reviewing the code itself is already demanding enough.
+If we had already used Travis CI from the beginning, this mistake wouldn&#8217;t have happened.
+Travis' checks on the release pull request would&#8217;ve failed and we would&#8217;ve instantly noticed that something is wrong.
+This would&#8217;ve enabled us to correct the error and then start the release process from anew.</p>
+</div>
+<div class="paragraph">
+<p>Automation doesn&#8217;t only prevent errors, but also leads to substantial time savings in the long run.
+In the end, we had performed 87 pull requests and 11 releases, resulting in around 1200 builds on Travis CI.
+We can only imagine how much time we saved.
+Setting up Travis CI also took time, but we are sure it already saved us more time than the setup required.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+We only started using Travis CI with <code>v1.3.0</code>, in the next project we would use it from the beginning.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_java_10_9_8">8.7. Java 10 / 9 / 8</h3>
+<div class="paragraph">
+<p>In the beginning of the project, Java 10 was just released.
+Our customer wanted us to use Java 10, because he noticed some JavaFX-related bugs in Java 9 that were fixed in Java 10.</p>
+</div>
+<div class="paragraph">
+<p>A bit later on in the project, he told us to switch back to Java 9, as he noticed dependencies were not ready for Java 10 yet, since most of the other developers have not switched to Java 10 yet.
+We used Java 9 for the longest time, but we started to worry because Oracle started to deprecate Java 9 <a href="#bibliography-default-noauthor_java_nodate">[21]</a> and it became more difficult to download, even requiring an Oracle login to do so.</p>
+</div>
+<div class="paragraph">
+<p>One of the user stories mentioned the ability to use WorkbenchFX with <a href="https://www.jpro.one/">jpro</a>.
+To see if it works, we did a proof of concept with jpro and noticed that in fact it did not work.
+We thought it could be an issue with jpro not being compatible with Java 9 and decided to try it with Java 8.
+Luckily, we haven&#8217;t used many Java 9 features in the code, so it was mainly switching from Java 9 versions of dependencies to Java 8 versions of them.
+And it worked!</p>
+</div>
+<div class="paragraph">
+<p>This is why we decided to go with Java 8.
+It resolves the issues of Java 9 being difficult to download and at the same time, it allows us to make use of a larger user group, as lots of developers are still using Java 8.
+We did however decide to leave comments in the <code>pom.xml</code> files with the Java 9 versions of the dependencies, so it is possible to publish two separate versions when WorkbenchFX goes open source.
+This is something quite a lot of JavaFX libraries and frameworks seem to do <a href="#bibliography-default-noauthor_controlsfx_2013">[22]</a>, <a href="#bibliography-default-jfoenix_jfoenix_2018">[23]</a> , so we thought it would make the most sense.</p>
+</div>
+<div class="paragraph">
+<p>However, we don&#8217;t think this is a good trend.
+It seems to us that instead of being open and trying to stay updated with the newer Java versions, most developers do the opposite and try to stay on older versions for as long as they can.
+This in turn forces developers of frameworks and libraries to also support the older versions of Java, which makes the problem worse.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We&#8217;re not entirely sure how we would decide in our next project.
+Since Java 11 will be released on the 25<sup>th</sup> of August 2018 <a href="#bibliography-default-noauthor_jdk_nodate">[24]</a>, which is very soon.
+Only time will tell how developers react to it, which could totally change any recommendations from our side, especially since Java 8 is starting to get deprecated, with Java 11 being a long term support release <a href="#bibliography-default-noauthor_oracle_2018">[25]</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_don_t_underestimate_the_seemingly_most_simple_tasks">8.8. Don&#8217;t underestimate the seemingly most simple tasks</h3>
+<div class="paragraph">
+<p>API users will never know what kind of complexity we had to deal with during the development of WorkbenchFX, even for the seemingly most simple tasks.</p>
+</div>
+<div class="paragraph">
+<p>The best example would be the interrupted closing of modules.
+Everyone knows from software like Microsoft Word, if multiple documents are open with unsaved changes, closing the application leads to multiple closing dialogs.
+We wanted to give implementors the opportunity to also interrupt the closing of the application, should the user need to react in such cases.</p>
+</div>
+<div class="paragraph">
+<p>Lots of programs make use of closing dialogs and at first glance, it may seem like this would <em>need</em> to be easy to implement.
+Unfortunately, that is far from the truth.
+It was very difficult to implement, especially in a generic way, so it is easy to understand and use for Fabian, but to still offer Steffi the complexity she needs.
+But even in general, there are many edge cases that need to be considered, as can be seen in the <a href="test-reference.html#_close_stage_interrupted">tests for this behavior</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This taught us that we need to be careful and never assume that a feature is easy to implement, just because it seems like it should be.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary">9. Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In conclusion we can say, that <strong>WorkbenchFX</strong> became a mature framework which can really be used in the industry.
+We finished the project in a way that we can say that we achieved all of our goals we set at the beginning.</p>
+</div>
+<div class="paragraph">
+<p>Besides writing the documentation early in the project we managed to keep all of the <a href="#_lessons_learned">conventions</a> we defined in the beginning of the project.
+They proofed to be worthwhile.</p>
+</div>
+<div class="paragraph">
+<p>Additionally we managed to satisfy the needs of our <a href="#_persona">personas</a>.
+Since we have three of them it was really tricky to maintain a good balance.
+Fabian gets a really simple and understandable API to use which satisfies out of the box all of his needs.
+While Steffi is able to replace a lot of features with her own implementations (see <a href="#_constructing_the_workbench">Section 6.2.1</a>).
+And Anna is satisfied because she gets an application which is well styled and not overloaded with a lot of functionality.</p>
+</div>
+<div class="paragraph">
+<p>A huge set of tests, checkstyle, code coverage, managed by continuous integration and personal code review before each merge led to a high code quality.
+In the end, we were even able to reach a code coverage of <strong>94.67%</strong> (see <a href="#_processes">Section 7</a>).</p>
+</div>
+<div class="paragraph">
+<p>All of the feedback we received up to now is really good.
+Even at the bachelor exhibition a lot of people stated that they really like the idea and that they probably would try working with <strong>WorkbenchFX</strong> <a href="#bibliography-default-noauthor_ausstellung_nodate">[26]</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_future_implications">9.1. Future Implications</h3>
+<div class="paragraph">
+<p>There are a few things which we could see being useful in the future:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For the pagination to feel a bit more natural, it would be great to have arrows on the left and right side of the pagination, which can be used to flip through the pages</p>
+</li>
+<li>
+<p>Global status bar would be useful to display information that matters with every module</p>
+</li>
+<li>
+<p>Extending the animation API to offer an easy to use API to add defined animations to overlays</p>
+</li>
+<li>
+<p>Make the dialogs appear and disappear with a scale and fade transition</p>
+</li>
+<li>
+<p>Make it possible with <a href="https://gluonhq.com/products/mobile/">Gluon Mobile</a> or similar to build WorkbenchFX as an app</p>
+</li>
+<li>
+<p>Add a "Worker" to facilitate API calls and handling of asynchronous logic</p>
+</li>
+<li>
+<p>Make the <code>NavigationDrawer</code> even more flexible with support for different logo sizes</p>
+</li>
+<li>
+<p>Make WorkbenchFX more accessible, include shortcut and tabbing behavior API</p>
+</li>
+<li>
+<p>Add <a href="https://material.io/develop/web/components/snackbars/">snackbars &amp; toasts</a> API for notifications</p>
+</li>
+<li>
+<p>Animate more parts of the Workbench, like the <code>ToolbarItem</code>s</p>
+</li>
+<li>
+<p>Automate release process further to be even more automatic</p>
+</li>
+<li>
+<p>Implementation of "remembering" the last open tabs on closing and reopening them when starting the application again.
+This can be achieved by either using <a href="https://github.com/dlemmermann/PreferencesFX">PreferencesFX</a> or the Preferences API directly</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bibliography">10. Bibliography</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a id="bibliography-default-cohn_user_2004"></a>[1] M. Cohn, <em>User Stories Applied: For Agile Software Development</em>, 1st ed. Boston: Addison-Wesley Professional, 2004.</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-olsen_lean_2015"></a>[2] D. Olsen, <em>The Lean Product Playbook: How to Innovate with Minimum Viable Products and Rapid Customer Feedback</em>, 1. ed. Hoboken: Wiley, 2015.</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_design_nodate"></a>[3] “Design,” <em>Material Design</em>. .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_tabs_nodate"></a>[4] “Tabs,” <em>Material Design</em>. .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_color_nodate"></a>[5] “The color system,” <em>Material Design</em>. .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_node_nodate"></a>[6] “Node (JavaFX 8),” <em>Javadoc</em>. .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-lemmermann_javafx_2017"></a>[7] D. Lemmermann, “JavaFX Tip 27: HiRes / Retina Icons,” <em>DLSC</em>. Aug-2017.</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_font_nodate"></a>[8] “Font Awesome 5.” .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_fontawesomefx_nodate"></a>[9] “FontAwesomeFX.” .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_elevation_nodate"></a>[10] “Elevation,” <em>Material Design</em>. .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_successful_nodate"></a>[11] “A successful Git branching model,” <em>nvie.com</em>. .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-bechtold_junit_nodate"></a>[12] S. Bechtold, S. Brannen, J. Link, M. Merdes, M. Philipp, and C. Stein, “JUnit 5 User Guide.” .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-niederwieser_data_nodate"></a>[13] P. Niederwieser, “Data Driven Testing.” .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_spock_nodate"></a>[14] “Spock.” .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-idan_top_2017"></a>[15] H. Idan, “The Top 100 Java Libraries in 2017 - Based on 259,885 Source Files,” <em>OverOps Blog</em>. Jul-2017.</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_checkstyle:_2018"></a>[16] “checkstyle: Checkstyle is a development tool to help programmers write Java code that adheres to a coding standard. By default it supports the Google Java Style Guide and Sun Code Conventions, but..” Checkstyle, Aug-2018.</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_travis_nodate"></a>[17] “Travis using PR and push to run checks twice · Issue #475 · JuliaGraphs/LightGraphs.jl,” <em>GitHub</em>. .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-osherove_art_2013"></a>[18] R. Osherove, <em>The Art of Unit Testing: with examples in C#</em>, Second edition. Shelter Island, NY: Manning Publications, 2013.</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-raymond_cathedral_2001"></a>[19] E. S. Raymond, <em>The Cathedral &amp; the Bazaar: Musings on Linux and Open Source by an Accidental Revolutionary</em>, 1 Edition. Beijing ; Cambridge, Mass: O’Reilly Media, 2001.</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_contribute_2018"></a>[20] “Contribute to gradle-bintray-plugin development by creating an account on Github.” JFrog Bintray, Aug-2018.</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_java_nodate"></a>[21] “Java SE Development Kit 9 - Downloads.” .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_controlsfx_2013"></a>[22] “ControlsFX,” <em>JavaFX News, Demos and Insight // FX Experience</em>. Apr-2013.</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-jfoenix_jfoenix_2018"></a>[23] JFoeniX, “JFoenix JavaFX Material Design Library.” Aug-2018.</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_jdk_nodate"></a>[24] “JDK 11.” .</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_oracle_2018"></a>[25] “Oracle Java SE Support Roadmap.” Jun-2018.</p>
+</div>
+<div class="paragraph">
+<p><a id="bibliography-default-noauthor_ausstellung_nodate"></a>[26] “Ausstellung der Bachelor-Abschlussarbeiten,” <em>FHNW - Fachhochschule Nordwestschweiz</em>. .</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_honesty_declaration">11. Honesty Declaration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is hereby declared that the contents of this report, unless otherwise stated, have been authored by François Martin and Marco Sanfratello. All external sources have been named and quoted material has been attributed appropriately.</p>
+</div>
+<div class="paragraph">
+<p>The signatures are delivered separately.</p>
+</div>
+<div class="paragraph">
+<p>Windisch, 17<sup>th</sup> of August 2018</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2018-08-27 12:51:58 CEST
+</div>
+</div>
+</body>
+</html>
