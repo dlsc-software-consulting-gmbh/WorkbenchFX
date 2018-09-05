@@ -1550,29 +1550,29 @@ We wanted to give implementors the opportunity to also interrupt the closing of 
 
 Lots of programs make use of closing dialogs and at first glance, it may seem like this would _need_ to be easy to implement.
 Unfortunately, that is far from the truth.
-It was very difficult to implement, especially in a generic way, so it is easy to understand and use for Fabian, but to still offer Steffi the complexity she needs.
+It was very difficult to implement, especially in a generic way, so it is easy to understand and use for Fabian, but to still offer SteffiFX the complexity she needs.
 But even in general, there are many edge cases that need to be considered, as can be seen in the <<test-reference.adoc#_close_stage_interrupted,tests for this behavior>>.
 
 TIP: This taught us that we need to be careful and never assume that a feature is easy to implement, just because it seems like it should be.
 
 == Summary
 In conclusion we can say, that *WorkbenchFX* became a mature framework which can really be used in the industry.
-We finished the project in a way that we can say that we achieved all of our goals we set at the beginning.
+We finished the project in a way that we can say that we achieved all of our goals we set in the beginning.
 
-Besides writing the documentation early in the project we managed to keep all of the <<_lessons_learned,conventions>> we defined in the beginning of the project.
-They proofed to be worthwhile.
+Besides starting to write the documentation early in the project, we managed to adhere to all of the <<_lessons_learned,conventions>> we defined in the beginning of the project.
+They proved to be worthwhile.
 
-Additionally we managed to satisfy the needs of our <<_persona,personas>>.
-Since we have three of them it was really tricky to maintain a good balance.
-Fabian gets a really simple and understandable API to use which satisfies out of the box all of his needs.
-While Steffi is able to replace a lot of features with her own implementations (see <<_constructing_the_workbench>>).
-And Anna is satisfied because she gets an application which is well styled and not overloaded with a lot of functionality.
+Additionally, we managed to satisfy the needs of our <<_persona,personas>>.
+Since we have three of them, it was really tricky to maintain a good balance.
+Fabian gets a really simple and understandable API to use, which satisfies all of his needs out of the box.
+Also, SteffiFX is able to replace a lot of features with her own implementations (see <<_constructing_the_workbench>>).
+Anna is satisfied because she gets an application which is well styled and not overloaded with a lot of functionality.
 
 A huge set of tests, checkstyle, code coverage, managed by continuous integration and personal code review before each merge led to a high code quality.
 In the end, we were even able to reach a code coverage of *94.51%* (see <<_processes>>).
 
 All of the feedback we received up to now is really good.
-Even at the bachelor exhibition a lot of people stated that they really like the idea and that they probably would try working with *WorkbenchFX* cite:[noauthor_ausstellung_nodate].
+Even at the bachelor exhibition a lot of people stated that they really like the idea and that they would be interested in trying out *WorkbenchFX* cite:[noauthor_ausstellung_nodate].
 
 === Future Implications
 There are a few things which we could see being useful in the future:
@@ -1590,6 +1590,7 @@ There are a few things which we could see being useful in the future:
 * Automate release process further to be even more automatic
 * Implementation of "remembering" the last open tabs on closing and reopening them when starting the application again.
  This can be achieved by either using https://github.com/dlemmermann/PreferencesFX[PreferencesFX] or the Preferences API directly
+* Implement lazy-loading of tabs when opening them on start of the application, so the thread is not blocked for a long time
 
 == Bibliography
 bibliography::[]
