@@ -116,6 +116,14 @@ public class Preferences {
     ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
   }
 
+  public void save() {
+    preferencesFx.saveSettings();
+  }
+
+  public void discardChanges() {
+    preferencesFx.discardChanges();
+  }
+
   public PreferencesFxView getPreferencesFxView() {
     return preferencesFx.getView();
   }
