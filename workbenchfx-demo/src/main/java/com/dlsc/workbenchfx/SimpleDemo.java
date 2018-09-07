@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class SimpleDemo extends Application {
 
-  public Workbench workbench;
+  private Workbench workbench;
   private CalendarModule calendarModule = new CalendarModule();
   private HelloWorldModule helloWorldModule = new HelloWorldModule();
   private GanttModule ganttModule = new GanttModule();

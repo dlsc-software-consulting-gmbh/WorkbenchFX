@@ -21,7 +21,7 @@ public class ExtendedDemo extends Application {
   private static final String DOCUMENTATION_PATH =
       WebModule.class.getResource("index.html").toExternalForm();
 
-  public Workbench workbench;
+  private Workbench workbench;
   private Preferences preferences;
 
   public static void main(String[] args) {
