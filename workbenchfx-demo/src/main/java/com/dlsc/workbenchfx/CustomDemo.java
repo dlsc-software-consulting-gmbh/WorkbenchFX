@@ -11,6 +11,7 @@ import com.dlsc.workbenchfx.modules.gantt.GanttModule;
 import com.dlsc.workbenchfx.modules.helloworld.HelloWorldModule;
 import com.dlsc.workbenchfx.modules.maps.MapsModule;
 import com.dlsc.workbenchfx.modules.patient.PatientModule;
+import com.dlsc.workbenchfx.modules.preferences.Preferences;
 import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.modules.test.DialogTestModule;
 import com.dlsc.workbenchfx.modules.test.DrawerTestModule;
@@ -28,6 +29,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.CustomMenuItem;
@@ -45,8 +47,10 @@ public class CustomDemo extends Application {
   private static final String DOCUMENTATION_PATH =
       WebModule.class.getResource("index.html").toExternalForm();
 
-  public Workbench workbench;
-  PreferencesModule preferencesModule = new PreferencesModule(null);
+  private Workbench workbench;
+  private Preferences preferences;
+
+  private PreferencesModule preferencesModule;
 
   public static void main(String[] args) {
     launch(args);
@@ -54,6 +58,9 @@ public class CustomDemo extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+    preferences = new Preferences();
+    preferencesModule = new PreferencesModule(preferences.getPreferencesFxView());
+
     Scene myScene = new Scene(initWorkbench());
 
     primaryStage.setTitle("Custom WorkbenchFX Demo");
@@ -118,7 +125,7 @@ public class CustomDemo extends Application {
             new CustomerModule(),
             new GanttModule(),
             new MapsModule(),
-            new PreferencesModule(null),
+            preferencesModule,
             new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
             new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
             new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH),
@@ -184,5 +191,32 @@ public class CustomDemo extends Application {
     MaterialDesignIconView materialDesignIconView = new MaterialDesignIconView(icon);
     materialDesignIconView.getStyleClass().add("icon");
     return materialDesignIconView;
+  }
+
+  private void initNightMode() {
+    // initially set stylesheet
+    setNightMode(preferences.isNightMode());
+
+    // change stylesheet depending on whether nightmode is on or not
+    preferences.nightModeProperty().addListener((observable, oldValue, newValue) -> {
+      setNightMode(newValue);
+    });
+  }
+
+  private void setNightMode(boolean on) {
+    String customTheme = ExtendedDemo.class.getResource("customTheme.css").toExternalForm();
+    String darkTheme = ExtendedDemo.class.getResource("darkTheme.css").toExternalForm();
+    ObservableList<String> stylesheets = workbench.getStylesheets();
+    if (on) {
+      if (stylesheets.contains(customTheme)) {
+        stylesheets.remove(customTheme);
+      }
+      stylesheets.add(darkTheme);
+    } else {
+      if (stylesheets.contains(darkTheme)) {
+        stylesheets.remove(darkTheme);
+      }
+      stylesheets.add(customTheme);
+    }
   }
 }
