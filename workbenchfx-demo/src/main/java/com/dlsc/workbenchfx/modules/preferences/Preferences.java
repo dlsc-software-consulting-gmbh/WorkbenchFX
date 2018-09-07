@@ -8,9 +8,8 @@ import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
-import com.dlsc.workbenchfx.SimpleDemo;
+import com.dlsc.preferencesfx.view.PreferencesFxView;
 import java.util.Arrays;
-import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -25,9 +24,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.layout.StackPane;
 
-public class PreferencesView extends StackPane {
+/**
+ * Model object for Preferences.
+ */
+public class Preferences {
 
   public PreferencesFx preferencesFx;
 
@@ -70,17 +71,8 @@ public class PreferencesView extends StackPane {
   IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
   IntegerField customControl = setupCustomControl();
 
-  public PreferencesView() {
-    getStyleClass().add("module-background");
+  public Preferences() {
     preferencesFx = createPreferences();
-    getChildren().add(preferencesFx.getView());
-    setupListeners();
-
-    Platform.runLater(() -> {
-      if (nightMode.get()) {
-        getScene().getStylesheets().add(SimpleDemo.class.getResource("darkTheme.css").toExternalForm());
-      }
-    });
   }
 
   private IntegerField setupCustomControl() {
@@ -124,14 +116,15 @@ public class PreferencesView extends StackPane {
     ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
   }
 
-  private void setupListeners() {
-    // change stylesheet depending on whether nightmode is on or not
-    nightMode.addListener((observable, oldValue, newValue) -> {
-      if (newValue) {
-        getScene().getStylesheets().add(SimpleDemo.class.getResource("darkTheme.css").toExternalForm());
-      } else {
-        getScene().getStylesheets().remove(SimpleDemo.class.getResource("darkTheme.css").toExternalForm());
-      }
-    });
+  public PreferencesFxView getPreferencesFxView() {
+    return preferencesFx.getView();
+  }
+
+  public BooleanProperty nightModeProperty() {
+    return nightMode;
+  }
+
+  public boolean isNightMode() {
+    return nightMode.get();
   }
 }

@@ -46,7 +46,7 @@ public class CustomDemo extends Application {
       WebModule.class.getResource("index.html").toExternalForm();
 
   public Workbench workbench;
-  PreferencesModule preferencesModule = new PreferencesModule();
+  PreferencesModule preferencesModule = new PreferencesModule(null);
 
   public static void main(String[] args) {
     launch(args);
@@ -118,7 +118,7 @@ public class CustomDemo extends Application {
             new CustomerModule(),
             new GanttModule(),
             new MapsModule(),
-            new PreferencesModule(),
+            new PreferencesModule(null),
             new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
             new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
             new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH),
