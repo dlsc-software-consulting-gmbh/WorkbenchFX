@@ -206,8 +206,8 @@ public class CustomDemo extends Application {
   }
 
   private void setNightMode(boolean on) {
-    String customTheme = ExtendedDemo.class.getResource("customTheme.css").toExternalForm();
-    String darkTheme = ExtendedDemo.class.getResource("darkTheme.css").toExternalForm();
+    String customTheme = CustomDemo.class.getResource("customTheme.css").toExternalForm();
+    String darkTheme = CustomDemo.class.getResource("darkTheme.css").toExternalForm();
     ObservableList<String> stylesheets = workbench.getStylesheets();
     if (on) {
       if (stylesheets.contains(customTheme)) {
