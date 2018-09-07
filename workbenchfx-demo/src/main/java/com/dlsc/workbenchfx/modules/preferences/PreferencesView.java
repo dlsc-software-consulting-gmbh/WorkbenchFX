@@ -8,7 +8,9 @@ import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
+import com.dlsc.workbenchfx.SimpleDemo;
 import java.util.Arrays;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -72,6 +74,13 @@ public class PreferencesView extends StackPane {
     getStyleClass().add("module-background");
     preferencesFx = createPreferences();
     getChildren().add(preferencesFx.getView());
+    setupListeners();
+
+    Platform.runLater(() -> {
+      if (nightMode.get()) {
+        getScene().getStylesheets().add(SimpleDemo.class.getResource("darkTheme.css").toExternalForm());
+      }
+    });
   }
 
   private IntegerField setupCustomControl() {
@@ -113,5 +122,16 @@ public class PreferencesView extends StackPane {
             Setting.of("Favorite Number", customControl, customControlProperty)
         )
     ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
+  }
+
+  private void setupListeners() {
+    // change stylesheet depending on whether nightmode is on or not
+    nightMode.addListener((observable, oldValue, newValue) -> {
+      if (newValue) {
+        getScene().getStylesheets().add(SimpleDemo.class.getResource("darkTheme.css").toExternalForm());
+      } else {
+        getScene().getStylesheets().remove(SimpleDemo.class.getResource("darkTheme.css").toExternalForm());
+      }
+    });
   }
 }

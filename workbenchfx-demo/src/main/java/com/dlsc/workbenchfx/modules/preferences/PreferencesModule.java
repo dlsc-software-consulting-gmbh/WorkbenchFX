@@ -6,8 +6,11 @@ import javafx.scene.Node;
 
 public class PreferencesModule extends WorkbenchModule {
 
+  PreferencesView preferencesView;
+
   public PreferencesModule() {
     super("Preferences", FontAwesomeIcon.GEAR);
+    preferencesView = new PreferencesView();
   }
 
   @Override
