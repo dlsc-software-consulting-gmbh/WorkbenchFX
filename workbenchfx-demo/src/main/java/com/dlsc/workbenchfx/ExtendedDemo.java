@@ -85,32 +85,29 @@ public class ExtendedDemo extends Application {
   }
 
   private void initNightMode() {
+    // initially set stylesheet
+    setNightMode(preferences.isNightMode());
+
+    // change stylesheet depending on whether nightmode is on or not
+    preferences.nightModeProperty().addListener((observable, oldValue, newValue) -> {
+      setNightMode(newValue);
+    });
+  }
+
+  private void setNightMode(boolean on) {
     String customTheme = ExtendedDemo.class.getResource("customTheme.css").toExternalForm();
     String darkTheme = ExtendedDemo.class.getResource("darkTheme.css").toExternalForm();
-
-    // initially set stylesheet
-    if (preferences.isNightMode()) {
-      ObservableList<String> stylesheets = workbench.getStylesheets();
+    ObservableList<String> stylesheets = workbench.getStylesheets();
+    if (on) {
       if (stylesheets.contains(customTheme)) {
         stylesheets.remove(customTheme);
       }
       stylesheets.add(darkTheme);
-    }
-
-    // change stylesheet depending on whether nightmode is on or not
-    preferences.nightModeProperty().addListener((observable, oldValue, newValue) -> {
-      ObservableList<String> stylesheets = workbench.getStylesheets();
-      if (newValue) {
-        if (stylesheets.contains(customTheme)) {
-          stylesheets.remove(customTheme);
-        }
-        stylesheets.add(darkTheme);
-      } else {
-        if (stylesheets.contains(darkTheme)) {
-          stylesheets.remove(darkTheme);
-        }
-        stylesheets.add(customTheme);
+    } else {
+      if (stylesheets.contains(darkTheme)) {
+        stylesheets.remove(darkTheme);
       }
-    });
+      stylesheets.add(customTheme);
+    }
   }
 }
