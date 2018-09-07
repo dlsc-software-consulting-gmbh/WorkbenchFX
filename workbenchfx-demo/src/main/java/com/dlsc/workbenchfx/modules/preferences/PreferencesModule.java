@@ -9,9 +9,11 @@ public class PreferencesModule extends WorkbenchModule {
 
   PreferencesFxView preferencesFxView;
 
-  public PreferencesModule(PreferencesFxView preferencesFxView) {
+  public PreferencesModule(Preferences preferences) {
     super("Preferences", FontAwesomeIcon.GEAR);
-    this.preferencesFxView = preferencesFxView;
+    this.preferencesFxView = preferences.getPreferencesFxView();
+    //ToolbarItem save = new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.CONTENT_SAVE), )
+    //getToolbarControlsLeft().add()
   }
 
   @Override

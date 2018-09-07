@@ -59,7 +59,7 @@ public class CustomDemo extends Application {
   @Override
   public void start(Stage primaryStage) {
     preferences = new Preferences();
-    preferencesModule = new PreferencesModule(preferences.getPreferencesFxView());
+    preferencesModule = new PreferencesModule(preferences);
 
     Scene myScene = new Scene(initWorkbench());
 
