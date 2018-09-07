@@ -69,6 +69,8 @@ public class CustomDemo extends Application {
     primaryStage.setHeight(700);
     primaryStage.show();
     primaryStage.centerOnScreen();
+
+    initNightMode();
   }
 
   private Workbench initWorkbench() {
