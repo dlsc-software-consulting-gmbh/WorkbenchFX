@@ -41,7 +41,7 @@ public class ExtendedDemo extends Application {
     primaryStage.show();
     primaryStage.centerOnScreen();
 
-    initNightMode(myScene);
+    initNightMode();
   }
 
   private Workbench initWorkbench() {
@@ -84,7 +84,7 @@ public class ExtendedDemo extends Application {
     return workbench;
   }
 
-  private void initNightMode(Scene scene) {
+  private void initNightMode() {
     String customTheme = ExtendedDemo.class.getResource("customTheme.css").toExternalForm();
     String darkTheme = ExtendedDemo.class.getResource("darkTheme.css").toExternalForm();
 
