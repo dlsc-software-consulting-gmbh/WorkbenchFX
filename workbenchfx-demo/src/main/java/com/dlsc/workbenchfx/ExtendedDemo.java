@@ -89,24 +89,20 @@ public class ExtendedDemo extends Application {
     setNightMode(preferences.isNightMode());
 
     // change stylesheet depending on whether nightmode is on or not
-    preferences.nightModeProperty().addListener((observable, oldValue, newValue) -> {
-      setNightMode(newValue);
-    });
+    preferences.nightModeProperty().addListener(
+        (observable, oldValue, newValue) -> setNightMode(newValue)
+    );
   }
 
   private void setNightMode(boolean on) {
-    String customTheme = ExtendedDemo.class.getResource("customTheme.css").toExternalForm();
-    String darkTheme = ExtendedDemo.class.getResource("darkTheme.css").toExternalForm();
+    String customTheme = CustomDemo.class.getResource("customTheme.css").toExternalForm();
+    String darkTheme = CustomDemo.class.getResource("darkTheme.css").toExternalForm();
     ObservableList<String> stylesheets = workbench.getStylesheets();
     if (on) {
-      if (stylesheets.contains(customTheme)) {
-        stylesheets.remove(customTheme);
-      }
+      stylesheets.remove(customTheme);
       stylesheets.add(darkTheme);
     } else {
-      if (stylesheets.contains(darkTheme)) {
-        stylesheets.remove(darkTheme);
-      }
+      stylesheets.remove(darkTheme);
       stylesheets.add(customTheme);
     }
   }
