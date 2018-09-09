@@ -43,6 +43,9 @@ public class WebModule extends WorkbenchModule {
     browser = new WebView();
     webEngine = browser.getEngine();
 
+    // workaround since HTTP headers related to CORS, are restricted, see: https://bugs.openjdk.java.net/browse/JDK-8096797
+    System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
+
     // setup textfield for URL
     browserUrl = new TextField("Loading...");
     HBox.setHgrow(browserUrl, Priority.ALWAYS);
