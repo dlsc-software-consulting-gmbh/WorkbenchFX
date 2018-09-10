@@ -58,12 +58,12 @@ public class ExtendedDemo extends Application {
         Workbench.builder(
             new PatientModule(),
             new CalendarModule(),
-            new PreferencesModule(preferences),
-            new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
-            new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
-            new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH),
             new GanttModule(),
-            new MapsModule()
+            new MapsModule(),
+            new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
+            new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH),
+            new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
+            new PreferencesModule(preferences)
         )
             .toolbarLeft(new ToolbarItem("WorkbenchFX"))
             .toolbarRight(showDialogButton)

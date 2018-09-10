@@ -44,9 +44,9 @@ public class SimpleDemo extends Application {
         calendarModule,
         helloWorldModule,
         ganttModule,
+        mapsModule,
         dlsc,
-        notepad,
-        mapsModule
+        notepad
     ).build();
     return workbench;
   }
