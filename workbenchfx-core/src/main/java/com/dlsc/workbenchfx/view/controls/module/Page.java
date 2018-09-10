@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the standard control used to display {@link Page}s with {@link WorkbenchModule}s in
- * the home screen.
+ * the add module screen.
  *
  * @author François Martin
  * @author Marco Sanfratello

@@ -1,0 +1,44 @@
+.numberRangeControl  {
+    -fx-padding: 5;
+    -fx-background-color: rgb(12, 12, 12);
+    -base-color: rgb(58, 233, 6);
+    -out-of-range-color : red;
+}
+
+.numberRangeControl .backgroundCircle {
+    -fx-stroke-width: 30;
+    -fx-stroke: rgb(40, 40, 40);
+    -fx-fill: transparent;
+}
+
+.numberRangeControl .bar {
+    -fx-stroke-width: 30;
+    -fx-stroke: -base-color;
+    -fx-stroke-line-cap: round;
+    -fx-fill: transparent;
+}
+
+.numberRangeControl .thumb {
+    -fx-fill: rgb(40, 40, 40);
+    -fx-cursor: hand;
+
+}
+
+.numberRangeControl .valueDisplay {
+    -fx-font-family: 'Lato Light';
+    -fx-font-size: 48;
+    -fx-fill: white;
+}
+
+.numberRangeControl .tick {
+    -fx-stroke: rgb(87, 87, 87);
+    -fx-stroke-width: 2;
+}
+
+.numberRangeControl .tickLabel {
+    -fx-font-family: 'Lato Light';
+    -fx-font-size: 12;
+    -fx-fill: rgb(87, 87, 87);
+}
+
+

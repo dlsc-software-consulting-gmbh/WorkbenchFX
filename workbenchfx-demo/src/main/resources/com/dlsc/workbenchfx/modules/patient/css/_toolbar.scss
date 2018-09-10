@@ -1,0 +1,28 @@
+.patient-toolbar {
+  -fx-background-color: white;
+  -fx-padding: 4px;
+
+  & .button {
+      -fx-border-color: null;
+      -fx-background-color: null;
+      -fx-background-radius: 4;
+      -fx-font-size: 14px;
+
+    &:hover {
+      -fx-background-color: rgb(233,233,233);
+    }
+
+    & .text {
+      -fx-fill: black;
+      -fx-font-size: 22px;
+      -fx-scale-x: 1;
+      -fx-scale-y: 1;
+      -fx-cursor: hand;
+
+      &:hover {
+          -fx-scale-x: 1.1;
+          -fx-scale-y: 1.1;
+      }
+    }
+  }
+}

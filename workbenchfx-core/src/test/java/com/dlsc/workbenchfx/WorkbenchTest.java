@@ -1159,10 +1159,10 @@ class WorkbenchTest extends ApplicationTest {
       assertEquals(1, overlays.size());
       assertEquals(0, blockingOverlaysShown.size());
       assertEquals(0, overlaysShown.size());
-
-      // wait for closing animation to complete
-      await().atMost(5, TimeUnit.SECONDS).until(() -> (navigationDrawer.isVisible()));
     });
+
+    // wait for closing animation to complete
+    await().atMost(5, TimeUnit.SECONDS).until(() -> (!navigationDrawer.isVisible()));
   }
   // asciidoctor Documentation - end::awaitility[]
 

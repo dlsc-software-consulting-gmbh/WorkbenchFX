@@ -1,0 +1,27 @@
+.numberRangeControl {
+    -fx-padding: 2;
+    -fx-background-color: white;
+    -base-color: rgb(21, 59, 148);
+    -out-of-range-color : red;
+}
+
+.numberRangeControl .valueField {
+    -fx-font-family: 'Lato Light';
+    -fx-font-size: 12;
+    -fx-background-color: transparent;
+    -fx-border-radius: 0;
+    -fx-border-color: -base-color;
+    -fx-border-width: 0 0 1 0;
+}
+
+.numberRangeControl .pieSlice {
+    -fx-fill: -base-color;
+}
+
+.numberRangeControl .border {
+    -fx-stroke: -base-color;
+    -fx-stroke-width: 1;
+    -fx-fill: transparent;
+}
+
+

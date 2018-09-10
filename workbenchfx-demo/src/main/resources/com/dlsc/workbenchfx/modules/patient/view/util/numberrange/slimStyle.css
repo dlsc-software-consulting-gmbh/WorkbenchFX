@@ -1,0 +1,60 @@
+.numberRangeControl {
+    -fx-padding: 2;
+    -fx-background-color: rgb(33,33,33);
+    -base-color: rgb(77, 208, 225);
+  //  -base-color: rgb(255, 183, 77);
+  //  -base-color: rgb(229, 115, 115);
+  //  -base-color: rgb(129, 199, 132);
+  //  -base-color: rgb(149, 117, 205);
+  //  -base-color: rgb(186, 104, 200);
+
+    -out-of-range-color : rgb(229, 115, 115);
+
+    -bar-background: rgb(66, 66, 66);
+    -background: rgb(33,33,33);
+}
+.numberRangeControl .separator {
+    -fx-stroke: -base-color;
+    -fx-stroke-width: 3;
+}
+
+.numberRangeControl .title {
+    -fx-font-family: 'Lato Regular';
+    -fx-font-size: 13;
+    -fx-fill: -base-color;
+}
+
+.numberRangeControl .value {
+    -fx-font-family: 'Lato Light';
+    -fx-font-size: 48;
+    -fx-fill: rgb(228, 231, 238);
+}
+
+.numberRangeControl .unit {
+    -fx-font-family: 'Lato Regular';
+    -fx-font-size: 18;
+    -fx-fill: rgb(141, 147, 151);
+}
+
+.numberRangeControl .barBackground {
+    -fx-fill: transparent;
+    -fx-stroke: -bar-background;
+    -fx-stroke-width: 5;
+    -fx-stroke-type: centered;
+}
+
+.numberRangeControl .bar{
+    -fx-fill: transparent;
+    -fx-stroke: -base-color;
+    -fx-stroke-width: 5;
+    -fx-stroke-type: centered;
+    -fx-stroke-line-cap: round;
+}
+
+.numberRangeControl .thumb {
+    -fx-fill: -base-color;
+    -fx-effect: dropshadow(gaussian, derive(-base-color, -80%), 10, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+

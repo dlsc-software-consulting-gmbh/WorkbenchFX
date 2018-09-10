@@ -48,6 +48,20 @@ Gson gson = new Gson();
 String json = gson.toJson(obj);
 ----
 
+=== With Caption and Reference
+In <<snippet>> you will find...
+
+.This is a snippet
+[[snippet]]
+[source,java]
+----
+@ParameterizedTest
+@ValueSource(strings = { "racecar", "radar", "able was I ere I saw elba" })
+void palindromes(String candidate) {
+    assertTrue(isPalindrome(candidate));
+}
+----
+
 == Styling
 === Page break
 <<<
