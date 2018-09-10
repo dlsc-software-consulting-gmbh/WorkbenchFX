@@ -94,6 +94,10 @@
   -fx-background-radius: px(2);
   -fx-border-width: 0;
 
+  & Shape, SVGPath {
+    -fx-fill: -on-primary-color;
+  }
+
   & .label {
     @include set-height(px(16));
     -fx-graphic-text-gap: .35em;

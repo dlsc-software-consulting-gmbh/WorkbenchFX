@@ -9,8 +9,13 @@
 
     & .toolbar-control-left-box,
     & .toolbar-control-right-box {
+
       & .toolbar-label {
         -fx-background-color: -background-color;
+        & Shape, SVGPath {
+          -fx-fill: -on-background-color;
+        }
+
         & .label .glyph-icon,
         & .label .text {
           -fx-fill: -on-background-color;
@@ -20,8 +25,11 @@
         }
       }
       & .toolbar-button {
-        @extend %toolbar-item-base;
         -fx-background-color: -background-color;
+        & Shape, SVGPath {
+          -fx-fill: -on-background-color;
+        }
+
         &:pressed {
           -fx-background-color: rgba(0, 0, 0, .075);
         }
@@ -35,6 +43,10 @@
       }
       & .toolbar-menu-button {
         -fx-background-color: -background-color;
+        & Shape, SVGPath {
+          -fx-fill: -on-background-color;
+        }
+
         &:showing {
           -fx-background-color: rgba(0, 0, 0, .075);
         }
