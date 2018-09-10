@@ -1539,7 +1539,7 @@ Travis' checks on the release pull request would've failed and we would've insta
 This would've enabled us to correct the error and then start the release process from anew.
 
 Automation doesn't only prevent errors, but also leads to substantial time savings in the long run.
-In the end, we had performed 87 pull requests and 11 releases, resulting in around 1200 builds on Travis CI.
+In the end, we had performed over 2600 commits, 100 pull requests and 12 releases, resulting in over 1300 builds on Travis CI.
 We can only imagine how much time we saved.
 Setting up Travis CI also took time, but we are sure it already saved us more time than the setup required.
 
