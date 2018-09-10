@@ -6,7 +6,6 @@ import com.dlsc.workbenchfx.controls.CustomPage;
 import com.dlsc.workbenchfx.controls.CustomTab;
 import com.dlsc.workbenchfx.controls.CustomTile;
 import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
-import com.dlsc.workbenchfx.modules.customer.CustomerModule;
 import com.dlsc.workbenchfx.modules.gantt.GanttModule;
 import com.dlsc.workbenchfx.modules.helloworld.HelloWorldModule;
 import com.dlsc.workbenchfx.modules.maps.MapsModule;
@@ -123,14 +122,13 @@ public class CustomDemo extends Application {
         Workbench.builder(
             new PatientModule(),
             new CalendarModule(),
-            new HelloWorldModule(),
-            new CustomerModule(),
             new GanttModule(),
             new MapsModule(),
-            preferencesModule,
-            new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
-            new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
+            new WebModule("DLSC", MaterialDesignIcon.WEB, "http://dlsc.com"),
             new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH),
+            new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
+            preferencesModule,
+            new HelloWorldModule(),
             new ToolbarTestModule(),
             new WidgetsTestModule(),
             new ToolbarItemTestModule(),

@@ -23,15 +23,20 @@ public class ToolbarTestModule extends WorkbenchModule {
 
   private final Button removeItemsBtn = new Button("Remove all items from the toolbar");
   private final Button addItemsBtn = new Button("Add all items to the toolbar");
-  private final ToolbarItem remBtn =
-      new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.MINUS));
-  private final ToolbarItem addBtn = new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.PLUS));
   private final MenuItem addContentItem = new MenuItem("Add Content");
   private final MenuItem removeContentItem = new MenuItem("Remove Content");
-  private final ToolbarItem addContentToolbarItem = new ToolbarItem(
-      "Add Content", new FontAwesomeIconView(FontAwesomeIcon.USER),
-      addContentItem, removeContentItem
-  );
+
+  private final ToolbarItem addContentToolbarItem = new ToolbarItem("Add Content",
+      new FontAwesomeIconView(FontAwesomeIcon.USER), addContentItem, removeContentItem);
+  private final ToolbarItem remBtn = new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.MINUS),
+      event -> getToolbarControlsRight().remove(addContentToolbarItem));
+  private final ToolbarItem addBtn = new ToolbarItem(new FontAwesomeIconView(FontAwesomeIcon.PLUS),
+      event -> {
+        if (!getToolbarControlsRight().contains(addContentToolbarItem)) {
+          getToolbarControlsRight().add(addContentToolbarItem);
+        }
+      });
+
   private int contentIndex = 1;
 
   private final VBox contentBox = new VBox();
@@ -48,8 +53,7 @@ public class ToolbarTestModule extends WorkbenchModule {
 
   private void addToolbarItems() {
     if (getToolbarControlsLeft().isEmpty()) {
-      getToolbarControlsLeft().add(remBtn);
-      getToolbarControlsLeft().add(addBtn);
+      getToolbarControlsLeft().addAll(remBtn, addBtn, new ToolbarItem("Module Toolbar"));
       getToolbarControlsRight().add(addContentToolbarItem);
     }
   }
@@ -59,7 +63,7 @@ public class ToolbarTestModule extends WorkbenchModule {
     contentBox.getStylesheets().add(
         ToolbarTestModule.class.getResource("toolbar-module.css").toExternalForm()
     );
-    contentBox.setStyle("-fx-background-color: " + getRandomColor() + ";");
+    contentBox.setStyle("-fx-background-color: #f2f2f2;");
 
     contentBox.setAlignment(Pos.CENTER);
     topBox.setAlignment(Pos.CENTER);
@@ -80,15 +84,11 @@ public class ToolbarTestModule extends WorkbenchModule {
   }
 
   private void setupEventHandlers() {
-    remBtn.setOnClick(evt -> getToolbarControlsRight().remove(addContentToolbarItem));
-
-    addBtn.setOnClick(evt -> getToolbarControlsRight().add(addContentToolbarItem));
-
-    addContentItem.setOnAction(evt ->
-        bottomBox.getChildren().add(new Label("Content " + contentIndex++))
+    addContentItem.setOnAction(
+        event -> bottomBox.getChildren().add(new Label("Content " + contentIndex++))
     );
 
-    removeContentItem.setOnAction(evt -> {
+    removeContentItem.setOnAction(event -> {
       if (--contentIndex < 1) {
         contentIndex = 1;
       } else {
@@ -96,8 +96,8 @@ public class ToolbarTestModule extends WorkbenchModule {
       }
     });
 
-    addItemsBtn.setOnAction(evt -> addToolbarItems());
-    removeItemsBtn.setOnAction(evt -> removeToolbarItems());
+    addItemsBtn.setOnAction(event -> addToolbarItems());
+    removeItemsBtn.setOnAction(event -> removeToolbarItems());
   }
 
   @Override
@@ -108,14 +108,5 @@ public class ToolbarTestModule extends WorkbenchModule {
   private void removeToolbarItems() {
     getToolbarControlsLeft().clear();
     getToolbarControlsRight().clear();
-  }
-
-  private String getRandomColor() {
-//    return "#" + Color.color(
-//        Math.random() * .5 + .5,
-//        Math.random() * .5 + .5,
-//        Math.random() * .5 + .5
-//    ).toString().substring(2, 8);
-    return "#f2f2f2";
   }
 }
