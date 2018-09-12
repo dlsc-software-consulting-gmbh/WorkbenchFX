@@ -351,7 +351,7 @@
             <version>2.0.26-9.1.2</version>
         </dependency>
         -->
-        <!--java 11+ only -->
+        <!-- Java 11+ only -->
         <!--
         <dependency>
             <groupId>org.openjfx</groupId>
