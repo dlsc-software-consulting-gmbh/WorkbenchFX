@@ -6,6 +6,24 @@
 
 ![screenshot of an application created with WorkbenchFX](docs/images/workbenchFX_in_use.png) 
 
+# Maven
+To use this framework as part of your Maven build simply add the jcentral repository to your pom.xml file and use the following dependency definition.
+
+```
+<repositories>
+  <repository>
+    <id>jcenter</id>
+    <url>http://jcenter.bintray.com</url>
+  </repository>
+</repositories>
+
+<dependency>
+  <groupId>com.dlsc.workbenchfx</groupId>
+  <artifactId>workbenchfx-core</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
 # Table of Contents
 - [What is WorkbenchFX?](#what-is-workbenchfx)
 - [Advantages](#advantages)
