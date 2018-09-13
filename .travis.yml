@@ -16,7 +16,7 @@ addons:
 
 env:
   global:
-    - CODECOV_TOKEN=127975b3-f83a-48d5-8594-69981bfbab1a
+    - CODECOV_TOKEN=59192c3b-8f50-4632-ad63-ca3785dc8bbc
 
 before_install:
   - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start; fi
