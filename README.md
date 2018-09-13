@@ -1,10 +1,28 @@
 # WorkbenchFX
-[![Travis CI Build Status](https://travis-ci.com/FHNW-IP5-IP6/WorkbenchFX.svg?token=8WqsSGJvE4SAqmHHx2Z7&branch=develop)](https://travis-ci.com/FHNW-IP5-IP6/WorkbenchFX)
-[![Codecov.io Code Coverage](https://img.shields.io/badge/coverage-95%25-green.svg)](https://codecov.io/gh/FHNW-IP5-IP6/WorkbenchFX)
+[![Travis CI Build Status](https://travis-ci.org/dlemmermann/WorkbenchFX.svg?branch=master)](https://travis-ci.org/dlemmermann/WorkbenchFX)
+[![Codecov.io Code Coverage](https://img.shields.io/codecov/c/github/dlemmermann/WorkbenchFX/master.svg)](https://codecov.io/gh/dlemmermann/WorkbenchFX)
 
 **The one and only framework to build large JavaFX Applications!**
 
 ![screenshot of an application created with WorkbenchFX](docs/images/workbenchFX_in_use.png) 
+
+# Maven
+To use this framework as part of your Maven build simply add the jcentral repository to your pom.xml file and use the following dependency definition.
+
+```XML
+<repositories>
+  <repository>
+    <id>jcenter</id>
+    <url>http://jcenter.bintray.com</url>
+  </repository>
+</repositories>
+
+<dependency>
+  <groupId>com.dlsc.workbenchfx</groupId>
+  <artifactId>workbenchfx-core</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
 
 # Table of Contents
 - [What is WorkbenchFX?](#what-is-workbenchfx)
