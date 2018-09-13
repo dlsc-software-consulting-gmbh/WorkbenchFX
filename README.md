@@ -1,6 +1,6 @@
 # WorkbenchFX
 [![Travis CI Build Status](https://travis-ci.org/dlemmermann/WorkbenchFX.svg?branch=master)](https://travis-ci.org/dlemmermann/WorkbenchFX)
-[![Codecov.io Code Coverage](https://img.shields.io/badge/coverage-95%25-green.svg)](https://codecov.io/gh/FHNW-IP5-IP6/WorkbenchFX)
+[![Codecov.io Code Coverage](https://img.shields.io/codecov/c/github/dlemmermann/WorkbenchFX/master.svg)](https://codecov.io/gh/dlemmermann/WorkbenchFX)
 
 **The one and only framework to build large JavaFX Applications!**
 
