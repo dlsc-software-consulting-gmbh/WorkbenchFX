@@ -9,7 +9,7 @@
 # Maven
 To use this framework as part of your Maven build simply add the jcentral repository to your pom.xml file and use the following dependency definition.
 
-```
+```XML
 <repositories>
   <repository>
     <id>jcenter</id>
