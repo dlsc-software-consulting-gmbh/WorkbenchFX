@@ -229,6 +229,12 @@
             <artifactId>javafx-base</artifactId>
             <version>11-ea+25</version>
         </dependency>
+         
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>11-ea+25</version>
+        </dependency>
         -->
     </dependencies>
 </project>
