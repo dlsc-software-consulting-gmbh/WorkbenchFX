@@ -7,7 +7,7 @@
 ![screenshot of an application created with WorkbenchFX](docs/images/workbenchFX_in_use.png) 
 
 # Maven
-To use this framework as part of your Maven build simply add the jcentral repository to your pom.xml file and use the following dependency definition.
+WorkbenchFX can be found on jcenter / bintray and also on maven central. For maven central you simply have to add the dependency to the "workbenchfx-core" artifact. For jcenter you also need to add the jcenter repository to your pom file.
 
 ```XML
 <repositories>
