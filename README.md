@@ -1,6 +1,7 @@
 # WorkbenchFX
 [![Travis CI Build Status](https://travis-ci.org/dlemmermann/WorkbenchFX.svg?branch=master)](https://travis-ci.org/dlemmermann/WorkbenchFX)
 [![Codecov.io Code Coverage](https://img.shields.io/codecov/c/github/dlemmermann/WorkbenchFX/master.svg)](https://codecov.io/gh/dlemmermann/WorkbenchFX)
+[![Maven Central](https://img.shields.io/maven-central/v/com.dlsc.workbenchfx/workbenchfx-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.dlsc.workbenchfx%22%20AND%20a:%22workbenchfx-core%22)
 
 **The one and only framework to build large JavaFX Applications!**
 
