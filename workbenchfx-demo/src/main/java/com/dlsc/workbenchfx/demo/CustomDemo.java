@@ -6,7 +6,7 @@ import com.dlsc.workbenchfx.demo.controls.CustomOverlay;
 import com.dlsc.workbenchfx.demo.controls.CustomPage;
 import com.dlsc.workbenchfx.demo.controls.CustomTab;
 import com.dlsc.workbenchfx.demo.controls.CustomTile;
-import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
+import com.dlsc.workbenchfx.demo.modules.calendar.CalendarModule;
 import com.dlsc.workbenchfx.modules.gantt.GanttModule;
 import com.dlsc.workbenchfx.demo.modules.helloworld.HelloWorldModule;
 import com.dlsc.workbenchfx.demo.modules.maps.MapsModule;

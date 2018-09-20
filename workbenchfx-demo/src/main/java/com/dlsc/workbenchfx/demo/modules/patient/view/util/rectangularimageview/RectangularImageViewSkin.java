@@ -1,6 +1,6 @@
-package com.dlsc.workbenchfx.modules.patient.view.util.rectangularimageview;
+package com.dlsc.workbenchfx.demo.modules.patient.view.util.rectangularimageview;
 
-import com.dlsc.workbenchfx.modules.patient.view.util.ImageCache;
+import com.dlsc.workbenchfx.demo.modules.patient.view.util.ImageCache;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Dimension2D;
 import javafx.scene.control.SkinBase;

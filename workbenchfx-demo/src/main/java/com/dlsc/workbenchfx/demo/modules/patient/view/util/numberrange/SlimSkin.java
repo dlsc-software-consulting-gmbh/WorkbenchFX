@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.modules.patient.view.util.numberrange;
+package com.dlsc.workbenchfx.demo.modules.patient.view.util.numberrange;
 
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
@@ -23,7 +23,7 @@ import javafx.scene.text.TextBoundsType;
 class SlimSkin extends SkinBase<NumberRangeControl> {
   private static final String FONTS_CSS = "/fonts/fonts.css";
   private static final String STYLE_CSS =
-      "/com/dlsc/workbenchfx/modules/patient/view/util/numberrange/slimStyle.css";
+      "/com/dlsc/workbenchfx/demo/modules/patient/view/util/numberrange/slimStyle.css";
 
   private static final double ARTBOARD_WIDTH = 250;
   private static final double ARTBOARD_HEIGHT = 265;

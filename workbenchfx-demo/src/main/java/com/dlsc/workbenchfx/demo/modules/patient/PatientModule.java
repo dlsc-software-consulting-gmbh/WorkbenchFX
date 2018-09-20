@@ -1,12 +1,12 @@
 package com.dlsc.workbenchfx.modules.patient;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.demo.modules.patient.model.FileCabinet;
+import com.dlsc.workbenchfx.demo.modules.patient.model.Translator;
+import com.dlsc.workbenchfx.demo.modules.patient.view.AllPatientsView;
+import com.dlsc.workbenchfx.demo.modules.patient.view.PatientSelectionView;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import com.dlsc.workbenchfx.modules.patient.model.FileCabinet;
-import com.dlsc.workbenchfx.modules.patient.model.Translator;
-import com.dlsc.workbenchfx.modules.patient.view.AllPatientsView;
-import com.dlsc.workbenchfx.modules.patient.view.PatientSelectionView;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -54,7 +54,7 @@ public class PatientModule extends WorkbenchModule {
 
     selectPatientDialog = createSelectPatientDialog();
 
-    patientView = new AllPatientsView(fileCabinet, translator, workbench);
+    patientView = new AllPatientsView(fileCabinet, translator);
   }
 
   @Override

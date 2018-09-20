@@ -1,8 +1,9 @@
-package com.dlsc.workbenchfx.modules.patient.view.util;
+package com.dlsc.workbenchfx.demo.modules.patient.view.util;
+
+import javafx.scene.image.Image;
 
 import java.util.HashMap;
 import java.util.Map;
-import javafx.scene.image.Image;
 
 /**
  * @author Dieter Holz

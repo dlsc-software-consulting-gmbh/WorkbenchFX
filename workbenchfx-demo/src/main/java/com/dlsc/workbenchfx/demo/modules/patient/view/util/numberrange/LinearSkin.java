@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.modules.patient.view.util.numberrange;
+package com.dlsc.workbenchfx.demo.modules.patient.view.util.numberrange;
 
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -21,7 +21,7 @@ import javafx.scene.text.TextBoundsType;
 class LinearSkin extends SkinBase<NumberRangeControl> implements CustomControlMixin {
   private static final String FONTS_CSS = "/fonts/fonts.css";
   private static final String STYLE_CSS =
-      "/com/dlsc/workbenchfx/modules/patient/view/util/numberrange/linearStyle.css";
+      "/com/dlsc/workbenchfx/demo/modules/patient/view/util/numberrange/linearStyle.css";
 
   private static final double ARTBOARD_WIDTH = 400;
   private static final double ARTBOARD_HEIGHT = 24;

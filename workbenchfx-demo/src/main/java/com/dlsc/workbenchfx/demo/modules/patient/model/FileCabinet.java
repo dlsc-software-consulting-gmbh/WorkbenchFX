@@ -1,4 +1,9 @@
-package com.dlsc.workbenchfx.modules.patient.model;
+package com.dlsc.workbenchfx.demo.modules.patient.model;
+
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,16 +15,12 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  * @author Dieter Holz
  */
 public class FileCabinet {
-  private static final String DATA = "/com/dlsc/workbenchfx/modules/patient/data/PATIENT.csv";
+  private static final String DATA = "/com/dlsc/workbenchfx/demo/modules/patient/data/PATIENT.csv";
   private static final String DELIMITER = ";";
 
   private final ObservableList<Patient> allPatients = FXCollections.observableArrayList();

@@ -1,9 +1,8 @@
-package com.dlsc.workbenchfx.modules.patient.view;
+package com.dlsc.workbenchfx.demo.modules.patient.view;
 
-import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.modules.patient.model.FileCabinet;
-import com.dlsc.workbenchfx.modules.patient.model.Translator;
-import com.dlsc.workbenchfx.modules.patient.view.util.ViewMixin;
+import com.dlsc.workbenchfx.demo.modules.patient.model.FileCabinet;
+import com.dlsc.workbenchfx.demo.modules.patient.model.Translator;
+import com.dlsc.workbenchfx.demo.modules.patient.view.util.ViewMixin;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.Pagination;
 import javafx.scene.layout.BorderPane;
@@ -15,20 +14,18 @@ public class AllPatientsView extends BorderPane implements ViewMixin {
 
   private final FileCabinet cabinet;
   private final Translator translator;
-  private final Workbench workbench;
 
   private Pagination pagination;
 
-  public AllPatientsView(FileCabinet cabinet, Translator translator, Workbench workbench) {
+  public AllPatientsView(FileCabinet cabinet, Translator translator) {
     this.cabinet = cabinet;
     this.translator = translator;
-    this.workbench = workbench;
     init();
   }
 
   @Override
   public void initializeSelf() {
-    addStylesheetFiles("/fonts/fonts.css", "/com/dlsc/workbenchfx/modules/patient/css/patient.css");
+    addStylesheetFiles("/fonts/fonts.css", "/com/dlsc/workbenchfx/demo/modules/patient/css/patient.css");
   }
 
   @Override
@@ -38,7 +35,7 @@ public class AllPatientsView extends BorderPane implements ViewMixin {
     pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
     pagination.pageCountProperty().bind(Bindings.size(cabinet.getAllPatients()));
     pagination.setPageFactory(
-        param -> new PatientView(cabinet.getAllPatients().get(param), translator));
+        param -> new com.dlsc.workbenchfx.demo.modules.patient.view.PatientView(cabinet.getAllPatients().get(param), translator));
   }
 
   @Override

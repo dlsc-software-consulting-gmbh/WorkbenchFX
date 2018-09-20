@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.modules.patient.view.util;
+package com.dlsc.workbenchfx.demo.modules.patient.view.util;
 
 import java.util.List;
 

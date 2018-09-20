@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.modules.patient.view.util.numberrange;
+package com.dlsc.workbenchfx.demo.modules.patient.view.util.numberrange;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
@@ -17,7 +17,7 @@ import javafx.util.converter.NumberStringConverter;
 class PieSkin extends SkinBase<NumberRangeControl> implements CustomControlMixin {
   private static final String FONTS_CSS = "/fonts/fonts.css";
   private static final String STYLE_CSS =
-      "/com/dlsc/workbenchfx/modules/patient/view/util/numberrange/pieStyle.css";
+      "/com/dlsc/workbenchfx/demo/modules/patient/view/util/numberrange/pieStyle.css";
 
   private static final double ARTBOARD_WIDTH = 130;
   private static final double ARTBOARD_HEIGHT = 30;

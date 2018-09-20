@@ -1,7 +1,5 @@
-package com.dlsc.workbenchfx.modules.patient.view.util.numberrange;
+package com.dlsc.workbenchfx.demo.modules.patient.view.util.numberrange;
 
-import java.util.ArrayList;
-import java.util.List;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -17,6 +15,9 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextBoundsType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Dieter Holz
@@ -75,7 +76,7 @@ public class FridayFunSkin extends SkinBase<NumberRangeControl> implements Custo
   @Override
   public void initializeSelf() {
     addStylesheetFiles(getSkinnable(), "/fonts/fonts.css",
-        "/com/dlsc/workbenchfx/modules/patient/view/util/numberrange/fridayFunStyle.css");
+        "/com/dlsc/workbenchfx/demo/modules/patient/view/util/numberrange/fridayFunStyle.css");
   }
 
   @Override

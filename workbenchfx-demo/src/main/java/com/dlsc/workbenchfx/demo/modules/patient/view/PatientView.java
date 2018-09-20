@@ -1,12 +1,13 @@
-package com.dlsc.workbenchfx.modules.patient.view;
+package com.dlsc.workbenchfx.demo.modules.patient.view;
 
-import com.dlsc.workbenchfx.modules.patient.model.Patient;
-import com.dlsc.workbenchfx.modules.patient.model.Translator;
-import com.dlsc.workbenchfx.modules.patient.view.util.MaterialDesign;
-import com.dlsc.workbenchfx.modules.patient.view.util.ViewMixin;
-import com.dlsc.workbenchfx.modules.patient.view.util.numberrange.NumberRangeControl;
-import com.dlsc.workbenchfx.modules.patient.view.util.numberrange.SkinType;
-import com.dlsc.workbenchfx.modules.patient.view.util.rectangularimageview.RectangularImageView;
+import com.dlsc.workbenchfx.demo.modules.patient.model.Patient;
+import com.dlsc.workbenchfx.demo.modules.patient.model.Patient.Gender;
+import com.dlsc.workbenchfx.demo.modules.patient.model.Translator;
+import com.dlsc.workbenchfx.demo.modules.patient.view.util.MaterialDesign;
+import com.dlsc.workbenchfx.demo.modules.patient.view.util.ViewMixin;
+import com.dlsc.workbenchfx.demo.modules.patient.view.util.numberrange.NumberRangeControl;
+import com.dlsc.workbenchfx.demo.modules.patient.view.util.numberrange.SkinType;
+import com.dlsc.workbenchfx.demo.modules.patient.view.util.rectangularimageview.RectangularImageView;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -172,15 +173,15 @@ class PatientView extends HBox implements ViewMixin {
         });
 
     genderField.textProperty().bindBidirectional(patient.genderProperty(),
-        new StringConverter<Patient.Gender>() {
+        new StringConverter<>() {
           @Override
-          public String toString(Patient.Gender gender) {
+          public String toString(Gender gender) {
             return gender.name().toLowerCase();
           }
 
           @Override
-          public Patient.Gender fromString(String string) {
-            return Patient.Gender.valueOf(string.toUpperCase());
+          public Gender fromString(String string) {
+            return Gender.valueOf(string.toUpperCase());
           }
         });
 

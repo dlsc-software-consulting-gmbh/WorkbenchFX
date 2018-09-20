@@ -1,9 +1,9 @@
-package com.dlsc.workbenchfx.modules.patient.view;
+package com.dlsc.workbenchfx.demo.modules.patient.view;
 
-import com.dlsc.workbenchfx.modules.patient.model.FileCabinet;
-import com.dlsc.workbenchfx.modules.patient.model.Patient;
-import com.dlsc.workbenchfx.modules.patient.model.Translator;
-import com.dlsc.workbenchfx.modules.patient.view.util.ViewMixin;
+import com.dlsc.workbenchfx.demo.modules.patient.model.FileCabinet;
+import com.dlsc.workbenchfx.demo.modules.patient.model.Patient;
+import com.dlsc.workbenchfx.demo.modules.patient.model.Translator;
+import com.dlsc.workbenchfx.demo.modules.patient.view.util.ViewMixin;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;

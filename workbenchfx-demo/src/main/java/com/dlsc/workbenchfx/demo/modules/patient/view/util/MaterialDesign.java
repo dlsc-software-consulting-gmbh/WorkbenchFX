@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.modules.patient.view.util;
+package com.dlsc.workbenchfx.demo.modules.patient.view.util;
 
 /*
  * Copyright (c) 2016 by Gerrit Grunwald

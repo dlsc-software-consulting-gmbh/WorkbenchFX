@@ -1,7 +1,7 @@
 package com.dlsc.workbenchfx.demo;
 
 import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.modules.calendar.CalendarModule;
+import com.dlsc.workbenchfx.demo.modules.calendar.CalendarModule;
 import com.dlsc.workbenchfx.modules.gantt.GanttModule;
 import com.dlsc.workbenchfx.demo.modules.maps.MapsModule;
 import com.dlsc.workbenchfx.modules.patient.PatientModule;

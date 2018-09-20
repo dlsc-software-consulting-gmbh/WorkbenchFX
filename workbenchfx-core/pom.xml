@@ -89,25 +89,26 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <compilerId>javac-with-errorprone</compilerId>
+                    <!-- compilerId>javac-with-errorprone</compilerId -->
                     <source>10</source>
                     <target>10</target>
                     <showWarnings>true</showWarnings>
                 </configuration>
-                <dependencies>
+
+                <!-- dependencies>
                     <dependency>
                         <groupId>org.codehaus.plexus</groupId>
                         <artifactId>plexus-compiler-javac-errorprone</artifactId>
                         <version>2.8.3</version>
-                    </dependency>
+                    </dependency -->
                     <!-- override plexus-compiler-javac-errorprone's dependency on
                          Error Prone with the latest version -->
-                    <dependency>
+                    <!-- dependency>
                         <groupId>com.google.errorprone</groupId>
                         <artifactId>error_prone_core</artifactId>
                         <version>2.3.1</version>
                     </dependency>
-                </dependencies>
+                </dependencies -->
             </plugin>
 
             <!-- Packaging -->
@@ -134,9 +135,7 @@
                     <windowtitle>WorkbenchFX API</windowtitle>
                     <additionalJOptions>
                         <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
-                        <!-- Java 9 only
                         <additionalJOption>-html5</additionalJOption>
-                        -->
                     </additionalJOptions>
                     <docfilessubdirs>true</docfilessubdirs>
                     <tags>
@@ -183,7 +182,7 @@
             </plugin>
 
             <!-- Checkstyle -->
-            <!-- plugin>
+            <!--plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.0.0</version>
@@ -212,7 +211,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin -->
+            </plugin-->
 
             <!-- Generates CodeCoverage Report -->
             <plugin>
@@ -236,7 +235,7 @@
             </plugin>
 
             <!-- Execute Tests (JUnit / Spock) -->
-            <plugin>
+            <!--plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.0</version>
                 <configuration>
@@ -246,7 +245,7 @@
                         <include>**/*Test.java</include>
                     </includes>
                 </configuration>
-            </plugin>
+            </plugin-->
 
             <!-- Groovy Compiler for Spock Tests -->
             <plugin>
@@ -315,43 +314,18 @@
             <artifactId>fontawesomefx-commons</artifactId>
             <version>9.1.2</version>
         </dependency>
+
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-fontawesome</artifactId>
             <version>4.7.0-9.1.2</version>
         </dependency>
+
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-materialdesignfont</artifactId>
             <version>2.0.26-9.1.2</version>
         </dependency>
-
-        <!-- Java 11+ only -->
-        <!--
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>11-ea+25</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>11-ea+25</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>11-ea+25</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>11-ea+25</version>
-        </dependency>
-        -->
 
         <!-- Logging -->
         <dependency>
@@ -381,18 +355,21 @@
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+
         <!-- JUnit 4 Engine for JUnit 5, is needed for Spock to work -->
         <dependency>
             <groupId>org.junit.vintage</groupId>
@@ -400,6 +377,7 @@
             <version>${junit.vintage.version}</version>
             <scope>test</scope>
         </dependency>
+
         <!-- Spock Testing Framework -->
         <dependency>
             <groupId>org.spockframework</groupId>
@@ -407,18 +385,21 @@
             <version>1.1-groovy-2.4</version>
             <scope>test</scope>
         </dependency>
+
         <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
             <version>1.8.16</version>
             <scope>test</scope>
         </dependency>
+
         <dependency> <!-- enables mocking of classes without default constructor (together with CGLIB) -->
             <groupId>org.objenesis</groupId>
             <artifactId>objenesis</artifactId>
             <version>2.6</version>
             <scope>test</scope>
         </dependency>
+
         <!-- TestFX for JavaFX Testing -->
         <dependency>
             <groupId>org.testfx</groupId>
@@ -426,18 +407,21 @@
             <version>4.0.13-alpha</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit5</artifactId>
             <version>4.0.13-alpha</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-spock</artifactId>
             <version>4.0.13-alpha</version>
             <scope>test</scope>
         </dependency>
+
         <!-- Testing Utilities -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -445,17 +429,20 @@
             <version>2.21.0</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.10.0</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
             <version>3.1.2</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 </project>

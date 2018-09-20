@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.modules.patient.view.util.rectangularimageview;
+package com.dlsc.workbenchfx.demo.modules.patient.view.util.rectangularimageview;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;

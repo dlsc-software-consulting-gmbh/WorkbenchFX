@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.modules.patient.model;
+package com.dlsc.workbenchfx.demo.modules.patient.model;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;

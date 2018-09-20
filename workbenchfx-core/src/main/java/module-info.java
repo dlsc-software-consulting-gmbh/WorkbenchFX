@@ -1,5 +1,6 @@
 module com.dlsc.workbenchfx.core {
     requires javafx.controls;
+    requires javafx.swing;
     requires org.apache.logging.log4j;
     requires com.google.common;
     requires de.jensd.fx.glyphs.fontawesome;

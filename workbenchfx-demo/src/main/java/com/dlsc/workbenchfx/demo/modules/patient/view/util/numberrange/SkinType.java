@@ -1,7 +1,8 @@
-package com.dlsc.workbenchfx.modules.patient.view.util.numberrange;
+package com.dlsc.workbenchfx.demo.modules.patient.view.util.numberrange;
+
+import javafx.scene.control.SkinBase;
 
 import java.util.function.Function;
-import javafx.scene.control.SkinBase;
 
 /**
  * @author Dieter Holz

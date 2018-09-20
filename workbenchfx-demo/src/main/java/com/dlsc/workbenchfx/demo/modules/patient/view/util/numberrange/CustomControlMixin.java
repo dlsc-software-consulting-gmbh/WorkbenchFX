@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.modules.patient.view.util.numberrange;
+package com.dlsc.workbenchfx.demo.modules.patient.view.util.numberrange;
 
 import javafx.scene.Parent;
 

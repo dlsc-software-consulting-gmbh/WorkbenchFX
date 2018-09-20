@@ -1,7 +1,6 @@
-package com.dlsc.workbenchfx.modules.patient.view.util.numberrange;
+package com.dlsc.workbenchfx.demo.modules.patient.view.util.numberrange;
 
-import com.dlsc.workbenchfx.modules.patient.view.util.MaterialDesign;
-import java.util.List;
+import com.dlsc.workbenchfx.demo.modules.patient.view.util.MaterialDesign;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -25,6 +24,8 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+
+import java.util.List;
 
 /**
  * @author Dieter Holz
