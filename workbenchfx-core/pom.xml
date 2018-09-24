@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-core</artifactId>
-    <version>10.0.0</version>
+    <version>11.0.0</version>
     <packaging>jar</packaging>
 
     <name>WorkbenchFX</name>
@@ -90,8 +90,8 @@
                 <version>3.8.0</version>
                 <configuration>
                     <!-- compilerId>javac-with-errorprone</compilerId -->
-                    <source>10</source>
-                    <target>10</target>
+                    <source>11</source>
+                    <target>11</target>
                     <showWarnings>true</showWarnings>
                 </configuration>
 
@@ -217,7 +217,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.1</version>
+                <version>0.8.2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -303,6 +303,24 @@
     <dependencies>
         <!-- *** Compile *** -->
         <!-- Libraries -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>11-ea+25</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>11-ea+25</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>11-ea+25</version>
+        </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>

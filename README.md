@@ -21,7 +21,7 @@ WorkbenchFX can be found on jcenter / bintray and also on maven central. For mav
 <dependency>
   <groupId>com.dlsc.workbenchfx</groupId>
   <artifactId>workbenchfx-core</artifactId>
-  <version>10.0.0</version>
+  <version>11.0.0</version>
 </dependency>
 ```
 
