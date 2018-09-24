@@ -2,8 +2,7 @@ language: java
 
 sudo: false   # Linux OS: run in container
 
-# Java 8 only
-jdk: oraclejdk10
+jdk: openjdk11
 
 addons:
   apt:
