@@ -1,16 +1,19 @@
 package com.dlsc.workbenchfx.view;
 
+import java.util.Objects;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.TabCell;
-import java.util.Objects;
+
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.scene.control.MenuItem;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the presenter of the corresponding {@link ToolbarView}.
@@ -21,7 +24,7 @@ import org.apache.logging.log4j.Logger;
 public final class ToolbarPresenter extends Presenter {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(ToolbarPresenter.class.getName());
+      LoggerFactory.getLogger(ToolbarPresenter.class.getName());
   private static final String STYLE_CLASS_ACTIVE_ADD_BUTTON = "active-add-button";
 
   private final Workbench model;

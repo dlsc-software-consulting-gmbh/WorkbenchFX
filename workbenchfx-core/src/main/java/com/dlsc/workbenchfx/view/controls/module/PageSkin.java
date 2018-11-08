@@ -1,12 +1,14 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
+
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.GridPane;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the skin of the corresponding {@link Page}.
@@ -15,7 +17,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class PageSkin extends SkinBase<Page> {
-  private static final Logger LOGGER = LogManager.getLogger(PageSkin.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(PageSkin.class.getName());
 
   private final ObservableList<Tile> tiles;
   private GridPane tilePane;

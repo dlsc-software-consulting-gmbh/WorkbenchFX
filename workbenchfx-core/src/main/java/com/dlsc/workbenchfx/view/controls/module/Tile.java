@@ -12,8 +12,9 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the standard control used to display {@link WorkbenchModule}s as tiles
@@ -24,7 +25,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class Tile extends Control {
 
-  private static final Logger LOGGER = LogManager.getLogger(Tile.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(Tile.class.getName());
 
   private final Workbench workbench;
   private final ObjectProperty<WorkbenchModule> module;

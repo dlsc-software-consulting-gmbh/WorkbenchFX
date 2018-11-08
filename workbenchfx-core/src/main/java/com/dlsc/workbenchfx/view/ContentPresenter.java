@@ -1,17 +1,20 @@
 package com.dlsc.workbenchfx.view;
 
+import java.util.Objects;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
-import java.util.Objects;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.Node;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the presenter of the corresponding {@link ContentView}.
@@ -22,7 +25,7 @@ import org.apache.logging.log4j.Logger;
 public final class ContentPresenter extends Presenter {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(ContentPresenter.class.getName());
+      LoggerFactory.getLogger(ContentPresenter.class.getName());
 
   private final Workbench model;
   private final ContentView view;

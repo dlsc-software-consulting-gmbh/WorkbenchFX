@@ -1,5 +1,8 @@
 package com.dlsc.workbenchfx;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.AddModulePresenter;
 import com.dlsc.workbenchfx.view.AddModuleView;
@@ -10,10 +13,8 @@ import com.dlsc.workbenchfx.view.ToolbarView;
 import com.dlsc.workbenchfx.view.WorkbenchPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchView;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.SelectionStrip;
-import javafx.scene.control.SkinBase;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
+import javafx.scene.control.SkinBase;
 /**
  * Represents the Skin which is made for the {@link Workbench}.
  * It creates all the Views and Presenters which are needed and sets the stylesheets.
@@ -24,7 +25,7 @@ import org.apache.logging.log4j.Logger;
 public final class WorkbenchSkin extends SkinBase<Workbench> {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(WorkbenchSkin.class.getName());
+      LoggerFactory.getLogger(WorkbenchSkin.class.getName());
 
   // Views
   private SelectionStrip<WorkbenchModule> tabBar;

@@ -1,10 +1,12 @@
 package com.dlsc.workbenchfx.view;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.module.Page;
+
 import javafx.css.PseudoClass;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the presenter of the corresponding {@link AddModuleView}.
@@ -15,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 public final class AddModulePresenter extends Presenter {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(AddModulePresenter.class.getName());
+      LoggerFactory.getLogger(AddModulePresenter.class.getName());
 
   private static final PseudoClass ONE_PAGE_STATE = PseudoClass.getPseudoClass("one-page");
 

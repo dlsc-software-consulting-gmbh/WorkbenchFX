@@ -1,6 +1,10 @@
 package com.dlsc.workbenchfx.view.controls;
 
 import java.util.Objects;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -13,8 +17,6 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the ToolbarItem which is used in the {@link ToolbarControl}s of WorkbenchFX.
@@ -29,7 +31,7 @@ import org.apache.logging.log4j.Logger;
 public final class ToolbarItem extends MenuButton {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(ToolbarItem.class.getName());
+      LoggerFactory.getLogger(ToolbarItem.class.getName());
 
   /**
    * According to the material design standards, a desktop icon should have a size of 16x16px.

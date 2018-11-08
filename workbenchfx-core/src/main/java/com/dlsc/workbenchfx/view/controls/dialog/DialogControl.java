@@ -1,12 +1,17 @@
 package com.dlsc.workbenchfx.view.controls.dialog;
 
-import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.model.WorkbenchDialog;
-import com.dlsc.workbenchfx.view.controls.GlassPane;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.WeakHashMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.view.controls.GlassPane;
+
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
@@ -27,8 +32,6 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the standard control used to display dialogs in the {@link Workbench}.
@@ -38,7 +41,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class DialogControl extends Control {
   private static final Logger LOGGER =
-      LogManager.getLogger(DialogControl.class.getName());
+      LoggerFactory.getLogger(DialogControl.class.getName());
 
   private final BooleanProperty showingProperty = new SimpleBooleanProperty(this, "showing", false);
   private final BooleanProperty buttonTextUppercase =
