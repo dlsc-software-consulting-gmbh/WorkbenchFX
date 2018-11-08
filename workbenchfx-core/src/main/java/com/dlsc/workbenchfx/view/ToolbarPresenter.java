@@ -1,19 +1,16 @@
 package com.dlsc.workbenchfx.view;
 
-import java.util.Objects;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.TabCell;
-
+import java.util.Objects;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.scene.control.MenuItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the presenter of the corresponding {@link ToolbarView}.

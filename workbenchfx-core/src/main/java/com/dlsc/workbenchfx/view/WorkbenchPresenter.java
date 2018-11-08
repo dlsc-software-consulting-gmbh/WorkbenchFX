@@ -1,21 +1,18 @@
 package com.dlsc.workbenchfx.view;
 
-import java.util.Objects;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchOverlay;
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
-
+import java.util.Objects;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the presenter of the corresponding {@link WorkbenchView}.

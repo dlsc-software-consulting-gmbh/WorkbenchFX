@@ -1,12 +1,10 @@
 package com.dlsc.workbenchfx.view;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.view.controls.module.Page;
-
 import javafx.css.PseudoClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the presenter of the corresponding {@link AddModuleView}.

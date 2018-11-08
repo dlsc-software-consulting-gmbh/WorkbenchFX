@@ -1,8 +1,5 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -14,6 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents a toolbar, which displays all toolbar items stored in the representative Lists.

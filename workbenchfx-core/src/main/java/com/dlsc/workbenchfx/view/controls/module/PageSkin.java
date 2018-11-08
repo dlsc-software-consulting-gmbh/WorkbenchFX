@@ -1,14 +1,12 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.dlsc.workbenchfx.util.WorkbenchUtils;
-
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.GridPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the skin of the corresponding {@link Page}.

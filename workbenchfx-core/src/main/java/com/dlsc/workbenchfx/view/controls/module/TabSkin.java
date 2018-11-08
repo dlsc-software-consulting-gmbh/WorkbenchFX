@@ -1,8 +1,5 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.collections.ObservableList;
@@ -12,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the skin of the corresponding {@link Tab}.

@@ -1,8 +1,5 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Side;
@@ -18,6 +15,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the skin of the corresponding {@link NavigationDrawer}.
@@ -28,7 +27,7 @@ import javafx.scene.layout.VBox;
  */
 public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(NavigationDrawerSkin.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(NavigationDrawerSkin.class);
 
   private VBox menuContainer;
   private NavigationDrawer navigationDrawer;

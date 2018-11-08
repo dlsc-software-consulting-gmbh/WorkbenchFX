@@ -4,7 +4,6 @@ import com.dlsc.workbenchfx.view.controls.MultilineLabel;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.VBox;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
