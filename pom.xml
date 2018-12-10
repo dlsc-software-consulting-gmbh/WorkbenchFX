@@ -12,9 +12,6 @@
     <properties>
         <workbenchfx.version>2.1.0</workbenchfx.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <asciidoctor.maven.plugin.version>1.5.6</asciidoctor.maven.plugin.version>
-        <asciidoctorj.version>1.5.6</asciidoctorj.version>
-        <jruby.version>9.1.17.0</jruby.version>
     </properties>
 
     <modules>
@@ -50,87 +47,39 @@
                 <version>2.5</version>
             </plugin>
 
-            <!-- Download Ruby Gems (for asciidoctor) -->
             <plugin>
-                <groupId>de.saumya.mojo</groupId>
-                <artifactId>gem-maven-plugin</artifactId>
-                <version>1.1.5</version>
-                <configuration>
-                    <skip>true</skip>
-                    <!-- Align JRuby version with AsciidoctorJ to avoid redundant downloading -->
-                    <jrubyVersion>${jruby.version}</jrubyVersion>
-                    <gemHome>${project.basedir}/gems-provided/gems</gemHome>
-                    <gemPath>${project.basedir}/gems-provided/gems</gemPath>
-                </configuration>
-                <executions>
-                    <!-- Install required gems in target directory -->
-                    <execution>
-                        <id>install-gems</id>
-                        <goals>
-                            <goal>initialize</goal>
-                        </goals>
-                        <phase>initialize</phase>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.asciidoctor</groupId>
-                <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>${asciidoctor.maven.plugin.version}</version>
-                <dependencies>
-                    <!-- Comment this section to use the default jruby artifact provided by the plugin -->
-                    <dependency>
-                        <groupId>org.jruby</groupId>
-                        <artifactId>jruby-complete</artifactId>
-                        <version>${jruby.version}</version>
-                    </dependency>
-                    <!-- Comment this section to use the default AsciidoctorJ artifact provided by the plugin -->
-                    <dependency>
-                        <groupId>org.asciidoctor</groupId>
-                        <artifactId>asciidoctorj</artifactId>
-                        <version>${asciidoctorj.version}</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <sourceDirectory>docs</sourceDirectory>
-                    <attributes>
-                        <dir-core>${project.basedir}/workbenchfx-core</dir-core>
-                        <dir-test-java>${project.basedir}/workbenchfx-core/src/test/java/com/dlsc/workbenchfx</dir-test-java>
-                        <dir-test-groovy>${project.basedir}/workbenchfx-core/src/test/groovy/com/dlsc/workbenchfx</dir-test-groovy>
-                        <dir-source-core>${project.basedir}/workbenchfx-core/src/main/java/com/dlsc/workbenchfx</dir-source-core>
-                        <dir-source-demo>${project.basedir}/workbenchfx-demo/src/main/java/com/dlsc/workbenchfx</dir-source-demo>
-                        <project-version>${project.version}</project-version>
-                        <bibliography-database>bibliography/WorkbenchFX.bib</bibliography-database>
-                        <bibliography-style>ieee</bibliography-style>
-                    </attributes>
-
-                    <!-- The gem-maven-plugin appends the scope (e.g., provided) to the gemPath defined in the plugin configuration -->
-                    <gemPath>${project.basedir}/gems-provided</gemPath>
-                    <!-- Set Ruby extensions as required gems -->
-                    <requires>
-                        <require>asciidoctor-bibliography</require>
-                    </requires>
-                </configuration>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <id>asciidoc-to-html</id>
+                        <id>set-parent-version</id>
                         <phase>prepare-package</phase>
                         <goals>
-                            <goal>process-asciidoc</goal>
+                            <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <backend>html5</backend>
-                            <sourceHighlighter>coderay</sourceHighlighter>
-                            <attributes>
-                                <coderay-linenums-mode>table</coderay-linenums-mode>
-                                <imagesdir></imagesdir>
-                                <toc>left</toc>
-                                <icons>font</icons>
-                                <linkattrs>true</linkattrs>
-                                <encoding>utf-8</encoding>
-                                <sectnums>true</sectnums>
-                            </attributes>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>versions:set</argument>
+                                <argument>-DnewVersion=${workbenchfx.version}</argument>
+                                <argument>-DoldVersion=*</argument>
+                                <argument>-DgroupId=*</argument>
+                                <argument>-DartifactId=*</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>update-children-version</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>versions:update-child-modules</argument>
+                            </arguments>
                         </configuration>
                     </execution>
                 </executions>
