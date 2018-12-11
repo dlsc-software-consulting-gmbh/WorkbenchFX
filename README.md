@@ -180,7 +180,7 @@ Besides a call to `super()`, no further workbench-related code is required when 
 
 Note:
 - For further information, refer to our documentation or the *Javadoc*
-- The full documentation about the module lifecycle can be found in the documentation file `docs/index.adoc`, in the section *WorkbenchModule Lifecycle*
+- The full documentation about the module lifecycle can be found in the documentation file `workbenchfx-demo/src/main/resources/com/dlsc/workbenchfx/modules/webview/index.html`, in the section *WorkbenchModule Lifecycle*
 
 # Demos
 We created several demos to visualize the capabilities of *WorkbenchFX* in the `workbenchfx-demo` folder:
