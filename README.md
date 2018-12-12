@@ -133,11 +133,9 @@ Nr. | Component           | Description
 For further information about the components, refer to the *Javadoc*
 
 # Documentation
-This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following *maven* lifecycle:
-```Maven
-prepare-package -DskipTests
-```
-Afterwards, the documentation is located in the `target/generated-docs/` subdirectory.
+The detailed documentation can be found in: `workbenchfx-demo/src/main/resources/com/dlsc/workbenchfx/modules/webview/index.html`
+
+It can also be read by opening the **Documentation** module in `ExtendedDemo` or the `CustomDemo`.
 
 # Basic Structure
 ## Workbench Concept
@@ -182,7 +180,7 @@ Besides a call to `super()`, no further workbench-related code is required when 
 
 Note:
 - For further information, refer to our documentation or the *Javadoc*
-- The full documentation about the module lifecycle can be found in the documentation file `docs/index.adoc`, in the section *WorkbenchModule Lifecycle*
+- The full documentation about the module lifecycle can be found in the documentation file `workbenchfx-demo/src/main/resources/com/dlsc/workbenchfx/modules/webview/index.html`, in the section *WorkbenchModule Lifecycle*
 
 # Demos
 We created several demos to visualize the capabilities of *WorkbenchFX* in the `workbenchfx-demo` folder:
