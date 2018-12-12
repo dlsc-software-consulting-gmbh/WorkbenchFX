@@ -307,6 +307,12 @@
             <artifactId>javafx-controls</artifactId>
             <version>11</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId> <!-- for WorkbenchUtilsTest -->
+            <version>11</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- *** Compile *** -->
         <!-- Libraries -->
