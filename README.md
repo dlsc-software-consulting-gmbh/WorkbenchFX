@@ -192,6 +192,11 @@ File                | Description
 `CustomDemo.java`   | A workbench application which uses all features, to demonstrate the full capability of *WorkbenchFX*
 `FXMLDemo.java`     | A minimal example of how to use *WorkbenchFX* with FXML & [Scene Builder](https://gluonhq.com/products/scene-builder/)
 
+**Important:** To run the demos, execute the maven task 
+```XML
+mvn exec:java
+```
+
 # Getting started
 ## Extending the WorkbenchModule
 It is required to create a new class and extend `WorkbenchModule`, in order to create a custom module:
