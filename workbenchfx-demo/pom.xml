@@ -111,6 +111,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>11</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.dlsc.workbenchfx</groupId>
             <artifactId>workbenchfx-core</artifactId>
             <version>10.0.0</version>
