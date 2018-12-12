@@ -76,9 +76,8 @@
 
         <!-- JUnit -->
         <junit.version>4.12</junit.version>
-        <junit.jupiter.version>5.2.0</junit.jupiter.version>
-        <junit.vintage.version>5.2.0</junit.vintage.version>
-        <junit.platform.version>1.2.0</junit.platform.version>
+        <junit.jupiter.version>5.3.2</junit.jupiter.version>
+        <junit.vintage.version>5.3.2</junit.vintage.version>
     </properties>
 
     <build>
@@ -401,7 +400,7 @@
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
-            <version>1.1-groovy-2.4</version>
+            <version>1.2-groovy-2.5</version>
             <scope>test</scope>
         </dependency>
 
@@ -423,21 +422,21 @@
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-core</artifactId>
-            <version>4.0.13-alpha</version>
+            <version>4.0.15-alpha</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit5</artifactId>
-            <version>4.0.13-alpha</version>
+            <version>4.0.15-alpha</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-spock</artifactId>
-            <version>4.0.13-alpha</version>
+            <version>4.0.15-alpha</version>
             <scope>test</scope>
         </dependency>
 
