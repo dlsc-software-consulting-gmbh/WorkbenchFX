@@ -176,7 +176,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
-            <version>11-ea+25</version>
+            <version>11.0.1</version>
         </dependency>
 
         <dependency>
