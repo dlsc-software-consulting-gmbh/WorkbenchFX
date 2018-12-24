@@ -183,14 +183,17 @@ Note:
 - The full documentation about the module lifecycle can be found in the documentation file `workbenchfx-demo/src/main/resources/com/dlsc/workbenchfx/modules/webview/index.html`, in the section *WorkbenchModule Lifecycle*
 
 # Demos
-We created several demos to visualize the capabilities of *WorkbenchFX* in the `workbenchfx-demo` folder:
+We created several demos to visualize the capabilities of *WorkbenchFX* in the `workbenchfx-demo` folder.
+To run the demos, execute the corresponding maven goal according to the table below with the working directory set as `workbenchfx-demo`:
 
-File                | Description
-------------------- | -----------
-`SimpleDemo.java`   | Shows the simplest usage of *WorkbenchFX* with only three modules and no optional features used
-`ExtendedDemo.java` | Shows a simple workbench application with most of the features used in a simple way.
-`CustomDemo.java`   | A workbench application which uses all features, to demonstrate the full capability of *WorkbenchFX*
-`FXMLDemo.java`     | A minimal example of how to use *WorkbenchFX* with FXML & [Scene Builder](https://gluonhq.com/products/scene-builder/)
+**Important:** Please run `mvn clean install` at least once before executing one of the maven goals in the table below, or else you might run into a `ClassNotFoundException`.
+
+File                | Description                                                                                                            | Maven Goal
+------------------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------
+`SimpleDemo.java`   | Shows the simplest usage of *WorkbenchFX* with only three modules and no optional features used                        | `mvn exec:java@simple-demo`
+`ExtendedDemo.java` | Shows a simple workbench application with most of the features used in a simple way.                                   | `mvn exec:java@extended-demo`
+`CustomDemo.java`   | A workbench application which uses all features, to demonstrate the full capability of *WorkbenchFX*                   | `mvn exec:java@custom-demo`
+`FXMLDemo.java`     | A minimal example of how to use *WorkbenchFX* with FXML & [Scene Builder](https://gluonhq.com/products/scene-builder/) | `mvn exec:java@fxml-demo`
 
 # Getting started
 ## Extending the WorkbenchModule
