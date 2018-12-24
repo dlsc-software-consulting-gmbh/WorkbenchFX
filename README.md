@@ -186,6 +186,8 @@ Note:
 We created several demos to visualize the capabilities of *WorkbenchFX* in the `workbenchfx-demo` folder.
 To run the demos, execute the corresponding maven goal according to the table below with the working directory set as `workbenchfx-demo`:
 
+**Important:** Please run `mvn clean install` at least once before executing one of the maven goals in the table below, or else you might run into a `ClassNotFoundException`.
+
 File                | Description                                                                                                            | Maven Goal
 ------------------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------
 `SimpleDemo.java`   | Shows the simplest usage of *WorkbenchFX* with only three modules and no optional features used                        | `mvn exec:java@simple-demo`
