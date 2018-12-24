@@ -106,6 +106,53 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>custom-demo</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.dlsc.workbenchfx.demo.CustomDemo</mainClass>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>extended-demo</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.dlsc.workbenchfx.demo.ExtendedDemo</mainClass>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>fxml-demo</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.dlsc.workbenchfx.demo.FXMLDemo</mainClass>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>simple-demo</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.dlsc.workbenchfx.demo.SimpleDemo</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
