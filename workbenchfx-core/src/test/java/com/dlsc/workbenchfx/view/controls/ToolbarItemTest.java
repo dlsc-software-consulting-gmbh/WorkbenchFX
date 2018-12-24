@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.demo.controls;
+package com.dlsc.workbenchfx.view.controls;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
