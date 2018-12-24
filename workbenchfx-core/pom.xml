@@ -182,7 +182,7 @@
             </plugin>
 
             <!-- Checkstyle -->
-            <!--plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.0.0</version>
@@ -201,6 +201,7 @@
                     <includeTestSourceDirectory>false</includeTestSourceDirectory>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
+                    <excludes>**/module-info.java</excludes>
                 </configuration>
                 <executions>
                     <execution>
@@ -211,13 +212,13 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin-->
+            </plugin>
 
             <!-- Generates CodeCoverage Report -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.1</version>
+                <version>0.8.2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -301,6 +302,25 @@
     </build>
 
     <dependencies>
+        <!-- JavaFX -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>11.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId> <!-- for WorkbenchUtilsTest -->
+            <version>11.0.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>11.0.1</version>
+        </dependency>
+
         <!-- *** Compile *** -->
         <!-- Libraries -->
         <dependency>

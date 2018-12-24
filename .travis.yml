@@ -2,7 +2,7 @@ language: java
 
 sudo: false   # Linux OS: run in container
 
-# Java 8 only
+# Java 10 only
 jdk: openjdk10
 
 addons:
