@@ -236,17 +236,18 @@
             </plugin>
 
             <!-- Execute Tests (JUnit / Spock) -->
-            <!--plugin>
+            <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
+                <version>3.0.0-M3</version>
                 <configuration>
                     <excludedGroups>slow</excludedGroups>
                     <includes>
                         <include>**/*Spec.java</include>
                         <include>**/*Test.java</include>
                     </includes>
+                    <forkCount>0</forkCount>
                 </configuration>
-            </plugin-->
+            </plugin>
 
             <!-- Groovy Compiler for Spock Tests -->
             <plugin>
