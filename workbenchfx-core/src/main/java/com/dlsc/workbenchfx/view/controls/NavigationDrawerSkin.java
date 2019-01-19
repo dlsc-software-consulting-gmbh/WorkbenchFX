@@ -27,7 +27,8 @@ import org.slf4j.LoggerFactory;
  */
 public class NavigationDrawerSkin extends SkinBase<NavigationDrawer> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(NavigationDrawerSkin.class);
+  private static final Logger LOGGER =
+      LoggerFactory.getLogger(NavigationDrawerSkin.class.getName());
 
   private VBox menuContainer;
   private NavigationDrawer navigationDrawer;
