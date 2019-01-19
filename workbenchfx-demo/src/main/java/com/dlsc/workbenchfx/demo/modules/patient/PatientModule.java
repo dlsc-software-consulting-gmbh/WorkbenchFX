@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.modules.patient;
+package com.dlsc.workbenchfx.demo.modules.patient;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.demo.modules.patient.model.FileCabinet;
