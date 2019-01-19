@@ -14,5 +14,5 @@
 }
 
 .logo {
-  -fx-graphic: url("demo/logo.png");
+  -fx-graphic: url("logo.png");
 }
