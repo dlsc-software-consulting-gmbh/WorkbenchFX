@@ -1,6 +1,5 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.collections.ObservableList;
@@ -10,8 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the skin of the corresponding {@link Tab}.
@@ -21,7 +20,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class TabSkin extends SkinBase<Tab> {
 
-  private static final Logger LOGGER = LogManager.getLogger(TabSkin.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(TabSkin.class.getName());
 
   private HBox controlBox;
   private StackPane closeIconShape;

@@ -1,9 +1,9 @@
 module com.dlsc.workbenchfx.core {
-    requires org.apache.logging.log4j;
     requires com.google.common;
     requires javafx.controls;
     requires de.jensd.fx.fontawesomefx.fontawesome;
     requires de.jensd.fx.fontawesomefx.materialdesignicons;
+    requires slf4j.api;
 
     exports com.dlsc.workbenchfx;
     exports com.dlsc.workbenchfx.model;

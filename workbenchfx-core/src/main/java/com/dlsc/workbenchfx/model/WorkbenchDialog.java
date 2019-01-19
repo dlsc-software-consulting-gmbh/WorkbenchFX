@@ -25,8 +25,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the model class of a Dialog in {@link Workbench}.
@@ -37,7 +37,7 @@ import org.apache.logging.log4j.Logger;
  */
 public final class WorkbenchDialog {
   private static final Logger LOGGER =
-      LogManager.getLogger(WorkbenchDialog.class.getName());
+      LoggerFactory.getLogger(WorkbenchDialog.class.getName());
 
   private Type type;
 
@@ -124,7 +124,7 @@ public final class WorkbenchDialog {
   // Builder
   public static final class WorkbenchDialogBuilder {
     private static final Logger LOGGER =
-        LogManager.getLogger(WorkbenchDialogBuilder.class.getName());
+        LoggerFactory.getLogger(WorkbenchDialogBuilder.class.getName());
 
     // Required parameters - only either type or buttonTypes are required
     private final WorkbenchDialog.Type type;

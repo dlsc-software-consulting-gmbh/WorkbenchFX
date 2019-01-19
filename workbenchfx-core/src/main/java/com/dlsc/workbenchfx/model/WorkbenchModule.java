@@ -15,8 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the base for a module, to be displayed in WorkbenchFX.
@@ -30,7 +30,7 @@ import org.apache.logging.log4j.Logger;
 public abstract class WorkbenchModule {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(WorkbenchModule.class.getName());
+      LoggerFactory.getLogger(WorkbenchModule.class.getName());
 
   private Workbench workbench;
   private final String name;

@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <workbenchfx.version>2.1.0</workbenchfx.version>
+        <workbenchfx.version>11.0.0</workbenchfx.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

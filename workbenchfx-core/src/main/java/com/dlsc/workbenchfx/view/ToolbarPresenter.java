@@ -9,8 +9,8 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.scene.control.MenuItem;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the presenter of the corresponding {@link ToolbarView}.
@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
 public final class ToolbarPresenter extends Presenter {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(ToolbarPresenter.class.getName());
+      LoggerFactory.getLogger(ToolbarPresenter.class.getName());
   private static final String STYLE_CLASS_ACTIVE_ADD_BUTTON = "active-add-button";
 
   private final Workbench model;

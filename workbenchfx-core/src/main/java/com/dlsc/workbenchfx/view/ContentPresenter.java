@@ -10,8 +10,8 @@ import javafx.collections.ObservableMap;
 import javafx.scene.Node;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the presenter of the corresponding {@link ContentView}.
@@ -22,7 +22,7 @@ import org.apache.logging.log4j.Logger;
 public final class ContentPresenter extends Presenter {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(ContentPresenter.class.getName());
+      LoggerFactory.getLogger(ContentPresenter.class.getName());
 
   private final Workbench model;
   private final ContentView view;

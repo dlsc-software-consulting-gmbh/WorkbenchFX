@@ -9,8 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the skin of the corresponding {@link CustomTab}.
@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class CustomTabSkin extends SkinBase<CustomTab> {
 
-  private static final Logger LOGGER = LogManager.getLogger(CustomTabSkin.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(CustomTabSkin.class.getName());
 
   private HBox controlBox;
   private StackPane closeIconShape;

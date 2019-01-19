@@ -14,8 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the Skin of the {@link DialogControl}.
@@ -26,7 +26,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class DialogSkin extends SkinBase<DialogControl> {
   private static final Logger LOGGER =
-      LogManager.getLogger(DialogSkin.class.getName());
+      LoggerFactory.getLogger(DialogSkin.class.getName());
   private static final double MARGIN_PERCENT = .1;
 
   private final ReadOnlyObjectProperty<WorkbenchDialog> dialog;

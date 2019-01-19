@@ -23,12 +23,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.controlsfx.control.CheckListView;
 
 public class DialogTestModule extends WorkbenchModule implements MapComponentInitializedListener {
-  private static final Logger LOGGER = LogManager.getLogger(DialogTestModule.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(DialogTestModule.class.getName());
   private int itemsCount = 1;
 
   private final Button confirmBtn = new Button("Confirmation Dialog");
