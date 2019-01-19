@@ -194,7 +194,7 @@
         <dependency>
             <groupId>com.calendarfx</groupId>
             <artifactId>view</artifactId>
-            <version>10.5.0</version>
+            <version>11.5.0</version>
         </dependency>
 
         <dependency>
