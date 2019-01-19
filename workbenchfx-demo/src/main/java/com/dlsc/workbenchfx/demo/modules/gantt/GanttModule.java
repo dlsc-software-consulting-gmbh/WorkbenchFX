@@ -1,4 +1,4 @@
-package com.dlsc.workbenchfx.modules.gantt;
+package com.dlsc.workbenchfx.demo.modules.gantt;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
