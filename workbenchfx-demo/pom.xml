@@ -72,14 +72,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <!-- Java 8 only -->
                     <source>1.8</source>
                     <target>1.8</target>
-
-                    <!-- Java 9 only
-                    <source>1.9</source>
-                    <target>1.9</target>
-                    -->
                 </configuration>
             </plugin>
 
