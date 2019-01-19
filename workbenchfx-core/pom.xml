@@ -304,17 +304,6 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <configuration>
-                            <relocations>
-                                <relocation>
-                                    <pattern>com.google</pattern>
-                                    <shadedPattern>workbenchfx.com.google</shadedPattern>
-                                    <includes>
-                                        <include>com.google.*</include>
-                                    </includes>
-                                </relocation>
-                            </relocations>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
