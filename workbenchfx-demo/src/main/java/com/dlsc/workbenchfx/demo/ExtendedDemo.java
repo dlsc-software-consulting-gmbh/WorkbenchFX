@@ -2,9 +2,9 @@ package com.dlsc.workbenchfx.demo;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.demo.modules.calendar.CalendarModule;
-import com.dlsc.workbenchfx.modules.gantt.GanttModule;
+import com.dlsc.workbenchfx.demo.modules.gantt.GanttModule;
 import com.dlsc.workbenchfx.demo.modules.maps.MapsModule;
-import com.dlsc.workbenchfx.modules.patient.PatientModule;
+import com.dlsc.workbenchfx.demo.modules.patient.PatientModule;
 import com.dlsc.workbenchfx.demo.modules.preferences.Preferences;
 import com.dlsc.workbenchfx.demo.modules.preferences.PreferencesModule;
 import com.dlsc.workbenchfx.demo.modules.webview.WebModule;

@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.dlsc.workbenchfx.modules.gantt;
+package com.dlsc.workbenchfx.demo.modules.gantt;
 
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;

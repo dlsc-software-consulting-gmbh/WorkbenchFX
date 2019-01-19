@@ -5,7 +5,7 @@ import com.dlsc.workbenchfx.demo.modules.calendar.CalendarModule;
 import com.dlsc.workbenchfx.demo.modules.helloworld.HelloWorldModule;
 import com.dlsc.workbenchfx.demo.modules.maps.MapsModule;
 import com.dlsc.workbenchfx.demo.modules.webview.WebModule;
-import com.dlsc.workbenchfx.modules.gantt.GanttModule;
+import com.dlsc.workbenchfx.demo.modules.gantt.GanttModule;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.application.Application;
 import javafx.scene.Scene;
