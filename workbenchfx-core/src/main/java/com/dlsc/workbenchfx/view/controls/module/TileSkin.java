@@ -4,8 +4,8 @@ import com.dlsc.workbenchfx.view.controls.MultilineLabel;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.VBox;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the skin of the corresponding {@link Tile}.
@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class TileSkin extends SkinBase<Tile> {
 
-  private static final Logger LOGGER = LogManager.getLogger(TileSkin.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(TileSkin.class.getName());
 
   private VBox contentBox;
   private Label icon;

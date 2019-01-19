@@ -13,13 +13,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ToolbarTestModule extends WorkbenchModule {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(ToolbarTestModule.class.getName());
+      LoggerFactory.getLogger(ToolbarTestModule.class.getName());
 
   private final Button removeItemsBtn = new Button("Remove all items from the toolbar");
   private final Button addItemsBtn = new Button("Add all items to the toolbar");

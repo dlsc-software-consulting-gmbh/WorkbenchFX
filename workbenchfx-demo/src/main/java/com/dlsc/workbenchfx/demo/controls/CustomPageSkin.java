@@ -6,8 +6,8 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.GridPane;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the skin of the corresponding {@link CustomPage}.
@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class CustomPageSkin extends SkinBase<CustomPage> {
-  private static final Logger LOGGER = LogManager.getLogger(CustomPageSkin.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(CustomPageSkin.class.getName());
 
   private final ObservableList<Tile> tiles;
   private GridPane tilePane;

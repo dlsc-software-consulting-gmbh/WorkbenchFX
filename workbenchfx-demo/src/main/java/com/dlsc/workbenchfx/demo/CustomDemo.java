@@ -38,12 +38,12 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CustomDemo extends Application {
 
-  private static final Logger LOGGER = LogManager.getLogger(CustomDemo.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(CustomDemo.class.getName());
   private static final String DOCUMENTATION_PATH =
       WebModule.class.getResource("index.html").toExternalForm();
 
