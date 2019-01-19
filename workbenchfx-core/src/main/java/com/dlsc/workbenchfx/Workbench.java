@@ -1,8 +1,7 @@
 package com.dlsc.workbenchfx;
 
-import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
-
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.model.WorkbenchOverlay;
 import com.dlsc.workbenchfx.view.WorkbenchPresenter;
