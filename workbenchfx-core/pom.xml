@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-core</artifactId>
-    <version>1.0.0</version>
+    <version>11.0.0</version>
     <packaging>jar</packaging>
 
     <name>WorkbenchFX</name>
@@ -71,9 +71,6 @@
 
     <properties>
         <checkstyle.path>../config/checkstyle/checkstyle.xml</checkstyle.path>
-
-        <java.version>1.8</java.version>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -91,8 +88,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
 
@@ -120,6 +117,7 @@
                     <windowtitle>WorkbenchFX API</windowtitle>
                     <additionalJOptions>
                         <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
+                        <additionalJOption>-html5</additionalJOption>
                     </additionalJOptions>
                     <docfilessubdirs>true</docfilessubdirs>
                     <tags>
@@ -185,6 +183,7 @@
                     <includeTestSourceDirectory>false</includeTestSourceDirectory>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
+                    <excludes>**/module-info.java</excludes>
                 </configuration>
                 <executions>
                     <execution>
@@ -228,6 +227,7 @@
                         <include>**/*Spec.java</include>
                         <include>**/*Test.java</include>
                     </includes>
+                    <forkCount>0</forkCount>
                 </configuration>
             </plugin>
 
@@ -288,6 +288,25 @@
         <!-- *** Compile *** -->
         <!-- Libraries -->
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>11.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>11.0.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>11.0.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>27.0.1-jre</version>
@@ -296,17 +315,19 @@
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-commons</artifactId>
-            <version>8.15</version>
+            <version>11.0</version>
         </dependency>
+
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-fontawesome</artifactId>
-            <version>4.7.0-5</version>
+            <version>4.7.0-11</version>
         </dependency>
+
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-materialdesignfont</artifactId>
-            <version>1.7.22-4</version>
+            <version>1.7.22-11</version>
         </dependency>
 
         <!-- Logging -->
@@ -324,18 +345,21 @@
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+
         <!-- JUnit 4 Engine for JUnit 5, is needed for Spock to work -->
         <dependency>
             <groupId>org.junit.vintage</groupId>
@@ -343,6 +367,7 @@
             <version>${junit.vintage.version}</version>
             <scope>test</scope>
         </dependency>
+
         <!-- Spock Testing Framework -->
         <dependency>
             <groupId>org.spockframework</groupId>
@@ -350,18 +375,21 @@
             <version>1.2-groovy-2.4</version>
             <scope>test</scope>
         </dependency>
+
         <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
             <version>1.9.7</version>
             <scope>test</scope>
         </dependency>
+
         <dependency> <!-- enables mocking of classes without default constructor (together with CGLIB) -->
             <groupId>org.objenesis</groupId>
             <artifactId>objenesis</artifactId>
             <version>3.0.1</version>
             <scope>test</scope>
         </dependency>
+
         <!-- TestFX for JavaFX Testing -->
         <dependency>
             <groupId>org.testfx</groupId>
@@ -369,18 +397,21 @@
             <version>4.0.15-alpha</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit5</artifactId>
             <version>4.0.15-alpha</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-spock</artifactId>
             <version>4.0.15-alpha</version>
             <scope>test</scope>
         </dependency>
+
         <!-- Testing Utilities -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -388,23 +419,20 @@
             <version>2.23.4</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.11.1</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
             <version>3.1.5</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.11.1</version>
-            <scope>test</scope>
-        </dependency>
+
     </dependencies>
 </project>
