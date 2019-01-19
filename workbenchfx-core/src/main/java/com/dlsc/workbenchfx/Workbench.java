@@ -1,8 +1,7 @@
 package com.dlsc.workbenchfx;
 
-import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
-
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
+import com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.model.WorkbenchOverlay;
 import com.dlsc.workbenchfx.view.WorkbenchPresenter;
@@ -53,8 +52,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Contains all the model logic for the workbench.
@@ -65,7 +64,7 @@ import org.apache.logging.log4j.Logger;
 public final class Workbench extends Control {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(Workbench.class.getName());
+      LoggerFactory.getLogger(Workbench.class.getName());
 
   // Constants
   private static final int MAX_PERCENT = 100;
@@ -178,7 +177,7 @@ public final class Workbench extends Control {
   }
 
   public static final class WorkbenchBuilder {
-    private static final Logger LOGGER = LogManager.getLogger(WorkbenchBuilder.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(WorkbenchBuilder.class.getName());
 
     // Required parameters
     private WorkbenchModule[] modules;

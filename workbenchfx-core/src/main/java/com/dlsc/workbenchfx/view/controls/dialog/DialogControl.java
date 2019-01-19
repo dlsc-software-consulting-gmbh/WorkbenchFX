@@ -27,8 +27,8 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the standard control used to display dialogs in the {@link Workbench}.
@@ -38,7 +38,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class DialogControl extends Control {
   private static final Logger LOGGER =
-      LogManager.getLogger(DialogControl.class.getName());
+      LoggerFactory.getLogger(DialogControl.class.getName());
 
   private final BooleanProperty showingProperty = new SimpleBooleanProperty(this, "showing", false);
   private final BooleanProperty buttonTextUppercase =
