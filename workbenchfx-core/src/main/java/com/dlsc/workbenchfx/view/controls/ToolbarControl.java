@@ -11,8 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents a toolbar, which displays all toolbar items stored in the representative Lists.
@@ -22,7 +22,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class ToolbarControl extends HBox {
-  private static final Logger LOGGER = LogManager.getLogger(ToolbarControl.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(ToolbarControl.class.getName());
 
   private HBox toolbarControlLeftBox;
   private HBox toolbarControlRightBox;

@@ -14,13 +14,13 @@ import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ToolbarItemTestModule extends WorkbenchModule {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(ToolbarItemTestModule.class.getName());
+      LoggerFactory.getLogger(ToolbarItemTestModule.class.getName());
 
   private int itemsCount = 1;
 
