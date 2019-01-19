@@ -13,7 +13,6 @@ import com.dlsc.workbenchfx.view.controls.selectionstrip.SelectionStrip;
 import javafx.scene.control.SkinBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 /**
  * Represents the Skin which is made for the {@link Workbench}.
  * It creates all the Views and Presenters which are needed and sets the stylesheets.
@@ -21,6 +20,7 @@ import org.slf4j.LoggerFactory;
  * @author François Martin
  * @author Marco Sanfratello
  */
+
 public final class WorkbenchSkin extends SkinBase<Workbench> {
 
   private static final Logger LOGGER =
