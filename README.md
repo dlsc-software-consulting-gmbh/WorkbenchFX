@@ -25,6 +25,13 @@ WorkbenchFX can be found on jcenter / bintray and also on maven central. For mav
 </dependency>
 ```
 
+# Gradle
+WorkbenchFX can be found on jcenter / bintray and also on maven central. For maven central you simply have to add the dependency to the "workbenchfx-core" artifact.
+
+```groovy
+compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '11.0.0'
+```
+
 # Table of Contents
 - [What is WorkbenchFX?](#what-is-workbenchfx)
 - [Advantages](#advantages)
