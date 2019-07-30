@@ -7,22 +7,44 @@
 
 ![screenshot of an application created with WorkbenchFX](docs/images/workbenchFX_in_use.png) 
 
-# Maven
-WorkbenchFX can be found on jcenter / bintray and also on maven central. For maven central you simply have to add the dependency to the "workbenchfx-core" artifact. For jcenter you also need to add the jcenter repository to your pom file.
+## Maven
 
+To use this framework as part of your Maven build simply add the following dependency to your pom.xml file:
+
+### Java 8
 ```XML
-<repositories>
-  <repository>
-    <id>jcenter</id>
-    <url>http://jcenter.bintray.com</url>
-  </repository>
-</repositories>
-
 <dependency>
   <groupId>com.dlsc.workbenchfx</groupId>
   <artifactId>workbenchfx-core</artifactId>
-  <version>1.0.0</version>
+  <version>8.0.0</version>
 </dependency>
+```
+
+### Java 11
+```XML
+<dependency>
+  <groupId>com.dlsc.workbenchfx</groupId>
+  <artifactId>workbenchfx-core</artifactId>
+  <version>11.0.1</version>
+</dependency>
+```
+
+## Gradle
+
+To use this framework as part of your gradle build simply add the following to your build.gradle file and use the following dependency definition:
+
+### Java 8
+```groovy
+dependencies {
+    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '8.0.0'
+}
+```
+
+### Java 11
+```groovy
+dependencies {
+    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '11.0.1'
+}
 ```
 
 # Table of Contents
