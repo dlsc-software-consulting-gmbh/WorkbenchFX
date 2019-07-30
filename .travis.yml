@@ -2,51 +2,59 @@ language: java
 
 sudo: false   # Linux OS: run in container
 
+env:
+  global:
+    # get all the branches referencing this commit
+    - TAG_BRANCH=$(git ls-remote origin | sed -n "\|$TRAVIS_COMMIT\s\+refs/heads/|{s///p}")
+
+# Necessary environment variables on Travis CI:
+#
+# GITHUB_TOKEN: Token from here: https://github.com/settings/tokens => with scope "public_repo"
+# BINTRAY_USER: Bintray username
+# BINTRAY_API_KEY: API key from here: https://bintray.com/profile/edit => API Key
+#
+# The Bintray URL follows the following pattern: https://bintray.com/subject/repo/package
+# BINTRAY_SUBJECT=subject
+# BINTRAY_REPO=repo
+# BINTRAY_PACKAGE=package
+
 jdk: openjdk11
 
 addons:
   apt:
     packages:
-    - p7zip-full
-#    - oracle-java9-installer
-# Java 9 only
-
-env:
-  global:
-    - CODECOV_TOKEN=59192c3b-8f50-4632-ad63-ca3785dc8bbc
+      - p7zip-full
 
 before_install:
   - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start; fi
 
 install: true
 
-before_script:
-#  - if [[ "${TRAVIS_OS_NAME}" == osx ]]; then brew update; brew cask reinstall caskroom/versions/java9; fi
-# Java 9 only
-
 cache:
   directories:
-  - $HOME/.m2
+    - $HOME/.m2
 
 script: mvn test -B
 
 after_success:
+  - .github/deploy_prepare.sh
   - bash <(curl -s https://codecov.io/bash)
 
-before_deploy:
-  - ./before_deploy.sh
 deploy:
-  provider: releases
-  api_key:
-    secure: VNCxklOYn6kDXNNaBOh/mPKo7X9RQ0FSWDeyAcTVZLhry8Q9srGkf8tqmuYRDJIdBlDGmjNEU93Rin+RwL10IIQoduIozTMmpB+Di1YfkTLNe4LZo/2WHLgViwDRauHJ+dECSSG3zFEZndzsndyqINkw9zLfD4I136L5Vue27foTLNiRSp0J2qWw5Frnyq5dKzX9Y/JEVdVa5s7SHAFvukjeHE5gW0HUtF+gfghw7fnawUyAKJJkpc/Nr11ij8vD9/ifZuzEJkKiQ2nSvKT082btD+tIHhh6jRKed8kCEOR+uJxFc93ZXFLH2GsUvKMgUrKdeGXfGbMET2+7K6KmOvjP73a79Z911QwBEDsek34ldO7vVIG9NUD7L58W15nB/gJhH5COGfP3C/iO5M4+fvaddvJ+tYz/JtNDkHFiUqlrjnptFloWEgJqaVfnLnL1v05JYvKYutbBWL9uTRC8UAMlMJkK4tu0Yc1HyQWp2I69klgWYMHbrQhONDTlgE0clkLhA5kIjFXnbxul6M6IaWogPbAXkFZA+CH9Y1kj3znJo9U6txiBvnAznm/Sk0I9g/+zq3Xa/yEO3SN+b8iKX21iXrOsBe7bsJQoVvAnlJ8NEvPwRwgo+TzDzAWiCNx310WonbNnIw0MFqw3A8X4OwVbFvzRfkmjnlgztvx41HY=
-  file_glob: true
-  file:
-    - javadoc.zip
-    - workbenchfx-core/target/*core*
-    - workbenchfx-demo/target/*demo*
-    - documentation.zip
-  skip_cleanup: true
-  on:
-    repo: dlemmermann/WorkbenchFX
-    tags: true
-    branch: master
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    file_glob: true
+    file:
+      - javadoc.zip
+      - /**/target/*.jar
+    skip_cleanup: true
+    body: See [CHANGELOG.md](https://github.com/$TRAVIS_REPO_SLUG/blob/master/CHANGELOG.md)
+    on: &on
+      repo: $TRAVIS_REPO_SLUG
+      tags: true
+      all_branches: true
+      condition: $TAG_BRANCH =~ ^(master|master-11)$
+  - provider: script
+    script: .github/deploy_bintray_central.sh
+    skip_cleanup: true
+    on: *on
