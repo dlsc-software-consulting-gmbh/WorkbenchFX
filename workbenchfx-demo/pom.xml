@@ -152,13 +152,13 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
-            <version>11.0.1</version>
+            <version>12.0.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>11.0.1</version>
+            <version>12.0.2</version>
         </dependency>
 
         <!-- Logging -->
@@ -225,13 +225,13 @@
         <dependency>
             <groupId>com.calendarfx</groupId>
             <artifactId>view</artifactId>
-            <version>11.5.0</version>
+            <version>11.6.4</version>
         </dependency>
 
         <dependency>
             <groupId>com.dlsc.preferencesfx</groupId>
             <artifactId>preferencesfx-core</artifactId>
-            <version>11.3.0</version>
+            <version>11.5.0</version>
         </dependency>
 
         <dependency>
