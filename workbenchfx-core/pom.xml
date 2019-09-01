@@ -380,7 +380,7 @@
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-spock</artifactId>
-            <version>4.0.15-alpha</version>
+            <version>4.0.16-alpha</version>
             <scope>test</scope>
         </dependency>
         <!-- Testing Utilities -->
