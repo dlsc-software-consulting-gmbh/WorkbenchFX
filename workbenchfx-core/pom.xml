@@ -122,6 +122,7 @@
                     <windowtitle>WorkbenchFX API</windowtitle>
                     <additionalJOptions>
                         <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
+                        <additionalJOption>-html5</additionalJOption>
                     </additionalJOptions>
                     <docfilessubdirs>true</docfilessubdirs>
                     <tags>
@@ -146,7 +147,17 @@
                             <head>Implementation Note:</head>
                         </tag>
                     </tags>
+                    <sourceFileExcludes>
+                        <sourceFileExclude>**\/\module-info.java</sourceFileExclude>
+                    </sourceFileExcludes>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>7.0</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>make-docs
@@ -230,6 +241,7 @@
                         <include>**/*Spec.java</include>
                         <include>**/*Test.java</include>
                     </includes>
+                    <forkCount>0</forkCount>
                 </configuration>
             </plugin>
 
