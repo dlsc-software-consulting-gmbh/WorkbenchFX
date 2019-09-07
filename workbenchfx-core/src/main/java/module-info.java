@@ -3,7 +3,7 @@ module com.dlsc.workbenchfx.core {
     requires javafx.controls;
     requires de.jensd.fx.fontawesomefx.fontawesome;
     requires de.jensd.fx.fontawesomefx.materialdesignicons;
-    requires slf4j.api;
+    requires org.slf4j;
 
     exports com.dlsc.workbenchfx;
     exports com.dlsc.workbenchfx.model;
