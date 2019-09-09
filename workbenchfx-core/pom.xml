@@ -82,7 +82,7 @@
         <!-- JUnit -->
         <junit.version>4.12</junit.version>
         <junit.jupiter.version>5.5.1</junit.jupiter.version>
-        <junit.vintage.version>5.5.1</junit.vintage.version>
+        <junit.vintage.version>5.5.2</junit.vintage.version>
     </properties>
 
     <build>
