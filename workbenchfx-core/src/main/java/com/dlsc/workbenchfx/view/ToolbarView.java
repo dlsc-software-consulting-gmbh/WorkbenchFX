@@ -31,7 +31,7 @@ public final class ToolbarView extends VBox implements View {
 
   /**
    * Creates a new {@link ToolbarView} for the Workbench.
-   * @param showTabBar indicates whether the tab bar and that add module button should be visible
+   * @param showTabBar indicates whether the tab bar and the add module button should be visible
    */
   public ToolbarView(boolean showTabBar){
     this.showTabBar = showTabBar;
