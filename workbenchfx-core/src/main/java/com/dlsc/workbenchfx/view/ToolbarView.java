@@ -27,12 +27,22 @@ public final class ToolbarView extends VBox implements View {
   StackPane menuIconShape;
   Button menuBtn;
   SelectionStrip<WorkbenchModule> tabBar;
+  boolean showTabBar;
 
   /**
    * Creates a new {@link ToolbarView} for the Workbench.
+   * @param showTabBar indicates whether the tab bar and that add module button should be visible
+   */
+  public ToolbarView(boolean showTabBar){
+    this.showTabBar = showTabBar;
+    init();
+  }
+
+  /**
+   * Creates a new {@link ToolbarView} for the Workbench with a visible tab bar.
    */
   public ToolbarView() {
-    init();
+    this(true);
   }
 
   /**
@@ -82,12 +92,14 @@ public final class ToolbarView extends VBox implements View {
   public final void layoutParts() {
     topBox.getChildren().add(toolbarControl);
     HBox.setHgrow(toolbarControl, Priority.ALWAYS);
+    getChildren().add(topBox);
 
-    bottomBox.getChildren().addAll(tabBar, addModuleBtn);
-    HBox.setHgrow(tabBar, Priority.ALWAYS);
-
-    getChildren().addAll(topBox, bottomBox);
-    Platform.runLater(() -> addModuleBtn.requestFocus());
+    if (showTabBar){
+      bottomBox.getChildren().addAll(tabBar, addModuleBtn);
+      HBox.setHgrow(tabBar, Priority.ALWAYS);
+      getChildren().add(bottomBox);
+      Platform.runLater(() -> addModuleBtn.requestFocus());
+    }
   }
 
   /**
