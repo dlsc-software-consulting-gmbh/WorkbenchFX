@@ -33,7 +33,7 @@ public final class ToolbarView extends VBox implements View {
    * Creates a new {@link ToolbarView} for the Workbench.
    * @param showTabBar indicates whether the tab bar and the add module button should be visible
    */
-  public ToolbarView(boolean showTabBar){
+  public ToolbarView(boolean showTabBar) {
     this.showTabBar = showTabBar;
     init();
   }
@@ -94,7 +94,7 @@ public final class ToolbarView extends VBox implements View {
     HBox.setHgrow(toolbarControl, Priority.ALWAYS);
     getChildren().add(topBox);
 
-    if (showTabBar){
+    if (showTabBar) {
       bottomBox.getChildren().addAll(tabBar, addModuleBtn);
       HBox.setHgrow(tabBar, Priority.ALWAYS);
       getChildren().add(bottomBox);
