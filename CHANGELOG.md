@@ -34,6 +34,7 @@
 - Bump awaitility from 3.1.6 to 4.0.0 [\#35](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/pull/35) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Bump log4j-slf4j-impl from 2.12.0 to 2.12.1 [\#33](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/pull/33) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Bump log4j-core from 2.12.0 to 2.12.1 [\#32](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/pull/32) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump guava from 28.0-jre to 28.1-jre [\#29](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/pull/29) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Bump testfx-spock from 4.0.15-alpha to 4.0.16-alpha [\#28](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/pull/28) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Bump testfx-core from 4.0.15-alpha to 4.0.16-alpha [\#25](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/pull/25) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Add license scan report and status [\#24](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/pull/24) ([fossabot](https://github.com/fossabot))
@@ -64,7 +65,6 @@
 
 **Merged pull requests:**
 
-- Bump guava from 28.0-jre to 28.1-jre [\#29](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/pull/29) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Fix Tests Java 11 [\#16](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/pull/16) ([martinfrancois](https://github.com/martinfrancois))
 - Fix Java 10 Tests [\#15](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/pull/15) ([martinfrancois](https://github.com/martinfrancois))
 - Fix Java 10 build [\#13](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/pull/13) ([martinfrancois](https://github.com/martinfrancois))
