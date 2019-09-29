@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-parent</artifactId>
-    <version>8.0.2</version>
+    <version>8.0.3</version>
     <packaging>pom</packaging>
 
     <properties>
