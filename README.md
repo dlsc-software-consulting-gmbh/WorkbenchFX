@@ -17,7 +17,7 @@ To use this framework as part of your Maven build simply add the following depen
 <dependency>
   <groupId>com.dlsc.workbenchfx</groupId>
   <artifactId>workbenchfx-core</artifactId>
-  <version>8.0.2</version>
+  <version>8.0.3</version>
 </dependency>
 ```
 
@@ -26,7 +26,7 @@ To use this framework as part of your Maven build simply add the following depen
 <dependency>
   <groupId>com.dlsc.workbenchfx</groupId>
   <artifactId>workbenchfx-core</artifactId>
-  <version>11.0.2</version>
+  <version>11.0.3</version>
 </dependency>
 ```
 
@@ -37,14 +37,14 @@ To use this framework as part of your gradle build simply add the following to y
 ### Java 8
 ```groovy
 dependencies {
-    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '8.0.2'
+    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '8.0.3'
 }
 ```
 
 ### Java 11
 ```groovy
 dependencies {
-    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '11.0.2'
+    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '11.0.3'
 }
 ```
 
