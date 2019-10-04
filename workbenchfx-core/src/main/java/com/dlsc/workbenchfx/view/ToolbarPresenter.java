@@ -56,6 +56,7 @@ public final class ToolbarPresenter extends Presenter {
     // check initially whether to use the single module layout (size of modules = 1)
     if (model.isSingleModuleLayout()) {
       view.bottomBox.setVisible(false);
+      view.bottomBox.setManaged(false);
     }
   }
 
@@ -125,6 +126,7 @@ public final class ToolbarPresenter extends Presenter {
     });
     model.getModules().addListener((ListChangeListener<WorkbenchModule>) c -> {
       view.bottomBox.setVisible(model.getModules().size() > 1);
+      view.bottomBox.setManaged(model.getModules().size() > 1);
       if (model.isSingleModuleLayout()) {
         model.openModule(model.getModules().get(0));
       }
