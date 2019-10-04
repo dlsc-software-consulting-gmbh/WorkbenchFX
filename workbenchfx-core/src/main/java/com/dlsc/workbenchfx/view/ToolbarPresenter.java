@@ -108,17 +108,7 @@ public final class ToolbarPresenter extends Presenter {
    */
   @Override
   public final void setupValueChangedListeners() {
-    model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
-      if (Objects.isNull(oldModule)) {
-        // AddModuleView is the old value
-        view.addModuleBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_ADD_BUTTON);
-      }
-      if (Objects.isNull(newModule)) {
-        // AddModuleView is the new value
-        view.addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
-      }
-    });
-
+    setupActiveModuleListener();
     // makes sure the menu button is only being displayed if there are navigation drawer items
     navigationDrawerItems.addListener((InvalidationListener) observable -> setupMenuBtn());
     // when the toolbarControl's emptyProperty changes, check the menuBtn's position
@@ -133,14 +123,26 @@ public final class ToolbarPresenter extends Presenter {
         model.openAddModulePage();
       }
     });
-    model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
-      view.tabBar.setSelectedItem(newModule);
-    });
     model.getModules().addListener((ListChangeListener<WorkbenchModule>) c -> {
       view.bottomBox.setVisible(model.getModules().size() > 1);
       if (model.getModules().size() == 1) {
         model.openModule(model.getModules().get(0));
       }
+    });
+  }
+
+  private void setupActiveModuleListener() {
+    model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
+      if (Objects.isNull(oldModule)) {
+        // AddModuleView is the old value
+        view.addModuleBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_ADD_BUTTON);
+      }
+      if (Objects.isNull(newModule)) {
+        // AddModuleView is the new value
+        view.addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
+      }
+
+      view.tabBar.setSelectedItem(newModule);
     });
   }
 
