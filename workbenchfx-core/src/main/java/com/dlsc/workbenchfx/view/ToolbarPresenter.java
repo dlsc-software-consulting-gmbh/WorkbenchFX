@@ -125,7 +125,7 @@ public final class ToolbarPresenter extends Presenter {
     });
     model.getModules().addListener((ListChangeListener<WorkbenchModule>) c -> {
       view.bottomBox.setVisible(model.getModules().size() > 1);
-      if (model.getModules().size() == 1) {
+      if (model.isSingleModuleLayout()) {
         model.openModule(model.getModules().get(0));
       }
     });

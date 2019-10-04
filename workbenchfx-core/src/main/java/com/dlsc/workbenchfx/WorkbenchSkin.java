@@ -70,7 +70,7 @@ public final class WorkbenchSkin extends SkinBase<Workbench> {
     workbenchPresenter = new WorkbenchPresenter(model, workbenchView);
 
     // if there is only one module in the workbench, open it automatically
-    if (model.getModules().size() == 1) {
+    if (model.isSingleModuleLayout()) {
       Platform.runLater(() -> model.openModule(model.getModules().get(0)));
     }
   }
