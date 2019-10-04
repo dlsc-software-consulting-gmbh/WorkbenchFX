@@ -305,6 +305,14 @@ The content returned in the `activate()` method is displayed in the center.
 By clicking on the *add button*, you can get back to the `AddModulePage`.
 Closing the opened module is achieved through clicking on the close button in the `Tab`.
 
+### Single Module Layout
+If the workbench consists of only one module, a single module layout is used to display the module.
+In the single module layout, the tab bar and the add module button are not visible and the module is 
+automatically opened on startup.  
+This results in a very basic application as can be seen below
+
+![single module layout](docs/images/singleModuleLayout.png)
+
 ## Optional Methods
 ### WorkbenchBuilder
 These optional method calls are called after adding the custom modules to the builder:

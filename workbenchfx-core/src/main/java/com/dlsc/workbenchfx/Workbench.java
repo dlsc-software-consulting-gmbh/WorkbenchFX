@@ -1090,6 +1090,10 @@ public final class Workbench extends Control {
     return activeModuleView;
   }
 
+  public final boolean isSingleModuleLayout() {
+    return modules.size() == 1;
+  }
+
   /**
    * Returns a {@link CompletableFuture}, which upon completion will cause the module to be closed
    * and if there was an ongoing stage closing process, it will re-initiate that process.
