@@ -54,7 +54,7 @@ public final class ToolbarPresenter extends Presenter {
     setupMenuBtn();
 
     // check initially whether to use the single module layout (size of modules = 1)
-    if (model.getModules().size() == 1) {
+    if (model.isSingleModuleLayout()) {
       view.bottomBox.setVisible(false);
     }
   }
