@@ -136,15 +136,10 @@ public final class ToolbarPresenter extends Presenter {
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       view.tabBar.setSelectedItem(newModule);
     });
-
     model.getModules().addListener((ListChangeListener<WorkbenchModule>) c -> {
-      if (model.getModules().size() > 1) {
-        // use default tab layout
-        view.bottomBox.setVisible(true);
-      } else {
-        // use the single module layout
+      view.bottomBox.setVisible(model.getModules().size() > 1);
+      if (model.getModules().size() == 1) {
         model.openModule(model.getModules().get(0));
-        view.bottomBox.setVisible(false);
       }
     });
   }

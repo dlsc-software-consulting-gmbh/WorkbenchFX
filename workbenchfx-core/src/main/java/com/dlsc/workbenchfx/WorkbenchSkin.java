@@ -71,7 +71,7 @@ public final class WorkbenchSkin extends SkinBase<Workbench> {
 
     // if there is only one module in the workbench, open it automatically
     if (model.getModules().size() == 1) {
-      //Platform.runLater(() -> model.openModule(model.getModules().get(0)));
+      Platform.runLater(() -> model.openModule(model.getModules().get(0)));
     }
   }
 
