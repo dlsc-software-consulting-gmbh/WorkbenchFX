@@ -7,12 +7,12 @@
     <parent>
         <groupId>com.dlsc.workbenchfx</groupId>
         <artifactId>workbenchfx-parent</artifactId>
-        <version>8.0.3</version>
+        <version>8.1.0</version>
     </parent>
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-demo</artifactId>
-    <version>8.0.3</version>
+    <version>8.1.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -150,7 +150,7 @@
         <dependency>
             <groupId>com.dlsc.workbenchfx</groupId>
             <artifactId>workbenchfx-core</artifactId>
-            <version>8.0.3</version>
+            <version>8.1.0</version>
         </dependency>
 
         <dependency>
