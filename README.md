@@ -17,7 +17,7 @@ To use this framework as part of your Maven build simply add the following depen
 <dependency>
   <groupId>com.dlsc.workbenchfx</groupId>
   <artifactId>workbenchfx-core</artifactId>
-  <version>8.0.3</version>
+  <version>8.1.0</version>
 </dependency>
 ```
 
@@ -26,7 +26,7 @@ To use this framework as part of your Maven build simply add the following depen
 <dependency>
   <groupId>com.dlsc.workbenchfx</groupId>
   <artifactId>workbenchfx-core</artifactId>
-  <version>11.0.3</version>
+  <version>11.1.0</version>
 </dependency>
 ```
 
@@ -37,14 +37,14 @@ To use this framework as part of your gradle build simply add the following to y
 ### Java 8
 ```groovy
 dependencies {
-    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '8.0.3'
+    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '8.1.0'
 }
 ```
 
 ### Java 11
 ```groovy
 dependencies {
-    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '11.0.3'
+    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '11.1.0'
 }
 ```
 
@@ -304,6 +304,14 @@ Opening the module, creates a `Tab` with the defined icon and text.
 The content returned in the `activate()` method is displayed in the center.
 By clicking on the *add button*, you can get back to the `AddModulePage`.
 Closing the opened module is achieved through clicking on the close button in the `Tab`.
+
+### Single Module Layout
+If the workbench consists of only one module, a single module layout is used to display the module.
+In the single module layout, the tab bar and the add module button are not visible and the module is 
+automatically opened on startup.  
+This results in a very basic application as can be seen below
+
+![single module layout](docs/images/singleModuleLayout.png)
 
 ## Optional Methods
 ### WorkbenchBuilder

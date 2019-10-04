@@ -10,6 +10,7 @@ import com.dlsc.workbenchfx.view.ToolbarView;
 import com.dlsc.workbenchfx.view.WorkbenchPresenter;
 import com.dlsc.workbenchfx.view.WorkbenchView;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.SelectionStrip;
+import javafx.application.Platform;
 import javafx.scene.control.SkinBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +68,11 @@ public final class WorkbenchSkin extends SkinBase<Workbench> {
 
     workbenchView = new WorkbenchView(toolbarView, addModuleView, contentView);
     workbenchPresenter = new WorkbenchPresenter(model, workbenchView);
+
+    // if there is only one module in the workbench, open it automatically
+    if (model.isSingleModuleLayout()) {
+      Platform.runLater(() -> model.openModule(model.getModules().get(0)));
+    }
   }
 
 }

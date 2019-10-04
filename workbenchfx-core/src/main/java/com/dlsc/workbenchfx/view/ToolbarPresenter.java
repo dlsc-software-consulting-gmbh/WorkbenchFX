@@ -6,6 +6,7 @@ import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.TabCell;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.scene.control.MenuItem;
@@ -51,6 +52,12 @@ public final class ToolbarPresenter extends Presenter {
     init();
     // Adds initially a menuButton if necessary (size of items > 0)
     setupMenuBtn();
+
+    // check initially whether to use the single module layout (size of modules = 1)
+    if (model.isSingleModuleLayout()) {
+      view.bottomBox.setVisible(false);
+      view.bottomBox.setManaged(false);
+    }
   }
 
   /**
@@ -102,17 +109,7 @@ public final class ToolbarPresenter extends Presenter {
    */
   @Override
   public final void setupValueChangedListeners() {
-    model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
-      if (Objects.isNull(oldModule)) {
-        // AddModuleView is the old value
-        view.addModuleBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_ADD_BUTTON);
-      }
-      if (Objects.isNull(newModule)) {
-        // AddModuleView is the new value
-        view.addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
-      }
-    });
-
+    setupActiveModuleListener();
     // makes sure the menu button is only being displayed if there are navigation drawer items
     navigationDrawerItems.addListener((InvalidationListener) observable -> setupMenuBtn());
     // when the toolbarControl's emptyProperty changes, check the menuBtn's position
@@ -127,7 +124,26 @@ public final class ToolbarPresenter extends Presenter {
         model.openAddModulePage();
       }
     });
+    model.getModules().addListener((ListChangeListener<WorkbenchModule>) c -> {
+      view.bottomBox.setVisible(!model.isSingleModuleLayout());
+      view.bottomBox.setManaged(!model.isSingleModuleLayout());
+      if (model.isSingleModuleLayout()) {
+        model.openModule(model.getModules().get(0));
+      }
+    });
+  }
+
+  private void setupActiveModuleListener() {
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
+      if (Objects.isNull(oldModule)) {
+        // AddModuleView is the old value
+        view.addModuleBtn.getStyleClass().remove(STYLE_CLASS_ACTIVE_ADD_BUTTON);
+      }
+      if (Objects.isNull(newModule)) {
+        // AddModuleView is the new value
+        view.addModuleBtn.getStyleClass().add(STYLE_CLASS_ACTIVE_ADD_BUTTON);
+      }
+
       view.tabBar.setSelectedItem(newModule);
     });
   }
