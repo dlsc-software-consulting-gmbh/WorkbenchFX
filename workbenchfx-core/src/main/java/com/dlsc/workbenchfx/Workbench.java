@@ -24,7 +24,15 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.DoubleExpression;
-import javafx.beans.property.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -1082,7 +1090,9 @@ public final class Workbench extends Control {
     return activeModuleView;
   }
 
-  public final boolean isSingleModuleLayout(){ return modules.size() == 1; }
+  public final boolean isSingleModuleLayout() {
+    return modules.size() == 1;
+  }
 
   /**
    * Returns a {@link CompletableFuture}, which upon completion will cause the module to be closed
