@@ -1,6 +1,7 @@
-package com.dlsc.workbenchfx;
+package com.dlsc.workbenchfx.demo;
 
-import com.dlsc.workbenchfx.modules.helloworld.HelloWorldModule;
+import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.demo.modules.helloworld.HelloWorldModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;

@@ -142,6 +142,16 @@
                             <mainClass>com.dlsc.workbenchfx.demo.SimpleDemo</mainClass>
                         </configuration>
                     </execution>
+
+                    <execution>
+                        <id>single-module-demo</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.dlsc.workbenchfx.demo.SingleModuleDemo</mainClass>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
