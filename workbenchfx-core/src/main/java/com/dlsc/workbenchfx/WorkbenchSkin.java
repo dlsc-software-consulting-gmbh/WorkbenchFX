@@ -54,15 +54,10 @@ public final class WorkbenchSkin extends SkinBase<Workbench> {
     initViews(workbench);
 
     getChildren().add(workbenchView);
-
-    // if there is only one module in the workbench, open it automatically
-    if (workbench.getModules().size() == 1) {
-      Platform.runLater(() -> workbench.openModule(workbench.getModules().get(0)));
-    }
   }
 
   private void initViews(Workbench model) {
-    toolbarView = new ToolbarView(model.getModules().size() > 1);
+    toolbarView = new ToolbarView();
     toolbarPresenter = new ToolbarPresenter(model, toolbarView);
 
     addModuleView = new AddModuleView();
@@ -73,6 +68,11 @@ public final class WorkbenchSkin extends SkinBase<Workbench> {
 
     workbenchView = new WorkbenchView(toolbarView, addModuleView, contentView);
     workbenchPresenter = new WorkbenchPresenter(model, workbenchView);
+
+    // if there is only one module in the workbench, open it automatically
+    if (model.getModules().size() == 1) {
+      //Platform.runLater(() -> model.openModule(model.getModules().get(0)));
+    }
   }
 
 }

@@ -10,11 +10,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
-import org.testfx.service.query.EmptyNodeQueryException;
 
 import static com.dlsc.workbenchfx.testing.MockFactory.createMockModule;
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,8 +22,10 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Tests for {@link Workbench} in case only a single module is used
  */
+@Tag("fast")
 public class SingleModuleWorkbenchTest extends ApplicationTest {
     Workbench workbench;
+    WorkbenchModule mockModule;
     private FxRobot robot;
 
     @Override
@@ -32,7 +34,7 @@ public class SingleModuleWorkbenchTest extends ApplicationTest {
         robot = new FxRobot();
 
         Node moduleNode = new Label("Module Content");
-        WorkbenchModule mockModule = createMockModule(
+        mockModule = createMockModule(
                 moduleNode, null, true, "Module 1", workbench,
                 FXCollections.observableArrayList(), FXCollections.observableArrayList()
         );
@@ -51,14 +53,31 @@ public class SingleModuleWorkbenchTest extends ApplicationTest {
 
     @Test
     void moduleAutomaticallyOpened(){
-        assertEquals(workbench.getActiveModule(), workbench.getModules().get(0));
+      assertSame(mockModule, workbench.getActiveModule());
     }
 
     @Test
     void tabBarInvisible(){
-        // the bottom-box should not be in the scene graph and therefore the robot should throw an exception
-        assertThrows(EmptyNodeQueryException.class, () -> {
-            robot.lookup("#bottom-box").queryAs(HBox.class);
-        });
+        // the bottom-box should not be visible
+        assertFalse(robot.lookup("#bottom-box").queryAs(HBox.class).isVisible());
+    }
+
+    @Test
+    void tabBarVisibilityChanges(){
+      HBox bottomBox = robot.lookup("#bottom-box").queryAs(HBox.class);
+
+      WorkbenchModule anotherModule = createMockModule(
+              new Label(), null, true, "Module 2", workbench,
+              FXCollections.observableArrayList(), FXCollections.observableArrayList());
+
+
+      robot.interact(() -> {
+        // add a second module to the workbench, the bottom-box should be visible now
+        workbench.getModules().add(anotherModule);
+        assertTrue(bottomBox.isVisible());
+
+        workbench.getModules().remove(anotherModule);
+        assertFalse(bottomBox.isVisible());
+      });
     }
 }

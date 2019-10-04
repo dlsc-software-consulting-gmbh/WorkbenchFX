@@ -6,6 +6,7 @@ import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import com.dlsc.workbenchfx.view.controls.selectionstrip.TabCell;
 import java.util.Objects;
 import javafx.beans.InvalidationListener;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.scene.control.MenuItem;
@@ -51,6 +52,11 @@ public final class ToolbarPresenter extends Presenter {
     init();
     // Adds initially a menuButton if necessary (size of items > 0)
     setupMenuBtn();
+
+    // check initially whether to use the single module layout (size of modules = 1)
+    if (model.getModules().size() == 1) {
+      view.bottomBox.setVisible(false);
+    }
   }
 
   /**
@@ -129,6 +135,17 @@ public final class ToolbarPresenter extends Presenter {
     });
     model.activeModuleProperty().addListener((observable, oldModule, newModule) -> {
       view.tabBar.setSelectedItem(newModule);
+    });
+
+    model.getModules().addListener((ListChangeListener<WorkbenchModule>) c -> {
+      if (model.getModules().size() > 1) {
+        // use default tab layout
+        view.bottomBox.setVisible(true);
+      } else {
+        // use the single module layout
+        model.openModule(model.getModules().get(0));
+        view.bottomBox.setVisible(false);
+      }
     });
   }
 
