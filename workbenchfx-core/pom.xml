@@ -361,7 +361,7 @@
         <dependency> <!-- enables mocking of classes without default constructor (together with CGLIB) -->
             <groupId>org.objenesis</groupId>
             <artifactId>objenesis</artifactId>
-            <version>3.0.1</version>
+            <version>3.1</version>
             <scope>test</scope>
         </dependency>
         <!-- TestFX for JavaFX Testing -->
