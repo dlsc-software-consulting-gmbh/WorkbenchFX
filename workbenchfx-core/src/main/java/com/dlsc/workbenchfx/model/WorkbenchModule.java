@@ -220,6 +220,11 @@ public abstract class WorkbenchModule {
     return closeable;
   }
 
+  /**
+   * If a module should not be closeable, the closeable property should be set to false.
+   *
+   * @param closeable, false if the module should not be closeable.
+   */
   public void setCloseable(boolean closeable) {
     this.closeable.set(closeable);
   }

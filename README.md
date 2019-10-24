@@ -370,6 +370,7 @@ Method (WorkbenchModule)    | Description
 `getToolbarControlsLeft()`  | Returns a list of `ToolbarItem`s. Adding items to the list will automatically create a toolbar between the tab bar and the module content and show the items on the left side
 `getToolbarControlsRight()` | Returns a list of `ToolbarItem`s. Adding items to the list will automatically create a toolbar between the tab bar and the module content and show the items on the right side
 `close()`                   | Will immediately close the module, without calling `destroy()` first (see [Module Lifecycle](#module-lifecycle))
+`setCloseable(boolean)`     | Will return true when the tab of the module should be closeable.
 
 # Using the Components
 ## ToolbarItem
