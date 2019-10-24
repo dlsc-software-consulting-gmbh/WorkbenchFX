@@ -76,6 +76,7 @@ public class TabSkin extends SkinBase<Tab> {
   private void setupBindings() {
     nameLbl.textProperty().bind(name);
     closeBtn.visibleProperty().bind(closeable);
+    closeBtn.managedProperty().bind(closeable);
   }
 
   private void setupEventHandlers() {
