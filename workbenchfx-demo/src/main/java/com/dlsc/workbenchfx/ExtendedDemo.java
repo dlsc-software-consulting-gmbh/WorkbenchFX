@@ -6,6 +6,7 @@ import com.dlsc.workbenchfx.modules.maps.MapsModule;
 import com.dlsc.workbenchfx.modules.patient.PatientModule;
 import com.dlsc.workbenchfx.modules.preferences.Preferences;
 import com.dlsc.workbenchfx.modules.preferences.PreferencesModule;
+import com.dlsc.workbenchfx.modules.uncloseable.UncloseableModule;
 import com.dlsc.workbenchfx.modules.webview.WebModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
@@ -60,6 +61,7 @@ public class ExtendedDemo extends Application {
             new CalendarModule(),
             new GanttModule(),
             new MapsModule(),
+            new UncloseableModule(),
             new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
             new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH),
             new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
