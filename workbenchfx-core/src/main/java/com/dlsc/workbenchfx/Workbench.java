@@ -1252,6 +1252,13 @@ public final class Workbench extends Control {
     return addModuleBtnVisible;
   }
 
+  /**
+   * If there should no be an add-Button the addModuleBtnVisible should be set to false.
+   * Per default this property is set to true.
+   *
+   * @param addModuleBtnVisible defines whether the Addmodule-Button for opening the AddModulePage
+   *                            should be visible
+   */
   public void setAddModuleBtnVisible(boolean addModuleBtnVisible) {
     this.addModuleBtnVisible.set(addModuleBtnVisible);
   }

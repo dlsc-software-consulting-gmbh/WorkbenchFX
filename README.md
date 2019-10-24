@@ -345,20 +345,22 @@ Method in WorkbenchBuilder | Description
 After the `build()` call on `WorkbenchBuilder`, the `Workbench` is created.
 The following selective calls might be of interest:
 
-Method in Workbench          | Description
----------------------------- | -----------
-`showNavigationDrawer()`     | Shows the `NavigationDrawer`
-`getNavigationDrawer()`      | Returns the `NavigationDrawer`
-`getNavigationDrawerItems()` | Returns the `ObservableList` of the drawer's `ToolbarItem`s
-`openModule()`               | Opens the specified module
-`getModules()`               | Returns a list of all modules stored in the workbench
-`show...Dialog()`            | Shows a [predefined dialog](#predefined-dialogs)
-`showDialog()`               | Shows a [custom dialog](#custom-dialog)
-`showDrawer()`               | Shows a [custom drawer](#drawer)
-`getToolbarControlsLeft()`   | Returns the list of items on the left of the `Toolbar`
-`getToolbarControlsRight()`  | Returns the list of items on the right of the `Toolbar`
-`showOverlay()`              | Shows a [custom overlay](#custom-overlay)
-`hideOverlay()`              | Hides a [custom overlay](#custom-overlay)
+Method in Workbench              | Description
+----------------------------     | -----------
+`showNavigationDrawer()`         | Shows the `NavigationDrawer`
+`getNavigationDrawer()`          | Returns the `NavigationDrawer`
+`getNavigationDrawerItems()`     | Returns the `ObservableList` of the drawer's `ToolbarItem`s
+`openModule()`                   | Opens the specified module
+`getModules()`                   | Returns a list of all modules stored in the workbench
+`show...Dialog()`                | Shows a [predefined dialog](#predefined-dialogs)
+`showDialog()`                   | Shows a [custom dialog](#custom-dialog)
+`showDrawer()`                   | Shows a [custom drawer](#drawer)
+`getToolbarControlsLeft()`       | Returns the list of items on the left of the `Toolbar`
+`getToolbarControlsRight()`      | Returns the list of items on the right of the `Toolbar`
+`showOverlay()`                  | Shows a [custom overlay](#custom-overlay)
+`hideOverlay()`                  | Hides a [custom overlay](#custom-overlay)
+`setAddModuleBtnVisible(boolean)`| If set to false no Add-Button is shown in the Workbench.
+
 
 ### WorkbenchModule
 The `WorkbenchModule` also provides useful functionality.
