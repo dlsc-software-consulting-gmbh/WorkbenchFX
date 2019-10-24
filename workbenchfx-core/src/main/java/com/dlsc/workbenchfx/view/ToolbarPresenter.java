@@ -155,6 +155,7 @@ public final class ToolbarPresenter extends Presenter {
   public final void setupBindings() {
     // Binds content of the SelectionStrip to the Workbench content
     view.tabBar.itemsProperty().bindContent(openModules);
+    view.addModuleBtn.visibleProperty().bind(model.addModuleBtnVisibleProperty());
 
     // Bind items from toolbar to the ones of the workbench
     view.toolbarControl.toolbarControlsLeftProperty().bindContent(toolbarControlsLeft);
