@@ -62,8 +62,8 @@ public class ExtendedDemo extends Application {
             new GanttModule(),
             new MapsModule(),
             new UncloseableModule(),
-            new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
             new WebModule("Documentation", MaterialDesignIcon.BOOK, DOCUMENTATION_PATH),
+            new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com"),
             new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com"),
             new PreferencesModule(preferences)
         )
