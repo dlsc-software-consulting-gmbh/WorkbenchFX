@@ -1,5 +1,6 @@
 package com.dlsc.workbenchfx.view.controls.module;
 
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.collections.ObservableList;
@@ -30,6 +31,7 @@ public class TabSkin extends SkinBase<Tab> {
 
   private final ReadOnlyStringProperty name;
   private final ReadOnlyObjectProperty<Node> icon;
+  private final ReadOnlyBooleanProperty closeable;
 
   /**
    * Creates a new {@link TabSkin} object for a corresponding {@link Tab}.
@@ -40,6 +42,7 @@ public class TabSkin extends SkinBase<Tab> {
     super(tab);
     name = tab.nameProperty();
     icon = tab.iconProperty();
+    closeable = tab.closeableProperty();
 
     initializeParts();
     layoutParts();
@@ -72,6 +75,7 @@ public class TabSkin extends SkinBase<Tab> {
 
   private void setupBindings() {
     nameLbl.textProperty().bind(name);
+    closeBtn.visibleProperty().bind(closeable);
   }
 
   private void setupEventHandlers() {

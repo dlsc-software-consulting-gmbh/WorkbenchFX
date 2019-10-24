@@ -36,6 +36,7 @@ public class Tab extends Control {
   private final ObjectProperty<Node> icon;
   private final BooleanProperty activeTab;
   private static final PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");
+  private final BooleanProperty closeable;
 
   /**
    * Constructs a new {@link Tab}.
@@ -48,6 +49,7 @@ public class Tab extends Control {
     name = new SimpleStringProperty(this, "name");
     icon = new SimpleObjectProperty<>(this, "icon");
     activeTab = new SimpleBooleanProperty(this, "activeTab");
+    closeable = new SimpleBooleanProperty(this, "closeable");
     setupModuleListeners();
     setupActiveTabListener();
     setupEventHandlers();
@@ -64,6 +66,8 @@ public class Tab extends Control {
       // Replace any occurence of \n with space
       name.setValue(current.getName().replace("\n", " "));
       icon.setValue(current.getIcon());
+      closeable.unbind();
+      closeable.bind(current.closeableProperty());
 
       // Sets the id with toString of module.
       // Adds 'tab-', replaces spaces with hyphens and sets letters to lowercase.
@@ -140,6 +144,14 @@ public class Tab extends Control {
 
   public final ReadOnlyBooleanProperty activeTabProperty() {
     return activeTab;
+  }
+
+  public boolean isCloseable() {
+    return closeable.get();
+  }
+
+  public ReadOnlyBooleanProperty closeableProperty() {
+    return closeable;
   }
 
   @Override
