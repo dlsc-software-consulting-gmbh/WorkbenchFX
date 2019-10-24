@@ -39,7 +39,7 @@ public abstract class WorkbenchModule {
   private FontAwesomeIcon faIcon;
   private MaterialDesignIcon mdIcon;
   private Image imgIcon;
-  private BooleanProperty closeable;
+  private BooleanProperty closeable = new SimpleBooleanProperty(true);
 
   // The sets which store the toolbar icons which are displayed in the modules toolbar
   private final ObservableList<ToolbarItem> toolbarControlsLeft =
@@ -58,7 +58,6 @@ public abstract class WorkbenchModule {
   protected WorkbenchModule(String name, FontAwesomeIcon icon) {
     this.name = name;
     faIcon = icon;
-    closeable = new SimpleBooleanProperty(true);
   }
 
   /**
