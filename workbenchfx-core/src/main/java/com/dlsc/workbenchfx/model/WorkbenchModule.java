@@ -10,6 +10,8 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.util.Objects;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -37,6 +39,7 @@ public abstract class WorkbenchModule {
   private FontAwesomeIcon faIcon;
   private MaterialDesignIcon mdIcon;
   private Image imgIcon;
+  private BooleanProperty closeable;
 
   // The sets which store the toolbar icons which are displayed in the modules toolbar
   private final ObservableList<ToolbarItem> toolbarControlsLeft =
@@ -55,6 +58,7 @@ public abstract class WorkbenchModule {
   protected WorkbenchModule(String name, FontAwesomeIcon icon) {
     this.name = name;
     faIcon = icon;
+    closeable = new SimpleBooleanProperty(true);
   }
 
   /**
@@ -207,6 +211,18 @@ public abstract class WorkbenchModule {
       return new MaterialDesignIconView(mdIcon);
     }
     return new ImageView(imgIcon);
+  }
+
+  public boolean isCloseable() {
+    return closeable.get();
+  }
+
+  public BooleanProperty closeableProperty() {
+    return closeable;
+  }
+
+  public void setCloseable(boolean closeable) {
+    this.closeable.set(closeable);
   }
 
   /**
