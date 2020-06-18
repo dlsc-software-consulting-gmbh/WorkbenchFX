@@ -234,7 +234,7 @@
             <!-- Execute Tests (JUnit / Spock) -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>3.0.0-M5</version>
                 <configuration>
                     <excludedGroups>slow</excludedGroups>
                     <includes>
