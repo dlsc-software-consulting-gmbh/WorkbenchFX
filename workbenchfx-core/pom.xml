@@ -80,7 +80,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- JUnit -->
-        <junit.version>4.13</junit.version>
+        <junit.version>4.13.1</junit.version>
         <junit.jupiter.version>5.6.2</junit.jupiter.version>
         <junit.vintage.version>5.7.0</junit.vintage.version>
     </properties>
