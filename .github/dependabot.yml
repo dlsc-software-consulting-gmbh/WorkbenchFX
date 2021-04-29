@@ -1,0 +1,77 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: com.calendarfx:view
+    versions:
+    - ">= 10.a, < 11"
+  - dependency-name: com.dlsc.preferencesfx:preferencesfx-core
+    versions:
+    - ">= 10.a, < 11"
+  - dependency-name: de.jensd:fontawesomefx-commons
+    versions:
+    - ">= 9.a, < 10"
+  - dependency-name: org.controlsfx:controlsfx
+    versions:
+    - ">= 9.a, < 10"
+  - dependency-name: com.calendarfx:view
+    versions:
+    - 11.8.3
+    - 11.9.0
+  - dependency-name: net.bytebuddy:byte-buddy
+    versions:
+    - 1.10.19
+    - 1.10.20
+    - 1.10.21
+    - 1.10.22
+  - dependency-name: org.mockito:mockito-core
+    versions:
+    - 3.7.7
+    - 3.8.0
+  - dependency-name: com.dlsc.preferencesfx:preferencesfx-core
+    versions:
+    - 11.7.0
+  - dependency-name: org.controlsfx:controlsfx
+    versions:
+    - 11.0.3
+  - dependency-name: org.junit.vintage:junit-vintage-engine
+    versions:
+    - 5.7.0
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  target-branch: master-11
+  ignore:
+  - dependency-name: org.openjfx:javafx-swing
+    versions:
+    - ">= 12.a, < 13"
+  - dependency-name: org.openjfx:javafx-swing
+    versions:
+    - ">= 13.a, < 14"
+  - dependency-name: net.bytebuddy:byte-buddy
+    versions:
+    - 1.10.19
+    - 1.10.20
+    - 1.10.21
+    - 1.10.22
+  - dependency-name: org.mockito:mockito-core
+    versions:
+    - 3.7.7
+    - 3.8.0
+  - dependency-name: org.openjfx:javafx-swing
+    versions:
+    - 15.0.1
+  - dependency-name: org.openjfx:javafx-web
+    versions:
+    - 15.0.1
+  - dependency-name: org.ow2.asm:asm
+    versions:
+    - "9.0"
