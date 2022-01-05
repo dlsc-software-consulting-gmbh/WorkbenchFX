@@ -32,6 +32,8 @@ public class SelectionStrip<T> extends Control {
         requestLayout();
       }
     });
+
+    getStylesheets().add(SelectionStrip.class.getResource("selection-strip.css").toExternalForm());
   }
 
   @Override
