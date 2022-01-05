@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-parent</artifactId>
-    <version>11.2.0</version>
+    <version>11.3.0</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -242,7 +242,7 @@
             <dependency>
                 <groupId>com.dlsc.workbenchfx</groupId>
                 <artifactId>workbenchfx-core</artifactId>
-                <version>11.2.0</version>
+                <version>11.3.0</version>
             </dependency>
 
             <dependency>
