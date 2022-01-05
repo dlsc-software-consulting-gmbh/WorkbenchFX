@@ -41,7 +41,7 @@ public abstract class WorkbenchModule {
      *
      * @param name of this module
      * @param icon of this module
-     * @see <a href="https://fontawesome.com/v4.7.0/">FontAwesome v4.7.0 Icons</a>
+     * @see <a href="https://kordamp.org/ikonli/">Ikonli Icon Packs</a>
      */
     protected WorkbenchModule(String name, Ikon icon) {
         this.name = name;
