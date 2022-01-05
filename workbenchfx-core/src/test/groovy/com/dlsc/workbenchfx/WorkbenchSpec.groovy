@@ -22,6 +22,7 @@ import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import org.kordamp.ikonli.javafx.FontIcon
+import org.kordamp.ikonli.materialdesign.MaterialDesign
 import org.spockframework.util.ExceptionUtil
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
@@ -99,13 +100,13 @@ class WorkbenchSpec extends ApplicationSpec {
             mockModules[i] = createMockModule(moduleNodes[i], null, true, "Module " + i)
         }
 
-        FontIcon FontIcon = new FontIcon(FontAwesome.QUESTION)
+        FontIcon FontIcon = new FontIcon(MaterialDesign.MDI_CALENDAR_QUESTION)
         FontIcon.getStyleClass().add("graphic")
         menuItem = new MenuItem("Item 1.1", FontIcon)
 
         // Initialization of items for ToolbarItem testing
         toolbarItemText = "ToolbarItem Text"
-        toolbarItemIconView = new FontIcon(FontAwesome.QUESTION)
+        toolbarItemIconView = new FontIcon(MaterialDesign.MDI_CALENDAR_QUESTION)
         toolbarItemImageView = new ImageView(
                 new Image(WorkbenchTest.class.getResource("date-picker.png").toExternalForm())
         )
