@@ -31,6 +31,7 @@ public class NavigationDrawer extends Control {
    */
   public NavigationDrawer() {
     getStyleClass().add("navigation-drawer");
+    setVisible(false);
   }
 
   public final void hide() {
