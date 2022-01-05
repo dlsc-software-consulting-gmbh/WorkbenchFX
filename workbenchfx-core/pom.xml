@@ -9,7 +9,7 @@
     <parent>
         <groupId>com.dlsc.workbenchfx</groupId>
         <artifactId>workbenchfx-parent</artifactId>
-        <version>11.3.0</version>
+        <version>11.3.1</version>
     </parent>
 
     <artifactId>workbenchfx-core</artifactId>
