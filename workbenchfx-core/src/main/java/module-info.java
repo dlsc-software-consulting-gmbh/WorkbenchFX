@@ -1,10 +1,9 @@
 module com.dlsc.workbenchfx.core {
     requires com.google.common;
     requires javafx.controls;
-    requires de.jensd.fx.fontawesomefx.fontawesome;
-    requires de.jensd.fx.fontawesomefx.materialdesignicons;
     requires org.slf4j;
-
+    requires org.kordamp.ikonli.core;
+    requires org.kordamp.ikonli.javafx;
     exports com.dlsc.workbenchfx;
     exports com.dlsc.workbenchfx.model;
     exports com.dlsc.workbenchfx.util;

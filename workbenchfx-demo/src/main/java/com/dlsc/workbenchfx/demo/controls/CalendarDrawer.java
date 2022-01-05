@@ -1,8 +1,6 @@
 package com.dlsc.workbenchfx.demo.controls;
 
 import com.dlsc.workbenchfx.Workbench;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -13,6 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import org.kordamp.ikonli.fontawesome.FontAwesome;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 /**
  * Created by François Martin on 24.07.18.
@@ -22,7 +22,7 @@ public class CalendarDrawer extends VBox {
   private static final int RECT_SIZE = 20;
   private final Workbench workbench;
   HBox userBox = new HBox();
-  FontAwesomeIconView userIcon;
+  FontIcon userIcon;
   Label userLbl = new Label("workbenchfx@dlsc.com");
 
   GridPane calendarGrid = new GridPane();
@@ -53,7 +53,7 @@ public class CalendarDrawer extends VBox {
     drawerGrid.setAlignment(Pos.CENTER);
     userBox.setAlignment(Pos.CENTER);
 
-    userIcon = new FontAwesomeIconView(FontAwesomeIcon.USER_CIRCLE);
+    userIcon = new FontIcon(FontAwesome.USER_CIRCLE);
     userIcon.setId("user-icon");
     userIcon.setStyle(
         "-fx-fill: black; -fx-font-family: FontAwesome; -fx-font-size: 2em !important;");

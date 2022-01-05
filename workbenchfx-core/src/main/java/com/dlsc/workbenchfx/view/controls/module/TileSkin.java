@@ -4,8 +4,6 @@ import com.dlsc.workbenchfx.view.controls.MultilineLabel;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.VBox;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Represents the skin of the corresponding {@link Tile}.
@@ -15,42 +13,39 @@ import org.slf4j.LoggerFactory;
  */
 public class TileSkin extends SkinBase<Tile> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(TileSkin.class.getName());
+    private VBox contentBox;
+    private Label iconLbl;
+    private MultilineLabel textLbl;
 
-  private VBox contentBox;
-  private Label icon;
-  private MultilineLabel textLbl;
+    /**
+     * Creates a new {@link TileSkin} object for a corresponding {@link Tile}.
+     *
+     * @param tile the {@link Tile} for which this Skin is created
+     */
+    public TileSkin(Tile tile) {
+        super(tile);
 
-  /**
-   * Creates a new {@link TileSkin} object for a corresponding {@link Tile}.
-   *
-   * @param tile the {@link Tile} for which this Skin is created
-   */
-  public TileSkin(Tile tile) {
-    super(tile);
+        initializeParts();
+        layoutParts();
+        setupBindings();
+    }
 
-    initializeParts();
-    layoutParts();
-    setupBindings();
-  }
+    private void initializeParts() {
+        iconLbl = new Label();
+        iconLbl.getStyleClass().add("icon");
+        contentBox = new VBox();
+        contentBox.getStyleClass().add("tile-box");
+        textLbl = new MultilineLabel(getSkinnable().getName());
+        textLbl.getStyleClass().add("text-lbl");
+    }
 
-  private void initializeParts() {
-    icon = new Label();
-    icon.getStyleClass().add("icon");
-    contentBox = new VBox();
-    contentBox.getStyleClass().add("tile-box");
-    textLbl = new MultilineLabel(getSkinnable().getName());
-    textLbl.getStyleClass().add("text-lbl");
-  }
+    private void layoutParts() {
+        contentBox.getChildren().addAll(iconLbl, textLbl);
+        getChildren().add(contentBox);
+    }
 
-  private void layoutParts() {
-    contentBox.getChildren().addAll(icon, textLbl);
-    getChildren().add(contentBox);
-  }
-
-  private void setupBindings() {
-    icon.graphicProperty().bind(getSkinnable().iconProperty());
-    textLbl.textProperty().bind(getSkinnable().nameProperty());
-  }
-
+    private void setupBindings() {
+        iconLbl.graphicProperty().bind(getSkinnable().iconProperty());
+        textLbl.textProperty().bind(getSkinnable().nameProperty());
+    }
 }

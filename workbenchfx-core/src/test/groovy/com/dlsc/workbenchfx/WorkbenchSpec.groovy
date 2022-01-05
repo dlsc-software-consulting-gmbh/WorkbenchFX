@@ -7,8 +7,6 @@ import com.dlsc.workbenchfx.view.controls.GlassPane
 import com.dlsc.workbenchfx.view.controls.MultilineLabel
 import com.dlsc.workbenchfx.view.controls.ToolbarItem
 import com.dlsc.workbenchfx.view.controls.dialog.DialogErrorContent
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.collections.ObservableList
 import javafx.collections.ObservableMap
 import javafx.geometry.Pos
@@ -23,6 +21,7 @@ import javafx.scene.image.ImageView
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
+import org.kordamp.ikonli.javafx.FontIcon
 import org.spockframework.util.ExceptionUtil
 import org.testfx.api.FxRobot
 import org.testfx.framework.spock.ApplicationSpec
@@ -74,7 +73,7 @@ class WorkbenchSpec extends ApplicationSpec {
 
     // ToolbarItem items
     private String toolbarItemText
-    private FontAwesomeIconView toolbarItemIconView
+    private FontIcon toolbarItemIconView
     private ImageView toolbarItemImageView
     private MenuItem toolbarItemMenuItem
     private ToolbarItem toolbarItemLeft
@@ -100,13 +99,13 @@ class WorkbenchSpec extends ApplicationSpec {
             mockModules[i] = createMockModule(moduleNodes[i], null, true, "Module " + i)
         }
 
-        FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION)
-        fontAwesomeIconView.getStyleClass().add("graphic")
-        menuItem = new MenuItem("Item 1.1", fontAwesomeIconView)
+        FontIcon FontIcon = new FontIcon(FontAwesome.QUESTION)
+        FontIcon.getStyleClass().add("graphic")
+        menuItem = new MenuItem("Item 1.1", FontIcon)
 
         // Initialization of items for ToolbarItem testing
         toolbarItemText = "ToolbarItem Text"
-        toolbarItemIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION)
+        toolbarItemIconView = new FontIcon(FontAwesome.QUESTION)
         toolbarItemImageView = new ImageView(
                 new Image(WorkbenchTest.class.getResource("date-picker.png").toExternalForm())
         )

@@ -1,44 +1,13 @@
 package com.dlsc.workbenchfx;
 
-import static com.dlsc.workbenchfx.Workbench.WorkbenchBuilder;
-import static com.dlsc.workbenchfx.testing.MockFactory.createMockModule;
-import static org.awaitility.Awaitility.await;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.model.WorkbenchOverlay;
-import com.dlsc.workbenchfx.testing.MockDialogControl;
-import com.dlsc.workbenchfx.testing.MockNavigationDrawer;
-import com.dlsc.workbenchfx.testing.MockPage;
-import com.dlsc.workbenchfx.testing.MockTab;
-import com.dlsc.workbenchfx.testing.MockTile;
+import com.dlsc.workbenchfx.testing.*;
 import com.dlsc.workbenchfx.view.controls.GlassPane;
 import com.dlsc.workbenchfx.view.controls.NavigationDrawer;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import com.dlsc.workbenchfx.view.controls.dialog.DialogControl;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -65,12 +34,25 @@ import javafx.stage.WindowEvent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
+
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+
+import static com.dlsc.workbenchfx.Workbench.WorkbenchBuilder;
+import static com.dlsc.workbenchfx.testing.MockFactory.createMockModule;
+import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 /**
  * Tests for {@link Workbench}.
@@ -105,7 +87,7 @@ class WorkbenchTest extends ApplicationTest {
 
   // ToolbarItem items
   private String toolbarItemText;
-  private FontAwesomeIconView toolbarItemIconView;
+  private FontIcon toolbarItemIconView;
   private MenuItem toolbarItemMenuItem;
   private ToolbarItem toolbarItemLeft;
   private ToolbarItem toolbarItemRight;
@@ -143,13 +125,12 @@ class WorkbenchTest extends ApplicationTest {
       );
     }
 
-    FontAwesomeIconView fontAwesomeIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
-    fontAwesomeIconView.getStyleClass().add("icon");
-    menuItem = new MenuItem("Item 1.1", fontAwesomeIconView);
+    FontIcon FontIcon = new FontIcon(MaterialDesign.MDI_ACCOUNT);
+    menuItem = new MenuItem("Item 1.1", FontIcon);
 
     // Initialization of items for ToolbarItem testing
     toolbarItemText = "ToolbarItem Text";
-    toolbarItemIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
+    toolbarItemIconView = new FontIcon(MaterialDesign.MDI_ACCOUNT);
     toolbarItemMenuItem = new MenuItem("Menu Item");
 
     toolbarItemLeft = new ToolbarItem(toolbarItemText, toolbarItemIconView, toolbarItemMenuItem);

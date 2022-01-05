@@ -3,10 +3,10 @@ package com.dlsc.workbenchfx.demo.modules.maps;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.scene.Node;
+import org.kordamp.ikonli.fontawesome.FontAwesome;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 public class MapsModule extends WorkbenchModule {
 
@@ -15,9 +15,9 @@ public class MapsModule extends WorkbenchModule {
   private MapsView mapsView;
 
   public MapsModule() {
-    super("Maps", FontAwesomeIcon.MAP_SIGNS);
-    zoomIn = new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.PLUS), event -> mapsView.zoomIn());
-    zoomOut = new ToolbarItem(new MaterialDesignIconView(MaterialDesignIcon.MINUS), event -> mapsView.zoomOut());
+    super("Maps", FontAwesome.MAP_SIGNS);
+    zoomIn = new ToolbarItem(new FontIcon(MaterialDesign.MDI_PLUS), event -> mapsView.zoomIn());
+    zoomOut = new ToolbarItem(new FontIcon(MaterialDesign.MDI_MINUS), event -> mapsView.zoomOut());
     getToolbarControlsLeft().addAll(zoomIn, zoomOut);
   }
 

@@ -1,7 +1,6 @@
 package com.dlsc.workbenchfx.demo.modules.test;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
@@ -9,12 +8,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 public class WidgetsTestModule extends WorkbenchModule {
   private final GridPane customPane = new GridPane();
 
   public WidgetsTestModule() {
-    super("Widgets Test", MaterialDesignIcon.HELP);
+    super("Widgets Test", MaterialDesign.MDI_HELP);
     layoutParts();
   }
 

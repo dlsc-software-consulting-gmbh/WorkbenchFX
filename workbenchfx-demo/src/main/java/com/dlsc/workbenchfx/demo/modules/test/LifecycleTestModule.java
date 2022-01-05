@@ -2,14 +2,14 @@ package com.dlsc.workbenchfx.demo.modules.test;
 
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 public class LifecycleTestModule extends WorkbenchModule {
 
   public LifecycleTestModule() {
-    super("Lifecycle Test", MaterialDesignIcon.HELP);
+    super("Lifecycle Test", MaterialDesign.MDI_HELP);
   }
 
   @Override

@@ -1,15 +1,16 @@
 package com.dlsc.workbenchfx.demo.modules.test;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NavigationDrawerTestModule extends WorkbenchModule {
   private int itemsCount = 1;
@@ -28,7 +29,7 @@ public class NavigationDrawerTestModule extends WorkbenchModule {
   private final GridPane customPane = new GridPane();
 
   public NavigationDrawerTestModule() {
-    super("Navigation Drawer Test", MaterialDesignIcon.HELP);
+    super("Navigation Drawer Test", MaterialDesign.MDI_HELP);
     layoutParts();
     setupEventHandlers();
   }

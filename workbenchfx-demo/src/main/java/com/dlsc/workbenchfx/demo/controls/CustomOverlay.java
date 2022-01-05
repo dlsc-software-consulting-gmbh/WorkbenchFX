@@ -1,14 +1,15 @@
 package com.dlsc.workbenchfx.demo.controls;
 
 import com.dlsc.workbenchfx.Workbench;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import org.kordamp.ikonli.fontawesome.FontAwesome;
+import org.kordamp.ikonli.javafx.FontIcon;
+
+import java.util.Objects;
 
 public class CustomOverlay extends BorderPane {
 
@@ -32,7 +33,7 @@ public class CustomOverlay extends BorderPane {
 
     if (blocking) {
       // only show x button if it's a blocking overlay, so it can still be closed
-      Button closeBtn = new Button("", new FontAwesomeIconView(FontAwesomeIcon.CLOSE));
+      Button closeBtn = new Button("", new FontIcon(FontAwesome.CLOSE));
       closeBtn.setOnAction(event -> workbench.hideOverlay(this));
       BorderPane.setAlignment(closeBtn, Pos.TOP_RIGHT);
       setTop(closeBtn);

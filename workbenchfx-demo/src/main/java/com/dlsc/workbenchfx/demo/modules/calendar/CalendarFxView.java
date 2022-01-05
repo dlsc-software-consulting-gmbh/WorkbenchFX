@@ -28,77 +28,75 @@ import java.time.LocalTime;
 
 public class CalendarFxView extends StackPane {
 
-  private Thread updateTimeThread;
+    private Thread updateTimeThread;
 
-  boolean running = false;
+    boolean running = false;
 
-  public CalendarFxView() {
-    CalendarView calendarView = new CalendarView();
+    public CalendarFxView() {
+        CalendarView calendarView = new CalendarView();
 
-    Calendar katja = new Calendar("Katja");
-    Calendar dirk = new Calendar("Dirk");
-    Calendar philip = new Calendar("Philip");
-    Calendar jule = new Calendar("Jule");
-    Calendar armin = new Calendar("Armin");
-    Calendar birthdays = new Calendar("Birthdays");
-    Calendar holidays = new Calendar("Holidays");
+        Calendar katja = new Calendar("Katja");
+        Calendar dirk = new Calendar("Dirk");
+        Calendar philip = new Calendar("Philip");
+        Calendar jule = new Calendar("Jule");
+        Calendar armin = new Calendar("Armin");
+        Calendar birthdays = new Calendar("Birthdays");
+        Calendar holidays = new Calendar("Holidays");
 
-    katja.setShortName("K");
-    dirk.setShortName("D");
-    philip.setShortName("P");
-    jule.setShortName("J");
-    armin.setShortName("A");
-    birthdays.setShortName("B");
-    holidays.setShortName("H");
+        katja.setShortName("K");
+        dirk.setShortName("D");
+        philip.setShortName("P");
+        jule.setShortName("J");
+        armin.setShortName("A");
+        birthdays.setShortName("B");
+        holidays.setShortName("H");
 
-    katja.setStyle(Style.STYLE1);
-    dirk.setStyle(Style.STYLE2);
-    philip.setStyle(Style.STYLE3);
-    jule.setStyle(Style.STYLE4);
-    armin.setStyle(Style.STYLE5);
-    birthdays.setStyle(Style.STYLE6);
-    holidays.setStyle(Style.STYLE7);
+        katja.setStyle(Style.STYLE1);
+        dirk.setStyle(Style.STYLE2);
+        philip.setStyle(Style.STYLE3);
+        jule.setStyle(Style.STYLE4);
+        armin.setStyle(Style.STYLE5);
+        birthdays.setStyle(Style.STYLE6);
+        holidays.setStyle(Style.STYLE7);
 
-    CalendarSource familyCalendarSource = new CalendarSource("Family");
-    familyCalendarSource.getCalendars().addAll(birthdays, holidays, katja, dirk, philip, jule,
-        armin);
+        CalendarSource familyCalendarSource = new CalendarSource("Family");
+        familyCalendarSource.getCalendars().addAll(birthdays, holidays, katja, dirk, philip, jule, armin);
 
-    calendarView.getCalendarSources().setAll(familyCalendarSource);
-    calendarView.setRequestedTime(LocalTime.now());
+        calendarView.getCalendarSources().setAll(familyCalendarSource);
+        calendarView.setRequestedTime(LocalTime.now());
+        getChildren().addAll(calendarView);
 
-    getChildren().addAll(calendarView);
+        updateTimeThread = new Thread("Calendar: Update Time Thread") {
+            @Override
+            public void run() {
+                while (running) {
+                    Platform.runLater(() -> {
+                        calendarView.setToday(LocalDate.now());
+                        calendarView.setTime(LocalTime.now());
+                    });
 
-    updateTimeThread = new Thread("Calendar: Update Time Thread") {
-      @Override
-      public void run() {
-        while (running) {
-          Platform.runLater(() -> {
-            calendarView.setToday(LocalDate.now());
-            calendarView.setTime(LocalTime.now());
-          });
+                    try {
+                        // update every 10 seconds
+                        sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
-          try {
-            // update every 10 seconds
-            sleep(10000);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
+                }
+            }
+        };
 
-        }
-      }
-    };
+        updateTimeThread.setPriority(Thread.MIN_PRIORITY);
+        updateTimeThread.setDaemon(true);
+        updateTimeThread.start();
+    }
 
-    updateTimeThread.setPriority(Thread.MIN_PRIORITY);
-    updateTimeThread.setDaemon(true);
-    updateTimeThread.start();
-  }
+    public void start() {
+        running = true;
+    }
 
-  public void start() {
-    running = true;
-  }
-
-  public void stop() {
-    running = false;
-  }
+    public void stop() {
+        running = false;
+    }
 
 }

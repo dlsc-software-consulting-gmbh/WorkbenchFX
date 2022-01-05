@@ -1,15 +1,5 @@
 package com.dlsc.workbenchfx.view.controls;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import com.dlsc.workbenchfx.view.controls.ToolbarItem;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
@@ -19,7 +9,12 @@ import javafx.scene.input.MouseEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import org.testfx.framework.junit5.ApplicationTest;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Tests for {@link ToolbarItem}.
@@ -33,7 +28,7 @@ class ToolbarItemTest extends ApplicationTest {
 
   // ToolbarItem items
   private String toolbarItemText;
-  private FontAwesomeIconView toolbarItemIconView;
+  private FontIcon toolbarItemIconView;
   private MenuItem toolbarItemMenuItem;
   private EventHandler<? super MouseEvent> toolbarItemOnClick;
 
@@ -43,7 +38,7 @@ class ToolbarItemTest extends ApplicationTest {
   void setup() {
     // Initialization of items for ToolbarItem testing
     toolbarItemText = "ToolbarItem Text";
-    toolbarItemIconView = new FontAwesomeIconView(FontAwesomeIcon.QUESTION);
+    toolbarItemIconView = new FontIcon(MaterialDesign.MDI_ACCOUNT);
     toolbarItemMenuItem = new MenuItem("Menu Item");
     toolbarItemOnClick = event -> System.out.println("Item Clicked");
   }

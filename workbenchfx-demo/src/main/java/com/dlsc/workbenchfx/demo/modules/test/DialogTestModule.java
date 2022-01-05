@@ -1,19 +1,10 @@
 package com.dlsc.workbenchfx.demo.modules.test;
 
-import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
-
+import com.dlsc.gmapsfx.GoogleMapView;
+import com.dlsc.gmapsfx.MapComponentInitializedListener;
+import com.dlsc.gmapsfx.javascript.object.*;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import com.lynden.gmapsfx.GoogleMapView;
-import com.lynden.gmapsfx.MapComponentInitializedListener;
-import com.lynden.gmapsfx.javascript.object.GoogleMap;
-import com.lynden.gmapsfx.javascript.object.LatLong;
-import com.lynden.gmapsfx.javascript.object.MapOptions;
-import com.lynden.gmapsfx.javascript.object.Marker;
-import com.lynden.gmapsfx.javascript.object.MarkerOptions;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,9 +14,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
+import org.controlsfx.control.CheckListView;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.controlsfx.control.CheckListView;
+
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+
+import static com.dlsc.workbenchfx.model.WorkbenchDialog.Type;
 
 public class DialogTestModule extends WorkbenchModule implements MapComponentInitializedListener {
   private static final Logger LOGGER = LoggerFactory.getLogger(DialogTestModule.class.getName());
@@ -58,7 +55,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
   private WorkbenchDialog favoriteLibrariesDialog;
 
   public DialogTestModule() {
-    super("Dialog Test", MaterialDesignIcon.HELP);
+    super("Dialog Test", MaterialDesign.MDI_HELP);
     initDialogParts();
     initException();
     layoutParts();
@@ -85,7 +82,7 @@ public class DialogTestModule extends WorkbenchModule implements MapComponentIni
 
     // initialize map for dialog
     mapView = new GoogleMapView();
-    mapView.addMapInializedListener(this);
+    mapView.addMapInitializedListener(this);
 
     // initialize favorites dialog separately
     favoriteLibrariesDialog =

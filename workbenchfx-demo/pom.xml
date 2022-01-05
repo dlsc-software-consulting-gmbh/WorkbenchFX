@@ -10,46 +10,12 @@
         <version>11.1.0</version>
     </parent>
 
-    <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-demo</artifactId>
-    <version>11.1.0</version>
     <packaging>jar</packaging>
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>flexgantt-local-repository</id>
-            <url>file://${project.basedir}/repository</url>
-        </repository>
-
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>bintray-jerady-maven</id>
-            <name>bintray</name>
-            <url>https://dl.bintray.com/jerady/maven</url>
-        </repository>
-
-        <repository>
-            <id>jcenter</id>
-            <url>https://jcenter.bintray.com</url>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>bintray-jerady-maven</id>
-            <name>bintray-plugins</name>
-            <url>https://dl.bintray.com/jerady/maven</url>
-        </pluginRepository>
-    </pluginRepositories>
 
     <build>
         <plugins>
@@ -75,27 +41,6 @@
                     <source>11</source>
                     <target>11</target>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.dlsc.workbenchfx.demo.CustomDemo</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
@@ -158,114 +103,68 @@
     </build>
 
     <dependencies>
-        <!-- JavaFX 11 -->
+        <dependency>
+            <groupId>fr.brouillard.oss</groupId>
+            <artifactId>cssfx</artifactId>
+            <version>11.4.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
-            <version>15</version>
         </dependency>
 
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>15</version>
         </dependency>
 
         <!-- Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.13.2</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.13.3</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.12.1</version>
-        </dependency>
-
-        <!-- FlexganttFX -->
-        <dependency>
-            <groupId>com.flexganttfx</groupId>
-            <artifactId>core</artifactId>
-            <version>10.8.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.flexganttfx</groupId>
-            <artifactId>extras</artifactId>
-            <version>10.8.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.flexganttfx</groupId>
-            <artifactId>model</artifactId>
-            <version>10.8.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.flexganttfx</groupId>
-            <artifactId>view</artifactId>
-            <version>10.8.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.license4j</groupId>
-            <artifactId>license4j</artifactId>
-            <version>1.4.0</version>
         </dependency>
 
         <!-- Libraries -->
         <dependency>
             <groupId>com.dlsc.workbenchfx</groupId>
             <artifactId>workbenchfx-core</artifactId>
-            <version>11.1.0</version>
         </dependency>
 
         <dependency>
-            <groupId>com.lynden</groupId>
+            <groupId>com.dlsc</groupId>
             <artifactId>GMapsFX</artifactId>
-            <version>2.12.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.calendarfx</groupId>
             <artifactId>view</artifactId>
-            <version>11.8.3</version>
         </dependency>
 
         <dependency>
             <groupId>com.dlsc.preferencesfx</groupId>
             <artifactId>preferencesfx-core</artifactId>
-            <version>11.6.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
-            <version>11.0.0</version>
         </dependency>
 
         <dependency>
-            <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx-commons</artifactId>
-            <version>11.0</version>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-materialdesign-pack</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx-fontawesome</artifactId>
-            <version>4.7.0-11</version>
-        </dependency>
-
-        <dependency>
-            <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx-materialdesignfont</artifactId>
-            <version>1.7.22-11</version>
-        </dependency>
     </dependencies>
 </project>

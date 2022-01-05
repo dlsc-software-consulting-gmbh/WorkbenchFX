@@ -42,13 +42,6 @@ $on-error-color: #FFFFFF;
   -fx-font-size: 14px;
 }
 
-// Default styling of icons. This enables changing the icons styles later on
-.glyph-icon {
-  -fx-text-fill: -on-primary-color;
-  -fx-fill: -on-primary-color;
-  -fx-font-size: 1em / 14 * 16 !important; // equals 16px when root 14px
-}
-
 @import "fonts";
 @import "includes";
 @import "workbench";

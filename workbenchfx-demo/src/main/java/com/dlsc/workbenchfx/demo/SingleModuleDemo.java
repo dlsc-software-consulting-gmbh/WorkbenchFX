@@ -3,11 +3,12 @@ package com.dlsc.workbenchfx.demo;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.demo.modules.helloworld.HelloWorldModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import fr.brouillard.oss.cssfx.CSSFX;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 /**
  * Demonstrates the Workbench without the tab bar when only a single module is used.
@@ -15,36 +16,31 @@ import javafx.stage.Stage;
  * @author Steffen Schoen
  */
 public class SingleModuleDemo extends Application {
-  private Workbench workbench;
-  private HelloWorldModule helloWorldModule = new HelloWorldModule();
 
-  public static void main(String[] args) {
-    launch(args);
-  }
+    private HelloWorldModule helloWorldModule = new HelloWorldModule();
 
-  @Override
-  public void start(Stage primaryStage) {
-    Scene myScene = new Scene(initWorkbench());
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-    primaryStage.setTitle("Single Module WorkbenchFX Demo");
-    primaryStage.setScene(myScene);
-    primaryStage.setWidth(1000);
-    primaryStage.setHeight(700);
-    primaryStage.show();
-    primaryStage.centerOnScreen();
-  }
+    @Override
+    public void start(Stage primaryStage) {
+        Scene myScene = new Scene(initWorkbench());
 
-  private Workbench initWorkbench() {
-    ToolbarItem showDialogButton = new ToolbarItem("Reset",
-            new MaterialDesignIconView(MaterialDesignIcon.SETTINGS));
+        CSSFX.start(myScene);
 
-    showDialogButton.setOnClick(event -> workbench.showConfirmationDialog("Reset settings",
-            "Are you sure you want to reset all your settings?", null));
+        primaryStage.setTitle("Single Module WorkbenchFX Demo");
+        primaryStage.setScene(myScene);
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(700);
+        primaryStage.show();
+        primaryStage.centerOnScreen();
+    }
 
-    workbench = Workbench.builder(
-            helloWorldModule
-    ).toolbarRight(showDialogButton)
-            .build();
-    return workbench;
-  }
+    private Workbench initWorkbench() {
+        ToolbarItem showDialogButton = new ToolbarItem("Reset", new FontIcon(MaterialDesign.MDI_SETTINGS));
+        Workbench workbench = Workbench.builder(helloWorldModule).toolbarRight(showDialogButton).build();
+        showDialogButton.setOnClick(event -> workbench.showConfirmationDialog("Reset settings", "Are you sure you want to reset all your settings?", null));
+        return workbench;
+    }
 }

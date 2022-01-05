@@ -1,12 +1,12 @@
 package com.dlsc.workbenchfx.demo.modules.maps;
 
-import com.lynden.gmapsfx.GoogleMapView;
-import com.lynden.gmapsfx.MapComponentInitializedListener;
-import com.lynden.gmapsfx.javascript.object.GoogleMap;
-import com.lynden.gmapsfx.javascript.object.LatLong;
-import com.lynden.gmapsfx.javascript.object.MapOptions;
-import com.lynden.gmapsfx.javascript.object.Marker;
-import com.lynden.gmapsfx.javascript.object.MarkerOptions;
+import com.dlsc.gmapsfx .GoogleMapView;
+import com.dlsc.gmapsfx.MapComponentInitializedListener;
+import com.dlsc.gmapsfx.javascript.object.GoogleMap;
+import com.dlsc.gmapsfx.javascript.object.LatLong;
+import com.dlsc.gmapsfx.javascript.object.MapOptions;
+import com.dlsc.gmapsfx.javascript.object.Marker;
+import com.dlsc.gmapsfx.javascript.object.MarkerOptions;
 import javafx.scene.layout.StackPane;
 
 public class MapsView extends StackPane implements MapComponentInitializedListener {
@@ -18,7 +18,7 @@ public class MapsView extends StackPane implements MapComponentInitializedListen
     getStyleClass().add("module-background");
     // initialize map
     mapView = new GoogleMapView();
-    mapView.addMapInializedListener(this);
+    mapView.addMapInitializedListener(this);
     getChildren().add(mapView);
   }
 

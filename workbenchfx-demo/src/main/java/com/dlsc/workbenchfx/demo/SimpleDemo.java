@@ -5,20 +5,19 @@ import com.dlsc.workbenchfx.demo.modules.calendar.CalendarModule;
 import com.dlsc.workbenchfx.demo.modules.helloworld.HelloWorldModule;
 import com.dlsc.workbenchfx.demo.modules.maps.MapsModule;
 import com.dlsc.workbenchfx.demo.modules.webview.WebModule;
-import com.dlsc.workbenchfx.demo.modules.gantt.GanttModule;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import fr.brouillard.oss.cssfx.CSSFX;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 public class SimpleDemo extends Application {
 
   private Workbench workbench;
   private CalendarModule calendarModule = new CalendarModule();
   private HelloWorldModule helloWorldModule = new HelloWorldModule();
-  private GanttModule ganttModule = new GanttModule();
-  private WebModule dlsc = new WebModule("DLSC",  MaterialDesignIcon.WEB,"http://dlsc.com");
-  private WebModule notepad = new WebModule("Notepad", MaterialDesignIcon.NOTE, "https://docs.google.com");
+  private WebModule dlsc = new WebModule("JFX-Central",  MaterialDesign.MDI_WEB,"https://jfx-central.com");
+  private WebModule notepad = new WebModule("Notepad", MaterialDesign.MDI_NOTE, "https://docs.google.com");
   private MapsModule mapsModule = new MapsModule();
 
   public static void main(String[] args) {
@@ -28,6 +27,8 @@ public class SimpleDemo extends Application {
   @Override
   public void start(Stage primaryStage) {
     Scene myScene = new Scene(initWorkbench());
+
+    CSSFX.start(myScene);
 
     primaryStage.setTitle("Simple WorkbenchFX Demo");
     primaryStage.setScene(myScene);
@@ -44,7 +45,6 @@ public class SimpleDemo extends Application {
     workbench = Workbench.builder(
         calendarModule,
         helloWorldModule,
-        ganttModule,
         mapsModule,
         dlsc,
         notepad

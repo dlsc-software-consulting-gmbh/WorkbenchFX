@@ -2,11 +2,6 @@ package com.dlsc.workbenchfx.demo.modules.test;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -14,8 +9,14 @@ import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
+import org.kordamp.ikonli.fontawesome.FontAwesome;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ToolbarItemTestModule extends WorkbenchModule {
 
@@ -30,16 +31,14 @@ public class ToolbarItemTestModule extends WorkbenchModule {
   private final Button removeMenuBtn = new Button("Remove new ToolbarItem");
   private final Button removeItemBtn = new Button("Remove MenuItem from ToolbarItem");
   private final Button removeLotItemBtn = new Button("Remove 100 MenuItems from ToolbarItem");
-  private final ToolbarItem customToolbarItem = new ToolbarItem(
-      "New MenuButton", new FontAwesomeIconView(FontAwesomeIcon.EXCLAMATION)
-  );
+  private final ToolbarItem customToolbarItem = new ToolbarItem("New MenuButton", new FontIcon(FontAwesome.EXCLAMATION));
   private final List<MenuItem> itemsLst = new ArrayList<>();
 
   private final GridPane customPane = new GridPane();
   private final Button removeAllItmsBtn = new Button("REMOVE ALL ITEMS");
 
   public ToolbarItemTestModule() {
-    super("ToolbarItem Test", MaterialDesignIcon.HELP);
+    super("ToolbarItem Test", MaterialDesign.MDI_HELP);
     layoutParts();
     setupEventHandlers();
   }

@@ -1,8 +1,8 @@
 package com.dlsc.workbenchfx.demo.modules.calendar;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import java.util.Objects;
 
@@ -11,7 +11,7 @@ public class CalendarModule extends WorkbenchModule {
   private CalendarFxView calendarView;
 
   public CalendarModule() {
-    super("Calendar", MaterialDesignIcon.CALENDAR);
+    super("Calendar", MaterialDesign.MDI_CALENDAR);
   }
 
   @Override

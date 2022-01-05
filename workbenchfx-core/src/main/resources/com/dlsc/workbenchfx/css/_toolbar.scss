@@ -19,6 +19,11 @@
     &:empty {
       @include set-height(px(3)); // When the toolbar is empty -> change its height
     }
+
+    & .ikonli-font-icon {
+      -fx-icon-color: -on-primary-color;
+      -fx-icon-size: 16px;
+    }
   }
 
   & #bottom-box {

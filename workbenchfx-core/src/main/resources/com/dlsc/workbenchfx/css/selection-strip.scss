@@ -66,6 +66,11 @@
       & .tab-box {
         -fx-border-color: transparent;
 
+        & .ikonli-font-icon {
+          -fx-icon-color: -on-background-color;
+          -fx-icon-size: 16px;
+        }
+
         & .tab-icon,
         & .tab-name-lbl .text {
           -fx-fill: -on-background-color;

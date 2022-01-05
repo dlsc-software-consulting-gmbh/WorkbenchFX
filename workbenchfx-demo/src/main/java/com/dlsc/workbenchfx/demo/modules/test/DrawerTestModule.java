@@ -3,7 +3,6 @@ package com.dlsc.workbenchfx.demo.modules.test;
 import com.dlsc.workbenchfx.demo.controls.CalendarDrawer;
 import com.dlsc.workbenchfx.demo.controls.MapDrawer;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
@@ -11,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 /**
  * Created by François Martin on 24.07.18.
@@ -46,7 +46,7 @@ public class DrawerTestModule extends WorkbenchModule {
   private final VBox contentBox = new VBox(mapLbl, mapPane, calendarLbl, calendarPane);
 
   public DrawerTestModule() {
-    super("Drawer Test", MaterialDesignIcon.HELP);
+    super("Drawer Test", MaterialDesign.MDI_HELP);
     layoutParts();
     setupEventHandlers();
   }

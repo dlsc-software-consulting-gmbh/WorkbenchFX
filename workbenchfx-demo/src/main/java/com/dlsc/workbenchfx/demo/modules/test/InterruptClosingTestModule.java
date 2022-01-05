@@ -3,17 +3,17 @@ package com.dlsc.workbenchfx.demo.modules.test;
 import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 public class InterruptClosingTestModule extends WorkbenchModule {
 
   boolean closePossible;
 
   public InterruptClosingTestModule() {
-    super("Interrupt Close", MaterialDesignIcon.HELP);
+    super("Interrupt Close", MaterialDesign.MDI_HELP);
   }
 
   @Override

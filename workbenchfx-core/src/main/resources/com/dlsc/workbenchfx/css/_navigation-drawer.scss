@@ -71,6 +71,10 @@
             -fx-background-radius: px(5);
             -fx-padding: 0 1em 0 1em;
 
+            & .ikonli-font-icon {
+              -fx-icon-color: -on-surface-color;
+            }
+
             & .glyph-icon,
             & .text {
               -fx-fill: -on-surface-color;

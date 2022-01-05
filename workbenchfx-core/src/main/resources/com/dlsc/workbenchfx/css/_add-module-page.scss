@@ -1,12 +1,15 @@
 #content-view {
   & #add-module-view {
     -fx-padding: 0 0 4em 0;
+
     &:one-page {
       -fx-padding: 0;
+
       & > .pagination-control {
         -fx-opacity: 0;
       }
     }
+
     & .page-control {
       & .tile-pane {
         -fx-vgap: 3em;
@@ -32,9 +35,9 @@
 
           -fx-background-insets: 0; //needed to remove the focused border on bottom
 
-          & .icon .glyph-icon {
-            -fx-fill: -on-surface-color;
-            -fx-font-size: px(20) !important;
+          & .ikonli-font-icon {
+            -fx-icon-color: -on-surface-color;
+            -fx-icon-size: 24px;
           }
 
           & .text-lbl {
@@ -62,6 +65,7 @@
         }
       }
     }
+
     -fx-arrows-visible: false;
     -fx-page-information-visible: false;
     -fx-tooltip-visible: false;
@@ -73,12 +77,15 @@
         -fx-background-radius: 50%;
         -fx-background-insets: 0.45em; // Size of the bullets: Smaller values mean bigger dots
         -fx-background-color: -secondary-variant-color;
+
         &:hover {
           -fx-cursor: hand;
           -fx-background-color: derive(-secondary-variant-color, 25%);
         }
+
         &:selected {
           -fx-background-color: -secondary-color;
+
           &:hover {
             -fx-cursor: inherit;
           }

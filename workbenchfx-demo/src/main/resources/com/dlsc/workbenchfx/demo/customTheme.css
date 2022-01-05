@@ -16,3 +16,7 @@
 .logo {
   -fx-graphic: url("logo.png");
 }
+
+.calendar-view #toolbar {
+  -fx-background-color: -fx-color;
+}
