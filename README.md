@@ -1,17 +1,10 @@
+[![JFXCentral](https://img.shields.io/badge/Find_me_on-JFXCentral-blue?logo=googlechrome&logoColor=white)](https://www.jfx-central.com/libraries/workbenchfx)
+
 # WorkbenchFX
 [![Travis CI Build Status](https://travis-ci.com/dlsc-software-consulting-gmbh/WorkbenchFX.svg?branch=master)](https://travis-ci.com/dlsc-software-consulting-gmbh/WorkbenchFX)
 [![Codecov.io Code Coverage](https://codecov.io/gh/dlsc-software-consulting-gmbh/WorkbenchFX/branch/master/graph/badge.svg)](https://codecov.io/gh/dlsc-software-consulting-gmbh/WorkbenchFX)
 [![Maven Central](https://img.shields.io/maven-central/v/com.dlsc.workbenchfx/workbenchfx-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.dlsc.workbenchfx%22%20AND%20a:%22workbenchfx-core%22)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdlsc-software-consulting-gmbh%2FWorkbenchFX.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdlsc-software-consulting-gmbh%2FWorkbenchFX?ref=badge_shield)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=dlsc-software-consulting-gmbh_FormsFX&metric=bugs)](https://sonarcloud.io/dashboard?id=dlsc-software-consulting-gmbh_afterburner.fx)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=dlsc-software-consulting-gmbh_WorkbenchFX&metric=code_smells)](https://sonarcloud.io/dashboard?id=dlsc-software-consulting-gmbh_afterburner.fx)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=dlsc-software-consulting-gmbh_WorkbenchFX&metric=ncloc)](https://sonarcloud.io/dashboard?id=dlsc-software-consulting-gmbh_afterburner.fx)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=dlsc-software-consulting-gmbh_WorkbenchFX&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=dlsc-software-consulting-gmbh_afterburner.fx)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dlsc-software-consulting-gmbh_WorkbenchFX&metric=alert_status)](https://sonarcloud.io/dashboard?id=dlsc-software-consulting-gmbh_afterburner.fx)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=dlsc-software-consulting-gmbh_WorkbenchFX&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=dlsc-software-consulting-gmbh_afterburner.fx)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=dlsc-software-consulting-gmbh_WorkbenchFX&metric=security_rating)](https://sonarcloud.io/dashboard?id=dlsc-software-consulting-gmbh_afterburner.fx)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=dlsc-software-consulting-gmbh_WorkbenchFX&metric=sqale_index)](https://sonarcloud.io/dashboard?id=dlsc-software-consulting-gmbh_afterburner.fx)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=dlsc-software-consulting-gmbh_WorkbenchFX&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=dlsc-software-consulting-gmbh_afterburner.fx)
 
 **The one and only framework to build large JavaFX Applications!**
 
