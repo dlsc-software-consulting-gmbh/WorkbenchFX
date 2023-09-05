@@ -1,7 +1,6 @@
 [![JFXCentral](https://img.shields.io/badge/Find_me_on-JFXCentral-blue?logo=googlechrome&logoColor=white)](https://www.jfx-central.com/libraries/workbenchfx)
 
 # WorkbenchFX
-[![Travis CI Build Status](https://travis-ci.com/dlsc-software-consulting-gmbh/WorkbenchFX.svg?branch=master)](https://travis-ci.com/dlsc-software-consulting-gmbh/WorkbenchFX)
 [![Codecov.io Code Coverage](https://codecov.io/gh/dlsc-software-consulting-gmbh/WorkbenchFX/branch/master/graph/badge.svg)](https://codecov.io/gh/dlsc-software-consulting-gmbh/WorkbenchFX)
 [![Maven Central](https://img.shields.io/maven-central/v/com.dlsc.workbenchfx/workbenchfx-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.dlsc.workbenchfx%22%20AND%20a:%22workbenchfx-core%22)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdlsc-software-consulting-gmbh%2FWorkbenchFX.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdlsc-software-consulting-gmbh%2FWorkbenchFX?ref=badge_shield)
